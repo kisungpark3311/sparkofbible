@@ -1,100 +1,285 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>반복을 끝내는 단 한 번의 은혜</title>
-    <style>
-        body {
-            background-color: #f4f6f8;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            color: #333;
-            line-height: 1.75;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            background-color: #ffffff;
-            max-width: 600px;
-            width: 100%;
-            border-radius: 24px;
-            box-shadow: 0 12px 36px rgba(0,0,0,0.08);
-            padding: 35px 25px;
-            box-sizing: border-box;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            font-size: 26px;
-            color: #2c3e50;
-            margin-bottom: 8px;
-            font-weight: 700;
-            word-break: keep-all;
-            line-height: 1.4;
-        }
-        .header p {
-            font-size: 15px;
-            color: #7f8c8d;
-            margin: 0;
-        }
-        .content p {
-            font-size: 16px;
-            margin-bottom: 22px;
-            text-align: justify;
-            word-break: keep-all;
-            color: #4a4a4a;
-        }
-        .highlight {
-            background-color: #f8fbff;
-            padding: 18px 20px;
-            border-left: 4px solid #5d9cec;
-            border-radius: 6px;
-            margin: 28px 0;
-            font-style: italic;
-            color: #3b5998;
-            font-size: 15.5px;
-            line-height: 1.6;
-        }
-        .footer {
-            margin-top: 45px;
-            text-align: center;
-            font-size: 13px;
-            color: #a0aab2;
-            border-top: 1px solid #f0f0f0;
-            padding-top: 20px;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>반복을 끝내는 단 한 번의 은혜</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .subtitle {
+      margin: 18px 0 0;
+      max-width: 34em;
+      color: #edf4f0;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      margin-top: 24px;
+      color: #c8d9d2;
+      font-size: 14px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>반복을 끝내는 단 한 번의 은혜</h1>
-            <p>우리의 수고를 내려놓게 하는 십자가의 쉼</p>
-        </div>
-        <div class="content">
-            <p>우리는 종종 더 열심히, 더 정확하게 무언가를 반복하면 언젠가는 온전함에 다다를 것이라고 믿습니다. 마치 구약 시대의 제사장들이 매일 아침과 저녁으로 성실하게 제단을 지켰던 것처럼 말입니다. 하지만 아무리 완벽하게 조율된 반복이라 할지라도, 그 반복 자체가 스스로를 끝낼 수는 없습니다. 반복은 끝없이 수평으로 누적될 뿐, 우리 영혼이 그토록 갈망하는 진정한 '종결'을 가져다주지는 못합니다.</p>
-            
-            <p>왼손으로는 3박자를, 오른손으로는 4박자를 책상 위에 두드려 본 적이 있나요? 두 리듬을 아무리 오차 없이 정확하게 유지하려 애써도, 두 손은 평행선을 달릴 뿐 결코 하나로 합쳐지지 않습니다. 이 어긋남을 끝내는 방법은 박자를 늦추거나 조율하는 것이 아닙니다. 오직 두 손을 들어 올려 허공에서 경쾌하게 박수를 한 번 치는 것, 바로 완전히 다른 차원의 동작만이 그 상태를 단번에 끝낼 수 있습니다.</p>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 쨌 2026년 09월 30일</p>
+      <h1>반복을 끝내는 단 한 번의 은혜</h1>
+    </header>
 
-            <div class="highlight">
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">가게</button>
+      <button onclick="resizeText(-1)">가작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<div class="container">
+
+<div class="content">
+<p>우리는 종종 더 열심히, 더 정확하게 무언가를 반복하면 언젠가는 온전함에 다다를 것이라고 믿습니다. 마치 구약 시대의 제사장들이 매일 아침과 저녁으로 성실하게 제단을 지켰던 것처럼 말입니다. 하지만 아무리 완벽하게 조율된 반복이라 할지라도, 그 반복 자체가 스스로를 끝낼 수는 없습니다. 반복은 끝없이 수평으로 누적될 뿐, 우리 영혼이 그토록 갈망하는 진정한 '종결'을 가져다주지는 못합니다.</p>
+<p>왼손으로는 3박자를, 오른손으로는 4박자를 책상 위에 두드려 본 적이 있나요? 두 리듬을 아무리 오차 없이 정확하게 유지하려 애써도, 두 손은 평행선을 달릴 뿐 결코 하나로 합쳐지지 않습니다. 이 어긋남을 끝내는 방법은 박자를 늦추거나 조율하는 것이 아닙니다. 오직 두 손을 들어 올려 허공에서 경쾌하게 박수를 한 번 치는 것, 바로 완전히 다른 차원의 동작만이 그 상태를 단번에 끝낼 수 있습니다.</p>
+<div class="highlight">
                 "이중 운영을 끝내는 힘은 언제나 운영 바깥에서 옵니다. 반복의 정밀도를 높이는 것이 아니라, 다른 차원의 단일한 사건이 개입할 때 비로소 쉼이 찾아옵니다."
             </div>
+<p>우리 삶도 마찬가지입니다. 우리는 인정받기 위해, 사랑받기 위해, 혹은 스스로의 구원을 확인하기 위해 매일 똑같은 수고를 무한히 반복합니다. 때로는 번아웃에 빠질 정도로 자신을 몰아세우며 '이만하면 충분하다'는 결재 도장을 스스로 찍으려 고군분투합니다. 심지어 이미 주어지고 끝난 일조차 불안감에 다시 열어젖혀, 또 다른 행위로 채우려 하는 무거운 관성에 시달리기도 합니다.</p>
+<p>그러나 성경은 우리에게 완전히 다른 차원의 기쁜 소식을 전합니다. 히브리서는 매일 서서 똑같은 제사를 반복하던 제사장들과 대비하여, 십자가에서 '단 한 번의 영원한 제사'를 드리시고 하나님 우편에 '앉으신' 예수 그리스도를 보여줍니다. 그분의 앉으심은 지쳐서 멈춘 중단이 아니라, 더 이상 어떤 것도 추가할 필요가 없는 완벽한 종결의 선언입니다.</p>
+<p>당신은 오늘 어떤 반복의 굴레 속에서 서성이고 있나요? 이미 단번에 이루어진 칭의와 온전한 수용을, 나의 행위로 다시 얻어내려 헛된 에너지를 쏟고 있지는 않습니까? 참된 안식은 일을 하다가 지쳐서 멈추는 것이 아닙니다. 그것은 내 영혼을 향해 "다 이루었다"고 말씀하시며 마침표를 찍어주신, 그 완전한 단 한 번의 사건에 기대어 평안히 앉는 것입니다.</p>
+<p>나의 반복이 만들어낸 촘촘한 점선 위로, 수직으로 내려와 선명하게 그어진 하나님의 은혜를 바라보십시오. 그 은혜가 오늘도 쉼 없이 돌아가는 우리의 두 손을 멈추게 하고, 마침내 자유롭게 하늘을 향해 기쁨의 박수를 치게 할 것입니다.</p>
+</div>
 
-            <p>우리 삶도 마찬가지입니다. 우리는 인정받기 위해, 사랑받기 위해, 혹은 스스로의 구원을 확인하기 위해 매일 똑같은 수고를 무한히 반복합니다. 때로는 번아웃에 빠질 정도로 자신을 몰아세우며 '이만하면 충분하다'는 결재 도장을 스스로 찍으려 고군분투합니다. 심지어 이미 주어지고 끝난 일조차 불안감에 다시 열어젖혀, 또 다른 행위로 채우려 하는 무거운 관성에 시달리기도 합니다.</p>
+</div>
 
-            <p>그러나 성경은 우리에게 완전히 다른 차원의 기쁜 소식을 전합니다. 히브리서는 매일 서서 똑같은 제사를 반복하던 제사장들과 대비하여, 십자가에서 '단 한 번의 영원한 제사'를 드리시고 하나님 우편에 '앉으신' 예수 그리스도를 보여줍니다. 그분의 앉으심은 지쳐서 멈춘 중단이 아니라, 더 이상 어떤 것도 추가할 필요가 없는 완벽한 종결의 선언입니다.</p>
+    </article>
 
-            <p>당신은 오늘 어떤 반복의 굴레 속에서 서성이고 있나요? 이미 단번에 이루어진 칭의와 온전한 수용을, 나의 행위로 다시 얻어내려 헛된 에너지를 쏟고 있지는 않습니까? 참된 안식은 일을 하다가 지쳐서 멈추는 것이 아닙니다. 그것은 내 영혼을 향해 "다 이루었다"고 말씀하시며 마침표를 찍어주신, 그 완전한 단 한 번의 사건에 기대어 평안히 앉는 것입니다.</p>
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 09월 30일
+    </footer>
+  </main>
 
-            <p>나의 반복이 만들어낸 촘촘한 점선 위로, 수직으로 내려와 선명하게 그어진 하나님의 은혜를 바라보십시오. 그 은혜가 오늘도 쉼 없이 돌아가는 우리의 두 손을 멈추게 하고, 마침내 자유롭게 하늘을 향해 기쁨의 박수를 치게 할 것입니다.</p>
-        </div>
-        <div class="footer">
-            성경적 사고와 인격 만들기 — 구문 묵상
-        </div>
-    </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `반복을 끝내는 단 한 번의 은혜\n2026년 09월 30일\n\n${article}\n\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '반복을 끝내는 단 한 번의 은혜',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
 </body>
 </html>
