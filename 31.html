@@ -1,124 +1,278 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3초의 멈춤, 그리고 까닭 없는 은혜</title>
-<style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>3초의 멈춤, 그리고 까닭 없는 은혜</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-        font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        background-color: #f7f9fc;
-        color: #333;
-        line-height: 1.7;
-        margin: 0;
-        padding: 20px;
-        word-break: keep-all;
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
-    .container {
-        max-width: 600px;
-        margin: 0 auto;
-        background-color: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-        padding: 40px 30px;
-        box-sizing: border-box;
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
     }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
     h1 {
-        font-size: 24px;
-        color: #2c3e50;
-        text-align: center;
-        margin-bottom: 10px;
-        font-weight: 700;
-        line-height: 1.4;
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
     }
-    .subtitle {
-        text-align: center;
-        font-size: 16px;
-        color: #7f8c8d;
-        margin-bottom: 40px;
-        font-weight: 400;
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
     }
-    .divider {
-        width: 40px;
-        height: 3px;
-        background-color: #3498db;
-        margin: 0 auto 30px auto;
-        border-radius: 2px;
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
     }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
     p {
-        font-size: 16px;
-        margin-bottom: 24px;
-        color: #444;
-        text-align: justify;
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
     }
-    .highlight {
-        background-color: #f0f7ff;
-        padding: 20px;
-        border-radius: 12px;
-        border-left: 4px solid #3498db;
-        margin: 30px 0;
-        color: #2c3e50;
-        font-weight: 500;
-        font-style: italic;
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
     }
-    .quote-mark {
-        font-size: 20px;
-        color: #3498db;
-        margin-right: 5px;
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
     }
-    .footer {
-        margin-top: 50px;
-        text-align: center;
-        font-size: 14px;
-        color: #95a5a6;
-        border-top: 1px solid #eee;
-        padding-top: 20px;
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
     }
-</style>
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>3초의 멈춤, 그리고 까닭 없는 은혜</h1>
-        <div class="subtitle">나의 선의와 확신이 누군가를 찌르고 있지 않은가요?</div>
-        <div class="divider"></div>
-        
-        <p>우리는 때때로 '내가 옳다'는 강렬한 확신에 사로잡혀 살아갑니다. 가정에서, 일터에서, 때로는 신앙의 이름으로 누군가를 향해 단호한 판단을 내리곤 합니다.</p>
-        
-        <p>그러나 성경은 요한복음을 통해 우리 마음에 서늘한 거울 하나를 비춥니다.</p>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 요한복음 제 31편</p>
+      <h1>3초의 멈춤, 그리고 까닭 없는 은혜</h1>
+    </header>
 
-        <div class="highlight">
-            <span class="quote-mark">"</span>사람들이 너희를 죽이는 자가 생각하기를 이것이 하나님을 섬기는 일이라 하리라 (요 16:2)
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<div class="container">
+
+<div class="subtitle">나의 선의와 확신이 누군가를 찌르고 있지 않은가요?</div>
+
+<p>우리는 때때로 '내가 옳다'는 강렬한 확신에 사로잡혀 살아갑니다. 가정에서, 일터에서, 때로는 신앙의 이름으로 누군가를 향해 단호한 판단을 내리곤 합니다.</p>
+<p>그러나 성경은 요한복음을 통해 우리 마음에 서늘한 거울 하나를 비춥니다.</p>
+<div class="highlight">
+<span class="quote-mark">"</span>사람들이 너희를 죽이는 자가 생각하기를 이것이 하나님을 섬기는 일이라 하리라 (요 16:2)
         </div>
-        
-        <p>역설적이게도 역사상 가장 깊은 상처들은 순전한 악의에서만 오지 않았습니다. 오히려 스스로 선하고 경건하다고 믿는 맹목적인 <strong>'확신'</strong>에서 비롯된 경우가 많았습니다.</p>
-        
-        <p>정당성이 클수록 타인을 향한 칼날도 예리해집니다. "다 너를 위해서야", "이것이 공동체를 위한 공정한 원칙이야"라는 이름 아래, 우리의 말과 행동은 정당화되고 누군가의 마음을 무참히 베어냅니다.</p>
-        
-        <p>내가 무조건 옳다는 확신에 차 있을 때, 우리는 묘하게도 자신의 잘못을 보지 못하는 맹점에 빠집니다. 마치 면역계가 스스로를 지키려다 자신의 몸을 공격하는 자가면역 질환처럼, 브레이크 없는 열심과 확신은 방향을 잃고 가장 소중한 이들을 다치게 합니다. 내가 아무리 정확하게 연주하려 해도, 애초에 조율이 잘못된 피아노라면 불협화음만 울려 퍼질 뿐입니다.</p>
-        
-        <p>그렇다면 우리는 이 브레이크 없는 확신을 어떻게 멈출 수 있을까요?</p>
-        
-        <p>예수님은 성령께서 세상을 책망하실 때 어떻게 하시는지를 통해 해답을 주십니다. 성령님은 무턱대고 정죄하지 않으십니다. 항상 "왜냐하면(ὅτι)"이라는 분명하고도 진실된 <strong>'근거'</strong>를 말씀하십니다.</p>
-        
-        <p>우리 삶에도 이 '근거의 시험'이 절실히 필요합니다. 누군가를 향해 차가운 문자를 보내기 전의 3초, 회의실에서 누군가를 배제하려는 의견을 내기 전의 3초. 그 찰나의 순간에 멈추어 스스로에게 물어보십시오.</p>
-        
-        <div class="highlight">
+<p>역설적이게도 역사상 가장 깊은 상처들은 순전한 악의에서만 오지 않았습니다. 오히려 스스로 선하고 경건하다고 믿는 맹목적인 <strong>'확신'</strong>에서 비롯된 경우가 많았습니다.</p>
+<p>정당성이 클수록 타인을 향한 칼날도 예리해집니다. "다 너를 위해서야", "이것이 공동체를 위한 공정한 원칙이야"라는 이름 아래, 우리의 말과 행동은 정당화되고 누군가의 마음을 무참히 베어냅니다.</p>
+<p>내가 무조건 옳다는 확신에 차 있을 때, 우리는 묘하게도 자신의 잘못을 보지 못하는 맹점에 빠집니다. 마치 면역계가 스스로를 지키려다 자신의 몸을 공격하는 자가면역 질환처럼, 브레이크 없는 열심과 확신은 방향을 잃고 가장 소중한 이들을 다치게 합니다. 내가 아무리 정확하게 연주하려 해도, 애초에 조율이 잘못된 피아노라면 불협화음만 울려 퍼질 뿐입니다.</p>
+<p>그렇다면 우리는 이 브레이크 없는 확신을 어떻게 멈출 수 있을까요?</p>
+<p>예수님은 성령께서 세상을 책망하실 때 어떻게 하시는지를 통해 해답을 주십니다. 성령님은 무턱대고 정죄하지 않으십니다. 항상 "왜냐하면(ὅτι)"이라는 분명하고도 진실된 <strong>'근거'</strong>를 말씀하십니다.</p>
+<p>우리 삶에도 이 '근거의 시험'이 절실히 필요합니다. 누군가를 향해 차가운 문자를 보내기 전의 3초, 회의실에서 누군가를 배제하려는 의견을 내기 전의 3초. 그 찰나의 순간에 멈추어 스스로에게 물어보십시오.</p>
+<div class="highlight">
             "나의 이 강렬한 확신은 정말로 정당한 근거 위에 서 있는가? 혹시 내 감정과 교만이 섞인 것은 아닌가?"
         </div>
-        
-        <p>말을 마쳤을 때 내 숨이 편안하게 비워지지 않고 오히려 논쟁을 이기려 숨을 꾹 참고 있다면, 그건 어쩌면 내가 틀렸을 수도 있다는 내 몸의 신호입니다.</p>
-        
-        <p>나의 굳은 확신을 기꺼이 내려놓는 일은 결코 쉽지 않습니다. 그러나 우리가 그렇게 할 수 있는 유일한 이유가 있습니다.</p>
-        
-        <p>예수님은 아무런 '이유 없이' 세상의 미움을 받으셨습니다. 그러나 놀랍게도 하나님은 아무런 '이유 없이' 우리를 의롭다 하시고 구원하셨습니다. 우리를 살린 것은 내가 가진 대단한 확신이나 내가 쌓아 올린 옳음이 아닙니다. 전혀 자격 없는 나를 향한 하나님의 <strong>'까닭 없는 은혜'</strong>였습니다.</p>
-        
-        <p>이 무조건적인 은혜의 깊이를 아는 사람만이 자신의 날 선 칼날을 거두고 상대를 있는 그대로 바라볼 수 있습니다.</p>
-        
-        <p>오늘 하루, 내 마음속의 차가운 재판정을 잠시 닫아두는 것은 어떨까요? 비판과 확신의 자리를 내어주고, 나를 살린 그 '까닭 없는 은혜'로 곁에 있는 이들의 어깨를 따뜻하게 감싸 안는 하루가 되기를 소망합니다.</p>
+<p>말을 마쳤을 때 내 숨이 편안하게 비워지지 않고 오히려 논쟁을 이기려 숨을 꾹 참고 있다면, 그건 어쩌면 내가 틀렸을 수도 있다는 내 몸의 신호입니다.</p>
+<p>나의 굳은 확신을 기꺼이 내려놓는 일은 결코 쉽지 않습니다. 그러나 우리가 그렇게 할 수 있는 유일한 이유가 있습니다.</p>
+<p>예수님은 아무런 '이유 없이' 세상의 미움을 받으셨습니다. 그러나 놀랍게도 하나님은 아무런 '이유 없이' 우리를 의롭다 하시고 구원하셨습니다. 우리를 살린 것은 내가 가진 대단한 확신이나 내가 쌓아 올린 옳음이 아닙니다. 전혀 자격 없는 나를 향한 하나님의 <strong>'까닭 없는 은혜'</strong>였습니다.</p>
+<p>이 무조건적인 은혜의 깊이를 아는 사람만이 자신의 날 선 칼날을 거두고 상대를 있는 그대로 바라볼 수 있습니다.</p>
+<p>오늘 하루, 내 마음속의 차가운 재판정을 잠시 닫아두는 것은 어떨까요? 비판과 확신의 자리를 내어주고, 나를 살린 그 '까닭 없는 은혜'로 곁에 있는 이들의 어깨를 따뜻하게 감싸 안는 하루가 되기를 소망합니다.</p>
 
-        <div class="footer">
-            성경적 사고와 인격 만들기 (요한복음 15:18-16:15) 묵상에서
-        </div>
-    </div>
+</div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      요한복음 제 31편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `3초의 멈춤, 그리고 까닭 없는 은혜\\n요한복음 제 31편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '3초의 멈춤, 그리고 까닭 없는 은혜',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
 </body>
 </html>

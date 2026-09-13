@@ -1,114 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>당신을 놓지 않으려, 평안을 내려놓습니다</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f7f6;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            color: #333;
-            line-height: 1.8;
-            word-break: keep-all;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-            padding: 32px 24px;
-            box-sizing: border-box;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-        .header h1 {
-            font-size: 24px;
-            color: #2c3e50;
-            margin: 0 0 12px 0;
-            line-height: 1.4;
-        }
-        .header p {
-            font-size: 14px;
-            color: #7f8c8d;
-            margin: 0;
-        }
-        .content p {
-            margin-bottom: 24px;
-            font-size: 16px;
-        }
-        .highlight {
-            background: linear-gradient(180deg, rgba(255,255,255,0) 60%, #ffeaa7 60%);
-            font-weight: bold;
-        }
-        .quote-box {
-            background-color: #f8f9fa;
-            border-left: 4px solid #3498db;
-            padding: 16px 20px;
-            margin: 24px 0;
-            border-radius: 0 12px 12px 0;
-            font-style: normal;
-        }
-        .quote-box p {
-            margin: 0;
-            color: #2c3e50;
-            font-weight: 500;
-        }
-        .divider {
-            height: 1px;
-            background-color: #eee;
-            margin: 32px 0;
-        }
-        .footer {
-            text-align: center;
-            font-size: 15px;
-            color: #555;
-            background-color: #f1f5f8;
-            padding: 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>당신을 놓지 않으려, 평안을 내려놓습니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>당신을 놓지 않으려,<br>평안을 내려놓습니다</h1>
-            <p>붙드심과 물려주심, 성경이 말하는 아름다운 이별</p>
-        </div>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 요한복음 제 29편</p>
+      <h1>당신을 놓지 않으려, 평안을 내려놓습니다</h1>
+    </header>
 
-        <div class="content">
-            <p>누군가와 헤어지거나 나의 자리, 권한을 누군가에게 넘겨주어야 할 때 우리는 자주 서툴게 행동합니다. 모든 것을 움켜쥐려다 상처를 주거나, 반대로 매몰차게 관계마저 끊어버려 상대에게 깊은 상실감을 주기도 합니다. 십자가를 앞두고 제자들과 이별하시던 예수님의 마지막 밤에는, 우리가 배워야 할 가장 완벽하고 따뜻한 <strong>'이별과 물려주심'</strong>의 원리가 담겨 있습니다.</p>
-
-            <div class="quote-box">
-                <p>"내가 너희를 고아와 같이 버려두지 아니하고 너희에게로 오리라"<br><span style="font-size: 14px; color: #7f8c8d;">- 요한복음 14장 18절</span></p>
-                <br>
-                <p>"평안을 너희에게 끼치노니 곧 나의 평안을 너희에게 주노라"<br><span style="font-size: 14px; color: #7f8c8d;">- 요한복음 14장 27절</span></p>
-            </div>
-
-            <p>예수님은 제자들에게 두 가지 상반된 약속을 하십니다. 원어를 살펴보면 두 구절 모두 <strong>'놓다, 버려두다'</strong>라는 같은 단어(아피에미)가 쓰였습니다. 예수님은 한 손으로는 '사람(제자들)'을 꽉 붙잡아 절대 고아처럼 놓지 않겠다고 선언하시고, 다른 한 손으로는 자신이 누리던 '평안'을 기꺼이 놓아 제자들에게 넘겨주십니다. <span class="highlight">사람은 끝까지 붙들고, 내용은 아낌없이 놓으신 것입니다.</span></p>
-
-            <p>우리의 삶을 돌아봅시다. 자녀를 독립시키거나, 직장에서 후임자에게 일을 넘길 때 우리는 무엇을 잡고 무엇을 놓아야 할까요?</p>
-
-            <p>만약 관계를 끊어버린 채 문서나 일만 덩그러니 던져준다면 상대는 '고아'처럼 버림받았다고 느낄 것입니다. 반대로 사람도 꽉 쥐고 권한도 결코 놓지 않는다면, 상대는 영원히 스스로 서지 못하는 '미성년자'로 남게 됩니다. 성숙하고 건강한 이별은 사람의 손은 따뜻하게 계속 맞잡은 채로, 나의 권한과 소유는 온전히 놓아주는 데 있습니다.</p>
-
-            <p>제자들이 그토록 두렵고 어두운 밤을 통과하면서도 끝내 무너지지 않을 수 있었던 이유는, 그들이 받은 유산이 단순히 '평안'이라는 이름의 감정이나 물건이 아니었기 때문입니다. 그들이 진정으로 물려받은 것은 다름 아닌 <strong>나를 끝까지 포기하지 않으시는 예수님의 굳건한 손</strong>이었습니다. 내 손에 쥐어진 것의 크기보다, 나를 꼭 붙들고 계신 분의 존재가 가장 완벽한 평안의 이유가 된 것입니다.</p>
-
-            <div class="divider"></div>
-
-            <p>지금 당신의 두 손을 가만히 내려다보세요. 그리고 한 손으로는 사랑하는 사람의 존재를 따뜻하게 감싸 쥐고, 다른 한 손으로는 내가 움켜쥐려 했던 권리와 욕심, 통제력을 부드럽게 펴서 흘려보내십시오. 진정으로 누군가를 살리고 키워내는 길은, 끝까지 관계를 지켜내며 나의 가장 소중한 것을 기꺼이 내어주는 것에 있습니다.</p>
-
-        </div>
-
-        <div class="footer">
-            "그분은 우리를 놓지 않으시려고, 자신의 평안을 놓으셨습니다. 우리가 물려받은 것은 남겨진 물건이 아니라, 지금도 나를 꽉 붙들고 계신 그분의 따뜻한 손입니다."
-        </div>
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
     </div>
+
+    <article id="sermon" class="content">
+      
+<div class="container">
+
+<div class="content">
+<p>누군가와 헤어지거나 나의 자리, 권한을 누군가에게 넘겨주어야 할 때 우리는 자주 서툴게 행동합니다. 모든 것을 움켜쥐려다 상처를 주거나, 반대로 매몰차게 관계마저 끊어버려 상대에게 깊은 상실감을 주기도 합니다. 십자가를 앞두고 제자들과 이별하시던 예수님의 마지막 밤에는, 우리가 배워야 할 가장 완벽하고 따뜻한 <strong>'이별과 물려주심'</strong>의 원리가 담겨 있습니다.</p>
+<div class="quote-box">
+<p>"내가 너희를 고아와 같이 버려두지 아니하고 너희에게로 오리라"<br/><span style="font-size: 14px; color: #7f8c8d;">- 요한복음 14장 18절</span></p>
+<br/>
+<p>"평안을 너희에게 끼치노니 곧 나의 평안을 너희에게 주노라"<br/><span style="font-size: 14px; color: #7f8c8d;">- 요한복음 14장 27절</span></p>
+</div>
+<p>예수님은 제자들에게 두 가지 상반된 약속을 하십니다. 원어를 살펴보면 두 구절 모두 <strong>'놓다, 버려두다'</strong>라는 같은 단어(아피에미)가 쓰였습니다. 예수님은 한 손으로는 '사람(제자들)'을 꽉 붙잡아 절대 고아처럼 놓지 않겠다고 선언하시고, 다른 한 손으로는 자신이 누리던 '평안'을 기꺼이 놓아 제자들에게 넘겨주십니다. <span class="highlight">사람은 끝까지 붙들고, 내용은 아낌없이 놓으신 것입니다.</span></p>
+<p>우리의 삶을 돌아봅시다. 자녀를 독립시키거나, 직장에서 후임자에게 일을 넘길 때 우리는 무엇을 잡고 무엇을 놓아야 할까요?</p>
+<p>만약 관계를 끊어버린 채 문서나 일만 덩그러니 던져준다면 상대는 '고아'처럼 버림받았다고 느낄 것입니다. 반대로 사람도 꽉 쥐고 권한도 결코 놓지 않는다면, 상대는 영원히 스스로 서지 못하는 '미성년자'로 남게 됩니다. 성숙하고 건강한 이별은 사람의 손은 따뜻하게 계속 맞잡은 채로, 나의 권한과 소유는 온전히 놓아주는 데 있습니다.</p>
+<p>제자들이 그토록 두렵고 어두운 밤을 통과하면서도 끝내 무너지지 않을 수 있었던 이유는, 그들이 받은 유산이 단순히 '평안'이라는 이름의 감정이나 물건이 아니었기 때문입니다. 그들이 진정으로 물려받은 것은 다름 아닌 <strong>나를 끝까지 포기하지 않으시는 예수님의 굳건한 손</strong>이었습니다. 내 손에 쥐어진 것의 크기보다, 나를 꼭 붙들고 계신 분의 존재가 가장 완벽한 평안의 이유가 된 것입니다.</p>
+
+<p>지금 당신의 두 손을 가만히 내려다보세요. 그리고 한 손으로는 사랑하는 사람의 존재를 따뜻하게 감싸 쥐고, 다른 한 손으로는 내가 움켜쥐려 했던 권리와 욕심, 통제력을 부드럽게 펴서 흘려보내십시오. 진정으로 누군가를 살리고 키워내는 길은, 끝까지 관계를 지켜내며 나의 가장 소중한 것을 기꺼이 내어주는 것에 있습니다.</p>
+</div>
+
+</div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      요한복음 제 29편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `당신을 놓지 않으려, 평안을 내려놓습니다\\n요한복음 제 29편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '당신을 놓지 않으려, 평안을 내려놓습니다',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
 </body>
 </html>

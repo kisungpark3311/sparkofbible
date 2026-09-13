@@ -1,128 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>겉옷과 목숨 사이에 문턱이 없다</title>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
-    
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>겉옷과 목숨 사이에 문턱이 없다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-        font-family: 'Noto Sans KR', sans-serif;
-        background-color: #f4f6f8;
-        color: #2c3e50;
-        line-height: 1.75;
-        margin: 0;
-        padding: 20px 15px;
-        word-break: keep-all;
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
-    .container {
-        max-width: 600px;
-        margin: 0 auto;
-        background-color: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-        padding: 40px 25px;
-        box-sizing: border-box;
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
     }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
     h1 {
-        font-family: 'Noto Serif KR', serif;
-        font-size: 1.7rem;
-        color: #1a202c;
-        margin-top: 0;
-        margin-bottom: 10px;
-        line-height: 1.4;
-        text-align: center;
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
     }
-    .subtitle {
-        font-size: 0.95rem;
-        color: #718096;
-        text-align: center;
-        margin-bottom: 35px;
-        font-weight: 400;
-        letter-spacing: -0.5px;
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
     }
-    .quote-box {
-        background-color: #f8fafc;
-        border-left: 4px solid #3182ce;
-        padding: 18px 20px;
-        border-radius: 0 8px 8px 0;
-        margin: 30px 0;
-        font-size: 1.05rem;
-        color: #2d3748;
-        font-family: 'Noto Serif KR', serif;
-        font-style: italic;
-        line-height: 1.6;
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
     }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
     p {
-        font-size: 1.05rem;
-        margin-bottom: 22px;
-        color: #4a5568;
-        letter-spacing: -0.3px;
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
     }
-    .highlight {
-        font-weight: 500;
-        color: #2b6cb0;
-        background: linear-gradient(120deg, #ebf8ff 0%, #ebf8ff 100%);
-        background-repeat: no-repeat;
-        background-size: 100% 40%;
-        background-position: 0 80%;
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
     }
-    .divider {
-        height: 1px;
-        background: #e2e8f0;
-        margin: 40px 0;
-        border: none;
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
     }
-    .section-title {
-        font-family: 'Noto Serif KR', serif;
-        font-size: 1.3rem;
-        color: #2d3748;
-        margin-bottom: 20px;
-        font-weight: 600;
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
     }
-    .footer {
-        text-align: center;
-        font-size: 0.85rem;
-        color: #a0aec0;
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px dashed #e2e8f0;
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
     }
-</style>
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>겉옷과 목숨 사이에<br>문턱이 없다</h1>
-        <div class="subtitle">성경적 사고와 인격 만들기</div>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 요한복음 제 26편</p>
+      <h1>겉옷과 목숨 사이에 문턱이 없다</h1>
+    </header>
 
-        <p>요한복음은 예수님께서 양들을 위해 "목숨을 버리시는" 장면(요 10:11)과 제자들의 발을 씻기 위해 "겉옷을 벗으시는" 장면(요 13:4)에서 놀랍게도 같은 단어(τίθημι)를 사용합니다. 우리말은 대상의 크기와 무게에 따라 '목숨은 버리고', '옷은 벗는다'며 동사를 갈아 끼우지만, 성경 원문은 이를 무차별하게 동일한 단어로 기록했습니다.</p>
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
 
-        <p>우리는 보통 가벼운 것은 쉽게 내어주고 무거운 것은 망설이며 손을 거둡니다. 사람의 행동이 달라지는 그 기준선, 즉 <span class="highlight">'문턱'</span>은 어디에서 생겨나는 것일까요? 묵상의 끝에서 발견한 놀라운 사실은, 우리가 무언가를 내려놓지 못하는 이유가 그 대상이 무거워서가 아니라는 점입니다.</p>
+    <article id="sermon" class="content">
+      
+<div class="container">
 
-        <div class="quote-box">
+<div class="subtitle">성경적 사고와 인격 만들기</div>
+<p>요한복음은 예수님께서 양들을 위해 "목숨을 버리시는" 장면(요 10:11)과 제자들의 발을 씻기 위해 "겉옷을 벗으시는" 장면(요 13:4)에서 놀랍게도 같은 단어(τίθημι)를 사용합니다. 우리말은 대상의 크기와 무게에 따라 '목숨은 버리고', '옷은 벗는다'며 동사를 갈아 끼우지만, 성경 원문은 이를 무차별하게 동일한 단어로 기록했습니다.</p>
+<p>우리는 보통 가벼운 것은 쉽게 내어주고 무거운 것은 망설이며 손을 거둡니다. 사람의 행동이 달라지는 그 기준선, 즉 <span class="highlight">'문턱'</span>은 어디에서 생겨나는 것일까요? 묵상의 끝에서 발견한 놀라운 사실은, 우리가 무언가를 내려놓지 못하는 이유가 그 대상이 무거워서가 아니라는 점입니다.</p>
+<div class="quote-box">
             "우리가 못 내려놓는 이유는 대상이 무거워서가 아니라 손이 비어 있어서입니다."
         </div>
+<p>우리가 망설이는 진짜 이유는 '그것을 잃었을 때 다시 회복할 수 있다는 확신', 즉 내 손이 비어 있기 때문입니다. 문턱은 내려놓는 대상이 아니라, 내가 이미 무엇을 받았는가 하는 소유의 확신에서 결정됩니다.</p>
+<p>세상의 눈금자에서 문턱은 항상 내려놓는 대상 쪽에 그어집니다. 하지만 예수님의 손에는 처음부터 그런 문턱이 없었습니다. 십자가를 지기 전, 예수님은 "아버지께서 모든 것을 자기 손에 맡기신 것"(요 13:3)을 아셨습니다. 우주적 소유를 이미 받으셨기에, 그분에게는 겉옷을 벗는 대야 앞의 자리나 목숨을 내려놓는 십자가의 자리가 본질적으로 다르지 않았습니다.</p>
 
-        <p>우리가 망설이는 진짜 이유는 '그것을 잃었을 때 다시 회복할 수 있다는 확신', 즉 내 손이 비어 있기 때문입니다. 문턱은 내려놓는 대상이 아니라, 내가 이미 무엇을 받았는가 하는 소유의 확신에서 결정됩니다.</p>
+<h2 class="section-title">결단이 아니라 수령이 먼저입니다</h2>
+<p>이 놀라운 장면 앞에서 우리는 종종 도덕주의의 함정에 빠집니다. "예수님처럼 우리도 낮아져서 남을 섬기자"며 성급히 윤리적인 헌신을 다짐하곤 합니다. 그러나 예수님은 베드로에게 단호히 말씀하셨습니다. "내가 너를 씻어 주지 아니하면 네가 나와 상관이 없느니라."</p>
+<p>손이 비어 있는 사람에게 가장 먼저 요구되는 것은 희생의 결단이 아니라 <span class="highlight">'수령(받음)'</span>입니다. 우리에게 필요한 첫 순서는 무거운 문턱을 억지로 밀어 올리는 용기가 아니라, 먼저 주님께 씻김을 받아 나의 빈 손을 은혜로 채우는 일입니다. 내 존재와 소유가 하나님께 속해 있다는 충만함을 확인할 때, 비로소 작은 것부터 기꺼이 내려놓는 참된 섬김이 흘러나옵니다.</p>
+<p>또한 잊지 말아야 할 것은, 예수님께서 발을 씻기신 후 "다시 겉옷을 입으셨다"(요 13:12)는 사실입니다. 되돌아올 옷이 없는 벗음, 즉 하나님 안에서의 확고한 정체성 없이 자신을 소진하는 헌신은 결국 스스로를 무너지게 만듭니다. 참된 낮아짐은 정체성을 지우는 것이 아니라, 그 든든한 정체성 안에서 안전하게 내려가는 것입니다.</p>
+<p>오늘 당신의 손이 멈칫하며 굳어지는 지점은 어디입니까? 당신이 놓지 못하는 그 첫 항목이 바로, 아직 하나님께로부터 온전히 받지 못했다고 여기는 결핍의 자리입니다. 스스로 지어낸 헌신의 짐을 내려놓고 가장 먼저 씻김을 받는 은혜의 자리로 나아가십시오. 겉옷과 목숨 사이에 문턱이 없으셨던 주님의 충만함이, 오늘 우리의 굳어진 손을 부드럽게 펴게 하실 것입니다.</p>
 
-        <p>세상의 눈금자에서 문턱은 항상 내려놓는 대상 쪽에 그어집니다. 하지만 예수님의 손에는 처음부터 그런 문턱이 없었습니다. 십자가를 지기 전, 예수님은 "아버지께서 모든 것을 자기 손에 맡기신 것"(요 13:3)을 아셨습니다. 우주적 소유를 이미 받으셨기에, 그분에게는 겉옷을 벗는 대야 앞의 자리나 목숨을 내려놓는 십자가의 자리가 본질적으로 다르지 않았습니다.</p>
+</div>
 
-        <hr class="divider">
+    </article>
 
-        <h2 class="section-title">결단이 아니라 수령이 먼저입니다</h2>
-        
-        <p>이 놀라운 장면 앞에서 우리는 종종 도덕주의의 함정에 빠집니다. "예수님처럼 우리도 낮아져서 남을 섬기자"며 성급히 윤리적인 헌신을 다짐하곤 합니다. 그러나 예수님은 베드로에게 단호히 말씀하셨습니다. "내가 너를 씻어 주지 아니하면 네가 나와 상관이 없느니라."</p>
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      요한복음 제 26편
+    </footer>
+  </main>
 
-        <p>손이 비어 있는 사람에게 가장 먼저 요구되는 것은 희생의 결단이 아니라 <span class="highlight">'수령(받음)'</span>입니다. 우리에게 필요한 첫 순서는 무거운 문턱을 억지로 밀어 올리는 용기가 아니라, 먼저 주님께 씻김을 받아 나의 빈 손을 은혜로 채우는 일입니다. 내 존재와 소유가 하나님께 속해 있다는 충만함을 확인할 때, 비로소 작은 것부터 기꺼이 내려놓는 참된 섬김이 흘러나옵니다.</p>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-        <p>또한 잊지 말아야 할 것은, 예수님께서 발을 씻기신 후 "다시 겉옷을 입으셨다"(요 13:12)는 사실입니다. 되돌아올 옷이 없는 벗음, 즉 하나님 안에서의 확고한 정체성 없이 자신을 소진하는 헌신은 결국 스스로를 무너지게 만듭니다. 참된 낮아짐은 정체성을 지우는 것이 아니라, 그 든든한 정체성 안에서 안전하게 내려가는 것입니다.</p>
+  <script>
+    let currentSize = 18;
 
-        <p>오늘 당신의 손이 멈칫하며 굳어지는 지점은 어디입니까? 당신이 놓지 못하는 그 첫 항목이 바로, 아직 하나님께로부터 온전히 받지 못했다고 여기는 결핍의 자리입니다. 스스로 지어낸 헌신의 짐을 내려놓고 가장 먼저 씻김을 받는 은혜의 자리로 나아가십시오. 겉옷과 목숨 사이에 문턱이 없으셨던 주님의 충만함이, 오늘 우리의 굳어진 손을 부드럽게 펴게 하실 것입니다.</p>
-        
-        <div class="footer">
-            묵상 단상 · 요한복음 13:1-20
-        </div>
-    </div>
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `겉옷과 목숨 사이에 문턱이 없다\\n요한복음 제 26편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '겉옷과 목숨 사이에 문턱이 없다',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
 </body>
 </html>

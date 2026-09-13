@@ -1,149 +1,273 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>먼저 목마르신 분의 탐색</title>
-<style>
-  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-  
-  body {
-    background-color: #f9f7f3;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-    color: #333333;
-    line-height: 1.7;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-  }
-  .card {
-    background: #ffffff;
-    max-width: 600px;
-    width: 100%;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    padding: 40px 30px;
-    box-sizing: border-box;
-  }
-  .header {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  .subtitle {
-    font-size: 0.9rem;
-    color: #8c7b6c;
-    font-weight: 600;
-    letter-spacing: 1px;
-    margin-bottom: 10px;
-    display: block;
-  }
-  .title {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #2c2926;
-    margin: 0;
-    line-height: 1.4;
-    word-break: keep-all;
-  }
-  .divider {
-    width: 40px;
-    height: 3px;
-    background-color: #d4c4b7;
-    margin: 25px auto;
-    border-radius: 2px;
-  }
-  .content p {
-    margin-bottom: 24px;
-    font-size: 1.05rem;
-    color: #4a4541;
-    word-break: keep-all;
-  }
-  .highlight {
-    background: linear-gradient(180deg, rgba(255,255,255,0) 60%, #faecd8 40%);
-    font-weight: 600;
-    color: #2c2926;
-  }
-  .quote-box {
-    background-color: #faf8f5;
-    border-left: 4px solid #c2b2a3;
-    padding: 20px;
-    margin: 30px 0;
-    border-radius: 0 12px 12px 0;
-  }
-  .quote-box p {
-    margin: 0;
-    font-size: 1.1rem;
-    font-style: italic;
-    color: #5a544f;
-    font-weight: 500;
-  }
-  .footer {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 0.9rem;
-    color: #a0978e;
-  }
-  
-  @media (max-width: 480px) {
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>먼저 목마르신 분의 탐색</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      padding: 15px;
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
-    .card {
-      padding: 30px 20px;
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
     }
-    .title {
-      font-size: 1.5rem;
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
     }
-    .content p {
-      font-size: 1rem;
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
     }
-  }
-</style>
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
 </head>
 <body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 요한복음 제 06편</p>
+      <h1>먼저 목마르신 분의 탐색</h1>
+    </header>
 
-<div class="card">
-  <div class="header">
-    <span class="subtitle">일상의 깊은 묵상</span>
-    <h1 class="title">먼저 목마르신 분의 탐색</h1>
-    <div class="divider"></div>
-  </div>
-
-  <div class="content">
-    <p>우리는 늘 무언가를 찾습니다. 더 나은 삶, 더 평안한 마음, 더 완벽한 장소를 구하며 살아갑니다. 신앙생활을 할 때도 마찬가지입니다. '어떻게 해야 더 진실한 예배를 드릴 수 있을까?', '어디서, 어떤 형식으로 예배해야 하나님이 기뻐하실까?' 우리는 늘 우리가 드릴 '예배의 질'과 '방법'을 두고 고민합니다.</p>
-
-    <p>사마리아 우물가의 여인도 그랬습니다. 정오의 뜨거운 태양을 피해 아무도 없는 시간에 물을 길러 온 그녀는, 낯선 유대인 예수님에게 묻습니다. "우리 조상들은 이 산에서 예배했는데, 당신들은 예루살렘에서 예배해야 한다고 하더군요. 도대체 어디서 예배하는 것이 맞습니까?"</p>
-
-    <p>여인의 질문은 '장소'를 향해 있었습니다. 그러나 예수님의 대답에는 그 '어디'가 없습니다. 대신 문장의 <span class="highlight">주어</span>를 완전히 바꾸어 버리는 놀라운 이야기를 들려주십니다.</p>
-
-    <div class="quote-box">
-      <p>"아버지께서는 자기에게 이렇게 예배하는 자들을 찾으시느니라."</p>
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
     </div>
 
-    <p>우리는 흔히 예배를, 우리가 하나님을 향해 정성을 다해 올라가는 '등정'이라고 생각합니다. 그러나 예수님은 말씀하십니다. 예배는 우리가 하나님을 찾아 헤매는 것이 아니라, <span class="highlight">하나님이 우리를 찾으시는 사건</span>이라고요. 우리가 하나님을 부르기 전에, 이미 그분이 먼저 움직이셨습니다.</p>
+    <article id="sermon" class="content">
+      
 
-    <p>더욱 감동적인 사실은 하나님이 찾으시는 목적어에 있습니다. 하나님은 화려하고 완벽하게 세팅된 '예배'라는 행위를 수집하는 분이 아니십니다. 그분이 애타게 찾으시는 것은 단 하나, 바로 <span class="highlight">'예배하는 사람'</span>입니다.</p>
-
-    <p>먼 길을 걸어오시느라 지쳐 우물가에 주저앉으신 예수님. 그분은 여인에게 "물을 좀 달라"며 당신의 목마름을 드러내셨습니다. 창조주이신 분이 피조물에게 물을 구하고, 완전하신 분이 결핍의 언어로 다가오십니다. 왜 그러셨을까요? 그 목마름은 바로 잃어버린 한 사람을 향한 하나님의 간절한 갈망이었기 때문입니다.</p>
-
-    <p>하나님의 수색 범위는 온 세계지만, 그 수색이 완료되는 자리는 언제나 <span class="highlight">'한 사람' 앞</span>입니다. 사람들의 시선을 피해 숨어든 상처투성이의 여인, 바로 그 한 사람을 만나기 위해 예수님은 지친 다리를 이끌고 정오의 뙤약볕을 뚫고 걸어오셨습니다.</p>
-
-    <p>오늘, 우리의 일상을 돌아봅니다. 때로는 나의 기도가 초라하게 느껴지고, 내가 너무 부족한 것은 아닌가 자책하며 고개를 숙일 때가 있습니다. 그러나 그럴 때일수록 기억해야 합니다. 신앙의 첫걸음은 내가 무엇을 더 완벽하게 준비해서 바치는 것이 아닙니다.</p>
-
-    <p>지금 이 순간에도 나를 찾기 위해 먼 길을 걸어오신 분, 내가 미처 구하기도 전에 이미 내 삶의 우물가에 찾아와 앉아 계신 분. 그분의 애틋한 탐색과 사랑의 시선 안에 가만히 머무르는 것, 그것이 참된 예배의 시작입니다.</p>
-
-    <p>오늘 하루의 짐을 안고 무엇을 구해야 할지 고민하기 전에, 잠시 눈을 감고 이 한 문장을 마음에 품어보면 어떨까요.</p>
-
-    <p style="text-align: center; font-weight: 600; margin-top: 30px; font-size: 1.15rem; color: #8c7b6c;">
+<div class="content">
+<p>우리는 늘 무언가를 찾습니다. 더 나은 삶, 더 평안한 마음, 더 완벽한 장소를 구하며 살아갑니다. 신앙생활을 할 때도 마찬가지입니다. '어떻게 해야 더 진실한 예배를 드릴 수 있을까?', '어디서, 어떤 형식으로 예배해야 하나님이 기뻐하실까?' 우리는 늘 우리가 드릴 '예배의 질'과 '방법'을 두고 고민합니다.</p>
+<p>사마리아 우물가의 여인도 그랬습니다. 정오의 뜨거운 태양을 피해 아무도 없는 시간에 물을 길러 온 그녀는, 낯선 유대인 예수님에게 묻습니다. "우리 조상들은 이 산에서 예배했는데, 당신들은 예루살렘에서 예배해야 한다고 하더군요. 도대체 어디서 예배하는 것이 맞습니까?"</p>
+<p>여인의 질문은 '장소'를 향해 있었습니다. 그러나 예수님의 대답에는 그 '어디'가 없습니다. 대신 문장의 <span class="highlight">주어</span>를 완전히 바꾸어 버리는 놀라운 이야기를 들려주십니다.</p>
+<div class="quote-box">
+<p>"아버지께서는 자기에게 이렇게 예배하는 자들을 찾으시느니라."</p>
+</div>
+<p>우리는 흔히 예배를, 우리가 하나님을 향해 정성을 다해 올라가는 '등정'이라고 생각합니다. 그러나 예수님은 말씀하십니다. 예배는 우리가 하나님을 찾아 헤매는 것이 아니라, <span class="highlight">하나님이 우리를 찾으시는 사건</span>이라고요. 우리가 하나님을 부르기 전에, 이미 그분이 먼저 움직이셨습니다.</p>
+<p>더욱 감동적인 사실은 하나님이 찾으시는 목적어에 있습니다. 하나님은 화려하고 완벽하게 세팅된 '예배'라는 행위를 수집하는 분이 아니십니다. 그분이 애타게 찾으시는 것은 단 하나, 바로 <span class="highlight">'예배하는 사람'</span>입니다.</p>
+<p>먼 길을 걸어오시느라 지쳐 우물가에 주저앉으신 예수님. 그분은 여인에게 "물을 좀 달라"며 당신의 목마름을 드러내셨습니다. 창조주이신 분이 피조물에게 물을 구하고, 완전하신 분이 결핍의 언어로 다가오십니다. 왜 그러셨을까요? 그 목마름은 바로 잃어버린 한 사람을 향한 하나님의 간절한 갈망이었기 때문입니다.</p>
+<p>하나님의 수색 범위는 온 세계지만, 그 수색이 완료되는 자리는 언제나 <span class="highlight">'한 사람' 앞</span>입니다. 사람들의 시선을 피해 숨어든 상처투성이의 여인, 바로 그 한 사람을 만나기 위해 예수님은 지친 다리를 이끌고 정오의 뙤약볕을 뚫고 걸어오셨습니다.</p>
+<p>오늘, 우리의 일상을 돌아봅니다. 때로는 나의 기도가 초라하게 느껴지고, 내가 너무 부족한 것은 아닌가 자책하며 고개를 숙일 때가 있습니다. 그러나 그럴 때일수록 기억해야 합니다. 신앙의 첫걸음은 내가 무엇을 더 완벽하게 준비해서 바치는 것이 아닙니다.</p>
+<p>지금 이 순간에도 나를 찾기 위해 먼 길을 걸어오신 분, 내가 미처 구하기도 전에 이미 내 삶의 우물가에 찾아와 앉아 계신 분. 그분의 애틋한 탐색과 사랑의 시선 안에 가만히 머무르는 것, 그것이 참된 예배의 시작입니다.</p>
+<p>오늘 하루의 짐을 안고 무엇을 구해야 할지 고민하기 전에, 잠시 눈을 감고 이 한 문장을 마음에 품어보면 어떨까요.</p>
+<p style="text-align: center; font-weight: 600; margin-top: 30px; font-size: 1.15rem; color: #8c7b6c;">
       "나를 찾아 먼저 오신 그분 앞에, 나는 오늘 어떻게 서 있을 것인가."
     </p>
-  </div>
-  
-  <div class="footer">
-    요한복음 4:1-26 묵상을 바탕으로
-  </div>
 </div>
 
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      요한복음 제 06편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `먼저 목마르신 분의 탐색\\n요한복음 제 06편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '먼저 목마르신 분의 탐색',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
 </body>
 </html>

@@ -1,86 +1,266 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>나를 먼저 붙든 손, 이끌린 자의 평안</title>
-<style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    background-color: #f7f9fa;
-    color: #333333;
-    line-height: 1.7;
-    margin: 0;
-    padding: 20px;
-    word-break: keep-all;
-  }
-  .container {
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 30px 25px;
-  }
-  h1 {
-    font-size: 1.5rem;
-    color: #1a1a1a;
-    text-align: center;
-    margin-bottom: 25px;
-    line-height: 1.4;
-  }
-  .subtitle {
-    font-size: 1rem;
-    color: #666666;
-    text-align: center;
-    margin-bottom: 30px;
-    font-style: italic;
-  }
-  p {
-    font-size: 1.05rem;
-    margin-bottom: 20px;
-  }
-  .highlight {
-    background-color: #f0f7ff;
-    border-left: 4px solid #4a90e2;
-    padding: 15px;
-    margin: 25px 0;
-    border-radius: 0 8px 8px 0;
-    color: #2c3e50;
-    font-weight: 600;
-  }
-  .footer {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #eeeeee;
-    font-size: 0.9rem;
-    color: #888888;
-    text-align: center;
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>나를 먼저 붙든 손, 이끌린 자의 평안</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
 </head>
 <body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 요한복음 제 13편</p>
+      <h1>나를 먼저 붙든 손, 이끌린 자의 평안</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
 <div class="container">
-  <h1>나를 먼저 붙든 손,<br>이끌린 자의 평안</h1>
-  <div class="subtitle">“나를 보내신 아버지께서 이끌지 아니하시면 아무도 내게 올 수 없으니” (요 6:44)</div>
 
-  <p>우리는 종종 신앙의 여정이 나의 결단과 선택으로 시작되었다고 믿습니다. 하지만 삶의 궤적을 찬찬히 되짚어보면, 내가 쥐었다고 생각했던 운전대가 실은 보이지 않는 더 큰 손에 쥐어져 있었음을 깨닫는 순간이 찾아옵니다.</p>
-
-  <p>거대한 배가 항구에 닿을 때, 일지에는 배가 '입항했다'고 기록되지만 사실 자력으로 접안하는 배는 없습니다. 예인선의 밧줄이 배를 안전한 곳으로 이끈 것입니다. 우리의 도착도 이와 같습니다. 도착의 기쁨은 우리에게 기억되지만, 그 걸음을 가능하게 한 기원은 언제나 나의 바깥, 곧 ‘하나님의 이끄심’에 있습니다. 이것이 바로 우리가 겪는 '도착의 착시'입니다.</p>
-
-  <p>그렇다면 이 이끄심은 운명처럼 우리를 강제로 끌고 가는 억압일까요? 결코 그렇지 않습니다. 성경은 그 방식을 다름 아닌 "가르치심"이라고 말합니다. 눈을 감고 누군가의 손목에 이끌려 걸어본 적이 있습니까? 긴장하며 내가 먼저 손을 뻗을 때는 온몸에 힘이 들어갑니다. 그러나 누군가 내 손목을 쥐고 안전한 곳으로 이끌어 줄 때, 내 쪽에서 무언가를 놓치지 않으려던 조바심은 사라지고 깊은 안도감이 찾아옵니다. 하나님이 우리를 이끄시는 방식도 이와 같은 인격적인 동행입니다.</p>
-  
-  <div class="highlight">
+<div class="subtitle">“나를 보내신 아버지께서 이끌지 아니하시면 아무도 내게 올 수 없으니” (요 6:44)</div>
+<p>우리는 종종 신앙의 여정이 나의 결단과 선택으로 시작되었다고 믿습니다. 하지만 삶의 궤적을 찬찬히 되짚어보면, 내가 쥐었다고 생각했던 운전대가 실은 보이지 않는 더 큰 손에 쥐어져 있었음을 깨닫는 순간이 찾아옵니다.</p>
+<p>거대한 배가 항구에 닿을 때, 일지에는 배가 '입항했다'고 기록되지만 사실 자력으로 접안하는 배는 없습니다. 예인선의 밧줄이 배를 안전한 곳으로 이끈 것입니다. 우리의 도착도 이와 같습니다. 도착의 기쁨은 우리에게 기억되지만, 그 걸음을 가능하게 한 기원은 언제나 나의 바깥, 곧 ‘하나님의 이끄심’에 있습니다. 이것이 바로 우리가 겪는 '도착의 착시'입니다.</p>
+<p>그렇다면 이 이끄심은 운명처럼 우리를 강제로 끌고 가는 억압일까요? 결코 그렇지 않습니다. 성경은 그 방식을 다름 아닌 "가르치심"이라고 말합니다. 눈을 감고 누군가의 손목에 이끌려 걸어본 적이 있습니까? 긴장하며 내가 먼저 손을 뻗을 때는 온몸에 힘이 들어갑니다. 그러나 누군가 내 손목을 쥐고 안전한 곳으로 이끌어 줄 때, 내 쪽에서 무언가를 놓치지 않으려던 조바심은 사라지고 깊은 안도감이 찾아옵니다. 하나님이 우리를 이끄시는 방식도 이와 같은 인격적인 동행입니다.</p>
+<div class="highlight">
     "믿음은 내가 내민 손이 아니라, 나를 먼저 붙든 손의 흔적입니다."
   </div>
+<p>예수님의 곁을 많은 사람들이 떠나갔을 때, 베드로는 "주여 영생의 말씀이 주께 있사오니 우리가 누구에게로 가오리이까"라고 고백합니다. 스스로 올 수 없는 은혜를 입은 자는, 스스로 떠날 곳도 없음을 알게 됩니다. 이것은 맹목적인 구속이 아니라, 갈 곳을 정확히 아는 자의 가장 자유롭고 평안한 고백입니다.</p>
+<p>내 신앙의 첫 문장은 내가 쓰지 않았습니다. 나는 이미 쓰이고 있던 은혜의 문장 안에서 깨어났을 뿐입니다. 그렇기에 이 여정의 마지막 마침표 역시 나의 연약함이 찍지 않을 것입니다. 오늘 하루, 무언가를 붙잡으려 애쓰던 잔뜩 들어간 손의 힘을 풀고, 나를 먼저 붙들어 주신 그 든든한 손길에 삶을 맡겨보는 것은 어떨까요?</p>
 
-  <p>예수님의 곁을 많은 사람들이 떠나갔을 때, 베드로는 "주여 영생의 말씀이 주께 있사오니 우리가 누구에게로 가오리이까"라고 고백합니다. 스스로 올 수 없는 은혜를 입은 자는, 스스로 떠날 곳도 없음을 알게 됩니다. 이것은 맹목적인 구속이 아니라, 갈 곳을 정확히 아는 자의 가장 자유롭고 평안한 고백입니다.</p>
-
-  <p>내 신앙의 첫 문장은 내가 쓰지 않았습니다. 나는 이미 쓰이고 있던 은혜의 문장 안에서 깨어났을 뿐입니다. 그렇기에 이 여정의 마지막 마침표 역시 나의 연약함이 찍지 않을 것입니다. 오늘 하루, 무언가를 붙잡으려 애쓰던 잔뜩 들어간 손의 힘을 풀고, 나를 먼저 붙들어 주신 그 든든한 손길에 삶을 맡겨보는 것은 어떨까요?</p>
-
-  <div class="footer">
-    묵상 노트에서 길어 올린 오늘의 생각
-  </div>
 </div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      요한복음 제 13편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `나를 먼저 붙든 손, 이끌린 자의 평안\\n요한복음 제 13편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '나를 먼저 붙든 손, 이끌린 자의 평안',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
 </body>
 </html>

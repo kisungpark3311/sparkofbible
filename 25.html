@@ -1,48 +1,276 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>온전한 보존은 완전한 고립이다</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>온전한 보존은 완전한 고립이다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
 </head>
-<body style="margin: 0; padding: 20px; background-color: #f8f9fa; font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; line-height: 1.6; color: #333;">
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 요한복음 제 25편</p>
+      <h1>온전한 보존은 완전한 고립이다</h1>
+    </header>
 
-    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); overflow: hidden;">
-        
-        <!-- Header Image or Colored Block -->
-        <div style="background-color: #e9ecef; padding: 40px 20px; text-align: center; border-bottom: 1px solid #dee2e6;">
-            <h1 style="margin: 0; font-size: 24px; font-weight: 700; color: #212529; line-height: 1.3;">온전한 보존은<br>완전한 고립이다</h1>
-            <p style="margin: 15px 0 0; font-size: 15px; color: #495057;">한 알의 밀알이 들려주는 생명의 역설</p>
-        </div>
-
-        <!-- Body Content -->
-        <div style="padding: 30px 25px;">
-            <p style="margin-top: 0; margin-bottom: 20px; font-size: 15px; word-break: keep-all;">우리는 종종 상실을 피하는 것을 성공이라 믿습니다. 내 것을 잃지 않고 온전히 보존하는 상태를 안전하다고 느낍니다. 창고에 고스란히 보관된 밀알, 금고 속에 갇힌 지폐, 나만 알고 있는 업무의 노하우까지. 훼손되지 않고 줄어들지 않았으니 우리는 스스로 <b>'잘 지켰다'</b>고 안도합니다.</p>
-
-            <p style="margin-bottom: 20px; font-size: 15px; word-break: keep-all;">그러나 요한복음의 밀알 비유는 아주 낯선 진실을 건넵니다. <i style="color: #495057;">"한 알의 밀이 땅에 떨어져 죽지 아니하면 한 알 그대로 있고, 죽으면 많은 열매를 맺느니라."</i> 이 말씀이 경고하는 것은 밀알이 상하는 사태가 아닙니다. 오히려 아무 일도 일어나지 않는 상태, 그 무사안일의 비극을 지적합니다.</p>
-
-            <div style="background-color: #f1f3f5; border-left: 4px solid #ced4da; padding: 15px 20px; margin-bottom: 20px; border-radius: 0 10px 10px 0;">
-                <p style="margin: 0; font-size: 15px; font-weight: 600; color: #343a40; word-break: keep-all;">손실 없이 완벽하게 보존된 것은 사실 무용(無用)의 형태로 사라지는 것과 같습니다. 온전한 보존의 결과는 안전이 아니라 완전한 고립입니다.</p>
-            </div>
-
-            <p style="margin-bottom: 20px; font-size: 15px; word-break: keep-all;">손바닥 위에 동전 하나를 올려두고 주먹을 꽉 쥐어 보십시오. 아무것도 잃지 않았다는 감각과 동시에, 그 손으로는 누군가의 손을 잡아줄 수도 새로운 것을 받을 수도 없음을 깨닫게 됩니다. <b>쥔 손은 주지 못할 뿐 아니라 받지도 못합니다.</b></p>
-
-            <p style="margin-bottom: 20px; font-size: 15px; word-break: keep-all;">내어놓음이란 무엇일까요? 성경은 이를 근육을 써서 위로 쏘아 올리는 영웅적 동작이 아니라, 힘을 빼고 아래로 손을 펴는 <b>'떨어짐'</b>이라고 말합니다. 나의 통제력을 내려놓고 흙이라는 삶의 자리로 나를 던지는 일입니다.</p>
-
-            <p style="margin-bottom: 20px; font-size: 15px; word-break: keep-all;">이 비유는 우리에게 억지로 희생하라는 무거운 짐을 지우지 않습니다. 예수님은 자신을 증명하는 대신 스스로를 밭에 묻으셨습니다. 우리는 그분이 철저히 자기를 비워 맺으신 '열매'들입니다. "너도 죽어라"라는 도덕적 압박이 아니라, "그분이 죽으셨고 너는 그 생명의 열매다"라는 은혜의 선언입니다. 그러므로 오늘 우리가 꽉 쥔 손을 펴는 이유는 스스로 열매를 만들어내기 위함이 아니라, <b>이미 우리 안에 맺힌 생명이 흘러가도록 길을 비켜주는 일</b>입니다.</p>
-
-            <p style="margin-bottom: 20px; font-size: 15px; word-break: keep-all;">때로는 부름과 기도 앞에 즉각적인 응답이 없는 것처럼 느껴질 때가 있습니다. 하지만 응답의 부재는 침묵이 아니라, 세대를 뛰어넘는 거대한 수확을 준비하는 '지연된 응답'일 수 있습니다. 밀알의 껍질이 깨어지는 미시적인 죽음이, 안에서 보면 생명의 문이 열리는 사건인 것처럼 말입니다.</p>
-
-            <hr style="border: 0; border-top: 1px solid #e9ecef; margin: 30px 0;">
-
-            <p style="margin-bottom: 15px; font-size: 16px; font-weight: 600; text-align: center; color: #212529;">당신의 손에는 지금 무엇이 쥐어져 있습니까?</p>
-            
-            <p style="margin-bottom: 20px; font-size: 15px; text-align: center; word-break: keep-all; color: #495057;">상처받지 않기 위해 마음을 닫아두고 있지는 않나요?<br>실패하지 않으려 창고 안에만 머물러 있지는 않습니까?</p>
-
-            <p style="margin-bottom: 0; font-size: 15px; word-break: keep-all;">창고의 밀알이 잃어버린 것은 열매가 아니라 '사건'이었습니다. 주먹에 힘을 빼고, 내 삶이 빚어낼 생명의 밭으로 기꺼이 떨어지십시오. 안전한 고립에서 벗어날 때, 비로소 참된 열매를 맺는 삶이 시작됩니다.</p>
-        </div>
-        
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
     </div>
 
+    <article id="sermon" class="content">
+      
+<div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); overflow: hidden;">
+<!-- Header Image or Colored Block -->
+<div style="background-color: #e9ecef; padding: 40px 20px; text-align: center; border-bottom: 1px solid #dee2e6;">
+
+<p style="margin: 15px 0 0; font-size: 15px; color: #495057;">한 알의 밀알이 들려주는 생명의 역설</p>
+</div>
+<!-- Body Content -->
+<div style="padding: 30px 25px;">
+<p style="margin-top: 0; margin-bottom: 20px; font-size: 15px; word-break: keep-all;">우리는 종종 상실을 피하는 것을 성공이라 믿습니다. 내 것을 잃지 않고 온전히 보존하는 상태를 안전하다고 느낍니다. 창고에 고스란히 보관된 밀알, 금고 속에 갇힌 지폐, 나만 알고 있는 업무의 노하우까지. 훼손되지 않고 줄어들지 않았으니 우리는 스스로 <b>'잘 지켰다'</b>고 안도합니다.</p>
+<p style="margin-bottom: 20px; font-size: 15px; word-break: keep-all;">그러나 요한복음의 밀알 비유는 아주 낯선 진실을 건넵니다. <i style="color: #495057;">"한 알의 밀이 땅에 떨어져 죽지 아니하면 한 알 그대로 있고, 죽으면 많은 열매를 맺느니라."</i> 이 말씀이 경고하는 것은 밀알이 상하는 사태가 아닙니다. 오히려 아무 일도 일어나지 않는 상태, 그 무사안일의 비극을 지적합니다.</p>
+<div style="background-color: #f1f3f5; border-left: 4px solid #ced4da; padding: 15px 20px; margin-bottom: 20px; border-radius: 0 10px 10px 0;">
+<p style="margin: 0; font-size: 15px; font-weight: 600; color: #343a40; word-break: keep-all;">손실 없이 완벽하게 보존된 것은 사실 무용(無用)의 형태로 사라지는 것과 같습니다. 온전한 보존의 결과는 안전이 아니라 완전한 고립입니다.</p>
+</div>
+<p style="margin-bottom: 20px; font-size: 15px; word-break: keep-all;">손바닥 위에 동전 하나를 올려두고 주먹을 꽉 쥐어 보십시오. 아무것도 잃지 않았다는 감각과 동시에, 그 손으로는 누군가의 손을 잡아줄 수도 새로운 것을 받을 수도 없음을 깨닫게 됩니다. <b>쥔 손은 주지 못할 뿐 아니라 받지도 못합니다.</b></p>
+<p style="margin-bottom: 20px; font-size: 15px; word-break: keep-all;">내어놓음이란 무엇일까요? 성경은 이를 근육을 써서 위로 쏘아 올리는 영웅적 동작이 아니라, 힘을 빼고 아래로 손을 펴는 <b>'떨어짐'</b>이라고 말합니다. 나의 통제력을 내려놓고 흙이라는 삶의 자리로 나를 던지는 일입니다.</p>
+<p style="margin-bottom: 20px; font-size: 15px; word-break: keep-all;">이 비유는 우리에게 억지로 희생하라는 무거운 짐을 지우지 않습니다. 예수님은 자신을 증명하는 대신 스스로를 밭에 묻으셨습니다. 우리는 그분이 철저히 자기를 비워 맺으신 '열매'들입니다. "너도 죽어라"라는 도덕적 압박이 아니라, "그분이 죽으셨고 너는 그 생명의 열매다"라는 은혜의 선언입니다. 그러므로 오늘 우리가 꽉 쥔 손을 펴는 이유는 스스로 열매를 만들어내기 위함이 아니라, <b>이미 우리 안에 맺힌 생명이 흘러가도록 길을 비켜주는 일</b>입니다.</p>
+<p style="margin-bottom: 20px; font-size: 15px; word-break: keep-all;">때로는 부름과 기도 앞에 즉각적인 응답이 없는 것처럼 느껴질 때가 있습니다. 하지만 응답의 부재는 침묵이 아니라, 세대를 뛰어넘는 거대한 수확을 준비하는 '지연된 응답'일 수 있습니다. 밀알의 껍질이 깨어지는 미시적인 죽음이, 안에서 보면 생명의 문이 열리는 사건인 것처럼 말입니다.</p>
+<hr style="border: 0; border-top: 1px solid #e9ecef; margin: 30px 0;"/>
+<p style="margin-bottom: 15px; font-size: 16px; font-weight: 600; text-align: center; color: #212529;">당신의 손에는 지금 무엇이 쥐어져 있습니까?</p>
+<p style="margin-bottom: 20px; font-size: 15px; text-align: center; word-break: keep-all; color: #495057;">상처받지 않기 위해 마음을 닫아두고 있지는 않나요?<br/>실패하지 않으려 창고 안에만 머물러 있지는 않습니까?</p>
+<p style="margin-bottom: 0; font-size: 15px; word-break: keep-all;">창고의 밀알이 잃어버린 것은 열매가 아니라 '사건'이었습니다. 주먹에 힘을 빼고, 내 삶이 빚어낼 생명의 밭으로 기꺼이 떨어지십시오. 안전한 고립에서 벗어날 때, 비로소 참된 열매를 맺는 삶이 시작됩니다.</p>
+</div>
+</div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      요한복음 제 25편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `온전한 보존은 완전한 고립이다\\n요한복음 제 25편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '온전한 보존은 완전한 고립이다',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
 </body>
 </html>

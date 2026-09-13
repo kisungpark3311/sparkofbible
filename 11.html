@@ -1,146 +1,275 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>밤을 담기 위해 비워 둔 자리</title>
-<style>
-    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-    
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>밤을 담기 위해 비워 둔 자리</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-        background-color: #f4f6f8;
-        font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
-        color: #333333;
-        line-height: 1.7;
-        margin: 0;
-        padding: 20px 16px;
-        word-break: keep-all;
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
-    
-    .container {
-        max-width: 500px;
-        margin: 0 auto;
-        background-color: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        overflow: hidden;
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
     }
-    
-    .header {
-        background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);
-        color: white;
-        padding: 40px 30px;
-        text-align: center;
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
     }
-    
-    .header-subtitle {
-        font-size: 0.9rem;
-        font-weight: 400;
-        opacity: 0.8;
-        margin-bottom: 10px;
-        letter-spacing: 1px;
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
     }
-    
-    .header-title {
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin: 0;
-        line-height: 1.3;
-        word-break: keep-all;
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
     }
-    
-    .content {
-        padding: 40px 30px;
-        font-size: 1.05rem;
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
     }
-    
-    .quote-box {
-        background-color: #f8fafc;
-        border-left: 4px solid #4A5568;
-        padding: 16px 20px;
-        margin: 24px 0;
-        border-radius: 0 12px 12px 0;
-        font-style: normal;
-        font-weight: 600;
-        color: #2D3748;
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
     }
-    
-    .highlight {
-        color: #2B6CB0;
-        font-weight: 600;
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
     }
-    
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
     p {
-        margin-bottom: 24px;
-        text-align: justify;
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
     }
-    
-    p:last-child {
-        margin-bottom: 0;
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
     }
-    
-    .divider {
-        width: 40px;
-        height: 2px;
-        background-color: #E2E8F0;
-        margin: 40px auto;
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
     }
-    
-    .footer {
-        text-align: center;
-        padding: 0 30px 40px;
-        font-size: 1.0rem;
-        color: #4A5568;
-        line-height: 1.8;
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
     }
-</style>
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
 </head>
 <body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 요한복음 제 11편</p>
+      <h1>밤을 담기 위해 비워 둔 자리</h1>
+    </header>
 
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
 <div class="container">
-    <div class="header">
-        <div class="header-subtitle">어둠 위에서 밝히신 이름, 에고 에이미</div>
-        <h1 class="header-title">밤을 담기 위해<br>비워 둔 자리</h1>
-    </div>
-    
-    <div class="content">
-        <p>칠흑 같은 어둠이 깔린 갈릴리 바다, 거센 풍랑 속에서 두려움에 떠는 제자들에게 예수님이 물 위를 걸어 다가오십니다. 그리고 짧은 한 마디를 건네십니다.</p>
-        
-        <div class="quote-box">
-            "내니, 두려워하지 말라."<br>
-            <span style="font-size: 0.85rem; font-weight: 400; color: #718096;">(요한복음 6:20)</span>
-        </div>
-        
-        <p>헬라어 원문으로는 <strong>'에고 에이미(ἐγώ εἰμι)'</strong>. 영어로는 'I am'입니다. "나는 ~이다"라는 문장에서 채워져야 할 뒷말(보어)이 텅 비어 있습니다. "나는 너희를 구하러 온 메시아다" 혹은 "나는 풍랑을 잠재울 전능자다"라는 긴 설명 대신, 주님은 그저 <span class="highlight">"나다"</span>라는 당신의 존재 자체를 던지십니다.</p>
-        
-        <p>문법적으로는 결핍처럼 보이는 이 '빈칸'은 사실 놀라운 신비를 품고 있습니다. 만약 주님이 어떤 수식어로 자신을 설명하셨다면, 그분의 능력은 그 수식어의 크기만큼으로 제한되었을지 모릅니다. 하지만 채울 말을 비워 두셨기에, 그 빈자리는 제자들의 그 거대한 밤과 두려움을 모두 담아낼 수 있는 무한한 품이 되었습니다.</p>
-        
-        <div class="divider"></div>
-        
-        <p>우리는 인생의 풍랑을 만날 때마다 본능적으로 '무엇(What)'을 묻습니다. "왜 이런 일이 내게 일어났습니까?", "이제 어떻게 해야 합니까?" 끝없는 질문 속에서 상황에 대한 합리적인 설명을 요구합니다. 마치 어두운 방에서 깨어 울고 있는 아이처럼 말입니다.</p>
-        
-        <p>하지만 달려온 부모가 아이에게 가장 먼저 하는 말은 상황에 대한 논리적인 설명이 아닙니다. 아이를 꽉 안으며 속삭이는 단 한 마디, <strong>"괜찮아, 아빠야(엄마야)."</strong></p>
-        
-        <p>통제할 수 없는 위기 앞에서 가장 먼저 확정되어야 하는 것은 상황의 내용이 아니라, <span class="highlight">그 상황 속에 나와 함께 서 있는 분의 '신원'</span>입니다. 이유와 설명은 그 뒤에 와도 늦지 않습니다.</p>
-        
-        <p>놀랍게도 요한복음은 예수님이 배에 오르신 후 바람이 멎었다는 기상 보고를 하지 않습니다. <em>"이에 기뻐서 배로 영접하니 배가 곧 그들이 가려던 땅에 이르렀더라"</em>. 기적의 핵심은 날씨의 변화가 아니라 목적지에 도달했다는 '위치의 변화'로 끝이 납니다. 풍랑이 어떠하든, '에고 에이미'의 주님이 함께하신다는 사실 그 자체가 가장 결정적인 사건이었던 것입니다.</p>
-        
-        <div class="divider"></div>
-        
-        <p>우리의 삶에도 이유를 알 수 없는 어둠과 거센 파도가 찾아옵니다. 그때 우리는 불안감을 잠재우기 위해 수많은 대책과 설명을 찾아 헤맵니다. 하지만 하나님은 때로 우리의 '왜'라는 질문에 침묵하시며, 대신 당신의 이름을 우리 곁에 가만히 내려놓으십니다.</p>
-        
-        <p>조건이나 한도를 적지 않은 백지수표 같은 그분의 이름. 그것은 우리를 끝까지 책임지시겠다는 무한한 사랑의 서명과 같습니다.</p>
-        
-        <p>그분은 우리의 밤을 구구절절 설명하지 않으십니다. 대신 그 설명할 수 없는 밤을 능히 감당할 수 있도록 당신의 이름을 주십니다. 그러므로 앞이 보이지 않을 때 우리가 구해야 할 것은 '상황에 대한 이유'가 아니라 <strong>'주님의 음성'</strong>입니다.</p>
-        
-    </div>
-    
-    <div class="footer">
-        내 삶의 빈칸, 그 어둠 속에 조용히 다가오시는<br>
-        그분의 음성에 귀 기울여 보십시오.<br><br>
-        <strong>"나다. 그러니 두려워하지 마라."</strong>
-    </div>
+
+<div class="content">
+<p>칠흑 같은 어둠이 깔린 갈릴리 바다, 거센 풍랑 속에서 두려움에 떠는 제자들에게 예수님이 물 위를 걸어 다가오십니다. 그리고 짧은 한 마디를 건네십니다.</p>
+<div class="quote-box">
+            "내니, 두려워하지 말라."<br/>
+<span style="font-size: 0.85rem; font-weight: 400; color: #718096;">(요한복음 6:20)</span>
+</div>
+<p>헬라어 원문으로는 <strong>'에고 에이미(ἐγώ εἰμι)'</strong>. 영어로는 'I am'입니다. "나는 ~이다"라는 문장에서 채워져야 할 뒷말(보어)이 텅 비어 있습니다. "나는 너희를 구하러 온 메시아다" 혹은 "나는 풍랑을 잠재울 전능자다"라는 긴 설명 대신, 주님은 그저 <span class="highlight">"나다"</span>라는 당신의 존재 자체를 던지십니다.</p>
+<p>문법적으로는 결핍처럼 보이는 이 '빈칸'은 사실 놀라운 신비를 품고 있습니다. 만약 주님이 어떤 수식어로 자신을 설명하셨다면, 그분의 능력은 그 수식어의 크기만큼으로 제한되었을지 모릅니다. 하지만 채울 말을 비워 두셨기에, 그 빈자리는 제자들의 그 거대한 밤과 두려움을 모두 담아낼 수 있는 무한한 품이 되었습니다.</p>
+
+<p>우리는 인생의 풍랑을 만날 때마다 본능적으로 '무엇(What)'을 묻습니다. "왜 이런 일이 내게 일어났습니까?", "이제 어떻게 해야 합니까?" 끝없는 질문 속에서 상황에 대한 합리적인 설명을 요구합니다. 마치 어두운 방에서 깨어 울고 있는 아이처럼 말입니다.</p>
+<p>하지만 달려온 부모가 아이에게 가장 먼저 하는 말은 상황에 대한 논리적인 설명이 아닙니다. 아이를 꽉 안으며 속삭이는 단 한 마디, <strong>"괜찮아, 아빠야(엄마야)."</strong></p>
+<p>통제할 수 없는 위기 앞에서 가장 먼저 확정되어야 하는 것은 상황의 내용이 아니라, <span class="highlight">그 상황 속에 나와 함께 서 있는 분의 '신원'</span>입니다. 이유와 설명은 그 뒤에 와도 늦지 않습니다.</p>
+<p>놀랍게도 요한복음은 예수님이 배에 오르신 후 바람이 멎었다는 기상 보고를 하지 않습니다. <em>"이에 기뻐서 배로 영접하니 배가 곧 그들이 가려던 땅에 이르렀더라"</em>. 기적의 핵심은 날씨의 변화가 아니라 목적지에 도달했다는 '위치의 변화'로 끝이 납니다. 풍랑이 어떠하든, '에고 에이미'의 주님이 함께하신다는 사실 그 자체가 가장 결정적인 사건이었던 것입니다.</p>
+<div class="divider"></div>
+<p>우리의 삶에도 이유를 알 수 없는 어둠과 거센 파도가 찾아옵니다. 그때 우리는 불안감을 잠재우기 위해 수많은 대책과 설명을 찾아 헤맵니다. 하지만 하나님은 때로 우리의 '왜'라는 질문에 침묵하시며, 대신 당신의 이름을 우리 곁에 가만히 내려놓으십니다.</p>
+<p>조건이나 한도를 적지 않은 백지수표 같은 그분의 이름. 그것은 우리를 끝까지 책임지시겠다는 무한한 사랑의 서명과 같습니다.</p>
+<p>그분은 우리의 밤을 구구절절 설명하지 않으십니다. 대신 그 설명할 수 없는 밤을 능히 감당할 수 있도록 당신의 이름을 주십니다. 그러므로 앞이 보이지 않을 때 우리가 구해야 할 것은 '상황에 대한 이유'가 아니라 <strong>'주님의 음성'</strong>입니다.</p>
 </div>
 
+</div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      요한복음 제 11편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `밤을 담기 위해 비워 둔 자리\\n요한복음 제 11편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '밤을 담기 위해 비워 둔 자리',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
 </body>
 </html>

@@ -1,137 +1,272 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>돌려받은 내일: 용서는 조건이 아니라 근거입니다</title>
-    <style>
-        :root {
-            --bg-color: #fcfbf9;
-            --text-main: #333333;
-            --text-muted: #666666;
-            --accent-color: #8c7b66;
-            --card-bg: #ffffff;
-            --border-radius: 16px;
-        }
-        
-        body {
-            font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.75;
-            margin: 0;
-            padding: 0;
-            word-break: keep-all;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>돌려받은 내일</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
 
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
 
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
+    * { box-sizing: border-box; }
 
-        .title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #222;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
+    html { scroll-behavior: smooth; }
 
-        .subtitle {
-            font-size: 15px;
-            color: var(--accent-color);
-            font-weight: 500;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
 
-        .content {
-            font-size: 16px;
-            letter-spacing: -0.3px;
-        }
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
 
-        .content p {
-            margin-bottom: 24px;
-        }
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
 
-        .highlight-card {
-            background-color: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 24px;
-            margin: 32px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            border-left: 4px solid var(--accent-color);
-        }
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
 
-        .quote {
-            font-size: 17px;
-            font-weight: 600;
-            color: #444;
-            margin: 0 0 12px 0;
-            line-height: 1.5;
-        }
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
 
-        .quote-ref {
-            font-size: 13px;
-            color: var(--text-muted);
-            text-align: right;
-            margin: 0;
-        }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
 
-        .insight {
-            font-weight: 600;
-            color: var(--accent-color);
-        }
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
 
-        .footer {
-            margin-top: 50px;
-            padding-top: 24px;
-            border-top: 1px solid #eaeaea;
-            text-align: center;
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-    </style>
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1 class="title">돌려받은 내일</h1>
-            <div class="subtitle">용서는 조건이 아니라 근거입니다</div>
-        </header>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 요한복음 제 16편</p>
+      <h1>돌려받은 내일</h1>
+    </header>
 
-        <main class="content">
-            <p>우리는 무의식중에 신앙을 '거래'로 생각할 때가 많습니다. "내가 똑바로 살아야 하나님이 나를 사랑하시겠지", "이번에는 정말 다시 죄를 짓지 않아야 용서받을 수 있을 거야."</p>
-
-            <p>하지만 요한복음 8장에 등장하는 간음하다 잡힌 여인의 이야기에서, 예수님이 들려주시는 은혜의 문법은 우리의 짐작을 완전히 뒤집습니다.</p>
-
-            <div class="highlight-card">
-                <p class="quote">"나도 너를 정죄하지 아니하노니<br>가서 다시는 죄를 범하지 말라"</p>
-                <p class="quote-ref">- 요한복음 8:11 -</p>
-            </div>
-
-            <p>이 짧은 말씀에서 가장 중요한 것은 단어들이 놓인 <strong>'순서'</strong>입니다. 예수님은 먼저 "나도 너를 정죄하지 않는다"라고 선언하셨고, 그 뒤에 "다시는 죄를 범하지 말라"고 말씀하셨습니다. 만약 이 순서가 바뀌었다면 어땠을까요? "다시는 죄를 짓지 않겠다고 약속하면 정죄하지 않겠다"라고 하셨다면, 그것은 복음이 아니라 차가운 조건부 거래가 되었을 것입니다.</p>
-
-            <p>골절 환자가 깁스를 풀고 나서야 재활을 시작할 수 있고, 입양된 아이가 먼저 가족이 된 후에 집안의 규칙을 배우듯, 하나님은 항상 <span class="insight">우리의 신분을 먼저 확정하시고 나서 삶을 요구하십니다.</span> 용서는 우리가 쟁취해야 할 새 삶의 조건이 아니라, 새 삶을 시작할 수 있게 하는 단단한 '근거'입니다.</p>
-
-            <p>그렇다면 뒤따르는 "다시는 죄를 범하지 말라"는 명령은 우리를 옭아매는 무거운 족쇄일까요? 그렇지 않습니다. 만약 예수님이 앞의 용서만 하시고 뒤의 말씀을 하지 않으셨다면, 여인에게는 살아갈 방향이 없었을 것입니다. 이 명령은 방임을 막기 위한 차가운 제동장치가 아니라, <strong>그녀의 손에 다시 쥐여 주신 '시간'이자 '돌려받은 내일'</strong>입니다.</p>
-
-            <p>원어 성경을 보면 "이제부터(from now on)"라는 단어가 숨어 있습니다. 이 새로운 시간의 '0시'는 여인이 눈물을 흘리며 "다시는 안 그럴게요!"라고 결심한 순간에 찍히지 않았습니다. 예수님이 "정죄하지 않는다"고 선언하신 그 순간, 그녀의 바깥에서 찍혔습니다.</p>
-
-            <p>시작점이 내 결심이 아니라 그분의 선언에 있기에, 우리는 넘어져도 다시 일어날 수 있습니다. 실패는 계약의 파기가 아니라, 주님이 그어주신 은혜의 출발선으로 다시 돌아가는 것일 뿐이니까요.</p>
-
-            <p>의자에 앉았다가 내 의지로 억지로 일어설 때는 온몸에 힘이 들어갑니다. 하지만 누군가 "이제 일어나셔도 됩니다"라고 허락해주었을 때 일어서는 몸은 훨씬 가볍고 평안합니다.</p>
-
-            <p>오늘, 무거운 결심의 어깨를 잠시 내려놓으시길 바랍니다. 그리고 "나도 너를 정죄하지 않는다"는 그분의 따뜻한 허락에 기대어, 가벼운 걸음으로 우리에게 돌려진 '내일'을 향해 일어나 걸어가 보는 것은 어떨까요?</p>
-        </main>
-
-        <footer class="footer">
-            일상의 깊은 사고 — 성경적 사고와 인격 만들기
-        </footer>
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
     </div>
+
+    <article id="sermon" class="content">
+      
+<div class="container">
+
+<main class="content">
+<p>우리는 무의식중에 신앙을 '거래'로 생각할 때가 많습니다. "내가 똑바로 살아야 하나님이 나를 사랑하시겠지", "이번에는 정말 다시 죄를 짓지 않아야 용서받을 수 있을 거야."</p>
+<p>하지만 요한복음 8장에 등장하는 간음하다 잡힌 여인의 이야기에서, 예수님이 들려주시는 은혜의 문법은 우리의 짐작을 완전히 뒤집습니다.</p>
+<div class="highlight-card">
+<p class="quote">"나도 너를 정죄하지 아니하노니<br/>가서 다시는 죄를 범하지 말라"</p>
+<p class="quote-ref">- 요한복음 8:11 -</p>
+</div>
+<p>이 짧은 말씀에서 가장 중요한 것은 단어들이 놓인 <strong>'순서'</strong>입니다. 예수님은 먼저 "나도 너를 정죄하지 않는다"라고 선언하셨고, 그 뒤에 "다시는 죄를 범하지 말라"고 말씀하셨습니다. 만약 이 순서가 바뀌었다면 어땠을까요? "다시는 죄를 짓지 않겠다고 약속하면 정죄하지 않겠다"라고 하셨다면, 그것은 복음이 아니라 차가운 조건부 거래가 되었을 것입니다.</p>
+<p>골절 환자가 깁스를 풀고 나서야 재활을 시작할 수 있고, 입양된 아이가 먼저 가족이 된 후에 집안의 규칙을 배우듯, 하나님은 항상 <span class="insight">우리의 신분을 먼저 확정하시고 나서 삶을 요구하십니다.</span> 용서는 우리가 쟁취해야 할 새 삶의 조건이 아니라, 새 삶을 시작할 수 있게 하는 단단한 '근거'입니다.</p>
+<p>그렇다면 뒤따르는 "다시는 죄를 범하지 말라"는 명령은 우리를 옭아매는 무거운 족쇄일까요? 그렇지 않습니다. 만약 예수님이 앞의 용서만 하시고 뒤의 말씀을 하지 않으셨다면, 여인에게는 살아갈 방향이 없었을 것입니다. 이 명령은 방임을 막기 위한 차가운 제동장치가 아니라, <strong>그녀의 손에 다시 쥐여 주신 '시간'이자 '돌려받은 내일'</strong>입니다.</p>
+<p>원어 성경을 보면 "이제부터(from now on)"라는 단어가 숨어 있습니다. 이 새로운 시간의 '0시'는 여인이 눈물을 흘리며 "다시는 안 그럴게요!"라고 결심한 순간에 찍히지 않았습니다. 예수님이 "정죄하지 않는다"고 선언하신 그 순간, 그녀의 바깥에서 찍혔습니다.</p>
+<p>시작점이 내 결심이 아니라 그분의 선언에 있기에, 우리는 넘어져도 다시 일어날 수 있습니다. 실패는 계약의 파기가 아니라, 주님이 그어주신 은혜의 출발선으로 다시 돌아가는 것일 뿐이니까요.</p>
+<p>의자에 앉았다가 내 의지로 억지로 일어설 때는 온몸에 힘이 들어갑니다. 하지만 누군가 "이제 일어나셔도 됩니다"라고 허락해주었을 때 일어서는 몸은 훨씬 가볍고 평안합니다.</p>
+<p>오늘, 무거운 결심의 어깨를 잠시 내려놓으시길 바랍니다. 그리고 "나도 너를 정죄하지 않는다"는 그분의 따뜻한 허락에 기대어, 가벼운 걸음으로 우리에게 돌려진 '내일'을 향해 일어나 걸어가 보는 것은 어떨까요?</p>
+</main>
+
+</div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      요한복음 제 16편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `돌려받은 내일\\n요한복음 제 16편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '돌려받은 내일',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
 </body>
 </html>

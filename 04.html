@@ -1,109 +1,267 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>의무의 그릇이 잔치의 그릇으로</title>
-<style>
-  body {
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 20px;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    color: #333;
-    line-height: 1.6;
-    word-break: keep-all;
-  }
-  .card {
-    background-color: #ffffff;
-    max-width: 600px;
-    margin: 0 auto;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    padding: 30px;
-    box-sizing: border-box;
-  }
-  .header {
-    text-align: center;
-    margin-bottom: 25px;
-  }
-  .title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin: 0 0 10px 0;
-    line-height: 1.4;
-  }
-  .subtitle {
-    font-size: 0.95rem;
-    color: #7f8c8d;
-    margin: 0;
-  }
-  .content p {
-    margin-bottom: 18px;
-    font-size: 1.05rem;
-    color: #4a4a4a;
-  }
-  .highlight {
-    background: linear-gradient(120deg, rgba(255,236,179,1) 0%, rgba(255,213,79,0.4) 100%);
-    background-repeat: no-repeat;
-    background-size: 100% 40%;
-    background-position: 0 88%;
-    font-weight: 600;
-    color: #2c3e50;
-  }
-  .quote-box {
-    background-color: #f1f4f8;
-    border-left: 4px solid #3498db;
-    padding: 15px 20px;
-    margin: 25px 0;
-    border-radius: 0 10px 10px 0;
-  }
-  .quote-box p {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #2980b9;
-    font-style: normal;
-  }
-  .footer {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 0.9rem;
-    color: #95a5a6;
-    border-top: 1px solid #eee;
-    padding-top: 20px;
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>의무의 그릇이 잔치의 그릇으로</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="card">
-    <div class="header">
-      <h1 class="title">의무의 그릇이<br>잔치의 그릇으로</h1>
-      <p class="subtitle">일상을 새롭게 바라보는 묵상</p>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 요한복음 제 04편</p>
+      <h1>의무의 그릇이 잔치의 그릇으로</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
     </div>
-    <div class="content">
-      <p>가나의 혼인 잔치, 그곳에는 유대인의 정결 예식을 위한 돌항아리 여섯 개가 놓여 있었습니다. 사람들은 그 항아리의 물로 씻고 또 씻으며 율법의 의무를 다했습니다. 잔치 한복판에 놓인 이 낡고 무거운 '의무의 그릇'을 예수님은 어떻게 하셨을까요?</p>
 
-      <p>우리는 삶이 무겁고 지칠 때마다 그릇 자체를 깨뜨리거나 치워버리고 싶어 합니다. '이 반복되는 일상을 끝내면 자유로워질 텐데', '이 짐을 벗어던지면 행복할 텐데'라고 생각하며 낡은 그릇을 폐기하는 것이 곧 개혁이고 해방이라고 믿곤 합니다.</p>
+    <article id="sermon" class="content">
+      
 
-      <p>하지만 예수님의 방식은 달랐습니다. 그분은 옛 그릇을 치우지 않으셨습니다. 대신 그 빈 항아리에 물을 채우게 하시고, 그것을 가장 좋은 포도주로 바꾸셨습니다. 평생 손발을 씻기만 하던 지루한 의무의 그릇이, 사람들을 기쁘게 하는 풍성한 잔치의 그릇으로 변화된 것입니다.</p>
+<div class="content">
+<p>가나의 혼인 잔치, 그곳에는 유대인의 정결 예식을 위한 돌항아리 여섯 개가 놓여 있었습니다. 사람들은 그 항아리의 물로 씻고 또 씻으며 율법의 의무를 다했습니다. 잔치 한복판에 놓인 이 낡고 무거운 '의무의 그릇'을 예수님은 어떻게 하셨을까요?</p>
+<p>우리는 삶이 무겁고 지칠 때마다 그릇 자체를 깨뜨리거나 치워버리고 싶어 합니다. '이 반복되는 일상을 끝내면 자유로워질 텐데', '이 짐을 벗어던지면 행복할 텐데'라고 생각하며 낡은 그릇을 폐기하는 것이 곧 개혁이고 해방이라고 믿곤 합니다.</p>
+<p>하지만 예수님의 방식은 달랐습니다. 그분은 옛 그릇을 치우지 않으셨습니다. 대신 그 빈 항아리에 물을 채우게 하시고, 그것을 가장 좋은 포도주로 바꾸셨습니다. 평생 손발을 씻기만 하던 지루한 의무의 그릇이, 사람들을 기쁘게 하는 풍성한 잔치의 그릇으로 변화된 것입니다.</p>
+<div class="quote-box">
+<p>소진의 반대말은 해방이 아니라 충만입니다.</p>
+</div>
+<p>신앙생활이나 일상의 무게가 버겁게 느껴질 때, 우리에게 진정 필요한 것은 <span class="highlight">의무의 면제가 아니라 의무의 내용물 교체</span>입니다. 반복되는 출근, 수많은 가사 노동, 변함없는 사역의 자리… 겉보기에는 똑같은 형식의 그릇 같지만, 그 안에 무엇을 담느냐에 따라 결과는 완전히 달라집니다. 내 안의 두려움과 자기 검열을 담으면 씻어내야 할 무거운 짐이 되지만, 주님의 은혜를 담으면 누군가를 살리는 축제가 됩니다.</p>
+<p>잠시 눈을 감고 두 손을 모아 그릇 모양을 만들어 보십시오. 손을 아래로 내려 물을 쏟아내는 동작을 반복하면 어깨가 굽고 시선은 땅을 향하게 됩니다. 하지만 손 모양은 그대로 둔 채, 방향만 위로 올려 잔을 받쳐 드는 자세를 취해 보십시오. 어깨가 열리고 시선은 앞을 향합니다. 똑같은 삶의 그릇이지만, <span class="highlight">쏟아내던 삶에서 은혜를 받쳐 드는 삶으로 방향을 바꿀 때</span> 우리는 참된 회복을 경험합니다.</p>
+<p>잔치 자리에는 두 부류의 사람이 있었습니다. 연회장은 포도주를 맛보고 칭찬했지만 그 출처를 알지 못했습니다. 반면, 물을 떠온 하인들은 맛을 평가하는 자리에는 없었지만 기적의 출처를 분명히 알고 있었습니다. 남들이 알아주지 않는 자리에서 묵묵히 물을 붓고 나르는 수고를 감당하고 계신가요? 은혜의 출처를 아는 것, 주님이 일하시는 비밀을 가장 가까이서 목격하는 것 자체가 섬기는 자에게 주어지는 가장 아름다운 상급입니다.</p>
+<p>하나님은 오늘도 우리의 낡고 평범한 일상을 치우지 않으십니다. 대신 그 안에 잔치의 기쁨을 붓기 원하십니다. 당신의 빈 항아리에는 지금 무엇이 담기고 있습니까? 무거운 의무의 그릇이, 오늘 주님의 은혜로 가득 채워지는 놀라운 기적을 누리시기를 소망합니다.</p>
+</div>
 
-      <div class="quote-box">
-        <p>소진의 반대말은 해방이 아니라 충만입니다.</p>
-      </div>
 
-      <p>신앙생활이나 일상의 무게가 버겁게 느껴질 때, 우리에게 진정 필요한 것은 <span class="highlight">의무의 면제가 아니라 의무의 내용물 교체</span>입니다. 반복되는 출근, 수많은 가사 노동, 변함없는 사역의 자리… 겉보기에는 똑같은 형식의 그릇 같지만, 그 안에 무엇을 담느냐에 따라 결과는 완전히 달라집니다. 내 안의 두려움과 자기 검열을 담으면 씻어내야 할 무거운 짐이 되지만, 주님의 은혜를 담으면 누군가를 살리는 축제가 됩니다.</p>
+    </article>
 
-      <p>잠시 눈을 감고 두 손을 모아 그릇 모양을 만들어 보십시오. 손을 아래로 내려 물을 쏟아내는 동작을 반복하면 어깨가 굽고 시선은 땅을 향하게 됩니다. 하지만 손 모양은 그대로 둔 채, 방향만 위로 올려 잔을 받쳐 드는 자세를 취해 보십시오. 어깨가 열리고 시선은 앞을 향합니다. 똑같은 삶의 그릇이지만, <span class="highlight">쏟아내던 삶에서 은혜를 받쳐 드는 삶으로 방향을 바꿀 때</span> 우리는 참된 회복을 경험합니다.</p>
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      요한복음 제 04편
+    </footer>
+  </main>
 
-      <p>잔치 자리에는 두 부류의 사람이 있었습니다. 연회장은 포도주를 맛보고 칭찬했지만 그 출처를 알지 못했습니다. 반면, 물을 떠온 하인들은 맛을 평가하는 자리에는 없었지만 기적의 출처를 분명히 알고 있었습니다. 남들이 알아주지 않는 자리에서 묵묵히 물을 붓고 나르는 수고를 감당하고 계신가요? 은혜의 출처를 아는 것, 주님이 일하시는 비밀을 가장 가까이서 목격하는 것 자체가 섬기는 자에게 주어지는 가장 아름다운 상급입니다.</p>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-      <p>하나님은 오늘도 우리의 낡고 평범한 일상을 치우지 않으십니다. 대신 그 안에 잔치의 기쁨을 붓기 원하십니다. 당신의 빈 항아리에는 지금 무엇이 담기고 있습니까? 무거운 의무의 그릇이, 오늘 주님의 은혜로 가득 채워지는 놀라운 기적을 누리시기를 소망합니다.</p>
-    </div>
-    <div class="footer">
-      요한복음 2:1-25 묵상에서
-    </div>
-  </div>
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `의무의 그릇이 잔치의 그릇으로\\n요한복음 제 04편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '의무의 그릇이 잔치의 그릇으로',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
 </body>
 </html>
