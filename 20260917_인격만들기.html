@@ -280,14 +280,19 @@
         try {
           await navigator.share({
             title: '내 것이 아니기에 끝까지 사랑할 수 있습니다',
-            text: sermonText()
+            url: window.location.href
           });
           return;
         } catch (error) {
           if (error.name === 'AbortError') return;
         }
       }
-      await copySermon();
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
     }
 
     function resizeText(delta) {
