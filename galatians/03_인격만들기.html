@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>무엇을 했느냐가 아니라, 무엇에 굴하지 않았느냐</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 갈라디아서 제 03편</p>
+      <h1>무엇을 했느냐가 아니라, 무엇에 굴하지 않았느냐</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<div class="title-wrap">
+<h1>무엇을 했느냐가 아니라,<br/>무엇에 굴하지 않았느냐</h1>
+<p>갈라디아서 2장이 들려주는 '버팀'의 은혜</p>
+</div>
+<div class="divider"></div>
+<div class="content">
+<p>우리는 종종 얼마나 많은 일을 성취했는지로 신앙의 크기를 가늠하곤 합니다. 얼마나 뜨겁게 기도했는지, 얼마나 헌신했는지, 어떤 결과를 만들어냈는지를 묻습니다. 그러나 갈라디아서 2장이 보여주는 복음의 장부는 전혀 다른 방식으로 기록되어 있습니다.</p>
+<p>이곳에서 신앙의 가장 위대한 승리는 누군가 <span class="highlight">'무엇을 했는가'가 아니라, '무엇에 굴하지 않았는가'</span>로 판가름 납니다.</p>
+<h2 class="subtitle">수동태로 기록된 위대한 판결</h2>
+<p>초대교회 시절, 예루살렘의 회합에서는 이방인 신자였던 디도의 할례를 두고 격렬한 논쟁이 벌어졌습니다. 그러나 바울은 복음이 지켜진 그 결정적 순간을 이렇게 기록합니다.</p>
+<div class="quote-box">
+        "나와 함께 있는 헬라인 디도까지도 억지로 할례를 받게 하지 아니하였으니" (갈라디아서 2:3)
+      </div>
+<p>바울은 자신이 얼마나 대단한 변증을 펼쳤는지, 능동적인 활약상을 자랑하지 않습니다. 대신 그가 내미는 승리의 기록은 '수동태'이자 '부정문'입니다. 디도가 인간적인 조건과 율법의 압력에 <strong>'강요당하지 않았다'</strong>는 사실 그 자체가 복음이 온전히 지켜진 가장 확실한 증거였습니다.</p>
+<h2 class="subtitle">가장 격렬한 정지 동작, '버팀'</h2>
+<p>바울은 또한 "우리가 일시도 복종하지 아니하였다"고 고백합니다(갈 2:5). 벽에 손바닥을 대고 온 힘을 다해 밀어본 적이 있으신가요? 몸은 한 치도 앞으로 나아가지 않는 정지 상태이지만, 온몸의 근육은 타는 듯한 최대 부하를 견뎌내야 합니다.</p>
+<p>세상의 거센 요구와 타협의 유혹 앞에서 밀리지 않고 자리를 지켜내는 것. 그것은 결코 수동적인 '무위(無爲)'가 아닙니다. 미는 손보다 딛고 선 발이 더 많은 땀을 흘리듯, <span class="highlight">영적인 굴하지 않음은 가장 치열하고 값비싼 행동입니다.</span></p>
+<h2 class="subtitle">그 방에 없던 사람들을 위한 시간</h2>
+<p>그렇다면 바울과 일행은 왜 그토록 아프게 버텨야 했을까요? "이번 한 번만 적당히 넘어갑시다"라며 반 초 만에 고개를 끄덕일 수도 있었을 텐데 말입니다.</p>
+<p>바울은 그 이유를 분명히 밝힙니다. <strong>"이는 복음의 진리가 항상 너희 가운데 있게 하려 함이라."</strong></p>
+<p>그들이 밀리지 않고 한 시간을 버틴 이유는, 그들의 개인적인 자존심이나 고집 때문이 아니었습니다. 그 지루하고 고통스러운 버팀의 이유는 다름 아닌 <strong>'그 방에 없었던 사람들'</strong>, 바로 갈라디아 교인들과 훗날 이 복음을 전해 받을 우리들을 향한 깊은 사랑이었습니다.</p>
+<h2 class="subtitle">오늘, 당신의 버팀이 누군가의 복음이 됩니다</h2>
+<p>혹시 오늘, 주님을 위해 아무런 대단한 일도 해내지 못했다고 자책하고 계시진 않나요? 거센 세상의 물결 속에서 그저 하루를 간신히 버텨냈을 뿐이라고 생각하시나요?</p>
+<p>그러나 기억하십시오. 은혜 위에 굳게 서서, 당신을 흔들려는 거짓된 압력에 굴하지 않고 묵묵히 자리를 지켜낸 그 발걸음이야말로 가장 위대한 믿음의 고백입니다. 당신이 오늘 타협하지 않고 버텨낸 그 자리가, 내일 누군가에게 순전한 복음이 흘러가는 통로가 될 것입니다.</p>
+</div>
+<div class="footer">
+      본문: 성경적 사고와 인격 만들기 (갈라디아서 2:1-10)
+    </div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      갈라디아서 제 03편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `무엇을 했느냐가 아니라, 무엇에 굴하지 않았느냐\\n갈라디아서 제 03편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '무엇을 했느냐가 아니라, 무엇에 굴하지 않았느냐',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

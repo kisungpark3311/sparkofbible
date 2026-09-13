@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>마침표는 우리의 몫이 아닙니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 갈라디아서 제 05편</p>
+      <h1>마침표는 우리의 몫이 아닙니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<div class="title-section">
+<h1 class="title">마침표는 우리의 몫이 아닙니다</h1>
+<p class="subtitle">이미 완성된 은혜 앞에서 살아가는 법</p>
+</div>
+<div class="divider"></div>
+<div class="content">
+<p>우리는 참 성실하게 살아갑니다. 무엇이든 스스로 책임져야 하고, 내 손으로 끝을 맺어야 직성이 풀리는 세상 속에 살다 보니, 신앙생활마저도 마치 내가 완성해야 할 과제처럼 여길 때가 많습니다. 사도 바울은 갈라디아 교인들을 향해 조금은 아픈 질문을 던집니다.</p>
+<div class="quote">"너희가 성령으로 시작하였다가 이제는 육체로 마치겠느냐?"<br/>(갈라디아서 3:3)</div>
+<p>이 말씀은 우리의 게으름을 꾸짖는 것이 아닙니다. 오히려, 이미 완벽하게 끝난 일에 기어코 내 손으로 마침표를 찍어보려는 <span class="highlight">'지나친 성실함'을 향한 안타까운 외침</span>입니다.</p>
+<p>문서에 이미 완벽한 서명이 끝났는데, 불안한 마음에 그 옆에 내 이름 석 자를 덧붙여 쓴다고 생각해 보십시오. 아름답게 끝난 교향곡의 마지막 화음 뒤에, 내가 피아노 건반 하나를 더 누른다면 어떻게 될까요? 그것은 작품을 돕는 것이 아니라, 오히려 완성된 걸작의 작자를 바꾸고 훼손하는 일이 되고 맙니다.</p>
+<p>예수님께서는 십자가 위에서 "다 이루었다"라고 선언하셨습니다. 완벽한 마침표를 찍으신 것입니다. 그런데 우리는 자꾸만 그 거룩한 십자가 아래에서 내가 채워 넣을 '여백'을 찾습니다. 나의 노력, 나의 공로, 나의 열심을 조금이라도 보태야만 구원이 완성될 것 같은 조급함 때문입니다.</p>
+<p>구약의 제사장들은 매일 '서서' 제사를 드려야 했습니다. 그들의 제사는 온전히 죄를 없애지 못했기에 일은 결코 끝나지 않았습니다. 하지만 우리 예수님은 단 한 번의 영원한 제사를 드리시고 하나님 우편에 '앉으셨습니다'. <span class="highlight">앉으셨다는 것은 모든 구원 사역이 온전히 끝났음을 의미합니다.</span></p>
+<p>이미 편안히 앉으신 분 곁에서, 내가 무언가를 더 해보겠다며 안절부절못하며 다시 일어서는 것은 경건이 아니라 어리석음입니다. 은혜에 무언가를 덧붙이려는 시도는 더하기가 아니라, 오히려 십자가의 능력을 무효화하는 '빼기'일 뿐입니다.</p>
+<p>그렇다면 우리는 아무것도 하지 말아야 할까요? 아닙니다. 내 힘으로 구원을 완성하겠다는 그 무거운 짐을 내려놓으라는 뜻입니다. <span class="bold-text">마침은 우리의 몫이 아닙니다. 우리의 몫은, 이미 완성된 그 마침표 앞에서 온전히 안식하며 살아가는 것입니다.</span></p>
+<p>오늘 하루, 당신의 마음을 짓누르는 부담감이 있다면 가만히 두 손을 펴보십시오. 내가 무언가를 이루어 내겠다는 쥔 손을 펴고, 완성된 은혜를 넉넉히 받아들이는 빈손이 될 때 비로소 참된 평안이 찾아옵니다. 예수님이 다 이루셨습니다. 우리는 그저, 그 넉넉한 사랑 안에서 기뻐하며 걸어가면 됩니다.</p>
+</div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      갈라디아서 제 05편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `마침표는 우리의 몫이 아닙니다\\n갈라디아서 제 05편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '마침표는 우리의 몫이 아닙니다',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

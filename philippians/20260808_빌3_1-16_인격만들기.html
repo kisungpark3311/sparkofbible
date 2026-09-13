@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 2026년 08월 08일</p>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<div class="title-area">
+<div class="title">붙잡힌 자가 달린다</div>
+<div class="subtitle">은혜는 노력을 지우지 않고, 안전한 줄이 되어줍니다</div>
+<div class="divider"></div>
+</div>
+<div class="content">
+<p>우리는 종종 '은혜'와 '노력'을 반대말처럼 생각합니다. 모든 것이 하나님의 은혜라면 굳이 내가 애쓸 필요가 없지 않느냐고 반문하기도 하고, 반대로 내 열심이 부족해서 구원에서 멀어지는 것은 아닌지 늘 불안해하기도 합니다.</p>
+<div class="quote-box">
+            "내가 그리스도 예수께 잡힌 바 된 그것을 잡으려고 달려가노라" (빌립보서 3:12)
+        </div>
+<p>사도 바울은 이 짧은 문장 안에 '잡혔다'는 수동태와 '잡으려고 달려간다'는 능동태를 겹쳐 놓았습니다. 이 순서가 곧 신앙의 위대한 비밀입니다. <strong>먼저 붙잡혔기 때문에, 비로소 우리는 달릴 수 있습니다.</strong> 붙잡히지 않은 채 달리는 것은 경주가 아니라 도망일 뿐입니다.</p>
+<p>암벽 등반을 떠올려 보십시오. 깎아지른 절벽을 오르는 클라이머가 자신의 한계를 넘어 과감한 도전을 할 수 있는 이유는 무엇일까요? 바로 몸을 든든하게 지탱해 주는 '확보줄(안전줄)'이 있기 때문입니다. <span class="highlight">줄이 나를 절대적으로 붙들고 있다는 믿음이 있을 때, 비로소 등반가는 추락의 공포를 이겨내고 더 높은 곳을 향해 손을 뻗습니다.</span> 만약 안전줄이 없다면 어떨까요? 자신의 진짜 능력보다 훨씬 밑에서 멈추거나, 아예 오를 엄두조차 내지 못할 것입니다.</p>
+<p>우리의 신앙도 마찬가지입니다. 은혜는 우리의 노력을 없애는 것이 아닙니다. 오히려 우리를 단단히 묶어주는 영적인 '확보줄'이 되어, 가장 치열하고 아름다운 노력을 가능하게 합니다. 내가 나의 구원을 스스로 쟁취해야 한다면 우리는 평생 불안에 떨며 살아가야 합니다. 하지만 그리스도께서 먼저 나를 꽉 붙잡아 주셨다는 그 '안전의 은혜'가 내 삶에 닻을 내릴 때, 우리는 두려움 없이 세상을 향해 나아갈 수 있습니다.</p>
+<p>회심하기 전 바울을 생각해 보십시오. 그는 교회를 핍박하는 데 누구보다 앞장섰던 사람입니다. 놀라운 것은 하나님이 그의 그 뜨거운 기질을 꺾어 없애지 않으셨다는 점입니다. 회심은 나침반의 방향을 돌려놓는 일입니다. 하나님은 바울을 전혀 다른 사람으로 개조하신 것이 아니라, 그가 달리던 방향을 180도 돌려 그리스도를 푯대 삼아 달리게 하셨습니다. <strong>우리의 기질도, 성향도, 치열한 열정도 십자가의 은혜 안에 제대로 안착하기만 하면 가장 귀한 도구가 됩니다.</strong></p>
+<p>우리의 인생 경주는 불확실한 결과를 놓고 벌이는 불안한 도박이 아닙니다. <span class="highlight">이 경주는 '이미 우리에게 확정된 상'을 향해 기쁘게 나아가는 여정입니다.</span> 이미 그리스도의 손에 꽉 붙잡혀 있음을 기억하십시오. 그분은 한 번 붙잡은 당신의 손을 결코 놓지 않으십니다.</p>
+<div class="footer-blessing">
+            오늘, 당신을 단단히 붙잡고 계신 그 든든한 은혜의 줄을 의지하며<br/>
+            당신에게 주어진 길을 자유하고 힘차게 달려가기를 축복합니다.
+        </div>
+</div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 08월 08일
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `묵상 에세이\\n2026년 08월 08일\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '묵상 에세이',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>버틴 날을 '기다린 날'이라 부르시는 분</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 갈라디아서 제 11편</p>
+      <h1>버틴 날을 '기다린 날'이라 부르시는 분</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h1 style="font-size: 1.6rem; color: #2c3e50; text-align: center; margin-bottom: 35px; line-height: 1.4; font-weight: 700; word-break: keep-all;">
+        버틴 날을 '기다린 날'이라<br/>부르시는 분
+    </h1>
+<p style="font-size: 1.05rem; color: #4a4a4a; margin-bottom: 24px; word-break: keep-all;">
+        아무것도 이룬 것 없이, 그저 하루를 간신히 버텨냈다고 느끼는 날이 있습니다. 제자리걸음을 한 것 같고 때로는 뒤처지는 것만 같아 마음이 무거워지는 그런 날 말입니다. 우리는 스스로의 하루를 돌아보며 '오늘은 그저 버티기만 했구나' 하고 자책하곤 합니다.
+    </p>
+<p style="font-size: 1.05rem; color: #4a4a4a; margin-bottom: 24px; word-break: keep-all;">
+        농사의 세계를 생각해 봅니다. 추운 겨울, 텅 빈 땅을 보면 그것이 내년을 위해 잠시 쉬고 있는 '휴경지'인지, 아니면 영영 버려진 '폐경지'인지 눈으로는 구별할 수 없습니다. 음악에서도 마찬가지입니다. 악보 한가운데 있는 '쉼표'의 침묵과, 연주가 모두 끝난 뒤의 적막은 귀로 들을 때 똑같은 무음(無音)입니다.
+    </p>
+<p style="font-size: 1.05rem; color: #4a4a4a; margin-bottom: 24px; word-break: keep-all;">
+        겉모습은 똑같습니다. 하지만 이 둘을 결정적으로 가르는 것이 있습니다. 그것은 땅의 상태나 침묵의 깊이가 아니라, 바로 <strong>'바깥에 적힌 이름'</strong>입니다. 농부의 다음 파종 계획서가 그 땅을 휴경지로 만들고, 악보에 남은 다음 마디가 그 침묵을 쉼표로 만듭니다. 정지된 상태 스스로는 결코 자신의 이름을 정하지 못합니다.
+    </p>
+<p style="font-size: 1.05rem; color: #4a4a4a; margin-bottom: 24px; word-break: keep-all;">
+        우리의 신앙 여정도 이와 같습니다. 갈라디아서 5장 5절은 이렇게 고백합니다.
+    </p>
+<div style="padding: 18px 20px; background: #f8f9fc; border-left: 4px solid #4a90e2; margin: 25px 0; border-radius: 0 8px 8px 0;">
+<p style="margin: 0; font-size: 1.1rem; color: #2c3e50; font-weight: 600; font-style: normal; word-break: keep-all;">
+            "우리가 성령으로 믿음을 따라 의의 소망을 기다리노니"
+        </p>
+</div>
+<p style="font-size: 1.05rem; color: #4a4a4a; margin-bottom: 24px; word-break: keep-all;">
+        우리가 그저 무기력하게 버티고 멈춰 서 있는 것 같은 그 시간에, 성경은 놀랍게도 <strong>'기다린다'</strong>는 이름을 붙여 줍니다. 무의미한 버팀과 의미 있는 기다림을 가르는 것은 내 마음의 상태나 내가 발휘한 의지력의 크기가 아닙니다. 바로 내가 바라보고 있는 <strong>'의의 소망'이라는 목적어</strong>가 있는가 하는 것입니다.
+    </p>
+<p style="font-size: 1.05rem; color: #4a4a4a; margin-bottom: 24px; word-break: keep-all;">
+        이것은 단순한 자기 위로가 아닙니다. "오늘 하루도 잘 버텼어"라는 혼잣말을 넘어, 내 하루에 이름을 붙일 권한을 하나님 말씀에 내어드리는 것입니다. 내 손에는 아직 아무것도 쥐어진 것이 없고 당장 눈에 보이는 열매가 없을지라도, 성경은 우리를 향해 "너는 오늘 약속된 소망을 품고 굳건히 기다린 것"이라고 선언해 주십니다. 내 하루의 의미가 내 감정이 아니라, 하나님의 흔들림 없는 말씀에 적혀 있다는 사실이 우리를 다시 일어서게 합니다.
+    </p>
+<p style="font-size: 1.05rem; color: #4a4a4a; margin-bottom: 24px; word-break: keep-all;">
+        더욱 감사한 것은 본문이 "내가 기다린다"가 아니라 <strong>"우리가 기다린다"</strong>고 말씀한다는 점입니다. 이 기다림은 외로운 홀로서기가 아닙니다. 성령 안에서 함께 손을 잡고, 우리에게 약속된 소망을 향해 나아가는 공동체의 자세입니다.
+    </p>
+<p style="font-size: 1.05rem; color: #4a4a4a; margin-bottom: 0; word-break: keep-all;">
+        오늘 하루, 그저 버텨냈다고 자책하고 계시나요? 무의미한 정체기처럼 느껴지시나요? 기억하십시오. 우리의 버틴 날을 본문은 '기다린 날'이라 부릅니다. 하나님께서 당신의 빈손 위에 '의의 소망'이라는 가장 확실한 목적어를 가만히 쥐여 주십니다. 당신은 오늘 하루를 그저 허비한 것이 아닙니다. 다가올 은혜를 참으로 아름답게 기다려 낸 것입니다.
+    </p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      갈라디아서 제 11편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `버틴 날을 '기다린 날'이라 부르시는 분\\n갈라디아서 제 11편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '버틴 날을 '기다린 날'이라 부르시는 분',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>도착지가 있는 사람</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 갈라디아서 제 07편</p>
+      <h1>도착지가 있는 사람</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h1>도착지가 있는 사람</h1>
+<div class="subtitle">데려다 주는 이를 목적지로 삼지 않기</div>
+<p>우리는 때로 신앙의 규칙이나 경건한 습관을 완벽하게 지켜내려고 애쓰면서도, 정작 영혼의 깊은 곳에서는 '아직 도착하지 못한 것 같다'는 막막함을 느낄 때가 있습니다. 갈라디아서 3장에는 이 마음을 울리는 깊은 통찰이 담겨 있습니다.</p>
+<p>성경에서 '초등교사'라고 번역된 원어 <span class="highlight">파이다고고스(παιδαγωγός)</span>는 사실 무엇을 가르치는 선생님이 아니었습니다. 고대 사회에서 이들은 아이의 손을 잡고 학교 문 앞까지 안전하게 데려다주고 품행을 감독하는 '보호자이자 인도자'였습니다.</p>
+<p>이 안내자의 역할에는 분명한 특징이 있습니다. 아이를 목적지 문 앞까지 데려다주면, 그곳에서 손을 놓고 뒤돌아선다는 것입니다. 결코 문턱을 넘어 아이와 함께 안으로 들어가지 않습니다. 그의 역할은 아이를 목적지까지 무사히 데려다주는 데서 임기가 끝이 납니다.</p>
+<div class="quote">"데려다 주는 이를 목적지로 삼으면, 영영 도착할 수 없습니다."</div>
+<p>그런데 우리는 종종 실수를 범합니다. 목적지보다 내 눈앞에 있는 안내자가 훨씬 가깝고, 내 손에 잡히며, 내 행동의 결과가 눈에 보이기 때문입니다. 그래서 매일의 성경 읽기, 정해진 기도의 분량, 나의 선한 행실 같은 '안내자'를 어느새 신앙의 목적지 그 자체로 삼아버리곤 합니다. 하지만 안내자의 손을 굳게 쥐고 문 앞에만 서 있다면, 우리는 결코 문 안으로 들어가지 못합니다.</p>
+<p>갈라디아서는 이 안내자가 우리를 데려다 놓는 정확한 목적지를 가리킵니다. 그곳은 어떤 성숙한 상태나 완벽한 도덕률이 아니라, 바로 <span class="highlight">예수 그리스도라는 한 인격</span>입니다. 목적지가 인격이라면, 우리의 '도착'은 내가 얼마나 흠 없이 나아졌는지로 증명되는 것이 아닙니다. 문 안에서 기다리시는 그분과의 만남 자체가 곧 도착입니다.</p>
+<p>상상해 보십시오. 문 앞까지 당신을 데려온 안내자가 당신의 손을 가만히 놓습니다. 이때 가장 힘든 것은 안내자가 손을 놓는 것이 아닙니다. 익숙했던 안내자의 손을 떠나보내고, <span class="bold-text">나 홀로 문턱을 넘어 그분 앞으로 걸어 들어가는 것</span>입니다. 여전히 눈에 보이는 규칙들에 기대고 싶은 마음을 이겨내고 말입니다.</p>
+<p>성경은 분명하게 선언합니다. <i>"우리가 다시는 초등교사 아래에 있지 아니하도다."</i> 이 말씀은 아직 문 밖에 있으니 어서 들어가라는 다그침이 아닙니다. <span class="bold-text">"너는 이미 문 안에 있다"</span>는 다정한 신분의 선언입니다.</p>
+<p>당신은 혹시 아직도 문 앞에 서서, 데려다준 이의 손을 놓지 못하고 계시지는 않습니까? 우리의 성실한 노력들은 참으로 아름다운 것이지만, 결국 우리를 그분께 데려다주기 위한 소중한 과정일 뿐입니다. 이제 내 손에 쥐고 있던 규칙과 성과들을 가만히 내려놓으십시오.</p>
+<p>그리고 문 안에서 당신을 기다리시는 분께, 기꺼이 한 걸음 더 걸어 들어가십시오. 만남은 이미 시작되었고, 도착은 이미 당신의 것입니다.</p>
+<div class="footer-space"></div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      갈라디아서 제 07편
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `도착지가 있는 사람\\n갈라디아서 제 07편\\n\\n${article}\\n\\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '도착지가 있는 사람',
+            text: sermonText()
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      await copySermon();
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
