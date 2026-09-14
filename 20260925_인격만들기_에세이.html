@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>당신의 삶에는 '앞선 문장'이 있습니까?</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .subtitle {
+      margin: 18px 0 0;
+      max-width: 34em;
+      color: #edf4f0;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      margin-top: 24px;
+      color: #c8d9d2;
+      font-size: 14px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 2026년 09월 25일</p>
+      <h1>당신의 삶에는 '앞선 문장'이 있습니까?</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<div class="container">
+<p>우리는 하루에도 수많은 '명령'과 '의무' 속에서 살아갑니다. "이것을 해야 한다", "저렇게 살아야 한다"는 삶의 요구들은 때로 우리의 어깨를 무겁게 짓누릅니다. 스스로의 노력으로 무언가를 이루어내어 사랑받을 자격을 얻어내려는 강박에 시달리곤 합니다. 하지만 성경이 우리에게 들려주는 삶의 문법은 전혀 다릅니다.</p>
+<p>역대상 15장을 보면, 다윗이 레위 사람들에게 "너희는 몸을 성결하게 하라"고 명령하는 장면이 나옵니다. 그런데 이 명령은 결코 홀로 서 있지 않습니다. 그 바로 앞에는 "너희는 레위 사람의 지도자이니"라는 <strong>'신분 진술'</strong>이 먼저 놓여 있고, 그 뒤로는 "여호와의 궤를 메어 올리라"는 <strong>'목적'</strong>이 단단하게 붙어 있습니다.</p>
+<div class="highlight">
+      "하나님의 명령은 언제나 '이미 주신 은혜'라는 앞선 문장과, '우리를 부르신 사명'이라는 뒷 문장 사이에 안전하게 결박되어 있습니다."
+    </div>
+<p>수술실에 들어가는 집도의를 생각해 보십시오. 그는 손을 깨끗이 씻어서 집도의가 되는 것이 아닙니다. 이미 집도의로 지정되었기에, 그 막중한 자격이 엄격하게 손을 씻는 절차를 요구하는 것입니다. 우리의 삶도 마찬가지입니다. 우리가 무엇을 열심히 해서 하나님의 자녀라는 자격을 얻어내는 것이 아닙니다. 하나님께서 먼저 "너는 내 사랑하는 자녀다"라는 완료된 사실을 선언하셨기에, 우리는 그 신분에 걸맞은 아름다운 삶의 방식을 기쁘게 따라갈 수 있습니다.</p>
+<p>종종 삶이 버겁고 신앙마저 무거운 짐처럼 느껴질 때가 있습니다. 그것은 우리의 마음가짐이 부족해서가 아니라, 은연중에 내 삶의 '앞선 문장'을 가위로 잘라내 버렸기 때문입니다. 나를 향한 은혜의 선언을 지워버리고, 명령과 의무만 남겨둔 채 스스로 채점표를 쥐고 살아가면 우리의 신앙은 곧바로 피곤한 도덕주의로 전락하고 맙니다.</p>
+<p>은혜라는 선행문의 상실은 단순한 건망증이 아닙니다. 그것은 내가 내 삶의 주인이 되려는 교만한 편집 행위입니다.</p>
+<p>이제 조용히 눈을 감고 손을 씻는 당신의 모습을 상상해 보십시오. 누군가에게 검사를 통과하기 위해 불안한 마음으로 씻는 것과, "나는 이미 이 방에 속한 사람"이라는 평안함 속에서 감당할 일을 위해 씻는 것은 우리 근육의 긴장부터가 다릅니다.</p>
+<p>당신의 삶을 짓누르는 명령들을 홀로 내버려 두지 마십시오. 그 명령들 앞에 하나님께서 예수 그리스도를 통해 이미 이루어 놓으신 은혜의 '완료형 문장'을 든든하게 놓아두십시오. "나는 너를 구원한 너의 하나님이다." 사람이 결코 다시 쓸 수 없는, 창조주가 친히 적어주신 이 견고한 앞선 문장이 당신의 삶을 지탱할 때, 비로소 우리의 일상과 의무는 무거운 짐이 아니라 영광스러운 '직무'가 됩니다.</p>
+<p>오늘 하루, 당신을 부르신 은혜의 앞 문장을 깊이 묵상하며, 그 넉넉함과 평안함 속에서 자유롭게 걸어가시기를 소망합니다.</p>
+</div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 09월 25일
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `당신의 삶에는 '앞선 문장'이 있습니까?\n2026년 09월 25일\n\n${article}\n\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

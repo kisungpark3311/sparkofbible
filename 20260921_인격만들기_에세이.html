@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>두 마음이 하나로 녹아내릴 때</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(183, 134, 60, .09), transparent 28rem),
+        var(--canvas);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 14px 50px rgba(23, 63, 53, .12);
+    }
+
+    .hero {
+      padding: 54px 36px 42px;
+      color: #fff;
+      background:
+        linear-gradient(145deg, rgba(23, 63, 53, .97), rgba(35, 83, 70, .96)),
+        var(--green);
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #e3d0a8;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 8vw, 54px);
+      line-height: 1.18;
+      letter-spacing: -.035em;
+    }
+
+    .subtitle {
+      margin: 18px 0 0;
+      max-width: 34em;
+      color: #edf4f0;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      margin-top: 24px;
+      color: #c8d9d2;
+      font-size: 14px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(255, 253, 248, .94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    button {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #bfcac4;
+      border-radius: 999px;
+      color: var(--green);
+      background: #fff;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button.primary {
+      color: #fff;
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    button:focus-visible {
+      outline: 3px solid rgba(183, 134, 60, .45);
+      outline-offset: 2px;
+    }
+
+    .content { padding: 38px 36px 52px; }
+
+    h2 {
+      margin: 46px 0 18px;
+      color: var(--green);
+      font-size: 28px;
+      line-height: 1.38;
+      letter-spacing: -.02em;
+    }
+
+    p {
+      margin: 0 0 1.15em;
+      font-size: var(--body-size);
+      line-height: 1.92;
+      letter-spacing: -.01em;
+    }
+
+    .quote {
+      margin: 28px 0;
+      padding: 22px 24px;
+      color: #4b3a20;
+      background: var(--gold-soft);
+      border: 1px solid #ead9b9;
+      border-radius: 14px;
+      font-size: 19px;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    footer {
+      padding: 26px 30px 34px;
+      color: var(--muted);
+      background: #f2f4f1;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+      border-top: 1px solid var(--line);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      z-index: 20;
+      padding: 11px 18px;
+      color: #fff;
+      background: rgba(26, 39, 34, .94);
+      border-radius: 999px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 16px);
+      transition: .2s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 22px 32px; }
+      .content { padding: 30px 21px 42px; }
+      .toolbar { overflow-x: auto; }
+      button { flex: 0 0 auto; }
+      h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">성경적 사고와 인격 만들기 &middot; 2026년 09월 21일</p>
+      <h1>두 마음이 하나로 녹아내릴 때</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<div class="container">
+<div class="subtitle">애쓰는 삶에서 은혜로 빚어지는 삶으로</div>
+<p>현대인은 늘 '두 마음'을 품고 살아갑니다. 머리로는 이것이 맞다 생각하면서도 가슴은 저것을 원하고, 남 앞에서의 표정과 혼자 있을 때의 속마음이 다릅니다. 이 간격을 메우려다 보니 우리는 늘 피곤하고 긴장된 상태에 놓입니다. 두 마음이란 사실 평안한 상태가 아니라, 계속해서 힘을 쓰며 버티고 있는 위태로운 자세이기 때문입니다.</p>
+<p>성경 역대상 12장 33절은 스불론 지파 사람들을 가리켜 <span class="highlight">"두 마음을 품지 아니하고"</span>라고 묘사합니다. 이 말을 원어 그대로 직역하면 <strong>'마음과 마음이 아니게'</strong>입니다. 무언가를 더 가졌다는 뜻이 아니라, 내 안을 갈라놓던 그 '겹'이 사라졌다는 뜻입니다. 참된 온전함은 무언가를 덧붙이는 것이 아니라, 내면의 분열과 이중성이 조용히 부재하는 상태입니다.</p>
+<div class="quote">
+            두 개의 음이 정확히 같은 주파수에 이르면, 귀를 피곤하게 하던 '맥놀이(떨림)'가 스스로 멎습니다. 소리는 작아지지 않고 오히려 더 깊고 굵어집니다.
+        </div>
+<p>우리는 흔히 '하나가 된다'고 하면 내 자신이 지워지거나 희생해야 한다고 두려워합니다. 하지만 금속이 뜨거운 열에 녹아 완벽하게 붙으면 그 경계선(이음매)만 사라질 뿐, 결합된 자리는 원래의 쇠보다 훨씬 더 단단해집니다. 악기의 두 현이 같은 음을 낼 때 사라지는 것은 소리가 아니라 불협화음의 '떨림'입니다. 단일성과 개별성은 반비례하지 않습니다. 하나 됨 안에서 우리는 비로소 온전한 나를 되찾습니다.</p>
+<p>그렇다면 어떻게 이 갈라진 두 마음을 하나로 포갤 수 있을까요? 중요한 진실은, <strong>간격을 '0'으로 만드는 힘은 언제나 내 바깥에 있다</strong>는 사실입니다. 용접의 열, 피아노 조율사의 손길처럼 말입니다. 우리 스스로의 의지와 도덕적 결심만으로는 내면의 틈을 완전히 없앨 수 없습니다. 노력할수록 간격이 좁혀질 수는 있어도, 결코 저절로 하나로 녹아붙지는 않습니다.</p>
+<p>그래서 하나님은 말씀하십니다. <strong>"내가 그들에게 한 마음을 주고…" (겔 11:19)</strong>. 하나 된 마음은 우리가 악착같이 쥐어짜 내야 할 '의무'가 아니라, 위로부터 부어지는 '선물'입니다. 신학자 아우구스티누스가 <em>"당신이 명하시는 것을 주시고, 원하시는 것을 명하소서"</em>라고 기도했던 것처럼 말입니다.</p>
+<p>오늘, 무언가를 억지로 맞추려 애쓰며 피곤해하던 목의 힘을 빼보십시오. 갈라진 상태가 힘을 쓰는 쪽이고, 하나 된 상태가 힘이 빠지는 쪽입니다. 내 안의 두 마음을 있는 그대로 인정하고, 그 이음매를 녹여주실 은혜의 열기 앞에 나를 내어놓는 것. 그것이 바로 가장 아름다운 인격이 빚어지는 첫걸음입니다.</p>
+<div class="footer-note">
+            말씀과 일상의 경계가 허물어지는 시간
+        </div>
+</div>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 09월 21일
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    let currentSize = 18;
+
+    function sermonText() {
+      const article = document.getElementById('sermon').innerText.trim();
+      return `두 마음이 하나로 녹아내릴 때\n2026년 09월 21일\n\n${article}\n\n#말씀과묵상`;
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      window.setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('내용을 복사했습니다. 카카오톡에 붙여넣으세요.');
+      } catch (error) {
+        const area = document.createElement('textarea');
+        area.value = sermonText();
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        area.remove();
+        showToast('내용을 복사했습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
