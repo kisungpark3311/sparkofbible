@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 에베소서 제 09편</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>에베소서 4장 17절부터 24절까지의 말씀을 소리 내어 읽어보면, 우리 마음 한구석에는 언제나 묵직한 부담감이 내려앉곤 합니다. "너희는 유혹의 욕심을 따라 썩어져 가는 구습을 따르는 옛 사람을 벗어 버리고, 오직 너희의 심령이 새롭게 되어 하나님을 따라 의와 진리의 거룩함으로 지으심을 받은 새 사람을 입으라." 한국어 성경으로 이 말씀을 대할 때, 우리는 자연스럽게 이것을 엄중한 '명령'으로 받아들입니다. 과거의 나쁜 습관을 뼈를 깎는 노력으로 벗어던져야 하고, 거룩하고 흠 없는 새로운 인격을 내 힘으로 쟁취하여 입어야 한다는 영적인 숙제로 다가오는 것입니다. 그래서 우리는 이 구절 앞에서 늘 작아집니다. 결단하고 다짐하지만 돌아서면 다시 옛 사람의 옷을 주섬주섬 걸쳐 입고 있는 자신의 모습을 발견하며 깊은 자괴감에 빠지기도 합니다.</p>
+<p>그런데 놀라운 비밀이 하나 있습니다. 헬라어 원문 성경을 펼쳐 이 여덟 절의 본문을 자세히 들여다보면, 우리의 예상을 뒤엎는 충격적인 사실을 발견하게 됩니다. 그토록 우리를 짓누르던 이 단락 안에 단 하나의 '명령형' 동사도 쓰이지 않았다는 사실입니다. "벗어 버리라", "새롭게 되라", "입으라"로 번역된 단어들은 모두 원문에서 명령법이 아닌 '부정사(Infinitive)'로 기록되어 있습니다. 부정사는 그 자체로는 문장을 끝맺지 못하며, 반드시 다른 주절의 동사에 기대어 그 의미가 완성되는 형태입니다. 즉, 이 세 가지 행위는 "이것을 반드시 행하라"는 독립적인 요구서라기보다, 문법적으로 그 소속이 확정되지 않은 열린 상태, 이른바 '미결(未決)'의 상태로 우리에게 주어져 있는 것입니다.</p>
+<p>왜 바울은 이처럼 중요한 성화의 과정을 말하면서 단호한 명령 대신, 소속이 흐릿한 부정사를 선택했을까요? 번역 과정에서 우리말의 특성상 불가피하게 명령형으로 닫혀버렸지만, 원문이 품고 있는 이 미결의 공간은 우리에게 성화에 대한 완전히 새로운 시각을 열어줍니다.</p>
+<p>이 신비를 풀기 위해서는 미결된 부정사들의 시선을 따라 문맥의 앞뒤를 살펴야 합니다. 이 문장들을 이끄는 확고한 동사는 바로 20절에 자리 잡고 있습니다. "오직 너희는 그리스도를 그같이 배우지 아니하였느니라." 그렇습니다. 우리가 무엇인가를 벗고 입는 치열한 행위에 앞서서, 우리가 예수 그리스도를 '배웠다'는 변할 수 없는 굳건한 사실이 존재합니다. 우리의 옛 사람을 벗어버리는 행위는 나의 의지력에서 출발하는 것이 아니라, 내 안에 이미 심겨진 복음의 배움에서 흘러나오는 자연스러운 결과인 것입니다.</p>
+<p>더욱 감동적인 것은 우리가 입어야 할 '새 사람'의 출처입니다. 바울은 그 새 사람이 "하나님을 따라 의와 진리의 거룩함으로 지으심을 받은" 존재라고 선언합니다. 여기서 '지으심을 받은'이라는 단어는 수동태입니다. 우리가 밤을 새워 실을 잣고 바느질하여 눈물로 만들어내는 옷이 아니라는 뜻입니다. 이 옷을 만드신 분은 누구입니까? 에베소서 2장 15절은 예수 그리스도께서 십자가에서 자기 육체로 율법을 폐하시고 "이 둘로 자기 안에서 한 새 사람을 지어 화평하게 하셨다"고 증언합니다. 놀랍게도 우리가 입어야 할 새 사람의 옷은, 2000년 전 갈보리 언덕 위에서 예수님께서 자신의 피와 생명을 값으로 지불하여 이미 완벽하게 재단해 놓으신 '은혜의 옷'입니다.</p>
+<p>이 사실을 깨닫는 순간, 본문을 읽는 우리의 호흡이 달라집니다. "옛 사람을 벗고 새 사람을 입으라"를 단호한 명령으로 읽을 때 우리의 몸은 긴장하고, 숨은 턱 끝에 차오르며, 시선은 내가 성취해야 할 막막한 미래를 향해 앞으로 고꾸라집니다. 하지만 이것이 예수 그리스도께서 이미 이루신 구원의 진술이자 그 은혜 안으로 들어오라는 초청임을 깨달을 때, 우리의 숨은 깊고 평안해지며, 우리의 시선은 나를 향해 미소 짓고 계신 십자가의 주님을 향해 뒤로 돌아가게 됩니다.</p>
+<p>바울은 무려 여덟 절 동안 단 하나의 명령도 내리지 않은 채, 우리가 딛고 서야 할 은혜의 반석을 먼저 견고하게 다졌습니다. 우리가 누구에게 배웠는지, 그리고 우리가 입을 옷이 이미 얼마나 아름답고 완벽하게 지어져 있는지를 가리켜 보여준 것입니다. 그리고 나서 여덟 절이 지난 25절에 이르러서야 비로소 "그런즉 거짓을 버리고 각각 그 이웃과 더불어 참된 것을 말하라"는 첫 번째 명령을 시작합니다. 요구가 없어진 것이 아닙니다. 요구가 딛고 설 자리가 달라진 것입니다. 우리의 거룩한 삶은 내 노력으로 구원을 이루어가는 과정이 아니라, "결정되지 않은 채로도 이미 결정된 것 위에 서 있는 일"입니다.</p>
+<p>우리의 일상 속 영적 상태는 때로 흐린 악보의 이음줄처럼 모호하고 불안정해 보일 수 있습니다. 여전히 옛 사람의 냄새가 나고, 새 시람의 옷은 내 몸에 맞지 않는 남의 옷처럼 어색하게 느껴지는 미결의 상태에 머물러 있을지 모릅니다. 하지만 불안해하지 마십시오. 미결을 닫지 않아도 우리는 무너지지 않습니다. 왜냐하면 닫히지 않은 우리의 연약함 그 아래에는, 예수 그리스도께서 이미 단단하게 닫아 놓으신 영원한 구속의 은혜가 든든하게 깔려 있기 때문입니다.</p>
+<p>위대한 종교개혁자 장 칼뱅이 회개를 우리가 수행해야 할 고된 과제가 아니라 '그리스도의 죽음과 부활에의 참여'로 보았던 것처럼, 이제 성화의 무거운 짐을 주님의 십자가 앞에 내려놓으십시오. 신앙생활은 정답 없는 시험지 앞에서 홀로 끙끙대는 것이 아닙니다. 이미 모든 정답을 풀어놓으신 주님의 품 안에서 안식하는 것입니다. 오늘, 아무런 명령 없이 다가와 우리의 상처 입은 삶을 따뜻하게 감싸 안는 이 은혜의 여덟 절 위에 여러분의 지친 영혼을 뉘어보시기 바랍니다. 십자가에서 흘리신 보혈로 지어진 눈부시게 흰옷이, 지금 가장 따스한 손길로 당신의 삶을 덮어주실 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      에베소서 제 09편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

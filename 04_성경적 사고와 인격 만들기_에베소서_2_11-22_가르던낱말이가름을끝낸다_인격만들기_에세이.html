@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 에베소서 제 04편</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 살아가면서 수많은 선을 긋습니다. 나와 너, 우리와 그들, 배운 자와 못 배운 자, 가진 자와 없는 자. 그 선을 긋는 기준은 때로 아주 선명한 '이름표'가 됩니다. 에베소서 2장 11절부터 22절까지의 말씀은 바로 이 '이름표'와 '선 긋기', 그리고 그것이 어떻게 허물어지는지에 대한 깊은 통찰을 담고 있습니다.</p>
+<p>본문에서 사도 바울은 흥미로운 단어 하나를 반복해서 사용합니다. 바로 '육체(사르크스, σάρξ)'라는 단어입니다. 11절을 보면 이 단어는 두 번 등장합니다. "육체로는 이방인이요", "육체에 행한 할례를 받은 무리". 여기서 '육체'는 사람을 가르고 구분 짓는 잔인한 표지입니다. 유대인들은 자신들의 몸에 새겨진 표를 자랑하며, 그 표가 없는 이방인들을 선 밖으로 밀어냈습니다. 이처럼 누군가를 구분하고 배제할 때 쓰이는 이름표에는 공통점이 있습니다. 바로 '임자'가 없다는 것입니다. 그저 '할례당'이나 '무할례당'이라는 익명의 범주만이 존재할 뿐, 그 안에서 숨 쉬고 살아가는 구체적인 사람의 얼굴은 보이지 않습니다. 표지가 익명성을 띨 때, 그것은 폭력이 되고 사람을 가르는 날카로운 칼이 됩니다. 내가 어떤 부류에 속해 있는지가 한 사람의 존재 가치를 결정해 버리는 비극이 일어납니다.</p>
+<p>그런데 14절에 이르면 놀라운 반전이 일어납니다. "그는 우리의 화평이신지라 둘로 하나를 만드사 원수 된 것 곧 중간에 막힌 담을 자기 육체로 허시고." 여기서도 똑같이 '육체'라는 단어가 쓰였습니다. 하지만 11절과는 결정적인 차이가 하나 있습니다. 바로 '자기(αὐτοῦ)'라는 소유격이 붙었다는 사실입니다. 익명의 무리를 가르던 차가운 낱말 위에 누군가의 이름이 얹혔습니다. 예수 그리스도께서 그 낱말의 주인이 되신 것입니다.</p>
+<p>이 아주 작은 문법적 변화는 우주적인 기적을 선포합니다. 예수님은 사람들을 가르던 그 '육체'라는 기준을 없애버리시거나, "그런 것은 중요하지 않으니 덮어두자"며 무시하신 것이 아닙니다. 오히려 그분 자신이 참 사람이 되시어, 우리를 가르던 그 육체를 당신의 것으로 취하셨습니다. 누군가에게 상처를 주고 서로를 등지게 하던 그 뼈아픈 표지를, 당신의 거룩한 몸에 고스란히 짊어지신 것입니다. 십자가에서 그분의 육체가 찢기실 때, 우리 사이에 높게 솟아 있던 적대감의 담장도 함께 무너져 내렸습니다. 가르던 낱말이, 가름을 끝내는 은혜의 도구로 역전되는 순간입니다.</p>
+<p>우리는 흔히 화해를 '협상'이라고 생각합니다. 서로 조금씩 양보하고, 서로의 차이를 이해해 주며 합의점을 찾는 것이라 여깁니다. "우리 이제 그만 싸우고 마음의 담을 헐어버립시다"라며 도덕적인 노력을 다짐합니다. 그러나 사람의 결심만으로는 내면에 깊이 뿌리박힌 이기심과 배타성을 결코 극복할 수 없습니다. 몸으로 그어진 선은 사람의 말로 쉽게 지워지지 않기 때문입니다. 진짜 화해는 당사자들의 타협이나 노력으로 이루어지지 않습니다. 그것은 제3자, 즉 평화 그 자체이신 분이 개입하여 값비싼 대가를 지불하실 때만 가능합니다.</p>
+<p>독감 백신의 원리를 생각해 보십시오. 사람을 병들게 하고 죽음으로 몰고 가던 바이러스가, 통제된 방식으로 우리 몸 안에 들어오면 오히려 생명을 지키는 든든한 면역의 도구가 됩니다. 밖에서 몰아내려 할 때는 두려움과 회피의 대상이었지만, 누군가의 몸 안으로 생생하게 받아들여질 때 그것은 우리를 살리는 힘으로 바뀝니다. 빚을 갚지 못해 벼랑 끝에 몰린 사람의 경우도 마찬가지입니다. 무서운 채무의 목록은 글자 하나 변하지 않지만, 능력 있는 제3자가 그 빚의 '임자'가 되어 책임을 전부 떠안는 순간, 원래 빚을 졌던 가난한 사람에게 향하던 잔인한 추심은 영원히 멈추게 됩니다.</p>
+<p>그리스도께서 하신 일이 바로 이와 같습니다. 그분은 우리를 옭아매고 분열시키던 그 정죄의 '조건'들을 당신의 찢기신 몸으로 품어 안으셨습니다. 가름의 원인이었던 낱말이, 예수 그리스도라는 임자를 만나면서 가름을 완전히 끝내는 도구로 뒤바뀐 것입니다.</p>
+<p>이제 우리 자신을 정직하게 돌아볼 차례입니다. 나는 지금 내 삶에 어떤 표지를 달고 있습니까? 내가 속한 학벌, 재력, 정치적 성향, 심지어는 교회 안에서의 직분이나 신앙 연륜이라는 이름표로 누구를 판단하고 선 밖에 세워두고 있습니까? 우리는 종종 신앙생활마저도 나를 확인하고 남과 구별하는 우월감의 도구로 전락시키곤 합니다. 눈을 감고 내 손끝으로 내 몸의 흉터나 훈장을 확인하며 만지는 것처럼, 시선을 끝없이 내 안으로만 향하게 합니다. 그러나 나를 향해 굽은 손으로는 결코 이웃의 손을 잡을 수 없습니다. 끊임없이 나를 확인하려는 움츠러든 몸은, 타인을 향해 넓게 열리지 못합니다.</p>
+<p>진정한 연합과 평화는 우리가 움켜쥔 손을 펴서 십자가를 바라볼 때 비로소 시작됩니다. 화평은 나와 다름을 나타내는 선을 억지로 지우는 일이 아니라, 그 선의 진정한 주인이 되신 예수님을 바라보는 일입니다. 나를 남과 구별 짓게 하던 그 날카로운 표지 옆에, 나로 인해 상처받은 누군가의 이름 대신 '예수 그리스도'의 이름을 적어 넣으십시오. 내 자존심, 내 아픔, 내 알량한 자랑거리라는 이름표 위에 '이제는 예수 그리스도의 것'이라고 고백하십시오. 꼬리표에 참된 임자가 생기는 순간, 그것은 더 이상 사람을 가르는 무기가 되지 못하고 우리를 이어주는 십자가의 다리가 될 것입니다.</p>
+<p>오늘도 끊임없이 서로를 가르고 배척하며 무수한 담장을 쌓아 올리는 세상 속에서, 우리를 찢어놓던 낱말을 온몸으로 껴안아 화해의 도구로 바꾸신 주님의 은혜를 묵상합시다. 그분이 자기 육체로 피 흘려 허무신 그 적대감의 막힌 담을, 우리의 편협함과 교만으로 다시 세우는 어리석음을 범하지 않기를 간절히 소망합니다. 익명의 차가운 군중 속에 숨어 서로에게 돌을 던지는 자가 아니라, 그리스도 예수의 사랑 안에서 서로의 얼굴을 따뜻하게 마주 보는 하나의 몸으로 지어져 가는 우리 모두가 되기를 진심으로 기도합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      에베소서 제 04편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

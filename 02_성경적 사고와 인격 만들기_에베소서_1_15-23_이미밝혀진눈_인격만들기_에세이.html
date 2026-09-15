@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 에베소서 제 02편</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+캄캄한 방 안, 불을 끄고 의자에 가만히 앉아본 적이 있으신가요? 휴대전화조차 엎어둔 채로 그저 어둠 속에 머물러 보십시오. 처음 20초 동안은 짙은 어둠에 휩싸여 아무것도 보이지 않습니다. 내 눈이 고장 난 것은 아닐까 덜컥 겁이 나기도 합니다. 하지만 40초가 지나면 희미하게 창틀의 선이 떠오르고, 1분이 지나면 책상 모서리와 의자 등받이의 윤곽이 서서히 어둠 속에서 배어 나옵니다. 
+
+방 안의 물건은 단 하나도 늘어나지 않았습니다. 변화한 것은 오직 내 눈, 망막뿐입니다. 가만히 머물러 어둠에 적응하는 동안, 비로소 원래 그곳에 있던 것들이 제 모습을 드러낸 것입니다. 무언가를 새로 얻기 위해 손을 뻗거나 억지로 기운을 빼지 않아도, 시력이 열리면 이미 주어져 있던 것들을 누리게 됩니다.
+
+에베소서 1장의 기도는 바로 이 신비로운 '시력'에 대해 이야기합니다. 사도 바울은 에베소 교회의 성도들을 위해 기도하며, 아주 독특하고 어색한 표현을 사용합니다. "너희 마음의 눈을 밝히사..." 
+이 구절을 원어로 찬찬히 들여다보면 놀라운 사실을 발견하게 됩니다. 바울이 구하고 있는 것은 '새롭게 눈을 밝혀 달라'는 것이 아니라, 문법적으로 볼 때 '이미 밝혀진 눈을 밝혀 달라(완료 수동 분사)'는 요청입니다. 
+
+우리는 기도할 때 종종 무언가 결핍을 느끼며 빈손을 내밀곤 합니다. "하나님, 제게 이것을 주십시오. 제 상황을 바꿔 주십시오." 그러나 바울의 기도는 다릅니다. 그는 성도들에게 무언가 새로운 것이 주어지기를 구하지 않았습니다. 이미 창세 전부터 준비되었고, 이미 십자가와 부활로 확정되었으며, 이미 우리에게 남김없이 쏟아진 그 엄청난 은혜의 목록들을 '볼 수 있게 해 달라'고 기도한 것입니다. 
+
+이는 옛날 필름 카메라의 사진을 현상하는 과정과도 같습니다. 찰칵 하고 셔터가 열리는 순간, 필름에는 이미 빛이 맺힙니다. 그것을 잠상(潛像)이라고 부릅니다. 눈에 보이지 않지만 이미 상은 맺혀 있습니다. 암실에서 현상액을 붓는 행위는 필름 위에 그림을 새로 그리는 것이 아닙니다. 그저 이미 맺혀 있는 잠상을 우리 눈에 보이도록 드러낼 뿐입니다.
+
+마찬가지로 병원의 의료 영상 판독실을 떠올려 보십시오. 환자의 몸을 찍은 사진에는 이미 모든 진실이 담겨 있습니다. 촬영은 끝났고 데이터는 서버에 넘어왔습니다. 이제 필요한 것은 사진 속에 이미 존재하는 사실을 짚어낼 수 있는 '판독의의 시력'입니다. 판독의가 병변을 새로 만들어내지 않듯, 우리가 구해야 할 영적인 시력도 은혜를 새롭게 만들어내는 것이 아닙니다. 이미 주어진 은혜를 읽어내는 힘입니다.
+
+우리의 기도가 때로 무기력하고 응답 없는 메아리처럼 느껴지는 이유는 무엇일까요? 어쩌면 우리는 이미 내 손에 쥐어진 엄청난 권리와 축복은 모른 채, 계속해서 다른 무언가를 달라고 떼를 쓰고 있는지도 모릅니다. 세금 신고서를 쓸 때 이미 발생한 세액 공제 혜택이 있어도, 그것을 알고 신고서 란에 옮겨 적지 않으면 아무 소용이 없는 것처럼 말입니다. 하늘의 권리는 이미 발급되었는데, 우리의 조회 창은 닫혀 있습니다.
+
+우리가 읽어내야 할 은혜의 목록을 가늠해 보십시오. 하나님의 부르심의 소망, 성도 안에서 누리는 기업의 풍성함, 그리고 우리에게 베푸신 능력의 지극히 크심. 이 목록은 창세 전부터 다가올 영원한 세상까지, 그리고 하늘의 보좌부터 우리가 마주하는 지상의 현실까지 끝없이 걸쳐 있습니다. 이 거대한 우주적 은혜를 담아내기엔, 우리의 '마음의 눈' 하나는 너무도 작고 초라해 보입니다. 어떻게 이토록 거대한 것을 내 작은 마음에 다 담아낼 수 있을까요? 
+
+그래서 "눈을 밝혀 주소서"라는 기도는 단순히 조금 더 지혜로워지게 해 달라는 소박한 기도가 아닙니다. 내 작은 마음으로는 도저히 감당할 수 없는 그 크고 놀라운 하나님의 선물을 온전히 알아볼 수 있게 해 달라는, 가장 크고 압도적인 기도입니다. 불가능해 보이는 이유는 내 믿음이 부족해서가 아니라, 그 은혜의 규모가 너무도 거대하기 때문입니다.
+
+놀랍게도, 에베소서 1장 후반부에서 사람 쪽을 향해 쓰인 동사는 단 하나뿐입니다. 바로 "그치지 아니하고(παύομαι)". 
+우리가 할 일은 억지로 은혜를 쥐어짜 내는 것이 아닙니다. 내 힘으로 구원을 성취하려는 아등바등함도 아닙니다. 그 모든 일은 십자가에서 이미 완료되었습니다. 목록도 하나님이 주셨고, 그것을 읽을 눈조차 하나님이 주셨습니다. 수동태로 기록된 이 진리 앞에 서면, 우리에게 남은 유일한 행동은 나를 위해 완성된 그 사랑을 바라보며 감사를 '그치지 않는' 것뿐임을 깨닫게 됩니다. 
+
+오늘 하루, 당신의 마음의 방에 잠시 고요히 머물러 보십시오. 
+내 삶에 주어지지 않은 것들을 헤아리며 조급해하는 대신, 이미 당신을 향해 활짝 열려 있는 하늘의 보물 창고를 응시하십시오. 당신의 눈은 이미 밝혀졌습니다. 기도는 그저 그 사실에 눈을 뜨는 일입니다. 이제 그 밝혀진 눈으로, 당신의 삶을 따뜻하게 감싸고 있는 그 촘촘하고 거대한 은혜의 윤곽을 천천히 읽어 내려가기를 소망합니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      에베소서 제 02편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 에베소서 제 13편</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>어느 날, 재미있는 실험 하나를 떠올려 봅니다. 두 사람이 마주 서서 서로의 손바닥을 눈높이로 들어 올립니다. 규칙은 단 하나, '상대방의 손 높이에 내 손을 맞춘다'는 것입니다. 그렇게 30초가 지나면 어떤 일이 벌어질까요? 놀랍게도 대부분의 경우, 두 사람의 손은 처음보다 훌쩍 내려가 있습니다. 누구도 손을 내리자고 합의한 적이 없습니다. 그저 상대방에게 맞추려다 보니, 미세하게 흔들리던 손이 서로의 눈치를 보며 시나브로 내려앉은 것입니다.</p>
+<p>우리의 관계, 특히 부부나 가장 가까운 이들과의 관계도 이와 같을 때가 많습니다. 우리는 무의식중에 '네가 하는 만큼 나도 한다'는 암묵적인 규칙을 세우곤 합니다. 서로의 행동을 기준 삼아 나의 반응을 결정하는 것입니다. 그러나 서로가 서로를 잣대로 삼을 때, 관계의 온도는 결코 올라가지 않습니다. 오차가 누적되는 두 개의 자처럼, 지휘자 없이 서로의 소리에만 맞추려다 점점 느려지는 합주처럼, 결국 우리의 사랑은 한없이 표류하거나 제자리에 멈춰 서고 맙니다.</p>
+<p>성경 에베소서 5장은 남편과 아내에게 참으로 무거운 사랑과 헌신을 요구합니다. "아내들이여, 자기 남편에게 복종하기를 주께 하듯 하라", "남편들아, 아내 사랑하기를 그리스도께서 교회를 사랑하시고 자신을 주심 같이 하라." 그런데 이 숨 막히도록 거대한 요구 사항들을 가만히 들여다보면, 한 가지 놀라운 공통점을 발견하게 됩니다. 남편과 아내에게 주어지는 모든 요구 사항 뒤에 '척도'가 함께 적혀 있는데, 그 기준점 어디에도 '상대방'의 자리는 없다는 것입니다.</p>
+<p>본문은 행위의 잣대를 제시할 때마다 '주께 하듯', '그리스도께서 교회를 사랑하심 같이'라며 시선을 관계 밖으로 이끕니다. 내가 상대에게 얼마만큼의 사랑을 주어야 하는지, 그 '요구의 크기'를 상대방의 행동에서 조달하지 말라는 뜻입니다.</p>
+<p>만약 내가 먼저 희생하고 사랑하는 조건으로 상대방의 변화나 보답을 기대한다면 어떻게 될까요? 조건이 충족되지 않는 순간, 나의 사랑도 정지하고 맙니다. 척도에 '상대방'을 넣는 순간, 사랑의 짐이 가벼워지는 것이 아니라 두 사람 모두 꼼짝달싹할 수 없는 교착 상태에 빠지게 됩니다. 조세 실무에서 세금을 내야 하는 기준일이 거래처의 사정과 무관하게 법정 기일로 정해져 있듯, 교차로에서 내 차가 멈춰야 하는 이유가 맞은편 차의 정지 여부가 아니듯, 우리의 사랑 역시 상대방의 어떠함에 연동되어 있지 않습니다.</p>
+<p>그렇다면 성경은 왜 그토록 아득하게 높은 기준인 '그리스도'를 우리의 척도로 제시한 것일까요? 그것은 우리를 짓누르기 위함이 아닙니다. 오히려 우리를 관계의 수렁에서 건져내기 위한 은혜로운 장치입니다. 우리가 쳐다보는 벽에 '그리스도의 사랑'이라는 변하지 않는 선을 그어둘 때, 비로소 우리의 팔은 요동치지 않고 본연의 무게를 견딜 수 있습니다. 기준이 명확할 때 우리는 눈치를 보지 않고 안정적으로 관계를 지탱해 나갈 수 있습니다.</p>
+<p>물론 이것이 상대방을 투명 인간 취급하라는 뜻은 아닙니다. 바깥에 기준을 둔다는 것은, 상대를 바라보지 않겠다는 것이 아니라 상대를 '평가하는 잣대'로 삼지 않겠다는 선언입니다. '보는 일'과 '재는 일'은 전혀 다른 동작입니다. 우리는 배우자를 긍휼의 눈으로 바라보아야 하지만, 내 사랑의 분량을 재는 저울감으로 삼아서는 안 됩니다.</p>
+<p>종교개혁자 장 칼뱅은 이렇게 말했습니다. "이웃에게 갚아야 할 것을 그 이웃의 자격으로 산정하지 말라." 상대가 내 사랑을 받을 자격이 부족해 보일지라도, 우리는 상대의 행실이 아니라 그에게 담긴 하나님의 형상과 나에게 베풀어주신 그리스도의 은혜를 바라보아야 합니다. 그것이 도덕주의의 무거운 짐이나 무관심의 냉소로 빠지지 않고, 진정한 인격의 열매를 맺는 길입니다.</p>
+<p>오늘, 나와 가장 가까운 사람과의 관계를 돌아봅니다. 나는 혹시 내가 품은 불만과 인색함의 주어를 '상대방'에게 두고 있지 않습니까? "당신이 이러니까 나도 이럴 수밖에 없어"라는 말로 나의 한계를 정당화하고 있지는 않습니까? 기억하십시오. 요구의 척도를 바꾼다고 해서 당장 짊어진 짐이 가벼워지지는 않겠지만, 적어도 우리의 사랑은 멈추지 않고 계속해서 흐를 수 있습니다. 우리 관계의 척도는 결코 상대편이 아닙니다. 저 높이 십자가에 달리신 그리스도의 사랑만이, 멈춰버린 우리의 두 손을 다시금 눈높이로 끌어올리는 유일한 힘입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      에베소서 제 13편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 에베소서 제 14편</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>병원에 입원해 본 사람이라면 누구나 손목에 얇은 플라스틱 팔찌를 차게 됩니다. 그곳에는 환자의 이름과 함께 작은 등록번호가 적혀 있습니다. 병동에는 같은 이름을 가진 동명이인이 있을 수 있기 때문입니다. 이름이 겹친다고 해서 한 사람의 이름을 빼앗거나 다른 이름으로 개명하라고 요구하는 병원은 없습니다. 그저 이름 곁에 작은 ‘표지’를 붙여 두 사람을 안전하게 구별할 뿐입니다. 표지는 겹침을 없애는 장치가 아니라, 겹침을 견디며 각자의 존재와 안전을 지켜내는 가장 현실적인 장치입니다.</p>
+<p>성경 에베소서 6장의 종과 상전을 향한 권면을 자세히 들여다보면, 이와 비슷한 흥미로운 ‘표지’의 쓰임새를 발견하게 됩니다. 짧은 아홉 구절 속에 ‘주(κύριος)’라는 단어가 일곱 번이나 등장합니다. 그런데 이 단어는 예수 그리스도를 가리킬 때도 쓰이고, 당시 노예들을 거느렸던 육신의 주인을 가리킬 때도 동일하게 쓰였습니다. 놀랍게도 바울은 세상의 주인을 다른 단어로 격하하여 부르지 않았습니다. 호칭을 빼앗지 않고 그대로 둔 채, 두 번의 결정적인 자리에 작은 ‘표지’를 덧붙였습니다.</p>
+<p>“육체를 따라 난 상전(주)들에게…” (6:5) 그리고 “너희의 상전(주)이 하늘에 계시고…” (6:9).</p>
+<p>같은 이름에 각각 ‘육체를 따른’이라는 밑줄과 ‘하늘에 계신’이라는 밑줄을 그은 것입니다. 왜 바울은 새로운 이름을 주지 않고 굳이 표지를 붙였을까요? 그것은 이름이 남아있어야만 그 이름에 합당한 책임과 ‘요구’가 발생하기 때문입니다. 성경은 세상의 권위자들에게서 상전이라는 타이틀을 빼앗는 대신, 진짜 주인이 하늘에 계시다는 표지를 통해 서늘하고도 준엄한 명령을 내립니다. “위협을 그치라.”</p>
+<p>이를 깨닫기 위해 잠시 상상력을 발휘해 봅니다. 종이 위에 큰 글씨로 ‘주인’이라고 쓰고, 그 밑에 작은 글씨로 ‘육신을 따른’이라고 써 봅니다. 그리고 양손의 검지를 각각 큰 글씨와 작은 글씨 위에 올려둡니다. 우리의 일상은 이 두 손가락을 동시에 올려놓고 살아가는 것과 같습니다. 그런데 어느 순간 작은 글씨 위에 둔 손가락을 떼어버리면 어떻게 될까요? 종이 위에는 여전히 두 줄의 글씨가 다 있지만, 우리의 눈과 몸은 오직 커다란 ‘주인’이라는 이름 하나에만 매몰되고 맙니다. 표지를 지우는 일은 거창한 결단이나 악의에서 비롯되지 않습니다. 그것은 그저 작은 글씨에서 손을 떼는 방심, 주의력을 놓치는 순간에 일어납니다.</p>
+<p>우리는 매일 누군가의 ‘상전’이 되기도 하고, 누군가의 ‘종’이 되기도 합니다. 직장의 상사로서, 가정의 부모로서, 혹은 어떤 모임의 리더로서 권위의 자리에 섰을 때, 우리는 종종 내 이름 밑에 붙어 있는 ‘육체를 따른’이라는 표지에서 슬그머니 손을 떼버립니다. 표지가 사라진 권위는 자신을 절대화하며 결국 폭력과 위협으로 변질됩니다. 반대로 누군가의 아래에서 순종해야 하는 자리에서도 우리는 상전의 이름 밑에 있는 표지를 잊곤 합니다. 그 결과 사람을 하나님처럼 두려워하거나 맹종하게 됩니다.</p>
+<p>성경은 우리의 시선을 다시 교정합니다. 우리에게는 사람을 부르는 이름과 그리스도를 부르는 이름이 겹치는 자리가 있습니다. 성경은 그 겹침을 억지로 떼어놓거나 어느 한쪽을 취소하지 않습니다. 다만 그 자리에 명확한 밑줄을 그어 줍니다. 십자가에서 고난을 당하시되 우리를 위협하지 않으셨던 하늘의 주님이 계시기에(벧전 2:23), 이 땅에서 잠시 권위의 옷을 입은 우리는 마땅히 타인을 향한 위협과 군림을 내려놓아야 합니다. 이름이 취소되지 않았기에 오늘 내가 책임져야 할 몫이 있고, 하늘에 참 주인이 계시기에 그 책임의 방식은 섬김과 사랑이어야 합니다.</p>
+<p>진정한 성경적 인격은 이 두 가지 밑줄을 삶 속에서 온전히 유지할 때 빚어집니다. 내게 주어진 역할과 권위의 이름표를 함부로 내팽개치지 않으면서도, 그 이름 밑에 ‘육신을 따른’이라는 겸손의 밑줄을 늘 기억하는 것. 그리고 내 삶을 궁극적으로 다스리시고 평가하시는 분은 오직 ‘하늘에 계신’ 주님뿐임을 인정하며 옷깃을 여미는 것. 그것이 우리가 세상 속에서 서로를 부르고 관계 맺는 가장 성숙하고 아름다운 방식입니다.</p>
+<p>오늘 하루, 당신이 서 있는 자리에서 당신의 이름 밑에 어떤 표지가 붙어 있는지 가만히 들여다보시기를 바랍니다. 당신의 손가락은 지금 어디에 얹혀 있습니까? 그 작은 밑줄을 기억하고 유지하는 그곳에서, 우리의 인격은 조금 더 예수님을 닮아갈 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      에베소서 제 14편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

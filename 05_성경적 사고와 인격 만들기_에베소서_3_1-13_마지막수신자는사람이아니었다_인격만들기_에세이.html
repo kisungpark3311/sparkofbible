@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 에베소서 제 05편</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 종종 신앙생활의 주인공이 우리 자신이라고 생각하며 살아갑니다. 하나님께서 베푸시는 모든 은혜와 기적, 그리고 창세 전부터 계획하신 장엄한 구원의 역사가 결국 '나'라는 종착지를 향해 달려오고 있다고 믿는 것입니다. 이로 인해 우리는 스스로를 특별하고 가치 있는 존재로 여기며 기뻐하기도 하지만, 동시에 엄청난 무게의 책임감과 압박감에 짓눌리기도 합니다. '내가 이렇게 큰 은혜를 받았으니 세상에 완벽한 본이 되어야 해.', '우리 교회가 세상의 희망이 되지 못하면 하나님의 영광이 가려질 거야.' 이러한 마음속 깊은 강박은 우리의 신앙과 일상을 끝없는 자기 증명과 피곤한 연출의 무대로 만들어버리곤 합니다.</p>
+<p>그런데 에베소서 3장의 말씀을 깊이 들여다보면, 우리의 이러한 무거운 착각을 산산조각 내는 놀라운 문법적 반전이 숨어 있습니다. 사도 바울은 하나님의 감추어졌던 비밀이 누구에게 '알려지는가'를 차근차근 짚어갑니다. 처음에는 바울 자신에게(3:3), 다음에는 이전 세대의 사람들에게(3:5), 그리고 거룩한 사도들과 선지자들에게(3:5) 그 비밀이 도착합니다. 이 수신자의 명단을 따라가다 보면, 우리는 자연스럽게 그다음 차례이자 종착지가 '우리', 즉 지금 이 시대를 살아가는 '교회'일 것이라고 기대하게 됩니다. '그래, 마침내 우리에게 이 위대한 비밀이 도착했구나!' 하고 감격할 준비를 하는 것이지요.</p>
+<p>하지만 바울이 밝힌 은혜의 '마지막 수신자' 자리에 사람은 없었습니다.</p>
+<p><i>"이는 이제 교회로 말미암아 하늘에 있는 통치자들과 권세들에게 하나님의 각종 지혜를 알게 하려 하심이니" (엡 3:10)</i></p>
+<p>하나님의 크고 놀라운 지혜가 최종적으로 도달하는 목적지는 사람이 아니라, 하늘에 있는 영적 존재들(통치자들과 권세들)이었습니다. 이 문장에서 교회의 자리는 소식을 쥐고 있는 수신자(여격)가 아닙니다. 교회는 소식이 지나가는 통로('~로 말미암아', 전치사+속격)의 자리에 놓여 있습니다. 우리는 목적지가 아니라 스쳐 지나가는 자리였습니다. 하나님의 영광이 종착하는 화려한 무대가 아니라, 그 영광이 통과하여 영원한 영적 세계로 흘러가는 작은 창문이었던 것입니다.</p>
+<p>이 사실은 우리의 자존심을 상하게 하기보다는, 오히려 우리에게 깊은 영적 해방감과 참된 안식을 줍니다. 통로의 자리에 서 있다는 것은 과연 어떤 의미일까요? 어두운 방 안, 밝게 빛나는 스탠드 조명 앞 30cm 거리에 손바닥을 펼치고 있다고 상상해 보십시오. 빛은 내 손을 통과하며 뒤쪽 벽에 어떤 그림자와 무늬를 만들어낼 것입니다. 눈을 감고 빛을 마주하고 선 손이 느낄 수 있는 것은 오직 하나, 미지근하게 스며드는 '열기'뿐입니다. 내 손은 그저 빛을 받고 있다는 사실만 알 뿐, 자신이 등 뒤의 벽에 얼마나 아름다운 혹은 기괴한 무늬를 빚어내고 있는지 결코 스스로 확인할 수 없습니다.</p>
+<p>만약 손이 자신이 만든 무늬를 직접 확인하겠다고 빛의 경로에서 내려오는 순간, 벽에 맺혔던 무늬는 신기루처럼 사라지고 맙니다. 그 무늬는 손이 스스로 빚어낸 성과가 아니라, 오직 빛이 손을 통과하며 만들어낸 '배치의 결과'이기 때문입니다.</p>
+<p>우리가 신앙생활을 하면서 그토록 지치고 공허해지는 이유는, 자꾸만 통로의 자리에서 벗어나 내가 어떤 무늬를 그려내고 있는지 스스로 확인하려 들기 때문입니다. "우리가 세상을 얼마나 변화시키고 있는가?", "내가 다른 사람들에게 얼마나 훌륭한 그리스도인으로 보여지고 있는가?" 이런 자기 점검의 강박은 우리를 은혜의 통로가 아닌 인위적인 전시품으로 전락시킵니다. 나의 각도에서는 내가 빚어내는 영광의 무늬를 결코 볼 수 없습니다. 그것은 구조적으로 불가능한 일입니다. 통로가 된 우리는 그저 빛이 내 안을 통과할 때 느껴지는 은혜의 '따스한 열기'에 감사하며, 묵묵히 내게 주어진 그 자리를 지켜내는 것으로 충분합니다.</p>
+<p>더욱 가슴 벅찬 사실은, 교회가 이 통로의 자리에 있는 이유가 결코 문법적이거나 필연적인 요소가 아니라는 점입니다. 에베소서 3장 10절에서 '교회로 말미암아'라는 구절을 완전히 지워버려도, "하나님의 지혜를 통치자들과 권세들에게 알게 하려 하심이라"는 문장은 아무런 문제 없이 성립합니다. 하나님은 굳이 연약한 우리를 거치지 않고도 당신의 영광과 지혜를 영적 세계에 직접 선포하실 수 있었습니다. 교회를 빼버려도 아무런 무리가 없는 상황에서, 하나님은 굳이, 기어코 우리를 그 위대한 문장 안에 밀어 넣으셨습니다. 이것은 필연이 아니라, 우리를 향한 맹렬한 '선택'이며 벅찬 사랑입니다.</p>
+<p>성경적 사고를 통해 그리스도를 닮은 인격이 형성되는 자리가 바로 여기입니다. 참된 인격은 정직과 겸손에서 시작되며, 그 겸손은 내가 세상의 중심이나 목적지가 아님을 뼈저리게 인정할 때 비로소 싹을 틔웁니다. 나를 과시하려는 조바심, 다른 이들의 평가에 휘둘리는 불안함, 세상을 다 구원해야 한다는 도덕적 우월감은 모두 통로의 자리를 망각한 데서 비롯됩니다. 내가 빚어낸 무언가를 세상에 증명하려는 피로한 연출을 멈추십시오. 그리고 그저 내 삶을 관통하여 흘러가는 은혜의 질서 앞에 잠잠히 엎드리십시오.</p>
+<p>우리는 세상의 유일한 구원자도, 은혜의 마지막 종착지도 아닙니다. 우리는 하나님께서 영원 전부터 계획하신 거대한 우주적 극장 안에, 굳이 발탁되어 세워진 영광스러운 경첩일 뿐입니다. 세상이 우리를 알아주지 않는다고 억울해할 필요도 없고, 스스로의 초라함에 절망할 이유도 없습니다. 당신의 삶을 꿰뚫고 지나가는 그 빛의 따스함에 온전히 기대어 살아가십시오. 우리가 통로로서의 자리를 기꺼이, 그리고 겸손히 받아들일 때, 우리의 삶은 비로소 피조물의 한계를 뛰어넘어 영원한 세계로 흘러가는 장엄한 은혜의 통로로 빚어질 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      에베소서 제 05편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

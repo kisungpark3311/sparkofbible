@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 에베소서 제 01편</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 가끔 숨이 턱 막힐 정도로 긴 문장을 마주할 때가 있습니다. 에베소서 1장 3절부터 14절까지가 바로 그런 문장입니다. 우리말 성경으로는 여러 구절로 나뉘어 읽기 편하게 되어 있지만, 헬라어 원문으로 보면 이 긴 본문은 처음부터 끝까지 단 하나의 마침표만 찍힌 거대한 한 문장입니다. 무려 200개가 넘는 단어들이 쉼 없이 이어집니다. 숨을 한 번만 크게 들이쉬고 끝까지 읽어보려 해도 도저히 다 읽을 수 없을 만큼 깁니다.</p>
+<p>우리가 이 성경을 읽다가 호흡이 모자라 무의식적으로 끊어 읽을 때, 우리는 종종 그 안에 담긴 깊은 뜻도 함께 끊어버리곤 합니다. 하지만 사도 바울이 호흡이 끊어질 듯한 이 엄청난 길이를 굳이 한 문장으로 써 내려간 데에는 깊은 이유가 있습니다. 그것은 창세 전부터 시작된 이 모든 구원의 이야기가 오직 '단 하나의 지지점'에 매달려 있다는 것을 시각적으로, 그리고 호흡으로 보여주기 위함입니다.</p>
+<p><strong>지지점과 이백 개의 단어</strong><br/>
+  그 거대한 문장을 버티고 있는 첫 시작은 놀랍게도 동사조차 없는 세 낱말의 짧은 외침입니다. "찬송하리로다 하나님 곧!(Εὐλογητὸς ὁ θεὸς)" 이백 단어가 넘는 길고 긴 구원의 서사, 창세 전의 선택, 예수 그리스도의 피로 말미암은 구속, 성령의 인치심이라는 그 엄청난 축복의 사슬들이 모두 이 짧고 강렬한 선언 하나에 매달려 있습니다. 우리가 받은 복이 무엇인지 나열하기 전에, 바울은 이 모든 축복이 매달려 있는 '자리'를 먼저 선언한 것입니다.</p>
+<p>이것은 마치 거대한 현수교(Suspension bridge)의 구조와 같습니다. 바다를 가로지르는 광안대교나 금문교 같은 거대한 현수교를 떠올려 보십시오. 수많은 자동차가 달리는 무거운 상판들은 서로를 지탱하지 않습니다. 상판들은 굵은 케이블을 통해 오직 하늘을 향해 뻗어 있는 거대한 '주탑'에 매달려 있을 뿐입니다. 에베소서 1장의 수많은 축복의 말씀들은 우리 삶의 조건이나 우리의 어떠함에 매달려 있는 것이 아니라, '찬양받으실 하나님'이라는 굳건한 주탑에 단단히 매달려 있습니다.</p>
+<p>우리는 종종 삶이 팍팍하고 힘들 때 "네가 받은 복을 세어보아라"는 말로 위로를 찾으려 합니다. 물론 감사의 제목을 찾는 단 찾는 것은 귀한 일입니다. 하지만 본문이 말하는 진정한 복은 세어보는 '항목'이 아니라, 내 삶이 흔들리지 않고 매달려 있을 수 있는 든든한 '자리' 그 자체입니다. 주탑의 거대함과 견고함은 다리 위의 아스팔트 조각을 아무리 세어본들 알 수 없습니다. 다리 위에서 시선을 돌려, 다리 전체를 받치고 있는 주탑을 우러러볼 때 비로소 내가 얼마나 안전한 곳에 서 있는지 깨닫게 됩니다.</p>
+<p><strong>무경보의 위험성</strong><br/>
+  그런데 이 거대한 문장이 가진 진짜 무서운 점은 따로 있습니다. 만약 이 축복의 사슬을 지탱하는 지지점을 슬쩍 '우리 자신'의 경험 쪽으로 옮겨 달아보면 어떨까요? "하나님이 찬송받으실 분이다"라는 절대적이고 객관적인 사실 대신, "내가 오늘 은혜를 깨달았다", "내가 기도 응답을 받았다"는 나의 경험과 감정을 문장의 가장 꼭대기에 올려놓아 보는 것입니다.</p>
+<p>놀랍게도, 우리의 일상에서는 아무런 경보가 울리지 않습니다. 문법적으로도 말이 되고, 신앙생활의 모양새도 크게 달라 보이지 않습니다. 내가 은혜받은 경험, 내 삶의 평안함, 나의 종교적 열심을 신앙의 주탑으로 삼고 살아도 햇살이 좋은 날에는 아무 문제가 없어 보입니다.</p>
+<p>하지만 인생에 거센 폭풍우가 몰아치는 밤이 오면 이야기는 완전히 달라집니다. 내 감정이 메마르고, 삶의 형편이 나빠지고, 바닥을 치는 우울함이 찾아올 때, 내 얄팍한 경험과 감정에 매달려 있던 신앙은 상판과 함께 산산이 무너져 내립니다. 창세 전부터 시작된 하나님의 영원하고 거룩한 택하심이, 오늘 아침 나의 우울한 기분 하나에 덜미를 잡혀 휘청이게 되는 비극이 발생합니다. 잘못된 곳에 삶을 매달았음에도 경보가 울리지 않았기에, 우리는 내가 무엇에 의지해 서 있는지조차 모른 채 위태롭게 살아가곤 합니다.</p>
+<p><strong>매달린 자리를 다시 확인하라</strong><br/>
+  그러므로 오늘 하루, 신자인 우리가 해야 할 가장 중요한 일은 억지로 더 굳게 믿으려 애쓰거나 내 삶의 조건들을 나열하며 안도하는 것이 아닙니다. 우리가 진정으로 해야 할 일은 정기적으로 내 삶의 무게가 지금 어디에 매달려 있는지, 내 신앙의 지지점을 조용히 점검하는 것입니다.</p>
+<p>나의 변덕스러운 기분, 나의 작은 성취, 나의 알량한 경험이라는 썩어질 동아줄에서 이제 그만 손을 놓으십시오. 그리고 나를 뺀 이백 단어의 거대한 사슬을 묵묵히, 그리고 영원히 버텨내고 계신 분, 우리의 형편이 어떠하든 영원토록 "찬송받으실 분", 바로 하나님 아버지라는 그 견고한 주탑에 당신의 닻을 다시 내리십시오. 우리의 이름은 그 지지점 세 낱말 안에 들어있지 않기에 역설적으로 가장 안전합니다. 내 기분이 나빠져도 그 주탑은 무너지지 않기 때문입니다. 그분께 당신의 모든 하중을 맡길 때, 비로소 우리는 거센 비바람 속에서도 끊어지지 않는 벅찬 평안과 무너지지 않는 진짜 은혜를 경험하게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      에베소서 제 01편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

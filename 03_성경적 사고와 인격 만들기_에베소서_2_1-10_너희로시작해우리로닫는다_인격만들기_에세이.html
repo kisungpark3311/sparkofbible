@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 에베소서 제 03편</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 무의식중에 사람들을 가르며 살아갑니다. 문제를 겪는 사람들을 향해 손가락을 뻗으며 ‘너희’라고 부르고, 안전하고 문제없는 곳에 선 나를 분리하는 데 익숙합니다. 의사는 환자와 자신을 구분하고, 재판관은 피고인과 자신을 철저히 떼어놓습니다. 진단하는 자와 진단받는 자 사이에는 결코 좁혀지지 않는 차가운 거리가 존재합니다. 그러나 2천 년 전, 에베소 교회에 보내진 편지 하나는 이 견고한 거리를 허물어뜨립니다. 그리고 그 편지는 오늘, 타인과 나를 가르며 살아가는 우리의 굳어버린 마음을 향해 조용히, 그러나 깊은 파장을 일으키며 다가옵니다.</p>
+<p>사도 바울은 편지의 첫머리에서 단호한 진단으로 시작합니다. “그는 허물과 죄로 죽었던 너희를 살리셨도다” (에베소서 2:1). 여기서 바울의 손끝은 명백히 이방인 독자들, 즉 ‘너희’를 향해 있습니다. 우리는 이 문장을 읽으며 바울이 높은 강단에 서서 아래를 내려다보며 말하고 있다고 상상하기 쉽습니다. 죄로 인해 죽어 있는 불쌍한 ‘너희’를 하나님이 살리셨다는 선언은, 얼핏 보면 가르치는 자의 일방적인 통보처럼 들립니다. 잘못을 지적하고 진단을 내리는 사람 특유의 거리가 느껴집니다.</p>
+<p>그런데 문장이 이어지면서 놀라운 반전이 일어납니다. 불과 두 절이 지난 3절에서 바울은 갑자기 주어를 바꿉니다. “전에는 우리도 다 그 가운데서 우리 육체의 욕심을 따라 지내며… 다른 이들과 같이 본질상 진노의 자녀이었더니”. 바울은 높은 강단에서 내려와, 스스로 독자들의 치명적인 진단서 안으로 걸어 들어옵니다. 마치 전염병 역학 조사관이 확진자의 동선을 추적하며 타인의 이름을 적어 내려가다가, 문득 자신의 동선이 그들과 겹쳤음을 깨닫고 조사 대상자 명단에 자기 이름을 써 넣는 것과 같습니다. ‘너희’라는 절망적인 명단에 자신의 이름을 올려 ‘우리’로 만들어 버리는 것입니다. 진단하는 자가 피진단자의 자리로 내려오는 이 순간, 차가운 보고서는 뜨거운 고백이 됩니다.</p>
+<p>바울은 왜 굳이 이 절망의 명단에 자신을 포함시켰을까요? 성경은 인간의 전적인 타락을 이야기할 때 누구도 예외를 두지 않습니다. 혈통이 훌륭하다고 해서, 종교적 지위가 높다고 해서 이 진단에서 벗어날 수 있는 사람은 아무도 없습니다. 하지만 바울이 자신을 포함시킨 더 깊은 이유는 그 뒤에 이어질 구원의 명단 때문입니다. “허물로 죽은 우리를 그리스도와 함께 살리셨고” (에베소서 2:5).</p>
+<p>1절에서 ‘너희’로 시작했던 살리심의 목적어가 5절에 이르러 비로소 ‘우리’로 확정됩니다. 만약 바울이 ‘너희’의 죄악을 지적하며 자신을 그 명단에서 쏙 빼버렸다면, 그는 이어지는 생명의 명단, 구원의 명단에서도 빠질 수밖에 없었을 것입니다. 죄인의 명단과 구원받은 자의 명단은 결코 다른 두 개의 명단이 아닙니다. 빠지고 싶은 명단에서 스스로를 제외하면, 가장 들어가고 싶은 명단에서도 제외됩니다. 바울은 이 놀라운 비밀을 알았기에, 기꺼이 독자들의 참담한 자리로 내려와 그들과 어깨를 나란히 한 것입니다.</p>
+<p>이 대명사의 변화는 단순한 문법적 수사나 겸손을 가장한 도덕적 수사가 아닙니다. 그것은 복음이 어떻게 사람을 품고 살려내는지를 보여주는 생생한 그림입니다. 조용한 방에 홀로 서서 손가락으로 앞을 가리키며 “너희”라고 소리 내어 보십시오. 어깨가 올라가고 턱이 들리며, 타인을 밀어내는 가파른 호흡이 나옵니다. 그러나 손을 돌려 내 가슴에 대고 “우리도 다”라고 말해 보십시오. 어깨가 내려앉고 닫혀 있던 흉곽이 열리며, 호흡은 깊고 부드러워집니다. 2인칭 ‘너희’를 부를 때는 상대를 밀어내지만, 1인칭 복수 ‘우리’를 부를 때는 두 팔을 벌려 대상을 끌어안게 됩니다. 바울의 호흡은 ‘너희’를 지적하는 숨에서, ‘우리’를 품는 넓은 숨으로 변했습니다. 독자가 저자의 수준으로 올라간 것이 아니라, 저자가 독자에게로 내려와 함께 손을 잡고 은혜의 보좌 앞으로 나아가는 것입니다.</p>
+<p>세상의 고지서는 연대 책임자의 이름이 많아질수록 내가 짊어져야 할 몫이 줄어듭니다. 세상의 잣대 안에서는 명단이 넓어지면 부담은 쪼개집니다. 그러나 하나님의 은혜는 나눌수록 줄어들지 않습니다. 하나님이 그리스도와 함께 우리를 ‘살리신’ 그 구원의 동사는, 목적어가 ‘너희’ 한 사람에서 ‘우리’ 전체로 넓어졌다고 해서 결코 그 생명력이 희석되지 않습니다. 오히려 함께 손을 잡고 그 은혜 안으로 들어갈 때, 구원은 더욱 풍성하고 웅장한 합창이 되어 울려 퍼집니다. 솔리스트의 독창이 장엄한 투티(Tutti, 총주)로 합류하듯, 너희를 향하던 은혜는 우리를 향한 벅찬 찬양으로 승화됩니다.</p>
+<p>오늘 우리의 말과 글, 그리고 우리의 시선은 어떤 대명사를 향해 있습니까? 나와 타인을 가르며 끝없이 ‘너희’의 문제와 허물만을 지적하는 안전한 관찰자의 자리에 머물러 있지는 않습니까? 성경적 사고와 인격은 타인의 아픔과 죄악을 남의 일로 타자화하지 않는 데서 시작합니다. 진정한 위로와 변화는 “너는 왜 그러냐”는 충고가 아니라, “우리도 다 그렇습니다”라는 깊은 연대와 고백에서 탄생합니다.</p>
+<p>그들의 절망적인 명단에 기꺼이 내 이름을 겹쳐 적어 넣을 때, 비로소 우리는 그리스도가 베푸시는 구원의 명단에서도 함께 불리게 될 것입니다. 나를 높은 곳에 두고 타인을 가리키던 그 차가운 손가락을 거두어, 조용히 내 가슴에 손을 얹고 고백해 보십시오. ‘너희’로 시작된 찌르는 판단의 문장이, 마침내 ‘우리’로 닫히는 따뜻한 구원의 문장으로 바뀔 때, 우리 삶에 비로소 진정한 은혜의 역사가 피어날 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      에베소서 제 03편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
