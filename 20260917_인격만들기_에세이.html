@@ -309,8 +309,16 @@
     }
 
     function resizeText(delta) {
-      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      currentSize = Math.min(26, Math.max(14, currentSize + delta));
       document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      
+      // 기존 인라인 스타일을 완벽하게 덮어쓰도록 강제 적용
+      const elements = document.querySelectorAll('#sermon p, #sermon span, #sermon div, #sermon li');
+      elements.forEach(el => {
+          el.style.setProperty('font-size', `${currentSize}px`, 'important');
+          el.style.setProperty('line-height', '1.8', 'important');
+      });
+      
       showToast(`본문 글씨 크기 ${currentSize}px`);
     }
   </script>
