@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 16편 &middot; 로마서 7:7-25</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살다 보면 도무지 풀리지 않는 인생의 난제와 마주할 때가 있습니다. "왜 나는 늘 같은 자리에서 넘어질까?", "왜 나의 결심은 이토록 무기력할까?" 우리는 잠 못 이루는 밤을 지새우며 실패의 원인을 분석하고, 스스로의 마음을 해부하듯 날카롭게 진단합니다. 그러나 아무리 철저하고 예리한 자기 반성도, 정작 깊은 수렁에 빠진 우리를 건져내지는 못합니다. 진단은 현상을 밝혀줄 뿐, 구원과 생명을 주지는 못하기 때문입니다.</p>
+<p>위대한 사도 바울 역시 이토록 치열한 내면의 투쟁을 겪었습니다. 로마서 7장에서 그는 뼈를 깎는 자기 성찰 끝에 깊은 절망의 탄식을 내뱉습니다. <strong>"오호라 나는 곤고한 사람이로다. 이 사망의 몸에서 누가 나를 건져내랴!"</strong> 수많은 신학적 통찰과 영적 지식을 가졌던 그였지만, 끝없는 자기 분석의 끝에서 그가 마주한 마지막 질문은 '어떻게(How)'가 아니었습니다. 그것은 바로 '누가(Who)'라는 단 한 마디의 절규였습니다.</p>
+<h3>진단의 끝에서 우리는 '사람'을 찾는다</h3>
+<p>세상의 이치를 가만히 들여다보면 이 본문의 신비가 조금 더 선명해집니다. 병원에서 정밀 검사를 받고 아무리 정확한 병명을 진단받는다고 해도, 마지막 서명란에 수술을 집도할 '의사의 이름'이 적히지 않는다면 그 진단서는 종이조각에 불과합니다. 세무나 법률 문제로 고통받을 때, 사실관계와 법령 검토가 완벽히 끝난 후 가장 절실한 것은 그 사건을 책임지고 앞장설 '대리인의 선임계'입니다. 풍랑을 만난 배가 자신의 현재 좌표와 남은 연료량을 소수점까지 정확히 파악했다 한들, 무전을 통해 응답해 줄 '구조선의 호출 부호'가 없다면 그 배는 침몰을 피할 수 없습니다.</p>
+<p>우리의 영혼도 마찬가지입니다. 바울은 스스로의 비참한 영적 상태를 서늘할 만큼 정확하게 진단했습니다. 마음으로는 하나님의 법을 원하지만, 육신으로는 죄의 법에 끌려가는 끔찍한 모순을 확인했습니다. 그러나 분석이 완결된 그 빈자리에 그는 새로운 철학이나 도덕적 명제를 채워 넣지 않았습니다. 그는 질문의 방향을 틀어, 자신을 구원해 줄 '누군가'를 찾았습니다. "이 사망의 몸에서 누가 나를 건져내랴?" 그렇습니다. 완벽한 진단의 끝에서 우리에게 필요한 것은 더 나은 설명이나 방법론이 아니라, 구체적인 구원의 주체—나를 꽉 붙잡아줄 '인격'입니다.</p>
+<h3>이름을 부른 뒤에도, 나의 삶은 계속된다</h3>
+<p>그런데 성경은 여기서 놀라운 반전을 보여줍니다. 바울은 곧바로 "우리 주 예수 그리스도로 말미암아 하나님께 감사하리로다"라며 구원자를 부릅니다. 어두운 탄식 속에서 마침내 빛과 같은 구원자의 이름을 발견한 것입니다. 보통의 이야기라면 여기서 "이제 모든 것이 끝났다. 나는 평안하다"라고 맺으며 해피엔딩으로 끝날 법도 합니다. 하지만 바울은 이렇게 덧붙입니다. <strong>"그런즉 내 자신이 마음으로는 하나님의 법을, 육신으로는 죄의 법을 섬기노라."</strong></p>
+<p>이것은 결코 실패의 선언이 아닙니다. 이것은 은혜를 경험한 자가 직면하는 가장 현실적이고 숭고한 영적 태도입니다. 흔히 우리는 절대자에게 모든 것을 맡기고 나면 내 역할은 완전히 끝난다고 오해합니다. 세상의 대리인 선임계나 수술 동의서는 서명하는 순간 나의 통제권을 내려놓고 나를 수동적인 존재로 만듭니다. 수술대에 누워 마취를 받는 환자처럼 말입니다.</p>
+<p>그러나 하나님의 은혜는 우리를 삶의 방관자로 만들지 않습니다. 구원자를 부르고 그분의 은혜를 입은 뒤에도, '나'라는 존재는 치열한 현실이라는 문장의 주어 자리에서 결코 내려오지 않습니다. 여전히 내 안에는 하나님의 법과 죄의 법이 다투는 긴장이 존재하지만, 이제 나는 혼자가 아닙니다. 구원자를 의지한다는 것은 나라는 존재를 지우는 것이 아니라, 오히려 은혜의 빛 아래서 나의 삶을 다시 책임감 있게 살아내는 일입니다. 부름은 우리의 시선을 하늘로 향하게 하지만, 우리의 두 발은 여전히 삶의 치열한 현장에 머물러 있어야 합니다.</p>
+<h3>삶을 변화시키는 '마지막 질문'의 힘</h3>
+<p>이러한 성경적 사고방식은 우리의 인격을 다듬고 일상을 근본적으로 변화시킵니다.</p>
+<p>만약 당신이 매일 같은 실패를 반복하며 끝없는 자책의 늪에 빠져 있다면, 이제는 일기장의 마지막 줄을 바꿔보십시오. "나는 왜 늘 이 모양일까?"라는 자기 처벌적인 진단으로 끝맺지 말고, "이 수렁에서 나를 도울 분은 누구인가?"라고 물으십시오. 부를 이름이 있다면 소리 내어 부르십시오. 그리고 도움을 청한 후에는 나의 몫을 다하기 위해 다시 신발 끈을 묶으십시오.</p>
+<p>직장이나 공동체에서 깊은 갈등과 문제가 발생했을 때도 마찬가지입니다. "무엇이 문제였나?"를 따지며 책임자를 추궁하는 데서 멈추지 마십시오. 삶의 모든 기록과 성찰의 마지막 줄은 언제나 "그렇다면 누가 이 문제를 책임지고 나설 것인가?"로 끝나야 합니다. 책임의 주체를 분명히 찾고 부르되, 은혜를 구한 자로서 묵묵히 내게 주어진 책임을 다하는 태도. 이것이 바로 성경이 우리에게 가르쳐 주는 단단한 인격의 성숙입니다.</p>
+<p><strong>"누가 나를 건져내랴."</strong></p>
+<p>이 짧고도 무거운 탄식은 단순한 절망의 표현이 아닙니다. 그것은 답이 내 안에 없음을 깨닫고, 해답을 가진 참된 구원자를 향해 고개를 드는 거룩한 전환점입니다. 당신의 인생에서 서늘하고 뼈아픈 진단이 모두 끝났습니까? 그렇다면 이제 눈을 감고, 고개를 들어 당신에게 참된 생명을 주실 그분의 이름을 부를 차례입니다. 그분이 반드시 당신을 건지실 것입니다. 그리고 당신은 그 크신 은혜에 힘입어, '오늘'이라는 당신의 하루를 가장 아름답고 눈부시게 살아내는 굳건한 주어로 다시 서게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 16편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

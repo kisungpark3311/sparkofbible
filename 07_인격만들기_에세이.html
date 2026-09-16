@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 07편 &middot; 로마서 3:9-20</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리 몸에서 가장 부지런히 움직이며, 동시에 가장 다루기 힘든 기관은 단연 '입'일 것입니다. 우리는 매일 입을 열어 수많은 말을 쏟아내며 살아갑니다. 때로는 사랑을 속삭이고 위로를 건네기도 하지만, 너무나 자주 우리의 입술은 변명과 원망, 그리고 날 선 비난의 통로가 되곤 합니다. 사도 바울은 로마서 3장에서 인간의 적나라한 내면을 해부하며 유독 우리의 발성 기관들을 집요하게 파고듭니다. "열린 무덤 같은 목구멍", "속임을 일삼는 혀", "독사의 독이 품어진 입술", 그리고 마침내 "저주와 악독이 가득한 입"까지. 이 단어들을 하나하나 짚어가다 보면, 마치 엄숙한 법정에서 내 은밀한 죄상들이 낱낱이 낭독되는 듯한 서늘함을 느끼게 됩니다.</p>
+<p>그런데 흥미롭게도 이 모든 치부의 낭독 끝에 내려지는 하나님의 첫 번째 판결은 매우 독특합니다. "이는 모든 입을 막고 온 세상으로 하나님의 심판 아래에 있게 하려 함이라"(롬 3:19). 수많은 조치와 징벌의 방법이 있었을 텐데, 심판관이신 하나님의 첫 번째 처분은 저주와 악독을 쏟아내던 바로 그 '입'을 막아버리는 것이었습니다. 증거물로 제출되었던 가장 치명적인 기관이, 역설적이게도 판결이 가장 먼저 닿는 대상이 된 것입니다.</p>
+<p>이 구절을 깊이 묵상하며, 조용히 소리 내어 성경을 읽어보는 상상을 해봅니다. 13절부터 낭독하다가 "모든 입을 막고"라는 대목에 이르렀을 때, 글 읽기를 잠시 멈추고 무의식적으로 내 손을 들어 나의 입을 덮어 보십시오. 방 안에는 갑작스러운 적막이 찾아오고, 읽히던 문장은 허공에 멈춰 섭니다. 성경 원문에는 누가 그 입을 막는지, 즉 '행위자'가 기록되어 있지 않습니다. 그저 '막히다'라는 수동태만이 덩그러니 놓여 있을 뿐입니다. 그러나 우리는 본능적으로 내 손을 들어 나의 입을 가리며 스스로 그 빈자리를 채웁니다. 마치 고난 속에서 끝없이 항변하던 구약의 욥이 압도적인 하나님의 임재 앞에서 "비천한 내가 무엇이라 대답하리이까, 손으로 내 입을 가릴 뿐이로소이다"라며 스스로 입을 닫았던 것처럼 말입니다.</p>
+<p>생각해 보면 우리는 참으로 변명하기를 좋아하는, 쉼 없이 자기 합리화를 시도하는 존재들입니다. 세무 조사를 받는 사업가가 불안한 마음에 서류보다 구두 해명을 늘어놓듯, 우리는 내 삶의 정당성을 증명하기 위해 끊임없이 입을 엽니다. 억울한 일을 당하거나 오해를 받으면, 침대에 누워 잠들기 전까지 머릿속으로 수십 번씩 변론의 문장들을 고쳐 씁니다. '그때 이렇게 말했어야 했는데', '내 상황이 얼마나 어쩔 수 없었는지 그 사람이 알아야 하는데'라며 세상이라는 법정에서 스스로 변호사가 되어 쉬지 않고 떠드는 것입니다.</p>
+<p>하지만 로마서는 우리의 그 모든 눈물겨운 시도가 결국 '하나님 앞(Coram Deo)'이라는 엄위한 임재 앞에서 완전히 멈춰서야 한다고 선언합니다. 하나님이 우리의 입을 막으시는 것은 우리를 억압하거나 무기력한 자기 정죄에 빠뜨리기 위함이 아닙니다. 오히려 그것은 끝없는 자기 변호와 정당화라는 지독한 굴레에서 우리를 해방시키는 자비로운 처분입니다. 율법이 하는 진짜 역할은 우리를 수치심에 짓눌리게 하는 것이 아니라, 그저 우리의 비참하고도 솔직한 상태를 '알게 하는' 데 있습니다.</p>
+<p>하나님 앞에서 우리의 입이 닫히는 경험을 할 때, 비로소 우리의 인격은 새롭게 빚어지기 시작합니다. 내 머릿속을 끊임없이 맴돌던 억울한 변론들이 향해야 할 최종 목적지가 '사람 앞'이 아니라 '하나님 앞'임을 깨닫는 순간, 끓어오르던 분노와 자기 연민은 거짓말처럼 힘을 잃습니다. 억지로 화를 참는 것이 아니라, 쏟아낼 자리가 변경되었기에 자연스럽게 변론을 내려놓게 되는 것입니다. 회의실에서 누군가를 향해 비난의 화살을 돌리려던 순간에도, 내 입술이 서 있는 자리가 하나님 앞임을 기억한다면 우리는 불필요한 자기 변호를 멈추고 진실된 침묵을 선택할 수 있습니다.</p>
+<p>신앙의 성숙은 가장 작은 단위에서부터 시작됩니다. 온 세상이 죄악 아래 있다는 거창한 교리적 선언을 외치기 전에, 오늘 아침 누군가에게 날 선 말을 내뱉었던 당신의 그 '작은 입' 하나가 먼저 하나님 앞에서 잠잠해져야 합니다. 스스로를 향한 기나긴 변론의 마침표를 찍고 거룩한 침묵 안으로 들어갈 때, 우리의 영혼은 비로소 숨을 쉴 수 있습니다. 내 얄팍한 변명이 멈춘 그 텅 빈 적막의 자리에, 비로소 우리를 살리시는 하나님의 웅장한 은혜가 흘러들어올 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 07편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

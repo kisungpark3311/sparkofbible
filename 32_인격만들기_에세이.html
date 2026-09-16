@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 32편 &middot; 로마서 14:1-12</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+우리는 하루에도 수십 번씩 타인을 판단하는 재판관이 됩니다. 직장 동료의 서투른 업무 처리를 보며 혀를 차고, 다른 사람의 자녀 교육 방식에 속으로 점수를 매기며, 나와 다른 의견을 가진 교우의 신앙을 의심하기도 합니다. 그럴 때마다 우리는 내 판단이 얼마나 ‘정확한가’에 몰두합니다. 하지만 로마서 14장에서 사도 바울은 우리의 예상과는 전혀 다른 질문을 던집니다. 
+
+"남의 하인을 비판하는 너는 누구냐?" (롬 14:4)
+
+바울은 ‘네 판단이 틀렸다’거나 ‘사랑이 부족하다’고 꾸짖지 않습니다. 대신 그는 아주 서늘하고 명확하게 우리의 자격을 묻습니다. 
+
+**판단할 능력과 처분할 권한은 다르다**
+세무사가 다른 대리인이 맡은 납세자의 장부를 보게 되었다고 가정해 봅시다. 오류가 한눈에 들어와도 남의 장부를 함부로 고치지 않습니다. 옳고 그름을 몰라서가 아니라, 나에게 위임된 일이 아니기 때문입니다. 오케스트라 리허설 중인 다른 지휘자의 연습실에 들어가 박자가 틀렸다고 지적하는 음악가는 없습니다. 지적이 아무리 정확해도 그 순간 앙상블은 무너집니다. 남의 집 아이를 훈육할 때 느껴지는 어색함도 마찬가지입니다. 아이의 잘못이 흐려서가 아니라, 나에게 훈육의 권한이 배당되지 않았기 때문입니다. 
+
+우리는 종종 상황을 '올바르게 볼 수 있다는 것'이 곧 그것을 '심판하고 처분할 수 있다는 뜻'이라고 착각합니다. 하지만 권한은 나의 똑똑함이나 사건의 성질에서 오는 것이 아니라, 관계가 정해줍니다. 바울은 믿음이 연약한 자를 가리켜 굳이 "남에게 속한 종"이라고 부릅니다. 이 단어 하나가 모든 논점을 뒤바꿔 놓습니다. 타인을 향한 판단을 멈추어야 하는 이유는 그의 상태가 어떠해서가 아니라, 내 위치가 재판석이 아니기 때문입니다. 그 사람은 내 것이 아닙니다. 
+
+**주권이라는 가장 넓은 관할**
+이 관할의 범위는 어디까지일까요? 로마서 14장 9절은 그리스도께서 "죽은 자와 산 자의 주가 되려 하심이라"고 선언합니다. 생사의 경계조차 끊지 못하는 이 거대한 주권 앞에서, 우리는 비로소 나의 판단석이 애초에 배정된 적조차 없었다는 사실을 깨닫게 됩니다. 
+
+월권은 틀린 판단을 내리는 것이 아니라, 맞는 판단이 잘못된 손에 들려 있을 때 일어납니다. 주님의 관할 밖에서 나의 판단은 정확하면 정확할수록 더 큰 침범이 됩니다. 누군가를 향해 내 마음속 재판정이 열리려 할 때, 우리는 상상해 보아야 합니다. 남의 집 문고리에 손을 얹어보는 내 모습을 말입니다. 주머니를 뒤져보아도 나에게는 그 문을 열 열쇠가 없습니다. 성경적 사고와 인격의 형성은, 그 열쇠 없는 문고리에 올렸던 손을 조용히 다시 내리는 몸의 감각에서 시작됩니다.
+
+**판단이 멈춘 자리에 피어나는 인격**
+그렇다면 일상에서 우리는 이 진리를 어떻게 살아낼 수 있을까요? 
+
+첫째, 일터에서는 '처리의 차이'와 '자격의 판정'을 분리하게 됩니다. 이전 담당자의 업무나 경쟁사의 방식을 비판할 때, 우리는 종종 "그 사람은 실력이 없다"는 인격적 판정으로 미끄러지곤 합니다. 그러나 이제 우리는 그 선을 넘지 않습니다. 타인을 깎아내려 내 신뢰를 쌓는 대신, 묵묵히 내게 맡겨진 업무의 질로 증명할 뿐입니다. 
+
+둘째, 공동체 안에서는 책임과 관할을 존중하게 됩니다. 담당이 아닌 일에 대해서는 섣부른 처분이나 비난 대신 조심스러운 '제안'으로 그칩니다. 
+
+셋째, 내면에서는 끊임없이 타인을 향해 써 내려가던 마음속 판결문을 접게 됩니다. 그 대신 나 자신이 하나님 앞에 서게 될 날, 즉 '나의 일'을 하나님께 직고(直告)해야 할 날을 준비하게 됩니다. 타인을 향하던 매서운 시선을 거두어 내 관할 안에 있는 나의 책임에 온전히 집중하는 것입니다. 
+
+물론 예외는 있습니다. 누군가 폭력과 학대로 위험에 처해 있다면, 그때는 누구든 개입하여 손을 붙잡아야 합니다. 응급 상황에는 관할을 따지지 않기 때문입니다. 하지만 일상의 수많은 갈등과 차이 속에서 우리는 기억해야 합니다. 우리에게는 남을 정죄할 권한이 없습니다. 
+
+열쇠 없는 문고리에서 거두어들인 우리의 빈손은 갈 곳을 잃고 허공을 맴돌지 않습니다. 그 손은 나의 마음을 확정하고 나의 일을 하나님께 보고하기 위한 책임의 손으로 바뀝니다. 그분은 능히 당신의 종을 서게 하실 것입니다(롬 14:4). 타인의 재판관이 되어야 한다는 무거운 짐을 내려놓으십시오. 그곳에 진정한 자유가 있고, 비로소 그리스도를 닮은 성경적 인격이 자라나기 시작합니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 32편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

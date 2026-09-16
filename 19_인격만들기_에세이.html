@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 19편 &middot; 로마서 8:18-30</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+살면서 누군가에게 선택받아야 하는 순간들은 늘 우리를 긴장하게 만듭니다. 합격자 명단을 확인하기 위해 모니터 앞에 앉아 스크롤을 내릴 때, 혹은 승진 대상자 명단에서 내 이름을 찾을 때를 떠올려 보십시오. 숨을 죽이고, 시야는 좁아지며, 손끝은 떨립니다. 이름이 없으면 어쩌나 하는 불안감에 사로잡혀 고개를 푹 숙인 채 줄과 줄 사이를 헤맵니다. 안타깝게도 많은 그리스도인들이 신앙생활을 하면서조차 이와 똑같은 자세를 취하곤 합니다. "나는 하나님께 선택받은 사람일까?", "구원받은 자들의 명단에 내 이름이 정말 적혀 있을까?"라는 질문에 갇혀, 끊임없이 자신의 내면과 자격 조건을 불안하게 뒤적거립니다.
+
+그러나 사도 바울이 로마서 8장에서 들려주는 '예정'과 '선택'의 이야기는 이처럼 숨막히는 명단 확인 작업이 아닙니다. 로마서 8장 29절을 가만히 들여다보면, 우리가 그동안 놓치고 있던 놀라운 비밀 하나가 숨어 있습니다. "하나님이 미리 아신 자들을 또한 그 아들의 형상을 본받게 하기 위하여 미리 정하셨으니..." 이 문장에서 '미리 정하셨다'라는 동사 뒤에는 두 개의 자리가 마련되어 있습니다. 첫 번째 자리는 '누구를(미리 아신 자들을)'이라는 대상의 자리입니다. 우리는 보통 여기서 읽기를 멈추고 환호하거나 절망합니다. 하지만 문장은 거기서 끝나지 않습니다. 두 번째 자리, 즉 '무엇으로(그 아들의 형상을 본받게 하기 위하여)'라는 목적의 자리가 남아 있습니다.
+
+이 두 번째 자리가 왜 그토록 중요할까요? 행정이나 법률의 세계를 생각해 보면 쉽게 이해할 수 있습니다. 누군가를 임명할 때 "당신을 임명합니다"라는 말만으로는 결코 처분이 성립되지 않습니다. "당신을 '무슨 부서의 부장'으로 임명합니다"라고 직명이 적혀 있어야 비로소 유효한 임명장이 됩니다. 세금 통지서도 마찬가지입니다. 납세자의 이름만 덩그러니 적힌 통지서는 없습니다. 세목이 무엇이고, 과세 표준과 세액이 얼마인지 그 구체적인 '내용'이 적혀 있어야 진짜 처분입니다. 하나님의 부르심도 이와 같습니다. 하나님은 그저 천국에 갈 자들의 명단(이름)을 작성해 두고 끝내신 것이 아닙니다. 그 부르심의 통지서 두 번째 칸에는 우리가 도달해야 할 목적지, 즉 '그 아들의 형상(예수 그리스도)'이라는 찬란하고 분명한 내용이 적혀 있습니다.
+
+우리를 향한 하나님의 결정은 단순한 명단이 아니라 '형상'을 향해 있습니다. 이 사실은 우리의 신앙적 자세를 완전히 뒤바꿔 놓습니다. 앞서 말했듯 명단에서 내 이름을 찾을 때 우리의 시선은 바닥을 향하고 몸은 한없이 움츠러듭니다. 하지만 벽에 걸린 위대한 명화를 따라 그리는 화가 지망생을 상상해 보십시오. 그의 시선은 좁은 도화지에 머물지 않습니다. 고개를 들어 벽에 걸린 원화(예수 그리스도)를 바라보며, 팔을 넓게 뻗어 그 아름다움을 캔버스에 옮겨 담습니다. 불안한 확인은 우리를 굽히게 하지만, 경이로운 닮아감은 우리를 고개 들게 합니다. 신앙이 우리를 지치게 한다면, 그것은 성경의 교리 자체가 무거워서가 아니라 명단만 확인하려는 우리의 굽고 지친 자세 때문일지 모릅니다.
+
+우리가 예수 그리스도의 형상을 닮아간다는 것은, 내 고유한 자아를 지워버리고 기계적인 복제품이 된다는 뜻이 결코 아닙니다. 바울은 "그 아들과 똑같이 만든다"고 단정하지 않고, "그 아들의 형상과 같이 되게" 하셨다고 세밀하게 기록합니다. 이 섬세한 문법의 틈새에는, 피조물인 우리가 감히 창조주와 완전히 동일해질 수 없다는 경외감이 담겨 있습니다. 동시에 우리를 무미건조한 복제품이 아니라 인격적인 '관계' 속으로 부르셨다는 따뜻한 보호막이 쳐져 있습니다. 맏아들이신 예수님 곁에서 우리는 각자의 고유한 삶의 결을 간직한 채, 그분의 거룩한 사랑과 성품을 닮은 아름다운 형제자매로 빚어집니다. 
+
+그러므로 이 말씀은 우리가 스스로의 힘으로 달성해야 할 무거운 도덕적 숙제가 아닙니다. "이렇게 완벽히 닮아가지 않으면 명단에서 지워버리겠다"는 매몰찬 경고도 아닙니다. 오히려 이것은 절대 취소될 수 없는 '처분의 내용'이자, 하나님께서 당신의 삶을 기필코 그 눈부신 자리까지 끌고 가시겠다는 영광스러운 약속입니다. 내 안의 턱없는 결핍과 무능을 보며 절망할 때마다, 시선을 들어 벽에 걸린 원화, 곧 예수 그리스도를 바라보십시오. 영적인 침체와 구원 확신의 위기가 찾아올 때, 내 텅 빈 내면을 파헤치는 것을 멈추고 나를 부르신 그 통지서의 '두 번째 칸'을 소리 내어 읽어 보십시오.
+
+이 은혜의 웅장한 원리는 우리의 평범한 일상과 인격마저도 서서히 변화시킵니다. 누군가와 갈등할 때 상처받은 감정이나 미운 사람(명단)만을 공격하는 대신, 우리가 함께 도달해야 할 성숙한 목적(내용)을 다시금 바라보게 합니다. 나의 간절한 기도 제목이나 진로를 정할 때에도, 단순히 '무엇을 쟁취할 것인가(대상)'에만 집착하기보다 '이 길을 걷는 동안 나는 어떤 인격으로 빚어질 것인가'를 깊이 묻게 됩니다. 그렇기에 때로 기도의 응답이 더디거나 삶의 진도가 늦춰지더라도, 그것은 결코 실패가 아닙니다. 그 모든 지연의 시간조차 내가 그리스도를 닮아가는 깊고 신비로운 빚어짐의 과정이 되기 때문입니다.
+
+당신의 이름은 합격과 불합격을 가르는 차가운 명단 위에 위태롭게 적혀 있는 것이 아닙니다. 당신의 삶은 창세 전부터 사랑으로 준비된 웅장한 캔버스이며, 하나님의 따뜻한 붓끝은 지금 이 순간에도 당신을 세상에서 가장 아름다운 아들의 형상으로 세밀하게 그려내고 계십니다. 굽었던 고개를 들어 당신을 향한 그 영광스러운 청사진을 마주하십시오. 우리는 두려움 속에 명단에 갇힌 자가 아니라, 영원한 사랑 안에서 눈부신 형상으로 빚어지는 자들입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 19편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

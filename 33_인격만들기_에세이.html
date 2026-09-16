@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 33편 &middot; 로마서 14:13-23</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 하루에도 수십 번씩 손가락을 뻗어 바깥을 가리키며 살아갑니다. "저 사람이 문제야", "그건 네가 잘못한 거지", "세상이 왜 이토록 불공평할까." 때로는 정당한 비판이고, 때로는 어쩔 수 없는 뼈아픈 지적입니다. 나의 바깥을 향해 날 선 잣대를 들이대는 일은 너무나도 쉽고 자연스럽습니다. 바울이 로마서 14장에서 무려 아홉 번이나 '형제', '서로', '그 사람'을 언급하며 타인을 향해 시선을 던졌던 것처럼 말입니다. 
+
+그러나 그 길고 팽팽했던 이야기의 끝자락에서, 바울의 손끝은 돌연 방향을 바꿉니다. 밖을 향해 매섭게 뻗어 있던 손이 서서히 접히며, 마침내 자기 자신의 가슴 한복판을 향하게 됩니다. 
+
+"네게 있는 믿음을 하나님 앞에서 스스로 가지고 있으라. 자기가 옳다 하는 바로 자기를 정죄하지 아니하는 자는 복이 있도다." (로마서 14:22)
+
+이 놀라운 전환 앞에서 우리는 문득 멈춰 서게 됩니다. 타인을 점검하고 세상을 비판하던 시선이 결국 '나'에게로 돌아오는 순간, 우리는 과연 어떤 태도를 취해야 할까요?
+
+가만히 서서 팔을 뻗어 앞을 가리켜 보십시오. 그 손끝에 맺혔던 시선들을 거두어, 팔꿈치를 접고 내 가슴에 가만히 얹어 봅니다. 많은 이들이 이 단계에서 깊은 자책의 늪에 빠지곤 합니다. 시선이 나를 향하는 순간, '나는 왜 이럴까', '또 실패했구나' 하며 끊임없이 자신을 내면의 심판대에 세우는 것입니다. 그러나 성경이 말하는 '자기를 살피는 일'은 끝없는 자기 검열이나 강박적인 자기 의심이 아닙니다. 바울이 복되다고 선언한 사람은 매일 밤 가슴을 치며 후회하는 사람이 아니라, '자신이 승인한 일에 대해 스스로 걸릴 것이 없는 사람'입니다. 
+
+이것은 밖으로 드러난 나의 '행동'과 내 안의 '승인'이 아름다운 일치를 이루는 상태를 의미합니다. 비행기의 조종사가 짙은 구름 속에서 자신의 막연한 감각이나 두려움에 의지하지 않고 변함없는 계기판을 믿어야 하듯, 우리는 요동치는 감정이 아니라 '하나님 앞(Coram Deo)'이라는 굳건한 좌표계 위에 나의 확신을 올려놓아야 합니다. 
+
+세금 신고의 과정을 떠올려 보십시오. 납세자는 스스로 세액을 꼼꼼히 확정하고 서명하지만, 그것을 최종적으로 판단하고 면책하는 권한은 결국 국가에 있습니다. 우리의 삶도 이와 같습니다. 우리는 자신에게 주어진 자유와 양심을 따라 매 순간 책임감 있는 선택을 내려야 하지만, 나 자신을 심판하고 면죄부를 주는 최종 권한은 내가 아닌 하나님께 있음을 겸손히 인정해야 합니다. 확정하는 권한과 면책하는 권한은 엄연히 다릅니다. 내가 나의 재판관이 되어 스스로에게 무죄를 선고하거나, 반대로 끝없이 정죄할 필요가 없다는 뜻입니다.
+
+이제 내 가슴에 닿았던 그 손을 펼쳐 하늘을 향해 가만히 들어 올립니다. 나를 옥죄던 내면의 심판을 내려놓고, 모든 판단을 온전히 하나님께 맡겨드리는 홀가분한 빈손입니다. 가리키는 손과 가슴을 치는 손을 넘어, 마침내 하늘을 향해 열린 손. 이것이 바로 신앙이 빚어내는 가장 성숙한 인격의 자태입니다.
+
+우리의 일상도 이와 같이 변해야 합니다. 직장이나 교회의 회의실에서 누군가의 잘못을 질책하는 것으로 모임을 끝내지 마십시오. 회의의 마지막 5분은 "이 결정 앞에서 나의 마음과 행동은 일치하는가"를 조용히 묻는 시간으로 남겨두어야 합니다. 일주일 동안 후회로 얼룩진 소비나 말실수가 있었다면, 그저 무의미한 자책만 반복할 것이 아닙니다. 지난날의 자신에게 가혹한 판결문을 쓰는 대신, "이제 이 행동을 멈출 것인가, 아니면 바른 확신을 다시 세울 것인가"를 결단해야 합니다. 
+
+스스로에게 더 이상 가혹한 판결문을 쓰지 마십시오. 나를 향한 정죄의 서명란은 애초부터 우리가 기입할 수 있는 빈칸이 아니었습니다. 그곳은 오직 우리를 사랑하시는 은혜의 주님만이 서명하실 수 있는 자리입니다. 
+
+타인을 향하던 가혹한 잣대를 거두고, 시선이 마침내 나에게로 돌아올 때. 우리는 나를 짓누르던 심판장의 망치를 내려놓고, 행동과 양심이 한 줄로 정렬된 투명한 삶을 살게 됩니다. 스스로에게 부끄러움이 없는 맑은 양심, 그리고 그 양심마저도 하나님의 은혜로운 손길에 다소곳이 맡겨드리는 자유. 시선이 나에게로 돌아올 때 비로소 피어나는 이 따뜻하고 단단한 인격의 열매가, 오늘 당신의 삶 속에도 풍성히 맺히기를 간절히 소망합니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 33편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

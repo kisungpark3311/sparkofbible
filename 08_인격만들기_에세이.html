@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 08편 &middot; 로마서 3:21-31</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 살아가면서 수많은 청구서와 우편물을 받습니다. 때로는 뜯어보기가 두려워, 혹은 지금 당장 감당할 여력이 없어 서랍 구석에 슬그머니 밀어 넣고는 합니다. 그렇게 눈앞에서 치워둔 우편물은, 보이지 않게 되었다고 해서 결코 사라지는 것이 아닙니다. 오히려 시간이 지날수록 마음 한구석에 무거운 빚으로 차곡차곡 쌓여갑니다. 손으로 들어보면 그저 가벼운 종이 한 장일 뿐이지만, 우리의 몸과 마음은 그 안에 담긴 ‘결정되지 않은 것’의 무게를 고스란히 느끼기 때문입니다.</p>
+<p>우리의 관계와 삶도 이와 크게 다르지 않습니다. 오랫동안 마음속에 담아두고 차마 꺼내지 못한 서운함, 바로잡지 않고 모른 척 지나쳐 온 누군가의 잘못, 혹은 나 스스로가 외면하고 있는 부끄러운 시간들. 우리는 침묵이라는 핑계 뒤에 숨어 그 문제들을 ‘간과’하며 살아갑니다. 그러나 세금 고지서가 부과되지 않았다고 해서 영원히 면제된 것이 아니듯, 음악에서 해결되지 않은 채 미뤄진 화음이 다음 마디로 팽팽한 긴장감을 넘기듯, 미뤄둔 문제들은 저절로 증발하지 않습니다. 반드시 누군가는, 언젠가 그 침묵의 시간에 대해 해명해야만 합니다.</p>
+<p>사도 바울은 로마서 3장에서 바로 이 ‘미뤄진 시간의 해명’에 대해 너무나도 놀랍고 가슴 벅찬 이야기를 들려줍니다.</p>
+<blockquote>"이 예수를 하나님이 그의 피로써 믿음으로 말미암는 화목제물로 세우셨으니 이는 하나님께서 길이 참으시는 중에 전에 지은 죄를 간과하심으로 자기의 의로우심을 나타내려 하심이니" (로마서 3:25)</blockquote>
+<p>이 구절을 가만히 들여다보면 무언가 낯설고 이상한 점을 발견하게 됩니다. 보통 누군가의 죄나 잘못이 문제가 될 때, 우리는 그 이유를 '그 사람이 잘못했기 때문'이라고 당연하게 말합니다. 해명을 요구받고 책임을 져야 하는 쪽은 언제나 잘못을 저지른 피고인입니다. 그런데 바울의 선언 속에는 놀랍게도 피고의 변명이 등장하지 않습니다. 십자가라는 거대한 구원의 사건이 왜 필요했는지를 설명하는 그 자리, 그 이유를 밝히는 한가운데에 놓인 것은 다름 아닌 인간의 죄가 아니라 ‘하나님의 처분’입니다.</p>
+<p>하나님께서 오랫동안 우리의 죄를 참고 지나쳐 오셨기 때문에, 그 미뤄둔 시간과 묵인에 대해 설명하실 책임이 역설적이게도 '참아오신' 하나님 자신에게 돌아간 것입니다. 참으로 가슴 먹먹한 진실이 아닐 수 없습니다. 상처 입으신 분, 배신당하신 분, 마땅히 심판의 칼을 드셔야 할 분은 하나님이십니다. 그런데 그분은 우리를 당장 벼락같은 벌로 멸하시는 대신, 아주 깊고 긴 침묵으로 인내하셨습니다. 그리고 마침내 때가 이르렀을 때, 우리를 법정에 세우고 "너희가 이렇게 잘못했다"며 낱낱이 고발하지 않으셨습니다.</p>
+<p>오히려 당신의 가장 소중한 아들, 예수 그리스도를 십자가에 피 흘리게 내어놓으심으로써 친히 당신의 기다림을 해명하셨습니다. <strong>"내가 그동안 너희를 벌하지 않고 그토록 오래 참았던 이유는, 바로 이 십자가로 너희를 온전히 살리기 위함이었다."</strong> 십자가는 우리의 죄를 향해 날아오는 날카로운 고발장이 아니라, 우리를 살리기 위해 오래 참고 기다리신 하나님의 눈물 어린 해명문이었던 것입니다.</p>
+<p>이 숭고하고 아름다운 십자가의 원리는 오늘을 살아가는 우리의 인격과 관계 속에서도 깊은 울림을 줍니다. 우리는 갈등이 터지고 문제가 수면 위로 떠오를 때 어떻게 반응합니까? 해명의 자리에 언제나 상대방의 과거와 잘못을 끌어다 놓기 바쁩니다. "네가 그때 그렇게 행동했기 때문에 이렇게 된 거야"라며, 내 상처의 원인을 타인의 행위로 돌립니다. 하지만 십자가가 우리에게 가르쳐주는 관계의 방식은 전혀 다릅니다.</p>
+<p>오래 미뤄둔 대화를 시작해야 할 때, 상대방을 쏘아붙이는 정죄의 언어 대신 이렇게 첫 문장을 열어보면 어떨까요? "그동안 내가 솔직하게 말하지 못하고 속으로만 끙끙 앓았던 시간이 길었어. 진작에 용기 내지 못하고 이제야 이 이야기를 꺼내서 미안해." 대화의 원인을 상대방의 행동이 아닌, '내가 그동안 침묵하고 지나쳐 온 부작위'로 바꾸어 놓는 순간, 차갑고 날카롭던 대화의 공기는 놀랍게도 따뜻하게 변합니다. 상대를 향한 공격이 아니라, 나와 우리의 관계를 지키기 위한 진실하고 겸손한 해명이 되기 때문입니다.</p>
+<p>우리가 속한 가정, 직장, 그리고 교회의 공동체 안에서도 마찬가지입니다. 오랫동안 묵인해 오던 고질적인 문제가 마침내 터졌을 때, 한 사람에게 모든 책임을 뒤집어씌우고 마녀사냥을 하는 것으로 끝내서는 안 됩니다. 공동체가 진정으로 치유되고 회복되려면, <strong>"우리가 그동안 이 문제를 방관하고 제대로 처리하지 않았습니다"</strong>라는 아픈 자기 고백이 먼저 선행되어야 합니다. 조직이 자신의 침묵을 먼저 문서에 남기고 회개할 때, 갈등은 비로소 사과와 화해의 길로 접어들 수 있습니다. 그것이 바로 십자가를 경험한 성도다운 성숙한 인격이며, 십자가의 은혜를 삶이라는 언어로 번역해 내는 길입니다.</p>
+<p>우리가 오늘 누리고 있는 이 평안한 하루, 흔들림 없이 딛고 서 있는 이 삶의 기반은 결코 값싼 것이 아닙니다. 누군가가 나를 위해 묵묵히 참아준 시간, 나의 숱한 모난 구석들을 모른 척 덮어준 누군가의 따뜻한 간과가 있었기에 가능한 기적입니다. 무엇보다도, 영원한 심판의 무게를 대신 짊어지신 예수 그리스도, 그분의 십자가라는 완전한 해명이 있었기에 우리는 오늘을 호흡하며 살아갑니다.</p>
+<p>오늘, 미루어두었던 내 마음속의 서랍을 열어봅니다. 그곳에 여전히 먼지 쌓인 채 방치된 관계의 빚, 용서의 빚, 사랑의 빚을 조용히 꺼내어 봅니다. 이제는 그 무거운 빚을 갚기 위해 내 쪽에서 먼저 손을 내밀 시간입니다. 상대의 허물을 들추어내는 차가운 손가락질을 거두고, 나의 기다림과 나의 침묵에 대한 책임을 묵묵히 내어놓는 진솔한 고백으로 나아갈 때, 우리는 가장 눈부시고 아름다운 방식으로 예수 그리스도의 십자가를 우리의 삶 가운데 피워내게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 08편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

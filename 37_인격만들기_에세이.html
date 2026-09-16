@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 37편 &middot; 로마서 16:17-27</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+우리는 모두 평화로운 삶을 꿈꿉니다. 갈등이 없고, 소란스럽지 않으며, 고요하고 안정된 일상을 원합니다. 그래서 때로는 그 평화를 지켜내기 위해, 눈앞의 갈등을 피하려고 문제를 적당히 덮어두거나 내 안의 불만을 속으로 꾹꾹 눌러 삼키며 미소 짓기도 합니다. 당장의 시끄러운 파열음을 잠재우기 위해 우리는 종종 타협이나 관용이라는 그럴듯한 이름으로 곪아가는 상처를 외면합니다. 하지만 한 번쯤 진지하게 질문해 보아야 합니다. 억지로 덮어서 만들어낸 그 고요함이 과연 진정한 평화일까요?
+
+세상에는 두 종류의 조용함이 존재합니다. 하나는 문제를 두꺼운 이불로 '덮어서' 임시로 만들어낸 조용함이고, 다른 하나는 문제의 원인 자체가 완전히 '끝나서' 찾아온 조용함입니다. 감기에 걸렸을 때 해열제를 먹고 잠시 열이 내린 것과, 몸 안의 바이러스가 완전히 소멸하여 병이 나은 것은 엄연히 다릅니다. 불씨를 남겨둔 채 덮어둔 평화는 그것을 유지하는 데 끊임없이 많은 에너지가 소모됩니다. 언제 다시 불길이 치솟을지 몰라 매 순간 전전긍긍해야 하며, 똑같은 갈등과 상처가 잊을 만하면 다시 튀어나와 우리를 괴롭힙니다. 거짓 평화는 결국 우리의 영혼을 서서히 갉아먹습니다.
+
+이러한 우리에게 성경은 전혀 다른 차원의, 참된 평화를 소개합니다. 로마서 16장 20절은 이렇게 장엄하게 선언합니다. "평강의 하나님께서 속히 사탄을 너희 발 아래에서 상하게 하시리라." 이 짧고 강렬한 문장 안에는 언뜻 보기에 서로 전혀 어울리지 않는 두 개념이 정면으로 충돌하고 있습니다. '평강'의 하나님께서 무언가를 무섭게 '부수고(상하게 하고)' 계십니다. 보통 우리는 평화를 한없이 부드럽고 온화한 것으로만 상상하지만, 성경이 말하는 진정한 평화는 악의 뿌리를 산산조각 내는 완전하고도 단호한 제압을 통과한 후에야 비로소 찾아옵니다. 평강과 부숨의 충돌, 이것은 결코 모순이 아닙니다. 오히려 거짓된 평화를 거부하고 진정한 평화를 세우시는 하나님의 거룩한 공식입니다.
+
+그렇다면 이 치열한 영적 현실 속에서 우리의 역할은 과연 무엇일까요? 이 말씀에서 가장 주목해야 할 부분은 바로 '누가' 그 험한 일을 하느냐에 있습니다. 악을 부수고 상황을 끝내는 주어는 '우리'가 아니라 오직 '평강의 하나님'이십니다. 우리는 스스로 악을 심판하겠다고, 혹은 나에게 상처 준 사람에게 복수하겠다고 분노의 칼을 빼어 들 필요가 없습니다. 본문은 사탄이 부서지는 장소를 "너희 발 아래"라고 명확히 규정합니다. 우리의 발은 누군가를 매몰차게 짓밟고 억누르기 위한 폭력의 도구가 아닙니다. 그저 하나님의 완벽한 승리가 최종적으로 도달하고 확인되는 은혜의 자리일 뿐입니다.
+
+우리는 삶의 갈등 한가운데 놓일 때, 종종 내가 직접 나서서 상대를 굴복시키고 꼬인 상황을 내 힘으로 통제해야만 비로소 평화가 올 것이라 착각합니다. 밤잠을 설치며 머릿속으로 끊임없이 상대를 논박하고, 어떻게든 나의 옳음을 증명하려 핏대를 세웁니다. 그러나 로마서 16장 17절은 우리에게 무기를 들고 싸우라고 명령하지 않습니다. 도리어 "그들에게서 떠나라"고 부드럽게, 그러나 단호하게 권면합니다. 사람의 몫으로 허락된 행동은 적에 대한 '제압'이 아니라, 악으로부터의 '이탈'입니다. 분쟁의 자리에서 미련 없이 걸음을 옮겨 비켜서는 것입니다.
+
+비켜서는 것은 결코 굴복이나 비겁함이 아닙니다. 거대한 화재 현장에서 소방관에게 화재 진압을 온전히 맡기고 안전한 곳으로 대피하는 사람을 비겁하다고 조롱하지 않는 것처럼, 심판과 제압의 역할을 평강의 하나님께 온전히 맡겨드리는 것은 가장 용기 있고 성숙한 신앙의 결단입니다. 내가 내 삶의 심판자가 되려는 오랜 교만을 내려놓고, 조용히 선을 긋고 물러서는 것입니다. 누군가를 용서하고 마음에서 내려놓는 것은 패배를 인정하는 포기가 아닙니다. 그것은 하나님의 일하심을 절대적으로 신뢰하며, 애초에 내 몫이 아니었던 무거운 짐을 기꺼이 그분께 돌려드리는 거룩하고도 아름다운 순종입니다.
+
+사랑하는 여러분, 지금 여러분의 마음을 짓누르고 숨 막히게 하는 갈등과 상처가 있습니까? 두려움 때문에 그것을 억지로 덮어두려고만 애쓰지 마십시오. 동시에, 내가 직접 나서서 내 힘으로 모든 상황을 부수고 통제하려는 헛된 시도도 멈추십시오. 그저 복수심과 미움이 끓어오르는 그 자리에서 한 걸음 조용히 물러서서, 묵묵히 여러분의 발 아래로 시선을 떨어뜨려 보십시오. 평강의 하나님께서 친히 그 모든 악과 고통의 뿌리를 부수시고, 마침내 아무도 빼앗을 수 없는 완전한 평화를 여러분의 발끝에 가져다주실 것입니다. 내가 악착같이 움켜쥐었던 심판자의 망치를 내려놓을 때, 비로소 "우리 주 예수의 은혜가 너희에게 있을지어다"라는 바울의 축복이 우리 삶의 생생한 현실로 피어날 것입니다. 덮인 평화가 아니라 완전히 끝남으로 찾아오는 진정한 평강, 그 자유롭고 위대한 은혜의 자리로 여러분 모두를 초대합니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 37편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

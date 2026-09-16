@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 24편 &middot; 로마서 10:14-21</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 매일같이 보이지 않는 무언가를 짊어지고 걷습니다. 어깨에는 직장과 사회에서의 무게가, 가슴에는 가족이라는 따뜻하지만 묵직한 책임이, 그리고 마음속 깊은 곳에는 스스로의 가치를 증명해 내야만 한다는 숨 막히는 압박감이 자리 잡고 있습니다. 그렇게 쉼 없이 걷다 보면 어느새 발바닥에는 딱딱한 굳은살이 배기고, 새것이었던 신발 밑창은 닳아 없어지며, 두 발은 인생의 흙먼지로 짙게 얼룩집니다. 
+
+열심히 걸어온 길 끝에서 우리를 기다리는 것이 늘 따뜻한 환대와 박수라면 좋겠지만, 차가운 현실은 종종 서늘한 평가와 날 선 비판으로 다가옵니다. 기대했던 성과가 나오지 않을 때, 소중했던 관계가 어긋날 때, 혹은 누군가의 기대에 미치지 못했다는 뼈아픈 자각이 들 때 우리는 가장 먼저 자신을 탓합니다. '내가 조금만 더 잘했더라면', '나의 인격과 실력이 부족해서 이런 결과가 나온 거야'라며 스스로를 차가운 검사대 위에 올려놓고 끊임없이 채찍질합니다. 그렇게 상처 입은 두 발을 감싸 쥐고 깊은 자책에 빠지는 밤, 로마서 10장 15절의 짧은 한 구절은 우리에게 전혀 다른 차원의 위로와 시각을 제시합니다. 
+
+"아름답도다 좋은 소식을 전하는 자들의 발이여."
+
+이 감동적인 찬사 속에는 아주 놀라운 문법적, 영적 비밀이 숨어 있습니다. 성경은 칭찬의 대상을 '발'이라고 부르지만, 그 발을 진정으로 아름답게 만드는 근거는 발 자체에 두지 않았습니다. 바울은 칭찬이 달라붙는 첫 자리에 '발'을 놓으면서도, 그 칭찬을 성립시키는 궁극적인 근거인 '좋은 소식(화물)'은 두 칸이나 멀리 떨어뜨려 놓았습니다. 이것은 결코 우연이 아닙니다. 나의 아름다움과 가치의 근거가 내 안의 어떠함에 있지 않음을 선언하는, 위대한 복음의 언어 구조입니다.
+
+밤하늘을 은은하게 비추는 보름달을 보며 우리는 "달이 참 밝다"고 감탄합니다. 하지만 과학적으로 달은 스스로 빛을 낼 수 없는 어두운 암석 덩어리에 불과합니다. 달이 밝은 이유는 1억 5천만 킬로미터 밖에 있는 거대한 태양의 빛을 온몸으로 받아 반사하고 있기 때문입니다. 누군가 중요한 계약서에 서명할 때, 그 서명이 강력한 효력을 발휘하는 이유도 서명하는 사람의 글씨체가 유려하거나 그의 외모가 뛰어나서가 아닙니다. 오직 그에게 주어진 '위임장의 권한' 때문입니다. 빠르고 친절한 택배를 받고 기사님에게 깊은 감사함을 느낄 때, 그 고마움의 본질은 배달된 종이상자 자체가 아니라 상자 안에 담긴 나의 소중한 물건에 있습니다.
+
+우리의 삶도 정확히 이와 같습니다. 세상과 하나님 앞에서 '아름답다'고 칭찬받는 것은 흙먼지 묻고 닳아버린 우리의 투박한 '발'이지만, 그 칭찬을 진정으로 성립시키는 것은 우리가 '무엇을 실어 나르고 있는가'입니다. 
+
+아무런 짐 없이 빈 몸으로 걸어 보십시오. 우리는 시선을 멀리 두고 경쾌하게 앞꿈치로 걸을 수 있습니다. 그러나 무거운 짐을 가슴에 가득 안고 걸을 때는 모든 것이 달라집니다. 보폭은 좁아지고, 발바닥 전체가 한꺼번에 땅에 닿으며 무릎에는 엄청난 하중이 가해집니다. 무엇보다 시선은 거대한 짐에 가려져 자연스레 좁은 발밑으로 뚝 떨어집니다. 삶의 무거운 화물은 우리의 걸음걸이를 이토록 강제로 변형시키고 우리를 닳게 만듭니다. 그러나 목적지에 도착해 짐을 내려놓고 땀 흘린 자신의 두 발을 내려다보면 어떨까요? 그곳에는 내가 얼마나 무겁고 귀한 것을 지고 왔는지 알려주는 아무런 기록도, 훈장도 남아 있지 않습니다. 오직 굳은살과 흙먼지, 그리고 피로만이 가득할 뿐입니다. 
+
+발은 자신이 운반한 화물의 가치를 스스로 증명할 방법이 없습니다. 그래서 '아름답다'는 위대한 판정은 결코 내 안에서, 나의 발끝에서 스스로 생산되지 않습니다. 그것은 내가 지고 온 짐의 무게와 가치를 정확히 알아보는 누군가의 시선에서, 나를 귀하게 여기시는 창조주 하나님의 따뜻한 눈길에서부터 주어지는 것입니다. 투박하고 볼품없는 질그릇일지라도 그 안에 찬란한 보배를 담았기에 존귀하게 쓰임 받듯, 우리의 거칠어진 삶 또한 우리가 묵묵히 실어 나른 진리와 사랑, 그리고 책임감 때문에 한없이 아름다워집니다.
+
+이 깊은 통찰은 우리가 세상을 살아가며 끊임없이 직면하는 평가와 시선으로부터 우리를 진정으로 자유롭게 합니다.
+우리는 사람들과 관계를 맺고 일을 할 때, 자주 상대방의 인격 자체에 모든 신뢰를 걸려 합니다. "당신이라는 사람 하나만 믿습니다"라고 말하지만, 정작 구체적인 사실과 내용이 비어있다면 그 관계는 작은 바람에도 쉽게 금이 가고 맙니다. 신뢰의 근거를 변하기 쉬운 '사람'에게서, 우리가 함께 짊어져야 할 '객관적 내용'으로 옮겨 보십시오. 문제가 생겼을 때 나의 약한 인격이 상처받고 다투는 것이 아니라, 우리가 짊어진 짐(내용)이 밖에서 다투게 해야 안전합니다. 
+
+교회나 조직에서도 마찬가지입니다. 우리는 기대했던 결과나 숫자가 나오지 않을 때 너무나 쉽게 그 사람의 헌신, 기도, 인격을 의심하는 습관이 있습니다. 사람을 분석하고 해부하여 억지로 자책하게 만드는 대신, 그 사람이 진정으로 짊어지고 온 '내용'이 무엇인지 함께 들여다보아야 합니다. 내용이 빈약하다면 함께 그 내용을 풍성하게 채우도록 도와야지, 무거운 짐을 지고 여기까지 걸어온 상처 입은 발을 나무라서는 안 됩니다. 
+
+쏟아지는 찬사나 날카로운 비난 속에서도 우리는 굳건히 중심을 지킬 수 있습니다. 사람들의 칭찬을 들으며 교만해지거나 무거운 부담감을 느낄 필요도, 비난을 들으며 존재의 밑바닥까지 추락하는 수치심에 빠질 필요도 없습니다. 왜냐하면 세상의 모든 평가는 온전히 '나'라는 사람 자체에 붙어 있는 것이 아니기 때문입니다. 내 등 위에 얹어진 화물을 나라는 존재와 분리해서 바라보십시오. 끝없는 자기 검열의 굴레에서 벗어나, 그저 묵묵히 귀한 화물을 나르는 배달부 본연의 자유를 누리십시오.
+
+다시 한번 기억하십시오. 여러분의 닳아빠진 발에는 아무런 잘못이 없습니다. 
+굳은살이 깊게 밴 투박한 발을 결코 부끄러워하지 마십시오. 세상의 무자비하고 단편적인 평가에 일희일비하며 매일 밤 스스로를 자책의 심판대 위에 세우지 마십시오. 당신은 그저 묵묵히, 당신에게 주어진 삶의 무게를 견디며, 누군가를 향한 사랑과 책임을 실어 나르는 거룩한 수고를 다했을 뿐입니다. 
+
+칭찬과 영광의 근거는 당신의 닳아빠진 신발이나 상처 입은 발끝에 새겨져 있지 않습니다. 당신이 포기하지 않고 끝끝내 짊어지고 온 그 소중한 삶의 화물들 속에 있습니다. 오늘도 팍팍한 삶의 무게를 이끌고 묵묵히 걸음을 옮긴 당신의 지친 두 발 위로, 하늘의 눈부신 찬사가 쏟아집니다. 
+
+"참으로 아름답도다, 무거운 삶을 껴안고 오늘도 묵묵히 걸어간 너의 수고로운 발이여."
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 24편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

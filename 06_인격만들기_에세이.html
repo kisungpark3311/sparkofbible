@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 06편 &middot; 로마서 3:1-8</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>두꺼운 책 두어 권을 두 손바닥 위에 올려놓고 앞을 향해 팔을 뻗어본 적이 있나요? 불과 1분도 지나지 않아 팔이 덜덜 떨리고 어깨가 뻐근해져 올 것입니다. 견디다 못한 우리는 무의식적으로 그 책들을 한쪽 옆구리에 꽉 끼워 넣게 됩니다. 시선은 자연스레 아래로 떨어지고 몸은 움츠러들지만, 그 편안함에 안도 숨을 내쉬죠.</p>
+<p>우리의 삶도 이와 참 많이 닮아 있습니다. 처음에는 생명, 시간, 재능, 자녀와 같은 삶의 소중한 것들을 두 손을 쫙 펴고 감사함으로 ‘받아 듭니다’. 하지만 삶의 무게가 버거워질수록, 우리는 그것들을 옆구리에 꽉 끼고 내 몸의 일부처럼 끌어안습니다. 언제부턴가 나에게 ‘맡겨진 것’들이 내가 ‘가진 것’, 즉 나의 소유물이 되어버린 것입니다. 소유하는 자세는 당장은 편안해 보일지 몰라도, 결국 잃어버릴까 두려워 전전긍긍하는 삶으로 우리를 이끕니다.</p>
+<p>로마서 3장에서 사도 바울은 유대인이 가진 유익이 무엇이냐고 묻습니다. 그들이 남들보다 뛰어난 점을 계산하려는 듯한 질문에, 바울은 뜻밖의 대답을 내놓습니다. <strong>"그들이 하나님의 말씀을 맡았음이니라."</strong> 하나님은 그들이 무엇을 '가졌는가'를 묻는 자리에, 무엇을 '맡았는가'라는 대답을 돌려주십니다.</p>
+<p>이 작은 시선의 변화는 우리 인생의 장부를 완전히 뒤바꾸어 놓습니다. 회계의 원리를 떠올려 볼까요. 고객이 맡긴 예치금은 내 자산이 늘어난 것처럼 보이지만, 사실은 언젠가 돌려주어야 할 '부채'와도 같습니다. 박물관 수장고에 전시된 기탁 유물은 박물관을 빛내주지만, 그 소유권은 여전히 기탁자에게 있습니다. 마찬가지로 내가 누리는 건강, 직분, 재물, 심지어 나의 자녀조차 나의 '소유'가 아니라 하나님께서 잠시 내게 '맡겨두신' 것임을 깨달을 때, 우리의 삶은 전혀 다른 차원으로 진입합니다. 자랑의 목록이었던 것들이 거룩한 책임의 목록으로 자리를 옮기는 순간입니다.</p>
+<p>그런데 '맡은 자'로 살아간다는 것은 때로 우리를 절망케 합니다. 우리는 완벽하지 않기에 실수하고, 넘어지며, 맡겨진 것들을 제대로 돌보지 못해 뼈아픈 실패를 경험하기 때문입니다. 내 인생이 오직 나의 소유였다면, 나의 실패는 곧 내 존재의 파산 선고와 다름없을 것입니다.</p>
+<p>하지만 성경은 여기서 우리에게 가슴 벅찬 위로를 건넵니다. <strong>"어떤 자들이 믿지 아니하였으면 어찌하리요 그 믿지 아니함이 하나님의 미쁘심을 폐하겠느냐"(롬 3:3).</strong> 우리가 실패한다고 해서, 우리가 신실하지 못했다고 해서 우리에게 삶을 맡기신 하나님의 신실하심이 사라지는 것은 아닙니다.</p>
+<p>우리의 실패가 모든 것의 끝을 의미하지 않습니다. 위탁은 단순히 "맡은 것을 잘 간수해라"는 숨 막히는 요구가 아닙니다. 그것은 내 삶의 무게를 지탱하는 축을 '나의 능력'에서 '맡기신 분의 신실함'으로 옮겨놓는 은혜의 장치입니다. 내가 비록 쓰러져도, 나에게 이 모든 것을 맡겨주신 주인의 성품과 계획은 결코 실패하지 않습니다.</p>
+<p>오늘, 종이 한 장을 꺼내 반으로 접어보기를 권합니다. 왼쪽에는 '내가 가진 것'을, 오른쪽에는 '내게 맡겨진 것'을 적어보세요. 내 삶을 짓누르던 성과에 대한 압박, 자녀를 향한 조바심, 인정받고 싶은 욕구들을 가만히 오른쪽으로 옮겨 적어 보십시오. 그리고 스스로에게 물어보세요. <em>"내가 실패한다고 해서, 나를 향한 하나님의 사랑과 계획이 무너지는가?"</em></p>
+<p>이제 옆구리에 꽉 끼고 있던 힘을 풀고, 다시 두 손을 펴서 앞을 향해 내밀어 봅니다. 내가 가진 것이 아니라, 내게 맡겨진 것들입니다. 나의 능력이 아니라, 맡기신 분의 신실함을 의지하며 하루를 엽니다. 비록 두 팔이 뻐근할지라도, 우리의 시선은 땅이 아니라 앞을 향해 활짝 열려 있을 것입니다. 그 열린 어깨너머로, 우리의 서툰 손짓마저도 아름답게 빚어가시는 그분의 따뜻한 미소가 보이지 않으십니까?</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 06편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

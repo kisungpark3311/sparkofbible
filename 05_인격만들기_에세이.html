@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 05편 &middot; 로마서 2:17-29</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 매일같이 수많은 증명서와 기록들을 통해 자신을 증명하며 살아갑니다. 취업의 문턱을 넘기 위해 공들여 작성한 이력서, 나의 성실함을 대변해 주는 세금 신고서, 건강을 확인받기 위해 제출하는 건강검진 결과지까지. 눈에 보이고 손에 잡히는 확실한 증거들을 하나둘 모으며 우리는 무의식중에 이런 믿음을 갖게 됩니다. '이 서류들이 완벽하게 준비되었다면, 내 삶의 결과 역시 완벽하게 보장될 것이다.' 우리는 이처럼 지극히 계산적이고 성과 중심적인 논리를 신앙과 내면의 영역에도 서슴없이 적용하곤 합니다. 타인에게 보여주기 위한 그럴듯한 도덕적 성취를 쌓아 올리고, 종교적인 열심이라는 두꺼운 서류철을 채워가며 스스로 위안을 삼습니다.
+
+하지만 삶의 진실은 종종 우리의 얄팍한 계산을 보기 좋게 빗나갑니다. 로마서 2장에서 사도 바울은 우리의 굳어진 사고방식을 뒤흔드는 매우 깊고 낯선 통찰을 던져줍니다. "표면적 유대인이 유대인이 아니요... 오직 이면적 유대인이 유대인이며 할례는 마음에 할지니." 이 말씀은 단순히 겉치레를 버리고 내면의 진실함을 가꾸라는 평범한 도덕적 훈계에 머물지 않습니다. 바울은 놀랍게도 우리 인생에 대한 '최종 판정석의 위치'를 우리 시야가 전혀 닿지 않는, 보이지 않는 곳으로 완전히 옮겨버립니다.
+
+우리가 일상에서 겪는 익숙한 제도들을 떠올려 보십시오. 세무조사를 받을 때 납세자가 할 수 있는 최선은 요구받은 장부와 소명 자료를 빠짐없이 제출하는 것뿐입니다. 서류가 흠잡을 데 없이 완비되었다고 해서 모든 일이 끝난 것은 아닙니다. 최종적인 과세 판정은 납세자가 결코 들어갈 수 없는 관청 내부의 닫힌 문비 뒤에서 이루어집니다. 병원에서의 경험도 이와 다르지 않습니다. 진료실에서 의사에게 증상을 설명하고 조직 검사를 위해 내 몸의 일부를 떼어 제출하지만, 정작 나의 건강 상태를 가늠할 최종 판독 결과는 내가 들여다볼 수 없는 현미경 아래, 병리과 의사의 어두운 판독실에서 나옵니다. 
+
+이 공통된 패턴이 우리에게 알려주는 진실은 분명합니다. '제출의 자리'와 '판정의 자리'는 엄격히 분리되어 있으며, 제출자는 결코 판정석에 함부로 접근할 수 없다는 사실입니다. 바울이 말하는 '이면적'이라는 단어는 단순히 생각의 깊이나 감정의 상태를 뜻하는 것이 아닙니다. 그것은 우리의 눈빛과 시야가 가닿을 수 없는 절대적인 '처소', 곧 하나님만의 고유한 영역을 가리킵니다.
+
+우리는 흔히 자신의 내면을 성찰한다고 할 때, 거울 앞에 서서 자신의 속마음을 투명하게 들여다보는 모습을 상상합니다. 그러나 거울 앞에 서서 두 손을 등 뒤로 돌려보십시오. 거울 속 내 눈을 아무리 뚫어지게 바라보아도, 내 등 뒤로 넘어간 두 손바닥은 결코 보이지 않습니다. 성경이 말하는 '은밀한 곳'은 남들에게만 꽁꽁 숨겨둔 나만의 비밀 일기장 같은 것이 아닙니다. 그곳은 나 자신조차도 온전히 열람하거나 통제할 수 없는, 오직 창조주 하나님만이 아시는 깊고 신비로운 영역입니다. 
+
+내가 나 자신을 온전히 들여다보고 판단할 수 없다는 사실은 처음에는 우리를 당혹스럽게 만들지도 모릅니다. 그러나 이 사실을 깊이 묵상해 보면, 이보다 더 큰 위로와 해방감은 없습니다. 만약 내 삶의 가치와 구원에 대한 최종 판정이 오로지 내 자신의 치열한 성찰이나 내가 평생 쌓아 올린 선행의 두께로만 결정된다면, 우리는 영원히 채워지지 않는 완벽주의의 늪에서 허우적거리거나 처절한 절망 속에 주저앉고 말 것입니다. 하지만 성경은 우리 삶의 최종 판정이 '그 날'이라는 하나님께서 정하신 기일에, 오직 그분의 의롭고 자비로운 손에 의해서만 열린다고 선언합니다. 우리가 눈물과 땀으로 제출한 삶의 불완전한 기록들을 최종적으로 읽어내고 덮어주실 분은 오직 주님 한 분뿐입니다.
+
+이러한 성경적 사고방식은 우리의 일상과 인격을 근본적이고도 아름답게 빚어냅니다. 우리는 더 이상 눈에 보이는 단편적인 사실과 누군가에 대한 최종적인 판단을 한 줄에 적어 내려가는 교만에 빠지지 않게 됩니다. 타인의 연약하고 부족한 겉모습을 보더라도, 그것을 그 사람의 변치 않는 결론으로 섣불리 단정 짓지 않습니다. '아직 저 사람을 향한 판정석의 문이 열리지 않았다'는 거룩한 유보는, 우리가 타인을 향해 더 넓은 사랑의 여백을 품을 수 있게 해줍니다.
+
+또한, 우리 자신을 옭아매던 끝없는 자책의 굴레에서도 마침내 벗어날 수 있습니다. 내 삶의 복잡한 문제들과 마주할 때, 종이를 반으로 접어 보십시오. 왼쪽에는 남들에게는 숨겼지만 내 힘으로 마주하고 고쳐나가야 할 정직과 윤리의 문제들을 적어 내려가십시오. 그리고 오른쪽에는 나조차도 어찌할 수 없는 내면의 깊은 상처와 한계들을 적어 보십시오. 이 오른쪽 칸은 억지로 파헤치거나 내 힘으로 고치려 애쓸 영역이 아닙니다. 조용히 하나님의 긍휼과 주권에 온전히 맡겨드리는 거룩한 기도의 제목으로 남겨두십시오.
+
+물론 눈에 보이는 우리의 일상적 수고와 노력들이 아무런 의미가 없다는 뜻은 결코 아닙니다. 사회인으로서 가슴에 단 명찰은 여전히 그 무게를 지니며, 우리가 하루하루 성실하고 진실하게 써 내려가는 삶의 기록들은 너무나도 귀중합니다. 다만, 그것들이 내 존재 전체를 규정짓는 무자비한 재판관의 자리에서 내려왔을 뿐입니다. 우리를 향한 참된 칭찬과 영광은 사람의 얄팍한 인정이나 내 스스로의 알량한 만족에서 오지 않습니다. 오직 하나님에게서만 옵니다. 
+
+오늘 하루도 내가 서 있는 이 치열한 '제출의 자리'에서 묵묵히 최선을 다해 살아가십시오. 그러나 내 삶의 최종적인 판정은 가장 선하시고 완전하신 그분의 은밀한 품 안에 안전하게 맡겨져 있음을 기억하십시오. 그 보이지 않는 자리로 옮겨진 판정석이 주는 무한한 자유와 평안이, 당신의 팍팍한 일상에 따뜻한 위로로 스며들기를 간절히 소망합니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 05편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

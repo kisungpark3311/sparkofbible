@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 09편 &middot; 로마서 4:1-12</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 무언가를 끊임없이 채워 넣어야 안심하는 시대를 살고 있습니다. 이력서의 빈칸을 두려워하고, 다이어리의 빼곡한 일정표를 보며 자신이 가치 있는 사람이라고 위안을 얻습니다. 인생을 하나의 거대한 장부(帳簿)라고 한다면, 우리는 그 장부의 '수익' 란과 '성취' 란에 단 한 줄이라도 더 기록하기 위해 매일 펜을 쥐고 고군분투합니다. 무언가가 기록되어야만 내 삶이 의미를 지닌다고 믿기 때문입니다.</p>
+<p>그런데 성경은 전혀 다른 차원의 축복을 이야기합니다. 사도 바울은 로마서 4장에서 "일한 것이 없이 하나님께 의로 여기심을 받는 사람의 복"에 대해 말합니다. 그 엄청난 선언 뒤에 바울이 다윗의 시편을 인용하며 제시한 증거는 뜻밖에도 '채워짐'이 아니라 '비워짐'이었습니다.</p>
+<p><i>"불법이 사함을 받고 죄가 가리어짐을 받는 사람들은 복이 있고, 주께서 그 죄를 인정하지 아니하실 사람은 복이 있도다."</i></p>
+<p>바울은 분명 하나님께서 우리에게 '의로움'을 장부에 적어주신다고 예고했습니다. 그런데 정작 인용된 다윗의 고백에는 '의로움'이라는 단어는 단 한 번도 등장하지 않습니다. 대신 '사함 받다', '가리어지다', 그리고 '장부에 기입하지 않으시다(인정하지 않으시다)'라는 단어들이 그 자리를 대신합니다. 긍정의 판정이 부정의 진술들로, 무언가를 더하는 행위가 무언가를 덜어내고 덮어주는 행위로 설명되고 있는 것입니다.</p>
+<p>이 기막힌 어긋남 속에 기독교 복음의 정수가 숨어 있습니다. 음악에서 쉼표가 단순한 소리의 부재가 아니라 '연주된 침묵'이듯, 회계에서 어떤 항목을 '산입하지 않는다'는 것이 단순한 공백이 아니라 세액을 완전히 뒤바꾸는 강력한 '처분'이듯, 하나님께서 우리의 죄를 당신의 장부에 올리지 않기로 하신 것은 단순한 망각이나 누락이 아닙니다. 그것은 아들 예수 그리스도의 십자가 대속이라는 엄청난 대가를 지불하고 이루어 내신, 세상에서 가장 적극적이고 치열한 '지워주심'입니다.</p>
+<p>우리의 영적 장부를 구원하는 것은 우리가 애써 적어 내려간 선행의 목록이 아닙니다. 그것은 오직 회계의 주인이신 하나님께서 친히 펜을 내려놓으시고, 우리의 치명적인 허물들을 결코 기입하지 않으시겠다는 절대적인 선언 덕분입니다. 지워진 자리는 흔적이 남지만, 애초에 올리지 않은 자리는 보이지 않습니다. 그 보이지 않는 은혜의 공백이 우리를 살게 합니다.</p>
+<p>이러한 '성경적 사고'는 우리의 일상과 인격을 형성하는 데 깊은 통찰을 줍니다. 우리는 스스로를 평가할 때 늘 '내가 무엇을 했는가'만을 셉니다. 연말이 되면 성취하지 못한 목표들 앞에서 좌절하곤 합니다. 하지만 이제 우리 인생의 평가표에 새로운 란을 하나 만들어보는 것은 어떨까요? 바로 '올리지 않기로 한 것'들의 목록입니다.</p>
+<p>치밀어 오르는 화를 꾹 참고 뱉지 않은 날선 한 마디, 남을 짓밟고 올라설 기회가 있었음에도 스스로 포기한 자리, 더 많은 돈을 벌 수 있었지만 신념을 지키기 위해 거절한 제안들. 세상의 이력서에는 결코 기록되지 않을 이 '비기입'의 항목들이야말로, 사실은 우리의 영혼을 가장 맑게 지켜낸 거룩한 흔적들입니다. 무언가를 이루어낸 성취 못지않게, 그리스도인으로서 차마 할 수 없어 펜을 내려놓았던 그 모든 멈춤의 순간들이 우리의 진짜 인격을 빚어냅니다.</p>
+<p>우리의 삶을 지탱하는 것은 빼곡하게 채워진 성취의 기록이 아닙니다. 십자가의 은혜로 내 죄가 기록되지 않은 하나님의 텅 빈 장부, 그리고 세속적 욕망을 따르지 않기로 결단하며 내 스스로 비워둔 삶의 여백들입니다. 오늘도 하나님은 펜을 들었다가 사랑으로 손을 펴시고 우리를 향해 미소 지으십니다. 아무것도 적히지 않은 그 빈 공간에서, 우리의 진짜 인생이 새롭게 시작됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 09편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 12편 &middot; 로마서 5:12-21</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 누구나 마음속에 작고 정밀한 저울 하나를 품고 살아갑니다. 이 저울은 꽤나 유용해서, 우리가 세상을 이해하고 인간관계를 맺는 데 중요한 기준이 되어줍니다. 누군가에게 호의를 받으면 그만큼 갚아야 마음이 편안해지고, 반대로 누군가 내게 상처를 주면 그에 상응하는 사과를 받아내야 공평하다고 느낍니다. "받은 만큼 돌려준다"는 명제는 어느덧 우리 삶을 지탱하는 흔들림 없는 원칙이 되었습니다. 우리는 사랑도, 우정도, 심지어 신과의 관계마저도 이 ‘대칭’과 ‘균형’이라는 양팔 저울 위에 올려놓고 계산하려 듭니다.</p>
+<p>세상의 많은 일들은 이러한 대칭을 당연하게 요구합니다. 회계 장부의 차변과 대변은 한 치의 오차도 없이 일치해야 하며, 계약서에는 양측의 의무와 권리가 나란히 대응하여 적힙니다. 과학의 세계에서도 화학 반응이 일어나기 전과 후의 원자 수는 완벽히 같아야만 올바른 화학식으로 인정받습니다. 우리는 이러한 ‘등가의 법칙’에 너무나도 깊이 길들여진 나머지, 양쪽 빈칸이 완벽히 채워지지 않으면 불안감을 느끼고 실패했다고 단정 짓곤 합니다. 그래서 우리는 끊임없이 상대방과 나의 무게를 맞추기 위해 팽팽한 긴장 속에서 살아갑니다.</p>
+<p>하지만 완벽한 대칭을 요구하는 우리의 이 견고한 사고방식을 근본부터 뒤흔드는 성경의 선언이 있습니다. 바로 로마서 5장의 말씀입니다. 사도 바울은 한 사람 아담의 범죄로 인해 온 세상에 죽음이 찾아온 사건과, 한 사람 예수 그리스도의 순종으로 인해 생명이 찾아온 사건을 비교합니다. 우리의 익숙한 논리대로라면 당연히 “아담의 죄가 이만큼 무거우니, 그리스도의 은혜도 그만큼 무겁다”라며 양팔 저울의 균형을 맞추려 할 것입니다. 양쪽에 똑같은 칸을 그려 넣고 짝을 맞추는 것이 우리가 아는 가장 합리적인 설명 방식이니까요.</p>
+<p>그런데 놀랍게도 성경은 긍정적인 짝을 완성하기 전에, 단호하고도 분명한 ‘부정(否定)’을 두 번이나 앞세웁니다.</p>
+<p><i>“그러나 이 은사는 그 범죄와 같지 아니하니…”</i> (롬 5:15)<br/>
+<i>“또 이 선물은 범죄한 한 사람으로 말미암은 것과 같지 아니하니…”</i> (롬 5:16)</p>
+<p>바울은 섣불리 대칭의 표를 그리지 않습니다. 오히려 그는 가장 먼저 그 표 자체를 찢어버립니다. 범죄와 은혜를 같은 저울에 올려놓는 것 자체를 거부하는 것입니다. 왜일까요? 은혜는 범죄와 등가 교환될 수 있는 얄팍한 성질의 것이 아니기 때문입니다. 심판은 ‘한 사람의 단 한 번의 범죄’에서 시작되어 세상에 정죄를 가져왔지만, 은혜는 ‘수없이 쏟아지는 많은 범죄’를 다 덮고도 남아 우리를 의롭다 하심에 이르게 합니다. 심판과 은혜는 애초에 출발점도, 그 규모도 다릅니다. 이 둘은 결코 1대1로 대응할 수 없습니다. 억지로 균형을 맞추려는 표 안에서는, 한계를 모르고 쏟아지는 하나님의 압도적인 은혜가 담길 수 없었던 것입니다.</p>
+<p>이 기이한 ‘어긋남’과 ‘대칭의 파괴’는 단지 신학적인 문법에 머무르지 않고, 우리의 인격과 삶을 송두리째 바꿔놓는 구체적인 실천의 열쇠가 됩니다.</p>
+<p>당신의 두 손을 가슴 앞에서 마주 대고 서로 똑같은 힘으로 팽팽하게 밀어보십시오. 두 손이 균형을 유지하는 동안, 당신의 어깨는 딱딱하게 굳어질 것이고, 팔꿈치는 긴장으로 벌어지며, 호흡은 점점 얕아질 것입니다. 몸은 끊임없이 좌우의 균형을 감시하느라 힘을 소모합니다. 이것이 바로 서로 빚을 지지 않고 대칭을 유지하려 애쓰는 우리의 피곤한 일상입니다. 서로 책임을 묻고, 내 권리를 주장하며, 상처를 주고받는 숨 막히는 ‘맞섬’의 자세입니다.</p>
+<p>이제, 왼쪽 손은 그대로 둔 채 오른쪽 손만 뒤집어 손바닥을 위로 활짝 펴보십시오. 마주 밀어내던 상대의 힘이 갈 곳을 잃고, 팽팽했던 긴장이 일거에 무너집니다. 몸을 굳게 만들던 힘이 빠져나가고, 들렸던 어깨가 부드럽게 내려옵니다. 맞섬이 무너지고 마침내 무언가를 ‘받을 수 있는’ 평안한 자세가 만들어진 것입니다. 대칭이 깨질 때 우리 몸에서 빠져나가는 것은 안도감이 아니라 피로한 ‘힘’입니다. 억지로 유지하려던 균형을 포기하는 순간, 비로소 진정한 평화가 찾아옵니다.</p>
+<p>이 원리는 우리의 실제 삶 속에서도 놀라운 치유를 가져옵니다. 우리는 종종 누군가와의 갈등을 해결할 때 기계적인 공정함을 찾습니다. "너도 잘못했고 나도 잘못했으니 양쪽 다 반씩 양보하자"며 억지로 타협의 표를 그립니다. 하지만 출발점이 다르고 무게가 다른 상처를 억지로 50대 50으로 맞추려 할 때, 누구도 진심으로 승복하지 못합니다. 때로는 출발점이 어긋났다는 사실 자체를 인정해야 합니다. 어설픈 맞대응 표를 찢어버릴 때, 은폐되었던 진실이 드러나고 진짜 용서가 시작될 공간이 열립니다.</p>
+<p>나아가 우리는 스스로를 향한 가혹한 평가에서도 자유로워질 수 있습니다. 우리는 내가 받은 사랑이나 은혜만큼 완벽하게 갚지 못하면 부채감에 시달리며 실패했다고 단정 짓습니다. 하지만 우리의 얄팍한 저울로는 애초에 다 담아낼 수도, 갚을 수도 없는 것이 진정한 은혜입니다. 대칭이 무너진 자리가 곧 은혜가 시작되는 자리입니다. 내 힘으로 갚아내야 한다는 강박을 내려놓고, 그저 쏟아지는 사랑 앞에 엎드릴 때 우리는 자유를 경험합니다.</p>
+<p>로마서 5장 17절은 이 놀라운 생명의 왕좌에 오르는 자들이 누구인지 분명하게 선언합니다. 그들은 "계산을 정확히 마친 자들"이나 "받은 만큼 오차 없이 갚아낸 자들"이 아닙니다. 성경은 오직 <b>“은혜와 의의 선물을 넘치게 받는 자들”</b>이 생명 안에서 왕 노릇 할 것이라고 말합니다.</p>
+<p>오늘, 당신을 짓누르고 있던 삶의 계산기를 잠시 내려놓으시기를 바랍니다. 갚아야 한다는 강박, 억지로 균형을 맞춰야 한다는 피곤한 싸움을 멈추십시오. 우리의 인생은 양팔 저울 위에서 평가받는 것이 아니라, 십자가 위에서 이미 흘러넘쳐버린 무한한 사랑 안에 잠겨 있습니다. 저울이 부서지고 팽팽했던 맞섬의 손바닥을 뒤집어 하늘을 향해 펼칠 때, 우리는 비로소 알게 될 것입니다. 우리가 해야 할 일은 그저 이 압도적인 은혜의 비를 흠뻑 맞고, 넘치게 받는 것뿐이라는 사실을 말입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 12편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

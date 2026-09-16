@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 31편 &middot; 로마서 13:8-14</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>매년 새해가 밝거나 삶의 커다란 위기를 맞닥뜨릴 때마다 우리는 수첩을 꺼내어 무언가를 적습니다. 주로 '하지 말아야 할 것'들의 목록입니다. '술 줄이기', '화내지 않기', '게으름 피우지 않기', '무분별한 소비 멈추기'… 우리의 결심은 대개 '벗어버려야 할 것'들을 향해 있습니다. 하지만 두세 달이 지나 수첩을 열어보면 어떤가요? 지키지 못한 항목에는 붉은 줄이 그어지고, 마음속에는 자책감만 겹겹이 쌓입니다. 우리의 삶을 고치려던 시도는 언제나 금지 조항만 빼곡한 점검표로 끝나버리곤 합니다.</p>
+<p>사도 바울도 로마서 13장에서 우리가 벗어버려야 할 어둠의 일들을 나열합니다. 방탕함, 술 취함, 음란함, 호색함, 다툼과 시기. 읽기만 해도 숨이 막히는 이 무거운 금지 목록 끝에, 바울은 놀라운 해결책을 제시합니다. 그런데 그가 내놓은 답은 매우 낯설고 충격적입니다. "오직 주 예수 그리스도로 옷 입고 정욕을 위하여 육신의 일을 도모하지 말라."(롬 13:14)</p>
+<p>자세히 보십시오. '옷을 입다'라는 동사의 목적어 자리에는 응당 '옷'이나 '갑옷' 같은 사물이 와야 합니다. 물류 창고의 지급 대장을 상상해 봅시다. 지급 품목 칸에는 보통 '작업복 1벌', '안전모 1개'처럼 품명과 수량이 적힙니다. 그런데 어느 날 그 품목 칸에 '아무개'라는 사람의 이름이 적혀 있다면 어떨까요? 그 서류는 더 이상 단순한 물품 지급 대장이 아닙니다. 사람의 이름이 들어서는 순간, 그것은 물건을 주고받는 장부가 아니라 인격과 인격이 맺어지는 전혀 다른 차원의 문서로 바뀝니다.</p>
+<p>바울은 지금 '옷'이나 '행위'가 들어가야 할 품목의 자리에 '예수 그리스도'라는 인격을 밀어 넣었습니다. 이것은 단순한 수사학적 비유가 아닙니다. 우리가 평생에 걸쳐 치열하게 채워 넣으려 했던 도덕적 행위의 빈칸, 완벽해지려 애쓰던 규칙의 빈칸에 우리 주님이 친히 들어오셨다는 선언입니다.</p>
+<p>규칙과 품목에는 언제나 '한도'가 있습니다. 우리는 끊임없이 계산합니다. '내가 얼마나 참아야 할까?', '이 정도 용서했으면 충분한 것 아닐까?' 법정이나 은행에서 담보 칸에 건물을 적어 넣으면 책임의 한도는 그 건물의 가치만큼으로 제한됩니다. 그러나 그 칸에 '보증인'이라는 인격이 들어서면 이야기는 달라집니다. 보증인의 현재와 장래, 그의 삶 전체가 담보가 됩니다. 한도 계산이 불가능해지는 것입니다.</p>
+<p>마찬가지로, 예수 그리스도께서 우리의 옷이 되신다는 것은 우리의 구원과 삶의 변화가 '얼마나 입어야 충분한가'라는 한도 계산을 넘어섰음을 의미합니다. 주님이 우리 삶의 빈칸에 들어오시는 순간, 우리의 알량한 도덕적 점검표는 무용지물이 됩니다. 예수님은 우리가 참고 견뎌야 할 규율의 일부가 아니라, 우리를 온전히 덮어 보호하시는 무한한 은혜 그 자체이시기 때문입니다.</p>
+<p>이 진리를 몸의 감각으로 상상해 보시겠습니까? 혼자서 외투를 챙겨 입을 때를 떠올려 보십시오. 시선은 단추와 소매를 향하고, 상체는 앞으로 살짝 웅크려지며, 두 손은 옷감이 잘 여며졌는지 점검하기 바쁩니다. 나의 주의는 오로지 '옷'이라는 사물에 머물러 있습니다. 반면, 누군가 뒤에서 나에게 외투를 입혀줄 때는 어떤가요? 팔을 뒤로 벌린 채, 보이지 않는 뒤쪽을 향해 나를 맡겨야 합니다. 시선은 내 손끝이 아니라 나에게 옷을 입혀주는 그 '사람'을 향하게 됩니다.</p>
+<p>우리의 신앙생활은 혼자서 도덕의 단추를 꿰맞추려 낑낑대는 일이 아닙니다. 하나님께서 우리 등 뒤에서 '예수 그리스도'라는 완전한 구원의 옷, 생명의 옷을 입혀주시는 시간입니다. 우리는 그저 팔을 벌리고, 나에게 옷을 입혀주시는 그분의 따뜻한 손길과 인격에 시선을 맞추면 됩니다.</p>
+<p>어거스틴(아우구스티누스)이 젊은 날 방황을 끝내고 회심했던 결정적 순간을 기억하십니까? 밀라노의 한 정원에서 "집어서 읽어라"라는 아이들의 노랫소리를 듣고 그가 펼친 성경이 바로 이 로마서 13장 13~14절이었습니다. 그는 방탕과 음란이라는 금지 목록에서 시선을 멈추지 않았습니다. 그의 눈은 그 모든 절망적인 목록을 단숨에 덮어버리는 압도적인 이름, "주 예수 그리스도"에 가닿았습니다. 규칙의 한계를 넘어 인격을 만난 그 순간, 어거스틴의 기나긴 방황은 비로소 끝이 났습니다.</p>
+<p>우리 삶의 자리도 돌아봅시다. 회사에서 사고가 터지면 '금지 조항'만 한 줄씩 늘려갑니다. 매뉴얼은 두꺼워지지만 진짜 문제는 해결되지 않습니다. 정말 필요한 것은 조항을 늘리는 것이 아니라, 그 상황을 책임지고 품어낼 '사람'을 세우는 것입니다. 교회에서도 마찬가지입니다. '무엇을 하지 말자'는 결의만 쌓아갈 것이 아니라, 그 상처와 문제를 껴안고 기도할 '사람'이 세워져야 합니다.</p>
+<p>오늘도 수첩에 '하지 말아야 할 것'들을 적어 내려가고 있습니까? 이제 그 목록의 맨 밑줄에 선을 긋고, 모든 빈칸을 덮고도 남는 이름을 적어 보십시오. 종말을 향해 달려가는 긴박한 시간 속에서, 기독교가 도달한 최종적인 결론은 사건이나 규칙이 아니라 '인격'이었습니다.</p>
+<p>더 이상 나를 옭아매는 낡은 금지표를 부여잡고 괴로워하지 마십시오. 우리를 구원하는 것은 규정집이 아니라 인격이신 주님입니다. "나는 오늘 무엇을 입고 있는가?" 이 질문 앞에 서서, 값없이 입혀주시는 예수 그리스도를 덧입고 진정한 자유의 길로 걸어가시기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 31편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

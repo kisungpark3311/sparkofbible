@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 36편 &middot; 로마서 16:1-16</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+누군가를 처음 만날 때 우리는 습관처럼 명함을 건넵니다. 조그만 종이 위에는 이름과 함께 그 사람을 설명해 주는 몇 가지 굵직한 수식어가 적혀 있습니다. 직위, 소속, 학위, 혹은 그간 이루어 낸 눈부신 성과들. 우리가 발 딛고 살아가는 세상은 언제나 사람을 ‘자리(Position)’와 ‘자격(Qualification)’으로 분류하고 기억합니다. 세상이 꼼꼼하게 만들어 낸 장부나 명부, 가령 회사의 급여대장이나 조직도를 떠올려 보십시오. 그곳은 어김없이 직위를 기준으로 정렬됩니다. 높은 자리를 차지한 사람이 위로 올라가고, 그렇지 못한 사람은 아래로 밀려나거나 그저 무명의 집단으로 뭉뚱그려지곤 합니다. 자리가 곧 그 사람의 크기를 결정하는 세상입니다.
+
+그런데 약 2천 년 전, 사도 바울이 기록한 로마서의 마지막 장(16장)을 천천히 펴보면, 세상의 셈법과는 전혀 다른, 아주 낯설고도 먹먹한 명부를 하나 만나게 됩니다. 바울은 긴 편지를 마무리하며 자신이 기억하고 사랑하는 사람들의 이름을 하나하나 호명합니다. 무려 스물여섯 명에 달하는 낯선 이름들. 놀라운 것은 이 긴 명단 그 어디에도 그 사람의 사회적 지위나 넉넉한 재산, 출신 가문, 혹은 로마 시민권 같은 세속적 ‘자격’을 나타내는 말이 단 한 줄도 없다는 사실입니다. 대신 바울은 그들의 이름 뒤에 이런 다정한 수식어를 붙여 둡니다.
+
+“너희를 위하여 많이 수고한 마리아에게 문안하라.”
+“주 안에서 수고한 드루배나와 드루보사에게 문안하라.”
+“주 안에서 많이 수고한 사랑하는 버시에게 문안하라.”
+
+바울의 기억 속에 사람을 정렬하는 기준은 ‘그가 어떤 높은 자리에 있었는가’가 아니었습니다. 오직 ‘그가 나와 어떤 관계를 맺었는가’, 그리고 ‘그가 얼마나 수고했는가’였습니다.
+
+여기서 ‘수고하다’로 번역된 헬라어 원어 ‘코피아오(κοπιάω)’의 의미를 깊이 들여다보면 가슴 한구석이 뻐근해집니다. 이 단어의 뿌리가 되는 명사 ‘코포스(κόπος)’는 무언가를 이루어 낸 화려한 ‘성과’나 효율적인 ‘업적’을 뜻하지 않습니다. 오히려 뼈 빠지는 노동으로 인한 ‘피로’, ‘지침’, ‘소모’를 의미합니다. 바울이 그들의 이름 뒤에 덧붙여 영원히 기억하고자 했던 것은 그들이 뛰어난 능력으로 1등을 차지했다는 사실이 아니었습니다. 이웃과 공동체를 위해 자신을 얼마나 닳게 내어주었는가 하는, 고단하지만 숭고한 ‘소모의 흔적’이었습니다. 능력이 아니라 닳아짐을 기록한 장부, 그것이 로마서 16장의 본질입니다.
+
+우리는 종종 텅 빈 이력서를 채우기 위해, 혹은 남들에게 내세울 만한 그럴듯한 직함을 얻기 위해 인생의 많은 시간과 젊음을 쏟아붓습니다. 무언가를 이루지 못하면 내 이름은 아무도 기억해 주지 않을 것 같은 불안감에 시달리기도 합니다. 그러나 누군가의 마음속 깊은 곳에 남는 진짜 기억은 그런 차가운 타이틀이 아닙니다. 학술 논문의 맨 뒷장이나 책머리에 실린 감사의 글(Acknowledgments)을 떠올려 보십시오. 그곳에는 화려한 학위나 직위가 없더라도 “밤을 새워 가며 자료를 찾아준 사람”, “모든 것을 포기하고 싶을 때 곁에서 말없이 따뜻한 차를 내어준 사람”들의 땀방울이 기록됩니다. 그것이 바로 사람이 사람을 진실하게 기억하는 방식이며, 사랑이 남기는 고유한 흔적입니다.
+
+한번 조용히 눈을 감고, 내 주변에 있는 사람 열 명의 이름을 소리 내어 불러보십시오. 그저 이름만 연속해서 부르는 것은 30초도 걸리지 않을 만큼 아주 빠릅니다. 세상이 사람을 직함으로만 부를 때 빠르고 효율적인 것처럼 말입니다. 하지만 두 번째로 부를 때는, 그 사람의 이름 뒤에 그가 나를 위해 혹은 우리가 속한 공동체를 위해 어떤 수고를 했는지 한 마디씩 천천히 덧붙여 보십시오. 아마 호흡이 길어지고, 중간중간 잠시 멈추게 될 것입니다. 그 사람의 닳아진 삶, 굽은 어깨, 나를 향해 지어주던 따뜻한 미소를 실제로 떠올려야만 그 문장을 완성할 수 있기 때문입니다. 누군가의 수고를 온전히 기억한다는 것은 그만큼 깊은 사랑과 시간을 들이는 느리고도 다정한 작업입니다.
+
+이 특별하고도 오래된 명단이 우리에게 주는 또 하나의 깊은 위로가 있습니다. 로마서 16장의 명단 속에는 대단한 수식어 없이 그저 이름만 덩그러니 놓인 사람들도 여럿 존재합니다. 만약 ‘수고’ 자체가 이 공동체에 속하기 위한 또 다른 자격 요건이나 성과표로 작용했다면, 빈칸을 채우지 못한 그들은 이 명단에 결코 오르지 못했을 것입니다. 하지만 바울은 그들의 이름 역시 많이 수고한 사람들과 같은 목록에 나란히 적어 두었습니다. 우리의 고단한 땀과 눈물은 누군가에게 사랑받기 위한 조건이 아니라, 사랑 안에서 함께 부대끼며 살아갔다는 눈부신 흉터일 뿐임을 넌지시 말해주는 듯합니다. 대단한 수고의 꼬리표가 당장 보이지 않더라도, 우리는 이미 그 자체로 소중한 이름이며 주의 은혜 안에 속한 존재입니다.
+
+매년 연말이 오거나 인생의 어떤 중요한 전환점에 섰을 때, 우리는 종종 자신의 초라한 이력서를 보며 깊은 한숨을 짓습니다. “올해 나는 무슨 자리에 올랐지?”, “나는 도대체 무엇을 이루었지?”라며 성과 없는 자신을 매섭게 책망하기도 합니다. 하지만 하늘의 영원한 장부, 그리고 우리를 진심으로 아끼는 사람들의 마음속 장부에 적히는 것은 그런 서늘한 직위나 숫자가 아닙니다. 
+
+오늘, 당신의 이름 뒤에는 어떤 한 줄이 남기를 원하십니까? 화려하고 높은 직함이 아니라, “아무도 알아주지 않는 곳에서 묵묵히 손을 내밀어 준 사람”, “곁에 있는 이를 위해 기꺼이 자신의 삶을 닳게 내어준 사람”으로 기억된다면, 그것만으로도 우리의 삶은 충분히 경이롭고 존귀합니다. 세상의 잣대로는 그저 지치고 피곤해 보이는 그 ‘코포스(수고)’의 흔적이야말로, 영원히 지워지지 않는 가장 찬란하고 아름다운 인격의 열매이기 때문입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 36편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

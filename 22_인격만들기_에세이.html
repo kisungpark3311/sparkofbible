@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 22편 &middot; 로마서 9:14-29</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리의 삶은 종종 텍스트와 같습니다. 어떤 날은 부드럽고 따뜻한 시처럼 읽히지만, 어떤 날은 가혹한 심판이 적힌 판결문처럼 다가옵니다. 특히 내 뜻대로 풀리지 않는 현실 앞에서는 마치 내 삶에 거대한 진노의 선고가 내려진 것만 같은 절망감에 휩싸이곤 합니다. 세무서에서 날아온 과세예고통지서를 받아 든 사업가를 떠올려 보십시오. 엄청난 세액이 찍힌 굵은 글씨를 보는 순간, 가슴은 철렁 내려앉고 눈앞은 캄캄해집니다. 대부분의 사람들은 그 무거운 숫자만을 마음에 찌르듯 새긴 채, 통지서를 서랍 깊숙한 곳에 던져버립니다. 정작 그 문서의 맨 마지막 줄에 적힌, 이의를 제기할 수 있는 불복 절차와 기한이라는 '살아날 구멍'은 읽지도 못한 채 말입니다. 우리는 가장 고통스럽고 강렬한 대목에서 읽기를 멈추는 습관이 있습니다. 그리고 그것이 내 삶의 결론이라고 너무 일찍 지레짐작해 버립니다.</p>
+<p>우리가 하나님의 말씀을 읽을 때도 이와 비슷한 맹점에 빠지기 쉽습니다. 사도 바울이 기록한 로마서 9장 17절은 얼핏 들으면 피도 눈물도 없는 두렵고 차가운 심판의 선언처럼 느껴집니다. 하나님께서 애굽의 왕 바로에게 하신 말씀을 인용한 이 구절은 아주 강렬하게 시작합니다. “내가 이 일을 위하여 너를 세웠으니, 곧 너로 말미암아 내 능력을 보이고...” 많은 이들이 이 압도적인 신적 주권과 진노의 무게 앞에서 숨을 헐떡입니다. 조물주의 무서운 권력 앞에 인간은 그저 쓰다 버려지는 장기말에 불과한 것인가 하는 두려움이 엄습합니다. 그래서 문장의 진짜 끝을 보지 못하고 서둘러 고개를 떨구고 맙니다. 스스로 문장을 닫아버리는 것입니다.</p>
+<p>그러나 이 두렵고 무서운 문장이 실제로 멈추는 곳은 파멸이나 심판이라는 닫힌 결말이 아닙니다. 숨 막히는 이 문장의 진짜 마지막은 이렇게 끝이 납니다. “내 이름이 온 땅에 전파되게 하려 함이라.” 놀랍지 않으십니까? 성경은 가장 강렬한 진노와 능력을 말한 뒤, 그 문장의 마침표를 '온 땅'이라는 무한한 긍휼의 범위 위에 찍습니다. 처벌이나 멸망으로 문을 쾅 닫아버리는 것이 아니라, 하나님의 이름이 흘러가 사람들을 살려낼 온 세상을 향해 활짝 문을 열어두고 끝을 맺는 것입니다.</p>
+<p>법률 문서의 방향을 결정하는 것이 맨 앞의 무서운 주문(主文)이 아니라 맨 뒤의 구제 절차이듯, 음악의 분위기를 완성하는 것이 중간의 날카로운 불협화음이 아니라 맨 마지막 종지(終止)의 화음이듯, 하나님의 말씀 역시 멈추는 자리에서 그분의 진짜 진심을 드러냅니다. 강도는 앞에서 재지만, 방향은 끝에서 재는 법입니다. 아무리 혹독하게 들리는 말씀일지라도, 소리 내어 읽으며 마지막 세 낱말에 다다랐을 때 바닥으로 향하던 고개를 들어 멀리 지평선을 바라보십시오. 고개를 드는 순간 호흡은 길어지고, 좁아졌던 시야는 '온 땅'을 향해 열리게 됩니다. 우리는 비로소 그 끝자리에 서서 세상 모든 자를 부르시는 하나님의 긍휼을 마주하게 됩니다.</p>
+<p>이 단순하지만 깊은 진리는 오늘을 살아가는 우리의 인격과 삶의 태도를 근본적으로 뒤바꿔 놓습니다. 우리는 갈등을 겪은 누군가와의 대화를 복기할 때, 상대방이 내뱉은 가장 날카롭고 아픈 말만 뇌리에 새겨둡니다. 정작 대화의 마지막에 머뭇거리며 건넸던 미안함의 여운이나, 관계를 회복하고자 조금 열어두었던 작은 틈새는 새카맣게 잊어버립니다. 가장 아팠던 말이 그 대화의 결론이라고 단정 지어버리는 것입니다. 내가 타인을 향해 내리는 결정이나 공동체의 행정도 마찬가지입니다. 누군가의 잘못을 질책하고 징계할 때, 단호한 처분만 내리고 문서를 끝내버린다면 그것은 그저 차가운 폭력일 뿐입니다. 진정으로 넉넉하고 성경적인 사고를 품은 사람이라면, 아무리 엄중한 질책의 말을 하더라도 그 마지막에는 반드시 회복과 용서로 돌아올 수 있는 길을 열어 두어야 합니다. 문서가 끝나는 자리에 긍휼의 경로가 적혀 있어야 합니다.</p>
+<p>하나님은 우리를 향한 진노의 문장조차도 결코 닫힌 채로 내버려 두지 않으셨습니다. 아프고 찌르는 말씀 뒤에는 언제나 '온 땅'을 향한 구원의 여백이, 다 멸하지 않고 '남겨두시는' 자비가 숨 쉬고 있습니다. 그러니 내 삶에 던져진 무거운 고난의 문장들 앞에서 지레 절망하여 인생의 책장을 덮지 마십시오. 책상 서랍 속에 구겨 던져둔 고지서를 다시 꺼내어 마지막 줄을 차분히 읽어 내려가듯, 우리 삶의 버겁고 두려운 순간들도 끝까지 견디며 읽어내야 합니다. 당신의 시선을 고통에만 묶어두지 말고, 문장의 마지막 낱말에서 고개를 들어 멀리 지평선을 바라보십시오. 가장 강렬한 상처와 절망을 통과한 그 끝자리에, 우리를 살리시는 하나님의 은혜가 조용히, 그러나 활짝 문을 열고 당신을 기다리고 있습니다. 마침표가 놓인 바로 그 자리에서, 진정한 소망은 다시 시작됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 22편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 34편 &middot; 로마서 15:1-13</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 매일 수많은 말과 글 속을 유영하며 살아갑니다. 누군가의 가벼운 농담에 웃음을 짓기도 하고, 무심코 던진 날 선 한마디에 베어 밤잠을 설치기도 합니다. 그렇게 우리 삶의 모양과 질감은 우리가 주고받는 언어의 결을 따라 조금씩 다듬어집니다. 그렇다면 그리스도인의 삶과 인격은 과연 어떤 언어로 빚어져야 하는 것일까요? 로마서 15장 속에 담긴 사도 바울의 섬세한 글쓰기를 가만히 따라가다 보면, 내 영혼의 주파수를 맞추는 놀랍고도 아름다운 비밀을 하나 발견하게 됩니다.</p>
+<p>바울은 로마 교회의 성도들을 향한 긴 권면의 편지를 마무리하며, 구약의 예언자 이사야의 글을 조용히 인용합니다. "이새의 뿌리, 곧 열방을 다스리기 위하여 일어나시는 이가 있으리니, 열방이 그에게 <b>소망(ἐλπιοῦσιν)</b>을 두리라." 여기까지는 익숙한 성경 읽기입니다. 그런데 진짜 경이로움은 바로 다음 문장에서 일어납니다. 바울은 방금 인용한 이사야서의 마지막 단어인 '소망'을 살그머니 들어 올려, 다음 문장의 첫 머리에 둡니다. 그리고 그 단어로 자신이 믿고 의지하는 분의 이름을 부르기 시작합니다. "<b>소망(ἐλπίδος)</b>의 하나님이 모든 기쁨과 평강을 믿음 안에서 너희에게 충만하게 하사..."</p>
+<p>이것은 그저 우연히 반복된 수사학적 기교가 아닙니다. 하나의 단어가 문장의 담장을 훌쩍 넘어와 완전히 새로운 생명력을 얻는 경이로운 순간입니다. 인용문 안에서 '열방들이 소망을 둔다'는 인간의 행동을 뜻하던 동사가, 문장 밖으로 한 칸 건너오는 순간 세상을 향해 넘치는 은혜를 부어주시는 '하나님의 이름'으로 거듭난 것입니다. 자리가 바뀌고 쓰임새가 변하면서, 그 단어는 사람의 차원을 넘어 신적인 차원으로 도약했습니다.</p>
+<p>세상의 많은 지혜도 이와 비슷한 패턴을 보여줍니다. 유능한 법률가나 세무사가 의견서를 작성할 때, 가장 중요한 결론 부분은 자신의 주관적인 생각이 아니라 '법조문의 낱말' 그 자체로 끝을 맺는다고 합니다. 내가 만든 얄팍한 언어가 아니라, 권위 있는 법의 언어에 결론을 단단히 묶어두는 것이지요. 아름다운 교향곡도 마찬가지입니다. 앞 악장을 닫는 마지막 종지음이 그저 사라져버리는 끝이 아니라, 다음 악장을 힘차게 여는 으뜸음으로 이어질 때 비로소 위대한 음악의 흐름이 완성됩니다. 끝이 새로운 시작이 되는 이 신비로운 이어짐은, 우리의 영적 삶에도 동일하게 적용되어야 합니다.</p>
+<p>우리는 기도할 때 종종 성경책을 덮고 눈을 감은 채, 내 머릿속에 둥둥 떠다니는 익숙한 단어들을 이리저리 조합하여 하나님을 부르곤 합니다. 하지만 바울이 우리에게 보여준 기도의 호흡은 달랐습니다. 그는 말씀을 읽던 시선을 거두지 않았습니다. 고개를 숙여 옛 선지자의 글을 읽어 내려가다, 그 마지막 단어에서 턱을 들고 시선을 위로 향했습니다. 방금 내 영혼에 스며든 그 말씀의 끝자락을 단단히 움켜쥐고, 그 단어로 하나님의 이름을 불렀습니다. 아래를 향하던 묵상이 위를 향하는 기도로 수직 상승하는 순간입니다.</p>
+<p>때로 우리의 삶이 팍팍하고 버거울 때, 우리 안에서는 스스로 만들어낼 수 있는 소망이 한 줌도 남아있지 않게 됩니다. 소진된 마음으로 하루하루를 억지로 버티어 내고 있다면, 이제는 내 안에서 길어 올리려던 헛된 노력을 멈추어야 합니다. 대신, 조용히 말씀을 펴고 그 안에 담긴 단어 하나를 가만히 응시해 보십시오. 그리고 그 말씀이 끝나는 자리에서 멈춰, 그 단어로 하나님을 불러 보십시오. "어제 내가 읽었던 그 말씀의 마지막 단어이신 하나님, 오늘 내 삶에 찾아와 주십시오."</p>
+<p>이것은 기계적인 습관이나 단순한 성경 읽기가 아닙니다. 하나님의 말씀이 종이 위의 죽은 활자를 넘어 내 삶의 구체적인 결정을 이끌고, 내 상처를 싸매며, 내 기도의 언어가 되게 하는 '인격 형성'의 치열한 과정입니다. 내 머리에서 나온 얄팍한 지혜가 아니라, 태초부터 우리를 위해 예비된 약속의 말씀에 나를 온전히 내어맡기는 일입니다.</p>
+<p>말씀의 끝자락이 내 기도의 첫 단어가 될 때, 우리의 삶은 바뀝니다. 소망은 내가 억지로 쥐어짜 내는 심리적 위안이 아니라, 성령의 능력 안에서 우리에게 부어지는 압도적인 현실이 됩니다. 오늘, 당신이 읽은 성경의 마지막 단어는 무엇입니까? 부디 성경책을 덮지 말고, 그 단어를 조용히 입술에 올려 하나님을 불러보십시오. 그분께서 우리 각자의 삶에 꼭 맞는 기쁨과 평강으로, 당신의 텅 빈 마음을 빈틈없이 채워주실 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 34편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

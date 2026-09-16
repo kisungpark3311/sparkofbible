@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 20편 &middot; 로마서 8:31-39</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 매일 무언가를 재며 살아갑니다. 내 통장의 잔고를 재고, 사람들의 시선을 재며, 심지어 내 마음속 열정의 온도까지도 수시로 측정합니다. 삶의 어느 순간, 예상치 못한 위기나 깊은 우울이 찾아올 때면 우리는 조용히 가슴에 손을 얹고 스스로에게 묻곤 합니다. '나는 지금 제대로 살고 있는 걸까?', '나는 사랑받을 자격이 있는 사람인가?', '내 안에 아직 열정이 남아 있는가?'</p>
+<p>이런 질문에 사로잡히면 우리의 마음은 이내 요동치기 시작합니다. 어제는 그토록 충만했던 자신감이 오늘은 바닥을 치고, 아침에는 굳게 다짐했던 결심이 저녁이면 허무하게 무너져 내립니다. 우리는 내면의 상태, 즉 '나의 어떠함'이나 '내 열심의 온도'에서 삶의 안정을 찾으려 하지만, 사실 사람의 감정과 기분만큼 변덕스럽고 믿기 힘든 것도 없습니다. 내 안에서 근거를 찾는 이상, 우리는 결코 흔들림 없는 평안에 도달할 수 없습니다.</p>
+<p>사도 바울은 로마서 8장에서 인간이 마주할 수 있는 가장 거대한 두려움들을 하나씩 나열합니다. 사망과 생명, 천사들과 권세자들, 현재 일과 장래 일, 높음이나 깊음, 그리고 그 밖의 어떤 피조물까지. 그는 인간을 위협하는 우주의 모든 권능과 시간, 공간의 축들을 가로지르며 압도적인 목록을 세웁니다. 그리고 마침내 이 모든 것이 '우리를 하나님의 사랑에서 끊을 수 없다'고 웅장하게 선언합니다.</p>
+<p>그런데 이 거대한 선언을 자세히 들여다보면 참으로 놀라운 사실 하나를 발견하게 됩니다. 바울이 마침표를 찍으며 선택한 마지막 성분은 그 사랑의 '크기'나 '위력'을 설명하는 웅장한 수식어가 아니었습니다. 그는 그 사랑이 얼마나 뜨거운지, 얼마나 맹렬한지 묘사하는 대신, 아주 건조하고 명확하게 하나의 '주소(소재지)'를 적어 넣습니다. 그것은 바로 '우리 주 그리스도 예수 안에'라는 전치사구입니다. 문장을 끝맺는 것은 수많은 위협의 명사도, 끊을 수 없다는 동사도 아닌, 사랑이 머무는 '어디'라는 장소였습니다.</p>
+<h2>존속을 결정하는 것은 속성이 아니라 '자리'입니다</h2>
+<p>우리가 살아가는 세상을 가만히 들여다보면 이 진리와 맞닿아 있는 흥미로운 원리를 발견할 수 있습니다. 내가 어떤 집을 아무리 간절히 사랑하고 아낀다 해도, 그 집에 대한 나의 권리를 보장해 주는 것은 내 '애착의 크기'가 아닙니다. 권리를 확정하는 것은 오직 등기부등본에 적힌 '소재지와 내 이름'입니다. 애착은 기록되지 않지만, 지번은 기록되어 효력을 발휘합니다.</p>
+<p>아주 값비싼 귀금속을 안전하게 지키는 방법 역시 그것의 '가치'에 있지 않습니다. 가치가 클수록 내 손에 쥐고 있으면 오히려 더 큰 위험을 부릅니다. 그것의 안전을 보장하는 것은 튼튼한 금고라는 '맡겨진 장소'입니다. 수만 권의 장서가 있는 도서관에서도 마찬가지입니다. 그 책이 얼마나 중요한 내용을 담고 있는지가 책의 존속을 담보하지 못합니다. 청구기호가 가리키는 '정확한 위치'에 꽂혀 있을 때만 그 책은 비로소 존재하는 책이 됩니다.</p>
+<p>결국, 어떤 대상이 존속되고 안전하게 지켜지는 여부는 그 대상 자체의 속성이나 내 감정의 크기가 아니라, 그것이 '어디에 놓여 있는가' 하는 자리가 결정합니다. 바울이 그토록 거대한 위협들을 물리치고 끊을 수 없는 사랑을 이야기하며 마지막에 '그리스도 예수 안에'라는 자리를 명시한 이유가 바로 여기에 있습니다. 우리의 구원과 삶의 근본적인 근거는 우리의 성실함이나 열정의 온도에 있지 않고, 십자가와 부활로 확정된 '예수 그리스도'라는 절대 무너지지 않는 자리에 놓여 있습니다. 자리가 무너지지 않기에, 우리 삶도 결코 무너지지 않는 것입니다.</p>
+<h2>재는 손과 가리키는 손</h2>
+<p>이 깊은 진리를 우리의 몸으로 직접 감각해 볼 수 있는 방법이 있습니다. 조용히 눈을 감고 손바닥을 내 가슴 위에 얹어 보십시오. 그리고 '나는 지금 사랑받고 있는가?'라고 스스로에게 물어보십시오. 손이 가슴에 닿는 순간, 우리의 몸은 반사적으로 무언가를 '재기' 시작합니다. 심장이 얼마나 빨리 뛰는지, 호흡은 편안한지, 명치끝이 무겁지는 않은지를 실시간으로 측정합니다. 내 안에서 근거를 찾으려는 이 '재는 손'은 끊임없이 변동하는 값을 보고하며 우리를 쉴 새 없이 불안하게 만듭니다.</p>
+<p>이번에는 가슴에 얹었던 손을 떼어 앞으로 쭉 뻗고, 내 몸 바깥의 먼 한 점을 굳게 가리켜 보십시오. '가리키는 손'은 아무것도 측정하지 않습니다. 검지 손가락 끝은 시시각각 변하는 정보를 수집하는 대신, 오직 하나의 방향만을 묵묵히 유지합니다. 시간이 흐르면 팔을 계속 뻗고 있기가 힘들고 어깨가 저려옵니다. 하지만 그 통증과 피로는 자세를 유지하는 데 드는 비용일 뿐, 결코 방향이 틀렸다는 뜻이 아닙니다. 가리키는 손은 자신의 피로도를 근거로 삼아 방향을 바꾸거나 값을 갱신하지 않습니다.</p>
+<p>우리의 신앙과 인격 형성도 이와 정확히 일치합니다. 오늘 아침 내 컨디션이 우울하다고 해서, 어제 치명적인 실수를 저질렀다고 해서, 내가 속한 '사랑의 자리'가 바뀌지는 않습니다. 하지만 우리는 너무나 쉽게 가리키던 손을 거두어 다시 내 가슴을 짚고 '재는 손'으로 돌아가려 합니다. 세무조사를 받는 사람이 명확한 서류의 소재지를 대지 못하고 "저는 정말 성실하게 살았습니다"라며 태도로 소명하려 애쓰는 것처럼, 우리도 객관적으로 확정된 은혜의 자리를 잊은 채 내 감정의 뜨거움으로 나를 증명하려 고군분투합니다.</p>
+<h2>흔들리지 않는 인격을 빚어가는 길</h2>
+<p>진정으로 단단하고 아름다운 인격은 바로 이 '근거의 자리'를 바르게 분별하는 데서 피어납니다. 인생의 중대한 의사결정을 내려야 할 때, 직장을 옮기거나 관계를 정리해야 할 때, 혹은 내가 맡은 사역이 너무나 버겁게 느껴질 때, 부디 오늘 아침의 기분이나 피로도라는 감정의 자로 결론을 내리지 마십시오. "요즘 은혜가 안 되니 직분을 내려놓아야겠다"는 말은 내 영혼이 돌봄과 휴식을 필요로 한다는 절박한 신호일 뿐, 당신의 부르심 자체를 백지화할 수 있는 근거가 될 수는 없습니다.</p>
+<p>감정을 무시하라는 뜻이 결코 아닙니다. 감정은 따뜻하게 안아주고 돌보아야 할 소중한 대상이지만, 내 삶의 기둥을 세우는 '지반'의 자리에서는 조용히 내려와야 합니다. 우리 삶의 결정적인 근거 칸에는 오늘 아침의 내 상태에 따라 값이 널뛰듯 변하지 않는 것, 오직 시공간을 초월해 영원히 굳게 서 있는 그분만이 올라가야 합니다.</p>
+<p>당신의 사랑은, 그리고 당신 삶의 근거는 지금 어디에 있습니까? 하루에도 수십 번씩 변하는 내 가슴속 심장 박동에 있습니까, 아니면 십자가에 달려 죽으시고 부활하사 지금 이 순간에도 우리를 위해 간구하시는 '그리스도 예수 안에' 있습니까? 끊임없이 나 자신을 재고 평가하며 스스로를 증명하려 했던 피곤한 '재는 손'을 이제 조용히 내려놓으십시오. 그리고 사망이나 생명, 그 어떤 피조물도 결코 침범할 수 없는 그 영원한 자리를 향해 굳게 '가리키는 손'을 뻗으십시오. 흔들리는 나를 지나 변치 않는 그 확고한 주소를 가리킬 때, 우리는 비로소 세상의 어떤 폭풍 앞에서도 흔들리지 않는 깊고 단단한 인격으로 빚어지게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 20편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

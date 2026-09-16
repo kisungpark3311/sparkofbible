@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 01편 &middot; 로마서 1:1-7</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 누군가를 처음 만날 때 어떻게 자신을 소개할까요? 우리는 흔히 명함을 건네며 화려한 이력을 앞세웁니다. 내가 다닌 학교, 내가 맡은 직책, 지금까지 쌓아온 눈부신 성과들. 그 목록이 길면 길수록 상대방이 나를 더 신뢰할 것이라고 굳게 믿기 때문입니다. 하지만 2천 년 전, 역사상 가장 위대한 편지 중 하나로 꼽히는 로마서의 첫 페이지를 넘겨보면, 바울이라는 인물은 전혀 다른 방식으로 자신을 소개하며 우리 삶에 깊은 질문을 던집니다.</p>
+<p>로마서 1장의 서두는 편지를 보내는 사람과 받는 사람의 인사말로 시작됩니다. 그런데 흥미롭게도 발신자인 '바울'의 이름과 수신자인 '로마에 있는 모든 사람'의 이름 사이에는 무려 다섯 절이라는 긴 틈이 존재합니다. 편지의 서간 정형에서 이 공간은 마땅히 발신자 자신의 권위와 근황을 내세우는 자리입니다. 보통 사람이라면 "내가 누구냐면..." 하며 자기 과시로 채웠을 이 긴 공간을, 바울은 자신의 이력서로 채우지 않았습니다. 오히려 그가 집중한 것은 단 하나의 단어, 바로 '복음'이었습니다.</p>
+<p>자신의 이름을 말한 뒤, 상대방의 이름을 부르기까지 바울은 숨을 멈추고 기다렸습니다. 그리고 그 빈 공간에 선지자들로부터 이어져 온 오래된 약속과, 예수 그리스도의 십자가와 부활이라는 거대한 역사를 조심스럽게 내려놓았습니다. 숨을 고르고, 상대방을 부르기 전 그 긴 시간 동안, 그는 자기 자신을 철저히 비우고 그 자리에 가장 크고 영원한 가치를 채워 넣은 것입니다. 이는 단순한 정보의 지연이 아니라, 마음을 다해 상대를 맞이하려는 숭고한 기다림의 자세입니다.</p>
+<p>바울이 그 빈 공간에 채워 넣은 소식의 한복판에는 "능력으로 하나님의 아들로 선포되셨다"는 위대한 즉위식이 자리 잡고 있습니다. 우리가 흔히 아는 세상의 임명장과 이 선언은 본질적으로 다릅니다. 직장이나 군대에서의 임명은 그 사람의 존재 자체를 바꾸지 못합니다. 그것은 단지 권한을 행사할 새로운 국면을 열어줄 뿐입니다. 밤하늘의 개기일식을 떠올려 보십시오. 태양 주위를 감싸는 찬란한 빛, 코로나는 달이 태양을 가리는 그 몇 분 동안 갑자기 생겨난 것이 아닙니다. 그것은 늘 거기에 있었지만, 빛에 가려 보이지 않다가 결정적인 순간에 비로소 우리 눈앞에 그 웅장함을 드러내는 것입니다.</p>
+<p>예수님의 부활도 마찬가지였습니다. 부활은 없던 것을 새롭게 만든 것이 아니라, 이미 참된 진리였던 것을 온 세상에 찬란하게 드러낸 사건이었습니다. 바울은 이 놀라운 소식을 자신의 인사 한가운데에 심어두었습니다. 자신의 능력으로 무언가를 성취했다고 자랑하는 대신, 이미 주어져 있던 영광스러운 진리가 자신을 통해 어떻게 흘러가고 있는지를 고백한 것입니다.</p>
+<p>이 놀라운 인사의 방식은 오늘을 살아가는 우리의 팍팍한 일상과 인격을 어떻게 빚어낼 수 있을까요? 누군가를 처음 만나는 자리, 예를 들어 새로운 고객과 처음 마주 앉은 상담의 자리를 상상해 보십시오. 우리는 흔히 첫 미팅의 첫 다섯 문장을 나의 자격증, 경력 연수, 과거의 성공적인 실적으로 채우려 듭니다. 신뢰를 얻지 못할까 봐 두려워하는 조급함 때문입니다. 그러나 성경이 가르쳐주는 대로, 그 다섯 문장의 주어를 '나'에서 '상대방의 사안'으로 바꾸어 보십시오. 내가 얼마나 대단한 사람인지 증명하려 애쓰는 대신, 우리가 함께 풀어가야 할 문제의 구조를 먼저 짚어보는 것입니다. 무엇이 정해져 있고 무엇이 열려 있는지 찬찬히 설명할 때, 신뢰의 뿌리는 "내가 이렇게 대단하다"에서 "우리가 지금 같은 지도를 함께 보고 있다"는 깊은 연대감으로 따뜻하게 옮겨갑니다.</p>
+<p>조직이나 공동체 안에서 누군가를 새로운 직분에 임명할 때도 마찬가지입니다. 우리는 흔히 그 사람의 화려한 과거 경력을 나열하며 소개를 끝내곤 합니다. 하지만 정작 그에게 '무엇이 위임되었는지' 명확히 하지 않으면 훗날 불필요한 갈등이 생겨납니다. 임명은 존재를 위대하게 포장하는 것이 아니라 권한을 행사할 국면을 여는 것입니다. 누가 세웠고, 무엇을 행사할 수 있는지 그 범위를 명확히 밝히는 것, 그것이 바로 건강한 공동체를 세우는 지혜입니다.</p>
+<p>나아가 우리 삶 전체의 프로필을 되돌아봅시다. 우리의 소개 문구는 온통 '내가 한 일'로만 빽빽하게 채워져 있지 않습니까? 성과가 넘쳐날 때는 내 존재도 덩달아 커 보이지만, 실패하거나 비수기가 찾아와 성과가 줄어들면 내 존재마저 쪼그라드는 것처럼 느껴지는 이유가 바로 여기에 있습니다. 바울은 '내가 한 일'보다 '내게 맡겨진 것'을 앞세웠습니다. 비록 세상이 인정하는 화려한 목록이 비바람에 다 씻겨 내려간다 해도, 내 삶을 지탱하는 굳건한 부르심이 있다면 우리는 결코 흔들리지 않습니다. 성과의 등락이 내 가치를 결정짓는 것이 아님을 알게 되기 때문입니다.</p>
+<p>내 이름과 당신의 이름 사이, 여러분은 그 공간을 무엇으로 채우시겠습니까? 나를 포장하고 과시하려는 얄팍한 문장들을 거둬내십시오. 그리고 그 자리에 내게 주어진 진실한 사명과, 타인을 향한 깊은 배려를 가만히 놓아두십시오. 내세울 것 없는 나의 빈자리에 가장 숭고한 사랑과 약속을 채워 넣을 때, 우리의 투박한 인사는 그 자체로 누군가의 얼어붙은 마음을 두드리는 세상에서 가장 아름다운 즉위식이 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 01편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

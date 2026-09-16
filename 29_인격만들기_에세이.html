@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 29편 &middot; 로마서 12:9-21</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 종종 눈에 보이는 숫자로 삶의 무게를 달아보곤 합니다. 얼마나 많은 시간을 누군가를 위해 사용했는지, 얼마나 많은 사람의 필요를 채워주었는지, 혹은 교회와 사회에서 얼마나 자주 헌신했는지 그 분량으로 우리의 사랑을 증명하려 애씁니다. 다이어리에 빼곡하게 적힌 헌신과 봉사의 목록들을 하나씩 지워나갈 때면, 마치 내 자신이 꽤 괜찮은 사람인 것 같고 대단한 믿음의 길을 걷고 있는 듯한 뿌듯함마저 느낍니다. 우리 사회 역시 끊임없이 성과를 측정하고 양적인 팽창을 요구하기에, 우리는 어느덧 사랑과 섬김조차도 계량화할 수 있는 실적으로 착각하곤 합니다.</p>
+<p>하지만 우리가 그토록 바쁘게 채워가는 행위의 목록들 맨 앞자리에는, 정작 우리가 쉽게 간과해 온 아주 작고도 거대한 기준 하나가 놓여 있습니다.</p>
+<p>사도 바울은 로마서 12장 9절에서 그리스도인들이 마땅히 살아가야 할 삶의 실천 덕목들을 폭포수처럼 쏟아내기 직전, 단 한 줄의 묵직한 전제를 둡니다. <b>"사랑엔 거짓이 없나니."</b></p>
+<p>흥미롭게도 이 짧은 구절은 우리가 당장 소매를 걷어붙이고 해치워야 할 스무 가지가 넘는 행동 목록 중 첫 번째 항목이 아닙니다. 오히려 그것은 뒤따르는 모든 행동의 진짜 가치를 결정짓는 거대한 '총괄 규정'입니다. 비유하자면, 그것은 마치 아름다운 선율을 품은 악보 맨 앞에 붙어 있는 조표(key signature)와도 같습니다. 피아노를 연주할 때 조표 자체를 건반으로 누르는 사람은 없습니다. 조표는 그 자체로 소리를 내는 음표가 아니기 때문입니다. 하지만 악보 머리에 고요히 놓인 그 조표 하나는 이후에 연주될 모든 음표의 높낮이를 완전히 바꾸어 놓습니다. 아무리 화려한 기교로 쉴 새 없이 건반을 두드린다 해도, 조표를 무시한 연주는 결국 끔찍한 불협화음으로 끝나고 맙니다.</p>
+<p>우리 삶의 봉사와 헌신도 이와 같습니다. '거짓 없는 사랑'은 우리가 해야 할 일의 목록에 추가되는 또 하나의 버거운 숙제가 아닙니다. 그것은 우리 삶의 모든 행동과 선택을 지배하는 근원적인 조표입니다. 아무리 많은 봉사의 칸을 채우고 엄청난 시간과 물질을 쏟아부어 화려한 멜로디를 연주한다 한들, '거짓 없는 사랑'이라는 조표가 빠져 있다면 그것은 그저 나 자신을 과시하기 위한 요란한 꽹과리 소리에 불과할 것입니다.</p>
+<p>더욱 깊은 위로는 이 말씀 속에 숨겨진 단어의 형태에서 찾아옵니다. 성경은 우리에게 "네 몸이 부서지도록 엄청나게 참된 사랑을 증명해 보이라"고 다그치지 않습니다. 원어로 '거짓 없는(아뉘포크리토스)'이라는 단어는 긍정이 아닌 부정의 합성을 띠고 있습니다. 즉, 사랑의 '크기'를 묻는 것이 아니라, 가짜가 '섞이지 않았는지' 그 순도를 묻고 있는 것입니다. 긍정형의 사랑이라면 끝없이 그 분량을 늘려가며 남들과 비교해야 하겠지만, 부정형의 사랑은 그저 내 안에 슬그머니 스며든 위선의 불순물을 걷어내는 것만으로 충분합니다.</p>
+<p>이 지점에서 우리는 중요한 삶의 질문을 마주하게 됩니다. 내가 행하는 섬김과 친절의 목적은 과연 어디를 향하고 있는가? 이 행동을 통해 나의 도덕적 우월감을 확인하고 타인으로부터 인정받으려는 '나'에게 목적이 있는가, 아니면 오롯이 '상대방'의 유익을 향해 있는가. 진위를 판가름하는 기준은 바로 이 방향성에 있습니다. 봉사의 양을 촘촘히 늘린다고 해서 진실함의 칸이 채워지는 것은 결코 아닙니다. 수량 검증의 정밀도를 아무리 높여도, 영혼의 진위를 재는 저울은 오직 목적의 순수성만을 달아볼 뿐입니다.</p>
+<p>때로는 이 준엄한 말씀 앞에서 우리는 한없이 작아지며 자책의 늪에 빠지기도 합니다. 오랜 시간 누군가를 돕고 섬기는 자리를 묵묵히 지켜왔지만, 어느 순간 마음이 차갑게 식어버려 기쁨 없이 기계적으로 의무만 다하고 있는 자신의 모습을 발견할 때가 있습니다. '지금 내 안에 사랑하는 감정이 없으니, 그동안의 내 섬김은 모두 가짜이고 위선이었나?' 괴로워하는 이들에게 성경은 따뜻하고도 명확한 위로의 선을 긋습니다.</p>
+<p>목적이 오로지 나 자신에게 향해 있는 '위선'과, 목적은 분명 타인을 향해 있지만 내 내면의 감정과 에너지가 다 타버려 마음이 쫓아오지 못하는 '소진(burnout)'은 완전히 다른 이야기입니다. 위선 앞에서는 뼈를 깎는 돌이킴과 회개가 필요합니다. 하지만 마음이 고갈되어 더 이상 감정적 동요가 일어나지 않는 소진 앞에서는 회개가 아니라 쉼과 애도, 그리고 자신을 따뜻하게 다독이는 치료가 먼저입니다. 하나님은 우리의 연약함을 아시며, 지친 영혼에게 억지로 가짜 미소를 지어내라고 강요하지 않으십니다.</p>
+<p>우리가 아직 연약하고 심지어 원수 되었을 때, 하나님은 아무런 가식이나 가면 없는 진짜 사랑으로 우리에게 먼저 다가오셨습니다. 우리 삶의 팍팍한 악보 맨 앞에 '거짓 없는 사랑'이라는 은혜의 조표를 친히 찍어주신 분도 바로 그분이십니다. 그러므로 우리가 해야 할 일은 매일 밤 잠자리에 들며 내가 오늘 얼마나 많은 선행을 베풀었는지 그 횟수를 세어보는 것이 아닙니다. 오히려 잠시 두 손을 펴고 그 모든 행위의 동기를 조용히 덮어보며, 나의 마음속 가장 깊은 곳을 정직하게 바라보는 것입니다.</p>
+<p>오늘, 당신이 누군가를 위해 내민 작은 손길과 건넨 말 한마디의 진짜 목적은 어디에 있습니까? 세상이 요구하는 대단한 업적이나 빽빽한 이력서가 아니어도 괜찮습니다. 무거운 짐을 진 이웃을 향해, 자신의 인정 욕구를 내려놓고 오직 그 사람을 위해 건네는 진실한 위로 한마디. 비록 그 분량은 작고 보잘것없어 보일지라도, 거짓이 섞이지 않은 그 투명한 사랑만이 우리 삶을 아름다운 인격으로 빚어낼 수 있습니다.</p>
+<p>모든 위선과 장식을 내려놓은 채, 서툴지만 거짓 없는 사랑의 조표 아래서 오늘 당신만의 진실한 멜로디를 연주해 보시길 바랍니다. 그 소박하지만 순전한 울림이, 메마른 세상을 적시는 가장 감동적인 노래가 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 29편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 10편 &middot; 로마서 4:13-25</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 살아가면서 수시로 멈춰 서서 스스로에게 묻습니다. "나는 지금 잘하고 있는 걸까?", "내 믿음은 충분한가?", "나는 정말 이 길을 갈 자격이 있는가?" 가슴에 손을 얹고 내면을 깊이 들여다볼수록, 우리는 흔들리는 마음과 끝없는 불안감 앞에서 한없이 작아지곤 합니다. 신앙생활을 할 때조차 우리는 자주 '나 자신의 상태'를 점검하느라 영적인 피로감에 시달립니다. 하지만 로마서 4장의 말씀은 우리의 시선을 완전히 다른 곳으로 이끌어갑니다. 성경은 우리의 '믿음의 크기'나 '결단의 강도'를 측정하려 들지 않습니다. 대신, 우리가 '누구를 바라보고 있는지', 그 신뢰의 대상에 모든 스포트라이트를 비춥니다.</p>
+<h2>나를 증명하려는 피곤한 삶에서 벗어나기</h2>
+<p>우리가 은행에서 대출을 받는 상황을 떠올려 보십시오. 대출 한도와 이율을 결정하는 것은 "제가 밤낮없이 일해서 반드시 갚겠습니다"라는 차주의 뜨거운 다짐이나 눈물이 섞인 호소가 아닙니다. 오직 은행이 신뢰할 수 있는 '감정평가서'와 객관적인 담보물의 가치뿐입니다. 생사가 오가는 수혈의 현장에서도 마찬가지입니다. 환자가 살고자 하는 의지가 아무리 강하고 삶에 대한 애착이 깊다 해도, 그 간절함이 수혈의 적합성을 결정하지 않습니다. 오직 '공여 혈액의 혈액형과 교차시험 결과'만이 생명을 살리는 유일한 기준이 됩니다. 망망대해를 뚫고 나아가는 항해사 역시 자신의 시력을 믿지 않습니다. 그는 밤하늘에 변함없이 떠 있는 별의 위치를 기록한 '성표(별자리 표)'의 정확도에 자신의 배와 생명을 맡깁니다.</p>
+<p>이처럼 신뢰와 생명, 그리고 중대한 결정이 오가는 모든 순간에는, 설명과 무게 중심이 '믿는 자(나)'가 아니라 '믿음의 대상' 쪽에 단단히 쌓입니다. 그런데 우리는 왜 삶의 위기나 신앙의 문제 앞에서는 자꾸만 내 안의 '자격'과 '확신의 크기'를 들여다보며 스스로를 갉아먹는 것일까요?</p>
+<h2>비어 있는 나의 칸, 꽉 채워진 하나님의 칸</h2>
+<p>로마서 4장 17절과 24절을 찬찬히 읽어보면 놀라운 문장 구조를 발견할 수 있습니다. 성경은 믿음의 조상 아브라함의 위대한 믿음을 서술하면서도, 정작 아브라함 본인의 상태나 자격에 대해서는 그저 "믿는 자"라는 단 한 마디의 수식어로 끝맺습니다. 그의 마음이 얼마나 뜨거웠는지, 그의 결단이 얼마나 대단했는지는 전혀 길게 설명하지 않습니다. 반면에, 그가 믿었던 하나님에 대해서는 "죽은 자를 살리시며 없는 것을 있는 것으로 부르시는 이"라고 웅장하고 상세하게 묘사합니다. 수식어와 설명의 부피가 아브라함이 아니라, 온전히 하나님 쪽에 쌓여 있는 것입니다.</p>
+<p>이것은 오늘을 살아가는 우리에게 가슴 벅찬 은혜의 소식입니다. 우리의 구원과 삶의 굳건함은 우리가 얼마나 대단한 확신을 품고 있느냐에 달려 있지 않습니다. 우리가 마음을 향하고 있는 그분, 곧 죽음을 이기시고 절망 속에서 생명을 창조하시는 하나님 그분 자체에 달려 있습니다. 방향만 맞다면, 내 안의 흔들리는 눈금은 조금 요동쳐도 괜찮습니다. 참된 신앙은 내 안의 확신을 억지로 쥐어짜내는 감정 노동이 아닙니다. 그것은 그저 변함없고 확고하신 하나님을 묵묵히 가리키는 손가락일 뿐입니다.</p>
+<h2>구체적인 삶과 인격으로 이어지는 시선의 변화</h2>
+<p>이러한 성경적 사고방식은 단지 추상적인 신학이나 위로의 말로 끝나지 않습니다. 시선을 내 안에서 밖으로 돌리는 이 작은 전환은, 우리의 일상과 인격을 매우 구체적이고 단단하게 빚어냅니다.</p>
+<p><strong>첫째, 일터에서의 책임감과 성숙함입니다.</strong> 누군가 당신에게 중요한 조언을 구하거나 업무적 결정을 물어올 때, "제 경험상 괜찮습니다"라는 내면의 얄팍한 직관에만 기대지 않게 됩니다. 대신 근거가 되는 조문, 규정, 객관적인 데이터와 판례를 찾고 제시하는 성숙한 전문가로 성장하게 됩니다. 내 판단을 지웠을 때 남는 객관적 근거가 없다면 함부로 입을 열지 않는 신중함, 그것이 바로 성경이 가르치는 인격의 열매입니다.</p>
+<p><strong>둘째, 공동체 안에서 사람을 세우고 바라보는 방식입니다.</strong> 교회나 조직에서 중요한 직분자나 리더를 세울 때, 우리는 흔히 "그 사람의 믿음이 어떤가, 열심이 있는가"라는 주관적인 인물평에 빠지기 쉽습니다. 하지만 시선을 밖으로 돌리면, "이 직무 자체가 지금 무엇을 요구하고 있는가"를 먼저 묻게 됩니다. 사람에 대한 성향은 존중하되, 판단의 근거는 그 사람이 감당할 '직무의 객관적 기준'에 둡니다. 이로써 우리는 사람을 함부로 재단하여 상처 주지 않고, 공의롭고 지혜롭게 공동체를 세워갈 수 있습니다.</p>
+<p><strong>셋째, 흔들리는 밤을 묵묵히 견디는 지혜입니다.</strong> 중요한 결정을 내린 후, 혹은 깊은 절망 속에서 밤마다 불안이 밀려올 때가 있습니다. 그때 가슴에 손을 얹고 "나는 왜 이리 믿음이 약할까"라며 자책하지 마십시오. 대신 방의 불을 켜고, 내가 결정을 내렸던 객관적 근거 문서나, 하나님의 변함없는 약속이 적힌 성경 말씀을 손으로 짚으며 소리 내어 읽으십시오. 내 안의 '확신의 감각'은 흐린 날씨처럼 수시로 변하지만, 내 바깥에 있는 '진리의 근거'는 결코 변하지 않습니다. 감각이 없는 우울한 날에도, 우리는 적혀 있는 진리에 기대어 한 걸음을 내딛을 수 있습니다.</p>
+<h2>가슴을 짚던 손을 뻗어 영원한 진리를 가리키다</h2>
+<p>자, 이제 조용히 눈을 감고 가슴에 손을 얹은 채 "나는 믿습니다"라고 읊조려 보십시오. 시선이 내 안으로 굽어들고 호흡이 얕아지며, 자꾸만 나 자신을 점검하게 되는 것을 느낄 것입니다. 이번에는 팔을 앞으로 뻗어 저 멀리 있는 십자가, 혹은 밤하늘의 굳건한 별을 가리키며 "나는 저분을 믿습니다"라고 선포해 보십시오. 움츠러들었던 어깨가 열리고 시선이 멀어지며, 내 안에 없던 새로운 힘이 밖으로부터 강물처럼 밀려들어오는 것을 경험할 것입니다.</p>
+<p>성경이 요구하는 인격은 대단한 수련으로 얻어지는 것이 아닙니다. 그것은 나를 증명하려 애쓰는 피곤한 점검의 자세를 멈추고, 나를 살리시는 영원하고 미쁘신 하나님을 향해 손을 뻗는 그 작은 동작에서 시작됩니다. 우리의 믿음은 비록 작고 초라하여 늘 흔들릴지라도, 우리가 가리키고 있는 그분은 온 우주보다 크고 견고하십니다. 당신의 시선을 밖으로 향하십시오. 그것으로 이미 충분합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 10편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

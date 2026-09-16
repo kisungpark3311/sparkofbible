@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 26편 &middot; 로마서 11:11-24</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살다 보면, 분명 틀린 말이 하나도 없는데 어딘가 마음을 서늘하게 만드는 순간을 마주하곤 합니다. 누군가의 실수나 실패를 정확히 지적하는 말, 나의 정당성을 입증하는 빈틈없는 논리. 우리는 종종 '사실'이라는 무기를 손에 쥐고 서서, 그것이 참이기만 하다면 언제 어디서든 휘둘러도 좋다고 착각하곤 합니다. 하지만 성경은 때로, 완벽하게 '옳은 말'이 금지되는 낯선 자리에 우리를 세웁니다.</p>
+<p>로마서 11장에는 매우 흥미로운 대화의 장면이 등장합니다. 당시 로마 교회의 이방인 그리스도인들은 자신들의 구원과 유대인들의 넘어짐을 보며 이렇게 말했습니다. "가지들이 꺾인 것은 나로 하여금 접붙임을 받게 하려 함이다." 그들의 말은 신학적으로, 역사적으로 완전히 참이었습니다. 바울 역시 이 발화에 대해 "옳도다(καλῶς)"라며 흔쾌히 승인합니다. 당연히 반박이 와야 할 것이라 예상했던 자리에 뜻밖의 긍정이 떨어진 것입니다.</p>
+<p>그러나 진짜 메시지는 그 다음 칸에 숨어 있었습니다. 바울은 그들의 말이 참임을 인정한 직후, 곧바로 준엄한 금지 명령을 내립니다. "높은 마음을 품지 말고 도리어 두려워하라." 왜 옳은 말을 했는데 꾸중을 들어야 했을까요? 그것은 그들이 쥔 '사실'의 내용이 틀려서가 아니라, 그 사실을 쥐고 있는 '자세'가 틀렸기 때문입니다.</p>
+<p>이 지점에서 우리는 세상을 관통하는 중요한 패턴 하나를 발견하게 됩니다. 세상의 법정이나 병원에서도 '진실'은 두 번의 심사대를 거칩니다. 법정에 선 어떤 발언이 아무리 팩트라 할지라도, 그것이 타인을 비방할 목적을 가졌다면 명예훼손의 덫을 피하기 어렵습니다. 의사가 찾아낸 병리 소견이 아무리 객관적인 의학적 진실이어도, 환자에게 그것을 통보하는 시기와 방식은 또 다른 윤리적 규범의 심사를 받습니다. 즉, 문장 자체가 '참과 거짓'의 1차 심사를 통과했다 하더라도, 그것을 '누구를 향해, 어떤 목적과 자세로 쥐고 있는가'를 묻는 2차 심사대가 존재한다는 뜻입니다.</p>
+<p>가까운 인간관계에서도 마찬가지입니다. 부부 사이나 부모 자녀 간의 다툼을 가만히 들여다보십시오. 갈등이 폭발하는 지점은 대개 '누가 틀린 말을 했는가'가 아니라 '누가 그 맞는 말로 상대방을 찌르는가'입니다. "당신이 그때 이렇게 행동했잖아", "내가 처음부터 안 된다고 했지"라는 말들은 대개 사실 관계에 부합합니다. 하지만 그 '옳은 말'이 상대방을 굴복시키고 나의 무결함을 증명하기 위한 무기로 사용될 때, 관계는 여지없이 부서집니다. 사실의 정확성이 사랑의 부재를 정당화할 수는 없습니다. 옳은 말을 하면서도 인격이 무너질 수 있다는 이 역설을 깨닫는 것이야말로, 영적 성숙의 필수 과정입니다.</p>
+<p>로마서는 우리에게 참인 문장을 버리라고 말하지 않습니다. 바울은 그 문장의 내용을 수정하지도 않았고, 사실관계를 부인하지도 않았습니다. 다만, 그 진실을 쥐고 있는 '방향'을 문제 삼았습니다. 눈을 감고 한번 상상해 보십시오. 종이에 내가 최근에 한 '옳은 말'을 적어 봅니다. 누군가의 아픈 약점이나 뼈아픈 실수일 수도 있습니다. 이제 팔을 앞으로 쭉 뻗어 상대방을 겨눈 채 그 문장을 소리 내어 읽어 보십시오. 자연스레 턱이 들리고 목소리 끝이 올라가며 묘한 우월감이 차오를 것입니다. 이번에는 팔을 굽혀 그 종이를 내 가슴 쪽으로 돌려놓고 같은 문장을 다시 읽어 보십시오. 글자는 단 한 자도 바뀌지 않았지만, 시선은 종이 위에 조용히 머물게 되고 마음에는 묵직한 책임감이 내려앉을 것입니다. 문장 자체에는 방향이 없지만, 그 문장을 쥔 우리의 팔에는 분명한 방향이 있습니다.</p>
+<p>위대한 신학자 아우구스티누스는 그의 저서 『신국론』에서, 교만이란 '거짓을 믿는 것'이 아니라 '참인 것을 자기 쪽으로 끌어당겨 쥐는 일'이라고 깊이 있게 통찰했습니다. 사실을 지렛대 삼아 나를 높이려는 모든 은밀한 시도가 바로 교만입니다. 우리의 일상을 돌아봅시다. 직장에서 전임자의 명백한 실수를 수습하게 되었을 때, 우리는 그 실수를 있는 그대로 회의록에 기록할 수 있습니다. 하지만 그 기록의 행간에 '그래서 지금의 내가 훨씬 낫다'는 꼬리표를 몰래 달고 있다면, 우리는 참된 사실을 들고도 하나님 앞에서의 두 번째 심사대를 통과하지 못한 것입니다. 비즈니스 현장에서 다른 사람의 과오를 발견했을 때, 그것을 객관적인 문제 해결의 요건으로만 남겨두지 않고 나의 유능함을 뽐내는 화려한 영업의 도구로 삼을 때도 마찬가지입니다. 진실은 누군가를 짓밟고 나를 세우는 도구로 전락해서는 안 됩니다.</p>
+<p>성경적 사고와 성숙한 인격은, 우리가 손에 쥔 '옳은 말'을 어떻게 다루는가에서 그 진짜 깊이가 결정됩니다. 바울은 고린도전서 8장에서 "지식은 교만하게 하나 사랑은 덕을 세운다"고 일갈했습니다. 진실을 소유했다는 사실 자체가 우리의 영적 성숙을 증명하지는 않습니다. 내가 지금 누리고 있는 영광스러운 자리나 이 성취가 누군가의 꺾임과 실패 위에 세워졌다는 것을 알 때, 성경이 우리에게 요구하는 것은 타인을 향한 매서운 지적이나 값싼 우월감이 아닙니다. 도리어 그 엄연한 사실을 가슴에 안고 '두려워하는(φοβοῦ)' 겸손입니다. 이 두려움은 단순한 공포나 임상적 불안이 아닙니다. 나 역시 언제든 넘어질 수 있는 연약한 존재임을 자각하며, 나를 이 자리에 붙드시는 하나님의 긍휼하심 앞에 엎드리는 거룩한 경외입니다.</p>
+<p>어쩌면 우리는 그동안 너무 많은 순간, 내가 정답을 말하고 있다는 이유 하나만으로 무례하고 차가웠는지도 모릅니다. 옳은 말로 남을 찌르고도 스스로는 의롭다고 착각하며 살아왔을지 모릅니다. 이제 우리가 쥔 그 진실의 칼끝을 남이 아닌 나 자신을 향해, 그리고 하나님을 경외하는 방향으로 돌려놓아야 할 때입니다. 꺾인 가지들을 보며 나를 뽐내는 대신, 자격 없는 나를 접붙여주신 은혜에 전율하며 거룩한 두려움으로 서 있는 것. 옳은 말이 상대방을 베는 날 선 무기가 아니라 생명을 살리고 덕을 세우는 온유함으로 빚어지는 그 좁고 깊은 자리에서, 비로소 그리스도를 닮은 참된 인격의 열매가 맺힐 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 26편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

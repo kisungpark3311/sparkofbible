@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 11편 &middot; 로마서 5:1-11</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 살아가면서 수많은 말을 허공에 흩뿌립니다. "내가 너를 얼마나 아끼는데", "다 널 위해서 한 일이야", "다음부터는 정말 잘할게." 마음을 온전히 전달하고 싶어서, 혹은 나의 정당함을 증명하고 싶어서 우리는 문장을 길게 이어갑니다. 하지만 말이 길어질수록 이상하게도 마음은 더 공허해지고, 듣는 이의 눈빛은 차가워질 때가 많습니다. 왜 그럴까요? 허공을 맴도는 말에는 단단히 발을 딛고 설 '아래층'이 없기 때문입니다.</p>
+<p>사도 바울은 로마서 5장 8절에서 하나님의 사랑을 이렇게 선언합니다. "우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라."</p>
+<p>우리가 이 구절을 읽을 때 보통 마음에 깊이 남는 대목은 "그리스도께서 우리를 위하여 죽으셨다"는 사실입니다. 하지만 이 문장의 뼈대를 자세히 들여다보면 매우 흥미로운 구조가 숨어 있습니다. 이 문장에서 진짜 하고 싶은 말, 즉 '위층'에 해당하는 주절은 "하나님께서 우리에 대한 자기의 사랑을 세워 보이신다(확증하신다)"입니다. 그리고 "그리스도께서 우리를 위하여 죽으셨다"는 구절은 그 주장을 떠받치는 '아래층'의 근거로 자리 잡고 있습니다. 하나님은 "내가 너희를 사랑한다"는 감정적인 주장을 허공에 던지지 않으셨습니다. 대신 십자가라는 명백하고 무거운 역사적 사실을 그 아래층에 단단히 박아 넣으셨습니다.</p>
+<p>세상의 모든 견고한 문서들은 두 개의 층으로 이루어져 있습니다. 세무서에 제출하는 소명 자료를 볼까요? 위층에는 '우리의 억울함과 청구 취지'가 적혀 있지만, 그 문서를 진실로 만드는 것은 아래층에 첨부된 '거래 증빙'입니다. 의사의 진단서도 마찬가지입니다. 위층에는 의사의 소견이 적히지만, 그 아래에는 이미 찍혀 있는 엑스레이나 MRI 영상이 존재합니다. 결정적인 증거는 주장을 할 때 급하게 만들어내는 것이 아닙니다. 이미 과거에 발생하여 흔들리지 않는 사실을 꺼내어 보여주는 것입니다.</p>
+<p>하나님의 사랑도 이와 같습니다. 하나님은 우리의 끊임없는 의심과 불안 앞을 향해 새삼스럽게 증거를 급조하지 않으셨습니다. 이미 2천 년 전, 갈보리 언덕에서 일어났던 그 참혹하고도 거룩한 사건, '그리스도의 죽으심'을 우리 앞에 묵묵히 꺼내어 놓으십니다.</p>
+<p>상상해 보십시오. 누군가 당신의 눈을 바라보며 "나는 당신 편입니다"라고 세 번을 말합니다. 말할 때마다 손은 가슴으로 모아지고 시선은 진지합니다. 하지만 네 번째에는 아무 말도 하지 않습니다. 그저 품속에서 가장 소중한 물건 하나를 꺼내어 당신 앞의 탁자 위로 묵묵히 밀어 놓습니다. 말은 공기 중으로 흩어져 사라지지만, 탁자 위에 내려놓인 그 물건은 당신의 눈앞에 고스란히 남습니다. 이것이 바로 로마서 5장 8절이 보여주는 '확증'의 방식입니다. 감정의 강도로 호소하는 것이 아니라, 절대로 지워지지 않는 사랑의 증거를 우리 삶의 탁자 위에 남겨두는 것. 그것이 바로 십자가입니다.</p>
+<p>그렇다면 이러한 십자가의 사랑을 입고 성경의 구조를 읽어낸 우리는, 매일의 일상 속에서 어떤 인격을 만들어가야 할까요? 성경적 사고는 단지 머릿속의 깨달음으로 끝나지 않고, 우리의 삶과 태도를 빚어내야 합니다.</p>
+<p>첫째, 누군가에게 나를 해명하거나 소명해야 할 때, 우리는 말이 길어지는 것을 경계해야 합니다. "그런 의도가 아니었다", "업계의 관행이었다"는 식의 위층 주장만 반복하는 대신, 냉정하게 아래층을 들여다보아야 합니다. 내 주장을 뒷받침할 구체적인 사실과 증거가 없다면, 우리는 변명을 멈추고 삶의 빈 아래층을 먼저 채우는 정직함을 배워야 합니다. 말이 아닌 행동이 쌓일 때, 우리의 소명은 진짜가 됩니다.</p>
+<p>둘째, 우리가 속한 공동체나 교회의 모습을 돌아보아야 합니다. "우리는 이웃을 사랑하는 데 힘쓴다", "서로를 위해 헌신한다"는 다짐들은 아름답지만, 그것이 결의문의 위층으로만 끝난다면 그저 허공을 치는 메아리에 불과합니다. 그 아래층에 '이미 집행된 사랑의 수고'와 '날짜가 적힌 헌신의 사실'들이 기록되어 있는지 확인해야 합니다. 아래층이 비어 있는 결의는 우리 스스로를 속이게 만듭니다.</p>
+<p>셋째, 개인의 중대한 의사결정 앞에서도 이 원리는 빛을 발합니다. 우리는 종종 그날의 기분이나 막연한 불안, 혹은 붕 뜨는 감정에 기대어 삶의 중요한 방향을 결정하곤 합니다. 하지만 이제부터는 나의 확신 아래층에 '날짜가 있는 사실'들만을 차분히 적어 보십시오. 감정의 형용사를 걷어내고 남은 사실의 칸이 비어 있다면, 잠시 멈추고 결정을 미루는 것이 지혜입니다. 흔들리는 마음을 단단하게 붙잡아 주는 것은 내 감정의 강도가 아니라, 그 아래에 놓인 명백한 팩트입니다.</p>
+<p>하나님의 사랑은 방향이 없는 맹목적인 감정이 아니었습니다. "우리에 대한(toward us)"이라는 분명한 방향을 가지고, "그리스도의 죽음"이라는 부인할 수 없는 확실한 팩트를 우리 곁에 남기셨습니다. 우리도 그렇게 살아가기를 원합니다. 공허한 다짐과 화려한 변명이 난무하는 세상 속에서, 묵묵히 삶의 아래층을 단단한 사실과 사랑의 수고로 채워가는 사람. 화려한 주장을 걷어내어도 묵직한 진실이 남아 있는 사람. 십자가의 구조를 닮은 그 흔들림 없는 인격이 오늘 우리에게 필요합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 11편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

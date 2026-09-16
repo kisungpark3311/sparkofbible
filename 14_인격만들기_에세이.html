@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 로마서 제 14편 &middot; 로마서 6:15-23</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 무언가를 설명할 때 종종 비유를 사용합니다. "인생은 마라톤과 같다"거나 "시간은 금이다"라는 식입니다. 눈에 보이지 않는 복잡하고 거대한 진실을 누군가에게 전하기 위해, 우리는 익숙하고 만질 수 있는 '사람의 말'과 '세상의 그림'을 빌려옵니다. 그러나 아무리 좋은 비유라 해도 진실을 온전히 담아낼 수는 없습니다. 때로는 그 비유의 한계와 어설픔을 깨닫고, 우리가 전하려던 본질적인 메시지마저 얼버무리거나 자신감을 잃기도 합니다. '내 설명이 부족하니, 내 결론도 틀린 것은 아닐까?' 하는 불안 때문입니다.</p>
+<p>그런데 성경은 이 완벽하지 않은 '사람의 방식'을 전혀 다르게 다룹니다. 로마서 6장에서 사도 바울은 죄와 의, 그리고 거룩함이라는 심오하고 영적인 원리를 설명하기 위해 '종(노예)'이라는 지극히 세속적이고 거친 비유를 꺼내 듭니다. 그리고는 아주 독특하게도 자신의 비유에 스스로 각주를 답니다. <strong>"너희 육신이 연약하므로 내가 사람의 예대로 말하노니..."</strong> (롬 6:19)</p>
+<p>이 구절을 가만히 들여다보면 가슴이 뭉클해집니다. 바울이 "내가 사람의 예대로 말한다"며 일종의 사과(apology) 내지는 한계 설정을 한 이유는, 그가 진리를 몰라서가 아니었습니다. 종교개혁자 장 칼뱅의 통찰처럼, 바울은 '내용(substance)'을 낮춘 것이 아니라 진리를 담아내는 '방식(manner)'을 낮추었습니다. 무지하고 연약한 우리의 눈높이에 맞추기 위해, 가장 숭고한 진리를 가장 투박한 인간의 그릇에 담아 건넨 것입니다. 이것은 화자의 무지를 감추기 위한 방어막이 아니라, 철저히 듣는 이를 향한 깊은 배려와 사랑의 표지입니다.</p>
+<p>더욱 놀라운 것은 이다음의 태도입니다. 흔히 우리는 자신이 한 말에 단서를 달거나 한계를 지적하면, 뒤따르는 결론의 힘이 약해진다고 생각합니다. "내 설명이 완벽하진 않지만..."이라고 말하면서 목소리가 기어들어 가는 식입니다. 하지만 바울은 자신의 비유가 가진 한계를 선명히 밝힌 바로 그 문장 안에서, 한 치의 흔들림도 없이 단호한 명령을 이어갑니다. <strong>"이제는 너희 지체를 의에게 종으로 내주어 거룩함에 이르라."</strong></p>
+<p>그는 목소리를 낮추지 않았습니다. 비유의 한계를 인정하는 것과 진리를 향한 요구를 포기하는 것은 완전히 다른 일이기 때문입니다. "이 그림은 너희의 이해를 돕기 위해 쓴 불완전한 것이지만, 이것이 가리키는 진실과 우리가 마땅히 걸어가야 할 방향은 절대적이다"라고 선언하는 것입니다. 한계를 인정하는 '겸손'과 진리를 선포하는 '담대함'이 한 호흡 안에 공존하는 이 경이로운 문장은, 오늘날 우리가 맺어야 할 인격의 열매가 무엇인지 묵직하게 묻습니다.</p>
+<p>우리의 일상과 일터로 이 원리를 가져와 봅시다. 전문가로서 누군가를 상담할 때, 우리는 고객의 빠른 이해를 위해 찰떡같은 비유를 들어 설명하곤 합니다. 하지만 그 비유를 문자 그대로 믿어버리면 문제가 발생하기도 합니다. 이때 성경적 사고로 훈련된 사람은 어떻게 할까요? 자신이 만든 비유에 명확한 '표지판'을 달아줍니다. "선생님, 이 설명은 이해를 돕기 위한 그림일 뿐입니다. 하지만 선생님이 실제로 내리셔야 할 결정은 바로 이것입니다." 비유의 한계를 분명히 밝히되, 자신이 내린 올바른 결론과 처방 앞에서는 결코 머뭇거리지 않는 태도. 이것이 바로 바울이 보여준 건강한 소통의 인격입니다.</p>
+<p>이는 타인과의 관계뿐 아니라 '나 자신'과의 대화에서도 마찬가지입니다. 우리는 종종 자신의 삶을 특정한 그림으로 규정합니다. "나는 끝없는 터널을 걷고 있어", "나는 무거운 짐을 진 달팽이야." 이런 자기 비유는 힘든 현실을 견디게 해주지만, 시간이 지나면 사실처럼 굳어져 우리를 옭아매기도 합니다. 이때 우리는 스스로에게 쓴 비유에도 단서를 달아주어야 합니다. "이 그림은 지금의 나를 위로하고 상황을 이해하기 위해 임시로 고른 것뿐이야. 이것이 내 존재의 결론은 아니야." 이렇게 표지를 달아둘 때, 우리는 낡은 비유를 미련 없이 벗어던지고 하나님이 요구하시는 새로운 발걸음을 향해 나아갈 수 있습니다.</p>
+<p>성경이 우리에게 요구하는 성숙한 인격은 완벽한 언어 구사력이나 무오류의 논리가 아닙니다. 오히려 완벽하지 않은 '사람의 말'을 기꺼이 사용하는 낮아짐, 타인의 연약함을 품어내는 따뜻한 배려, 그러면서도 진리가 이끄는 삶의 방향에 대해서는 결코 타협하지 않는 단단함입니다. 불완전한 비유를 담은 손은 한없이 부드럽게 내밀되, 진리를 가리키는 손끝은 추호의 흔들림도 없는 사람. 우리의 입술과 삶도 이처럼 깊고 단단한 사랑의 화법을 닮아가기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      로마서 제 14편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
