@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 23일 &middot; 역대상 29:20-30</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>한 사람의 인생이 저물어갈 때, 우리는 종종 그의 삶을 단 하나의 완벽한 문장이나 찬란한 이름표로 요약하고 싶어 합니다. '성공한 사업가', '헌신적인 부모', 혹은 '위대한 지도자'처럼 말입니다. 하나의 이름으로 묶어버리면 기억하기 쉽고, 남들에게 설명하기도 좋기 때문이지요. 그러나 이스라엘 역사상 가장 찬란했던 왕, 다윗의 마지막을 기록하는 성경의 방식은 우리의 이러한 기대와는 사뭇 다릅니다. 역대상 29장 29절은 다윗의 화려한 업적을 한 줄로 찬양하는 대신, 그의 생애를 세 사람의 기록자에게 조용히 나누어 넘겨줍니다. 사무엘, 나단, 그리고 갓. 흥미롭게도 성경은 이 세 사람의 이름 뒤에 각기 다른 세 개의 직함을 붙여 놓았습니다.</p>
+<p>원어인 히브리어 성경을 소리 내어 읽어보면 이 차이는 한결 선명하게 다가옵니다. 사무엘에게는 '로에', 나단에게는 '나비', 갓에게는 '호제'라는 전혀 다른 낱말이 사용되었습니다. 우리말 성경에서는 이를 '선견자', '선지자', '선견자'로 번역하면서 그 고유한 결이 조금 옅어졌지만, 본래는 입술의 모양과 목구멍의 울림이 각기 다른, 뚜렷하게 구별되는 세 개의 이름입니다. 왜 굳이 하나의 통일된 직함으로 부르지 않았을까요? 성경은 왜 그들이 다르게 불려야 했는지에 대한 친절한 설명 하나 없이, 세 개의 다른 거울을 그저 나란히 세워둡니다.</p>
+<p>이 신비로운 침묵을 이해하기 위해 우리의 일상을 떠올려 볼까요. 직장인이 회사에서 올린 하나의 귀한 매출은 세금계산서에서는 '공급가액'으로, 지급명세서에서는 '지급액'으로, 신고서에서는 '수입금액'으로 각기 다른 이름으로 기록됩니다. 밤하늘의 경이로운 은하수 역시 광학 망원경, 전파 망원경, X선 망원경으로 관측할 때마다 완전히 다른 파장과 데이터로 남아 우리에게 다가옵니다. 그중 어느 하나만이 '진짜'라고 고집할 수 없으며, 억지로 하나로 뭉뚱그려 합칠 수도 없습니다. 다윗의 삶도 이와 같았습니다. 위대한 생애란, 단 하나의 이름표나 단 하나의 기록으로는 도저히 다 담아낼 수 없는 넉넉한 넓이와 깊이를 지녔다는 것을 성경은 웅변하고 있는 것입니다. 세 가지 직함은 서열이나 등급이 아니라, 각자가 서서 다윗을 바라보던 '관측 위치'의 아름다운 차이를 의미합니다.</p>
+<p>더욱 벅찬 감동으로 다가오는 것은 이어지는 마지막 30절의 묘사입니다. 위대한 왕의 숨결이 멎으며 책이 무겁게 닫힐 것 같지만, 성경은 오히려 시선을 바깥으로 활짝 열어젖힙니다. "그 시대들이 그와 이스라엘과 모든 나라의 모든 나라들 위에 지나갔더라." 원어 성경은 여기서 '시대'를 단수가 아닌 복수형(시대들, עִתִּים)으로 기록했습니다. 한 인간의 죽음으로 이야기가 닫히는 것이 아니라, 그의 삶 위로 굽이치며 흘러가는 수많은 시대들과 온 열방을 향해 문을 열어둔 채로 끝맺음을 합니다. 이것은 한 사람의 인생을 섣불리 평가하거나 하나의 교훈으로 작게 '정리'해버리려는 좁은 태도가 아닙니다. 오히려 그의 족적을 다음 시대로 조용히 '인계'하는, 참으로 위대하고도 넉넉한 마감의 방식입니다.</p>
+<p>우리의 삶도 이와 다르지 않습니다. 누군가는 당신을 따뜻하고 다정한 친구로, 누군가는 엄격하고 빈틈없는 선배로, 또 누군가는 서툴지만 애쓰는 초보자로 기억할 것입니다. 때로는 내 삶이 이리저리 흩어진 조각들처럼 느껴져 초라하고 막막해 보일 때도 있겠지요. 하지만 억지로 그 흩어진 기록들을 하나의 완벽한 이력서로 꿰맞출 필요는 없습니다. 내 삶의 다양한 흔적들과 나를 부르는 여러 이름들은, 내가 얼마나 입체적이고 다채로운 인생을 치열하게 살아왔는지를 증명하는 훈장과도 같습니다.</p>
+<p>우리는 스스로의 삶을 평가하고 요약하며 마침표를 찍으려 지나치게 애쓰지 않아도 괜찮습니다. 나의 연약함과 눈물, 그리고 눈부셨던 기쁨의 순간들은 나를 지켜본 여러 사람들의 기억 속에, 각기 다른 고유한 이름표를 단 채로 남아있을 것입니다. 그리고 그 모든 파편화된 기록들 위로 하나님의 크신 '시대들'이 묵묵히 흘러갈 것입니다. 삶은 그렇게 누군가의 기억으로, 다음 시대로 묵묵히 그리고 아름답게 인계되는 것입니다. 당신의 삶은 단 하나의 이름으로 요약되기엔 너무도 깊고 큽니다. 그러니 흩어진 채로, 당신만의 고유한 빛을 내며 이 시대들 위로 아름답게 흘러가기를 바랍니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 23일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

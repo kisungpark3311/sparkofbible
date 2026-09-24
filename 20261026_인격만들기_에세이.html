@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 26일 &middot; 아가 3:1-11</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리가 일상에서 무심코 마주하는 수많은 서식과 장부들을 가만히 들여다본 적이 있습니까? 영수증, 세금계산서, 이력서, 사고 보고서 같은 것들 말입니다. 세금계산서에는 금액을 적는 칸은 선명하게 열려 있지만, 때로 그것이 구체적으로 어떤 땀방울의 대가인지를 묻는 '품목' 칸은 두루뭉술하게 닫혀 있기도 합니다. 우리의 이력서를 볼까요? 화려한 학력과 자격증, 그리고 근무했던 직장의 이름과 기간을 적어 넣는 칸은 촘촘하게 마련되어 있습니다. 하지만 우리가 왜 그 일을 시작했고, 어떤 아픔 때문에 그곳을 떠나야 했는지, 그 과정에서 마음이 얼마나 깎여나갔는지를 묻는 칸은 존재하지 않습니다.</p>
+<p>세상의 서식에서 '없는 칸'은 단순한 여백이 아닙니다. 그것은 우리 사회가 묻지 않기로 합의한 것들의 서글픈 목록이기도 합니다. 반대로 누군가 새로운 칸을 열어 무언가를 기록하기 시작했다면, 그것은 자신이 무엇을 소중히 여기는지, 무엇에 책임을 지려 하는지를 세상에 내어놓는 진실한 '관심의 고백'입니다. 어떤 칸을 열어두는가, 그것이 곧 그 사람의 삶의 방향이고 시선입니다.</p>
+<p>수천 년 전 쓰여진 아름다운 연애시, 성경의 아가서(3장 1-11절)에는 이 '열린 칸과 닫힌 칸'에 관한 매혹적인 통찰이 숨어 있습니다. 이 시에는 눕는 자리, 즉 침소에 대한 묘사가 세 번 등장합니다. 그런데 흥미롭게도 앞의 두 자리에는 그것이 무엇으로 만들어졌는지를 적는 '재료' 칸이 굳게 닫혀 있습니다. 오직 세 번째 등장하는 왕 솔로몬의 가마에만 그 재료가 세밀하게 기록됩니다. 레바논의 나무, 은 기둥, 금 받침, 자주색 방석, 그리고 그 안을 채운 사랑까지.</p>
+<p>처음 이 본문을 읽는 사람들은 본능적으로 결핍을 느낍니다. 앞선 두 개의 자리에도 무언가 화려한 재료를 채워 넣고 싶어 하는 충동에 사로잡힙니다. 빈칸을 보면 무엇이든 내 생각대로 채우려 드는 것은 우리의 오랜 습관이자 관성입니다. 그래서 사람들은 흔히 "솔로몬의 가마가 가장 훌륭하다", "마지막에 적힌 사랑이야말로 세상에서 제일 귀한 재료다"라며 재빨리 서열을 매기고 빈칸을 덮어버리려 합니다.</p>
+<p>하지만 성경은 그렇게 가벼운 우열을 가리거나 등급을 매기지 않습니다. 앞의 두 자리가 비어 있는 것이 아니라, 그저 '다른 종류의 칸'이 열려 있었을 뿐이라는 사실을 우리는 조금 늦게 깨닫게 됩니다. 첫 번째 자리에서는 밤새워 사랑하는 이를 찾아 헤매는 절절한 '그리움과 찾음'의 칸이 열려 있었습니다. 두 번째 자리에서는 캄캄한 밤의 두려움을 막아서는 예순 명의 용사들과 '보호'의 칸이 열려 있었습니다. 그리고 세 번째 자리에 이르러서야, 비로소 무엇으로 가마를 만들었는지 묻는 '재료'의 칸이 열린 것입니다.</p>
+<p>이 지점에서 우리의 시선은 한 걸음 더 깊은 곳으로 나아가야 합니다. 세 번째 자리에 적힌 그 화려한 재료들—레바논의 나무, 은과 금, 자주색 염료를 가만히 응시해 보십시오. 표면적으로는 눈부신 물질의 목록이지만, 시간의 축을 조금만 뒤로 감아보면 그 뒤에 숨을 쉬고 있는 사람들의 땀방울이 보이기 시작합니다. 험준한 레바논 산맥에서 거대한 백향목을 베어낸 벌목꾼의 굳은살, 뜨거운 가마솥 앞에서 자주색 염료를 끓여낸 염색공의 거친 손, 그리고 그 모든 향품과 재료를 거친 사막을 건너 실어 나른 상인들의 고단한 발걸음이 그 짤막한 재료의 장부 안에 살아 숨 쉬고 있습니다.</p>
+<p>그렇습니다. 물질을 단순히 물질로만 소비하지 않고, 그 이면에 존재하는 땀과 노동, 묵묵한 사람의 온기를 읽어내는 것. 화려한 장식품 속에서 이름 없는 이들의 수고를 기억하는 것. 이것이 바로 우리가 일상 속에서 훈련해야 할 성경적 사고이자, 참된 인격의 형성입니다.</p>
+<p>이제 스스로에게 조용히 묻고 싶습니다. 당신의 일기장, 당신의 가계부, 당신의 마음속 장부에는 지금 어떤 칸이 열려 있습니까? 혹시 숫자를 적는 칸과 남들에게 보여줄 성취의 칸만 빽빽하게 채워져 있지는 않습니까? 나와 내 가족의 일상을 지탱하기 위해 보이지 않는 곳에서 수고하는 수많은 이들의 '노동'을 기억하는 칸, 상처받은 타인의 아픔에 공감하고 그들의 곁을 지켜주는 '위로'의 칸은 굳게 닫혀 있지 않습니까?</p>
+<p>우리는 다른 사람의 삶에 뚫려 있는 빈칸을 함부로 내 방식대로 채우려 해서는 안 됩니다. 내게 중요한 잣대로 타인의 빈칸을 평가하고 무시하는 언어의 폭력을 멈추어야 합니다. 상대가 비워둔 칸 위에서 섣불리 펜을 굴리려 하는 나의 얄팍한 판단과 관성을 묵묵히 견뎌내십시오. 대신, 그가 지금 삶의 어느 자리에 다른 종류의 칸을 힘겹게 열어가고 있는지, 그 고독하고 아름다운 분투를 말없이, 그리고 따뜻하게 지켜봐 주어야 합니다.</p>
+<p>빈칸은 결코 결핍이 아닙니다. 그것은 아직 쓰이지 않은 가능성이며, 우리가 서로를 더 깊이 이해하고 사랑하기 위해 남겨둔 거룩한 여백입니다. 오늘 하루, 무심코 지나쳤던 누군가의 빈칸을 다정한 시선으로 읽어 내려가는 당신이 되기를 바랍니다. 화려한 금과 은 너머에서 사람의 얼굴을 발견하고, 침묵의 여백 속에서 진심을 읽어낼 줄 아는 사람. 그런 넉넉하고 깊은 인격을 지닌 이들이 만들어갈 내일은, 분명 오늘보다 눈부시게 아름다울 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 26일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

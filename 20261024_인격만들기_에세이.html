@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 24일 &middot; 아가 1:1-17</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 늘 무언가를 향해 바쁘게 달려가는 세상에 살고 있습니다. "자, 뛰어보자!", "함께 해내자!"와 같은 열정 가득한 청유형의 말들은 매일같이 우리의 귀를 스치고 지나갑니다. 무언가를 같이 하자는 말 속에는 뜨거운 의지가 담겨 있고, 우리는 종종 그 말의 개수가 곧 우리가 실제로 얼마나 많이 움직였는가를 증명한다고 믿곤 합니다.</p>
+<p>하지만 성경 아가서 1장 4절의 짧은 구절 앞을 서성이다 보면, 그동안 우리가 당연하게 여겼던 삶의 속도와 방향에 대해 전혀 새로운 시각을 얻게 됩니다. <strong>"나를 이끌라, 우리가 달려가자. 왕이 나를 그의 방으로 이끄셨다. 우리가 기뻐하고 즐거워하리라. 우리가 네 사랑을 기억하리라."</strong> 이 한 구절 안에는 무려 네 번이나 "우리가 ~하자"라는 청유형 동사가 등장합니다. 달려가자, 기뻐하자, 즐거워하자, 기억하자. 글자만 놓고 보면 이보다 역동적이고 열정적인 문장은 없을 것 같습니다.</p>
+<p>그런데 잠시 눈을 감고, 달리기 직전의 몸을 상상해 보십시오. 출발선에 서서 근육을 팽팽하게 긴장시킨 채 한 발을 내딛으려 하는 바로 그 반 박자의 순간 말입니다. 신체적인 진실을 마주해 보면, 정작 전력 질주를 하며 달리고 있는 중에는 결코 "달리자!"라고 소리칠 수 없습니다. 폐를 가득 채우는 가쁜 숨은 긴 문장을 허락하지 않기 때문입니다. 즉, "우리가 달려가자"라는 청유의 외침은 오직 '달리지 않고 멈춰 선 입'에서만 나올 수 있습니다.</p>
+<p>그렇다면 한 절 안에 네 번이나 모여 있는 이 청유의 말들은 무슨 의미일까요? 그것은 곧 그들이 아직 달리지 않은 채 서 있는 시간이 그 네 번의 횟수만큼이나 길고 두껍다는 뜻입니다. 우리는 흔히 이 구절을 역동적인 시간의 흐름으로 읽어왔지만, 사실 이것은 행동의 나열이 아니라 행동하기 전 '유예의 시간'이 지닌 밀도를 보여주는 것입니다. 겹겹이 쌓인 "아직 아님"의 시간 속에서, 말하는 이는 두근거리는 숨을 고르며 서 있습니다.</p>
+<p>그리고 그 멈춤의 순간, 우리는 가장 중요한 질문 하나를 마주하게 됩니다. 내가 그토록 쉽게 "우리가 달리자"고 외칠 때, 그 '우리'라는 단어 안에는 과연 누가 서 있는가 하는 것입니다. 무심코 던진 "우리"라는 울타리 안에는 종종 묻지도 않은 채 내 의지에 끌려온 누군가가 숨죽여 서 있을 때가 많습니다. 칼빈이 주기도문의 '우리'를 논하며 가르쳐 주었듯, <strong>성경적인 인격을 형성한다는 것은 나 혼자만의 열정에 취해 혼자 달려나가는 것을 멈추고, 내 기도의 울타리 안에 형제를 실제로 두는 일입니다.</strong> 내가 부르는 '우리' 속에 진짜 함께하는 이의 자리가 마련되어 있는지 돌아보고, 비어있다면 조용히 누군가의 이름을 채워 넣는 일. 그것이 진정한 기도의 시작이며, 성숙한 인격의 열매입니다.</p>
+<p>놀라운 것은, 이토록 묵직한 정지와 유예의 시간 속에서도 이야기는 결코 멈추지 않는다는 사실입니다. 아가서 1장 4절은 첫 번째 청유("우리가 달려가자")와 나머지 세 번의 청유 사이에 유일하게 이미 완료된 문장 하나를 끼워 넣습니다. <em>"그 왕이 나를 데려가셨다."</em> 아직 아무것도 이루지 못한 채 멈춰 서서 머뭇거리는 우리의 수많은 미실현된 다짐들 사이에서, 우리의 의지와 상관없이 외부로부터 이미 이루어진 완벽한 은혜의 사건이 그 모든 구조를 든든하게 받치고 있는 것입니다.</p>
+<p>우리를 참된 변화로 이끄는 힘은 "우리가 무엇을 해내자"는 벅찬 결심에서 오지 않습니다. 도리어 끝없이 머뭇거리고 멈춰 설 수밖에 없는 우리의 얇은 다짐들 사이를 뚫고 들어오는 절대자의 '완료된 사랑'에 잇대어질 때, 비로소 우리의 신앙과 인격은 진정한 열매를 맺기 시작합니다.</p>
+<p>때로는 열정적으로 달리며 눈앞의 성과를 내는 것보다, 출발선에 멈춰 서서 나와 함께 뛸 사람의 체온을 느끼고 숨을 고르는 시간이 더 큰 용기를 필요로 합니다. 내 뜻대로 속도를 내지 못해 조급해지는 날, 끝없이 쌓이는 다짐들 속에서 스스로를 자책하게 되는 날, 이 짧고 깊은 아가서의 멈춤을 떠올려 보길 원합니다. 그 멈춰 선 자리는 결코 실패나 지연이 아닙니다. 내 곁에 선 이들을 나의 사랑으로 끌어안고, 나를 이끄시는 완전한 은혜를 굳게 신뢰하며 내면의 인격을 빚어가는 눈부신 시간입니다. 오늘 하루, 무거운 발걸음을 떼기 전 잠시 숨을 고르고 내 곁의 '우리'를 돌아보는 당신의 그 멈춤이 세상의 어떤 질주보다도 거룩하고 아름답습니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 24일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 07일 &middot; 역대상 20:1-8</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리의 삶은 매일 무수한 기록으로 남겨집니다. 누군가의 밤낮 없는 수고는 회의록의 건조한 한 줄로 요약되고, 보이지 않는 곳에서 흘린 땀방울은 누군가의 화려한 성과표 위로 올라갑니다. 세상의 기록은 종종 이토록 차갑고 공평하지 않아서, 가장 무거운 짐을 진 사람의 이름은 지워지고 가장 높은 자리에 선 사람의 이름만 남기곤 합니다. 구약성경 역대상 20장 1절에서 8절까지의 짧은 본문 속에도 이러한 세상의 뼈아픈 이치가 고스란히 담겨 있습니다. 그러나 성경은 그저 세상의 불공평함을 고발하는 데 그치지 않고, 우리를 그 이면에 숨겨진 ‘성경적 사고와 인격’을 빚어내는 깊은 통찰의 자리로 묵묵히 안내합니다.</p>
+<p>본문은 암몬 자손과의 치열했던 랍바 성 전투를 묘사하고 있습니다. 요압이라는 장수가 군대를 이끌고 성을 에워싸 마침내 쳐서 함락시킵니다. 원어 성경의 단어들을 조심스럽게 들여다보면, 아주 흥미롭고도 서글픈 문법적 변화를 발견하게 됩니다. 처음 두 번, '랍바'라는 성의 이름은 뚜렷하게 독립된 단어로 등장합니다. 하지만 요압이 그 성을 완전히 허물어뜨리는 마지막 순간, 랍바라는 이름은 낱말의 자리에서 내려와 그저 ‘-그것을(ha)’이라는 조그마한 3인칭 여성 단수 접미사 한 글자로 축소되어 버립니다. 웅장했던 성벽이 무너지듯, 역사 속에서 그 존재감마저 문법의 부속품으로 전락한 것입니다. 번역본들은 종종 이 작은 흔적마저 매끄러운 요약본 속에 지워버리며, 랍바의 비극은 물론이고 그 성을 허문 요압의 거친 수고조차 흐릿하게 감추어 버립니다. 번역의 문제가 아니라 원문이 이미 랍바를 낮추었고, 우리의 기록 체계가 필연적으로 가지는 '망각의 문턱'을 보여주는 대목입니다.</p>
+<p>그런데 이토록 치열하게 성을 허문 자의 땀이 채 마르기도 전인 바로 다음 절에서, 장면은 극적이고도 낯설게 전환됩니다. "다윗이 그 왕의 머리에서 보관을 벗겨 보니 그 중량이 금 한 달란트라... 다윗의 머리에 씌워졌으며." 방금 전까지 전장을 누비며 성을 무너뜨린 것은 요압의 거친 두 손이었지만, 그 전리품인 무거운 금관을 쓴 것은 후방에 있던 왕 다윗의 머리였습니다. 이토록 대조적인 상황 앞에서, 놀랍게도 성경 본문은 이 두 장면 사이에 어떠한 설명이나 변명도 덧붙이지 않습니다.</p>
+<p>눈을 감고 이 기묘한 침묵의 순간을 우리의 몸으로 상상해 보십시오. 두 팔을 뻗어 무거운 성벽을 바깥으로 거칠게 밀어내는 동작을 한 뒤, 아무 말 없이 걸음을 옮겨 누군가의 정수리 위에 조심스레 왕관을 얹어주는 모습을 말입니다. 근육을 찢어지듯 쓰는 미는 동작과, 어깨를 들어 올려 살며시 얹는 동작은 전혀 다릅니다. 이 사이에는 설명할 수 없는 '침묵의 동선'이 존재합니다. 성경은 성을 허문 손과 관을 쓴 머리를 그저 한 절 사이에 나란히 배치할 뿐, 공치사를 하거나 억울함을 호소하는 어떠한 인과관계의 연결어도 끼워 넣지 않았습니다.</p>
+<p>이 지독한 공백 속에서 우리는 세상이 굴러가는 '기록의 법칙'을 선명하게 마주합니다. 역사와 기록은 언제나 계량할 수 있는 것에만 저울을 내어줍니다. 금관의 무게는 '한 달란트'라는 정확하고 빛나는 숫자로 측정되어 영광의 장부에 오르지만, 이름 없는 병사들의 피땀과 포로로 끌려나온 백성들의 고통 앞에는 그 어떤 저울도 놓이지 않습니다. 규모가 커지고 기록의 층위가 올라갈수록, 일선에서 수고한 개개인의 이름은 지워지고 '모든', '전체'라는 뭉뚱그려진 표현 속에 묻혀버립니다. 권위는 사다리 위쪽으로 향하지만, 정밀한 진실은 언제나 사다리 아래쪽, 사라진 접미사 속에 남아 있습니다.</p>
+<p>그렇다면 우리는 이 불공평한 침묵과 기록의 이면 앞에서 어떠한 인격을 빚어내야 할까요? 성경적 사고는 이 빈자리를 억지로 설명으로 때우거나 분노로 채우려 하지 않는 데서 출발합니다. 대신, 우리의 일상과 실무 속에서 내가 딛고 있는 사다리의 위치를 정직하게 돌아보는 것입니다. 내가 습관적으로 작성하는 문서와 삶의 보고서에서, 누군가의 뼈를 깎는 수고를 기계적인 '한 줄'로 요약해 버리지는 않았는지 성찰해야 합니다. 효율과 행정이라는 이름으로 이름 없는 자들의 헌신을 너무 쉽게 축소해 버리기 전에, 그들의 이름을 한 번이라도 더 또렷하게 독립된 낱말로 적어두는 따뜻하고 치열한 정밀함을 지켜내야 합니다. 누군가의 성취를 측정하고 평가할 때, 우리의 저울이 언제나 화려한 금관 앞에만 놓여 있는 것은 아닌지 끊임없이 묻고 점검하는 것이 바로 우리가 일상에서 훈련해야 할 성경적 인격입니다.</p>
+<p>더 나아가, 이 묵상은 우리를 성경의 가장 깊은 진리, 복음의 심장으로 인도합니다. 땀 흘린 자와 영광을 취하는 자가 분리되어 버린 다윗과 요압의 공백 앞에서, 우리는 마침내 완전한 참된 왕이신 예수 그리스도를 올려다보게 됩니다. 세상의 지배자들은 타인의 피와 수고를 딛고 올라가 화려한 금관을 차지하지만, 우리의 왕 예수 그리스도께서는 결코 타인의 공을 빼앗아 자신의 머리를 장식하지 않으셨습니다. 오히려 그분은 친히 십자가라는 고난의 성벽을 몸으로 무너뜨리셨고, 남을 찌르는 무기 대신 자신의 손발이 찢기는 가장 낮은 길을 택하셨습니다. 그리스도의 머리에 씌워진 관은 힘없는 자의 성을 빼앗아 만든 무거운 금관이 아니라, 스스로 우리의 죄를 담당하며 피 흘려 엮어내신 가시 면류관이었습니다.</p>
+<p>결국 성경적 인격이란, 기록에서 사라져 버린 작은 접미사 하나에서조차 누군가의 거대한 슬픔과 수고를 읽어내는 깊은 공감의 능력입니다. 내가 영광의 자리에 섰을 때 그 사이에 놓인 '침묵의 공백'을 지나온 수많은 타인의 헌신을 결코 잊지 않는 겸손입니다. 그리고 무엇보다, 나 자신이 세상의 번쩍이는 저울에 달리지 못하고 이름 없는 접미사로 잊혀지는 순간이 오더라도, 나를 위해 친히 고난의 십자가 동선을 걸어가신 그리스도를 바라보며 잠잠히 헌신의 자리를 지켜내는 묵묵한 순종입니다. 오늘 우리의 작고 평범한 삶 속에서도, 세상이 잊어버린 침묵의 공백을 따뜻한 기억과 섬김의 동선으로 채워가는 참된 성경적 인격이 아름답게 빚어지기를 간절히 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 07일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

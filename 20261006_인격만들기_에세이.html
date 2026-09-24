@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 06일 &middot; 역대상 19:8-19</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 누구나 자기 삶의 결론을 스스로 맺고 싶어 합니다. 내 손으로 짠 계획은 내 손으로 완성해야 직성이 풀리고, 내 삶의 문장 역시 내가 주어가 된 확신 찬 동사로 당당하게 마침표를 찍기를 원합니다. "내가 기필코 해내리라", "내가 이 문제를 해결하리라"처럼 말입니다. 모든 통제권을 내가 쥐고 있어야만 안심이 되는 우리에게, 한 치 앞을 알 수 없는 삶의 불확실성은 언제나 두려움과 회피의 대상입니다. 그렇다면 도무지 결과를 예측할 수 없는 벼랑 끝 위기 앞에서, 우리는 과연 어떤 태도를 취해야 할까요?</p>
+<p>성경 역대상 19장에는 앞뒤로 적군에게 겹겹이 포위된 절체절명의 위기 앞에 선 한 사람, 다윗의 군사령관 요압의 이야기가 등장합니다. 아람 군대와 암몬 자손에게 양면 협공을 당하게 된 그는, 막연히 기적만을 바라며 하늘을 쳐다보지 않았습니다. 오히려 그는 자신이 할 수 있는 최선의, 그리고 가장 정밀한 계획을 세웁니다. 이스라엘의 가장 뛰어난 용사들을 직접 선발하여 아람 군대 앞에 전술적으로 배치하고, 남은 무리는 동생 아비새에게 맡겨 암몬 자손을 상대하게 합니다. 그리고 혹시 모를 최악의 상황, 즉 전선이 밀릴 경우까지 대비하여 상호 지원의 약속을 맺습니다. "만일 아람 사람이 나보다 강하면 네가 나를 돕고, 만일 암몬 자손이 너보다 강하면 내가 너를 도우리라."</p>
+<p>상황을 냉철하게 분석하고, 병력을 치밀하게 나누고, 협력을 약속하는 그의 빽빽한 작전 지시 속에는 인간이 할 수 있는 모든 능동의 동사들이 가득 채워져 있습니다. 그런데 이 완벽한 작전 명령을 마친 요압의 마지막 문장이 우리의 시선을 강렬하게 붙잡습니다. 그는 "그러니 우리는 반드시 승리할 것이다"라는 자기 확신이나, "내가 저들을 멸절시키리라"는 자기 주도의 동사로 발화를 끝내지 않습니다.</p>
+<p><strong>"여호와께서 그 보시기에 선한 대로 행하시기를 원하노라."</strong></p>
+<p>히브리어 원문으로 보면, 요압의 그 길고 치밀했던 발화의 맨 마지막 자리에 놓인 단어는 바로 ‘야아세(그가 행하실 것이다)’입니다. 병력을 나누고 군사들에게 담대하라고 명령한 최고 지휘관의 문장이, 자기 자신의 동사가 아니라 '여호와의 동사'로 끝이 납니다. 가장 완벽한 계획을 다 세운 사람이, 가장 중요한 문장의 마지막 자리를 자신이 아닌 신에게 기꺼이 내어준 것입니다.</p>
+<p>이것은 단지 앞선 계획들에 대한 막연한 신앙적 포장이나 감상적인 요약이 아닙니다. 우리가 흔히 작성하는 실무 문서들을 떠올려 보십시오. 복잡한 세무 신고서의 수많은 계산 칸은 납세자가 땀 흘려 직접 채워 넣지만, 문서 맨 아래에 있는 '최종 결정' 칸은 납세자가 결코 쓸 수 없는 빈칸으로 남겨두어야 합니다. 수많은 이해관계가 얽힌 계약서 역시 당사자들이 합의하여 작성하지만, 맨 마지막에는 이 모든 조항의 효력을 최종적으로 판가름할 '관할 법원'을 명시합니다. 마지막 칸은 앞선 내용의 단순한 요약이 아니라, 앞선 모든 수고와 계획을 누구의 권한 아래 둘 것인지를 확정 짓는 '효력의 자리'인 것입니다.</p>
+<p>요압이 문장 맨 끝에 '야아세'라는 미완료 동사, 즉 '아직 일어나지 않은 하나님의 미래적 행위'를 둔 것도 이와 정확히 같습니다. 그는 자신의 꼼꼼한 계획과 치열한 준비 전체를, 하나님이 앞으로 행하실 선한 결정 아래로 옮겨 놓았습니다. 자신의 계획을 담은 문장은 스스로 마침표를 찍어 닫았지만, 그 결과가 펼쳐질 삶의 시제는 하나님을 향해 활짝 열어둔 것입니다. 성경적 의미의 종결권(終結權)이란 내가 결론을 내는 권한이 아니라, 그 최종 결론을 하나님께 열어 두는 권한입니다.</p>
+<p>우리는 일상에서 종종 "하나님께 다 맡긴다"는 말을 무책임이나 회피의 변명으로 오해하곤 합니다. 나의 준비는 대충 한 채 결과만 좋기를 바라는 요행을 섭리 신앙이라 착각하는 것입니다. 하지만 몸의 감각은 정직합니다. 책상 위에 수많은 서류와 부품을 늘어놓고 열심히 작업하던 사람이, 모든 것을 제자리에 완벽하게 다 맞추어 놓은 뒤에야 비로소 두 손을 테이블에서 온전히 뗄 수 있는 것과 같습니다. 아직 내 손으로 처리하고 나누어야 할 몫이 남아있다면 결코 손을 뗄 수 없습니다. 요압처럼 치열하게 고민하고, 내가 져야 할 책임을 다하고, 불리할 경우까지 정직하게 대비하는 밀도 높은 준비를 마친 사람만이 마지막 순간에 두 손을 다 떼는 온전한 '내어드림'의 자세를 취할 수 있습니다. </p>
+<p>우리의 인생이라는 서사시도 마찬가지입니다. 우리는 내일의 양식을 위해 땀 흘려 일하고, 자녀의 바른 성장을 위해 끊임없이 기도하고 고민하며, 더 나은 미래를 위해 정교한 계획을 세워야 합니다. 우리의 문장 앞부분은 우리가 마땅히 감당해야 할 성실하고 정직한 동사들로 빽빽하게 채워져야 합니다. 스스로 감당해야 할 수고를 건너뛴 채 빈칸만 남겨두는 것은 믿음이 아닙니다.</p>
+<p>하지만, 그 치열한 삶의 문장 맨 마지막 자리만큼은 내가 억지로 펜을 쥐고 마침표를 찍으려 해선 안 됩니다. 내가 원하는 통제된 결과, 나의 얄팍한 확신으로 만들어낸 단정적인 결론 대신 그 자리를 겸허히 비워두어야 합니다. 그리고 그 마지막 빈칸에 하나님의 동사, '야아세(그가 행하실 것이다)'를 조용히 채워 넣어야 합니다. "나는 내가 할 수 있는 최선을 다해 이 길을 걸어왔지만, 이 걸음의 최종적인 의미와 결과는 오직 가장 선하신 하나님이 당신의 뜻대로 맺으실 것입니다."</p>
+<p>당신이 써 내려가고 있는 삶의 문장은 지금 누구의 동사로 끝을 맺고 있습니까? 우리의 닫힌 최선의 문장 너머로, 하나님의 선하신 열린 시제가 시작되도록 그 빈칸을 내어드릴 때, 비로소 우리의 인격과 삶은 가장 눈부시고 감동적인 열매를 맺게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 06일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

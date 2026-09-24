@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 28일 &middot; 아가 5:1-16</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살다 보면 아무런 예고 없이 깊은 상실과 고통이 찾아오는 밤이 있습니다. 간절한 마음으로 문을 열었지만 기대했던 빛은 온데간데없고, 오히려 차가운 어둠 속에서 상처만 입게 되는 순간 말입니다. 내가 무엇을 크게 잘못한 것도 아닌데, 때로는 선의와 사랑으로 내디딘 발걸음이 무참히 짓밟히는 경험을 할 때 우리는 깊은 절망에 빠지게 됩니다.</p>
+<p>구약성경 아가서 5장에는 이처럼 설명할 수 없는 고통을 마주한 한 사람의 이야기가 기록되어 있습니다. 사랑하는 이를 찾아 밤거리를 헤매던 여인은 성을 순찰하는 자들에게 무자비하게 매를 맞고 겉옷마저 빼앗기고 맙니다(아 5:6-7). 사랑을 위해, 상대를 향한 갈급함으로 용기를 냈을 뿐인데 돌아온 것은 차가운 폭력과 깊은 수치심이었습니다. 이 얼마나 억울하고 참담한 상황입니까. 그런데 이 짧은 기록을 가만히 들여다보면, 아주 낯설고도 놀라운 점 하나를 발견하게 됩니다.</p>
+<p>이 기막힌 사연 속에는 '이유'나 '평가'가 단 한 줄도 적혀 있지 않다는 사실입니다.</p>
+<p>보통 우리는 억울한 일을 당하면 분노하며 그 부당함을 호소하기 마련입니다. "내가 대체 무엇을 잘못했기에 이런 일을 겪어야 하느냐"며 원인을 찾거나, "밤거리를 지키는 파수꾼들이 어찌 이토록 악할 수 있느냐"며 맹렬한 비난과 평가를 쏟아내는 것이 인간의 자연스러운 본성입니다. 하지만 성경은 놀랍게도 그 어떤 섣부른 가치 판단도 내리지 않은 채, 그저 여인이 겪은 폭력과 상실의 사실만을 묵묵히, 그러나 밀도 있게 기록합니다. '그들이 나를 만났고, 때렸고, 상하게 했고, 내 겉옷을 빼앗아갔다'는 움직임과 행위의 묘사만이 그 밤의 끔찍함을 증언할 뿐입니다. 정작 평가를 내려야 할 빈칸은 고스란히 비워져 있습니다.</p>
+<p>우리는 종종 이 '비어 있는 평가란' 앞에서 몹시 견디기 힘들어합니다. 내 삶이든 타인의 삶이든, 뚜렷하게 해석되지 않는 고통을 마주하면 우리의 마음과 입술은 어떻게든 그 빈칸을 채우려고 안달을 냅니다. 내 이해의 범위를 넘어서는 고통의 공백을 견딜 수 없기 때문입니다. 그래서 고통받는 이에게 다가가 "이것은 당신을 더 단단하게 단련하기 위한 하나님의 깊은 뜻일 거야"라며 서둘러 의미를 부여하거나, 반대로 "지금은 그냥 묻지도 따지지도 말고 조용히 참고 견뎌야 할 때야"라며 강제적인 침묵을 처방하기도 합니다. 언뜻 보면 그럴듯한 위로 같지만, 사실 이 두 가지 반응 모두 해석되지 않는 고통을 대면할 용기가 없어 스스로 만들어낸 얄팍한 방어기제에 불과할지 모릅니다. 무언가 이유를 만들어 붙이거나 아예 입을 틀어막는 것, 그 어느 쪽도 상처받은 이의 아픔을 있는 그대로 끌어안는 태도는 아닙니다.</p>
+<p>그렇다면 성경은 평가와 판단을 멈춘 그 빈자리에서 우리에게 무엇을 보여주고 있을까요? 놀랍게도 성경은 여인의 침묵이나 체념으로 이 장면을 끝맺지 않습니다. 억울함에 짓눌려 모든 것을 포기할 법도 한 그 다음 절(8절)에서, 여인은 예루살렘의 딸들을 향해 이렇게 말합니다. "너희가 내 사랑하는 자를 만나거든, 내가 사랑하므로 병이 났다고 전해주려무나."</p>
+<p>그녀는 폭력의 상처와 억울함에 매몰되어 세상을 향해 저주를 퍼붓지도 않았고, 그렇다고 모든 것을 체념한 채 입을 닫아버리지도 않았습니다. 마땅히 '평가'가 들어가야 할 빈자리에 그녀가 채워 넣은 것은, 놀랍게도 누군가를 향한 간절한 '부탁'이었습니다. 그녀는 깊은 상처 속에서도 자신이 진정으로 원했던 것, 즉 '사랑'이라는 본질을 결코 놓치지 않았던 것입니다.</p>
+<p>여기서 우리는 성경적 사고와 훌륭한 인격이 어떻게 형성되는지를 엿볼 수 있습니다. 성숙한 인격이란, 설명할 수 없는 타인의 고통 앞에서 함부로 나의 얕은 언어와 논리를 들이밀지 않는 용기를 뜻합니다. 슬픔을 겪는 이의 이야기를 들을 때, 내 머릿속에서 끊임없이 울리는 '왜 그랬을까', '누구의 잘못일까'라는 재판관의 소리를 잠재우는 일입니다. 그리고 섣부른 해석을 유보한 채, 그가 겪은 사실과 상처의 무게를 그 사람의 목소리 그대로, 가감 없이 들어주는 것. 그것이 참된 공감의 시작입니다.</p>
+<p>마음속에 '두 칸으로 나누어진 노트'를 펼쳐보는 연습을 해보면 어떨까요? 왼쪽 칸에는 상대방이 겪은 아픔의 사실만을 고스란히 옮겨 적고, 오른쪽 칸에는 나의 섣부른 판단과 조언들을 밀어두는 것입니다. 그리고 결코 오른쪽 칸에 적힌 내 생각들을 왼쪽 칸에 있는 그의 고단한 삶 속으로 함부로 밀어 넣지 않는 것입니다.</p>
+<p>아무런 평가나 재단 없이 누군가의 아픔을 곁에서 지켜봐 주는 일. 억지로 이유를 만들어내지 않고도 그 고통의 서늘한 무게를 함께 견뎌주는 일. 그것이야말로 상처 입은 세상을 향해 우리가 건넬 수 있는 가장 진실하고도 고귀한 위로가 아닐까요. 고통의 빈칸을 서둘러 나의 정답으로 채우려는 조급함을 내려놓을 때, 비로소 우리는 서로의 상처를 다치지 않게 어루만지는 넉넉한 인격으로 자라나게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 28일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

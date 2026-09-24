@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 05일 &middot; 역대상 19:1-7</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리가 일상에서 마주하는 수많은 서류와 결정들을 떠올려 봅니다. 회사의 공문, 병원의 처방전, 세무서의 세금 고지서. 이 건조한 문장들 속에서 행동을 주도하는 '주어'는 늘 기관이나 제도입니다. "회사가 시행한다", "병원이 처방한다", "제도가 공제한다." 그렇다면 그 결정의 무게를 고스란히 짊어져야 하는 사람들은 어디에 있을까요? 그들은 종종 문장의 끝자락에 조그맣게 매달린 '목적어'나 '접미사'로 전락하고 맙니다. 밤을 새워가며 고객의 항의를 감당해야 하는 말단 직원, 약의 부작용을 온몸으로 견뎌내는 환자, 세금의 무게를 버텨내는 평범한 시민들. 그들의 이름은 거대한 서사의 중심에서 밀려나 지워지기 일쑤입니다.</p>
+<p>수천 년 전 기록된 역대상 19장에는 이처럼 문장의 끝자리로 밀려나 뼈아픈 수치를 몸으로 겪어낸 사람들의 이야기가 담겨 있습니다. 이스라엘의 다윗 왕은 암몬의 새 왕 하눈에게 위로의 사절단을 보냅니다. 그러나 하눈은 그들을 첩자로 의심하여 모욕합니다. "하눈이 다윗의 신하들을 잡아 그 수염을 깎고 그 의복의 중동 볼기까지 자르고 돌려보내매."</p>
+<p>이 참담한 폭력의 현장을 묘사하는 히브리어 원문의 문법은 무척이나 서늘합니다. 문장의 주어는 오직 가해자인 '하눈' 한 명뿐입니다. 그는 신하들을 잡고, 밀고, 자르고, 보냅니다. 반면 폭력을 당한 다윗의 사절단은 그 네 개의 폭력적인 동사들 끝에 옴짝달싹 못하게 묶인 짤막한 '접미사(그들을)'로 축소되어 버립니다. 그들의 독립된 이름은 사라지고, 오직 가해자의 행동만이 남았습니다. 상상해 보십시오. 강제로 수염이 깎이고 옷이 잘려 나간 채, 턱을 감싸 쥘 겨를도 없이 짧아진 보폭으로 황급히 문을 나서야 했던 그들의 비참한 뒷모습을 말입니다. 국가 간의 정책적 오해와 갈등이 빚어낸 참혹한 대가를, 힘없는 사절단이 오롯이 자신들의 '몸'으로 치러낸 것입니다.</p>
+<p>만약 성경이 여기서 이들의 이야기를 끝맺었다면, 그것은 그저 강자가 약자를 짓밟은 흔해 빠진 비극 중 하나로 남았을 것입니다. 그러나 역대상 19장 5절은 서사 진행에 전혀 필요 없는, 뜻밖의 문장을 하나 덧붙입니다.</p>
+<p>"어떤 사람이 다윗에게 가서 그 사람들이 당한 일을 말하니라. <strong>그 사람들이 심히 부끄러워하므로</strong> 다윗이 사람을 보내어 그들을 맞으며 이르기를 너희는 수염이 자라기까지 여리고에 머물다가 돌아오라 하니라."</p>
+<p>여기서 눈여겨볼 대목은 바로 "그 사람들이 심히 부끄러워하므로"라는 구절입니다. 사실 이 문장은 빼버려도 전체 이야기를 이해하는 데 아무런 지장이 없는 문법상의 '잉여 문장'입니다. 굳이 적지 않아도 되었을 그 한 줄을, 성경은 애써 꾹꾹 눌러 적었습니다. 문장의 끝자리, 초라한 접미사로 밀려나 고통받던 사람들을 다시 '주어'의 자리로 불러들인 것입니다. 비록 그들이 상처 입고 한없이 부끄러워하는 상태라 할지라도, 성경은 그들의 멍든 고통을 결코 외면하지 않고 문장의 중심으로 복원시켰습니다.</p>
+<p>이들의 아픔을 마주한 다윗의 처방 또한 깊은 울림을 줍니다. 다윗은 상처 입은 이들에게 당장 은을 쥐여주며 서둘러 복귀하라고 재촉하지 않았습니다. 대신 "수염이 자라기까지" 기다리라고 말합니다. 이후 이어지는 암몬과의 전쟁에서는 은 천 달란트가 오가고 수만 명의 용병이 동원되지만, 한 사람의 찢겨진 자존심이 아물고 수염이 다시 자라나는 데 필요한 '시간'만큼은 아무리 많은 돈으로도 결코 앞당길 수 없었습니다. 국가의 거대한 예산으로도, 권력자의 막강한 권위로도 대체할 수 없는 고귀한 회복의 시간이 있음을 성경은 우리에게 묵묵히 일러줍니다.</p>
+<p>진정한 성경적 사고와 인격은 결코 거창한 종교적 구호에서 완성되지 않습니다. 그것은 내 곁에서 고통받는 누군가를 다시 문장의 '주어'로 세워주는 작고 다정한 실천에서 출발합니다. 오늘 우리의 일터와 삶의 자리를 되돌아봅시다. 효율과 성과만을 빼곡히 기록한 칭찬 일색의 보고서 뒤편에서, 누군가의 남모를 수고와 눈물이 접미사처럼 쓸쓸히 잊혀지고 있지는 않습니까?</p>
+<p>누가 잘못했는지 책임을 따져 묻기 전에, 그 차가운 결정을 온몸으로 감당해야 했던 사람들의 이름을 기억할 수 있는 빈칸을 만들어야 합니다. 굳이 쓰지 않아도 될 '잉여의 한 줄'을 기꺼이 써 내려가는 따뜻한 용기, 상처 입은 이들의 수염이 다시 자라날 때까지 묵묵히 곁에서 기다려주는 마음. 그것이 바로 상처 입은 세상을 치유하고 잃어버린 우리의 인격을 완성해 가는 가장 아름다운 문법일 것입니다.</p>
+<p>당신의 인생이라는 묵직한 서류 가방 속에는, 누군가의 삶을 다시 주어로 되살리는 이 다정한 '잉여의 문장'이 쓰여 있습니까?</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 05일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

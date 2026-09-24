@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 21일 &middot; 역대상 29:1-9</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 매일같이 무언가를 요구받고 증명해야 하는 세상 속에 살아갑니다. 직장에서는 성과를 증명해야 하고, 관계 속에서는 진심을 증명해야 합니다. 심지어 국가에 세금을 낼 때조차 우리는 자신이 낸 돈이 '자발적인 기부'였음을 각종 서류와 영수증을 통해 힘겹게 입증해야 합니다. 이처럼 세상이 말하는 '자발성' 뒤에는 거의 언제나 숨 막히는 요구와 엄격한 판정이 도사리고 있습니다. 진정한 의미의 기쁨과 자원함이 메말라가는 이유가 바로 여기에 있을지도 모릅니다.</p>
+<p>그런데 수천 년 전 기록된 역대상 29장의 한 구절은 우리에게 전혀 다른 차원의 자발성과 기쁨을 보여줍니다. 다윗 왕과 이스라엘 백성이 성전 건축을 위해 예물을 드리는 장면입니다. 흔히 이 본문을 읽을 때 우리는 감정이 뜨겁게 달아오른 부흥회의 한 장면을 상상하거나, '우리도 이들처럼 헌신하자'는 굳은 결의를 다지곤 합니다. 하지만 본문을 원어로 가만히 들여다보면, 그곳에는 뜨거운 강요 대신 조용하지만 압도적인 '밀도'가 자리하고 있음을 발견하게 됩니다.</p>
+<p>역대상 29장 9절은 히브리어로 단 열다섯 개의 낱말로 이루어져 있습니다. 그런데 놀랍게도 이 짧은 문장 안에 '자원하다(나다브)'와 '기뻐하다(사마흐)'라는 두 개의 뿌리 단어가 무려 다섯 번이나 등장합니다. 열다섯 단어 중 다섯 단어, 즉 세 단어 중 하나꼴로 기쁨과 자원함이 빼곡히 채워져 있는 것입니다. 더욱 경이로운 것은 이 다섯 번의 단어들이 단 한 번도 같은 형태로 쓰이지 않았다는 사실입니다. 동사로, 명사로, 때로는 다른 문법적 자리에서 각기 다른 모양으로 찬란하게 빛을 발합니다. 누군가 억지로 시켜서 앵무새처럼 반복하는 말이 아니라, 마음 깊은 곳에서부터 벅차올라 터져 나오는 진실한 고백이기 때문입니다.</p>
+<p>이 구절이 우리에게 주는 가장 큰 충격은 기록된 단어들이 아니라 '비어 있는 칸'에 있습니다. 이 놀라운 헌신과 기쁨의 장면에, 정작 누군가에게 무언가를 하라고 지시하는 '명령형' 동사는 단 하나도 존재하지 않습니다. 바로 앞선 단락에서는 여섯 번이나 등장했던 명령형이, 정작 백성들이 자원하여 예물을 드리고 기뻐하는 이 결정적인 순간에는 완벽하게 사라집니다. "자원해서 바쳐라!" "기뻐하라!"는 강요의 목소리가 침묵한 바로 그 자리에, 비로소 진짜 기쁨과 자원함이 다섯 번이나 세어질 수 있는 묵직한 사실이 되어 내려앉은 것입니다.</p>
+<p>우리는 흔히 헌신을 사람의 뼈를 깎는 결단과 의지에서 비롯된 성취라고 생각합니다. 하지만 본문은 기쁨과 자원함이 서로 원인과 결과로 얽혀 있다고 섣불리 판정하지 않습니다. 그저 그 두 가지가 나란히, 그리고 풍성하게 그곳에 있었음을 가만히 서술할 뿐입니다. 위대한 교부 아우구스티누스는 일찍이 하나님을 향해 이렇게 기도했습니다. "당신이 명하시는 것을 주시고, 당신이 원하시는 것을 명하소서." 진정한 헌신과 기쁨은 쥐어짜 내는 것이 아니라, 오직 은혜로 주어지는 것임을 알았기 때문입니다. 사도 바울 역시 빌립보서에서 "너희 안에서 행하시는 이는 하나님이시니 자기의 기쁘신 뜻을 위하여 너희에게 소원을 두고 행하게 하시나니"라고 고백합니다.</p>
+<p>오늘날 우리의 신앙과 삶의 모습은 어떠합니까? 우리는 스스로에게, 혹은 타인에게 "더 자원하라, 더 기뻐하라"며 끊임없이 명령형의 잣대를 들이밀고 있지는 않습니까? 억지로 입증하고 평가받아야 하는 자발성은 우리를 메마르게 할 뿐입니다. 역대상 29장 9절의 이 아름다운 기록은 우리에게 무언가를 덧붙여 강요하지 않습니다. 단지 그곳에 명령형이 없었음을, 그럼에도 기쁨과 자원함이 그토록 짙게 배어 있었음을 소리 없이 보여줄 뿐입니다.</p>
+<p>진정한 인격의 변화와 헌신은 무거운 명령의 굴레를 벗어던질 때 시작됩니다. 누군가 나의 동기를 의심하고 판정하려 드는 차가운 세상의 문법에서 벗어나, 조건 없이 부어주시는 은혜의 빛 아래로 나아갈 때, 우리 삶에도 강요되지 않은 참된 기쁨이 피어납니다. 요구받지 않았기에 온전히 셈할 수 있는 기쁨, 내면에 심겨진 소원이 자연스럽게 흘러나와 내 삶의 여백을 빼곡히 채우는 거룩한 밀도. 그것이야말로 다그침과 명령이 멈춘 자리에 하나님이 친히 빚어내시는 가장 단단하고 눈부신 성경적 인격의 모습일 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 21일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

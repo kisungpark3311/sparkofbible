@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 03일 &middot; 역대상 18:1-8</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리에게는 누구나 감추고 싶은 과거가 있습니다. 지우고 싶은 실패의 기억, 부끄러운 상처, 혹은 남들에게 결코 꺼내놓고 싶지 않은 어두운 시간들 말입니다. 우리는 흔히 더 나은 사람이 되기 위해서는 이 과거를 완벽하게 세탁하고 지워내야 한다고 믿습니다. 완전히 새로운 사람이 되어 지난날의 꼬리표를 가차 없이 잘라내는 것만이 진정한 변화라고 생각하곤 합니다. 그래서 우리는 종종 인생의 이력서에서 어두운 구간을 통째로 오려내려 안간힘을 씁니다.</p>
+<p>그러나 성경 역대상 18장의 짧은 기록은, 우리의 생각과는 전혀 다른 방식으로 '변화'와 '인격의 성숙'을 이야기합니다. 이스라엘의 다윗 왕은 적국인 하닷에셀의 성읍에서 엄청난 양의 놋을 전리품으로 빼앗아 옵니다. 그리고 훗날, 그의 아들 솔로몬은 이 놋을 뜨거운 불에 녹여 하나님의 성전을 채우는 찬란하고 거룩한 기구들, 즉 놋대야와 기둥과 놋그릇들을 만듭니다. 피비린내 나는 전쟁터의 노략물이 가장 거룩한 성전의 한복판을 지탱하는 기둥으로 탈바꿈한 것입니다.</p>
+<p>이 대목에서 우리는 성경 기자가 남긴 매우 놀랍고도 묵직한 디테일 하나를 발견하게 됩니다. <i>"다윗이 하닷에셀의 성읍 디브핫과 군에서 심히 많은 놋을 빼앗았더니, 솔로몬이 그것으로 놋대야와 기둥과 놋그릇들을 만들었더라."</i> 성경은 단순히 "솔로몬이 놋으로 성전 기구를 만들었다"고 적고 넘어가지 않습니다. 그 놋이 정확히 어디서 왔는지, 그 출처를 끈질기게 한 문장 안에 묶어둡니다. 빼앗아 온 손(다윗)과 새롭게 빚어낸 손(솔로몬)이 다르고 그사이에 긴 시간의 간격이 있음에도 불구하고, 이방 성읍이라는 내력이 지워지지 않은 채 한 줄에 나란히 기록된 것입니다.</p>
+<p>거룩한 성전 기구에 이방 성읍의 이름이 꼬리표처럼 그대로 붙어 있습니다. 이것은 세상이 말하는 '신분 세탁'과는 정반대의 행보입니다. 부정한 자금의 출처를 숨기는 돈세탁이나, 부끄러운 과거를 덮기 위해 이력을 위조하는 세상의 방식은 철저히 '출처 지우기'에 몰두합니다. 하지만 진정한 변화와 구원은 과거를 없던 일로 만드는 기억 상실이 아닙니다. 마치 값비싼 예술 작품이 그 가치를 인정받기 위해 소장 이력(프로버넌스)을 투명하게 남기듯, 성전의 기구가 된 이 놋은 자신의 과거를 숨기지 않았습니다. 놋은 용광로에 들어가 형태가 완전히 바뀌었지만, 그 출신 성분마저 타버린 것은 아니었습니다.</p>
+<p>이 지워지지 않은 내력은, 오늘날 우리의 인격을 빚어가는 과정에 깊은 위로와 통찰을 줍니다. 우리는 종종 신앙 안에서의 성장을 이야기할 때, "예전의 나는 죽었고, 이제 완전히 다른 사람이 되었다"며 과거와 현재 사이에 굵고 깊은 단절의 선을 긋고 싶어 합니다. 이전의 나를 마치 남의 이야기처럼 타자화하고, 떳떳하지 못한 기억의 줄은 삭제하려 합니다. 하지만 진정한 인격의 성숙은 과거를 모른 척 끊어내는 것이 아닙니다. 상처 입고 얼룩졌던 과거의 재료가 오늘 어떻게 선하게 쓰이고 있는지를 '한 문장 안에서' 솔직하게 고백하는 데서 나옵니다.</p>
+<p>성경이 말하는 '죄의 가리워짐' 역시 죄가 원래부터 없었던 일처럼 사라진다는 뜻이 아닙니다. 하나님께서는 우리의 부끄러운 과거를 백지장처럼 삭제해 주시는 것이 아니라, 그 부끄러운 과거 옆에 '예수 그리스도의 은혜'라는 새로운 이름을 나란히 적어 주시는 것입니다. 이 깊은 은혜를 아는 사람의 인격은 다릅니다. 그는 자신의 상처와 내력을 억지로 지우려 하지 않습니다. 과거의 실패를 포장하려 애쓰지도 않습니다. 방황하고 무너졌던 그 치열한 경험들이, 지금 누군가의 아픔을 공감하고 안아주는 따뜻한 성전의 기둥으로 쓰임받고 있음을 명확히 알기 때문입니다.</p>
+<p>당신의 '디브핫과 군'은 어디입니까? 가장 참담하게 무너졌던 실패의 자리, 평생 감추고 싶었던 뼈아픈 상처의 자리 말입니다. 세상은 그곳을 지워야 비로소 깨끗해진다고 말하지만, 하나님은 바로 그곳에서 캐낸 놋을 통째로 녹여 당신의 가장 단단하고 빛나는 인격으로 빚어내십니다. 그러니 섣불리 과거의 내력을 지우려 하지 마십시오. 오히려 그 내력 위에서 새롭게 빚어지는 찬란한 쓸모를 기대하십시오. 나의 연약한 과거가 오늘의 나를 교만하지 않게 붙들어 주는 닻이 되고, 상처 입은 내력이 타인을 살리는 재료로 온전히 전용(轉用)되는 것. 그것이 바로 지워지지 않은 과거 위에서 은혜가 빚어내는 가장 아름답고 단단한 인격입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 03일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

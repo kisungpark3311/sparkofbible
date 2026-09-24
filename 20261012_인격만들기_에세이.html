@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 12일 &middot; 역대상 23:1-32</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리 삶은 종종 끝이 보이지 않는 긴 목록처럼 느껴집니다. 아침에 눈을 뜨면 해야 할 일, 책임져야 할 가족, 감당해야 할 업무, 그리고 수많은 관계 속에서 지켜야 할 예의와 의무들이 빼곡한 명세서처럼 우리를 기다립니다. 때로는 그 목록의 무게에 짓눌려 숨이 턱턱 막힐 때가 있습니다. 우리는 언제쯤 이 무거운 짐을 내려놓을 수 있을까, 언제쯤 이 수많은 숙제들이 ‘완료’될까만 손꼽아 기다리며 하루하루를 힘겹게 버텨냅니다.</p>
+<p>구약성경 역대상 23장에는 성전을 섬기는 레위 사람들의 직무 목록이 길게 나열되어 있습니다. 흥미롭게도 26절부터 31절까지, 무려 여섯 절 동안 서술어(동사)가 단 하나도 등장하지 않습니다. 성전의 뜰과 골방, 성물의 정결을 맡는 일, 진설병, 고운 가루, 무교전병, 저울과 자, 아침과 저녁의 제사, 안식일과 초하루와 모든 절기들… 숨이 찰 정도로 기나긴 명사들의 나열 속에서, 정작 이 많은 것들을 ‘어떻게 하라’는 동사는 끝까지 유예됩니다. 마치 듣는 사람의 손이 비어 있는 채로, 앞으로 어깨에 얹혀질 무거운 짐의 목록만 끊임없이 쌓여가는 긴장된 순간과 같습니다.</p>
+<p>그리고 마침내 32절, 그 기나긴 목록을 한 번에 끌어안으며 성격을 규정하는 단 하나의 동사가 등장합니다. 놀랍게도 그것은 짐을 ‘메다(carry)’가 아니라 <strong>‘지키다(keep)’</strong>였습니다. 과거 광야 시절, 이동하며 예배하던 레위인들의 주된 직무는 성막의 무거운 기구들을 어깨에 짊어지고 ‘메는’ 것이었습니다. 그러나 이제 정착한 그들의 삶을 규정하는 동사는 전혀 다른 차원의 것으로 바뀌었습니다. 이 동사의 교체는 오늘날 우리 삶의 피로와 소진을 진단하는 놀라운 통찰을 건네줍니다.</p>
+<p>이 두 가지 동작을 우리 몸으로 직접 상상해 보십시오. 무거운 상자를 어깨에 <strong>‘메는’</strong> 동작은 큰 근육을 사용합니다. 시야는 바닥을 향해 가려지고, 허리는 짓눌리며, 그 엄청난 무게를 견디기 위해 우리는 무의식중에 숨을 참게 됩니다. 메는 일의 유일한 목적은 하루빨리 목적지에 도착해 그 짐을 바닥에 던지듯 내려놓는 것입니다. 내려놓아야만 비로소 쉴 수 있기 때문입니다.</p>
+<p>반면, 깨지기 쉬운 귀한 그릇을 두 손바닥 위에 올려 <strong>‘지키는’</strong> 동작은 완전히 다릅니다. 손끝의 미세하고 부드러운 근육이 사용되고, 시선은 그 대상에서 단 1초도 떨어지지 않으며, 호흡은 얕고 고르게 유지되어야 합니다. 지키는 일에는 끝이 없습니다. 손에서 내려놓는 순간이 끝이 아니라, 오히려 내려놓는 그 순간이 곧 산산조각 나는 실패를 의미하기 때문입니다.</p>
+<p>우리가 일상에서 유독 번아웃을 자주 겪고 무너지는 이유는, 어쩌면 일의 양이 너무 많아서가 아니라 내 삶에 주어진 ‘동사’를 심각하게 오해하고 있기 때문인지도 모릅니다. 하나님께서 우리에게 평생토록 ‘지키라’고 맡겨주신 끝없는 가치들을, 우리는 ‘메어’ 나르려고만 합니다. 가정을 돌보는 일, 어린 자녀를 양육하는 일, 아픈 누군가를 곁에서 사랑하고 품어주는 일은 본질적으로 끝이 정해져 있는 숙제나 과업이 아닙니다. 두 손바닥 위에 조심스럽게 올려두고, 따뜻한 눈빛과 고른 호흡으로 평생을 가꾸어야 할 일입니다. 그런데 우리는 종종 이 소중한 것들을 무거운 짐짝처럼 어깨에 둘러메고는 "언제쯤 이 짐을 벗고 쉴 수 있을까"라며 끝만을 기다리다 스스로 지쳐 쓰러져 버립니다.</p>
+<p>그렇다면 레위인들의 삶을 규정하는 동사는 왜 ‘메다’에서 ‘지키다’로 바뀌어야만 했을까요? 그것은 단순히 이스라엘이 가나안 땅에 정착해 더 이상 장막을 옮길 필요가 없어졌기 때문만이 아닙니다. 그 진짜 해답은 기나긴 명세서의 맨 마지막에 등장하는 특별한 목적어에 숨어 있습니다. 그들이 지켜야 할 가장 마지막 항목은 차가운 성소의 물건도, 제사용 떡도 아닌 <strong>‘형제 아론 자손의 직무’</strong>였습니다.</p>
+<p>사물은 짐짝처럼 어깨에 멜 수 있지만, 사람은 결코 어깨에 멜 수 없습니다. 형제의 연약한 삶과 그의 부르심은 무겁게 들쳐 업고 통제해야 할 대상이 아니라, 따뜻한 두 손으로 받쳐 들고 섬세하게 지켜주어야 하는 존귀한 인격이기 때문입니다. 일이 줄어든 것이 아니라, 오히려 우리가 책임져야 할 대상이 사물을 넘어 ‘사람’에게로 한없이 넓어진 것입니다. 어깨를 짓누르던 물리적 하중은 줄어들었지만, 서로를 향한 시선은 더욱 깊어지고 호흡은 한층 더 온화해졌습니다. 성경이 말하는 성숙한 인격이란, 바로 내 삶의 동사가 이렇게 변해가는 과정을 의미합니다.</p>
+<p>혹시 지금, 삶의 무거운 목록들을 어깨에 잔뜩 짊어진 채 숨죽여 걷고 계십니까? 언제 끝날지 모르는 의무감에 짓눌려 하늘 한 번 제대로 쳐다보지 못한 채 땅만 보고 계시지는 않습니까? 이제 어깨의 짐을 내려놓고 부드럽게 두 손바닥을 펴보십시오.</p>
+<p>하나님이 우리에게 요구하시는 인생은 목적지까지 짐을 나르다 쓰러지는 것이 아닙니다. 우리 삶의 진정한 동사는 끝을 향해 숨 가쁘게 달려가는 ‘완료형 노동’이 아니라, 오늘 내게 주어진 사람과 일상을 온기 어린 시선으로 묵묵히 품어내는 ‘진행형의 사랑’입니다. 십자가에서 우리 인생의 가장 무거운 죄와 사망의 짐을 친히 ‘메셨던’ 대제사장 예수 그리스도께서, 이제 우리에게 서로를 ‘지키는’ 이토록 아름답고 고귀한 손바닥의 삶으로 초대하고 계십니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 12일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

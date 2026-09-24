@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 18일 &middot; 역대상 27:25-34</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>
+        우리는 종종 삶의 기록을 눈부신 기념비로 세우고 싶어 합니다. 승리한 순간, 자랑스러운 성취, 남들에게 보여주고 싶은 영광만을 골라 매끄러운 대리석 위에 새기려 하죠. 반대로 실패의 기억이나 뼈아픈 상처, 갈등의 부끄러운 흔적들은 어떻게든 서둘러 지워버리려 합니다. 하지만 우리의 인생에서 가장 깊고 단단한 흔적은 화려한 기념비가 아니라, 낡고 투박한 일상의 ‘장부(帳簿)’에 남는 법입니다.
+    </p>
+<p>
+        성경 역대상 27장에는 언뜻 보기에 무척이나 지루해 보이는 명단 하나가 등장합니다. 다윗 왕의 재산을 관리하는 책임자들의 이름과 직책이 빽빽하게 나열된 기록입니다. 그중 왕의 소중한 양 떼를 맡은 자는 ‘하갈 사람 야시스’였고, 낙타를 맡은 자는 ‘이스마엘 사람 오빌’이었습니다. 평범하게 성경을 읽어 내려가는 우리에게 이 구절은 그저 별 의미 없이 지나칠 법한, 무미건조한 재산 대장의 한 줄에 불과해 보입니다.
+    </p>
+<p>
+        하지만 손을 뻗어 성경 두루마리를 스물두 장쯤 뒤로 되감아 역대상 5장으로 돌아가 보면, 그곳에 전혀 다른 낯선 장면이 펼쳐집니다. 과거 이스라엘 지파들이 목숨을 걸고 싸워 이겼던 적군의 이름이 바로 그 ‘하갈 사람’과 ‘이스마엘 사람’이었기 때문입니다. 치열한 전투 끝에 이스라엘은 그들을 물리치고 그들의 양과 낙타를 전리품으로 빼앗았습니다. 그런데 어찌 된 일일까요? 전쟁에서 패배하고 모든 것을 잃었던 적군이, 훗날 승리한 왕의 가장 소중한 짐승들을 책임지고 관리하는 자리표에 당당히 세워져 있는 것입니다.
+    </p>
+<p>
+        더욱 놀라운 것은 성경이 이 극적인 반전에 대해 어떠한 감동적인 부연 설명도 덧붙이지 않는다는 사실입니다. “원수를 사랑하라”는 숭고한 교훈을 억지로 늘어놓지도, 패자를 끌어안은 다윗 왕의 넓은 아량을 칭송하지도 않습니다. 승전보를 울렸던 5장과 패배자의 이름이 승자의 장부에 버젓이 올라가 있는 27장 사이에는, 어떠한 친절한 해석의 다리도 놓여 있지 않습니다. 성경이 한 일은 섣부른 판정이나 미화가 아니었습니다. 그저 이 두 기록을 지우지 않은 채 한 권의 책으로 조용히 묶어낸 ‘제본’이었습니다.
+    </p>
+<p>
+        두루마리 성경을 읽던 고대인들은 27장에서 5장의 흔적을 발견하기 위해, 직접 팔을 크게 뻗고 어깨를 열어 스물두 장 분량의 양피지를 되감아야만 했습니다. 그것은 분명한 육체적 노동이었습니다. 과거의 상처가 현재의 일상 속에 어떻게 스며들어 있는지를 직시하는 일은, 이처럼 우리의 삶에서도 힘겨운 되감기의 수고를 요구합니다.
+    </p>
+<p>
+        화산에서 흘러내린 뜨거운 용암이 다른 암석을 집어삼킨 뒤 굳어질 때, 삼켜진 돌은 완전히 녹아 없어지지 않고 새로운 암석 안에 독특한 무늬처럼 남곤 합니다. 지질학에서는 이를 ‘포획암’이라고 부릅니다. 역대상 27장에 기록된 하갈과 이스마엘 사람의 이름 역시, 다윗 왕국이라는 거대한 바위 안에 박힌 포획암과 같습니다. 지우지 않아도 될 만큼 튼튼하고, 애써 감추지 않아도 될 만큼 단단한 기록의 포용력입니다.
+    </p>
+<p>
+        이 명부는 이긴 자의 승리를 과시하는 기념비가 아니라, 있는 그대로를 묵묵히 보관하는 장부입니다. 우리가 집을 사고팔 때 남는 등기부등본과 같습니다. 등기부는 새 주인이 나타났다고 해서 이전 주인의 이름을 지우개로 빡빡 지우지 않습니다. 그저 붉은 줄을 하나 긋고 그 아래에 새로운 역사를 적어 내려갈 뿐입니다. 기념비는 승패를 가르고 패자의 흔적을 말소하려 들지만, 장부는 과거를 지우지 않고 끌어안으며 승패와 상관없이 사람의 궤적을 보존합니다.
+    </p>
+<p>
+        우리의 인격과 삶도 이와 같지 않을까요? 우리는 내 안의 부끄러운 과거, 실패의 기록, 그리고 나와 뼈아프게 다투었던 이들의 흔적을 어떻게든 지우려 애를 씁니다. 내 삶이 한 점 흠결 없는 매끄러운 기념비이기를 간절히 바라니까요. 하지만 진정한 성숙은 내 삶의 형식 자체가 넉넉한 장부로 변해가는 과정입니다. 이긴 자의 알량한 여유를 부리거나 억지로 용서하는 척 덮어주는 것이 아닙니다. 그저 내 삶을 지나쳐간 아픔과 상처의 이름들을 있는 그대로, 내 역사의 한 칸에 고스란히 내어주는 것입니다.
+    </p>
+<p>
+        때로는 그 과거의 흔적이 지금의 나를 지탱하는 가장 든든한 자산이 되기도 합니다. 이스라엘과 피 흘려 싸웠던 하갈 사람이 훗날 왕의 양 떼를 돌보는 전문가가 된 것처럼 말입니다. 내가 그토록 지워버리고 싶었던 실패와 갈등의 시간들이, 어느새 내 삶의 가장 소중한 것을 다루는 깊은 역량과 직함으로 변해 있을 때가 얼마나 많습니까.
+    </p>
+<p>
+        하나님은 우리의 인생을 임의로 편집하여 승리의 화려한 순간만을 남기지 않으십니다. 쓰라린 패배의 눈물도, 치열했던 상실의 다툼도 모두 모아 한 권의 아름다운 책으로 제본하십니다. 오늘 당신의 삶에 억지로 지우고 싶은 이름이나 덮고 싶은 과거가 있다면, 애써 지우개를 찾지 마십시오. 당신의 삶이라는 장부의 마지막 칸은, 그 부끄러운 이름조차 넉넉히 품고 묵묵히 앞으로 나아갈 수 있을 만큼 충분히 깊고 넓습니다.
+    </p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 18일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

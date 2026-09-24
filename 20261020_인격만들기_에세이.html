@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 20일 &middot; 역대상 28:11-21</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 살아가며 무수히 많은 것들을 누군가에게 넘겨줍니다. 직장에서의 업무일 수도 있고, 가정에서의 책임일 수도 있으며, 때로는 신앙의 유산이기도 합니다. 그렇게 중요한 일이나 직분을 넘겨주어야 할 때, 우리는 보통 많은 '말'을 준비합니다. 내가 이 일을 얼마나 사랑하고 아꼈는지, 그 과정에서 어떤 시행착오를 겪었는지, 그리고 당신이 이 일을 얼마나 잘 이어가 주기를 바라는지 절절하게 설명하려 애씁니다. 그러나 성경은 가장 위대한 인수인계의 순간에, 길고 화려한 설명이 있어야 할 자리에 '저울'을 가져다 놓습니다.</p>
+<p>역대상 28장에서 다윗은 평생을 바쳐 준비한 성전 건축의 사명을 아들 솔로몬에게 넘겨줍니다. 장엄한 성전의 설계도를 건네는 이 가슴 벅찬 장면 직후(14-18절), 성경은 놀랍게도 문장을 이끌어가는 모든 동사를 지워버립니다. "당부하고", "명령하며", "설명했다" 같은 말들이 사라진 빈자리를 채우는 것은 오직 '무게(미쉬칼)'라는 단어뿐입니다. 금 잔의 무게, 은 잔의 무게, 각 기구에 알맞은 무게들이 아홉 번이나 반복해서 등장합니다. 다윗은 성전의 거룩한 의미를 길게 웅변하는 대신, 묵묵히 금과 은을 저울에 달아 정확하게 계량된 수치를 아들에게 건넸습니다.</p>
+<p>왜 다윗은 찬란한 비전의 언어 대신 건조해 보이는 숫자를 선택했을까요? 그것은 진정한 '넘김(인수인계)'이 무엇인지 뼈저리게 알았기 때문입니다. 아무리 감동적인 설명이라도, 말은 입을 떠나는 순간 허공으로 흩어지고 맙니다. 화려하고 추상적인 말일수록 듣는 사람에게는 "도대체 나더러 어떻게 하라는 거지?"라는 무거운 해석의 짐만 남기기 십상입니다. 그러나 저울에 달아 기록한 수치는 다릅니다. 저울대 위에 놓인 무게는 내 손이 떠난 뒤에도 그 자리에 고스란히 남습니다. 넘겨주는 자가 스스로 저울에 달아 정확한 무게를 건넬 때, 넘겨받는 자는 불안과 혼란 없이 그 수치를 딛고 서서 자신의 삶과 사명을 건축할 수 있습니다.</p>
+<p>이것은 단지 일과 업무의 인수인계에 관한 표면적인 이야기가 아닙니다. 우리의 인격과 관계, 그리고 삶의 태도 전반에 동일하게 적용되는 깊은 영적 원리입니다. 우리는 종종 나의 의도와 진심을 상대방이 '알아서' 해석해 주기를 기대합니다. "내 마음 알지? 내가 다 말해 뒀잖아."라며 감정적인 호소와 긴 설명에 의존합니다. 하지만 양손을 뻗어 상상해 보십시오. 왼손에는 '내가 해 줄 수 있는 설명'을, 오른손에는 '내가 실제로 세어서 내놓을 수 있는 시간과 자원'을 올려둔다고 생각해 보십시오. 설명은 말하는 동안에만 무겁게 느껴질 뿐 이내 가벼워집니다. 반면, 구체적으로 쪼개어 수치로 다듬어낸 헌신과 자원은 시간이 지날수록 묵직한 실재로 남습니다.</p>
+<p>다윗이 넘겨준 계량된 수치는 자신의 철저함을 자랑하기 위함이 아니었습니다. 그것은 다음 세대가 무거운 짐에 짓눌리지 않도록, 앞선 자가 미리 해석의 부담을 덜어준 가장 적극적인 '배려'이자 '절제'였습니다. 말로 넘긴 것은 말이 끝나면 사라지지만, 달아서 넘긴 것은 손을 놓아도 남습니다. 다툼과 오해는 늘 '나는 설명했다'와 '나는 듣지 못했다'의 틈에서 자라납니다. 이 간극을 메우는 것은 더 많은 말이 아니라, 감정을 배제하고 정직하게 달아낸 객관적인 헌신입니다. 이것이 성경이 보여주는 책임감 있는 어른의 모습이며, 참된 성경적 사고가 빚어내는 신앙 인격의 열매입니다.</p>
+<p>더 놀라운 것은 저울로 달 수 있는 것과 달 수 없는 것의 경계가 존재한다는 사실입니다. 성전 기구의 무게를 하나하나 달아주던 성경은 마지막에 이르러 "이 모든 일을 행하라"(21절)고 명령하며 함께할 사람들을 덧붙입니다. '내가 넘겨줄 수 있는 물건'과 '네가 스스로 감당해야 할 행동'의 경계를 명확히 그어준 것입니다. 우리의 몫은 내 손으로 계량할 수 있는 것을 정직하게 달아 넘겨주는 것까지입니다. 그 이후의 결과, 즉 그것을 가지고 어떻게 행할 것인가는 하나님과 다음 사람의 몫으로 온전히 맡겨두어야 합니다.</p>
+<p>당신의 삶에는 지금 어떤 저울이 놓여 있습니까? 화려한 설명과 감정적인 호소로 채워진 빈 수레를 밀고 있지는 않습니까? 내가 떠난 뒤에도 무너지지 않는 든든한 유산을 남기고 싶다면, 이제 장황한 말을 멈추고 저울을 가져오십시오. 훗날 나의 지시와 설명이 수명을 다한 뒤에도, 내가 기꺼이 달아 내어준 정직한 무게들은 시간을 건너 아름다운 증언으로 남게 될 것입니다. 진정한 성경적 인격은 말이 멈춘 자리, 저울이 놓인 바로 그곳에서 완성됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 20일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

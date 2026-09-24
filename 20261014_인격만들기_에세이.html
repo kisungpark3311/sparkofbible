@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 14일 &middot; 역대상 25:1-31</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 매일 누군가에게 자신을 소개하며 살아갑니다. 명함을 건네고, 직함을 말하고, 내가 해낸 성과들을 늘어놓습니다. "저는 이런 일을 하는 사람입니다", "제가 이 문제를 해결해 드리겠습니다." 세상은 이처럼 내가 ‘한 일’과 내가 ‘할 수 있는 일’로 나의 가치를 증명하라고 끊임없이 요구합니다. 철저히 ‘능동태’로 무장해야만 살아남을 수 있는 팍팍한 현실 속에서, 우리는 기꺼이 내 이름 앞에 화려한 능동의 수식어들을 가져다 붙이곤 합니다.</p>
+<p>하지만 잠시 우리의 서랍 속에 깊숙이 보관된 자격증이나 면허증을 꺼내어 볼까요? 그 문서들에 적힌 문장은 우리가 일상에서 내미는 명함과 사뭇 다릅니다. "위 사람에게 자격을 부여함", "수련 과정을 이수하였음". 그곳에 쓰인 문장의 주어는 내가 아닙니다. 국가나 기관이 나에게 자격을 ‘주었다’고 적혀 있고, 나는 그저 자격을 ‘부여받은’ 목적어일 뿐입니다. 그런데 신기하게도 우리는 이 증서를 받아 들고 사무실이나 진료실로 나서는 순간, 나에게 무언가를 부여했던 존재를 싹 지워버립니다. 그리고는 재빨리 능동태의 직함으로 갈아입습니다. 누군가로부터 무언가를 ‘받았다’는 수동태의 겸허한 사실은, 내가 스스로 쟁취했다는 능동태의 착각 속에 금세 잊히고 마는 것입니다.</p>
+<p>역대상 25장에 등장하는 성전 찬양대 288명의 명부는, 이처럼 앞만 보고 달리는 우리에게 아주 낯설고도 아름다운 호칭 하나를 던져줍니다. 성경은 이 위대한 찬양대원들을 가리켜 단순히 "노래를 잘하는 자들"이라고 부르지 않습니다. 히브리어 원문을 보면, 그들은 "노래를 가르침 받은 자들(믈룸메데이, מְלֻמְּדֵי)"이라고 기록되어 있습니다. 찬양대라는 거룩하고 영광스러운 직무를 맡은 사람들을, 그들이 ‘한 일’이 아니라 그들이 누군가로부터 ‘받은 동작’으로 부르고 있는 것입니다.</p>
+<p>이것은 단지 종교적인 겉치레나 도덕적인 겸손을 요구하기 위해 동원된 꾸밈말이 아닙니다. 히브리어 문법에서 ‘가르치는 자’와 ‘가르침을 받은 자’는 단어의 자음 골격이 완전히 똑같습니다. 오직 눈에 띄지 않는 작은 ‘모음’ 몇 개만이 이 두 단어를 구별할 뿐입니다. 겉보기에는 똑같은 사람 같아도, 내면을 채우고 있는 보이지 않는 작은 태도(모음)가 그 사람의 진짜 이름을 결정짓는 셈입니다.</p>
+<p>더욱 놀라운 사실은, 내가 ‘가르침을 받은 자’라는 수동태의 자각이 나와 다른 사람을 하나로 묶어주는 강력한 ‘이음매’가 된다는 것입니다. 실제로 이어지는 8절을 보면, 큰 자나 작은 자, 스승(명철한 자)이나 초보 제자가 아무런 계급 없이 다 함께 제비를 뽑아 직임을 나누는 감동적인 장면이 등장합니다. 만약 앞선 7절에서 찬양대원 모두가 스스로를 ‘가르치는 자’, ‘다 아는 자’라고 능동태로만 여겼다면, 8절의 초보 제자들은 갈 곳을 잃고 감히 스승 곁에 서지도 못했을 것입니다. 수동태로 나를 부르는 순간, 비로소 내 곁에 타인이 들어설 공간이 열립니다. 스승과 제자는 마주 보고 훈계하는 수직적 계급이 아니라, 어깨를 나란히 하고 ‘함께(임, עִם)’ 걷는 동반자가 되는 것입니다.</p>
+<p>지금 눈을 감고, 손바닥을 아래로 엎은 채 자신의 직함을 소리 내어 불러 보십시오. 누군가를 지시하고 통제하려는 그 자세에서는 으레 목소리에 빳빳한 힘이 들어갑니다. 하지만 이번에는 손바닥을 하늘 위로 펴고 무언가를 조용히 받는 자세를 취해 보십시오. 그리고 자신의 이름을 불러 보십시오. 우리의 목소리는 한결 부드러워지고, 삶의 끝자락도 겸손히 내려가게 될 것입니다. 성경은 찬양대원들을 가리켜 지도자의 ‘손을 거쳐’ 인도받는 자들이라 표현했습니다. 방향을 가리키는 꼿꼿한 손가락을 거두고, 손바닥을 내밀어 무언가를 받을 때 우리는 남을 밟고 올라서는 대신 이웃과 어깨를 나란히 할 수 있습니다.</p>
+<p>흥미롭게도 성경은 이들에게 찬양을 ‘가르쳐 준 주체’가 누구인지 굳이 밝혀 적지 않았습니다. 비어 있는 행위자의 칸. 우리는 때로 이 빈칸을 견디지 못해 나의 공로나 내 이름 석 자로 억지로 채워 넣으려 합니다. 아니면 아예 내가 무언가를 거저 받았다는 사실 자체를 지워버리려 합니다. "네게 있는 것 중에 받지 아니한 것이 무엇이냐(고린도전서 4:7)"라는 사도 바울의 물음은 교만한 우리를 향한 뼈아픈 통찰입니다. 진정한 성경적 인격은 이 빈칸을 섣불리 나의 자랑으로 채우지 않고, 있는 그대로 비워둔 채 조용히 위로부터의 은혜를 기다리는 태도에서 다듬어집니다. 나의 지식, 나의 재물, 나의 건강, 나의 직분. 이 모든 것이 실은 누군가로부터 ‘주어진 것’이며, 나는 그것을 그저 ‘받은 사람’에 불과하다는 깊은 자각입니다.</p>
+<p>오늘 하루, 세상을 향해 들이밀던 나의 빳빳한 이름표를 살며시 뒤집어 보는 것은 어떨까요? "나는 성취한 자다", "나는 가르치는 자다"라는 능동의 외침 대신, "나는 사랑받은 자요, 용서받은 자요, 가르침을 받은 자다"라는 수동의 고백으로 나 자신을 다시 불러보는 것입니다. 내가 땀 흘려 ‘한 일’로만 겹겹이 쌓아 올린 인격은, 작은 실패와 사람들의 비난 앞에서도 쉽게 바스라집니다. 하지만 내가 거저 ‘받은 은혜’로 빚어진 인격은 어떤 비바람과 폭풍우 앞에서도 흔들리지 않는 단단한 반석이 됩니다.</p>
+<p>수동태로 새겨진 당신의 진짜 이름. 세상이 요구하는 화려한 능동태의 훈장을 잠시 내려놓고 내가 받은 동작으로 스스로를 부르기 시작할 때, 그때 비로소 타인을 향해 굳게 닫혀 있던 문이 열리고 내 삶에 가장 아름다운 인격의 건축이 시작될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 14일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
