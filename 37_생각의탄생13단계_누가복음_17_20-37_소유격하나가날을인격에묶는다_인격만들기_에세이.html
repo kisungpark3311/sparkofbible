@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>그날을 한 사람에게 묶는 소유격</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 누가복음 제 37편 &middot; 누가복음 17:20-37</span>
+      <h1>그날을 한 사람에게 묶는 소유격</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>바리새인들은 하나님 나라가 언제 오느냐고 묻는다. 예수님은 달력이나 징표의 목록을 주지 않으시고, 이어서 인자의 날을 말씀하신다. 17:24의 번개 비유와 17:30의 계시의 말 사이에서, 노트는 ‘그의 날’이라는 소유격이 날을 막연한 사건이 아니라 한 인격과 묶어 놓는다고 읽는다.</p>
+<p>이 본문은 계산 가능한 시점을 제공하지 않는다. 나라를 단지 눈에 보이는 일정으로 만들려는 기대를 멈추게 하고, 인자가 드러나는 날을 말한다. 그래서 우리는 마지막 일을 두려움을 자극하는 표나 개인의 예측으로 바꾸지 않아야 한다. 본문이 분명히 말하는 것은 인자의 날이며, 말하지 않는 것은 그날을 우리 손으로 산출하는 방법이다.</p>
+<p>‘그날을 한 사람에게 묶는 소유격’이라는 제목은 결국 말의 작은 차이가 실제 사람과 삶을 어떻게 바라보게 하는지 묻는다. 본문을 서둘러 교훈으로 바꾸면, 눈앞의 장면과 그 안에 계신 예수님의 말씀보다 내 익숙한 결론이 먼저 자리를 차지한다. 반대로 문장의 순서와 호칭과 비어 있는 자리를 존중하면, 이 이야기는 멀리 있는 종교적 사례가 아니라 오늘 내 마음을 비추는 말씀이 된다. 나는 이 본문을 이용해 다른 사람을 평가하거나 내 결심을 과시하지 않고, 내가 놓치고 있던 은혜와 책임의 방향을 조용히 발견하고 싶다.</p>
+<p>불확실한 시대일수록 사람은 날짜와 신호를 붙들고 싶어진다. 그러나 주님은 우리의 시선을 ‘언제’의 계산에서 ‘누구’의 기다림으로 옮기신다. 오늘 해야 할 일은 비밀을 풀었다는 확신을 내세우는 것이 아니라, 오실 주님을 신뢰하며 지금의 관계와 책임에 충실한 것이다. 그분의 날이 그분께 속해 있음을 기억할 때 오늘의 두려움도 조금 제자리를 찾는다.</p>
+<p>본문의 출발점은 ‘바리새인들은 하나님 나라가 언제 오느냐고 묻는다.’라는 장면이다. 이 한 장면을 충분히 마음에 머물게 하면, 말씀은 추상적인 원칙이 아니라 내 표정과 말투와 선택을 비추는 거울이 된다. 오늘 나는 누군가를 대할 때 먼저 정답을 말하려 하기보다, 이 본문이 보여 준 예수님의 시선과 순서를 기억하고 싶다. 내게 주어진 책임은 피하지 않되 다른 사람의 마음과 결과를 내가 결정하려 하지 않는 것, 그리고 작은 순종 하나를 실제 삶으로 옮기는 것에서 이 묵상을 시작하고 싶다.</p>
+<p>말씀을 깊이 읽는다는 것은 어려운 말을 더 얹는 일이 아니라, 이미 들려온 말을 끝까지 듣는 일이다. 그 과정에서는 어떤 답을 아직 모른다고 인정해야 할 때도 있다. 그러나 모른다고 남겨 둔 자리는 공허함이 아니라 기도할 자리다. 본문이 분명히 보여 준 예수님의 말씀과 행동 앞에서 나는 한 걸음 순종하고, 본문이 설명하지 않은 동기와 결과는 하나님께 맡길 수 있다. 그렇게 할 때 이 장면은 지나간 이야기가 아니라 오늘의 선택과 관계를 다루는 빛이 된다.</p>
+<p>이렇게 읽을 때 작은 문법 관찰은 어려운 지식을 자랑하는 장식이 아니라, 본문이 말한 것보다 더 많이 말하지 않게 하는 울타리가 된다. 우리는 하나의 낱말과 어순, 주어와 목적어의 자리를 통해 말씀의 속도를 늦춘다. 그 느림 속에서 내 판단과 계산이 아니라 예수님의 말씀 자체가 앞에 서게 된다. 오늘도 이 장면을 마음에 두고, 본문이 비워 둔 곳은 함부로 채우지 않으며 이미 밝혀 준 은혜에는 정직하게 응답하고 싶다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      누가복음 제 37편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

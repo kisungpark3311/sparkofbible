@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>아직 말이 끝나지 않았다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 누가복음 제 18편 &middot; 누가복음 8:40-56</span>
+      <h1>아직 말이 끝나지 않았다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>누가복음의 이 장면은 익숙한 이야기를 조금 느리게 읽게 한다. 야이로가 딸을 살려 달라고 간청하는 길에 열두 해 앓은 여인이 예수님의 옷자락을 만진다. 여인이 ‘구원을 받았다’는 완료의 선포 뒤에 곧 딸이 죽었다는 소식이 오지만, 예수님은 두 집의 절망을 함께 지나가신다.</p>
+<p>한 사람의 회복이 다른 사람의 고통을 밀어내지 않고, 한 사람의 지연이 주님의 무관심을 뜻하지도 않는다. 예수님은 두려워 말고 믿으라 하시며 죽음의 집 안으로 들어가 아이의 손을 잡으신다.</p>
+<p>이처럼 본문을 천천히 읽는 일은 어려운 지식을 과시하려는 일이 아니다. 한 낱말의 자리와 문장의 흐름을 지키는 것은, 내가 듣고 싶은 결론을 말씀에 얹지 않고 예수님이 실제로 보여 주시는 길을 받으려는 겸손이다. 그러므로 이 장면이 말하지 않은 사람의 속사정은 함부로 단정하지 않되, 분명히 드러난 주님의 은혜와 부르심은 피하지 않겠다. 말씀은 멀리 있는 해답을 손에 쥐게 하기보다, 지금 내 앞에 놓인 사람과 책임을 새롭게 보게 한다. 그러니 오늘의 순종은 거창한 결심보다 한 번 더 경청하고, 한 번 덜 자기중심적으로 계산하며, 내가 할 수 있는 선을 성실하게 지키는 데서 시작될 것이다. 우리는 자주 급한 마음으로 성경을 읽는다. 당장 위로가 되는 문장, 내 선택을 지지해 줄 말, 누군가를 판단할 근거를 찾는다. 그러나 복음서는 그런 손에 쉽게 붙잡히지 않는다. 본문은 사람들의 연약함을 숨기지 않고, 예수님의 은혜를 값싼 낙관으로 만들지도 않는다. 그 정직함 때문에 우리는 실패와 상처가 있는 날에도 말씀 앞을 떠나지 않을 수 있다. 주님은 내 사정을 이미 아시며, 그럼에도 오늘 내가 사랑해야 할 사람과 내려놓아야 할 교만과 붙들어야 할 약속을 보여 주신다. 그러므로 이 묵상은 읽고 감동한 뒤 끝나는 글이 아니라, 식탁의 말투와 일터의 결정과 혼자 있는 시간의 생각을 조금씩 바꾸는 빛이 되기를 바란다. 믿음은 모든 결과를 미리 아는 능력이 아니다. 말씀을 주신 분이 선하시다는 사실을 붙들고, 내가 감당할 수 있는 다음 한 걸음을 성실하게 내딛는 일이다. 때로는 사과해야 하고, 때로는 기다려야 하며, 때로는 도움을 청해야 한다. 그 작은 걸음 속에서 복음은 관념이 아니라 살아 있는 은혜가 된다. 오늘도 주님은 완성된 사람만 부르지 않으신다. 배우고 넘어지고 다시 일어나는 사람을 말씀 곁에 세우시며, 그 걸음이 이웃에게도 쉼이 되게 하신다. 내 마음이 쉽게 원래의 조급함으로 돌아갈 것을 아시기에, 같은 말씀을 다시 읽게 하시고 오늘의 작은 선택을 통해 은혜를 기억하게 하소서. 그 은혜를 이웃과 나누게 하소서.</p>
+<p>내 기도가 다른 사람의 필요와 겹칠 때 비교와 원망에 갇히지 않겠다. 주님이 내 시간표보다 넓게 일하심을 믿고, 오늘 내 앞의 아픈 이를 재촉하지 않으며 곁에 머물고 싶다.</p>
+<p>주님, 오늘도 말씀을 내 주장에 맞추는 사람이 아니라 당신의 말씀으로 다시 빚어지는 사람이 되게 하소서. 내가 아는 만큼만 말하고, 받은 은혜만큼 사랑하며, 이 본문이 가리키는 예수님의 길을 가까운 관계와 평범한 일상에서 조용히 따르게 하소서.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      누가복음 제 18편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
