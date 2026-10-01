@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 09일 &middot; 역대상 21:9-17</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>
+살아가면서 우리는 종종 하늘을 향해, 혹은 세상을 향해 묻습니다. “도대체 왜 이런 일이 일어나는 건가요?”, “저 평범한 사람들은 무슨 죄가 있나요?” 불합리해 보이는 고통과 막막한 현실 앞에서 우리는 정답을 구하며 부르짖습니다. 그러나 절실한 물음 끝에 돌아오는 것은 먹먹한 침묵일 때가 많습니다. 아무런 답이 오지 않는 그 텅 빈 침묵의 시간, 우리는 무엇을 해야 할까요.
+</p>
+<p>
+역대상 21장에는 바로 그 답이 오지 않는 침묵의 시간을 온몸으로 통과한 한 사람의 이야기가 기록되어 있습니다. 인구 조사라는 씻을 수 없는 큰 잘못을 저지른 다윗 왕은, 자신의 죄로 인해 무고한 백성들이 전염병이라는 재앙을 겪는 참담한 현실을 마주합니다. 무려 칠만 명이나 목숨을 잃은 처참한 상황 속에서, 하늘에는 심판의 칼을 빼어 든 천사가 서 있습니다. 그 압도적인 공포와 죄책감 앞에서 다윗은 베옷을 입고 얼굴을 땅에 댄 채 하나님께 엎드립니다. 그리고 이렇게 묻습니다.
+</p>
+<p>
+“명하여 백성을 계수하게 한 자가 내가 아니니이까? 나는 범죄하고 악을 행하였나이다. 그러나 이 양 떼는 무엇을 행하였나이까?”
+</p>
+<p>
+놀라운 것은 성경이 다윗의 이 뼈아픈 질문에 대한 하나님의 대답을 기록하지 않는다는 것입니다. 하나님은 “이 백성이 이런저런 잘못을 했기 때문이다”라거나 “네가 잘못했으니 당연한 결과다”라고 친절하게 설명해 주지 않으십니다. 그저 묵묵부답이십니다.
+</p>
+<p>
+우리라면 그 침묵을 견디지 못하고 스스로 빈칸에 답을 채워 넣으려 했을지도 모릅니다. ‘아마도 어쩔 수 없는 운명이겠지’, ‘저들에게도 내가 모르는 숨은 죄가 있을 거야’라며 어떻게든 책임을 분산시키거나 상황을 합리화하려 했을 것입니다. 그러나 다윗은 그 숨 막히는 침묵의 시간 동안 스스로 답을 만들어내는 대신, 아주 기이하고도 위대한 청원 하나를 올립니다.
+</p>
+<p>
+“청하건대 나의 하나님 여호와여, 주의 손이 나와 내 아버지의 집을 치소서.”
+</p>
+<p>
+이 기도는 우리가 위기 때마다 으레 덧붙이는 기도와 그 결이 다릅니다. 다윗의 문장에는 “재앙을 거두어 주소서”나 “벌의 크기를 줄여 주소서”라는 말이 없습니다. 다윗은 재앙의 크기를 깎아 달라고 떼쓰지 않습니다. 마치 쏟아지는 폭우 속에서 우산을 함께 쓴 사랑하는 이를 위해 말없이 우산의 각도를 내 쪽으로 기울이듯, 피할 수 없는 벼락이라면 기꺼이 내가 그 벼락을 맞는 피뢰침이 되겠다고 자처하듯 말입니다.
+</p>
+<p>
+이것은 내게 내려질 형량을 줄여달라는 얄팍한 ‘감형 요청’이 아닙니다. 날아온 고지서에 적힌 고통의 총량은 그대로 둔 채, 오직 그 고통을 받아내야 할 ‘수신처’의 이름만을 자신의 것으로 바꿔 달라는 먹먹한 ‘주소 변경 요청’입니다. “이 고통이 닿아야 할 곳은 저 불쌍한 백성들이 아니라, 죄를 지은 바로 나입니다. 그러니 심판의 수취인을 나로 고쳐 주십시오.”
+</p>
+<p>
+이 장면을 가만히 몸으로 상상해 봅니다. 두 손을 바닥에 짚고 얼굴을 땅에 대고 엎드린 자세. 그 자세에서는 손을 내밀어 날아오는 돌을 막거나 재앙을 피할 수 없습니다. 엎드린 사람은 오직 자신의 온몸을 과녁으로 내어줄 뿐입니다. 재앙을 막아낼 손을 쓸 수 없는 그 엎드림의 자리에서, 다윗은 온몸으로 심판을 받아내겠다는 처절한 헌신을 보여줍니다.
+</p>
+<p>
+답이 오지 않는 자리는 결코 하나님께 버림받은 침묵의 자리가 아닙니다. 오히려 그것은 누군가의 이름을 적어 넣을 수 있도록 비워진 ‘목적어 칸’이 비로소 열리는 순간입니다. 스스로 자신의 잘못을 처절하게 자백한 사람, 그리고 억울한 이들의 고통을 보며 “이들은 무슨 죄가 있습니까?”라고 가슴을 치며 물어본 사람만이 그 빈칸에 자신의 이름을 쓸 수 있습니다. 자백과 타인을 향한 긍휼이 없는 기도는 한낱 핑계와 미담에 불과하지만, 세 칸을 모두 채운 기도는 한 사람의 영혼을 살리고 세상을 변화시킵니다.
+</p>
+<p>
+다윗이 무고한 양 떼를 위해 자신의 온몸을 심판의 목적어로 던졌을 때, 우리는 그 슬프고도 위대한 헌신 위로 수백 년 뒤 골고다 언덕에서 십자가를 지신 또 다른 목자의 실루엣을 겹쳐 보게 됩니다. “선한 목자는 양들을 위하여 목숨을 버리거니와” (요 10:11)라고 말씀하셨던 예수 그리스도. 그분 역시 세상의 모든 죄악과 고통의 크기를 깎아내리거나 외면하지 않으시고, 그 재앙의 수신처를 온전히 당신의 찢기신 ‘몸’으로 바꾸셨습니다. 다윗의 기도는 결국 다가올 십자가의 사랑을 향해 열려 있는 청원이었던 셈입니다.
+</p>
+<p>
+오늘날 우리는 책임과 변명으로 가득 찬 시대를 살아가고 있습니다. 조금이라도 내 몫의 고통을 덜어내기 위해 타인을 방패막이로 삼거나, 억울함을 호소하며 고통의 고지서를 남에게 떠넘기기 바쁩니다. 진정한 어른의 부재를 한탄하지만, 정작 내 삶의 자리에서 다른 이를 위해 희생을 자처하는 일에는 인색합니다. 그러나 진짜 성경적 사고와 인격은, 답이 오지 않는 막막한 상황 속에서도 기꺼이 타인을 향하던 비의 방향을 내 쪽으로 돌려맞는 그 조용한 ‘우산 기울이기’에서 시작됩니다.
+</p>
+<p>
+당신의 삶에도 답이 없는 먹먹한 질문들이 놓여 있습니까? 해결되지 않는 고통과 억울함 앞에서 여전히 정답을 찾고 계십니까? 그 침묵의 빈칸을 원망이나 타인을 향한 비난으로 채우지 마십시오. 나를 낮추고, 얼굴을 땅에 댄 채, 기꺼이 그 고통의 수신처에 나의 이름을 적어 내려가는 용기를 가져보십시오. “이들의 눈물을 닦아 주시고, 주의 손이 차라리 내게 있게 하소서.” 이렇게 엎드려 기도할 때, 우리의 인격은 비로소 위대하고도 단단하게 뿌리내리게 될 것입니다. 그것이 바로 세상이 알지 못하는, 가장 아름다운 사랑과 책임의 문법입니다.
+</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 09일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

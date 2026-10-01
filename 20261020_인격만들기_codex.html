@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 20일 &middot; 역대상 28:11-21</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리의 삶에서 가장 중요한 순간 중 하나는 누군가에게 나의 소명과 책임을 넘겨주어야 할 때입니다. 내 삶의 정수가 담긴 일, 오랫동안 눈물로 꿈꾸었으나 끝내 나의 당대에는 완성하지 못할 그 일을 다음 사람에게 맡겨야 하는 순간, 우리는 보통 어떻게 반응할까요? 아마도 필사적으로 무언가를 설명하고 싶어질 것입니다. 내가 이 일을 왜 시작했는지, 어떤 마음으로 임해왔는지, 당신이 이 일을 맡아 얼마나 훌륭하게 이뤄내야 하는지에 대해 수많은 말을 쏟아내기 마련입니다. 의미를 전달하고 싶은 강렬한 열망 때문입니다.</p>
+<p>그러나 성경 속 다윗이 아들 솔로몬에게 성전의 설계도를 건네는 역대상 28장의 장면은 우리가 당연시하던 이 '인계'의 풍경을 완전히 뒤집어 놓습니다. 다윗에게 성전 건축은 평생의 숙원이었습니다. 피를 많이 흘린 까닭에 하나님께서 허락하지 않으셨기에, 그는 오직 준비만 할 수 있었습니다. 마침내 아들에게 설계도를 넘겨주는 순간, 다윗은 그 성전 기구들이 얼마나 영광스러운 의미를 지니고 있는지 수려한 문장으로 설명하고 싶었을 것입니다.</p>
+<p>하지만 놀랍게도 성경은 이 극적인 순간에 침묵을 선택합니다. 설계도를 건네는 장면 바로 뒤를 잇는 14절부터 18절까지에는 화려한 문장을 이끌어가는 동사가 단 하나도 등장하지 않습니다. 개역성경이 자연스러운 번역을 위해 '정하고'라는 말을 넣었지만, 원어인 히브리어 본문에는 그마저도 없습니다. 말이 빠져나간 그 빈자리를 채우는 것은 오직 금과 은의 '무게(미쉬칼)'뿐입니다. 무려 아홉 번이나 반복해서 저울의 눈금만이 묵묵히 기록되어 있습니다. 설명이 있어야 할 자리에 저울이 놓인 것입니다.</p>
+<h2>말은 손을 떠나면 사라지고, 무게는 남아 증언한다</h2>
+<p>두 눈을 감고 양팔을 앞으로 뻗어 손바닥을 펼쳐보는 상상을 해봅니다. 왼손 위에는 '내가 이 일에 대해 해줄 수 있는 뜨거운 설명들'을 얹어보고, 오른손 위에는 '내가 지금 정확히 달아서 넘겨줄 수 있는 자원과 목록'을 얹어봅니다. 그리고 가만히 버텨봅니다. 얼마 지나지 않아 우리는 깨닫게 됩니다. 왼손은 너무나 쉽게 허공으로 흩어집니다. 나의 진심 어린 설명과 핑계, 당부의 말들은 내 입술을 떠나 상대의 손에 닿는 순간 무게를 잃고 사라집니다. 그러나 오른손은 시간이 지날수록 묵직하게 우리의 팔을 누릅니다. 내가 땀 흘려 세어놓은 것들, 저울로 달아 확정해 둔 것들은 내가 팔을 내리고 손을 놓은 뒤에도 변함없이 그 자리에 남습니다.</p>
+<p>다윗이 넘겨준 계량된 목록은 그저 정확한 세무 회계나 건축 명세서 같은 차가운 숫자가 아니었습니다. 그것은 온전한 넘김을 성립시키는 치열하고도 거룩한 형식이었습니다. 내가 남기는 것이 한갓 허울 좋은 관념이 아니라 실재하는 물건이자 책임임을 보여주는 징표입니다. 어떤 의미에서 계량은, 나의 책임이 당신에게 온전히 넘어갔음을 선언하는 가장 확실한 사랑의 표현입니다.</p>
+<h2>해석의 짐을 지우지 않는 사랑의 절제</h2>
+<p>만약 다윗이 화려한 언변으로 성전 기구들의 상징과 의미만을 남겼다면 어떻게 되었을까요? 덩그러니 남겨진 어린 솔로몬은 평생토록 아버지의 의도를 해석하고 짐작하느라 짓눌렸을지도 모릅니다. '아버지가 말씀하신 금 잔의 의미는 이런 것이었을까? 은 잔은 이 정도 크기로 만들면 만족하실까?'</p>
+<p>그러나 다윗은 스스로 저울을 가져와 수치를 달았습니다. 넘기는 자가 스스로 무게를 달아 확정해 주었기에, 남겨진 솔로몬은 더 이상 아버지의 마음을 해석하느라 시간을 허비할 필요가 없었습니다. 다윗의 말없음은 무뚝뚝함이나 방임이 아니라, 받는 자에게 해석의 부담을 지우지 않으려는 숭고한 절제였습니다. 나의 공로를 설명하는 대신 그저 다음 사람이 일할 수 있는 자원을 묵묵히 달아놓는 것, 그것이 진짜 어른의 인격이며 책임지는 신앙의 모습입니다.</p>
+<h2>행하라, 그 앞에서는 저울도 멈춘다</h2>
+<p>이토록 치밀한 계량의 저울질에도 결국 멈춰서는 경계가 있습니다. 성전 기구들을 세밀하게 달아주던 다윗의 목록은 21절에 이르러 '사람'으로 그 중심을 이동합니다. 그리고 솔로몬을 향해 "너는 강하고 담대하게 이 일을 행하라"는 명령 앞에서는 어떤 단위도, 무게도 주어지지 않습니다. 그렇습니다. '행함'에는 단위가 없습니다.</p>
+<p>우리가 다음 세대에게, 혹은 사랑하는 이에게 물려줄 수 있는 것은 철저하게 달아서 건네주는 자원과 환경까지입니다. 저울로 달 수 있는 것은 내가 준비해서 줄 수 있는 몫이지만, 그 위에서 어떻게 살아내고 성취할 것인가는 남겨진 자가 감당해야 할 믿음의 영역입니다. 다윗은 이 경계를 정확히 알았습니다. 넘겨줄 수 있는 것은 철저히 달아서 주되, 그가 스스로 행해야 할 삶의 몫까지 내가 대신 짊어지거나 조종하려 하지 않았습니다.</p>
+<h2>설명이 올 자리에 저울을 놓을 수 있기를</h2>
+<p>다윗이 달아놓은 금 잔 각각의 무게는 그날 밤 솔로몬에게는 두려운 작업 지시서였을 것입니다. 그러나 수천 년의 시간을 건너 뛰어 오늘 우리에게 도달한 그 수치들은 놀랍게도 하나의 '증언'이 되었습니다. 사람의 웅변은 시간이 지나면 변색되고 무너지지만, 책임감 있게 달아놓은 묵직한 수치는 시대를 초월하여 그들이 얼마나 진실되게 하나님을 사랑했는지를 증언합니다.</p>
+<p>당신의 삶에는 어떤 저울이 놓여 있습니까? 나의 삶, 나의 사역, 나의 가정을 누군가에게 넘겨주어야 할 때, 나는 나의 감정과 핑계라는 가벼운 말들을 늘어놓고 있습니까? 아니면 묵묵히 저울을 가져와 내가 짊어질 수 있는 것들을 달아 넘겨주고 있습니까?</p>
+<p>말은 손을 떠나면 흩어지지만, 애써 달아 적은 것은 손을 놓은 뒤에도 영원히 남습니다. 변명이나 장황한 설명이 있어야 할 자리에, 기꺼이 헌신의 저울을 놓을 줄 아는 깊은 침묵. 그 침묵과 절제의 인격이 오늘 우리의 삶에도 거룩하게 세워지기를 간절히 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 20일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

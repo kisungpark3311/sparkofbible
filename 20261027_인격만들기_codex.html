@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 27일 &middot; 아가 4:1-16</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 숫자로 자신을 증명하는 시대에 살고 있습니다. 연봉, 아파트 평수, SNS 팔로워 수, 은행 잔고, 심지어 직장과 학교에서 성과를 측정하는 KPI 점수까지. 세상은 우리에게 매 순간 '총계(합계)'를 묻습니다. "올해는 작년보다 얼마나 더 벌었는가?", "이번 달에는 몇 명의 회원을 모았는가?" 사람들은 숫자는 거짓말을 하지 않는다고 굳게 믿습니다. 합계는 누구든 객관적으로 다시 세어 검산할 수 있으므로, 불안한 세상을 살아가는 우리에게 언제나 가장 확실하고 안전한 '증명'의 도구가 되어 줍니다.</p>
+<p>그러나 합계라는 마법의 숫자에는 치명적인 맹점이 하나 숨어 있습니다. <strong>그것은 그 어떤 구체적인 얼굴도, 사연도 가리키지 않는다는 사실입니다.</strong></p>
+<p>당신의 책상 위에 놓인 천만 원이라는 성과급은 분명한 사실이자 기분 좋은 총계입니다. 하지만 그 숫자는 그것이 어느 날 밤을 지새우며 흘린 눈물의 대가인지, 어떤 건강을 깎아내며 얻은 결과인지(귀속)는 결코 말해주지 않습니다. 우리 교회에 새로 열두 명의 교인이 등록했다는 사실은 자랑스러운 합계지만, 그중 여덟 명은 이사를 와서 등록한 분이고 네 명은 생전 처음 교회 문턱을 넘은 분이라는 '분포'의 진실은 합계 뒤로 스르르 숨어버립니다. 숫자를 모아 하나의 합계로 집계하는 행위는 필연적으로 각자가 가진 고유한 이름과 사연의 경계를 지우는 일입니다. 그러니 아무리 정확한 합계라 할지라도, 그것은 이미 개인의 진실을 한 번 차갑게 은폐한 결과일 뿐입니다.</p>
+<p>성경의 아름다운 사랑 노래인 아가서 4장을 자세히 들여다보면, 이처럼 기계적인 셈법이 얼마나 중요한 삶의 진실을 놓치게 만드는지 깨닫게 됩니다. 최첨단 문법 분석기(파서)를 돌려 성경을 분석해보면, 아가서 4장에는 '2인칭 여성에게 내리는 명령형 동사'가 총 일곱 번 등장합니다. 기계는 차갑게 계산합니다. "아, 사랑하는 여인을 향해 총 일곱 번의 명령을 내렸구나." 분석기는 그저 7이라는 합계를 성적표처럼 내밀 뿐입니다. 하지만 우리가 직접 눈을 감고, 성경 속 화자가 서 있던 자리에 들어가 몸을 돌려보면 전혀 다른 풍경이 펼쳐집니다.</p>
+<p>앞부분의 명령들은 분명 눈앞에 선 사랑하는 이를 향한 애틋한 부름입니다. 그러나 절정을 향해 가는 16절에 이르러, 화자는 갑자기 눈앞의 사람에게서 몸을 돌려 창밖의 허공을 향해 시선을 던집니다. <em>"깨어나라 북풍아, 그리고 오라 남풍아, 내 동산에 불어라."</em> 스물세 번이나 애타게 불렸던 사랑하는 여인에게, 결정적인 순간 목소리는 아무런 짐도 지우지 않습니다. 무언가를 해내야 한다는 책임의 짐은 여인이 아닌 허공의 공기와 바람에게로 훌쩍 넘겨집니다. 기계는 이것을 똑같은 '여성형 명령 1회'로 세어 7이라는 숫자에 더해버립니다. 하지만 실제로 소리 내어 말해보면 이 마지막 세 번의 부름에서는 눈앞에 받을 사람이 없기에 소리를 멀리 보내느라 '날숨'이 훅 길어집니다.</p>
+<p>존재의 차이가 사라진 것이 아닙니다. 차가운 계수기가 그 미세한 어깨의 회전과 날숨의 길이를 헤아릴 따뜻한 감각기관을 가지지 못했을 뿐입니다. 합계라는 숫자 7은 수학적으로 틀리지 않았으나, 사랑하는 이에게 짐을 지우지 않고 바람에게로 조용히 방향을 튼 그 찬란한 배려와 '분포'의 차이는 하마터면 엑셀 표의 사각지대에 영영 묻혀버릴 뻔했습니다.</p>
+<p>그렇다면 우리의 인생을 헤아리시는 하나님의 셈법은 어떨까요? 세상의 기준처럼 우리를 거대한 합계 속에 밀어 넣고 가치를 매기실까요?</p>
+<p>시편 147편 4절은 가슴 벅찬 위로의 고백을 들려줍니다. <em>"그가 별들의 수효를 세시고 그것들을 다 이름대로 부르시는도다."</em> 세상은 숫자를 셀 때 개인의 이름을 지우고 뭉뚱그려 거대한 총계로 만듭니다. 하지만 우리를 지으신 분은 결코 '세는 일'과 '이름을 부르는 일'을 분리하지 않으십니다. 수천억 개의 별을 '우주 은하 1세트'라는 합계로 퉁치지 않으시고, 하나하나 고유한 이름을 부르며 눈을 맞춰 세십니다. 눈앞에 사람이 있는지 없는지 살피며 몸을 돌리는 아가서의 화자처럼 말입니다.</p>
+<p>누가복음 12장 7절의 고백은 한 걸음 더 나아갑니다. <em>"너희에게는 심지어 머리털까지도 다 세신 바 되었나니."</em> 하나님은 거대한 인류 역사라는 장부의 '총 인구수'로 우리를 퉁명스럽게 파악하지 않으십니다. 낱낱의 흩어진 머리카락을 기꺼이 헤아리시는 다정함으로, 우리의 일상 하나하나를 귀속시켜 세고 계십니다. 그분 앞에서 우리는 결코 거대한 숫자에 삼켜진 무명의 소모품이 아닙니다. 팍팍한 세상이 쓸모없다며 지워버린 우리의 이름과 고단한 사연을, 하나님은 결코 지우지 않으시고 영원의 여백에 꼼꼼히 기록해 두십니다.</p>
+<p>이 따뜻한 사실은 오늘을 살아가는 우리의 팍팍한 마음과 일상의 태도를 근본적으로 바꾸어 놓습니다. 더 이상 내 삶의 가치를 '총계'로 증명하려고 발버둥 치지 않아도 되기 때문입니다.</p>
+<p>우리는 곧잘 스스로의 가치를 증명하고 자랑하기 위해 총계를 끌어옵니다. 그러나 우리 삶의 진짜 진실은 이력서의 총계가 아니라, 일상의 '분포'에 있습니다. 나의 24시간 중 진정으로 사랑하는 가족의 얼굴을 보는 데 귀속된 시간은 얼마인지, 나의 재정 중 이웃의 눈물을 닦아주기 위해 흘러간 것은 얼마인지 가만히 나누어 보아야 합니다. 총계는 교만한 자랑을 만들고 필연적으로 누군가를 소외시키지만, 분포는 우리를 겸손하게 만들고 기도의 제목을 낳습니다. 어느 주말 저녁 고요히 앉아, 지난 한 주의 시간이 과연 '누구에게 귀속된 시간이었나' 돌아보는 일, 때로는 답할 수 없이 버려진 것 같은 잔여의 시간들을 솔직하게 비워두고 그분 앞에 나아가는 일. 그것이야말로 숫자의 횡포에 함몰되지 않고 아름다운 인격을 지켜내는 첫걸음입니다.</p>
+<p>당신은 세상이 함부로 매겨놓은 성적표나 연봉의 합계로 설명될 수 없는, 너무나도 존귀하고 고유한 사람입니다. 세상은 끊임없이 새로운 목표치와 합계를 내밀며 우리를 윽박지르겠지만, 부디 이 사실을 기억하십시오. 합계는 당신이라는 찬란한 존재를 결코 온전히 담아낼 수 없습니다. 이제 우리 모두 기계적인 계수의 자리에서 내려와, 곁에 있는 이들의 지친 어깨와 깊은 날숨을 가만히 헤아려 줍시다. 숫자 대신 '나'라는 존재를 낱낱이 호명하시는 그 사랑의 시선 앞에 머뭅시다. 그렇게 서로를 옭아매던 숫자를 지워주고 다정하게 서로의 이름을 불러줄 때, 팍팍했던 우리의 삶은 무미건조한 '증명'을 넘어, 비로소 가슴 벅찬 '고백'이 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 27일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

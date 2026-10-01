@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 21일 &middot; 역대상 29:1-9</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리가 살아가는 세상은 수많은 명령어로 가득 차 있습니다. "이것을 하라", "저것을 지켜라", "더 노력하라"는 요구가 매일같이 쏟아집니다. 심지어 누군가를 돕거나 선한 일을 할 때조차, 우리는 은연중에 타인의 시선이나 제도의 요구를 의식하곤 합니다. 세무서에 제출할 기부금 영수증을 챙기고 자발성을 증명하는 서류를 꾸미듯, 우리의 '자발적 헌신'조차 가끔은 누군가에게 입증해 보여야만 하는 요건이 되어버린 시대입니다. 증명해야 하는 순간, 순수한 기쁨은 사라지고 그 자리에는 의무감과 피로만이 남습니다.</p>
+<p>이러한 팍팍한 삶의 굴레 속에서, 성경 역대상 29장 9절은 우리에게 낯설지만 경이로운 장면 하나를 조용히 보여줍니다. 다윗 왕과 이스라엘 백성들이 성전 건축을 위해 기꺼이 자기 소유를 내어놓는 이 대목에는, 놀랍게도 '명령'이 단 한 번도 등장하지 않습니다.</p>
+<p>히브리어 원어로 이 구절은 단 열다섯 개의 낱말로 이루어져 있습니다. 그런데 그 짧은 문장 속에 '자원하다(나다브)'와 '기뻐하다(사마흐)'라는 단어의 뿌리가 무려 다섯 번이나 등장합니다. 열다섯 단어 중 다섯 단어, 즉 문장 전체의 3분의 1이 자원함과 기쁨이라는 단어로 꽉 채워져 있는 것입니다. 한 구절 안에 같은 의미의 말이 이토록 높은 밀도로 모여 있는 것은 결코 우연이 아닙니다.</p>
+<p>하지만 이보다 더 우리를 놀라게 하는 사실은, 이 다섯 번의 반복 속에 단 하나의 '명령형 동사'도 없다는 점입니다. "기쁘게 바쳐라!" 혹은 "자원해서 내어놓아라!"라고 윽박지르거나 강요하는 목소리가 전혀 없습니다. 대신 성경은 백성들이 자원했다는 사실과 크게 기뻐했다는 상태를 그저 담담하게 서술할 뿐입니다. 또한 이 단어들은 각기 다른 문법적 형태로 다섯 번이나 모양을 바꾸어가며 등장합니다. 이는 누군가의 지시로 억지로 만들어낸 획일적인 행동이 아님을 증명합니다. 마치 깊은 산속의 옹달샘에서 맑은 물이 퐁퐁 솟아오르듯, 그들의 마음 깊은 곳에서 자발적인 기쁨이 자연스레 흘러넘쳤음을 본문은 그림처럼 보여주고 있습니다.</p>
+<p>우리는 흔히 신앙이나 헌신을 감정의 뜨거운 고조나 강렬한 결단으로 오해하곤 합니다. 그래서 목소리를 높여 헌신을 다짐하거나, 스스로를 채찍질하며 의무감을 불태우려 합니다. 그러나 참된 기쁨과 헌신은 결코 명령으로 만들어지지 않습니다. 명령을 반복하면 그것은 강요가 되고, 결국 사람의 마음을 굳게 닫히게 만듭니다. 성경은 이 구절을 통해 우리에게 조용히 웅변합니다. 진정한 삶의 밀도와 인격의 깊이는 억지스러운 요구에서 오는 것이 아니라, 아무런 강요 없이 빚어지는 아름다운 상태에서 비롯된다는 것을 말입니다.</p>
+<p>위대한 신학자 어거스틴(Augustinus)은 일찍이 이렇게 기도했습니다. "당신이 명하시는 것을 주시고, 당신이 원하시는 것을 명하소서." 우리가 하나님이나 이웃을 향해 무언가를 기쁘게 내어드릴 수 있는 그 '자원하는 마음'조차, 사실은 우리 스스로 쥐어짜 낸 것이 아닙니다. 그것은 하나님께서 먼저 우리 안에 심어주신 은혜의 선물입니다. 사도 바울의 고백처럼, 우리 안에서 행하시며 당신의 기쁘신 뜻을 위해 우리에게 소원을 두고 행하게 하시는 분이 바로 하나님이시기 때문입니다(빌 2:13). 우리의 자원함은 내 결단의 결과물이 아니라, 내게 임한 은혜가 만들어낸 아름다운 열매일 뿐입니다.</p>
+<p>그렇다면 우리의 인격과 삶의 태도는 어떻게 성숙해질 수 있을까요? 그것은 스스로에게, 혹은 타인에게 끝없는 명령어를 입력할 때 완성되지 않습니다. 오히려 내가 마땅히 해야 할 의무의 목록들을 잠시 내려놓고, 내게 주어진 은혜의 크기를 잠잠히 헤아려 볼 때 진정한 변화는 시작됩니다. 내가 지금까지 얼마나 많은 일들을 '해야만 한다'는 압박감 속에 억지로 해왔는가를 성찰해 보십시오. 그리고 명령과 요구가 멈춘 그 자리에, 대가 없이 주어지는 사랑과 은혜가 스며들게 하십시오. 그때 비로소 우리의 굳은 마음이 녹아내리고 참된 기쁨이 피어납니다.</p>
+<p>오늘, 당신의 일기장이나 마음의 수첩을 가만히 들여다보시기 바랍니다. 그곳에 혹시 자신을 향한 날 선 명령과 자책, 혹은 타인을 향한 요구만이 가득하지는 않습니까? 만약 그렇다면 이제는 그 무거운 짐을 내려놓을 때입니다. 억지로 목소리를 높이거나 자신을 증명하려 애쓰지 않아도 괜찮습니다. 그저 당신의 삶에 아무런 조건 없이 찾아온 은혜의 횟수를 세어보십시오. 강요하지 않아도 자원함이 우러나오고, 명령하지 않아도 기쁨이 겹겹이 쌓이는 삶. 그것이야말로 성경이 우리에게 넌지시 보여주는, 가장 성숙한 인격이자 가장 눈부신 신앙의 모습일 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 21일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

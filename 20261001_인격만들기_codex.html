@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 01일 &middot; 역대상 17:1-15</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+우리가 살아가며 마주하는 가장 아픈 순간 중 하나는, 선한 의도로 품었던 계획이 좌절될 때입니다. 누군가를 위하는 마음, 심지어 하나님을 향한 뜨거운 헌신조차 가로막힐 때가 있습니다. 구약성경 역대상 17장에는 이와 똑같은 경험을 한 사람의 이야기가 나옵니다. 바로 다윗입니다. 그는 하나님을 위해 웅장하고 아름다운 성전을 짓고 싶어 했습니다. 평생을 바친 가장 선하고 거룩한 열망이었습니다. 그러나 그날 밤, 하나님은 선지자 나단을 통해 뜻밖의 대답을 들려주십니다.
+
+"네가 나를 위하여 거할 집을 건축하지 말라."
+
+이 선언 앞에서 다윗의 마음은 어땠을까요? 무거운 상자를 두 손으로 받쳐 들고 있다가 갑자기 그 상자가 허공으로 사라졌을 때, 우리 몸은 여전히 상자를 받쳐 든 자세를 유지하며 명치끝이 뻐근해지는 어긋남을 경험합니다. 다윗의 마음도 그랬을 것입니다. 내 진심이 거부당한 것 같은 당혹감 속에서, 우리는 종종 자기 자신을 탓하거나 깊은 상실감에 빠지곤 합니다. 
+
+하지만 다윗이 들었던 이 거절의 말씀을 히브리어 원문으로 자세히 들여다보면, 놀라운 은혜의 문법이 숨어 있습니다. 원문에는 '로 아타(לֹא אַתָּה)'라는 말이 쓰였습니다. 여기서 부정어 '로(아니다)'는 '건축하다'라는 동사가 아니라, '너'라는 주어 앞에 붙어 있습니다. 즉, 금지된 것은 '성전을 짓는 일' 자체가 아니라, 그 일을 하는 '사람'이었던 것입니다. 하나님은 "성전을 짓는 일은 틀렸다"고 말씀하신 것이 아니라, "그 일을 할 사람은 네가 아니다"라고 말씀하신 것입니다.
+
+우리는 일상에서도 이런 문법을 종종 경험합니다. 회사에서 프로젝트 자체는 존속시키되 담당자만 바뀌는 경우가 있고, 세무상으로 거래 자체는 유효하되 세금을 내야 할 주체만 바뀌는 경우가 있습니다. 오케스트라에서도 악보는 한 음도 변하지 않은 채 지휘자가 교체되기도 합니다. 이런 일들 속에서 우리는 '내 일이 부정당했다'고 상처받기 쉽지만, 가만히 살펴보면 목적물은 고스란히 남아 있습니다. 하나님은 다윗의 선한 열망을 무효로 돌리지 않으셨습니다. 오직 그것을 실행할 자리만 다윗에서 솔로몬으로 옮기셨을 뿐입니다. 이것은 일의 거절이 아니라, 사람을 향한 새로운 '지명(指名)'입니다.
+
+여기서 우리가 주목해야 할 더욱 깊은 은혜가 있습니다. 하나님은 담당자를 바꾸시면서, 다윗에게 '왜 네가 그 일을 할 수 없는지' 아무런 이유를 설명하지 않으십니다. 우리 인간은 내 계획이 가로막히거나 담당자 자리에서 밀려날 때, 본능적으로 '이유란'을 채우고 싶어 합니다. '내가 무엇을 잘못했을까?', '내 능력이 부족해서일까?' 끊임없이 이유를 찾고 스스로를 자책하며 그 빈칸을 채워야만 안심합니다.
+
+그러나 성경은 이 빈칸을 억지로 채우지 말라고 초대합니다. 함부로 이유를 상상하여 사유란을 채우는 일은 우리 영혼을 상하게 만듭니다. 다윗이 침묵하며 그 빈칸을 견딜 수 있었던 이유는, 하나님이 아무 이유를 대지 않으시는 그 공백 옆에 훨씬 더 크고 영원한 약속을 두셨기 때문입니다. 하나님은 다윗이 지어 바치겠다는 눈에 보이는 '집' 대신, 하나님 친히 다윗을 위해 영원히 무너지지 않을 왕조, 곧 '영원한 집(עַד־עוֹלָם, 아드 올람)'을 세워주시겠다고 약속하십니다. 하룻밤 사이의 거절 옆에, 영원의 언약이 나란히 놓인 것입니다.
+
+우리의 삶에도 '로 아타(너는 아니다)'라는 하나님의 음성이 들릴 때가 있습니다. 내 열심이 가로막히고, 내 자리가 사라진 것 같아 마음 한구석이 뻐근해지는 날들이 있습니다. 그럴 때 슬픔을 억누르며 '내가 부족해서 겪는 일일 거야'라며 성급히 이유를 만들어내지 마십시오. 대신, 부정어가 어디에 붙어 있는지를 가만히 살펴보십시오. 선한 일 자체를 막으신 것인지, 아니면 단지 나의 역할을 다른 곳으로 옮기신 것인지 말입니다.
+
+당신이 틀린 것이 아닙니다. 당신의 진심이 거부당한 것도 결코 아닙니다. 다만, 그 일을 이루어 가시는 하나님의 거대한 악보 속에서 당신의 지휘 차례가 바뀌었을 뿐입니다. 내게 허락되지 않은 사유란을 자책과 합리화로 채우는 대신, 침묵 속에서도 여전히 나를 위해 더 크고 영원한 집을 짓고 계시는 하나님의 섭리에 기대어 보십시오. 이유를 묻지 않고 거절의 빈칸을 온전히 품어내는 그 침묵의 자리야말로, 가장 아름답고 단단한 성경적 인격이 빚어지는 은혜의 용광로입니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 01일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

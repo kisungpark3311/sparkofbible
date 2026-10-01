@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 10월 30일 &middot; 아가 7:1-13</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+# 이름이 불리는 자리, 땀방울이 떨어지는 자리 : 부르는 일과 시키는 일은 다릅니다
+
+누군가 당신의 이름을 애정 어린 목소리로 거듭 불러준다면 어떨까요? 그것도 한두 번이 아니라 무려 열여덟 번이나 말입니다.
+
+구약성경의 아가서 7장에는 참으로 아름답고 관능적인 사랑의 노래가 등장합니다. 연인을 바라보는 시선은 발끝에서 시작해 넓적다리, 배꼽, 허리, 가슴, 목, 눈, 코를 지나 머리털까지 한 칸씩 위로 조심스럽게 올라갑니다. 이 짧은 열세 절의 시 안에서 “네 발이, 네 목이, 네 눈이…” 하며 상대를 가리키는 ‘너(네)’라는 말은 무려 열여덟 번이나 등장합니다. 숨 막힐 듯 촘촘한 관심과 사랑의 언어입니다.
+
+그런데 이 뜨거운 사랑의 시를 찬찬히, 문법의 현미경으로 들여다보면 묘한 공백 하나를 발견하게 됩니다. 열여덟 번이나 상대의 온몸을 호명하며 애정을 쏟아내지만, 정작 그 사랑하는 이를 향해 무언가를 요구하거나 지시하는 말은 단 한 번도 나오지 않는다는 사실입니다. 숫자 ‘18’과 ‘0’의 묘한 대비. 가장 많이 이름이 불린 쪽은, 정작 단 한 번의 요구도 받지 않았습니다. 사랑받는 몸은 그저 긴장 섞인 기대로 다음 말을 기다릴 뿐, 아무런 행동도 강요받지 않습니다.
+
+반면, 이 단락에 등장하는 단 하나의 행동 지시어인 “가자(לְכָה)”는 방 안의 연인이 아닌 밖을 향해 있습니다. 그리고 그 발걸음이 열어젖힌 풍경은 둘만의 아늑한 밀실이 아니었습니다.
+
+“들로 가자. 동네에서 밤을 지내자. 우리가 일찍 일어나서 포도원으로 가자. 포도나무 꽃이 피었는지 보자.”
+
+시선은 연인의 몸에 머물러 있었지만, 정작 몸을 움직이게 하는 삶의 지시는 ‘밭’과 ‘밤’과 ‘새벽’과 ‘포도원’이라는 거칠고 현실적인 노동의 현장을 향해 문을 엽니다. 아가서의 이 빛나는 사랑은 서로의 아름다움에 취해 방 안에 갇히지 않았습니다. 그들은 문을 박차고 나가 흙을 딛고, 밤을 지새우며, 꼭두새벽부터 일어나 포도원의 결실을 확인하는 일상의 자리로 나아갑니다.
+
+### 부르는 일과 책임을 나누는 일은 다르다
+
+여기서 우리는 삶의 서늘한 진실 하나를 마주합니다. 누군가의 ‘이름을 부르는 일’과 ‘삶의 책임을 나누는 일’은 전혀 다른 장부(帳簿)에 기록된다는 것입니다. 우리는 흔히 누군가를 다정하게 부르고 칭찬해 주면, 그것으로 그 사람에게 충분한 몫을 주었다고 착각합니다. 하지만 과연 그럴까요?
+
+세무 상담 창구를 떠올려 보십시오. 친절한 세무사는 고객의 상호부터 재산 상태까지 열여덟 칸의 정보를 빼곡히 채우며 공감해 줍니다. 고객은 “나를 참 잘 알아주는 곳”이라며 흡족하게 돌아갑니다. 하지만 정작 “언제까지 세금을 내십시오”라는 정확한 지시가 누락된다면 어떻게 될까요? 다정한 공감에도 불구하고 가산세라는 차가운 현실의 시계는 무정하게 흘러갑니다.
+
+직장의 회의 시간은 또 어떻습니까. 회의실에서는 특정 직원의 이름과 성과가 거듭 호명되며 박수를 받습니다. 그러나 회의가 끝난 뒤, 조직의 미래를 좌우할 진짜 중요한 권한과 위임은 다른 방에서 다른 사람에게 조용히 주어집니다. 칭찬받는 장부와 위임받는 장부는 따로 마감되는 것입니다.
+
+가정에서도 마찬가지입니다. 하루 종일 예쁜 자녀의 이름을 열여덟 번이나 부르며 사랑을 표현하지만, 막상 궂은 심부름을 시킬 때는 늘 묵묵히 곁에 있는 다른 아이를 찾습니다. 많이 불리는 쪽은 오히려 집안일 앞에서는 투명해집니다. 사랑받는 것과 삶의 책임을 나누어 지는 것은 이처럼 전혀 다른 궤도를 돕니다.
+
+### 둘째 장부는 언제나 땅 위에서 마감된다
+
+성경이 보여주는 두 번째 장부, 곧 행동과 책임의 장부는 언제나 ‘땅 위’에서 마감됩니다. 칭찬과 인정의 첫째 장부가 화려한 조명 아래서 쓰인다면, 책임과 노동의 둘째 장부는 밭과 포도원, 그리고 새벽이라는 차갑고 정직한 시간 위에서 쓰입니다.
+
+우리 주변을 돌아보게 됩니다. 내가 속한 공동체에서, 교회에서, 가정과 직장에서 가장 많이 호명되고 박수받는 사람과 가장 무거운 책임을 짊어지고 땀 흘리는 사람은 과연 같은 사람입니까? 혹시 우리는 “이름을 많이 불러주었으니 내 할 몫은 다했다”며, 진짜 삶의 궂은일은 다른 누군가에게 떠넘기고 있지 않습니까?
+
+더 뼈아픈 사실은 이것입니다. 칭찬의 장부에도 없고, 정식으로 권한을 위임받는 장부에도 이름이 없지만, 그 어스름한 새벽에 이미 포도원에 먼저 도착해 묵묵히 흙을 만지고 있는 사람들이 있습니다. 모두가 화려한 말잔치를 벌일 때, 주방에서, 텅 빈 사무실에서, 아무도 보지 않는 예배당 뒷자리에서 이름 없이 바닥을 쓸고 빈자리를 채우는 이들 말입니다.
+
+아가서의 아름다운 노래가 결국 ‘일하는 땅’을 향해 나아갔다는 사실은 오늘 우리에게 깊은 울림을 남깁니다. 진정한 사랑과 인격은 서로를 마주 보는 감상에서 끝나지 않습니다. 그것은 함께 흙 묻은 신발을 신고 일상의 밭으로 나가는 것입니다. 피곤한 몸을 이끌고 동네에서 밤을 보내며, 꼭두새벽에 일어나 서로의 포도원이 어떻게 맺혀가는지 살피는 투박한 노동 속에 진짜 사랑이 살아 숨 쉽니다.
+
+오늘, 당신의 입술은 누구의 이름을 다정히 부르고 있습니까? 그리고 당신의 발은 어느 땅을 디디고 서 있습니까? 당신이 부르는 호명이 방 안의 메아리로 흩어지지 않기를 바랍니다. 그 사랑의 언어가 새벽이슬 맺힌 포도원으로 함께 걸어가는 든든한 발걸음이 될 때, 비로소 우리의 인격은 삶이라는 가장 아름다운 열매를 맺게 될 것입니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 10월 30일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
