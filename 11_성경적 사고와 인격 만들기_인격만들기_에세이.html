@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 11편 &middot; 마태복음 8:18~9:8</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+우리는 무언가를 손에 쥐어야만 다른 사람에게 나누어 줄 수 있다고 믿으며 살아갑니다. 돈이든, 지식이든, 혹은 세상이 인정하는 번듯한 자격이든 내 안에 채워진 것이 있어야 비로소 누군가를 살릴 힘이 생긴다고 생각하곤 합니다. 그래서 우리는 평생토록 두 손을 꽉 쥔 채 살아가는지도 모릅니다. 
+
+하지만 성경은 전혀 다른 방식으로 세상을 살리고 사람을 세우는 참된 권세를 소개합니다. 여우도 몸을 누일 굴이 있고 하늘을 나는 새도 깃들 보금자리가 있지만, 정작 온 우주의 주인이신 예수님은 이 땅에서 머리 둘 곳조차 없으셨습니다. 아무것도 소유하지 않은 텅 빈 두 손, 그러나 역설적이게도 그 빈손에서 죽어가는 인류를 살리는 가장 위대한 권세가 흘러나왔습니다.
+
+## 1. 머리 둘 곳 없던 그분의 텅 빈 두 손
+
+"인자는 머리 둘 곳이 없다." 이 짧은 한마디는 예수님께서 단지 경제적으로 가난하셨다는 사실만을 가리키지 않습니다. 이는 누군가를 구원하고 살리기 위해 기꺼이 자신의 손을 완벽하게 비우셨다는 숭고한 사랑의 선언입니다. 
+
+우리의 몸을 가만히 상상해 보십시오. 두 손에 무거운 짐을 잔뜩 쥐고 있다면, 눈앞에서 넘어지는 누군가의 손을 잡아끌어 올려줄 수 없습니다. 질병과 고통으로 쓰러진 이의 낡은 침상을 대신 들어 올리기 위해서는, 먼저 내 손이 완전히 비워져 있어야만 합니다. 예수님은 죄와 절망으로 쓰러진 우리의 삶을 들어 올리기 위해, 세상의 모든 기득권과 안락함을 기꺼이 내려놓으셨습니다. 
+
+그분의 텅 빈 두 손은 결코 무능이나 결핍의 상징이 아니었습니다. 도리어 우리의 모든 아픔과 죄를 온전히 품어 안기 위해 마련해 두신 무한한 사랑의 공간이었습니다. 세상을 움직이는 가장 숭고한 권세는 높은 자리에서 군림하는 소유에서 나오는 것이 아니라, 타인을 위해 자신을 남김없이 비워내는 그 십자가의 빈손에서 시작되었습니다.
+
+## 2. 한 사람의 헌신이 만들어낸 수많은 살림
+
+마태복음은 참으로 가슴 벅찬 진실을 우리에게 보여줍니다. "인자가 세상에서 죄를 사하는 권세가 있는 줄을 너희로 알게 하려 하노라." 단 한 분, 예수님께만 주어졌던 그 엄위한 권세가 사건의 결말에 이르러서는 놀랍게도 "이런 권세를 사람들에게 주신 하나님께 영광을 돌리니라"는 무리의 찬양으로 넓어집니다. 
+
+마치 단 한 명의 세무사가 가진 자격이 수많은 납세자의 무거운 짐을 덜어주고, 발전소 한 곳의 불꽃이 전선을 타고 수천 가구의 어두운 방을 밝히는 것과 같습니다. 단수(單數)로 존재했던 예수님 단 한 분의 구원 권세는 그분 자신에게만 머물지 않고, 은혜가 절실히 필요했던 수많은 '사람들(복수)'에게로 폭포수처럼 흘러갔습니다. 
+
+이때 성경은 그 혜택을 받은 사람들이 구체적으로 누구인지, 그들이 과연 구원받을 만한 자격이 있는지를 꼬치꼬치 묻거나 따지지 않습니다. 수혜자의 명단을 깐깐하게 적어 내려가는 대신, 본문은 그저 그 놀라운 생명의 권세가 이름 모를 수많은 이들에게 쏟아졌다는 사실만을 감격스럽게 증언합니다. 온전히 비워진 단 한 분의 삶이 수많은 생명을 살려낸 것입니다.
+
+## 3. 내가 이룬 성과가 아닌, 내게 주어진 선물
+
+그렇다면 이토록 넘치는 은혜를 거저 받은 우리는 남은 삶을 어떻게 살아가야 할까요? 본문 속 무리들은 놀라운 기적이 일어났을 때, 특정인의 공로를 찬양하거나 자신들이 무언가를 이뤄냈다고 떠벌리지 않았습니다. 그들은 오직 "이런 권세를 사람들에게 주신 하나님"께만 영광을 돌렸습니다. 삶에 맺힌 기적이라는 열매의 참된 주인이 누구인지를 정확히 바라본 것입니다. 
+
+우리의 일상을 가만히 돌아보면, 내가 땀 흘려 이룬 성과와 업적의 목록은 빼곡하게 채워져 있지만, 정작 그 모든 것을 '누가 허락하셨는가'에 대한 주어의 빈칸은 휑하게 비어있을 때가 많습니다. 교회나 공동체 안에서도 좋은 열매를 맺었을 때, 하나님보다 특정 사람이나 눈에 띄는 프로그램이 영광의 주어가 될 때가 얼마나 많은지요. 하지만 우리의 삶이 진정으로 아름답고 품격 있어지려면, "내가 이만큼 해냈다"는 교만의 마침표를 지우고, 그 자리에 은혜를 베풀어주신 분을 향한 감사의 쉼표를 찍어야 합니다. 
+
+성취의 자리에서 당당하게 "제가 해냈습니다"라고 말하는 대신, 겸손하게 "하나님께서 제게 거저 주셨습니다"라고 고백할 수 있는 인격. 텅 비워진 내 삶의 빈칸을 나의 소유욕이 아닌 하나님의 은혜로만 채워나가는 삶. 
+
+머리 둘 곳 없이 참된 빈손으로 오셨으나, 결국 자신의 모든 것을 내어주심으로 영죽을 우리를 살리신 예수님을 닮아가는 삶. 오늘 하루도 꽉 쥔 나의 손을 가볍게 비우고, 누군가의 주저앉은 삶을 다정하게 일으켜 세우는 축복의 통로가 되기를 간절히 소망합니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 11편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

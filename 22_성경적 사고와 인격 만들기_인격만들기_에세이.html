@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 22편 &middot; 마태복음 15:1-20</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+누군가를 향해 비난의 화살을 당겨본 적이 있습니까? 타인의 잘못은 어쩌면 그렇게도 크고 선명하게 보이는지, 우리는 너무나 쉽게 재판관의 자리에 앉아 심판의 방망이를 두드리곤 합니다. 마태복음 15장에는 이런 우리의 씁쓸한 자화상을 그대로 빼닮은 사람들이 등장합니다. 바로 바리새인과 서기관들입니다. 그들은 예수님의 제자들이 씻지 않은 손으로 빵을 먹는 것을 보고 득달같이 달려들어 고발합니다. "당신의 제자들이 어찌하여 장로들의 전통을 범하나이까?"
+
+이 날카로운 공격 앞에서 예수님은 길게 변명하시거나 목소리를 높여 맞서 싸우지 않으셨습니다. 대신, 그들이 던진 바로 그 문장에서 아주 작은 것 하나만을 살짝 바꾸어 고스란히 되돌려 주십니다. "너희는 어찌하여 너희의 전통으로 하나님의 계명을 범하느냐?" 
+
+헬라어 원문으로 이 장면을 들여다보면 전율이 일어납니다. 예수님은 고발자들이 사용한 '범하다'라는 동사를 단어 하나 바꾸지 않고 똑같이 사용하셨습니다. 묻는 형식도, 시제도, 태도 전부 그대로 보존되었습니다. 오직 한 가지, 동사의 꼬리에 해당하는 '인칭'만을 바꾸셨을 뿐입니다. '그들이' 범한다는 3인칭의 고발을, '너희가' 범한다는 2인칭의 물음으로 치환하신 것입니다. 이 작은 문법적 전환은 그 어떤 논리적인 반박보다 거대하고 묵직한 파장이 되어 그들의 영혼을 뒤흔듭니다. 
+
+## 손목만 돌려 나를 겨누는 서늘한 잣대
+
+이 장면의 의미를 몸으로 직접 느껴볼 수 있는 방법이 있습니다. 두 눈을 감고, 오른손 집게손가락을 들어 앞을 향해 힘껏 뻗어 보십시오. 누군가의 잘못을 지적하고 정죄하며 삿대질하는 자세입니다. 자, 이제 그 뻗은 팔을 밑으로 내리지 말고, 팔꿈치의 높이와 어깨의 각도를 처음 그대로 유지한 채 오직 '손목만' 돌려 그 손가락이 내 가슴을 향하게 해 보십시오. 
+
+아마 몹시 불편하고 어색할 것입니다. 누군가를 매섭게 겨누던 그 힘과 긴장감이 내 몸에 고스란히 남아 있는 상태에서 대상만 '나'로 바뀌었기 때문입니다. 팔을 툭 떨어뜨리며 겨눔 자체를 포기하는 것보다, 분노의 자세를 유지한 채 나 자신을 겨누고 버티는 것이 훨씬 더 고통스럽습니다. 
+
+이것이 바로 예수님이 '인칭만 바뀐 동사'를 통해 만들어내신 거룩한 불편함입니다. 예수님은 바리새인들이 들이민 엄격한 '잣대' 자체를 부러뜨리지 않으셨습니다. 잣대는 그대로 둔 채, 그것으로 재어야 할 대상의 범위를 확 넓혀 고발자 자신들까지 포함시켜 버린 것입니다. 기준을 무너뜨린 것이 아니라, 그 기준을 들이민 자에게 고스란히 적용했습니다. 자신이 휘두르던 무기에 자신이 깊게 베이는 순간입니다. 이 서늘하고도 정교한 잣대는 시간을 넘어 오늘날 우리에게도 동일하게 다가옵니다. 우리가 타인을 정죄하기 위해 정교하게 다듬어둔 엄격한 기준들은, 인칭만 슬쩍 바뀌어 언제든 나의 목을 단단히 조르는 올가미로 돌아올 수 있습니다.
+
+## 무기가 된 전통, 밀려난 본질
+
+예수님의 이 짧은 되물음 속에서 문장의 구조와 단어들의 신분도 묘하게 뒤바뀝니다. 바리새인들의 고발 문장에서 '장로들의 전통'은 제자들이 범한 '목적어'였습니다. 그들에게 그것은 목숨 걸고 지켜내야 할 최우선의 가치였지요. 그러나 단 1초 뒤 예수님의 입술을 거쳐 나온 문장에서 이 '전통'은 목적어의 자리를 잃고 뒤로 밀려납니다. 그리고 하나님의 크고 거룩한 계명을 깨뜨리는 비참한 '도구'이자 '수단'으로 전락하고 맙니다. 
+
+곰곰이 생각해보면, 우리네 삶에서도 이런 비극은 수없이 반복됩니다. 절차와 형식을 완벽하게 지켰다는 알량한 명분 아래, 정작 목숨처럼 지켜야 할 본질과 목적을 무참히 짓밟는 경우가 얼마나 많습니까? 회사나 교회의 회의실에서 '우리의 오랜 관행'을 내세워 누군가를 매정하게 몰아세울 때, 혹은 나의 종교적 열심과 헌신을 증명하느라 내 곁에 있는 가족을 향한 사랑의 의무를 헌신짝처럼 내버릴 때, 우리는 '전통'이라는 이름의 차가운 둔기로 '사랑'이라는 하나님의 따뜻한 계명을 부수고 있는 것입니다. 
+
+형식의 완벽함이 결코 내용의 진실함을 보장해주지 않습니다. 목적을 잃어버린 맹목적인 절차는 그저 폭력이 될 뿐입니다. 내가 그토록 철석같이 믿고 눈에 핏발을 세우며 주장하는 그 기준이 과연 '누구의' 것인지, 진정 사람을 살리는 창조주의 것인지, 아니면 그저 우리끼리 편하자고 만든 낡은 관행에 불과한지 우리는 날마다 멈추어 서서 냉정하게 물어야 합니다.
+
+## 고발의 문장을 고백의 문장으로
+
+이 서늘한 진실 앞에 서면 우리는 두려워집니다. 누군가를 향해 날 선 비판의 이메일을 쓰고 있을 때, 혹은 마음속으로 날카로운 정죄의 칼을 시퍼렇게 갈고 있을 때, 이 말씀은 다급하게 우리를 멈춰 세웁니다. 그 고발의 문장을 전송 버튼을 눌러 세상에 내보내기 전에, 잠시 눈을 감고 주어만 '나'로 바꾸어 가만히 소리 내어 읽어보십시오. "그 사람은 어찌하여 저렇게 이기적인가?"를 "나는 어찌하여 이렇게 이기적인가?"로 말입니다. 내가 매섭게 들이댄 그 엄격한 기준 앞에, 나 자신은 한 점 부끄럼 없이 떳떳할 수 있습니까? 
+
+놀랍게도 3인칭이 1인칭으로 바뀌는 순간, 누군가의 심장에 꽂히기 위해 날아가던 매서운 고발은 어느새 하나님 앞에서의 뼈아픈 고백이 되어 바닥에 떨어집니다. 피 튀기게 싸워 이겨야 할 적은 온데간데없이 사라지고, 오직 은혜 없이는 단 하루도 살 수 없는 초라하고 불쌍한 내 모습만 남게 됩니다. 
+
+우리의 신앙이, 그리고 복음이 참으로 눈물겹게 감동적인 이유는 여기에 있습니다. 이 무서운 잣대 밖에 서 계신 유일한 분, 단 하나의 흠도 없어 결코 정죄받을 일 없으신 온전한 예수 그리스도께서, 결국 그 잣대 아래로 스스로 걸어 들어가 당신의 몸을 내어주셨다는 사실입니다. 인칭이 바뀌어 나를 향해 날아오는 그 모든 날카로운 고발의 칼날을, 그분은 십자가 위에서 당신의 온몸으로 남김없이 받아내셨습니다. 
+
+그러므로 인칭이 바뀐 이 동사는 우리를 찔러 죽이는 절망과 파멸의 언어가 아닙니다. 그것은 나의 헛된 교만을 꺾고, 타인을 향하던 매정한 손가락질을 거두게 하여, 마침내 우리를 서로를 향한 긍휼과 사랑의 자리로 이끄는 가장 은혜롭고 따뜻한 초대입니다. 오늘도 내 안에서 스멀스멀 꿈틀대는 정죄의 손가락을 가만히 접어 내 가슴에 얹어봅니다. 서늘한 고발이 떠난 그 빈자리에, 깊고 애절한 사랑의 고백이 피어나기를 간절히 기도하며 말입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 22편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

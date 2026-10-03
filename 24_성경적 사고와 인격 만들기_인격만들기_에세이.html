@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 24편 &middot; 마태복음 16:1-20</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리가 무심코 내뱉는 말 한마디, 마음속으로 은밀히 내리는 판단 하나는 허공으로 흩어지는 가벼운 숨결이 아닙니다. 살아가며 우리는 참으로 많은 것들을 단단히 '묶으며' 살아갑니다. 누군가와의 관계에 실망하여 "이제 이 인연은 여기까지"라고 마침표를 찍을 때, 혹은 타인의 한 단면만을 보고 "저 사람은 원래 저런 사람이야"라며 차가운 잣대로 단정 지을 때, 우리는 스스로도 모르는 사이에 보이지 않는 질긴 매듭을 짓고 있는 것과 같습니다. 
+
+성경 마태복음 16장 19절은 우리의 이 일상적이고도 무거운 행위에 대해 이렇게 선언합니다. "네가 땅에서 무엇이든지 매면 하늘에서도 매일 것이요, 네가 땅에서 무엇이든지 풀면 하늘에서도 풀리리라." 이 구절을 마주할 때마다 우리는 종종 권력의 관점으로 묻곤 합니다. '우리가 땅에서 매면 하늘이 어쩔 수 없이 따라와야 한다는 뜻인가?' 아니면 '하늘에서 이미 매어 놓은 것을 우리가 그저 대언하는 것에 불과한가?' 어느 쪽이 먼저인지 선후를 가리고, 누구의 권한이 더 센지 못 박고 싶어 하는 것은 인간의 오랜 본성입니다. 그러나 놀랍게도, 성경의 언어는 이 '선후'의 문제에 대해 깊은 침묵을 지킵니다. 제도가 법으로 규정하고 물리적 시간이 증명해 내는 인과관계를 뛰어넘어, 성경은 그저 우리의 행위와 하늘의 상태를 한 문장 안에 신비롭게 포개어 놓습니다. 그리고 바로 그 침묵 속에, 우리가 놓치고 있던 깊은 은혜의 공간이 숨 쉬고 있습니다.
+
+## 1. 찰나의 행위가 남긴 영원한 상태
+
+가느다란 노끈 하나를 손에 쥐고 매듭을 묶어 봅니다. 두 손가락에 잔뜩 힘을 주고 끈을 교차시켜 단단히 옭아맨 뒤, 손을 떼어 봅니다. '묶는다'는 행위는 찰나의 순간, 즉 하나의 '점'으로 끝났습니다. 하지만 손이 떠난 뒤에도 매듭이 지어진 그 '상태'는 고스란히 남아 있습니다. 손의 일은 진작에 멈추었는데, 묶인 상태는 시간을 넘어 지속됩니다.
+
+우리의 삶도 이와 다르지 않습니다. 누군가에게 상처를 주고받으며 맺힌 감정, 속단해 버린 편견, 차갑게 돌아서 버린 관계의 단절 같은 것들은 아주 짧은 순간에 일어납니다. 하지만 그 찰나의 행위가 남긴 영혼의 멍자국과 관계의 응어리는 몇 달, 몇 년, 때로는 평생이라는 시간 동안 유지되는 '상태'가 됩니다. 마태복음의 이 말씀은 단순히 교회 조직의 치리 권한을 세워주기 위한 행정적 조항이 아닙니다. 그것은 땅에서 일어나는 우리의 찰나적인 행위가 어떻게 하늘이라는 영원한 상태와 맞닿아 있는지를 보여주는, 두렵고도 숭고한 존재론적 선언입니다. 
+
+우리가 땅에서 누군가를 미워하고 정죄하여 묶어둘 때, 그 행위의 파장은 우리의 손끝에서 끝나지 않습니다. 그것은 하늘의 기록에 새겨지는 무거운 상태가 됩니다. 한 번 선고된 판결이 뒤집을 수 없는 기판력을 가지듯, 우리의 섣부른 판단과 차가운 선언은 그 자체로 영원한 시간을 향해 걸어가는 무거운 발걸음이 되는 것입니다.
+
+## 2. 주인공은 '우리의 손'이 아니라 '매어진 대상'입니다
+
+성경 원어의 문법을 조금 더 깊이 들여다보면 우리의 가슴을 치는 놀라운 진실을 발견하게 됩니다. 땅에서 우리가 무언가를 묶을 때, 그것은 분명 내 손에 쥐어진 '목적어'에 불과합니다. 내가 주도권을 쥐고 내가 묶어버리는 수동적인 대상입니다. 하지만 시선이 하늘로 옮겨가는 순간, 그 '매어진 그것'은 어느새 문장의 '주어' 자리에 우뚝 서게 됩니다. 
+
+이 작은 문법의 변화가 우리에게 던지는 메시지는 강렬합니다. 천국의 열쇠를 쥔 우리의 손은 결코 이 문장의 유일한 주인공이 아니라는 사실입니다. 하나님께서 열쇠를 주신 것은 권한을 뽐내며 남을 함부로 정죄하라는 뜻이 아닙니다. 하늘의 시선이 머무는 곳, 문장의 끝까지 중심이 되는 것은 다름 아닌 '우리의 손에 의해 매어진 그 아픈 사연들'과 '소외된 사람들'입니다.
+
+우리는 종종 착각합니다. 내가 누군가를 판단하고 묶고 푸는 권한을 가졌으니 내가 주권자라고 말입니다. 하지만 복음의 진정한 중심은 열쇠를 쥔 우리의 교만한 손이 아니라, 그 열쇠를 자격 없는 우리에게 맡겨주신 분의 은혜입니다. 우리의 손은 그저 땅과 하늘을 잇는 도구로 잠시 쓰임 받을 뿐입니다. 그러므로 우리는 권한에 취해 사람을 묶는 데 앞장서기보다, 내가 묶어버린 그 이웃이 하늘의 시선 앞에서는 어떤 존재로 서 있는지를 두려운 마음으로 바라보아야 합니다. 그것이 열쇠를 위임받은 자의 참된 겸손입니다.
+
+## 3. 매어 둔 것들을 다시 푸는 눈물겨운 은혜
+
+그렇다면 이제 우리는 조용히 눈을 감고 스스로의 내면을 향해 질문을 던져야 합니다. "나는 지금 내 삶의 어느 골목에서, 무엇을, 혹은 누구를 매어 두고 있는가?" 
+
+조용히 종이 한 장을 꺼내어 내가 단절해 버린 관계들, 내 마음의 법정에서 이미 사형 선고를 내리고 등을 돌려버린 사람들의 이름을 사안별로 적어 보십시오. 미움의 행위는 이미 오래전에 지나갔을지라도, 그로 인한 차가운 미움의 상태는 여전히 내 영혼의 숨통을 옥죄고 있을지 모릅니다. 그리고 그 아픈 목록들 옆에 단 하나의 질문을 조심스레 덧붙여 보십시오. "나는 이것을 언젠가 다시 풀 수 있는 조건을, 은혜의 여백을 남겨 두었는가?"
+
+참으로 감사한 것은, 예수님께서 우리에게 '묶는 권한'만을 주시지 않았다는 사실입니다. 주님은 "네가 땅에서 무엇이든지 풀면 하늘에서도 풀리리라"고 말씀하시며, 우리에게 '푸는 은혜'를 함께 허락하셨습니다. 누군가를 용서하고, 얼어붙은 편견을 녹이고, 깨진 관계의 다리를 다시 놓는 이 '푸는 행위'는 단순히 내 마음이 편해지기 위한 심리적 치유의 기술이 아닙니다. 그것은 닫혀 있던 하늘의 문을 활짝 열어젖히고, 멈춰 있던 생명의 숨결을 이 땅에 다시 흐르게 하는 가장 거룩한 사역입니다. 
+
+오늘 하루, 누군가를 향해 겹겹이 묶어두었던 마음의 매듭을 가만히 어루만져 봅니다. 내가 분노로 묶었으되, 이제는 나조차 어찌 풀지 못해 쩔쩔매며 눈물 흘리던 그 완고한 매듭들. 이제는 그 매듭 너머에서 우리를 바라보시는 하늘의 긍휼을 기억하며, 십자가의 사랑으로 조심스레 그 끈을 풀어내야 할 때입니다. 천국의 열쇠는 이미 우리의 떨리는 손에 들려 있습니다. 누군가를 결박하는 일보다 자유롭게 풀어주는 일에 그 열쇠를 기꺼이 사용할 때, 우리의 삶은 비로소 하늘에서 내려오는 참된 평안과 해방의 기쁨으로 충만해질 것입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 24편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

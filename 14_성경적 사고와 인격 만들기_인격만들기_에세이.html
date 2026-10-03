@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 14편 &middot; 마태복음 10:16-42</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 살면서 수많은 흔들림과 마주합니다. 내 신념과 믿음 때문에 직장이나 가족 관계가 위태로워질 때, 혹은 생계를 옥죄어 오는 무거운 통지서를 받아 들었을 때, 우리 내면은 통제할 수 없는 두려움으로 요동칩니다. 그때 우리가 주변에서 가장 흔히 듣는, 혹은 스스로에게 던지는 위로는 "두려워하지 말라"는 말입니다. 하지만 그렇게 다짐하고 일어선 다음 날, 똑같은 무게의 두려움이 어김없이 우리를 덮칩니다. 두려움은 결코 '이제부터 지워야지'라고 마음먹는다고 해서 쉽게 지워지는 가벼운 감정이 아니기 때문입니다.
+
+그렇다면 성경은 참된 용기와 두려움에 대해 어떻게 말하고 있을까요? 마태복음 10장 28절을 가만히 들여다보면, 우리의 얄팍한 예상을 뒤엎는 놀랍고도 깊은 진실을 발견하게 됩니다. 
+
+### 두려움을 지우지 않고 저울질하다
+
+예수님은 제자들을 세상으로 보내시며 이렇게 말씀하십니다. "몸은 죽여도 영혼은 능히 죽이지 못하는 자들을 두려워하지 말고, 오직 몸과 영혼을 능히 지옥에 멸하실 수 있는 이를 두려워하라." 
+
+헬라어 원문 성경을 보면, 이 짧은 한 구절 안에서 '두려워하다(φοβεῖσθε)'라는 글자 하나 다르지 않은 똑같은 단어가 두 번 등장합니다. 하나는 '하지 말라'는 부정어와 함께 쓰였고, 다른 하나는 부정어 없이 쓰였습니다. 똑같은 입모양과 호흡으로 한 번은 금지를, 한 번은 엄중한 명령을 발음하는 것입니다. 
+
+여기서 가장 흥미로운 것은 이 상반된 두 '두려움' 사이에 놓인 열한 개의 낱말입니다. 이 공간은 "괜찮을 거야, 다 잘 될 거야"라는 막연한 설득이나 감정적인 위로로 채워져 있지 않습니다. 그곳에 놓인 것은 바로 냉정한 '한계의 측정'입니다. 사람의 폭력이 닿을 수 있는 곳(몸)과 결코 닿지 못하는 곳(영혼)의 경계를 명확히 재는 잣대가 놓여 있는 것입니다.
+
+진정한 용기는 내 안의 두려움을 억지로 지워내는 데서 오지 않습니다. 오히려 내게 닥친 위협이 내 삶의 어디까지를 빼앗아 갈 수 있는지, 그리고 결코 건드릴 수 없는 영원한 영역은 어디인지를 정확히 '저울질'하는 데서 시작됩니다. 성경이 요구하는 두려움의 재배치는 긍정적 사고로 마음을 돌리는 가벼운 일이 아니라, 차가울 만큼 냉정하게 내 삶의 한계를 재어보는 무거운 일에서 출발합니다. 
+
+### 떨어짐을 막아주는 위로의 함정
+
+우리는 곧이어 등장하는 참새의 비유(10:29)에서 또 한 번 하나님의 위로가 가진 본질을 오해하곤 합니다. "참새 두 마리가 한 앗사리온에 팔리지 않느냐. 그러나 너희 아버지께서 허락하지 아니하시면 그 하나도 땅에 떨어지지 아니하리라." 
+
+이 구절을 읽으며 우리는 흔히 '하나님께서 내가 땅에 떨어지는 것을 막아 주실 것'이라는 든든한 안전망을 기대합니다. 하지만 원문이 말하는 바는 우리의 기대와 조금 다릅니다. 원문에는 '허락하지 아니하시면' 혹은 '뜻이 아니면'이라는 조건의 낱말이 없습니다. 오직 "아버지 없이(without your Father) 떨어지지 않는다"라는 묵묵한 선언만 있을 뿐입니다. 
+
+참새는 기어이 땅에 떨어집니다. 상실은 일어나고, 고난은 우리를 비켜 가지 않으며, 때로는 소중한 것을 잃기도 합니다. 성경이 여기서 부정하는 것은 '떨어짐 그 자체'가 아니라, '아버지 없는 떨어짐'입니다. 하나님은 우리에게 고난을 면제해 주시겠다고 약속하신 것이 아니라, 우리가 떨어져 내리는 그 캄캄하고 아득한 바닥의 자리에 처음부터 끝까지 함께 계시겠다고 약속하십니다. 
+
+우리가 성도들에게, 혹은 나 자신에게 "기도하면 하나님이 다 막아주실 거야"라는 식의 측정 없는 위로를 건넬 때, 그것은 잠시 불안을 덮어두는 진통제에 불과합니다. 다음번 삶의 비바람이 몰아치면 그 얄팍한 위로는 여지없이 무너지고 맙니다. 참된 위로는 다치지 않게 해 주겠다는 값싼 보장이 아니라, 다치고 깨어지는 그 처절한 순간에도 우리는 결코 하나님의 주권과 사랑 밖으로 밀려나지 않는다는 흔들림 없는 진실에 있습니다.
+
+### 떨림을 잃지 않고, 떨림의 주인을 바꾸다
+
+우리의 구체적인 일상으로 돌아와 봅니다. 삶의 중대한 위기와 두려움 앞에 선 우리는 어떻게 결단해야 할까요?
+
+마음이 요동치고 불안할 때, 우리는 그 감정을 줄여보려고 끊임없이 인터넷을 검색하고 사람들을 만납니다. 불안의 크기가 조금 줄어들면 상황이 나아지고 있다고 착각하지만, 정작 그 결정이 내 삶에 미칠 진짜 무게는 한 번도 달아보지 않은 경우가 허다합니다. 이제 종이 한 장을 꺼내 두 칸을 그려봅시다. 왼쪽에는 내가 지금 잃을까 봐 전전긍긍하며 두려워하는 구체적인 것들을 적고, 오른쪽에는 이 모든 폭풍이 지나간 뒤에도 끝까지 내게 남는 변함없는 것들을 적어 봅니다. 
+
+감당하기 버거운 현실의 문제 앞에서도 우리는 세상이 내게 '닿는 곳'과 '닿지 못하는 곳'을 철저히 분별해야 합니다. 직장에서의 불이익이나 사업의 실패가 내 경제적 안정을 흔들 수는 있어도, 하나님 안에서 맺어진 내 영혼의 존엄과 구원은 털끝 하나 건드릴 수 없습니다. 이것을 명확히 구분하고 측정할 때, 우리는 과잉된 공포에 짓눌리는 일에서도, 현실을 도피하는 무책임에서도 비로소 벗어날 수 있습니다. 
+
+예수님의 이 귀한 말씀은 우리 내면에서 두려움이라는 감정을 마술처럼 걷어가기 위해 주어지지 않았습니다. 오히려 그분은 텅 빈 우리 손에 단단하고 정교한 저울 하나를 쥐여 주십니다. 세상의 위협을 한쪽 접시에 올리고, 몸과 영혼의 유일한 주관자이신 하나님을 다른 쪽 접시에 올리라고 하십니다. 
+
+저울을 쥔 사람은 여전히 두 손을 떨고 있을지 모릅니다. 그러나 그 떨림의 성질은 이전과 완전히 달라져 있습니다. 세상을 향하던 비굴하고 막막한 공포가, 크고 두려우신 하나님을 향한 거룩하고 압도적인 경외로 바뀌었기 때문입니다. 두려움은 지워지지 않았지만, 두려움의 주인이 바뀌었습니다. 오직 하나님 한 분만을 두려워할 때, 우리는 비로소 세상의 어떤 위협 앞에서도 더 이상 두려워하지 않는 진정한 자유인으로 우뚝 설 수 있습니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 14편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

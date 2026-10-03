@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 45편 &middot; 마태복음 27:27-56</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+우리의 일상은 수많은 '만약(If)'이라는 조건문으로 빈틈없이 얽혀 있습니다. "만약 당신이 능력이 있다면 이번 프로젝트의 성과로 증명해 봐.", "만약 나를 진심으로 사랑한다면 그 행동을 멈춰 줘." 우리는 보이지 않는 누군가의 진심이나 자격, 역량과 같이 측정하기 어려운 것들을 눈에 보이는 단 한 번의 행동으로 묶어두려 합니다. 
+
+이러한 조건절의 폭력성은 증명의 책임을 언제나 '요구받는 사람'의 몫으로 떠넘긴다는 데 있습니다. 내가 정한 방식, 내가 정한 기한 안에 상대방이 이를 증명해 내지 못하면 우리는 너무도 쉽게 그 사람의 가치나 진심 자체를 통째로 부정해 버리곤 합니다. 마치 과세 당국이 요건을 충족해야만 혜택을 주겠다며 내미는 차가운 문서처럼, 우리는 인간관계와 사랑마저도 팍팍한 조건부 계약으로 만들어 버리고 맙니다.
+
+놀랍게도, 2천 년 전 골고다 언덕 십자가 아래에서도 이와 똑같은 일이 벌어졌습니다. 피 흘리며 십자가에 매달린 예수를 향해 사람들은 턱을 치켜들고 조롱하며 외쳤습니다. "네가 만일 하나님의 아들이어든 자기를 구원하고 십자가에서 내려오라." 
+
+흥미로운 것은 이 서늘한 문장이 결코 낯설지 않다는 것입니다. 예수님이 공생애를 처음 시작하실 때, 굶주린 광야에서 마귀가 속삭였던 바로 그 문장, 토씨 하나 틀리지 않은 그 다섯 토막의 얄궂은 조건문이 인생의 마지막 순간인 십자가 아래로 고스란히 되돌아온 것입니다. 
+
+### 1. 우리가 하나님께 내미는 당돌한 조건부 계약서
+
+광야에서는 단 한 명의 시험하는 자가 요구했지만, 십자가 아래에서는 종교 지도자들과 곁을 지나던 수많은 무리가 입을 모아 윽박지릅니다. "지금 당장 네 힘으로 십자가에서 뛰어내려 봐. 그러면 우리가 너를 믿어줄게." 이것은 단지 2천 년 전 성난 군중들의 모습에 불과할까요? 그렇지 않습니다. 안타깝게도 이것은 오늘날 우리가 신앙생활을 하며 이따금씩 내비치는 가장 익숙한 민낯이기도 합니다.
+
+우리는 종종 창조주 하나님을 향해서도 기꺼이 이 당돌한 조건절을 들이밉니다. "하나님, 만약 살아계시다면 꼬여버린 이 문제를 당장 해결해 주세요.", "이 병이 치유된다면, 내 간절한 기도가 이번에 응답된다면 비로소 확신하겠습니다." 내가 원하는 때에, 내가 가장 원하고 기대하는 방식대로 기적이 일어나야만 하나님의 살아계심을 인정하겠다는 으름장입니다. 
+
+우리는 하나님의 크신 사랑마저 내가 측정할 수 있는 단 한 번의 기적에 걸어두려 합니다. 내 뜻대로 이루어지면 헌신하되 침묵하시면 미련 없이 돌아서겠다는 얄팍한 조건문 속에 하나님을 가두는 것입니다. 내가 내민 조건부 계약서에 기적이라는 서명이 찍혀야만 안심하는 우리의 연약한 본성입니다.
+
+### 2. 증명의 굴레를 스스로 깨뜨리신 거룩한 침묵
+
+그렇다면 예수님은 십자가를 에워싼 이 맹렬한 조건문에 어떻게 응답하셨을까요? 광야에서는 단호하게 기록된 말씀으로 응수하셨던 그분이, 십자가 위에서는 철저히, 그리고 무겁게 침묵하십니다. 수많은 이들이 고개를 빳빳하게 쳐들고 "당장 내려오라!"고 2인칭의 명령을 쏟아냈지만, 예수님은 끝내 그들의 요구대로 십자가에서 내려오지 않으셨습니다. 
+
+성경 어디를 찾아보아도 그들이 요구한 짜릿한 '증명'이 이행되었다는 기록은 단 한 줄도 없습니다. 만약 예수님이 사람들의 요구대로 십자가에서 훌쩍 뛰어내려 적들을 놀라게 하셨다면, 당장 엄청난 환호성은 받았을 것입니다. 하지만 그것은 인간이 만든 얄팍한 증명의 틀, 상대가 정해놓은 조종의 굴레 안으로 스스로 걸어 들어가는 뼈아픈 패배를 의미했습니다. 
+
+예수님은 십자가에서 내려올 능력이 없어서가 아니라, 우리가 정한 조건과 형식에 당신을 옭아매지 않기 위해 기꺼이 가장 무능하고 나약한 길을 택하셨습니다. 조롱하며 조건을 거는 입술들에 억지로 기적을 쑤셔 넣어 입증하는 대신, 온몸으로 십자가의 고통을 끌어안으셨습니다. 그 거룩한 침묵과 '끝내 이행되지 않은 기적'이야말로, 십자가가 우리에게 보여주는 가장 깊고 숭고한 신비입니다.
+
+### 3. 조건이 사라진 자리에 피어난 진실한 고백
+
+예수님이 마침내 숨을 거두신 후, 본문은 가장 경이로운 반전을 우리에게 보여줍니다. 무리들의 당돌한 요구는 단 하나도 이행되지 않았는데, 어느 낯선 이의 입에서 문장의 형태가 완전히 바뀌어 흘러나오기 때문입니다. "이는 진실로 하나님의 아들이었도다." 
+
+이 놀라운 진술을 한 사람은 표적을 요구하던 똑똑한 종교 지도자들이 아니었습니다. 그저 묵묵히 자기에게 주어진 직무를 다하며 사형수의 마지막을 지켜보던 로마 백부장과 이방 군인들이었습니다. 그들이 뱉어낸 문장에는 더 이상 '만약'이라는 가벼운 조건절이 없습니다. 턱을 치켜들며 당장 능력을 보이라고 다그치던 거친 명령형은 사라지고, 턱을 가슴 깊이 내리며 호흡을 가다듬고 읊조리는 묵직한 과거형의 진술만이 남았습니다. 
+
+이 위대한 변화는 결코 '증명의 결과'가 아닙니다. 십자가에서 뛰어내리는 기적을 보았기 때문이 아니라, 땅이 진동하고 바위가 터지는 두려움 속에서 무능할 만큼 조용히 자신의 목숨을 내어주는 십자가의 사랑 그 자체를 목격했기 때문입니다. 기적이라는 증명을 요구한 자들은 끝내 원하는 것을 얻지 못한 채 돌아갔지만, 조용히 곁을 지키던 자들은 어떠한 조건도 없이 자신들을 덮쳐온 진실 앞에 엎드렸습니다.
+
+우리의 인생에도 내가 하늘을 향해 던진 숱한 조건절에 아무런 응답이 오지 않는 때가 있습니다. "만약 들어주신다면..."이라며 밤새 눈물로 매달렸지만, 기적은 일어나지 않고 상황은 끝내 고통스럽게 마침표를 찍을지도 모릅니다. 내가 간절히 바랐던 '이행된 기적'의 칸이 비어버린 것을 볼 때 우리는 몹시 절망합니다. 
+
+그러나 꼭 기억하십시오. 내가 요구한 방식대로 증명되지 않았다고 해서 하나님의 섭리가 빗나간 것은 결코 아닙니다. 내가 기대했던 일들이 멈춰버린 바로 그 빈자리에, 이미 하나님의 은혜가 조건 없는 사랑의 문장으로 단단하게 새겨져 있음을 우리는 어느 날 문득 깨닫게 됩니다. 
+
+내 뜻대로 당장 증명되지 않아도 괜찮습니다. 내 삶의 조급한 조건문이 끝내 응답 없는 미완성으로 남아도 괜찮습니다. 십자가는 조건부 계약을 아득히 뛰어넘어, 아무런 자격 없는 우리에게 값없이 주어진 영원한 사실이기 때문입니다. 오늘, 불안한 마음에 잔뜩 움켜쥐고 있던 '만약'이라는 청구서를 십자가 아래 가만히 내려놓는 것은 어떨까요? 그곳에, 당신을 위해 능력을 증명하지 않음으로써 도리어 당신을 향한 모든 사랑을 증명해 내신 그분의 따뜻한 품이 우리를 조용히 기다리고 있습니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 45편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

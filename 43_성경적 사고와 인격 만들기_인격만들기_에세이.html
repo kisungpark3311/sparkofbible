@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 43편 &middot; 마태복음 26:57-75</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+### 가장 치열한 밤, 무거운 질문에 던져진 가벼운 대답
+
+우리는 종종 억울한 오해를 받거나 나를 증명해야 하는 치열한 순간에 직면합니다. 그럴 때면 나도 모르게 목소리가 커지고, 온갖 수식어와 맹세를 동원해 내 결백을 포장하려 애를 씁니다. 진실이 힘을 잃을까 두려운 마음에 말의 무게를 한껏 부풀리는 것입니다. 성경 마태복음 26장에 기록된, 예수님께서 십자가를 지시기 전날 밤의 풍경도 인간들의 그런 무거운 말들로 가득 차 있었습니다. 
+
+대제사장은 예수님을 옭아매기 위해 가장 무거운 권위를 끌어들였습니다. "내가 살아 계신 하나님을 걸고 너에게 맹세로 명한다." 생사가 오가는 심문정, 그 위압적인 공간에서 대제사장은 하나님의 이름까지 동원하며 질문에 무게를 더했습니다. 심지어 같은 밤 뜰 밖에서는, 예수님의 수제자였던 베드로조차 스스로를 보호하기 위해 저주와 맹세를 섞어가며 자신을 변호하고 있었습니다. 인간이 스스로를 지키기 위해 내뱉을 수 있는 가장 무겁고 독한 말들이 난무하던 밤이었습니다.
+
+하지만 이 맹렬하고 날 선 추궁 앞에서 예수님이 꺼내신 대답은 너무도 짧고 단순했습니다. 헬라어로 단 두 낱말, "네가 말하였도다(Σὺ εἶπας)." 
+
+놀랍게도 이 짧은 대답 안에는 '나'를 방어하거나 가리키는 말이 단 한 글자도 들어있지 않았습니다. 예수님은 상대방의 질문에 자신의 억울함을 얹어 항변하지 않으셨고, 새로운 내용을 덧붙여 국면을 전환하려 하지도 않으셨습니다. 그저 질문의 무게와 책임을, 질문을 던진 대제사장에게 고스란히 되돌려 주셨을 뿐입니다. 자신을 증명하기 위한 어떠한 안간힘도 찾아볼 수 없는 이 고요하고 텅 빈 대답은, 인간의 모든 과장된 맹세들을 침묵시키며 역사가 기억하는 가장 장엄한 기준점이 되었습니다.
+
+### 나를 변호하려는 불안한 수식어들을 걷어내며
+
+우리의 일상을 가만히 들여다보면, 진리를 마주한 대제사장이나 두려움에 떨던 베드로의 모습과 닮아 있을 때가 참 많습니다. 직장에서 주고받는 수많은 이메일과 서류, 누군가와의 다툼 속에서 오가는 메시지들을 떠올려 보십시오. 누군가에게 책임을 묻거나 반대로 내 책임을 피하고 싶을 때, 우리는 무의식중에 참으로 많은 '보증'을 끌어다 붙입니다. "정말로", "내 모든 것을 걸고", "틀림없이" 같은 수식어들은 언뜻 내 말에 힘을 실어주는 것 같지만, 실상은 나의 불안함을 덮고 빈약한 사실을 억지로 메우려는 시도일 때가 많습니다. 내가 상처받지 않기 위해, 혹은 상대를 내 뜻대로 움직이기 위해 우리는 말이라는 그릇에 너무 많은 변명과 판정을 욱여넣고 살아갑니다.
+
+가까운 사람들과의 관계나 상담을 할 때도 마찬가지입니다. 누군가 내게 "결국 나만 나쁜 사람이네요"라며 날 선 단정을 던질 때, 우리는 다급히 변명하거나 같이 화를 내며 부딪칩니다. 상대의 무거운 문장을 내 것으로 덥석 받아 안아버리는 것입니다. 
+
+하지만 예수님의 "네가 말하였도다"라는 대답은 우리에게 전혀 다른 삶의 지혜를 가르쳐 줍니다. 그것은 상대의 감정과 단정을 내가 대신 떠안아 스스로 병들지 않는 법이며, 동시에 내 불안함을 감추려 불필요한 보증을 끌어들이지 않는 성숙한 태도입니다. 있는 그대로의 사실만을 직시하고, "지금 그렇게 생각하고 계시는군요"라며 상대의 문장을 상대에게 남겨두는 건강한 여백. 이 여백은 결코 비겁한 책임 회피가 아니라, 나와 너의 경계를 바르게 세우는 단단한 인격의 열매입니다. 우리가 덧붙이던 불안한 수식어들을 하나둘 걷어낼 때, 비로소 우리의 말은 진실된 무게와 품격을 지니게 됩니다.
+
+### 자신을 비워낸 자리에 열리는 은혜의 시간
+
+그렇다면 예수님은 어째서 그토록 철저히 스스로를 변호하지 않으셨을까요? 처절한 심문 앞에서 아무런 내용도 더하지 않은 그 고요한 두 마디는, 결국 대제사장의 신성모독 판정을 불러왔고 참혹한 십자가의 사형 선고로 이어졌습니다. 예수님의 이 짧은 응답은 단순히 말을 아끼는 처세술이나 침묵의 미덕을 보여주기 위함이 결코 아니었습니다. 그것은 '아무런 변호 없이 정죄당하신' 구원자의 자리를 스스로 묵묵히 받아들이신 거룩한 사건이었습니다. 
+
+자신을 가리키는 말이 하나도 없던 가장 작은 대답 뒤에는, 이제껏 인류가 본 적 없는 거대한 우주적 선언이 뒤따릅니다. 
+"그러나 내가 너희에게 이르노니 이 후에 인자가 권능의 우편에 앉아 있는 것과 하늘 구름을 타고 오는 것을 너희가 보리라."
+
+말하는 이가 철저히 자기를 비워낸 그곳에 비로소 새로운 영원의 시간이 열렸습니다. 심문하며 몰아세우던 자들은 이제 압도적인 하나님의 영광을 두 눈으로 '보게 되는' 관찰자로 위치가 뒤바뀝니다. 스스로를 주장하지 않으심으로 온 세상을 구원하신 은혜의 시간이 마침내 시작된 것입니다.
+
+오늘 하루, 우리가 일상 속에서 무심코 내뱉는 말들을 찬찬히 헤아려 봅니다. 불안해서 덧붙인 과장된 말들, 나를 방어하느라 날카로워진 단어들을 잠시 내려놓고 깊은 숨을 쉬어보면 어떨까요? 세상 앞에서 나를 증명하려 그토록 애쓰지 않아도 괜찮습니다. 스스로를 변호하지 않고 묵묵히 십자가의 길을 걸어가신 예수님의 그 고요한 대답이, 이미 우리의 모든 허물과 불안을 온전히 덮고 구원하셨기 때문입니다. 내 말의 무게를 덜어내고 자아를 비워낸 그 조용한 빈자리에, 하늘의 문이 열리고 영원한 평안이 스며드는 눈부신 기적을 마주하시기를 간절히 소망합니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 43편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

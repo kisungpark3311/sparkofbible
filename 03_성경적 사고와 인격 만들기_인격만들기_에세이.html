@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 03편 &middot; 마태복음 3:1-17</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리가 살아가는 세상은 온통 2인칭의 언어로 가득 차 있습니다. "너는 언제까지 이 일을 마칠 수 있니?", "당신은 어떤 성과를 낼 수 있습니까?" 행정 통지서부터 직장에서의 냉정한 평가, 심지어 일상적인 대화조차 우리를 '너' 혹은 '당신'이라 부르며 늘 어떤 형태의 대답과 증명을 요구합니다. 2인칭의 부름 앞에서는 언제나 긴장해야 합니다. 내가 어떻게 대답하느냐, 어떤 행동과 열매를 보여주느냐에 따라 나를 향한 평가와 관계의 질이 시시각각 달라지기 때문입니다. 그래서 우리는 지칩니다. 끊임없이 '너'라고 불리는 무대 위에서, 정답을 말하고 자격을 증명하기 위해 숨 가쁘게 발버둥 치며 살아갑니다.
+
+그런데 성경을 읽다 보면 세상의 문법을 완전히 뒤집는, 숨이 멎을 듯 고요한 장면 하나를 마주하게 됩니다. 요단강 깊은 물에서 막 걸어 올라온 예수님 위로 하늘이 열리는 순간입니다. 세상의 상식이라면 당연히 이렇게 울려 퍼져야 했습니다. "너는 내 사랑하는 아들이다. 네가 참 자랑스럽다." 아버지가 아들에게 직접 건네는 다정한 2인칭의 인사가 훨씬 자연스러워 보입니다. 하지만 마태복음은 그 결정적인 순간에 서술자의 시선을 거두고, 전혀 다른 인칭의 문장을 허공에 띄웁니다. "이는 내 사랑하는 아들이요, 내 기뻐하는 자라."
+
+### 대답할 필요가 없는, 그래서 취소되지 않는 선언
+
+왜 하늘은 '너'라고 부르지 않고 '이 사람(이는)'이라고 지목했을까요? 이것은 단순한 어투의 차이가 아닙니다. 법정과 등기소의 차이를 떠올려 보십시오. 법정에서 판사가 피고인을 향해 "당신은..." 하고 물을 때, 그곳에는 반드시 당사자의 대답이 필요합니다. 하지만 등기부 등본에 적힌 "이 땅은 누구의 소유다"라는 문장은 읽는 이의 동의나 응답을 전혀 요구하지 않습니다. 그저 그 자체로 영원한 효력을 지니는 공표가 됩니다. 
+
+2인칭은 관계를 열고 대답을 기다리지만, 3인칭은 응답을 요구하지 않은 채 신분을 흔들림 없이 확정 짓습니다. 만약 하늘의 소리가 "너는 내 아들이다"라고 말했다면, 예수는 "네, 제가 잘해내겠습니다"라고 응답해야만 할 것 같은 무거운 과업이 생겼을지 모릅니다. 하지만 "이는 내 아들이다"라는 우주적인 공표는 당사자의 대답 칸을 아예 비워둡니다. 애초에 응답을 요구하지 않기에, 내일 나의 행동이 부족하다고 해서 이 선언이 취소되지도 않습니다. 자격을 끊임없이 증명해야 유지되는 '조건'이 아니라, 거룩한 하늘이 덮어씌우는 '주어지는 방식'입니다. 
+
+이 얼마나 눈물겨운 위로입니까. 우리의 참된 존재 가치는 우리가 이뤄낸 행위와 노력의 결론으로 서술되는 것이 아닙니다. 그것은 하늘이 우리를 지목하는 단 한 문장, 취소될 수 없는 든든한 선언으로 완성됩니다.
+
+### 내가 나에게 붙인 이름표를 모두 떼어낸 자리에
+
+살다 보면 무언가에 온 마음을 다해 헌신했지만, 아무런 인정이나 확인도 받지 못한 채 잊혀 버린 것만 같은 날들이 찾아옵니다. 자리를 내어주고 묵묵히 물러선 사람들, 실패의 무게를 혼자 짊어진 채 침묵하는 이들, 인생의 결정적인 순간에 그 누구에게도 위로받지 못해 홀로 선 이들이 있습니다. 이 깊은 무력감 속에서 우리는 종종 스스로를 향해 가혹한 판결문을 써 내려갑니다. '나는 실패자다', '나는 더 이상 쓸모없는 사람이다', '나는 사랑받을 자격이 없다'.
+
+인생의 어두운 터널 한가운데서 내가 나에게 쓴 그 수많은 평가의 문장들을 가만히 들여다보십시오. 그리고 그 문장들을 하나씩 지워보십시오. 내가 스스로에게 내린 냉혹한 평가, 세상의 잣대가 나에게 요구했던 차가운 성적표들을 모두 지워버리고 나면 과연 무엇이 남을까요? 스스로 세웠던 신분증마저 산산조각이 나버린 그 텅 빈 자리에, 비로소 외부로부터 주어지는 거룩하고 단단한 하늘의 문장이 내려앉습니다.
+
+### 나를 붙잡는 가장 눈부신 사랑의 문법
+
+무언가를 끊임없이 해내야만 존재를 증명할 수 있는 치열한 2인칭의 세계에서 지치고 상처 입은 우리를 향해, 하늘은 섣부른 조언으로 우리를 재촉하지 않습니다. 대신 조용히 우리 곁에 서서, 온 우주를 향해, 그리고 우리를 억누르는 세상의 모든 절망을 향해 흔들림 없이 선언하십니다. "이 사람은 내가 사랑하는 자다. 내가 기뻐하는 자다."
+
+우리는 더 이상 자격을 증명하기 위해 초조해하거나, 억지 대답을 쥐어짜 낼 필요가 없습니다. 나를 향한 이 완벽한 선언 앞에서는 시선을 피할 이유도, 몸을 돌릴 이유도 없습니다. 그저 내게 주어진 존재의 묵직함과 따뜻함을 가만히 누리면 그뿐입니다. 사랑의 가장 높은 차원은 내 이름을 다정하게 부르며 대답을 요구하는 것을 넘어, 나를 옥죄는 세상의 모든 평가를 멈춰 세우고 내 존재 자체를 변개할 수 없는 진리로 온 천하에 공표해 주는 것입니다. 
+
+결코 응답을 요구하지 않는 그 눈부신 사랑의 문법이, 오늘 위태롭게 흔들리는 우리의 삶을 가장 깊고 단단하게 안아줍니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 03편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

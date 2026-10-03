@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 17편 &middot; 마태복음 12:15-45</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+문법책을 넘기다 보면 단어의 '격(case)'이라는 낯선 규칙과 마주하게 됩니다. 주격, 소유격, 목적격. 참으로 신기한 것은, 단어의 모양이 한 치도 바뀌지 않았음에도 불구하고 그 단어가 문장의 어느 자리에 놓이느냐에 따라 역할과 운명이 완전히 뒤바뀐다는 사실입니다. 우리의 삶도 이와 크게 다르지 않습니다. 내가 맺고 있는 관계, 내가 소유한 것들, 심지어 나의 영혼조차 그것이 삶의 어느 칸에 놓여 있는지에 따라 전혀 다른 결말을 맞이합니다.
+
+마태복음 12장에는 모양이 똑같은 단어 하나가 세 번이나 자리를 옮기며 그 역할이 극적으로 변하는 흥미로운 장면이 등장합니다. 그 단어는 바로 '영(πνεῦμα, 푸뉴마)'입니다. 철자 하나 다르지 않은 이 단어는, 문장이 내어준 자리에 따라 은혜로 '받는 것'이 되기도 하고, 세상을 이기는 '쓰는 도구'가 되기도 하며, 마침내 내 삶을 온통 집어삼키는 '능동적인 주어'가 되기도 합니다. 이 미세한 문법적 차이는 오늘을 살아가는 우리에게 무겁고도 다정한 질문을 던집니다. "지금 당신의 삶에서, 당신은 어느 자리에 서 있습니까?"
+
+## 내어주고, 덧입고, 밀려나는 영혼의 궤적
+
+본문에서 '영'이 가장 먼저 등장하는 곳은 다름 아닌 '목적어'의 자리입니다. *"내가 내 영을 그에게 줄 터이니"(마 12:18).* 여기서 인간은 위대한 창조주의 영을 수여받는 존재로 서 있습니다. 신앙의 첫걸음, 생명의 첫 호흡은 우리가 무언가를 쟁취해서 얻어내는 것이 아닙니다. 그것은 위에서부터 값없이 건네지는 선물입니다. 이때 우리의 영혼은 두 손을 가지런히 모아 그 은혜를 조용히 받아안는 수용의 자리에 머뭅니다.
+
+두 번째 자리는 능력을 발휘하는 '수단'의 자리입니다. *"내가 하나님의 성령을 힘입어 귀신을 쫓아내는 것이면..."(마 12:28).* 이제 인간은 받은 은혜를 동력 삼아 거친 세상 속으로 나아갑니다. 건네받은 영은 우리가 굳게 쥐고 일하는 도구가 되며, 억눌린 자들을 자유케 하는 실질적인 능력이 됩니다. 손을 뻗어 힘껏 앞으로 밀고 나아가는, 역동적이고 벅찬 사명의 자리입니다.
+
+하지만 가장 뼈아프고 서늘한 경고는 세 번째 자리에서 울려 퍼집니다. *"더러운 영이 사람에게서 나가면... 그때 말한다. 내가 나온 내 집으로 돌아가리라."(마 12:43-44).* 이 절망적인 장면에서 인간은 더 이상 능동적인 주체가 아닙니다. 인간은 그저 '집', 그것도 텅 비어있는 수동적인 공간(속격)으로 초라하게 전락하고 맙니다. 더러운 영이 당당하게 주어(주격)의 자리를 꿰차고 들어올 때, 인간은 그 영이 거주하는 껍데기로 밀려납니다. 
+
+이 세 번째 자리에 선 인간의 몸짓을 상상해 보십시오. 무언가를 받기 위해 경건하게 펼쳤던 손, 십자가를 쥐고 힘을 주던 팔이 이제는 아무 할 일 없이 등 뒤로 축 늘어져 있습니다. 방 안은 깨끗하게 청소되고 화려하게 꾸며져 있지만, 정작 그 안을 걷는 주인은 없습니다. 비어있다는 것은 삶이 망가졌다는 뜻이 아닙니다. 번듯해 보이지만 정작 아무런 '할 일(목적)'이 없다는 뜻입니다. 아무런 주도권도 없이 그저 휩쓸리며 살아가는 정돈된 일상. 그것이 바로 악한 영이 가장 탐내는 '빈집'의 참상입니다.
+
+## 내 미래를 선언하는 목소리는 누구입니까
+
+마태복음의 이 짧고도 긴박한 본문 안에서, 스스로의 미래를 1인칭으로 당당하게 선언하는 목소리는 단 두 번 등장합니다. 하나는 상한 갈대를 꺾지 않으시는 하나님의 다정한 음성입니다. *"내가 내 영을 그에게 두리라."* 또 다른 하나는 텅 빈 영혼을 노리는 더러운 영의 탐욕스러운 음성입니다. *"내가 내 집으로 돌아가리라."*
+
+놀랍게도 이 치열한 우주적 전쟁터에서, 인간이 스스로 자신의 미래를 주도적으로 계획하고 선언하는 장면은 단 한 번도 나오지 않습니다. 우리는 흔히 내 삶의 주인은 나 자신이며, 내 미래는 내가 통제할 수 있다고 굳게 믿고 싶어 합니다. 하지만 냉정하게 우리 삶의 이면을 들여다보면, 우리는 언제나 무언가에 강하게 이끌려 살아가고 있습니다. 
+
+진짜 문제는 그 문장의 '주어'가 누구냐는 것입니다. 과연 오늘 내 일상을 지배하고 내 미래를 이끌어가는 것은 나를 살리는 하나님의 영입니까, 아니면 나를 갉아먹는 그릇된 습관과 맹목적인 욕망입니까? 두 미래의 선언이 한 사람의 영혼을 두고 팽팽하게 맞서고 있습니다. 어둠의 영은 비어있는 우리의 삶을 향해 너무도 뻔뻔하게 "내 집"이라고 소유권을 주장합니다. 우리가 삶의 빈칸을 무방비로 내어준 순간, 우리는 번듯한 명의만 남은 채 실질적인 삶의 통제권을 빼앗긴 서글픈 세입자로 전락하고 마는 것입니다.
+
+## 삶의 빈칸을 정직하게 마주하는 용기
+
+그렇다면 우리는 이 위험천만한 빈집의 상태를 어떻게 벗어날 수 있을까요? 섣부른 도덕주의자들은 우리를 향해 "빨리 빈집에 유익한 것들을 채워 넣으라"고, "게으름을 피우지 말고 더 치열하게 노력하라"고 다그칠지도 모릅니다. 하지만 성경은 우리에게 무언가를 억지로 채워 넣는 자기 착취를 명령하지 않습니다. 대신, 우리가 까맣게 잊고 지냈던 그 눈부신 '첫 번째 자리'를 다시 기억하라고 초청합니다.
+
+우리는 삶의 수많은 의사결정 속에서 자주 자리를 잃고 방황합니다. 분기를 마감하며 다이어리를 펴고 지난날을 돌아볼 때, 그저 '성취한 일'과 '실패한 일'의 두 칸으로만 삶을 평가하지 마십시오. 성과의 언어를 내려놓고 '자리'의 언어로 질문해 보십시오. 이번 달, 내 시간과 지출과 감정을 쥐고 흔든 주어는 무엇이었습니까? 업무의 압박이었습니까, 타인의 시선이었습니까, 아니면 통장 잔고에 대한 두려움이었습니까? 
+
+나의 주도권이 상실된 채 끌려다녔던 서글픈 빈칸을 발견했다면, 불안해하며 억지로 그럴싸한 해답을 적어 넣지 마십시오. 정돈되어 있으나 주인이 없는 그 공백을 정직한 관찰의 기록으로 남겨두는 것, 그것이 바로 진정한 회복의 시작입니다. "내가 주어가 되어야 한다"는 무거운 강박조차 내려놓을 때, 우리는 다시 숨을 쉴 수 있습니다. 
+
+내가 용서받지 못할 길로 들어선 것은 아닐까 두려워하는 이들에게 필요한 것은 매서운 정죄나 판정이 아닙니다. 우리를 향한 하나님의 넓고 한없는 사죄의 선언, 바로 그 '받는 자리'를 다시 확인하는 것입니다. 텅 빈 손을 들어 가만히 하늘을 향해 펼치십시오. 그리고 생명의 영을 나의 '목적어'로, 나의 '수단'으로 다시금 받아들이는 그 첫 번째 자리로 돌아가십시오. 은혜는 억지로 채워 넣은 화려함 속에서가 아니라, 정직하게 내어드린 빈칸에서부터 다시 눈부시게 시작됩니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 17편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 13편 &middot; 마태복음 9:35~10:15</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+누군가 지쳐 쓰러져 있는 모습을 볼 때, 혹은 감당할 수 없을 만큼 많은 일더미 앞에 섰을 때 우리는 가장 먼저 무엇을 할까요? 보통은 달력을 펴서 일정을 쪼개거나, 함께 일할 사람을 찾기 위해 '모집 공고'를 냅니다. 내 손에 쥔 자원이 턱없이 부족하다는 것을 깨닫는 순간, 우리는 본능적으로 무언가를 움켜쥐려 합니다. 일손을 구하고, 대책을 세우고, 서둘러 행동으로 옮기는 것이 우리가 아는 가장 책임감 있는 태도이기 때문입니다.
+
+그런데 성경 속 예수님의 모습은 우리의 상식과 조금 다릅니다. 목자 없이 헤매며 기진맥진한 무리를 보셨을 때, 그분은 제자들을 향해 "빨리 가서 사람들을 더 모아오라"고 명령하지 않으셨습니다. 대신 이렇게 말씀하셨습니다. "추수할 것은 많되 일꾼이 적으니, 그러므로 추수하는 주인에게 청하여 추수할 일꾼들을 보내 주소서 하라." 
+
+너무나 다급한 현실 앞에서 내려진 첫 명령은 '모집'이 아니라 '청원'이었습니다. 우리는 이 순서가 품고 있는 깊은 침묵과 신비에 귀를 기울여야 합니다.
+
+### 쥐는 손의 안도감, 펴는 손의 불편함
+
+잠시 눈을 감고 우리의 손을 상상해 봅니다. 낫을 꽉 쥐는 동작을 해보세요. 손가락에 힘이 들어가고 어깨가 앞으로 굽어지지만, 내 힘으로 무언가를 통제하고 있다는 확실한 안정감이 듭니다. 반대로, 손바닥을 위로 향하게 하여 빈손을 활짝 펴보세요. 어깨는 열리지만, 이 자세를 가만히 유지하는 것은 몹시 어색하고 불편합니다. 무방비 상태로 누군가의 도움을 기다려야만 하는, 나의 무력함을 인정하는 자세이기 때문입니다.
+
+우리가 회의를 할 때 기도를 가장 뒤로 미루고, 당장의 대책과 사람을 구하는 안건부터 1번에 올리는 이유가 바로 여기에 있습니다. 빈손을 펴고 하늘을 향해 "청원"하는 자세는 너무나 막막하고 불편하여 견디기 어렵기 때문입니다. 당장이라도 손을 쥐고 무언가를 해결하고 싶은 충동이 우리를 사로잡습니다.
+
+하지만 무언가를 시작하기 전, 아무런 성과도 낼 수 없는 이 '빈손의 시간'이야말로 모든 것의 방향을 결정짓습니다. 오케스트라의 지휘자가 첫 소리를 내기 전, 숨을 고르며 지휘봉을 위로 들어 올리는 찰나의 침묵처럼 말입니다. 소리 없는 그 작은 동작이 전체 연주의 박자와 흐름을 지배하듯, 일에 뛰어들기 전 두 손을 펴고 주권을 인정하는 그 '청원'의 자리가 우리의 정체성을 결정합니다. 우리는 내 자원을 쥐어짜 내어 일하는 사람이 아니라, 하늘로부터 공급받아 일하는 사람이라는 숭고한 고백인 것입니다.
+
+### 인과(因果)를 내려놓고 순서(順序)를 받아들이기
+
+우리는 종종 나의 기도와 응답 사이에 '그래서(Therefore)'라는 단어를 집어넣기를 좋아합니다. "내가 이토록 간절히 청했으니, '그래서' 일이 잘 풀렸다" 혹은 "기도가 부족했어. '그래서' 실패한 거야." 우리의 얄팍한 셈법은 늘 하나님과의 관계를 자판기처럼 기계적인 인과관계로 묶어두려 합니다. 
+
+그러나 놀랍게도 성경 본문에는 '그래서'라는 접속사가 없습니다. 제자들에게 일꾼을 청하라고 명령하신 대목과, 곧이어 제자들의 이름을 부르며 세상으로 내보내시는 다음 구절 사이에는 아무런 설명도 존재하지 않습니다. 제자들이 간절히 기도를 했다는 서술도, 하늘에서 응답이 떨어졌다는 통고도 없습니다. 그곳엔 오직 텅 빈 여백만이 존재합니다.
+
+이 여백이 우리에게 가르쳐 주는 것은 기도의 '법칙'이 아닙니다. 그것은 일손의 소유권이 누구에게 있는지를 보여주는 '자리 배치'입니다. 내가 원인을 제공했기 때문에 하나님이 결과를 주셔야 한다는 오만한 기대를 내려놓아야 합니다. 빈자리에 억지로 채워 넣으려던 '그래서'를 지우고 나면, 오직 아름다운 '순서'만이 남습니다. 그저 나는 엎드려 청원했고, 주님은 당신의 때에 당신의 사람을 부르셨다는 겸손한 사실 말입니다. 
+
+### 내가 구한 기도가 나를 보내는 응답이 될 때
+
+가장 감동적인 반전은 이 순서의 끝자락에 숨어 있습니다. 일꾼을 보내 달라고 손을 펴고 청원했던 그 입술들, 그 사람들의 이름이 바로 다음 절에서 호명됩니다. 그리고 그들은 가장 먼저 세상으로 보냄을 받습니다. 
+
+내가 올린 청원이 허공을 맴돌다 사라지는 것이 아니라, 다시 나에게로 돌아와 나를 세상으로 밀어내는 거룩한 손길이 된 것입니다. 일꾼을 보내달라고 기도하던 자가, 스스로 기도의 응답이 되어 밭으로 걸어 들어갑니다. 손바닥을 위로 펴고 간구하던 그 자세 그대로 손목을 뒤집지 않은 채 앞으로 내밀어, 이제는 상처받은 세상을 어루만지고 고치는 사명자의 손이 됩니다. 
+
+우리 삶의 자리도 이와 같기를 소망합니다. 일손이 부족해 한숨이 나오는 회의 테이블에서, 모집 공고를 내기 전에 먼저 빈손을 펴고 간구하는 시간을 1번 안건으로 삼아 보십시오. 치열한 밥벌이의 현장 속에서, 나의 이익을 움켜쥐는 것과 거저 베푸는 은혜 사이에서 길을 잃었을 때, 양극단으로 치우치지 않게 하시는 주님의 채우심을 신뢰해 보십시오. 그리고 지난날의 삶을 돌아보며, 내가 억지로 끼워 맞추려 했던 그 수많은 '그래서'들을 가만히 지워보십시오.
+
+움켜쥐려던 손의 힘을 빼고 텅 빈 손을 하늘로 펼치는 그 순간, 비로소 진짜 일이 시작됩니다. 사람을 구하러 달려가기 전에 먼저 하늘에 청원하십시오. 그 불편하고도 무력해 보이는 빈손의 동작이, 당신을 가장 빛나는 사명의 자리로 이끌어 줄 것입니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 13편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

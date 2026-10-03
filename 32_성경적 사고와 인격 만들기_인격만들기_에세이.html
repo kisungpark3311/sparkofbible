@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 32편 &middot; 마태복음 21:1-22</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+### 왕을 묘사하는 단 하나의 수식어
+
+예루살렘으로 향하는 거대한 역사의 무대, 그 길 위로 한 왕이 다가옵니다. 세상을 구원할 메시아의 위대한 행진을 기록하면서, 마태복음은 놀랍게도 단 스무 개의 낱말만을 사용합니다. 화려한 금빛 마차도, 웅장한 나팔 소리도 묘사되지 않습니다. 그리고 그 스무 개의 낱말 가운데 왕의 어떠함을 설명하는 형용사는 오직 하나, '겸손하여(πραῢς, 프라위스)'뿐입니다.
+
+“네 왕이 네게 임하나니 그는 겸손하여 나귀를 탔도다.”
+
+이 짧은 문장을 두 눈을 감고 소리 내어 읽어보면 신비로운 사실을 하나 발견하게 됩니다. '왕'이라는 단어와 '겸손하여'라는 단어 사이에는 우리가 숨을 쉴 틈조차 없다는 것입니다. 마치 두 단어가 원래부터 떼려야 뗄 수 없는 한 몸이었던 것처럼, 호흡은 끊어지지 않고 단숨에 이어집니다. 위엄 있는 수식어가 줄지어 서 있었다면 그 의미의 하중은 여러 단어로 나뉘었을 것입니다. 그러나 마태는 오직 하나의 형용사만을 남겨두었습니다. 곁에서 나눌 상대가 없는 단어, 그래서 온전한 무게를 홀로 감당해야 하는 단 하나의 낱말이 바로 왕의 가장 깊은 본질을 조용히 드러내고 있습니다.
+
+### 덜어냄으로써 완성되는 진실의 무게
+
+사실 마태가 인용한 스가랴 선지자의 원래 구약 예언에는 더 많은 수식어가 존재했습니다. “그는 공의로우시며 구원을 베푸시며 겸손하여서…” 하지만 마태는 이 장엄한 말씀을 인용하며 '공의'와 '구원'이라는 거대한 단어들을 과감하게 덜어냅니다. 누군가는 이를 단순한 축약이나 생략이라 여길지 모르지만, 실상은 정반대입니다. 
+
+과수원의 농부가 가지를 솎아낼 때, 그것은 나무를 상하게 하려는 것이 아니라 남은 가지로 양분을 몰아주어 열매를 더욱 굵고 달게 만들기 위함입니다. 음악에서 두 악구를 이어 붙일 때 중간 마디를 덜어내면, 뒤에 오는 첫 음이 예상보다 훨씬 빠르고 강렬하게 우리의 귓가를 때리게 됩니다. 마태복음이 만들어낸 이 텅 빈 텍스트의 공백은, 오히려 남겨진 '겸손하여'라는 단어에 폭발적인 하중을 실어줍니다. 
+
+이 단어는 단순히 왕의 성품이 온화하다는 것을 묘사하는 얕은 차원의 꾸밈말이 아닙니다. 자신에게 쏠린 모든 무게를 견디며 왕이 누구인지를 정확히 가리키고, 위대한 왕이 왜 저토록 초라한 멍에 메는 짐승의 새끼를 타야만 했는지를 홀로 변호해 냅니다. 때로는 백 마디의 화려한 웅변보다, 의도적으로 덜어내고 덜어내어 마침내 덩그러니 남겨진 단 하나의 진심이 우리 영혼을 더 깊게 울리는 법입니다.
+
+### 삶의 공백을 채우는 정직한 인격
+
+이 고요하고 묵직한 말씀은 오늘날 우리의 일상과 인격을 향해 서늘하고도 깊은 질문을 던집니다. 우리는 무언가를 증명하기 위해 너무 많은 말을 덧붙이며 살아가고 있지는 않습니까? 스스로의 정당함을 내세우기 위해 화려한 수식어를 동원하지만, 정작 그 이면에 감추어진 진짜 마음은 외면하고 있지 않습니까?
+
+참된 성경적 사고와 성숙한 인격은 내가 남긴 화려한 성과나 더해진 말들로만 평가받지 않습니다. 오히려 내가 무엇을 덜어내었는지, 어떤 공백을 남겨두었는지에 대한 정직함에서 비로소 완성됩니다. 타인을 설득하기 위해 의견서를 작성할 때 의도적으로 빼버린 불리한 사실은 없는지, 인생의 중요한 결정을 내릴 때 겉으로 내세운 단 하나의 이유 뒤편에 남몰래 버려둔 수많은 진짜 이유들을 투명하게 직면하고 있는지를 묻는 것입니다. 온전한 인격이란 남겨진 결과물의 화려함이 아니라, 덜어낸 공백까지도 정직하게 책임질 수 있는 용기에서 피어납니다.
+
+우리를 찾아오신 왕은 세상의 영광과 칭호를 쟁취하는 자리에 서지 않으셨습니다. 오히려 스스로를 낮추어 다가오셨고, 복잡한 증명 대신 묵묵히 짐승의 새끼에 오르심으로 자신의 존재를 증명하셨습니다. 은혜와 구원은 그분이 우리에게 무언가를 요구하기 이전에, 이미 '겸손하여' 우리에게 먼저 도착했다는 놀라운 사실에서 시작됩니다. 
+
+이제 우리의 차례입니다. 핑계와 변명의 곁가지들을 쳐내고 마침내 우리 삶의 마지막 줄에 남겨질 단 하나의 단어는 무엇이어야 할까요? 그 정직하고 무거운 진심 하나를 찾아가는 과정, 그것이 바로 우리의 인격이 빚어지고 참된 신앙이 깊어지는 아름다운 여정일 것입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 32편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

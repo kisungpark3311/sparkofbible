@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 39편 &middot; 마태복음 25:1-30</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 매일같이 크고 작은 저울 위에 오릅니다. 세상의 저울은 냉정합니다. 숫자가 클수록 칭찬의 목소리도 커지고, 결과가 초라하면 변명할 기회조차 주어지지 않습니다. 남들보다 더 많이, 더 빨리 성과를 내야 한다는 압박감은 우리의 숨통을 조이고, 때로는 신앙의 자리까지 따라와 우리를 짓누릅니다. ‘나는 하나님께 보여드릴 만한 번듯한 성과가 없는데 어쩌지?’ 하는 깊은 한숨이 남몰래 우리의 밤을 채우곤 합니다. 
+
+하지만 성경이 보여주는 주인의 셈법은 세상의 저울과 전혀 다릅니다. 마태복음 25장에 등장하는 ‘달란트 비유’를 가만히 들여다보면, 그 안에 숨겨진 놀랍고도 따뜻한 위로를 발견할 수 있습니다. 
+
+### 저울의 눈금은 이미 맞춰져 있었다
+
+주인이 먼 길을 떠나며 종들에게 재산을 맡깁니다. 긴 시간이 흘러 주인이 돌아왔을 때, 종들은 각자의 결과를 들고 주인의 얼굴을 마주합니다. 한 종은 많은 달란트를, 다른 한 종은 그보다 적은 달란트를 남겨 들고 섰습니다. 세상의 기준이라면 당연히 더 많은 것을 가져온 종이 더 큰 칭찬을 받아야 마땅합니다. 그런데 주인의 입에서 나온 판정의 문장은 놀랍게도 단 한 글자도 다르지 않았습니다. 
+
+"잘하였도다 착하고 충성된 종아 네가 적은 일에 충성하였으매 내가 많은 것으로 네게 맡기리니 네 주인의 즐거움에 참여할지어다."
+
+두 종을 향해 쏟아진 이 스무 낱말의 문장은 완벽하게 똑같았습니다. 심지어 어마어마한 성과를 낸 종에게도 주인은 "네가 ‘적은 일’에 충성했다"고 말합니다. 어떻게 이런 일이 가능할까요? 그것은 주인이 처음부터 달란트를 건넬 때 ‘각각 그 재능대로’ 주었기 때문입니다. 주인의 저울은 이미 처음 선물을 나누어 줄 때부터 각자의 몫에 맞게 고정되어 있었습니다. 
+
+주인은 결산의 자리에서 결과의 크기를 묻지 않았습니다. 그가 본 것은 오직 하나, ‘내어준 선물이 그들의 삶에서 움직였는가’ 하는 것이었습니다. 많이 남긴 자도, 적게 남긴 자도 주인의 눈에는 그저 자신에게 주어진 삶의 무게를 성실히 감당해 낸 똑같이 귀하고 사랑스러운 종이었습니다. 
+
+### 나의 성과가 아닌, 주인의 기쁨으로
+
+우리는 종종 이 비유를 오해하여 '적게 가져온 자를 향한 주인의 따뜻한 배려' 정도로만 생각하곤 합니다. 하지만 이 똑같은 칭찬의 문장이 가장 큰 충격으로 다가온 사람은 어쩌면 가장 많은 성과를 낸 종이었을 것입니다. 
+
+그는 속으로 자신의 화려한 성과를 세며 내심 특별한 대우를 기대했을지 모릅니다. 그러나 "네가 적은 일에 충성했다"는 주인의 말은, 인간의 어떠한 위대한 성취도 하나님 앞에서는 그저 ‘작은 것’에 불과함을 부드럽게 일깨웁니다. 우리의 노력과 성과로 하늘의 보상을 당당히 청구할 수 있다는 인간의 오랜 착각을 허무는 것입니다. 
+
+대신 주인은 가장 영광스러운 초대를 건넵니다. "네 주인의 즐거움에 참여할지어다." 종이 스스로 애써 만들어낸 초라한 성과의 방이 아니라, 주인이 처음부터 예비해 둔 거대하고 찬란한 기쁨 안으로 들어오라는 초대입니다. 이 순간, 성과를 꼭 쥐고 있던 종의 긴장된 손에 스르르 힘이 빠지고, 비로소 누구와도 비교당할 필요 없는 참된 자유가 찾아옵니다. 하늘의 상급은 우리의 생산량에 대한 지불이 아니라, 처음부터 은혜로 주어진 선물을 사랑으로 운용해 낸 자를 향한 따뜻한 응답이기 때문입니다.
+
+### 멈춰버린 삶, 불리기를 그친 이름
+
+반면, 이 따뜻한 이야기의 한구석에는 가슴 아픈 경고도 자리하고 있습니다. 바로 달란트를 땅에 묻어두었던 세 번째 종의 이야기입니다. 그는 주인의 돈을 잃어버리지 않았고, 훼손하지도 않았습니다. 단지 아무런 시도도 하지 않은 채 가만히 멈춰 있었을 뿐입니다. 
+
+주인은 그를 향해 "악하고 게으른 종"이라며 매섭게 질책합니다. 여기서 우리가 주목해야 할 가장 서글픈 비극은 책망의 내용이나 돈을 빼앗기는 처분이 아닙니다. 진짜 비극은 주인의 입술에서 그를 부르던 다정한 호칭이 완전히 사라져 버렸다는 데 있습니다. 
+
+"착하고 충성된 종아"라고 다정하게 2인칭으로 부르던 주인의 입술은, 끝내 움직이지 않은 종을 향해서는 "이 무익한 종을 내쫓으라"며 차가운 3인칭으로 돌아서 버립니다. 다정한 호명의 소멸이자, 관계의 단절입니다. 내게 주신 삶의 몫을 끌어안고 단 한 걸음도 내딛지 않은 채 안전함만을 택할 때, 우리 삶에 깃든 생명력은 시들고 하나님과의 친밀한 부르심마저 멀어지고 맙니다.
+
+그러니 이제 세상의 냉혹한 저울에서 내려오십시오. 우리의 주님은 당신이 오늘 하루 얼마나 대단한 결과를 만들어냈는지 묻지 않으십니다. 그저 당신에게 허락된 삶의 자리에서, 당신에게 주어진 몫을 안고 성실하게 한 걸음을 내디뎠는지 물으실 뿐입니다. 
+
+수치가 작아도 괜찮습니다. 남들보다 느려도 괜찮습니다. 당신이 눈물로 심은 작은 씨앗 하나가, 오늘 하루 묵묵히 견뎌낸 평범한 땀방울이 주님의 눈에는 가장 빛나는 충성입니다. 당신을 향한 주님의 다정한 부르심은, 오늘도 멈추지 않고 내딛는 당신의 작은 걸음 위로 따뜻하게 쏟아지고 있습니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 39편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

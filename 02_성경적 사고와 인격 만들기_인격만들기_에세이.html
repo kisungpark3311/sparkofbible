@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 02편 &middot; 마태복음 2:1-23</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 종종 이해할 수 없는 재난이나 깊은 상실 앞에서 "이 일에는 분명 어떤 목적이 있을 거야"라며 서둘러 의미를 찾으려 애씁니다. 슬픔에 빠진 이웃을 찾아가 위로할 때도 "다 하나님의 크신 뜻이 있을 겁니다"라는 말로 상황을 해석하려 들곤 합니다. 무의식중에 우리는 고통의 이유를 설명해야만 참된 위로가 된다고 믿기 때문입니다. 하지만 마태복음은 우리가 생각지 못했던, 놀랍도록 깊고 따뜻한 방식으로 슬픔을 대하는 법을 가르쳐 줍니다. 그것은 섣부른 해석 대신 '목적'을 설명하지 않고 '빈 칸'으로 남겨두는 거룩한 침묵의 위로입니다.
+
+### 슬픔 앞에서 멈춰 선 펜끝
+
+마태복음 2장은 예수님의 탄생 직후 일어난 긴박한 사건들을 기록하며, 구약의 예언이 어떻게 성취되었는지 연속해서 보여줍니다. 마태는 요셉과 마리아가 아기 예수를 데리고 애굽으로 피난 가는 장면에서 "애굽으로부터 내 아들을 불렀다 함을 이루려 하심이라(마 2:15)"라고 씁니다. 훗날 나사렛에 정착할 때도 "나사렛 사람이라 칭하리라 하심을 이루려 함이러라(마 2:23)"라고 분명한 목적을 밝힙니다. 이 구절들에는 모두 "~하려 하심이라"는 뚜렷한 목적의 언어가 적혀 있습니다.
+
+그런데 이 두 사건 한가운데, 헤롯왕이 베들레헴의 죄 없는 아기들을 학살하는 참혹한 비극이 놓여 있습니다. 라마에서 자식을 잃고 통곡하는 어머니들의 찢어지는 슬픔을 예레미야의 예언과 연결할 때, 마태의 문장은 갑자기 호흡을 바꿉니다. 앞뒤 사건들처럼 "말씀을 이루려 하심이라"고 쓰지 않고, "이에 선지자 예레미야를 통하여 하신 말씀이 이루어졌느니라(마 2:17)"라고만 묵묵히 적습니다. 
+
+이 작은 문법적 차이는 결코 우연이 아닙니다. 마태는 아기들의 피흘림 앞에서는 "~하기 위하여"라는 목적의 칸을 의도적으로 비워두었습니다. 하나님의 거대한 구원 계획을 증언하는 데 그토록 열정적이었던 마태의 펜끝이, 무고한 죽음과 어머니들의 통곡 앞에서는 조용히 멈춰 서서 고개를 숙인 것입니다. 소리 내어 이 구절을 읽어보면, 무엇인가 더 설명하고 싶은 입술의 충동을 억누르고 그저 일어난 사실 앞에 묵묵히 멈춰 서는 저자의 깊은 탄식이 전해집니다.
+
+### 목적 칸을 비워두는 거룩한 자제력
+
+사고 조사 보고서나 사망 진단서 같은 책임 있는 문서들은 '무슨 일이 일어났는가(사건)'와 '왜 일어났는가(목적/원인)'를 엄격하게 분리합니다. 만약 원인을 확정할 수 없다면, 조사관은 섣불리 추측하지 않고 그 칸을 아예 비워둔 채 발행합니다. 빈 칸을 자신의 짐작으로 함부로 메우는 것은 기록자의 권한을 넘어서는 일이기 때문입니다.
+
+마태 역시 인류 역사상 가장 거룩한 문서를 작성하며 사건의 칸과 목적의 칸을 철저히 분리했습니다. 요셉의 순종 앞에서는 두 칸을 모두 채웠지만, 비극적인 죽음의 자리에서는 오직 '사건'만 기록하고 '목적' 칸을 공란으로 두었습니다. 
+
+이 빈 칸은 결코 하나님이 세상을 통치하지 않으신다거나 신적인 섭리가 없다는 뜻이 아닙니다. 오히려 이해할 수 없는 섭리의 신비 앞에서 피조물이 취해야 할 마땅한 겸손입니다. "이 아이들의 죽음은 예언을 이루기 위한 것이었다"라고 말하지 않음으로써, 마태는 타인의 비극을 어떤 교리나 목적을 증명하기 위한 도구로 전락시키지 않았습니다. 비극의 이유를 모른다는 핑계로 방치하는 것이 아니라, 섣불리 아는 척하며 함부로 해석하지 않으려는 눈물겨운 '거룩한 자제력'을 발휘한 것입니다.
+
+### 섣부른 해석 대신, 곁에 머무는 위로
+
+마태가 보여준 이 깊은 자제력은 오늘날 고통받는 이웃과 마주하는 우리에게 커다란 해방감과 지혜를 줍니다. 누군가 캄캄한 상실의 터널을 지날 때, 우리는 그 이유를 해석하고 설명해 주어야 한다는 무거운 압박감에서 벗어날 수 있습니다. 위로란 그 빈 칸을 내 알량한 신학적 지식으로 서둘러 대필해 주는 것이 아닙니다. 오히려 마태처럼 무슨 일이 일어났는지 함께 아파하며, "이 일은 무엇을 위한 것이다"라고 섣불리 말하고 싶은 내 안의 충동을 온몸으로 견뎌내는 일입니다. 아무런 답을 주지 못해 무능해 보일지라도, 침묵의 압력을 견디며 그 곁에 함께 멈춰 서 있어 주는 것입니다.
+
+우리 자신의 삶을 돌아볼 때도 마찬가지입니다. 뜻대로 되지 않는 하루, 도무지 이유를 알 수 없는 억울한 시련 앞에서 우리는 그날 밤 어떻게든 "이 일이 왜 나에게 일어났을까" 답을 찾아내려 스스로를 괴롭힙니다. 그러나 이제 우리는 매일의 일기장에 목적을 적는 칸을 잠시 '비워두는' 연습을 할 수 있습니다. 억지로 의미를 부여하지 않고, 언젠가 해석의 빛이 비칠 그날을 기다리며 오늘은 그저 "아직 적지 않음" 상태로 남겨두는 넉넉함을 배우는 것입니다.
+
+진정한 위로는 고난의 이유를 명쾌하게 설명받는 데서 오지 않습니다. 오히려 그 텅 빈 침묵의 공간 속으로 누군가 다가와 함께 울어줄 때 시작됩니다. 성경은 비극의 이유를 낱낱이 설명하는 대신, 애굽에서 "내 아들"이라 불렸던 영광스러운 예수 그리스도께서 훗날 우리가 겪는 것과 똑같은 억울한 죽음과 칠흑 같은 고통의 밑바닥으로 친히 내려오셨음을 보여줍니다. 우리가 서 있는 슬픔의 빈 칸, 그 시리고 텅 빈 자리에 주님이 이미 함께 서 계신다는 사실. 어떤 말로도 온전히 설명할 수 없는 상실 앞에서, 함께 눈물 흘리시는 그분의 임재야말로 모든 섣부른 해석을 뛰어넘는 가장 깊고 따뜻한 위로입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 02편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

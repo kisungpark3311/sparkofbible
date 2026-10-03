@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 31편 &middot; 마태복음 20:17-34</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리의 일상은 수많은 목록으로 채워져 있습니다. 장보기 목록부터 하루의 업무 일정, 누군가에게 전해야 할 수많은 당부의 말들까지. 그런데 가만히 들여다보면, 그 평범한 목록들이 우리의 삶과 감정을 걷잡을 수 없이 뒤흔드는 결정적 순간은 대개 ‘마지막 한 줄’에 숨어 있습니다. 
+
+어느 날 세무서에서 날아온 세금 결과통지서를 상상해 보십시오. 여러 복잡한 세목과 숫자들 사이에서 우리의 가슴을 철렁하게 만드는 것은 중간에 섞인 뻔한 숫자들이 아닙니다. 명세서의 맨 마지막 줄, 전혀 예상치 못했던 낯선 '가산세' 항목 하나가 등장할 때 우리는 비로소 사태의 심각성을 깨닫습니다. 
+
+음악의 세계에서도 마찬가지입니다. 익숙하고 아름다운 선율이 세 번, 네 번 반복되며 청중의 귀를 무장해제 시킬 때, 작곡가는 마지막 변주의 끝마디에 단 한 번도 쓰지 않았던 전혀 새로운 화음을 툭 던져 넣습니다. 그 낯선 한 음표가 곡 전체의 분위기와 조성을 완전히 다른 차원으로 이끌고 가는 것입니다.
+
+이처럼 가장 무겁고 중요한 진실은 항상 충분한 익숙함이 쌓인 뒤, 목록의 맨 끝자리에 조용히 그러나 강렬하게 등장합니다. 처음부터 무거운 진실을 꺼내면 우리는 쉽게 튕겨내고 맙니다. 그래서 삶은 언제나 우리에게 익숙한 것들을 먼저 보여주며 신뢰를 쌓은 뒤, 마지막 순간에 진짜 하고 싶었던 한마디를 건넵니다. 그것이 바로 '끝자리'가 가진 묵직하고 놀라운 힘입니다.
+
+## 익숙한 고통의 목록 끝에 찾아온 낯선 십자가
+
+이 놀라운 삶의 법칙은 이천 년 전, 십자가를 향해 걸어가시던 예수님의 길 위에서도 어김없이 펼쳐졌습니다. 예수님은 제자들에게 다가올 자신의 고난을 세 번에 걸쳐 예고하십니다. 앞선 두 번의 예고에서 주님은 그저 막연하게 "죽임을 당할 것"이라고만 말씀하셨습니다. 죽음이라는 단어는 무겁지만, 그 구체적인 모습은 아직 안개에 가려져 있었습니다. 
+
+그러나 예루살렘을 향한 마지막 걸음, 마태복음 20장에 이르러 주님의 말씀은 묘하고도 서늘하게 바뀝니다. "조롱하고, 채찍질하고, 십자가에 못 박게 할 것이다." 관사 하나로 단단하게 묶인 이 세 가지 고난의 목록을 천천히 소리 내어 읽어 보십시오. 손가락을 하나씩 접으며 '조롱'에 하나, '채찍'에 둘을 꼽고 나면, 마지막 세 번째 손가락을 접는 순간 덜컥 숨이 막힙니다. 
+
+'십자가.' 
+
+이전까지 단 한 번도 당신이 당하실 일로 등장한 적 없던 그 끔찍하고 낯선 단어가, 익숙한 고난의 목록 맨 끝자리를 치고 들어옵니다. 예수님은 그저 고난의 종류를 길게 늘어놓으신 것이 아니었습니다. 제자들의 귀에 익숙한 조롱과 매질이라는 단어로 마음을 열게 하신 뒤, 마지막 끝자리에 '십자가'라는 거대한 쐐기돌을 박아 넣으신 것입니다. 이 한 단어는 단순히 앞의 고통에 추가된 또 하나의 형벌 정도가 아닙니다. 그것은 앞선 모든 고난의 의미를 덮어버리고 온 인류를 구원할 사랑의 무게를 오롯이 짊어진, 진정으로 낡은 시대를 뒤집고 새 시대를 여는 대체할 수 없는 한 낱말이었습니다.
+
+## 멈추어 서야 비로소 들리는 은혜의 음성
+
+우리가 성경의 이 목록을 읽어 내려갈 때, 야속하게도 본문은 우리에게 쉬어가라고 친절한 쉼표를 찍어주지 않습니다. "십자가에 못 박게 할 것이나, 제삼일에 살아나리라"며, 문장은 너무도 급하게 다음 결말을 향해 달려갑니다. 그래서 우리는 종종 십자가라는 그 무겁고 아픈 단어를 황급히 건너뛰고, 찬란하고 영광스러운 부활의 아침으로만 시선을 피하려 합니다. 성경 속 제자들 역시 그랬습니다. 그 무거운 끝자리의 선언을 듣고도, 열두 제자 중 하나는 몸을 피했고 어떤 어머니는 아들들의 높은 자리를 청하며 진실을 회피했습니다.
+
+그러나 예수님의 그 깊은 진심과 구원의 사랑을 온전히 만나기 위해서는, 우리는 반드시 그 세 번째 손가락이 가리키는 '끝자리'에서 의도적으로 멈추어 서야 합니다. 십자가라는 낯선 단어 앞에서 잠시 숨을 고르고, 나를 위해 그 모든 끔찍한 자리를 홀로 묵묵히 견뎌내신 주님의 뒷모습을 깊이 응시해야 합니다. 
+
+그 멈춤의 시간 속에서 우리는 비로소 깨닫게 됩니다. 일찍이 나에게 짊어지라고 요구하셨던 그 무거운 '내 몫의 십자가(명사)'를, 이제 주님께서 친히 당신의 찢겨진 몸에 새기시며 참된 사랑의 '행동(동사)'으로 바꾸어 내셨다는 그 벅찬 은혜를 말입니다.
+
+## 당신의 끝자리는 어디를 향하고 있습니까
+
+성경이 보여주는 이 놀라운 통찰은 이제 우리의 평범한 일상 속 관계와 대화를 향해 날카롭고도 따뜻한 질문을 던집니다. 당신이 누군가에게 간절히 전하고 싶은 진심이 있다면, 당신은 그 가장 중요한 말을 어디에 두고 있습니까? 
+
+가족에게 섭섭한 마음을 전할 때, 직장 동료와 피할 수 없는 대화를 나눌 때, 혹은 목회자나 상담가로서 아픈 충고를 건넬 때를 돌아보십시오. 우리는 종종 가장 중요한 진실을 잔소리라는 긴 목록의 한가운데 대충 숨겨버리곤 합니다. 그러고는 상대방이 내 마음을 알아주지 않는다며 억울해합니다. 하지만 진심이 엉뚱한 자리에 놓여 중간에 묻혀버리면, 상대는 방어벽을 치고 결코 그 말을 마음으로 듣지 못합니다. 
+
+이제 우리의 말하기 방식을, 사랑하는 이들을 향한 대화의 배열을 새롭게 바꾸어 보면 어떨까요. 누군가에게 중대한 소식을 전하거나 진심을 나누어야 할 때, 그가 상처받지 않고 진실을 똑바로 마주할 수 있도록 가장 중요한 말의 '끝자리'를 정성껏 마련해 주십시오. 굳이 똑같은 말을 여러 번 반복하며 다그칠 필요가 없습니다. 부드럽고 익숙한 말들로 먼저 상호 간의 신뢰를 다진 뒤, 마지막 순간에 잠깐 멈추어 서서 진짜 전하고 싶었던 사랑과 진실의 한 단어를 조용히 내려놓으십시오. 
+
+아무리 아픈 질책이나 뼈아픈 진실을 나열하더라도, 당신의 대화 목록 맨 끝자리만큼은 "그래도 나는 당신을 깊이 사랑하고 포기하지 않는다"는 따뜻하고 묵직한 단어로 채워보시기를 바랍니다. 
+
+끝자리는 단순히 문장이 허무하게 끝나는 곳이 아닙니다. 그것은 앞서 지나온 모든 갈등과 오해의 과정을 새롭게 재해석하고, 서로의 마음을 다시 단단하게 잇는 화해와 은혜의 쐐기돌입니다. 주님께서 조롱과 채찍이라는 깊은 절망의 목록 끝에 기어이 '십자가'를 두시고, 마침내 그 십자가 너머에 '부활'이라는 영원하고도 완전한 끝자리를 예비하신 것처럼 말입니다. 오늘, 당신이 소중한 이들에게 건네는 대화의 마지막 자리가 누군가를 다시 일어서게 하는 생명의 은혜로 채워지기를 간절히 소망합니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 31편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

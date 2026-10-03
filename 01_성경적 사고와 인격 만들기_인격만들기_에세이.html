@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 01편 &middot; 마태복음 1:1-25</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+우리의 삶은 종종 거대한 이어달리기처럼 느껴집니다. 앞선 세대에게서 무언가를 건네받고, 땀 흘려 그것을 가꾼 뒤, 다시 다음 세대에게 무사히 넘겨주어야만 할 것 같은 압박감 말입니다. 신약성경의 첫 문을 여는 마태복음 1장의 족보도 처음에는 그런 쉼 없는 이어달리기처럼 보입니다. "아브라함이 이삭을 낳고, 이삭은 야곱을 낳고…" 무려 서른아홉 번이나 똑같이 반복되는 '낳고'라는 단어는, 쉼 없이 무언가를 생산하고 증명해 내야만 하는 우리의 고단한 삶과 꼭 닮아 있습니다. 내가 주어가 되어 능동적으로 무언가를 만들어내지 않으면 안 될 것 같은 긴장감이 그 서른아홉 번의 사슬 속에 흐릅니다. 
+
+하지만 그토록 견고하게 이어지던 능동태의 사슬은 마흔 번째 고리에 이르러 돌연 멈춰 섭니다. "야곱은 마리아의 남편 요셉을 낳았으니, 마리아에게서 그리스도라 칭하는 예수가 나시니라."(마 1:16) 당연히 요셉이 예수를 '낳았다'고 이어져야 할 문장이 갑자기 방향을 틉니다. 예수는 요셉에 의해 주도적으로 낳아진 것이 아니라, 마리아에게서 '태어나신' 분으로 기록됩니다. 서른아홉 번의 쉼 없던 능동태가 수동태로 전환되는 이 놀라운 순간, 우리는 삶의 끝자락이라 여겼던 곳에서 피어나는 벅찬 은혜의 신비를 마주하게 됩니다.
+
+### 우리의 열심이 멈추는 자리, 비로소 시작되는 이야기
+
+우리는 종종 내 힘으로 이끌어가던 일들이 멈춰 설 때 깊은 절망에 빠집니다. 사업이 뜻대로 풀리지 않을 때, 관계가 단절될 때, 혹은 다음 세대에게 신앙이나 삶의 유산을 번듯하게 물려줄 수 없다고 느낄 때 우리는 인생의 고리가 '끊어졌다'고 생각합니다. 내 능동적인 수고가 멈춘 자리를 실패와 단절로 해석하는 것입니다. 
+
+그러나 마태복음의 족보가 보여주는 진실은 다릅니다. 16절의 수동태는 사슬이 끊어진 사고 현장이 아닙니다. 그것은 사람의 능동적인 역사가 멈추는 '거룩한 경계선'입니다. 인간의 열심이 닿을 수 있는 곳은 딱 거기까지였던 것입니다. 내가 주어가 되어 무언가를 이루려는 노력이 끝나는 그 자리, 바로 그곳에서 하나님이 주어가 되시는 새로운 차원의 이야기가 시작됩니다. 우리의 한계는 하나님의 시작을 알리는 장엄한 서곡과도 같습니다. 움켜쥐고 있던 바통을 놓치고 빈손이 되었다고 낙심할 때, 오히려 우리는 위에서 부어주시는 은혜를 받을 수 있는 넉넉한 빈 손을 비로소 갖게 됩니다.
+
+### 비어 있는 빈칸이 아니라, 하늘의 위로로 채워진 여백
+
+사람의 행위가 사라진 이 수동태의 문장을 보며 누군가는 '행위자의 공백'을 느낄지도 모릅니다. "그렇다면 그 빈자리는 누가 채웠는가?"라는 질문이 남기 때문입니다. 때로 우리는 인생의 기록을 돌아보며, 내 힘으로 채우지 못한 빈칸들을 부끄러워하거나 숨기려 합니다. 세상의 기준이나 서류상의 칸을 억지로 채우지 못해 '원인 불명'이나 '자료 없음'으로 서둘러 인생의 한 장을 덮어버리기도 합니다. 영적인 대를 이을 자녀가 없거나 가족사가 해체되어 남몰래 눈물짓는 이들도 자신의 삶이 텅 비어 있다고 느낍니다.
+
+하지만 성경은 그 자리를 결코 공백으로 내버려 두지 않습니다. 예수가 '나시니라'라는 수동태 뒤에는, 두 절을 지나 "성령으로 잉태된 것"(1:18, 20)이라는 분명한 기원이 기록되어 있습니다. 사람의 혈통과 능동이 채우지 못한 그 빈칸은 사실 비어 있던 것이 아니라, '하나님으로부터'라는 다른 차원의 문서에 뚜렷하게 기록되어 있었던 것입니다. 내 힘으로 이을 수 없는 그 단절의 자리에서, 하나님은 친히 구원의 역사를 이어가십니다. "내가 이 가정의 대를 이어야 한다", "내가 무언가를 남겨야 한다"는 무거운 하중을 내려놓을 때, 비로소 "그가 친히 우리를 구원하신다"는 진짜 위로가 우리 영혼을 포근히 감싸 안습니다.
+
+### 내가 '주어'가 아닌 날도 우리의 삶은 아름답게 기록됩니다
+
+만약 마태복음 1장 16절을 억지로 능동태로 고쳐 써서 "요셉이 예수를 낳았다"고 기록했다면 어떻게 되었을까요? 족보의 모양새는 훨씬 매끄러워졌을지 모릅니다. 그러나 그렇게 되면 그 뒤에 이어지는 천사의 방문도, 요셉의 깊은 묵상과 순종도, 십자가 구원의 서사도 모두 성립할 수 없게 됩니다. 태의 변화는 단순한 문법적 예외나 정보의 누락이 아니라, 거대한 구원 서사가 발생하기 위한 가장 필수적인 조건이었습니다.
+
+우리의 일상도 이와 같습니다. 우리는 하루를 돌아보며 언제나 '내가 오늘 무엇을 했는가', '얼마나 생산적이었는가'라는 능동의 잣대로 자신을 평가합니다. 아무것도 이룬 것이 없는 것 같은 날은 마치 달력에서 지워버리고 싶은 실패한 날로 여깁니다. 하지만 이제 우리 인생의 일기장을 두 칸으로 나누어 보기를 소망합니다. 한 칸에는 '내가 주도적으로 한 일'을 적고, 다른 한 칸에는 '내가 가만히 받은 은혜'를 적어보는 것입니다. 
+
+내가 주어의 자리에서 내려와 무력하게 도움을 받았던 날, 그저 누군가의 다정한 미소와 기도를 온몸으로 받아내기만 했던 그 수동태의 날들도 결코 의미 없는 날이 아닙니다. 내가 힘주어 밀고 가던 손을 펴서 가만히 하늘을 향해 손바닥을 들어 올리는 그 멈춤의 시간이야말로, 하나님이 우리의 삶에 가장 깊이 개입하시는 시간이기 때문입니다. 능동태로 꽉 채워지지 않은 당신의 오늘 하루는 결코 끊어지거나 망가진 것이 아닙니다. 오직 은혜로만 채워질 수 있는 눈부신 여백이 되어, 당신의 삶을 가장 아름다운 구원의 이야기로 이끌어가고 있습니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 01편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

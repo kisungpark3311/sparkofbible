@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 04편 &middot; 마태복음 4:1-25</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+우리는 살면서 종종 한 치의 의심도 없이 확신에 찬 사람들을 만납니다. 그들의 말은 논리 정연하고, 때로는 반박할 수 없는 완벽한 근거를 갖추고 있습니다. 마치 빈틈없이 견고하게 짜여진 성벽처럼 말이지요. 그런데 이상하게도 그 완벽하게 '옳은 말' 앞에서 우리는 종종 숨이 막히고, 마음의 문을 닫게 될 때가 있습니다. 왜 그럴까요? 마태복음 4장에 기록된 예수님의 광야 시험 이야기는 이 기이한 숨막힘의 이유를 아주 깊은 영적인 차원에서 길어 올립니다.
+
+예수님이 굶주린 채 광야에서 마귀에게 시험을 받으실 때, 놀랍게도 마귀는 하나님의 말씀을 아주 '정확하게' 인용합니다. "네가 만일 하나님의 아들이어든 뛰어내리라 기록되었으되 그가 너를 위하여 그의 사자들을 명하시리니..." 마귀의 말은 한 글자도 틀리지 않은 시편 91편의 완벽한 인용이었습니다. 의심의 여지가 없는 흠결 없는 근거를 들이미는 마귀의 날 선 도발 앞에서, 예수님은 과연 어떻게 반응하셨을까요?
+
+### 1. 가장 위험한 확신은 '혼자 있는' 확신이다
+
+예수님의 대답은 우리의 얄팍한 예상을 빗나갑니다. 예수님은 마귀를 향해 "네 인용이 틀렸다!"라거나 "말씀의 문맥을 전혀 잘못 짚었다!"라고 목소리를 높여 논쟁하지 않으셨습니다. 마귀가 내민 성경책을 빼앗거나 덮어버리지도 않으셨습니다. 대신, 아주 짧지만 묵직한 한 마디를 그 말씀 곁에 덧붙이셨습니다.
+
+"또 기록되었으되 (주 너의 하나님을 시험하지 말라 하였느니라)"
+
+여기서 우리의 시선을 사로잡는 것은 단 하나의 부사, 바로 '또(팔린, πάλιν)'라는 단어입니다. 예수님은 상대가 내민 말씀의 카드를 쳐내는 대신, 그 말씀 곁에 조용히 다른 말씀 하나를 '나란히' 놓아두셨습니다. 
+
+우리의 일상과 삶의 자리를 돌아봅니다. 우리는 내 생각과 주장을 관철하기 위해 얼마나 많은 '정확한 근거'들을 모으고 또 모읍니까? 직장에서 제출하는 기획서, 누군가의 삶을 바로잡아 주겠다며 건네는 뼈아픈 충고, 심지어 중요한 신앙적인 결단을 내릴 때조차 우리는 '내게 있는 단 하나의 근거'가 모든 것을 정당화해 줄 거라 믿어 의심치 않습니다. 하지만 오늘 광야의 본문은 우리에게 서늘한 진실 하나를 일깨워 줍니다. 가장 위험한 인용은 틀린 인용이 아니라, 대조할 상대 없이 '혼자 있는' 인용이라는 사실을 말입니다. 홀로 꼿꼿하게 서 있는 완벽한 논리는, 역설적이게도 타인을 베는 가장 날카로운 무기가 되기 십상입니다.
+
+### 2. 반 발짝 물러서서 곁자리를 내어주는 용기
+
+내 주장을 강압적으로 덮어버리려는 상대방의 손길은 폭력적입니다. 그러나 내 주장을 무시하거나 치우지 않고, 그 곁에 조용히 다른 의견을 내려놓는 손길은 우리를 깊은 생각과 성찰의 자리로 이끕니다.
+
+눈을 감고 두 장의 종이를 상상해 보십시오. 한 장의 종이로 다른 종이를 덮어버리는 일은 손목만 까딱하면 되는, 아주 쉽고 비좁은 동작입니다. 내 시야에는 오직 내가 덮은 맨 윗장의 종이만이 남게 됩니다. 하지만 두 장의 종이를 책상 위에 나란히 펼쳐놓으려면 어떻게 해야 할까요? 두 팔을 넓게 벌려야 하고, 두 종이가 모두 온전한 시야에 들어오도록 몸을 반 발짝 뒤로 물려야만 합니다. 고개를 좌우로 움직이며 두 가지를 동시에 바라보는 수고로움을 기꺼이 감수해야 합니다.
+
+"또 기록되었으되"라고 말씀하신 예수님의 내면적 자세가 바로 이러했습니다. 예수님은 마귀의 말을 덮어버리기 위해 힘주어 앞으로 돌진하지 않으셨습니다. 오히려 상대가 내민 말씀과 자신이 꺼낸 말씀이 함께 숨 쉴 수 있는 공간을 만들기 위해, 기꺼이 자신을 뒤로 물리는 '물러섬의 미학'을 보여주셨습니다. 
+
+우리가 맺어가는 수많은 대화와 관계에도 바로 이 '반 발짝의 공간'이 절실히 필요합니다. "내 말이 맞으니까 시키는 대로 해!"라고 일방적으로 밀어붙이는 대신, "당신의 말도 맞습니다. 하지만 이런 측면도 우리가 함께 고민해 볼 수 있지 않을까요?"라며 곁자리를 만들어 주는 여유를 가져야 합니다. 그것은 결코 내 주장에 자신이 없어서가 아닙니다. 삶의 진실과 사람의 마음은 단 하나의 뾰족한 문장만으로는 다 담아낼 수 없을 만큼 깊고 넓다는 것을 아는, 성숙한 자의 겸손입니다.
+
+### 3. 옳은 결정을 넘어, 사람이 남는 결정을 향하여
+
+말씀 곁에 말씀을 나란히 두는 이 섬세한 태도는, 결국 사람 곁에 사람을 두는 따뜻한 삶의 태도로 이어집니다. 우리가 인생의 중요한 무언가를 결정할 때 단 하나의 원칙이나 명분만을 굳세게 내세우면, 결론 자체는 아주 명쾌하고 깔끔해질지 모릅니다. 하지만 그 차가운 명쾌함 뒤편에는 상처받고 소외되며 남겨지는 사람들이 생겨나기 마련입니다. "이것이 대의다", "이것이 피할 수 없는 원칙이다"라는 단단한 명분 뒤에 숨어, 정작 내 결정 때문에 눈물짓는 이들의 뒷모습을 외면하고 합리화하는 우를 범하게 되는 것입니다.
+
+마태복음의 뒷장을 넘겨보면 제자들이 부르심을 받는 장면이 나옵니다. 그들은 예수님의 부르심에 응답할 때 단순히 그물만을 버려둔 것이 아니었습니다. 누군가는 평생의 생계 수단인 배를 남겨두었고, 누군가는 늙으신 아버지를 그 배 위에 남겨둔 채 돌아서야 했습니다. 성경은 그들의 결단만을 스포트라이트로 비추지 않고, 결단 뒤에 '남겨진 아버지'의 존재를 조용히 행간에 기록해 두었습니다. 아무리 훌륭하고 정당한 명분 뒤에도 필연적으로 잃어버리는 것들이 있으며, 우리가 감당하고 끌어안아야 할 삶의 몫이 존재함을 잊지 말라는 묵직한 당부입니다.
+
+오늘, 당신의 손에는 어떤 예리하고 '옳은 말'이 들려 있습니까? 그 옳음이 누군가를 향한 찌르는 칼날이 되지 않기 위해서는, 내 옳음 곁에 기꺼이 다른 이의 진실이 머물 수 있는 빈자리를 넉넉히 비워 두는 법을 배워야 합니다. 진정한 인격적 성숙은 정답을 누구보다 빨리 찾아내어 휘두르는 데 있지 않습니다. 비록 정답을 쥐고 있을지라도 기꺼이 반 발짝 물러서서, 함께 울고 웃으며 걸어가야 할 사람들의 자리를 조용히 마련해 주는 그 다정함에 있습니다. 
+
+혼자서 모든 것을 이기려 하고, 혼자서 가장 강해지려 하지 마십시오. 내 주장 곁에 놓인 또 다른 목소리와, 내 삶 곁에 서 있는 연약한 사람들이 결국 당신을 가장 안전하고 복된 길로 안내해 줄 것입니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 04편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

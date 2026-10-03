@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 16편 &middot; 마태복음 11:20~12:14</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 살아가면서 저마다 무거운 배낭을 짊어지고 걷습니다. 어깨를 짓누르는 삶의 무게에 짓눌려 주저앉고 싶을 때, 우리는 간절히 기도합니다. "주님, 이 무거운 짐을 제발 좀 치워주세요." 우리의 가장 큰 소망은 손에 든 짐을 바닥에 내려놓고 텅 빈 두 손으로 홀가분하게 인생길을 걸어가는 것입니다. 예수님께서 "수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라"고 부르셨을 때, 우리는 당연히 그분이 우리의 등에서 짐을 완전히 벗겨 없애주실 것이라 기대합니다.
+
+하지만 성경의 말씀을 가만히, 그리고 깊이 들여다보면 우리의 얄팍한 기대를 뒤집는 낯선 진실과 마주하게 됩니다. 놀랍게도 예수님의 처방전에는 '짐을 내려놓으라'는 말이 단 한 번도 등장하지 않습니다. 오히려 "나의 멍에를 메라"고 명령하십니다. 짐을 없애주겠다고 약속하신 것이 아니라, 또 다른 무언가를 우리의 어깨 위로 들어 올리라고 하십니다. 짐을 바닥에 내려놓아 쉼을 얻는 것이 아니라, 무거운 짐을 진 채로 그분의 멍에 아래로 묵묵히 걸어 들어가는 것. 그것이 예수님이 우리를 부르시는 이상하고도 신비로운 초대입니다.
+
+### 사라지지 않는 짐, 그러나 완전히 바뀌는 멍에
+
+성경 본문을 유심히 관찰해 보면 짐을 치워주겠다는 동사는 찾을 수 없습니다. 짐의 무게를 저울에 달아보고 그 물리적인 무게를 줄여주겠다는 말씀도 없습니다. 예수님이 약속하신 쉼은, 무거운 것을 가벼운 것으로 맞바꿔 주는 단순한 거래가 아닙니다. 짐은 우리의 어깨 위에 여전히 남습니다. 들어서 치우는 것이 아니라, 도리어 들어서 어깨 위로 '얹으라'고 하십니다.
+
+바뀌는 것은 짐 자체가 아니라, 그 짐을 끌고 가는 '멍에의 주인'입니다. "나의 멍에를 메고"라는 말씀 속에서, 멍에의 소유권은 우리 자신에게서 예수님에게로 옮겨갑니다. 마치 무거운 가방을 한 손으로 들고 끙끙대다가 바닥에 내려놓는 대신, 양쪽 어깨에 단단히 고쳐 메는 것과 같습니다. 가방의 물리적 질량은 단 1그램도 줄어들지 않았지만, 하중을 견디는 방식이 달라지면서 우리는 비로소 그 짐을 견딜 수 있게 됩니다. 손가락 관절을 끊어낼 듯하던 통증이 등 전체로 퍼지면서 한결 견딜 만한 무게가 되는 것입니다. 결국 주님이 주시는 참된 위로는 짐의 '제거'가 아니라, 짐의 '소속 변경'에서 시작됩니다.
+
+### 하중의 크기를 줄이는 대신, 무게의 귀속을 바꾸다
+
+우리는 삶이 버거울 때마다 내게 주어진 책임과 역할의 목록부터 지워내려고 애를 씁니다. 인간관계의 짐, 직장의 짐, 사역과 봉사의 짐, 심지어 가족이라는 짐까지 그 개수를 줄이면 숨을 쉴 수 있을 것이라 믿습니다. 하지만 신기하게도 짐의 개수를 아무리 줄여도 우리의 영혼은 금세 다시 피로해집니다. 몇 달 지나지 않아 덜어낸 자리에는 새로운 짐이 들어차고 우리는 똑같은 버거움을 호소합니다. 짐의 개수만 바뀌었을 뿐, 그 짐을 홀로 지고 버티는 방식은 변하지 않았기 때문입니다.
+
+예수님은 짐의 목록부터 지우려는 우리에게 "지금 그 멍에가 누구의 이름으로 되어 있는가?"를 묻습니다. 세무 회계에서 똑같은 금액의 세금이라도 그것이 누구에게 귀속되느냐에 따라 납세자의 실질적인 부담이 완전히 달라지는 원리와 같습니다. 내 삶이 무너질 듯 무거운 이유는 절대적인 하중 때문이 아닙니다. 출처조차 모르는 수많은 짐들, 남이 억지로 얹어놓은 짐들까지 전부 '나의 통제와 책임'이라는 내 이름표를 붙여 홀로 지려 했기 때문입니다. 주님은 이제 그 헛된 고집을 내려놓고, '예수의 이름'으로 된 멍에 안으로 귀속을 바꾸라고 우리를 초대하십니다. 
+
+### 비어 있는 내 손이 아닌, 함께 걷는 어깨에서 누리는 안식
+
+"내 멍에는 쉽고 내 짐은 가벼움이라." 예수님의 이 부드러운 음성은 짐을 다시 저울에 달아본 뒤에 내린 객관적 측정값이 아닙니다. 이것은 멍에의 주인을 바꾼 사람만이 가슴으로 고백할 수 있는 은혜의 판정입니다. 한 멍에에 함께 들어가 밭을 가는 두 마리의 겨리 소처럼, 주님은 결코 우리를 홀로 걷게 내버려두지 않으십니다. 비어 있는 멍에를 던져주시는 것이 아니라, 이미 주님이 먼저 들어가 어깨를 걸치고 계신 멍에의 남은 한 자리를 우리에게 조용히 내어주십니다.
+
+우리가 주님의 멍에 안으로 머리를 들이밀 때, 짐의 크기는 전과 같아도 짐을 대하는 우리의 체감 온도는 기적처럼 달라집니다. 내 곁에서 보폭을 맞추며 가장 무거운 하중을 묵묵히 감당하고 계신 주님의 단단한 어깨가 느껴지기 때문입니다. 진정한 안식은 내 손이 텅 비어 아무런 문제도 없을 때 찾아오는 것이 아닙니다. 짐을 진 채로, 나의 한계와 연약함을 안고 주님의 멍에 아래로 기꺼이 걸어 들어갈 때 비로소 시작됩니다. 
+
+오늘도 팍팍한 삶의 무게에 짓눌려 주저앉고 싶은 당신에게 주님은 다가오십니다. 그리고 당신의 짐을 빼앗아 허공에 던져버리는 대신, 당신의 어깨 곁에 당신보다 더 든든한 자신의 어깨를 조용히 들이미십니다. "나와 함께 이 멍에를 메자." 그분의 따뜻한 체온이 전해지는 멍에 아래에서, 우리는 여전히 짐을 지고 있지만 전보다 훨씬 더 경쾌한 발걸음으로 생명의 길을 끝까지 걸어갈 수 있을 것입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 16편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

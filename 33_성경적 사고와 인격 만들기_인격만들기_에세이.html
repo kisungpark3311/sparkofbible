@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 33편 &middot; 마태복음 21:23-46</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+"하나님의 나라를 너희는 빼앗기고 그 나라의 열매 맺는 백성이 받으리라." (마태복음 21:43)
+
+얼핏 서늘한 심판의 선언처럼 들리는 이 문장 앞에서는 누구나 잠시 숨을 멈추게 됩니다. 그러나 이 문장의 뼈대를 찬찬히 뜯어보면, 그 안에는 우리 삶을 통째로 안아주는 깊고 따뜻한 비밀이 숨어 있습니다. 문장 안에는 떠나는 쪽(너희)과 받는 쪽(백성)이 명확히 적혀 있습니다. 그런데 가장 중요해 보이는 한 가지가 빠져 있습니다. 바로 이 거대한 나라를 빼앗고 내어주는 '집행자'의 이름입니다. 성경은 왜 이토록 중요한 이동을 기록하면서 가장 핵심적인 손의 주인을 지워버렸을까요? 
+
+### 문장 속에 숨겨진 빈칸, 거두어들이는 손
+
+이 문장에 억지로 '누군가'를 주어로 밀어 넣어 능동태로 바꾸어 보십시오. 누군가가 이 나라를 옮겼다고 말하는 순간, 문장의 목적어인 광활한 '하나님의 나라'는 그저 사람의 손에 쥐어지는 한낱 '포도원' 정도의 크기로 쪼그라들고 맙니다. 집행자가 적히지 않은 빈칸은 결코 정보의 누락이 아닙니다. 그것은 하나님의 나라라는 그 압도적인 크기를 훼손 없이 지켜내기 위한 거룩한 장치입니다. 
+
+잠시 눈을 감고 양손을 무릎 위에 올려보십시오. "너희에게서"를 소리 내어 읽으며 오른손을 비우고, "한 백성에게"를 읽으며 왼손으로 받는 상상을 해봅니다. 그때 두 손 사이로 무언가를 옮기는 제3의 손을 떠올리려 하면, 무의식적으로 내 손이 움찔하며 움직이는 것을 느끼게 됩니다. 인간의 몸은 본능적으로 공백을 견디지 못하고 자신의 손으로 그 자리를 채우려 합니다. 그러므로 집행자의 칸을 비워둔다는 것은 가만히 있는 것이 아니라, 삶의 모든 성취와 은혜의 순간마다 불쑥 튀어나오려는 '내 손'을 의지적으로 거두어들이는 치열한 훈련입니다.
+
+### 다툴 수 없는 은혜, 이름 없는 자들의 평안
+
+세상의 문서들은 다릅니다. 누군가의 재산을 압류하는 통지서에는 반드시 '압류하는 자'의 이름이 뚜렷하게 적힙니다. 왜 그럴까요? 다툴 상대를 지정해주기 위해서입니다. 그러나 주님이 말씀하신 이 수여의 선언에는 뺏는 이도, 주는 이도 적혀 있지 않습니다. 항변할 대상조차 주어지지 않은 완벽하고 단호한 선언입니다. 이 거대한 은혜 앞에서 우리가 할 수 있는 일은 억울해하며 다투는 것이 아니라, 오직 겸손히 두 손을 내밀어 받아들이는 것뿐입니다.
+
+더욱 가슴 벅찬 것은 은혜를 받는 쪽의 묘사입니다. 성경은 그들을 대단한 이름이나 고유명사로 부르지 않습니다. 그저 관사조차 붙지 않은 단수, 무명의 '한 백성'이라고 부를 뿐입니다. 그들에게 붙은 유일한 자격은 화려한 과거의 이력서가 아니라, '열매를 맺고 있는'이라는 현재 진행형의 동작 하나뿐입니다. 이름도 없고 내세울 배경도 없지만, 지금 묵묵히 삶의 자리에서 열매를 맺어가는 이들에게 하나님의 나라는 조건 없이 흘러갑니다.
+
+### 삶의 장부에 기록해야 할 세 칸의 비밀
+
+그렇다면 이 보이지 않는 손의 은혜를 우리는 어떻게 일상으로 살아낼 수 있을까요? 
+
+우리의 교회와 공동체를 돌아봅니다. 어떤 사역이 성공하거나 좋은 결과를 맺었을 때, 우리는 서둘러 "누구누구의 헌신 덕분"이라며 사람의 이름을 공지사항의 주어로 삼곤 합니다. 하지만 이제 우리의 기록은 세 줄로 충분합니다. '일어난 일'을 적고, '은혜를 누린 사람들'을 적은 뒤, '누가 옮겼는지'는 텅 빈 침묵 속에 남겨두는 것입니다. 공치사가 사라진 자리에 은혜의 사건만이 오롯이 남게 될 것입니다.
+
+우리의 개인적인 삶도 마찬가지입니다. 한 달을 돌아보며 다이어리를 적을 때, 우리는 보통 '내가 성취한 일'의 목록으로 지면을 채웁니다. 이제 삶의 장부를 다르게 써 내려가 보십시오. '내 삶에 일어난 일', '내게서 떠나간 것', 그리고 '내게 주어진 것'. 오직 이 세 칸만 기록하고, 그것을 집행한 주어의 칸은 영원한 미기재로 남겨두는 것입니다. 떠나간 것을 아쉬워하거나 움켜쥔 것을 내세우는 대신, 매일의 삶이 값없이 '주어진 것들'로 채워져 있음을 발견하게 될 것입니다. 
+
+우리를 향한 하나님의 은혜는 집행자의 이름이 지워진 텅 빈 문장으로 다가옵니다. 그 공백은 우리를 향한 위협이 아닙니다. 내가 움켜쥔 손에 힘이 빠져도, 내 어설픈 손이 엇나갈지라도, 그 나라는 결코 흔들리지 않고 내게 흘러온다는 가장 따뜻한 약속입니다. 오늘, 삶의 빈칸을 서둘러 채우려던 나의 조급한 손을 가만히 내려놓습니다. 보이지 않는 은혜의 손이 내 삶의 진짜 크기를 지켜내고 있음을 알기 때문입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 33편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

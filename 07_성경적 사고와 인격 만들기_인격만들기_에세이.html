@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 07편 &middot; 마태복음 6:1-18</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+우리는 무언가를 손에 꽉 움켜쥐었을 때 비로소 안도감을 느끼는 연약한 존재들입니다. 수고한 만큼 즉각적인 칭찬이 돌아오고, 땀 흘린 만큼 눈에 보이는 결과물이 주어질 때 우리는 안심하며 미소 짓습니다. 누군가 나의 노력을 알아주고 박수 쳐줄 때, 비로소 내가 가치 있는 사람이며 제대로 살고 있다는 위안을 얻곤 하죠. 우리는 어쩌면 매일매일 내 삶의 가치를 누군가의 인정이라는 화폐로 정산받으며 살아가고 있는지 모릅니다. 
+
+하지만 성경은 이런 우리의 익숙한 습관을 향해 전혀 다른 차원의 이야기를 건넵니다. 마태복음 6장에 등장하는 '위선자'와 '제자'의 이야기는, 우리가 얼마나 자주 우리 삶의 결산서를 너무 일찍, 그리고 너무 헐값에 닫아버리고 있는지를 뼈아프고도 따뜻하게 돌아보게 합니다. 
+
+### 가장 슬픈 영수증, "이미 다 받았느니라"
+
+마태복음 6장의 말씀을 가만히 들여다보면 흥미롭고도 서늘한 문법의 차이를 발견할 수 있습니다. 사람들에게 보이려고 선행을 베푸는 이들을 향해 예수님은 "그들은 자기 상을 이미 받았느니라"라고 단호하게 선언하십니다. 여기서 '이미 받았다'는 말은 본래 상업적인 거래에서 쓰이는 '완납(완전 지불)'을 의미하는 단어입니다. 즉, 사람들의 칭찬과 박수갈채를 받는 바로 그 순간, 하늘의 장부에서는 그 선행에 대한 계정이 영원히 닫혀버린다는 뜻입니다. 누군가의 찬사가 내 귀에 들려오는 순간, 내 영혼의 장부에는 '결제 완료' 도장이 쾅 하고 찍히는 것입니다.
+
+반면, 아무도 모르게 은밀한 중에 선을 행하는 제자들을 향해서는 "갚으시리라"라는 미래형의 약속이 주어집니다. 놀랍게도 이 약속에는 '무엇을' 갚아주실지 그 목적어가 비어 있습니다. 위선자들의 장부에는 그들이 세상에서 받은 칭찬이라는 상의 이름이 빽빽하고 명확하게 적혀 있지만, 제자들의 장부에는 상의 이름 대신 오직 '은밀한 중에 보시는 아버지'라는 이름만이 남아 있을 뿐입니다. 
+
+여기서 성경이 진정으로 경계하는 것은 '상을 바라는 마음' 자체가 아닙니다. 우리의 가장 큰 비극이자 어리석음은, 장차 하늘 아버지께서 주실 크고 영광스러운 보상을 사람들의 칭찬이라는 얄팍한 동전 몇 닢과 맞바꾸어 스스로 '조기 결산'해 버리는 데 있습니다. 다 주어지지 않은 나의 내일을 사람들의 작은 인정이라는 마침표로 서둘러 닫아버리는 것, 그것이 바로 예수님이 슬퍼하신 위선의 참된 모습입니다.
+
+### 빈손이 견뎌야 하는 불안, 그리고 온전한 신뢰
+
+지금 당장 동전 하나를 손에 꽉 쥐어보십시오. 그리고 다른 한 손은 텅 빈 채로 쫙 펴보십시오. 그 상태로 잠시만 있어도 우리는 묘한 불안감과 어색함을 느낍니다. 꽉 쥔 손은 비록 피로할지언정 무엇인가를 가졌다는 확실한 실감이 있지만, 빈손은 허전하여 자꾸만 안으로 오그라들려고 합니다. 무언가를 바라고 수고했는데 아무런 인정도, 눈에 보이는 보상도 주어지지 않을 때 우리의 마음도 이 빈손과 정확히 같습니다. 인정받지 못하는 수고는 실패한 것만 같아 초조해집니다.
+
+그러나 예수님은 우리에게 이 '빈손의 시간'을 기꺼이 견뎌내라고 초대하십니다. 수고의 땀방울에 대한 영수증을 지금 당장 끊어달라고 세상에 조르지 말고, 하나님께서 친히 갚아주실 때까지 그 빈칸을 그대로 남겨두라는 것입니다. '오른손이 하는 일을 왼손이 모르게 하라'는 말씀은, 단순히 남몰래 착한 일을 하라는 얄팍한 도덕적 권면을 훌쩍 뛰어넘습니다. 그것은 나 스스로에게서조차 '내가 이만큼 했다'는 자기 확인의 즐거움을 매몰차게 끊어내고, 오직 하늘의 아버지만을 신뢰하며 내 삶의 정산을 기꺼이 유예하라는 깊고 거룩한 초청입니다. 
+
+무엇을 받을지 모르는 덜 아는 상태, 내 손에 아직 아무것도 쥐어지지 않은 텅 빈 상태를 견디는 것은 고통스럽지만, 바로 그 비어있는 자리에 '상 주시는 이'이신 하나님께서 임재하십니다.
+
+### 내 삶의 결산서를 활짝 열어두는 법
+
+그렇다면 이 먹먹한 가르침을 우리의 복잡한 일상과 관계 속에 어떻게 담아낼 수 있을까요? 
+
+먼저, 우리가 교회나 공동체에서 누군가를 격려하고 칭찬할 때 그것이 그들의 헌신에 대한 '전부 지불'이 되지 않도록 지혜로워야 합니다. 누군가의 수고를 향한 박수와 명단 공개가 곧바로 그 일의 마침표가 되게 하지 마십시오. 공개적인 격려를 하되, "이것으로 모든 상을 다 받았습니다"가 아니라 "당신의 수고를 우리가 알고 고마워합니다"라는 중간 확인의 선에서 멈추어야 합니다. 진짜 눈부신 상급은 여전히 하나님 아버지의 손에 남겨져 있음을 서로 일깨워주는 것이 참된 공동체의 역할입니다.
+
+또한, 개인의 삶 속에서 '올해 안에 결산하지 않을 일'을 하나쯤 정해 보는 것은 어떨까요? 분기에 하나라도 좋습니다. 아무도 알아주지 않아도, 당장의 성과나 즉각적인 피드백이 없어도 묵묵히 해나가는 나만의 은밀한 순종의 자리를 마련하는 것입니다. 사람들의 인정이라는 일당을 매일 저녁 타내기 위해 전전긍긍하는 대신, 훗날 예수님께서 갚아주실 가장 온전한 것을 기대하며 오늘의 장부를 열어두는 연습입니다. 
+
+우리의 텅 빈 두 손은 결핍의 증거가 아닙니다. 그것은 하나님께서 당신의 때에, 당신의 방식으로 가장 아름다운 것을 채워주시기 위해 조용히 치워두신 거룩한 여백입니다. 섣불리 내 삶의 결산서를 닫아버리고 작은 영수증을 챙기고 싶은 유혹을 이제는 가만히 내려놓으십시오. 당신의 숨겨진 눈물과 아무도 모르는 수고를, 은밀한 중에 보시는 하늘 아버지께서 마침내 가장 좋은 것으로 넘치도록 갚아주실 것입니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 07편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

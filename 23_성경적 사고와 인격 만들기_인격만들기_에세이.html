@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 23편 &middot; 마태복음 15:21-39</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+인생의 가장 다급한 순간, 우리는 누구나 한 번쯤 하늘을 향해 소리친다. 성경 마태복음 15장에는 자신의 모든 것을 걸고 부르짖었던 한 여인의 이야기가 등장한다. 그녀는 흉악한 귀신에 들려 고통받는 딸을 둔 어머니였다. 타는 목마름으로 그녀가 던진 첫 번째 외침은 절박했다. "주 다윗의 자손이여, 나를 불쌍히 여기소서!" 우리의 상식대로라면, 이토록 간절한 눈물 앞에서는 곧바로 따뜻한 위로와 기적이 베풀어져야 마땅하다. 하지만 이 이야기의 진짜 놀라운 점은 기적의 크기가 아니라, 간절한 외침과 기적적인 응답 사이에 끼어 있는 길고 차가운 '간격'에 있다.
+
+### 대답 없는 시간, 그 숨 막히는 간격을 견디다
+
+여자의 애끓는 부르짖음 직후에 성경이 기록한 장면은 놀랍게도 '침묵'이다. 성경은 그저 대답하지 않으셨다고 얼버무리지 않고, "한 말씀도 대답하지 아니하시니"라고 못 박듯 기록한다. 없는 것이 '한 낱말'의 크기와 무게를 지닌 채 여자의 가슴에 비수처럼 꽂히는 순간이다. 대답 없는 메아리만 돌아오는 텅 빈 하늘 아래 서 본 사람이라면 안다. 기도가 응답되지 않는 시간보다 더 견디기 힘든 것은, 내 부르짖음이 허공을 맴돌다 흩어지는 것 같은 철저한 외면의 감각이다.
+
+설상가상으로 여자를 향해 들려온 주변의 목소리는 위로가 아닌 배제였다. 곁에 있던 제자들은 귀찮다는 듯 "그를 보내소서"라며 등 떠밀었고, 예수마저 "나는 이스라엘 집의 잃어버린 양 외에는 보내심을 받지 않았다"며 선을 긋는다. 두 번의 간절한 기도 사이에 놓인 이 시간은 단순한 기다림이 아니다. 그것은 호흡이 가슴 끝까지 차올라 금방이라도 숨이 멎을 것 같은 벼랑 끝의 시간이다. 길고도 잔인한 이 침묵과 거절의 공간 속에서 여자는 홀로 버티고 서 있어야 했다.
+
+### 해피엔딩으로 덮을 수 없는 눈물의 기록
+
+우리는 종종 결말이 좋으면 그 과정의 고통은 으레 잊혀지는 것이라 여긴다. 치열한 법적 공방 끝에 승소하면 뼈를 깎는 기다림의 시간이 보상받는 것처럼 말이다. 하지만 재판 기록이나 의료 차트가 사건의 결과를 떠나 지연된 시간과 고통받은 처치의 순간들을 빠짐없이 기록해 두듯, 마태복음 역시 이 여인이 겪어내야 했던 '간격'을 지우지 않는다.
+
+예수님께서 마침내 "네 믿음이 크도다"라고 칭찬하시며 딸을 고쳐주시는 해피엔딩으로 이야기가 끝난다고 해서, 그 앞선 침묵과 거절의 시간들이 정당화되거나 삭제되지 않는다는 사실은 매우 중요하다. 성경은 이 빈칸을 있는 그대로 남겨둔다. 마치 우리가 겪는 고난과 응답 없는 기도의 시간들이 단순히 기적을 돋보이게 하기 위한 무대 장치가 아니라, 그 자체로 의미를 지닌 독립된 삶의 한 장(章)임을 말해주려는 듯하다. 지연된 시간은 우리 인생의 흠이 아니라, 어둠 속에서 하나님과 씨름하며 눈물로 적어 내려간 정직한 영적 기록이다.
+
+### 짧아진 호흡과 마침내 닿은 위로
+
+긴 침묵과 차가운 거절을 통과한 후, 여자의 두 번째 기도는 놀랍도록 짧아진다. 처음의 길고 절절했던 외침은 깎이고 닳아 오직 세 낱말만이 남았다. "주여, 저를 도우소서." 이는 기도의 열정이 식었거나 포기했기 때문이 아니다. 너무 오랜 시간 숨을 참으며 버티느라 더 이상 긴 문장을 토해낼 호흡조차 남아있지 않았던 것이다. 몸의 한계를 넘어선, 가장 처절하고 눈물겨운 기도의 모양이다.
+
+그리고 바로 그 순간, 짧아지고 낮아진 숨결 뒤에 마침내 하늘의 응답이 찾아온다. "여자여, 네 믿음이 크도다. 네 원대로 되리라." 이 위대한 선언은 앞선 침묵의 시간을 없던 일로 지워버리는 방식으로 오지 않는다. 철저하게 그 상처 난 시간들 '뒤에' 찾아와 상처 위를 덮는다.
+
+우리는 살면서 수없이 많은 '대답 없는 시간'의 칸을 지난다. 오랫동안 눈물로 기도했지만 돌아오는 것은 침묵뿐일 때, 혹은 세상이 나를 밀어내는 것만 같은 차가운 거절 앞에 섰을 때 우리는 깊이 절망한다. 그러나 이 여인의 이야기는 오늘 우리에게 따뜻한 손을 건넨다. 당신이 지금 통과하고 있는 그 막막한 간격은 결코 믿음이 부족해서 생긴 형벌이 아니라, 훗날 뚜렷하게 기억될 치열하고도 아름다운 영적 여정이라고 말이다. 비록 기도는 짧아지고 숨은 턱 끝까지 차올랐을지라도, 끝내 포기하지 않는 그 빈칸의 끄트머리에는 우리를 향한 가장 크고 완전한 대답이 기다리고 있다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 23편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 36편 &middot; 마태복음 23:1-39</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리의 삶을 가만히 들여다보면, 어떤 일은 온몸의 힘을 다 쥐어짜야 겨우 해낼 수 있고, 또 어떤 일은 손가락 하나 까딱하지 않고도 너무나 쉽게 이루어집니다. 2천 년 전, 예루살렘 성전에서 울려 퍼진 예수님의 마지막 대중 연설인 마태복음 23장에는 전혀 다른 이 두 가지 신체적 자세가 극적으로 교차하며 등장합니다. 하나는 손가락조차 움직이지 않으려는 차가운 거절의 자세이고, 다른 하나는 텅 빈 공기를 안은 채 끝없이 버텨내는 무거운 사랑의 자세입니다. 남의 잘못을 지적하고 비판하는 데에는 누구보다 빠르면서도 정작 책임지는 일에는 뒷짐을 지는 우리에게, 본문의 이 두 자세는 우리가 관계를 맺고 누군가를 사랑하는 방식에 대해 깊고도 묵직한 질문을 던집니다.
+
+### 비용이 들지 않는 거절의 가벼움
+
+"무거운 짐을 묶어 사람의 어깨에 지우되, 자기는 그것을 손가락으로도 움직이려 하지 아니하며." 
+
+예수님은 당시 율법학자와 바리새인들을 향해 이렇게 말씀하셨습니다. 한 번 상상해 보십시오. 누군가에게 무거운 짐을 지우기 위해서는 끈을 단단히 묶고 등 위로 들어 올리는 꽤 많은 수고가 필요합니다. 하지만 그 짐을 덜어주지 않기로 결심하는 데에는 그 어떤 힘도 들지 않습니다. 그저 내민 손가락 하나를 짐에 닿기 직전 멈추거나 거두어들이면 그만입니다. 팔에 힘을 줄 필요도, 땀을 흘릴 이유도 없습니다. 이처럼 타인의 고통을 외면하는 '거절'에는 아무런 비용이 들지 않습니다. 
+
+우리의 일상도 이와 크게 다르지 않습니다. 누군가의 험담이 오가는 자리에서 묵인하며 침묵하기, 도움이 필요한 이웃을 못 본 척 지나치기, 공동체의 문제를 늘 '그들'의 탓으로 돌리며 방관자로 남기. 이 모든 일들은 너무나 쉽습니다. 가만히 서 있는 것만으로도 완성되기 때문입니다. 비용이 들지 않는 이 차가운 거절은 너무나 가벼워서 우리의 기억조차 쉽게 빠져나갑니다. 주말에 한 주를 돌아보며 "시간이 없어서", "여력이 없어서" 하지 못했던 일들은 아쉬움 속에 수없이 떠올리지만, 정작 손가락 하나만큼의 거리였음에도 매몰차게 내어주지 않았던 마음은 반성의 점검표에 오르지도 않습니다. 아무런 비용도 치르지 않았기에, 우리는 일상 속에서 스스로가 얼마나 차가웠는지조차 잊어버린 채 살아갑니다.
+
+### 텅 빈 품을 유지하는 사랑의 무거운 대가
+
+그러나 예수님의 연설은 타인을 향한 날 선 고발로만 끝나지 않습니다. 그분의 시선은 이제 3인칭인 '그들'에서 2인칭인 '너희'로, 그리고 마침내 당신 자신의 가장 깊은 내면인 1인칭 '나'를 향합니다. 
+
+"예루살렘아, 예루살렘아... 암탉이 그 새끼를 날개 아래에 모으는 것처럼 내가 네 자녀를 모으기를 몇 번이나 원하였고, 너희는 원하지 아니하였다."
+
+양팔을 넓게 벌려 가슴 앞으로 둥글게 모아 누군가를 안아보는 시늉을 해보십시오. 따뜻한 품은 만들어졌지만 정작 그 안에는 아무것도 없습니다. 사랑하는 대상이 끝내 그 품으로 들어오기를 거부했기 때문입니다. 텅 빈 공기만을 안은 채 그 자세를 계속 유지하는 것은 결코 쉬운 일이 아닙니다. 팔은 금방 무거워지고, 근육은 떨려오며, 이내 뻐근한 통증이 밀려옵니다. 누군가를 품으려는 자세는 가만히 있는 것으로 결코 완성되지 않습니다. 거절당하는 아픔 속에서도 끝없이 팔에 힘을 주고 버텨내야만 유지될 수 있습니다.
+
+예수님은 단 한 번 거절당했다고 미련 없이 팔을 내리신 것이 아닙니다. "몇 번이나 원하였고", 그럼에도 끝내 이루어지지 않은 그 아픈 사랑의 궤적을 1인칭의 뼈저린 고백으로 낱낱이 기록하셨습니다. 세상의 모든 문서는 자신의 정당성과 성공을 증명하기 위해 쓰이지만, 예수님은 자신의 찢겨진 마음과 좌절된 소망을 우리 앞에 고스란히 내어놓으십니다. 거절당할 것을 알면서도 끝내 거두지 못한 두 팔, 이것이 바로 텅 빈 품을 유지하는 사랑의 무거운 대가입니다.
+
+### 아직 닫히지 않은 연설, 우리의 대답을 기다리며
+
+이 슬픈 애가는 곧이어 "보라, 너희 집이 버려진 바 되리라"는 두려운 선고로 이어집니다. 하지만 놀랍게도 이 길고 무거운 연설의 가장 마지막 낱말은 절망적인 심판이 아닙니다. 
+
+"찬송하리로다 주의 이름으로 오시는 이여, 할 때까지..."
+
+마침표가 아니라 말줄임표와 같이 끝을 맺은 이 열린 문장 속에는, 아직 발화되지 않은 축복의 시간이 숨 쉬고 있습니다. 3인칭으로 타인을 고발하던 차가운 논리는 어느새 2인칭으로 우리를 직접 부르는 뜨거운 호소가 되었습니다. 심판의 명단은 확정되지 않았습니다. 예수님의 텅 빈 품은 거두어지지 않았고, 이야기의 끝은 여전히 열려 있습니다. 
+
+이제 대답은 오롯이 우리의 몫입니다. 우리는 여전히 손가락 하나 까딱하지 않는 값싼 거절 뒤에 숨어서 누군가를 비난하는 3인칭의 방관자로 남을 것입니까? 아니면, 비록 내 품이 텅 비고 팔이 저려올지라도 누군가를 향해 기꺼이 팔을 벌리고 다가가는 1인칭의 수고를 감당할 것입니까? 주님은 우리의 삶이 타인의 허물을 낱낱이 적어 내리는 차가운 고발장이 아니라, 서로의 상처를 끌어안고 눈물로 써 내려가는 따뜻한 고백록이 되기를 원하십니다. 오늘, 당신은 어떤 자세로 세상 앞에 서시겠습니까?
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 36편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

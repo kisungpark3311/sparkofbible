@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 12편 &middot; 마태복음 9:9-34</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 종종 인생의 복잡한 문제들 앞에서 명쾌한 '정답'을 원합니다. 신앙생활에서도 마찬가지입니다. 갈등이 생기거나 누군가를 판단해야 할 때, 우리는 성경 구절을 마치 마법의 주문이나 법정의 판결문처럼 꺼내 들곤 합니다. "여기에 이렇게 적혀 있지 않느냐"며 논쟁의 마침표를 찍으려 하죠. 그런데 2천 년 전, 율법에 그 누구보다 정통했던 바리새인들의 날 선 비난 앞에서 예수님이 보여주신 모습은 우리의 예상과 사뭇 달랐습니다. 그분은 정답을 쥐여 주며 그들의 입을 막는 대신, 뜻밖에도 '숙제' 하나를 던져 주셨습니다. "너희는 가서 내가 긍휼을 원하고 제사를 원하지 아니하노라 하신 뜻이 무엇인지 배우라."(마태복음 9:13)
+
+### 정답 대신 주어진 좌표, 상대를 움직이게 하다
+
+이 짧은 구절을 가만히 들여다보면 참으로 놀라운 사실을 발견하게 됩니다. 예수님은 통상적인 선지자들처럼 "기록되었으되"라는 말로 권위를 세우지 않으셨습니다. 대신 "가서 배우라"는 명령을 내리셨습니다. 호세아 선지자의 말씀을 '증거'로 사용하여 논쟁을 끝내버린 것이 아니라, 그들이 스스로 찾아야 할 '과제'로 남겨두신 것입니다. 
+
+이는 마치 세무사가 고객의 질문에 결론만 툭 던져주는 것이 아니라 읽어야 할 조문 번호를 일러주는 것과 같고, 수학 선생님이 공식의 결과만 알려주는 대신 스스로 증명해 보라고 문제를 내주는 것과 같습니다. 예수님은 말씀을 무기로 삼아 상대를 제압하려 하지 않으셨습니다. 오히려 비난하던 자들을 훈계를 듣는 수동적인 청중의 자리에서 끌어내어, 직접 말씀을 펴고 그 의미를 살아내야 하는 '수행자'의 자리로 옮겨 놓으셨습니다. 정답은 우리를 그 자리에 가만히 앉아 고개만 끄덕이게 하지만, 좌표는 우리를 자리에서 일어나 걷게 만듭니다. 말씀이 진정으로 우리 삶에 역사하는 순간은, 다 안다고 생각하던 자리에서 일어나 성경을 다시 펼쳐 들고 겸손히 배우려는 그 '걸음' 속에서 비로소 시작됩니다.
+
+### 아는 것과 배우는 것의 서글픈 간극
+
+더욱 가슴을 울리는 것은 이 숙제를 받은 사람들의 정체입니다. 그들은 누구보다 성경을 달달 외우고 있던 사람들이었습니다. 호세아 6장 6절의 말씀쯤이야 눈 감고도 읊을 수 있는 자들이었죠. 하지만 예수님은 가장 잘 안다고 자부하는 그들을 향해 "가서 배우라"고 말씀하십니다. 
+
+머리로 외우는 지식과 삶으로 겪어내는 배움 사이에는 얼마나 깊은 강이 흐르고 있는지요. 우리는 종종 누군가를 정죄하고 비판하기 위해 말씀의 검을 빼 듭니다. 그러나 그 순간, 우리는 하나님의 마음을 까마득히 잊고 맙니다. 하나님은 제사의 완벽한 격식보다 상처 입은 영혼을 향한 '긍휼'을 원하셨습니다. 예수님은 자격 없는 세리와 죄인들과 함께 식탁에 앉으심으로써 그 긍휼을 온몸으로 보여주셨습니다. 우리는 혹시 성경을 무기 삼아 남을 찌르는 데 몰두하느라, 정작 그 말씀이 내 품에 품으라 하신 긍휼은 잃어버리지 않았는지 돌아보아야 합니다. 안다는 교만은 우리를 차가운 심판자로 만들지만, 배운다는 겸손은 우리를 따뜻한 이웃으로 만듭니다.
+
+### 마침내 우리의 삶으로 돌아올 은혜의 시간
+
+예수님이 남기신 이 숙제는 한 번으로 끝나지 않습니다. 마태복음 12장에 이르면, 훗날 똑같은 사람들을 향해 똑같은 호세아의 말씀이 다시 등장합니다. 다만 이때는 "가서 배우라"는 명령이 아니라, "너희가 알았더라면 무죄한 자를 정죄하지 아니하였으리라"는 아픈 탄식으로 바뀝니다. 숙제로 주어졌던 말씀이 어느새 우리의 삶을 달아보는 엄연한 '척도'로 되돌아온 것입니다. 
+
+처음 숙제를 받았을 때부터 그 말씀이 척도가 되어 돌아올 때까지, 그 사이의 텅 빈 시간은 바로 오늘을 살아가는 우리에게 주어진 은혜의 기회입니다. 하나님은 당장 우리를 심판하지 않으시고, 스스로 긍휼을 배우고 깨달을 수 있도록 충분한 시간을 기다려 주십니다. 이 숙제를 내주신 예수님은 긍휼을 요구하기에 앞서 이미 죄인인 우리를 부르러 이 땅에 오셨고, 가장 먼저 우리의 흠결 많은 식탁에 기꺼이 앉아 주셨습니다. 자격을 갖추어 오라 하지 않으시고, 오셔서 함께하며 가르쳐 주십니다.
+
+이제 우리가 대답할 차례입니다. 내 머릿속에 화석처럼 굳어버린 성경 구절은 없습니까? 남을 가르치고 판단하기 위해 습관적으로 꺼내 들지만, 정작 내 삶으로는 한 번도 살아내지 못한 말씀은 무엇입니까? 오늘, 내가 다 안다고 여기는 그 익숙한 자리를 털고 일어나 말씀 앞으로 다시 걸어가 보십시오. 그리고 그곳에서 나를 기다리시는 주님의 크신 긍휼을 새롭게 배우십시오. 정답을 쥐고 흔드는 팍팍한 재판관이 아니라, 긍휼을 덧입고 배우기를 쉬지 않는 은혜의 사람으로 살아가는 것. 그것이 바로 주님이 우리 삶에 남겨주신 가장 아름답고 거룩한 숙제일 것입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 12편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

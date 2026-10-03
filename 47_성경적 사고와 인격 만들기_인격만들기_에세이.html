@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 47편 &middot; 마태복음 28:11-20</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+삶을 살아가다 보면 수많은 지시와 명령을 마주하게 됩니다. 직장에서 상사가 내리는 업무 지시, 세상이 우리에게 요구하는 성공의 방식, 심지어 내면에서 끊임없이 들려오는 크고 작은 목소리들까지, 우리는 매일 무언가를 수행하며 살아갑니다. 그런데 그 수많은 명령 앞에서 우리는 가끔 길을 잃고 맙니다. 겉보기에는 너무나 정당하고 그럴듯해 보이는 말들 속에서, 과연 무엇이 참된 길인지 분별하기란 결코 쉽지 않기 때문입니다. 
+
+마태복음 28장의 마지막 장면은 이처럼 혼란스러운 우리에게 매우 흥미롭고 예리한 두 가지 장면을 나란히 보여줍니다. 놀랍게도 이 두 장면은 완전히 똑같은 구조를 띠고 있습니다. 누군가 '근거'를 제시하고, 그 위에 '명령'을 내리며, 명령을 받은 자들은 배운 대로 '수행'합니다. 하지만 겉보기에 똑같은 꼴을 한 이 두 명령은 전혀 다른 열매를 맺으며, 오늘을 사는 우리의 삶을 향해 묵직한 질문을 던집니다. 당신은 지금, 무엇 위에 서서 그 명령을 듣고 있습니까?
+
+## 똑같은 모양의 명령, 그러나 전혀 다른 시작
+
+첫 번째 장면은 대제사장들이 예수님의 무덤을 지키던 군인들을 매수하는 장면입니다. 그들은 군인들에게 "넉넉한 돈"을 쥐여주며 말합니다. "제자들이 밤에 와서 시체를 훔쳐 갔다고 말하라." 돈이라는 매력적인 '근거'가 주어지고, 거짓을 퍼뜨리라는 '명령'이 떨어집니다. 
+
+두 번째 장면은 부활하신 예수님이 갈릴리의 산에서 제자들을 향해 서신 장면입니다. 예수님은 "하늘과 땅의 모든 권세가 내게 주어졌다"고 선언하신 뒤, "가서 모든 민족을 제자로 삼으라"고 명령하십니다. 온 우주를 통치하는 예수님의 권세라는 '근거'가 주어지고, 생명을 전하라는 '명령'이 떨어집니다.
+
+이 두 장면을 가만히 들여다보면, 문법적으로 명령의 형태는 전혀 구별되지 않습니다. "이렇게 말하라"와 "제자로 삼으라"는 모두 누군가에게 행동을 촉구하는 평범한 지시문입니다. 우리 일상의 수많은 영역에서도 우리는 이런 일을 경험합니다. 회사에서 결재 서류를 올릴 때, 부당한 지시와 정당한 업무 명령은 똑같은 양식과 결재선을 타고 내려옵니다. 세무나 회계 처리를 할 때도, 편법이나 거짓을 요구하는 목소리는 언제나 "이렇게 기재하세요"라는 반듯하고 합법적인 문장의 탈을 쓰고 다가옵니다. 문법이나 겉모양만으로는 그것이 참인지 거짓인지 가려낼 수 없습니다. 
+
+그래서 우리에게 필요한 것은 지시문의 겉모양을 살피는 눈이 아니라, 그 명령이 어디에 뿌리를 내리고 있는지, 즉 보이지 않는 '근거 칸'을 확인하는 지혜입니다. 권위를 위조하는 것은 불가능하지만, 겉모양을 꾸미는 것은 얼마든지 가능하기 때문입니다. 예수님은 바로 이 근거의 자리에, 세상의 어떤 권력자도 줄 수 없는 '하늘과 땅의 모든 권세'를 두셨습니다.
+
+## 꽉 쥔 손의 머무름과 빈손의 나아감
+
+이 두 명령을 우리 몸의 감각으로 상상해 봅니다. 먼저, 한 손에 은돈을 꽉 쥐어 보십시오. 손가락에 바짝 힘이 들어가고, 무엇인가를 얻었다는 생각에 묘한 안도감이 밀려옵니다. 하지만 꽉 쥔 손으로는 다른 어떤 것도 새롭게 잡을 수 없습니다. 돈을 쥔 군인들은 현실적으로 안전해 보였지만, 결국 그 자리에 멈춰 서서 누군가 만들어준 거짓 문장을 앵무새처럼 되풀이하는 데 그치고 맙니다. 그들은 배운 데서 멈춰버린 수동적인 존재로 전락했습니다.
+
+이제 반대쪽 손을 빈손으로 활짝 펴 보십시오. 예수님의 명령을 받은 제자들의 손에는 당장 쥘 수 있는 동전 한 닢도, 눈에 보이는 확실한 담보물도 없었습니다. 그들이 받은 것은 "세상 끝날까지 너희와 항상 함께 있으리라"는 보이지 않는 약속이 전부였습니다. 하지만 쥘 것이 없기에 활짝 펼쳐진 그 손은 자유롭습니다. 꽉 쥔 손이 제자리에 머물 때, 빈손은 산을 내려가 낯선 민족들을 향해 역동적으로 움직이기 시작합니다. 그들은 누군가의 말을 기계적으로 반복하는 데서 끝나지 않고, 자신의 삶으로 다른 이들을 가르치고 생명으로 이끄는 능동적인 자리까지 나아갔습니다. 
+
+무엇보다 놀라운 사실은, 제자 삼으라는 이 무거운 명령이 주어지기 전까지 제자들은 이미 은혜로 빚어지는 시간을 통과했다는 것입니다. 그들은 스스로의 결단이나 능력으로 제자가 된 것이 아니라, 십자가와 부활의 사랑 안에서 먼저 제자가 '되어지는' 수동태의 은혜를 경험했습니다. 명령이 사람을 억지로 짜낸 것이 아니라, 은혜로 빚어진 사람들에게 비로소 생명의 명령이 흘러간 것입니다. 반면 돈을 받은 군인들은 책임져주겠다는 거짓 보증에 속았을 뿐, 그들의 삶을 지탱해 줄 아무런 은혜도 경험하지 못했습니다.
+
+## 내 삶이 되풀이하는 문장의 출처를 묻다
+
+결국 우리 삶의 질과 방향을 결정하는 것은 우리가 따르는 명령의 '출처'입니다. 우리는 무의식중에 수많은 말들을 되풀이하며 살아갑니다. "어쩔 수 없잖아", "다들 이렇게 해", "이게 현실이야" 같은 문장들을 입버릇처럼 내뱉을 때, 우리는 스스로에게 뼈아픈 질문을 던져야 합니다. '나는 지금 누구의 권위에 기대어 이 말을 하고 있는가? 이 문장은 내게 얄팍한 안심과 소속감을 주는 대가로, 내 양심과 신앙의 눈을 가리고 있지는 않은가?'
+
+때로는 우리가 몸담은 직장이나 공동체 안에서 관행처럼 굳어진 말들을 점검해 보아야 합니다. "누가 그렇게 하라고 지시했는가?"라고 근거를 묻는 것은 조직에 대한 반항이 아니라, 우리 영혼의 순결함을 지키는 거룩한 절차입니다. 금전적인 이익이나 자리의 보전과 함께 어떤 문안이 주어질 때, 내 손에 들어온 이익이 제시된 정당한 근거보다 크다면 우리는 과감히 그 자리에서 멈춰 서야 합니다. 
+
+오늘 하루, 당신이 서 있는 자리를 가만히 돌아보기를 원합니다. 당신은 지금 세상이 쥐여주는 은돈과 헛된 보증 위에 서 계십니까, 아니면 영원히 변치 않는 십자가의 사랑과 부활의 '약속' 위에 서 계십니까? 내 입술이 습관적으로 되풀이하는 문장의 출처를 묻고, 꽉 쥔 손을 펴 참된 생명의 발걸음을 내딛는 일. 그것이 바로 거짓된 명령이 난무하는 세상을 거슬러, 진정한 그리스도의 제자로 살아가는 가장 아름다운 저항일 것입니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 47편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

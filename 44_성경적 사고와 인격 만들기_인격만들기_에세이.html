@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 44편 &middot; 마태복음 27:1-26</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 하루에도 몇 번씩 무거운 책임 앞에서 등을 돌립니다. "그건 제 소관이 아닙니다", "당신이 책임지셔야 할 일입니다"라는 말로 내 어깨를 짓누르던 짐을 다른 이에게 슬그머니 밀어 넣으며 안도의 한숨을 내쉬곤 합니다. 하지만 그토록 쉽게 책임을 떠넘긴 후, 정말로 우리의 마음과 삶은 가벼워졌을까요? 
+
+2천 년 전, 인류 역사상 가장 무겁고 비극적인 재판이 열렸던 예루살렘 성문 앞에도 이와 똑같은 질문을 던지게 만드는 두 사람이 있었습니다. 마태복음 27장을 자세히 들여다보면, 놀랍게도 같은 문법의 관용구가 두 번 반복되는 것을 발견할 수 있습니다. 한 번은 스승을 판 유다가 후회하며 은을 돌려줄 때 대제사장들이 던진 말입니다. "그것이 우리와 무슨 상관이냐? **네가 보게 될 것이다**"(마 27:4). 또 한 번은 빌라도 총독이 성난 군중 앞에서 물로 손을 씻으며 외친 선언입니다. "나는 이 피에 대하여 무죄하다. **너희가 보게 될 것이다**"(마 27:24).
+
+시제도, 태도, 분위기도 완벽하게 똑같은 이 말은 오직 '너'라는 단수에서 '너희'라는 복수로 대상만 바뀌었을 뿐입니다. 사람의 수를 바꾸어 가며 책임을 건네는 이 날카로운 언어의 유희 속에서, 과연 그들은 자신들의 영혼을 짓누르던 십자가의 죄책을 온전히 덜어낼 수 있었을까요? 
+
+### 공허한 선언, 그러나 멈추지 않는 손의 모순
+
+면책을 선언하는 말은 허공을 가르며 쉽게 흩어지지만, 행동을 만들어내는 우리의 손은 결코 그 무게를 속이지 못합니다. 사람들은 흔히 서류에 적힌 면책 조항이나 회의석상에서의 책임 전가로 내 몫이 끝났다고 착각합니다. 하지만 성경은 이들의 입술이 뱉어낸 공허한 말보다, 그들이 실제로 손으로 행한 일에 냉정하게 시선을 고정합니다.
+
+대제사장들은 유다에게 "네가 당하라"며 단호하게 선을 그었지만, 직후 그들의 손은 유다가 성소에 던져 넣고 간 은을 주워 모아 나그네의 묘지를 위한 밭을 샀습니다. 말로는 책임을 넘겼으면서도 정작 사건을 마무리 짓는 행위는 자신들의 손으로 거둔 것입니다. 빌라도 역시 무리 앞에서 보란 듯이 맑은 물에 손을 씻으며 극적인 퍼포먼스를 벌였지만, 그 깨끗해진 손으로 곧장 예수를 채찍질하고 십자가에 못 박히도록 끔찍한 사형을 집행하고 말았습니다.
+
+이것이 인간이 가진 가장 서글프고 모순된 민낯입니다. 입술은 요란하게 상대방의 이름을 부르며 책임을 넘기지만, 삶의 기록장에 적히는 '나의 진짜 행동'은 언제나 묵묵히 내 손끝에서 완성되고 맙니다. 상대방이 온전히 넘겨받지 않은 짐은 허공에서 저절로 사라지지 않습니다. 누군가 짊어져야 할 그 책임을 옮긴 것은, 결국 책임을 회피하고자 발버둥 쳤던 바로 나 자신의 손이었습니다. 입 밖으로 내뱉은 말은 수신자의 이름을 바꿀 수 있을지 몰라도, 넘겨주는 손이 한 잔혹한 행위까지 지워내지는 못하는 법입니다.
+
+### 몸은 결코 책임의 무게를 잊지 않는다
+
+우리의 몸은 머리보다 훨씬 정직하게 진실을 알고 있습니다. 양손에 무거운 책을 들고 눈을 감은 채, 허공을 향해 "이것은 당신이 감당해야 할 일입니다"라고 소리 내어 말해 보십시오. 그리고 손은 그대로 두어 보십시오. 말이 공기 중으로 흩어지고 난 뒤에도, 어깨를 짓누르는 근육의 뻐근함과 손끝의 둔중한 무게감은 한 치도 변하지 않습니다. 몸은 문장의 어미를 모릅니다. 내가 책임을 한 사람에게 넘기든 여러 사람에게 넘기든, 내 손에 들려 있는 인생의 짐은 고스란히 내 뼈와 살에 새겨져 남습니다.
+
+빌라도가 찰랑거리는 물로 손을 씻고 수건으로 닦아낸 뒤, 그 손으로 다시 사형 집행 명령서를 쥐었을 때의 감각을 상상해 봅니다. 책임을 지웠다 여기며 씻어낸 손으로, 가장 무거운 죄책을 다시 움켜쥐어야 했던 그 찰나의 간격. 그것은 결코 씻어낼 수 없는 인간의 한계를 뼈저리게 보여줍니다. 
+
+우리의 일상도 이와 다르지 않습니다. 직장에서, 혹은 누군가 간절히 도움을 청해 왔을 때 "이건 제 소관이 아닙니다"라며 합리적인 이유로 등을 떠밀었을 때를 떠올려 보십시오. 서류상으로는 깔끔하게 종결되었을지 모르지만, 우리의 내면 깊은 곳에는 설명하기 힘든 묵직함이 남지 않던가요? 넘긴 줄 알았던 짐은 사실 온전히 넘겨진 적이 없고, 나는 여전히 누군가의 아픈 삶 한복판에 위태롭게 서 있기 때문입니다.
+
+### 소란한 책임 전가 앞, 고요한 십자가의 역설
+
+마태복음 27장은 이토록 치열하게 책임을 미루는 인간들의 핑퐁 게임을 적나라하게 보여줍니다. 종교 지도자들은 배신자 유다에게, 권력자 빌라도는 나약한 군중에게 책임을 던집니다. 군중들은 한술 더 떠 자신들과 자녀들의 머리 위로 피 흘린 값을 돌리라며, 동사조차 없는 거친 외침으로 허세 섞인 대답을 던집니다. 모두가 살기 위해 발버둥 치는 이 요란한 책임의 폭탄 돌리기 한가운데, 정작 모든 생명의 무게를 홀로 감당하셔야 했던 분은 철저한 침묵 속에 계셨습니다.
+
+예수님은 자신을 향해 쏟아지는 수많은 거짓 고발과 책임의 전가 앞에서도 변명 한마디 없이 깊은 침묵으로 일관하셨습니다. 아무도 자기 잘못이라 말하지 않고 누구나 남의 탓이라 소리치는 그 아수라장 속에서, 주님은 묵묵히 십자가라는 가장 무거운 짐을 그분의 두 손과 온몸으로 끌어안으셨습니다. 인간들이 내뱉은 알량한 말들이 결코 지워내지 못한 그 더러운 손들 사이에서, 아무런 저주도 핑계도 돌려주지 않으신 분이 홀로 우뚝 서 계셨다는 사실. 이것이 바로 가슴을 치게 만드는 비극적인 십자가 본문이 우리에게 건네는 가장 위대하고 따뜻한 복음입니다.
+
+조용히 한 주간의 삶을 돌아봅니다. 나는 과연 누구에게 "당신의 일입니다"라며 판단과 책임을 밀어냈습니까? 그 수많은 핑계의 말들 뒤에서, 정작 내 손은 어떤 차가운 결과를 만들어내고 있었습니까? 무거운 십자가의 침묵 앞에서는 우리의 얄팍한 면책의 언어가 더 이상 힘을 잃습니다. 
+
+나의 비겁한 핑계마저도 묵묵히 안아주신 그 크신 사랑을 마주할 때, 비로소 우리는 남을 향해 책임을 떠넘기던 바쁘고 부끄러운 손을 거둘 수 있습니다. 그리고 마침내, 내게 주어진 삶의 무게를 피하지 않고 기꺼이 짊어지며 긍휼과 헌신이라는 참된 인격의 열매를 맺어가는 길로 걸어갈 수 있을 것입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 44편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

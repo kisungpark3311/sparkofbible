@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 20편 &middot; 마태복음 13:53~14:12</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 살아가면서 수많은 결과표를 받아 듭니다. 기대했던 일에서 초라한 성적표를 마주하거나, 애썼던 관계에서 아무런 진전이 없을 때 우리는 몹시 당황합니다. 그리고는 서둘러 원인을 찾습니다. "내가 부족해서 그래", "저 사람이 나를 믿어주지 않아서 그래"라며 스스로를 깎아내리거나 타인을 탓하는 손쉬운 결론으로 숨어버리곤 합니다. 하지만 눈앞의 현실을 그렇게 성급한 '공식'으로 덮어버리는 것이 과연 최선일까요? 우리에게는 조금 더 정직하고 넉넉하게 삶의 빈칸을 바라볼 용기가 필요합니다.
+
+## 능력을 탓하지 않는 정직한 문장
+
+성경 마태복음 13장에는 예수님께서 고향에서 배척을 받으시는 쓸쓸한 장면이 등장합니다. 기대를 한몸에 받았을 고향 땅에서 사람들의 불신에 부딪힌 그 순간, 성경은 아주 독특하고 정교한 문장 하나를 기록으로 남깁니다. "그들이 믿지 않음으로 말미암아 거기서 많은 능력을 행하지 아니하시니라."
+
+이 열 단어 남짓한 짧은 문장을 가만히 들여다보면, 놀라운 사실을 발견할 수 있습니다. 성경은 결코 "예수님이 아무것도 할 수 없었다"라며 능력의 한계를 말하지 않습니다. 대신 "많이 행하지는 않으셨다"라며 아주 구체적인 행동의 '범위'만을 조용히 그어줍니다. 만약 이 문장에서 '많은'이라는 수량어가 빠졌다면 어땠을까요? "능력을 행하지 않으셨다"라는 차가운 전면 부정이 되었을 것입니다. 그러나 수량어 하나가 제자리를 지킴으로써, 이 문장은 모든 것을 부정하는 철저한 침묵이 아니라, 할 수 있었으나 그저 멈춰 선 빈자리를 보여주는 깊은 여백의 기록이 되었습니다.
+
+음악표 기호로 치자면, 이것은 아예 소리를 없애버리는 '쉼표'가 아닙니다. 여전히 희미하게 소리가 남아있는 '데크레셴도(점점 여리게)'입니다. 할 수 없었던 것이 아니라, 그저 많이 하지 않았을 뿐이라는 이 섬세한 진술은, 무능함의 고백이 아니라 스스로의 행위를 절제하고 정확한 한계선까지만 기록하려는 가장 정직한 표현입니다.
+
+## 원인과 결과의 공식을 내려놓다
+
+이러한 문법적 통찰은 오늘날 섣부른 인과율의 공식에 갇혀 살아가는 우리 삶을 묵직하게 두드립니다. 우리는 어떤 일이 틀어졌을 때, '믿음이 없어서 기적이 안 일어났다'라거나 '노력이 부족해서 실패했다'는 식의 1차원적인 비례 공식을 세우려 합니다. 그러나 우리의 인생은 그렇게 단순한 공식으로 재단할 수 없을 만큼 깊고 신비롭습니다. 
+
+본문은 섣불리 무언가를 판정하거나 단정 짓지 않습니다. 그저 행해진 일의 '적음'을 사실대로 기록하고, 모르는 것은 모르는 채로 열어두는 겸손함을 보여줍니다. 세상의 법정이나 엄격한 회계의 세계에서도 가장 힘이 있는 진술은 "나는 아무것도 모른다"는 극단적인 부인이 아닙니다. "내가 아는 범위는 여기까지다"라고 선을 긋는 진술이야말로 거짓 없이 입증할 수 있는 진실이기 때문입니다. 실패나 좌절 앞에서 모든 것을 '나의 무능'이나 '상대의 악의'로 몰아가는 대신, "이번에는 여기까지였다"라고 인정하는 태도. 그것은 변명이나 회피가 아니라, 나 자신과 타인을 지켜내는 가장 강인하고 윤리적인 태도입니다.
+
+## 일상의 언어를 바꾸는 작은 기적
+
+이 깨달음은 팍팍한 우리의 일상과 언어를 근본적으로 바꾸어 놓습니다. 직장이나 가정에서 무리한 요구를 받고 거절해야 할 때를 생각해 보십시오. "그건 절대 못 해요"라며 나의 무능을 방패 삼아 숨거나 상대의 기대를 차갑게 꺾어버리는 대신, "그건 많이는 못 해요"라고 말해보는 것은 어떨까요? 나의 한계는 인정하되 여전히 내가 할 수 있는 여지를 열어두는 것입니다. 능력을 부인하면 상대는 억지로라도 내 능력을 끌어내려 압박하겠지만, 나의 범위를 정직하게 진술하면 그때부터는 서로를 향한 존중과 대화가 시작됩니다.
+
+사역의 열매를 보고해야 하는 성직자나, 냉혹한 숫자로 실적을 증명해야 하는 직장인에게도 마찬가지입니다. 초라한 결과를 남의 탓으로 돌리거나 상황을 과장하는 대신, 있는 그대로의 범위를 담담하게 적어 내려가는 용기가 필요합니다. 거짓된 핑계로 포장하지 않고, 단지 내가 서 있는 자리까지만 선을 긋는 연습 말입니다.
+
+"나는 할 수 없었다"라는 절망과 단절의 문장 대신, "많이 하지는 않았다"라는 사실과 여백의 문장을 선택해 보십시오. 단어 하나를 바꾸어 내 삶의 자리를 정확하게 측량하는 이 작은 연습이, 가혹한 자기 정죄에서 벗어나 넉넉하고 단단한 인격으로 나아가는 위대한 시작이 될 것입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 20편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

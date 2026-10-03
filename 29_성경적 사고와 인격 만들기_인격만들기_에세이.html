@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 29편 &middot; 마태복음 19:1-15</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+우리는 종종 삶의 무게가 버거울 때, 책임을 대신 져 줄 무언가를 찾습니다. 관계가 깨어지고 뼈아픈 선택의 기로에 섰을 때, 내 결정이 아니라 '어쩔 수 없는 규칙' 때문이었다고 말하고 싶어 합니다. 2천 년 전, 예수님을 찾아와 이혼에 대해 논쟁을 벌였던 바리새인들의 마음도 다르지 않았습니다. 그들은 모세의 율법을 핑계 삼아 예수님께 묻습니다. "그러면 어찌하여 모세는 이혼 증서를 주어서 버리라 '명하였나이까'?"
+
+이 짧은 질문 속에는 인간의 서글픈 자기방어가 숨어 있습니다. 율법의 본래 의도는 연약한 자를 보호하기 위한 최소한의 '허락'이었습니다. 그러나 바리새인들은 그 아픈 허락을 '명령'이라는 단어로 슬그머니 맞바꾸어 버렸습니다.
+
+### 책임의 무게를 떠넘기는 우리의 언어
+
+"명하셨다"와 "허락하셨다". 이 두 동사의 자리가 뒤바뀌는 순간, 책임의 화살표는 완전히 다른 곳을 향하게 됩니다. 누군가 나에게 "명령했다"고 말할 때, 내 행동의 책임은 그 명령을 내린 사람에게로 넘어갑니다. 나는 그저 지시를 따랐을 뿐이라며 내 손을 씻을 수 있습니다. 바리새인들은 "모세가 명했다"고 말함으로써, 누군가의 삶이 무너지는 비극의 책임을 율법과 하나님께로 떠넘기고 싶었던 것입니다.
+
+하지만 예수님은 그들의 언어를 정확히 교정하십니다. "모세가 너희 마음의 완악함 때문에 아내 버림을 '허락'하였거니와 본래는 그렇지 아니하니라." 예수님의 답변 속에는 '너희'라는 2인칭 대명사가 세 번이나 뼈아프게 박혀 있습니다. 너희의 완악함, 너희에게 허락한 것, 너희의 아내들. 이 비극의 원인은 결코 차가운 법조문에 있는 것이 아니라, 사랑하기를 포기해 버린 '우리의 굳은 마음'에 있음을 명확히 하신 것입니다.
+
+우리 역시 일상 속에서 허락을 명령으로 둔갑시키는 잘못을 저지르곤 합니다. "다들 그렇게 하니까", "규정이 그러니까"라는 말 뒤에 숨어, 마땅히 감당해야 할 사랑과 책임의 수고를 회피합니다. 그렇게 내 이야기 속에서 '나'라는 주어를 지워버리고 제도의 뒤에 숨을 때, 우리는 누군가의 마음에 깊은 상처를 남기게 됩니다.
+
+### 차가운 증서를 건네는 손, 따스하게 머무는 손
+
+이 본문 속에는 보이지 않는 손과 보이는 손, 두 가지의 상반된 손짓이 등장합니다. 바리새인들의 논리 속에는 '이혼 증서를 내어미는 손'이 있습니다. 누군가에게 종이 한 장을 건네고 돌아서는 손은 끝이 분명합니다. 내 할 바를 다 했다는 듯 거리를 두고, 관계를 끊어내는 서늘한 손짓입니다.
+
+그러나 예수님은 전혀 다른 손짓을 보여주십니다. 숨 막히는 율법의 논쟁이 끝난 직후, 사람들이 어린아이들을 데리고 예수님께 나아옵니다. 제자들은 방해하지 말라며 계산적인 태도로 막아섰지만, 예수님은 아이들을 품으시고 그들 머리 위에 '손을 얹으십니다'.
+
+누군가의 머리 위에 손을 얹는 동작은 종이를 건네고 내어미는 동작과 달리 끝이 없습니다. 내 손바닥을 통해 상대방의 체온이 전해지고, 얼마나 오래 그 온기를 나눌지 끊임없이 마음을 써야 합니다. 거리를 두는 것이 아니라 거리를 좁히는 손, 책임을 떠넘기는 것이 아니라 그 존재의 무게를 고스란히 끌어안는 손입니다. 차가운 법의 논리 앞에서는 결코 흉내 낼 수 없는, 생명을 살리는 온기가 바로 그 머무는 손에 있습니다.
+
+### 완전한 기준이 깨어진 삶을 안아주실 때
+
+이 이야기의 가장 깊은 감동은 예수님이 서 계신 자리에 있습니다. 예수님은 "본래는 그렇지 않다"며 창조 때의 완전하고 아름다운 결혼의 질서를 선포하셨습니다. 세상 그 누구도 핑계 댈 수 없는 가장 엄격하고 높은 율법의 기준을 세우신 것입니다.
+
+그렇다면 그 높은 기준 앞에서 우리는 모두 정죄받고 쫓겨나야 마땅할 것입니다. 하지만 이어지는 장면은 우리의 두려운 예상을 완전히 빗나갑니다. 예수님은 가장 엄격한 잣대를 들이대신 직후, 오히려 그 질서 안에 온전히 들어가지 못하는 깨어진 사람들을 부르십니다. 태어날 때부터, 혹은 사람들에 의해, 혹은 스스로 상처 입은 이들을 하나님 나라의 주인공으로 초대하십니다. 그리고 당시 가장 작고 힘없던 어린아이들을 기꺼이 끌어안으십니다.
+
+이것이 바로 복음입니다. 가장 완전하고 높은 기준을 말씀하신 분이, 그 기준에 미치지 못해 엎드려 있는 상처 입은 자들을 따뜻하게 부르고 계십니다. 율법의 차가운 잣대로 우리를 고발하는 대신, 당신의 체온을 나누며 우리 삶의 무거운 짐을 함께 짊어지십니다.
+
+우리의 삶과 신앙도 이와 같아야 합니다. 누군가의 아픔이나 실수를 마주했을 때, 차가운 규정의 증서를 내밀며 정죄하는 자리에서 멈추어선 안 됩니다. 오히려 율법의 이름으로 책임을 회피하던 우리의 완악한 마음을 찢고, 예수님처럼 기꺼이 다가가 손을 얹어주어야 합니다. 내어미는 손을 거두고 품어 안는 손을 내밀 때, 비로소 우리의 메마른 일상 속에도 사람을 살리는 그리스도의 온기가 피어날 것입니다.
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 29편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

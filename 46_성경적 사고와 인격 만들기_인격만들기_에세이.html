@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 46편 &middot; 마태복음 27:57~28:10</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 살아가며 무수히 많은 말을 주고받습니다. 그리고 종종 누군가의 말을 내 식대로 기억해 둔 채, 그 기억을 바탕으로 삶의 중대한 결정을 내리곤 합니다. "그 사람은 나를 늘 이렇게 평가해", "그때 분명히 그렇게 약속했잖아." 하지만 시간이 지나고 보면, 우리가 굳게 믿고 있던 그 ‘기억’이라는 것이 얼마나 연약하고 쉽게 구부러지는지 깨닫게 됩니다. 내 기억 속의 문장은 때로 나의 불안이나 욕망, 방어기제에 의해 교묘하게 편집되어, 본래의 뜻과는 미묘하게 어긋나버리는 경우가 많기 때문입니다.
+
+오늘 우리가 마주하는 마태복음의 십자가와 부활 사건 속에도, 이처럼 ‘어긋난 기억’을 단단히 움켜쥔 채 두려움에 떠는 사람들의 모습이 등장합니다. 놀랍게도 예수님의 부활을 가장 먼저 입에 올린 자들은 사랑하는 제자들이 아니었습니다. 그분을 십자가에 못 박았던 적대자들이었습니다. 그들의 조작된 기억과 천사의 선명한 선포가 교차하는 부활의 새벽, 우리는 진리를 대하고 관계를 맺는 완전히 새로운 생명의 방식을 발견하게 됩니다.
+
+### 무덤을 막아선 자들의 불안한 기억
+
+예수님이 십자가에서 숨을 거두신 후, 대제사장들과 바리새인들은 은밀히 빌라도를 찾아갑니다. 그들의 입에는 불안을 야기하는 한 문장이 맴돌고 있었습니다. "주여, 저 속이던 자가 살아 있을 때에 말하되 '내가 사흘 후에 다시 살아나리라(내가 일어난다)' 한 것을 우리가 기억하노니." 
+
+성경을 자세히 읽어보면 참으로 기막힌 아이러니를 마주하게 됩니다. 마태복음 전체를 통틀어 예수님의 부활을 뜻하는 단어가 수없이 등장하지만, 정작 부활을 주도적인 1인칭 현재형인 "내가 일어난다"로 표현한 자리는 오직 이 적대자들의 입술뿐이었습니다. 예수님 자신은 언제나 스스로를 3인칭의 자리나 "일으켜진다"는 겸손한 수동태의 자리에 두셨습니다. 그러나 그분을 미혹하는 자라며 조롱했던 이들은, 역설적이게도 가장 강력한 1인칭의 문장으로 그분의 부활을 기억해 냅니다.
+
+그들은 자신들의 이 불완전한 기억 때문에 몹시 불안했습니다. 혹여나 제자들이 시신을 훔쳐 간 뒤 백성들에게 "그가 죽은 자 가운데서 살아났다(그가 일으켜졌다)"고 소문을 낼까 봐 두려워했습니다. 그래서 그들은 거대한 돌을 굴려 무덤을 막고 단단히 인봉하여 경비병을 세웁니다. 어떻게든 자신들의 1인칭 기억이 저 3인칭의 선포로 번져가는 것을 막기 위해 권력과 폭력을 동원한 것입니다. 손바닥으로 돌을 밀어붙이고 밀랍을 발라 도장을 찍는 그들의 손은, 생명을 덮고 진실을 가두려는 안타까운 몸짓이었습니다. 하지만 아무리 견고한 봉인이라도 생명을 가둘 수는 없습니다. 그 봉인이 하는 유일한 역할은, 훗날 돌문이 열렸을 때 그곳에 인간의 통제를 넘어서는 신성한 개입이 있었음을 증명하는 ‘흔적’으로 남는 것뿐이었습니다.
+
+### 천사의 빈자리, 그리고 옮겨진 기준선
+
+안식 후 첫날 새벽, 마침내 돌문은 굴려졌고 텅 빈 무덤 곁에는 천사가 서 있습니다. 무덤을 찾아와 두려움에 떠는 여인들을 향해 천사가 던진 첫마디는 실로 경이롭습니다. "그가 여기 계시지 않고, 그가 말씀하시던 대로 살아나셨느니라(그가 일으켜졌다)." 
+
+천사가 부활을 선포하며 사용한 이 단어는, 정확히 적대자들이 그토록 막으려 했던 바로 그 문장, 그 형태였습니다. 진실을 덮으려던 자들의 불안한 예측이 천사의 입을 통해 거룩하고 찬란한 현실의 선포로 뒤바뀐 것입니다. 
+
+여기서 우리는 복음이 보여주는 매우 다정하고도 놀라운 태도를 봅니다. 천사는 대제사장들의 어긋난 인용이나 틀린 기억을 하나하나 반박하며 고쳐주지 않았습니다. "너희가 사흘 후라고 기억하지만, 원래 예수님은 제삼일이라고 하셨다"며 따져 묻지 않았습니다. 천사는 다툼의 기준을 ‘누가 더 정확히 기억하고 있는가’에 두지 않았습니다. 대신 그 기준을 예수님이 원래 하셨던 말씀, 그 근원으로 단숨에 옮겨버립니다. 
+
+"그가 말씀하시던 대로(just as he said)." 천사가 덧붙인 이 짧은 두 낱말은, 어지러운 기억의 싸움터에서 맑은 진리의 자리로 우리의 시선을 이끕니다. 천사는 텅 빈 무덤을 향해 손을 뻗어 가리킵니다. "와서 그가 누우셨던 곳을 보라." 덮고 막으려던 적대자들의 억압적인 손과 달리, 천사의 가리키는 손은 자기 자신을 지우고 오직 생명의 주님만을 바라보게 합니다. 참된 진리는 내가 그것을 얼마나 완벽하게 외우고 있느냐에 달린 것이 아닙니다. 오직 그분이 말씀하셨고, 그 말씀대로 어김없이 이루어졌다는 변함없는 사실 하나에 달려 있습니다.
+
+### 내 기억의 한계를 넘어 말씀의 자리로
+
+부활의 아침이 보여주는 이 묵직한 통찰은 오늘을 살아가는 우리의 일상에도 깊은 치유를 줍니다. 우리는 숱한 관계 속에서 ‘말’ 때문에 상처받고 억울해합니다. 목회 현장에서는 "목사님이 예전에 분명 이렇게 말씀하셨잖아요"라며 자신의 변형된 기억을 앞세우는 분들을 만나기도 하고, 치열한 세무나 회계의 현장에서는 "담당자가 전화로 이렇게 하라고 했다"며 불완전한 구두 약속을 진리처럼 들이미는 사람들과 실랑이를 벌이기도 합니다. 혹은 "그 사람이 나를 무시했다"는 단편적인 기억 한 조각을 마음에 품고 스스로를 깎아내리는 섣부른 결정을 내릴 때도 있습니다.
+
+이럴 때 우리는 어떻게 해야 할까요? 네 기억이 틀렸다며 논리적으로 맞서 싸우려 한다면, 대화는 한없는 감정싸움으로 치달을 뿐입니다. 그럴 때 우리는 무덤을 연 천사의 방식을 기억해야 합니다. 누군가 왜곡된 기억으로 다가올 때, "당신이 틀렸습니다"라고 방어하기보다는 "우리 그때 함께 읽었던 그 말씀을 다시 펴볼까요?", "조문과 규정이 적힌 원본을 같이 살펴볼까요?"라고 다정하게 제안하는 것입니다. 나와 타인을 향한 내 기억이 나를 옭아맬 때조차, "이것은 그저 내가 이렇게 기억하고 있을 뿐이다"라고 한걸음 물러서서, 본래의 사실과 근원으로 돌아가 다시 묻는 용기가 필요합니다. 
+
+우리의 삶을 지탱하는 것은 우리의 완벽한 기억력도, 남을 이겨먹는 논리도 아닙니다. 내 기억이 때로 어긋나고 흔들린다 해도, 기록된 참된 말씀과 그분이 남기신 궤적은 결코 무너지지 않습니다. 무덤을 막으려던 자들의 불안한 문장이 열린 무덤 앞에서 천사의 찬란한 생명의 선포로 피어났듯, 비좁은 기억의 다툼을 넘어 든든한 말씀의 자리로 나아갈 때, 비로소 우리의 일상에도 눈부신 부활의 아침이 밝아올 것입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 46편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

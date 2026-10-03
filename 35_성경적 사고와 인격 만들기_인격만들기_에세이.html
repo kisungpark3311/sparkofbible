@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묵상 에세이</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 마태복음 제 35편 &middot; 마태복음 22:23-46</span>
+      <h1>묵상 에세이</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+우리는 살아가면서 수많은 질문을 품고 살아갑니다. "하나님, 왜 하필 저입니까?", "이 길고 어두운 터널은 언제쯤 끝이 납니까?", "도대체 당신의 선하신 뜻은 어디에 있습니까?" 고단한 일상과 풀리지 않는 문제 앞에서, 우리는 밤잠을 설치며 묻고 또 묻습니다. 성경 속 마태복음 22장에도 이처럼 예수님을 향해 끊임없이 질문을 던지는 사람들의 모습이 생생하게 그려져 있습니다. 부활이 없다고 믿는 사두개인들이 무리를 지어 찾아와 곤란한 상황을 가정하며 따져 묻고, 바리새인 중 한 율법사가 예수를 시험하기 위해 다가와 날 선 질문을 던집니다. 그들은 모두 당당하게 '묻는 자리'의 주인이 되어, 예수님이라는 과녁을 향해 거침없이 질문의 화살을 쏘아 올렸습니다. 
+
+우리 역시 기도라는 거룩한 이름 아래, 때로는 원망 섞인 탄식으로 하나님을 향해 쉼 없이 질문을 쏟아내곤 합니다. 질문의 주어는 늘 '나' 자신이고, 목적어는 언제나 '하나님'인 외길의 대화 속에서 우리는 응답의 지연에 지쳐갑니다. 내가 묻고 그분이 대답해야 한다는 견고한 틀 안에서, 우리는 스스로 삶의 재판관이 되어 하늘을 향해 해명을 요구하고 있는지도 모릅니다.
+
+## 묻는 자리의 주인이 바뀌는 낯선 순간
+
+그런데 마태복음 22장의 한가운데서, 놀랍고도 낯선 전환이 일어납니다. 묵묵히, 때로는 예리하게 질문을 받아내시던 예수님께서 마침내 입을 열어 도리어 그들에게 물으십니다. "너희는 그리스도에 대하여 어떻게 생각하느냐? 그는 누구의 자손이냐?" (마 22:41) 이 짧은 한 구절에서, 묻는 자와 대답하는 자의 위치가 완전히 뒤바뀝니다. 문장의 주어가 예수님으로 바뀌고, 목적어는 방금 전까지 질문을 던지던 '그들'이 됩니다. 그것은 단순한 말싸움의 공수 교대가 아니었습니다. 묻는 권한의 거룩한 이동이자, 삶의 참된 주도권이 누구에게 있는지를 명확히 선언하는 영적 지각변동이었습니다.
+
+우리의 신앙 여정에도 이런 당혹스러운 순간이 찾아옵니다. 내가 하나님께 따져 묻고 해답을 재촉하던 관계가, 어느덧 하나님이 내게 삶의 근원을 물어오시는 관계로 넘어가는 때입니다. 우리는 내가 처한 상황에 대한 답을 얻지 못해 답답해하지만, 어쩌면 주님은 우리의 요란한 질문 공세 속에서 고요하고 묵직하게 되묻고 계신지도 모릅니다. "너는 나를 누구라 하느냐?", "네가 그토록 두려워하며 움켜쥐고 있는 것은 진정 무엇이냐?" 이 거룩한 되물음 앞에서, 내가 쥐고 있던 질문의 주도권은 힘을 잃습니다. 그것은 우리를 억압하려는 것이 아니라, 우리가 미처 보지 못했던 영혼의 깊은 진실을 마주하게 하는 은혜의 초대입니다.
+
+## 감히 묻지 못하는 침묵, 실패인가 은혜인가
+
+예수님의 이 근원적인 물음 앞에 사람들은 어떤 반응을 보였을까요? 마태복음의 저자는 매우 의미심장한 기록을 남겨둡니다. "한 마디도 능히 대답하는 자가 없고, 그 날부터 감히 그에게 묻는 자도 없더라." (마 22:46) '묻다'라는 동사의 주어 자리에 더 이상 아무도 서지 못하게 된 것입니다. 활기차고 때로는 공격적으로 오가던 마당의 논쟁은 깊고 무거운 침묵 속으로 빠져듭니다. 
+
+우리는 종종 관계 속에서, 혹은 하나님 앞에서의 먹먹한 침묵을 '실패'나 '절망'으로 단정 짓곤 합니다. 더 이상 물을 힘조차 없어 기도의 입을 닫아버릴 때, 우리는 신앙의 위기가 왔다고 생각합니다. 그러나 본문 속의 침묵은 단순한 패배나 체념이 아닙니다. 그것은 묻는 자리가 인간의 영리한 지혜나 오기로 차지할 수 있는 자리가 아님을 깨닫는 '거룩한 무능'의 순간입니다. 나의 얄팍한 질문이 멈추는 바로 그 자리에서, 우리는 비로소 진짜 들어야 할 것을 향해 귀를 열게 됩니다. 내가 하나님을 향해 묻는 자리가 삶의 유일한 자리가 아님을 인정하고 그 주도권을 내려놓을 때, 닫혀 있던 영혼의 눈이 비로소 열리기 시작합니다.
+
+## 질문이 멈춘 자리, 멈추지 않고 흐르는 생명의 말씀
+
+가장 감동적인 반전은 이 단락이 끝난 직후의 장면에 숨어 있습니다. 사람들의 질문이 영영 멈추어버린 그 서늘한 침묵의 마당에서, 이야기는 그대로 막을 내리지 않았습니다. 오히려 인간의 묻기가 멈춘 그 자리를 딛고, 무리와 제자들을 향한 예수님의 기나긴 말씀이 새롭게 시작됩니다. 묻고 답하는 피곤한 논쟁의 왕래가 그치자, 오직 우리를 살리는 방향으로만 흐르는 생명의 진리가 폭포수처럼 쏟아지기 시작한 것입니다. 하루의 끝에서 멈춘 것은 인간의 어설픈 '묻기'였을 뿐, 우리를 향한 하나님의 '말씀'은 단 한 순간도 멈춘 적이 없었습니다.
+
+우리가 반복되는 삶의 고단함 속에서 끝없이 "왜?"라고 물으며 고통스러워할 때, 반드시 기억해야 할 사실이 있습니다. 우리가 아직 하늘의 답을 듣지 못한 것이 아니라, 이미 내 곁에 주신 그분의 말씀을 미처 읽어내지 못하고 있을지도 모른다는 것입니다. 내가 묻는 자리를 끝끝내 고집하느라, 그 자리에 이미 놓여 있는 변함없는 사랑과 약속의 말씀을 외면하고 있었던 것은 아닐까요? 
+
+오늘 하루, 쉼 없이 묻고 따지며 해명을 요구하던 나의 조급한 입술을 가만히 닫아 봅니다. 내가 꽉 쥐고 있던 질문의 주어 자리를 비워, 그분께 온전히 내어드립니다. 내 삶을 향한 주님의 거룩한 질문이 내 영혼 가장 깊은 곳을 울리도록 고요히 머무를 때, 우리는 마침내 깨닫게 될 것입니다. 나의 원망 섞인 질문이 멈춘 바로 그곳에서, 나를 가장 선한 길로 인도하시는 그분의 맑고 깊은 말씀이 이미 눈부시게 흐르고 있다는 것을 말입니다.
+
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      마태복음 제 35편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
