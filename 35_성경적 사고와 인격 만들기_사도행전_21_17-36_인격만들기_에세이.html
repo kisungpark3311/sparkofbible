@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>이름을 쪼개어 읽을 때 비로소 사람이 보인다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 35편 &middot; 사도행전 21:17-36</span>
+      <h1>이름을 쪼개어 읽을 때 비로소 사람이 보인다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 너무도 쉽게 사람을 하나의 편리한 집단명 속에 밀어 넣고 성급한 마침표를 찍어버리곤 합니다. "요즘 젊은 세대는", "어느 교회 사람들은", "그 지역 출신들은". 복잡하고 고단한 삶의 서사를 일일이 마주하는 대신, 우리는 몇 글자의 거친 이름표를 붙여 타인을 하나의 덩어리로 규정해버립니다. 그러나 한 사람의 영혼은 그렇게 단색의 페인트로 단숨에 칠해질 수 있을 만큼 단순하지 않습니다. 모든 영혼 속에는 저마다의 고유한 결이 있고, 다른 이들에게는 차마 다 설명하지 못한 사연과 신앙의 고투가 서려 있습니다. 성경 사도행전 21장은 웅성거리는 예루살렘 성전 뜰의 한복판으로 우리를 데려가, 우리가 무심코 지나쳐 온 그 거친 언어의 폭력을 조용히 꾸짖으며 참된 인간 이해의 길을 열어 보여줍니다.</p>
+<p>3차 전도 여행을 마치고 예루살렘에 당도한 사도 바울을 맞이한 야고보와 장로들은 참으로 낯설고도 놀라운 소식을 전합니다. "형제여, 그대도 보는 바에 유대인 중에 믿는 자 수만 명이 있으니 다 율법에 열심 있는 자라." 예루살렘 성전의 마당을 가득 메운 이들은 이방 땅의 신자들이 아니었습니다. 그들은 나면서부터 모세의 율법과 할례의 전통 속에서 자라온 유대인들이었고, 동시에 십자가에 달리셨다가 부활하신 예수 그리스도를 주님으로 고백한 신자들이었습니다. 그런데 우리는 이 구절을 읽을 때마다 이상한 망설임과 마주하게 됩니다. '예수를 믿는다면서 어떻게 여전히 율법에 그토록 열심일 수 있는가?'라는 의아함입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">두 개의 술어 사이에 '그러나'는 없었다</h3>
+<p>오랫동안 많은 독자들은 이 구절을 유대인 신자들의 불완전함이나 한계를 지적하는 문장으로 오독해 왔습니다. "그들은 예수를 믿었다. '그러나' 아직 율법주의에서 온전히 벗어나지 못했다"라고 머릿속에서 무의식중에 역접 접속사를 끼워 넣은 것입니다. 은혜를 알면서도 율법의 규례를 붙들고 있는 그들의 모습 속에서, 우리는 너무도 손쉽게 '미숙함'이나 '타협'이라는 라벨을 붙이려 들었습니다. 하지만 헬라어 원문(21:20)을 가만히 들여다보면 가슴을 울리는 진실이 드러납니다. 그곳에는 우리가 제멋대로 밀어 넣었던 '그러나'라는 단어가 존재하지 않습니다.</p>
+<p>본문은 '믿은 자들이 얼마나 많은 만(萬)들인가(πόσαι μυριάδες)'라는 감탄 섞인 선언과, '그들이 모두 율법의 열심자들이다(πάντες ζηλωταὶ τοῦ νόμου)'라는 서술을 오직 '그리고(καί)'라는 접속사 하나로 나란히 이어 붙입니다. 한 주어 자리에 놓인 두 개의 상태는 대립하거나 충돌하지 않고 평화롭게 겹쳐져 있습니다. 완료분사(πεπιστευκότων)로 기록된 그들의 믿음은 결코 흔들리는 과거가 아닌 현재의 확고한 신앙이었으며, 율법을 향한 열심 또한 구원을 얻어내기 위한 율법주의적 공로가 아니라 하나님을 사랑하기에 삶의 거룩한 규범을 지켜내려는 순전한 헌신이었습니다. 종교개혁자 장 칼뱅이 『기독교 강요』에서 힘주어 역설했던 '율법의 제3용도'—구원의 조건으로서는 폐기되었으나 감사와 순종의 규범으로서는 성도에게 여전히 소중하다는 그 진리가 이미 예루살렘 성도들의 삶 속에 아름답게 녹아 있었던 것입니다.</p>
+<p>예루살렘의 지도자들은 이 두 가지 모습을 '그러나' 없이 칭찬과 감사의 나열로 보고했습니다. 성경은 그들을 '반쪽짜리 신자'로 깎아내리지 않았습니다. 오히려 하나님께서 유대인이라는 민족적 정체성과 오랜 언약의 관습 속에서도 이토록 수많은 이들을 그리스도께로 부르셨다는 구원의 신비 앞에 무릎 꿇고 영광을 돌렸습니다. 우리가 타인의 삶을 바라볼 때 멋대로 끼워 넣는 수많은 '그러나'를 거두어낼 때, 비로소 은혜와 규범, 열정과 고뇌가 공존하는 살아 있는 신앙인의 입체적인 얼굴이 보이기 시작합니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">수식어를 떼어낼 때 가장 무고한 사람이 다친다</h3>
+<p>사도행전 21장의 시야를 조금 더 넓혀보면, 우리는 한 단락 안에서 '유대인'이라는 동일한 이름표 아래 서 있는 세 개의 전혀 다른 주체를 만나게 됩니다. 첫 번째는 20절에서 바울을 따뜻하게 형제로 맞이하며 주를 찬양하던 '유대인 중 믿는 자 수만 명'입니다. 두 번째는 27절에서 성전 뜰에 있던 바울을 발견하고 군중을 선동하여 그를 때리고 죽이려 했던 '아시아로부터 온 유대인들'입니다. 그리고 세 번째는 로마 군대의 쇠사슬에 묶인 채 계단 위에서 군중을 향해 조용히 입을 연 사도 바울 자신입니다. "나는 유대인이라(Ἐγὼ ἄνθρωπος μέν εἰμι Ἰουδαῖος, 21:39)."</p>
+<p>놀랍지 않습니까? 주를 믿고 기뻐하는 자도, 사도를 결박하여 피를 흘리게 하는 자도, 그 피 흘림을 견디며 복음을 증언하는 사도도 모두 같은 '유대인'이라는 하나의 이름을 공유하고 있습니다. 만약 성경이 이 복잡한 광경을 거칠게 다루었다면, "유대인들이 바울을 붙잡아 죽이려 했다"라고 기록했을 것입니다. 하지만 성경의 기록은 두려울 정도로 치밀합니다. 살기등등한 폭력의 주체들을 적을 때, 성경은 결코 집단명 전체를 가해자로 지목하지 않고 그 이름 앞에 '아시아로부터 온(οἱ ἀπὸ τῆς Ἀσίας)'이라는 지리적 출신의 작은 수식어를 단단히 붙여 놓습니다.</p>
+<p>이 작은 한정어 하나가 왜 그토록 중요할까요? 만약 우리가 그 수식어를 무심코 떼어내 버리는 순간, 예루살렘 성전 뜰에서 바울을 얼싸안고 눈물 흘리며 하나님께 영광을 돌렸던 수만 명의 믿는 유대인들까지 졸지에 사도를 돌로 치려 했던 폭도로 둔갑해버리기 때문입니다. 하나의 거대한 집단명으로 사건을 뭉뚱그려버릴 때, 역사는 무서운 괴물을 낳습니다. 실제로 기독교 역사가 성경의 이 세심한 한정어들을 떼어낸 채 본문을 오독했을 때, 끔찍한 반유대주의의 광기와 수많은 무고한 생명을 앗아간 홀로코스트의 비극이 잉태되지 않았습니까.</p>
+<p>세무 실무를 떠올려 보아도 이 이치는 자명합니다. 한 건물에 똑같은 간판을 달고 있는 세 개의 사업장이 있다고 할 때, 과세관청이 간판 이름이 같다는 이유로 한 덩어리로 묶어 세금을 부과한다면 어떤 일이 벌어지겠습니까? 성실하게 세금을 납부해 온 선량한 상인이 옆 가게의 악의적인 탈세와 체납 책임을 고스란히 뒤집어쓰게 될 것입니다. 그래서 법과 제도는 간판이 아니라 고유한 '사업자등록번호'를 통해 개별 주체의 책임을 낱낱이 가려냅니다. 성경 본문의 한정어는 영혼의 사업자등록번호와 같습니다. 집단이라는 거대한 간판 뒤에 숨은 개별적인 인격과 책임을 구별해 주는 최소한의 안전장치인 것입니다.</p>
+<p>실제로 사람들에게 공동체의 이름표를 붙이게 한 뒤, 그 아래 각자의 개별적 형편을 적은 쪽지—'새로 등록한', '조용히 기도하는', '마음에 깊은 상처를 입은'—를 붙였다가 떼어내는 심리 실험을 해보면 충격적인 결과가 나타납니다. 진행자가 쪽지를 강제로 떼어내고 "이 모임 사람들은 다 위선적이다"라고 통째로 비난하는 순간, 그 비난 내용에 전혀 해당하지 않는 가장 여리고 성실한 사람들이 가장 먼저 가슴을 움츠리며 깊은 수치심과 상처를 호소합니다. 덩어리로 내던지는 무책임한 일반화의 폭력은 언제나 가장 결백하고 무고한 이들의 영혼을 가장 깊숙이 베어냅니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">이름을 정직하게 쪼개어 읽는 사랑의 성실함</h3>
+<p>사도행전 21장의 거룩한 정밀함은 단순한 문법적 지식이나 학문적 세련됨에 머물지 않습니다. 그것은 하나님의 성품을 닮아가는 가장 본질적인 인격의 열매이자 이웃 사랑의 실천입니다. 이 단락의 시작을 유심히 보십시오. 바울이 자신의 사역을 보고할 때 역사의 참된 주어로 등장한 분은 바울 개인이 아니라 바로 '하나님(ὁ θεὸς)'이셨습니다(21:19). 그리고 장로들의 찬송 또한 사람의 능력을 향하지 않고 오직 하나님께 영광을 돌렸습니다(21:20). 이방인 가운데서 구원의 역사를 이루신 분도 하나님이시며, 유대인이라는 완고한 전통의 토양 속에서 수만 명의 영혼을 건져내어 그리스도의 제자로 빚어내신 분도 하나님이셨습니다. 하나님은 사람을 통계 수치나 집단의 덩어리로 구원하지 않으십니다. 한 영혼의 이름을 부르시고, 그 영혼의 고유한 배경과 눈물과 고투 속으로 친히 찾아오십니다.</p>
+<p>그렇다면 오늘 우리의 일상은 어떠합니까? 우리는 하루에도 수없이 많은 사람들을 향해 거친 덩어리 판단의 칼을 휘두르고 있지는 않습니까? "요즘 직원들은 주인의식이 없어", "그 부서 사람들은 항상 비협조적이야", "어느 교회 다니는 사람에게 사기를 당했으니 그 교단은 다 가짜야." 우리는 상처받았다는 이유로, 혹은 상황을 빠르게 통제하고 싶다는 게으름 때문에 한두 사람의 과오를 그 사람이 속한 집단 전체에 덮어씌워 버립니다. 그리고 그 이름 앞의 모든 수식어를 난폭하게 지워버림으로써, 수많은 이웃들을 잠재적 가해자로 몰아세우고 정작 자기 자신은 상처의 동굴 속에 가두어버립니다.</p>
+<p>오독을 막아서는 힘은 거대한 신학적 구호나 요란한 이념에 있지 않습니다. '그리고(καί)'라는 작은 접속사를 지켜내어 타인의 삶에 깃든 은혜와 법도를 함께 긍정해 주는 일, '아시아로부터 온(ἀπὸ τῆς Ἀσίας)'이라는 작은 한정어를 끝까지 보존하여 무고한 형제를 고발자의 자리에서 빼내어 주는 일, 그리고 "나는 유대인이라(εἰμι)"고 고백한 바울처럼 연약한 이들과의 연대를 저버리지 않는 일. 성경 문장을 구성하는 가장 작고 세밀한 낱말들을 정직하게 마주하는 그 성실함이야말로 우리가 회복해야 할 신앙의 태도입니다.</p>
+<p>나를 아프게 했던 그 사람의 이름 앞에 '내게 거짓말을 했던 그 한 사람'이라는 정직한 한정어를 달아줄 때, 비로소 우리는 그가 속했던 이름 아래 머물고 있는 수많은 따뜻한 이웃들을 다시 만날 수 있는 용기를 얻게 됩니다. 집단이라는 거대한 편견의 껍질을 깨뜨리고, 이름을 쪼개어 한 사람의 얼굴을 마주하는 일. 그 작은 수식어 하나를 지켜내기 위해 언어를 가다듬는 정직한 수고야말로 하나님이 지으신 고귀한 인격을 지켜내고 참된 화해를 이루어가는 가장 숭고한 사랑의 시작입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 35편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

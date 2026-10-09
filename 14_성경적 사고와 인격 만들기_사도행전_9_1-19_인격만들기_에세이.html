@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>들음의 모양은 달라도, 우리를 부르시는 이름은 하나입니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 14편 &middot; 사도행전 9:1-19</span>
+      <h1>들음의 모양은 달라도, 우리를 부르시는 이름은 하나입니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살아가다 보면 저마다 하늘의 뜻과 삶의 진실을 마주하는 귀의 모양이 참으로 다르다는 것을 느낍니다. 어떤 사람은 기도와 묵상 속에서 손에 잡힐 듯 선명한 확신을 얻었다며 벅찬 얼굴로 감격을 고백하지만, 어떤 이는 아무리 귀를 곤두세워도 그저 귓가에 맴도는 아득한 바람 소리나 먹먹한 울림만을 경험하며 스스로의 둔감함을 자책하곤 합니다. 또 어떤 이는 직접 보고 들은 생생한 체험의 기억조차 없이, 다른 사람들이 전해주는 이야기의 조각들과 소문을 가슴에 품은 채 조심스레 하루를 살아갑니다.</p>
+<p>우리는 부지불식간에 이러한 들음의 차이를 두고 마음속으로 보이지 않는 영적 성적표를 매기곤 합니다. "왜 나는 저 사람처럼 뜨겁고 분명하게 듣지 못할까?", "내 믿음의 깊이가 얕아서 하나님의 뜻을 온전히 분별하지 못하는 것은 아닐까?" 하는 은밀한 자책과 비교는, 어느덧 신앙마저도 우열을 가르는 건조한 능력주의의 잣대로 변질시키곤 합니다.</p>
+<p>그러나 성경은 인류 역사상 가장 극적인 회심의 순간인 다메섹 길 위에서, 우리의 이러한 조급한 편견과 자책을 조용하고도 단호하게 깨뜨립니다. 사도행전 9장에 기록된 바울의 회심 현장에는, 놀랍게도 한 사건을 둘러싸고 완전히 다른 세 갈래의 귀가 나란히 서 있었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">다메섹 길 위, 서로 다르게 울린 세 갈래의 귀</h3>
+<p>다메섹으로 가던 길 위, 홀연히 하늘로부터 빛이 둘러 비출 때 일어난 일들을 성경은 세 사람(혹은 세 무리)의 서로 다른 들음으로 묘사합니다.</p>
+<p>첫 번째 귀는 사울의 귀였습니다. 그는 땅에 고꾸라진 채로 "사울아 사울아 네가 어찌하여 나를 핍박하느냐"라는 소리의 음절과 발화 내용까지 또렷하게 알아들었습니다. 원어 성경은 이를 대격과 분사의 결합으로 표현하여, 그 소리가 말하는 바의 구체적인 의미와 인격적 뜻까지 온전히 사울의 가슴에 가닿았음을 보여줍니다. 거칠게 숨을 몰아쉬며 박해의 칼날을 갈던 그가 가장 낮고 비천한 흙바닥에 엎드러졌을 때, 하늘의 말씀은 그의 전 존재를 관통하는 명확한 음성이 되었습니다.</p>
+<p>두 번째 귀는 사울과 동행하던 사람들의 귀였습니다. 성경은 그들이 "소리만 듣고 아무도 보지 못하여 말을 못하고 섰더라"고 증언합니다. 그들은 무언가 거대한 울림이 허공을 진동시키는 소리 자체는 분명히 감지했으나, 그 말이 지닌 구체적인 뜻이나 말하는 이의 형체는 보지 못했습니다. 그들은 경악과 두려움 속에서 입이 닫힌 채 멍하니 서 있을 수밖에 없었습니다.</p>
+<p>그리고 세 번째 귀는 다메섹 성안에 머물던 예수의 제자 아나니아의 귀였습니다. 그는 다메섹 길 위의 찬란한 빛을 보지도 못했고, 하늘의 우레 같은 소리를 직접 듣지도 못했습니다. 그가 가진 것은 오직 "여러 사람에게서 전해 들은 소문"뿐이었습니다. 사울이라는 박해자가 예루살렘에서 성도들에게 어떤 잔혹한 해를 입혔는지, 그가 결박할 권한을 쥐고 이곳까지 오고 있다는 두려운 전언만이 아나니아의 귓가를 맴돌고 있었습니다.</p>
+<p>우리는 흔히 이러한 본문을 대할 때 쉽게 판단의 유혹에 빠집니다. "사울처럼 속 깊은 은혜를 깨닫는 신자가 되어야지, 동행자들처럼 소리만 듣고 멍하니 서 있는 껍데기 신앙에 머물러서는 안 된다"라거나, "소문만 듣고 두려워하는 아나니아는 믿음이 연약하다"고 함부로 꼬리표를 붙입니다.</p>
+<p>그러나 놀랍게도 성경의 기록자는 이 세 가지 들음에 대해 그 어떤 우열이나 등급의 잣대도 들이대지 않습니다. 성경은 동행자들의 들음을 결코 폄하하지 않으며, 비록 보지는 못했으나 그들도 분명히 들었다는 긍정의 시선으로 그들의 자리를 보존합니다. 그들은 말뜻을 온전히 이해하지 못했음에도 쓰러진 사울을 버려두거나 정죄하지 않았고, 앞을 보지 못하는 그의 손을 조용히 맞잡아 다메섹으로 인도해 주었습니다. 아나니아가 품고 있던 소문 역시 근거 없는 헛소문이 아니라, 사울이 살기를 품고 달려왔다는 엄연한 역사적 사실이었습니다.</p>
+<p>성경은 들음의 꼴이 다르다고 해서 어느 누구의 들음도 가짜라고 내치지 않습니다. 온몸으로 뜻을 알아들은 엎드린 귀, 막막함 속에서 울림만을 감지한 채 서 있던 귀, 소문과 전언의 무게를 견디고 있던 귀까지, 성경은 이 서로 다른 세 개의 귀를 있는 그대로 정직하게 기록의 장부에 올려놓습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">귀의 기량이 아니라, 스스로 상처 입은 분의 자기 계시</h3>
+<p>그렇다면 다메섹 길 위의 사건에서 진정으로 중요한 것은 무엇이었을까요? 그것은 듣는 인간들의 영적 청력이나 신앙적 기량이 아니었습니다. 엎드려 들었든, 서서 멍하니 들었든, 건너들었든 간에, 그 혼란스러운 들음의 조각들을 단번에 정렬시킨 것은 오직 하나, 소리의 주인이신 예수 그리스도께서 스스로를 밝히신 '자기 계시'였습니다.</p>
+<p>사울이 땅에 엎드려 "주여 뉘시오니이까"라고 떨리는 목소리로 물었을 때, 하늘의 소리는 복잡한 철학이나 신학적 논증을 펼치지 않으셨습니다. 그분은 단호하고도 명료한 일인칭으로 자신의 정체를 드러내셨습니다. "나는 네가 핍박하는 예수라."</p>
+<p>소리의 주인이 누구인지는 듣는 사람의 직관이나 추론으로 밝혀진 것이 아니었습니다. 그분이 친히 입을 열어 자신의 이름을 말씀하셨기에 비로소 드러난 것입니다. 신앙의 참된 확신은 "내가 얼마나 또렷하게 알아들었는가" 하는 나의 체험적 확신에서 나오는 것이 아니라, "스스로를 우리에게 알리신 그분이 얼마나 신실하신가" 하는 그분의 말씀에 뿌리를 내리고 있습니다.</p>
+<p>더욱 깊은 감동은, 그분이 자신의 이름을 밝히기 전에 먼저 건네신 말씀의 순서에 있습니다. 주님은 "나는 하늘의 영광스러운 주 예수라" 하고 위엄을 과시하기보다 앞서, 자신을 상처 입은 이들의 자리에 먼저 두셨습니다. "사울아 사울아, 네가 어찌하여 나를 핍박하느냐."</p>
+<p>사울이 체포영장을 손에 쥐고 추적하던 대상은 다메섹의 이름 없는 성도들, 연약하고 보잘것없는 남녀 신자들이었습니다. 그런데 부활하신 주님은 그 연약한 이들이 겪는 두려움과 고통을 고스란히 자신의 것으로 품으시며 "네가 핍박하는 것은 바로 나다"라고 말씀하십니다. 주님은 자신을 상처의 한복판에 두셨고, 박해받는 자의 목적어 자리에 스스로를 밀어 넣으셨습니다.</p>
+<p>우리를 부르시는 복음의 신비가 바로 여기에 있습니다. 복음은 더 잘 듣고 더 훌륭하게 깨닫는 자들만을 위한 종교적 기술이 아닙니다. 복음은 가장 살기등등하게 이웃을 억압하러 가던 박해자의 발걸음을 멈추어 세우시고, 지극히 작은 자들의 아픔 속에서 "내가 곧 그 사람이다"라고 말씀하시는 주님의 긍휼입니다.</p>
+<p>그러므로 오늘 우리의 영혼이 말씀 앞에서 메마르고, 때로는 아무것도 또렷하게 들리지 않아 그저 멍하니 서 있는 것 같은 날이라 할지라도 우리는 낙심할 이유가 없습니다. 신앙의 근거는 내 들음의 선명도에 있지 않고, 상처 입은 우리의 자리에 친히 찾아오셔서 우리 이름을 불러주시는 그분의 신실하심에 닿아 있기 때문입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">두려운 소문을 품은 채, 기꺼이 내미는 환대의 손길</h3>
+<p>하늘에서 울려 퍼진 이 은혜의 목소리는 마침내 다메섹의 한 허름한 골방에서, 가장 숭고한 인격의 열매로 피어납니다. 주님은 제자 아나니아를 부르셔서 사울이라는 청년을 찾아가 손을 얹으라고 명하십니다.</p>
+<p>그때 아나니아의 마음속에는 거대한 공포와 갈등이 일어났습니다. 그는 주님께 솔직하게 털어놓습니다. "주여, 이 사람에 대하여 내가 여러 사람에게 들었사온즉, 그가 예루살렘에서 주의 성도에게 적지 않은 해를 끼쳤다 하나이다. 여기서도 주의 이름을 부르는 모든 사람을 결박할 권한을 대제사장들에게서 받았나이다."</p>
+<p>여기서 우리는 깊이 주목해야 합니다. 주님은 아나니아의 이 정직한 탄식과 두려움을 두고 "너는 왜 쓸데없는 소문을 듣고 의심하느냐", "믿음이 왜 그렇게 없느냐"며 그를 다그치거나 책망하지 않으셨습니다. 아나니아가 들은 소문은 거짓이 아니라 엄연한 현실의 아픔이었기 때문입니다. 주님은 아나니아의 들음을 억지로 지우거나 부정하지 않으셨습니다. 대신 그 두려운 소문 너머에 있는 하나님의 주권적 섭리를 보여주십니다. "가라, 이 사람은 내 이름을 이방인과 임금들과 이스라엘 자손들에게 전하기 위하여 택한 나의 그릇이라."</p>
+<p>아나니아의 위대함은 바로 이 지점에서 빛납니다. 그는 자기가 들었던 무서운 소문을 억지로 부인하지 않았습니다. 의심과 두려움이 한순간에 마법처럼 사라진 것도 아니었을 것입니다. 그러나 그는 자신이 들은 현실의 상처를 그대로 품은 채, 주의 부르심을 따라 사울이 머물고 있는 직가(直街)라는 거리의 유다의 집으로 걸어 들어갔습니다.</p>
+<p>그리고 앞을 보지 못해 사흘 동안 먹지도 마시지도 못한 채 어둠 속에 갇혀 있던 원수 사울의 머리 위에 자신의 떨리는 손을 얹었습니다. 그 손길과 함께 아나니아의 입에서 터져 나온 첫마디는 놀랍게도 이것이었습니다.</p>
+<p>"형제 사울아."</p>
+<p>어제까지만 해도 교회를 파멸시키려 달려오던 핍박자였고, 방금 전까지도 자신을 결박할 공포의 대상이었던 그 사람을 향해, 아나니아는 아무런 전제 조건 없이 "형제"라는 가장 따뜻하고 거룩한 가족의 호칭을 건넸습니다.</p>
+<p>우리는 일상에서 누군가와의 관계가 어긋나거나 상대방에 대한 불편한 소문을 들었을 때, "그 소문이 완전히 오해였음이 증명된 뒤에야", 혹은 "상대방이 먼저 완벽한 무해함을 입증한 뒤에야" 마음을 열겠다고 버티곤 합니다. 그러나 성경이 보여주는 참된 인격의 열매는 소문을 억지로 덮어버리는 맹목적인 타협도, 소문으로 상대방을 영원히 낙인찍는 배제도 아닙니다. 아나니아처럼, 현실의 상처와 아픈 들음을 정직하게 주님 앞에 올려드리면서도, 말씀의 부르심을 따라 기꺼이 먼저 다가가 손을 내밀고 "형제"라 불러주는 용기 있는 환대입니다.</p>
+<p>우리의 삶은 날마다 다메섹 길 위의 세 자리 사이를 오갑니다. 어떤 날은 말씀이 벼락처럼 가슴을 치며 온몸으로 깨달아지는 사울의 자리에 서기도 하고, 어떤 날은 세상의 소음에 치여 그저 웅성거림만 들릴 뿐 마음이 굳어져 멍하니 서 있는 동행자의 자리에 머물기도 합니다. 또 어떤 날은 다른 사람들의 평가와 전해 들은 소문 속에서 불안해하며 주저하는 아나니아의 자리에 서기도 합니다.</p>
+<p>그러나 성경은 우리의 들음의 꼴에 따라 은혜의 등급표를 매기지 않습니다. 중요한 것은 내가 얼마나 완벽하게 들었느냐가 아니라, 우리의 연약한 들음 속에서도 변함없이 자신을 내어주시며 이름을 불러주시는 주님이 계신다는 사실입니다.</p>
+<p>오늘 하루, 말씀이 또렷이 들리지 않는다고 해서 스스로를 자책하지 마십시오. 다른 사람의 들음의 모양을 함부로 재단하지도 마십시오. 그리고 비록 마음을 무겁게 하는 소문과 상처가 여전히 우리 가슴 한구석에 남아 있을지라도, 우리를 먼저 형제와 자매로 불러주신 그 십자가의 사랑을 의지하여, 누군가를 향해 먼저 따뜻한 환대의 손을 내밀어 보십시오. 그때 비로소 우리의 거친 삶 속에서, 소경 같던 눈에서 비늘이 벗겨지듯 새로운 생명과 참된 평화의 역사가 시작될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 14편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

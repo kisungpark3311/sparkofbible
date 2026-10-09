@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>빈손이어야 다음 줄을 받는다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 02편 &middot; 사도행전 2:1-13</span>
+      <h1>빈손이어야 다음 줄을 받는다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">우리는 무언가를 손에 쥐어야만 안도하는 시대를 살아갑니다. 통장의 잔고를 채우고, 자격증과 경력을 쌓으며, 눈에 보이는 소유물을 늘려갈 때 비로소 내 삶이 안전하게 유지되고 있다고 믿습니다. 이 소유의 집착은 신앙의 영역에서도 슬그머니 고개를 듭니다. 은혜조차 내 손에 쥐고 언제든 꺼내 쓸 수 있는 영적 자산처럼 축적하고 싶어 합니다. 기도와 훈련을 통해 일종의 '영적 재고'를 두둑하게 쌓아두어야 험한 세상을 버텨낼 수 있다고 생각하는 것입니다. 그래서 우리는 성령 충만을 이야기할 때조차, 마치 방전된 기기를 콘센트에 꽂아 배터리를 100% 채우는 충전식 기기처럼 상상하곤 합니다.</p>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">그러나 은혜를 소유물로 다루기 시작하는 순간, 마음에 평안이 찾아오기는커녕 새로운 불안과 피로가 밀려옵니다. 채워둔 은혜가 줄어들까 봐 전전긍긍하고, 남들보다 더 많은 것을 소유했는지를 비교하며 우월감이나 열등감의 덫에 빠집니다. 무언가를 움켜쥐려는 손에는 필연적으로 힘이 들어가고, 그 긴장은 결국 영혼을 메마르게 만듭니다. 오순절 성령 강림의 심장부인 사도행전 2장은 우리의 이 낡은 소유 본능을 송두리째 뒤흔들며, 손을 펴는 자만이 누릴 수 있는 신비롭고 거룩한 해방의 세계로 우리를 초대합니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">받은 선물과 주시는 분이 같은 이름일 때</h3>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">사도행전 2장 4절은 온 교회의 역사를 바꾼 그 찬란한 순간을 단 한 문장으로 압축하여 들려줍니다. "그들이 다 성령의 충만함을 받고 성령이 말하게 하심을 따라 다른 언어들로 말하기를 시작하니라." 이 짧은 구절을 원문의 결을 따라 찬찬히 들여다보면, 숨이 멎을 듯한 기이한 문법적 마주침을 발견하게 됩니다. 열일곱 개의 낱말로 이루어진 이 짧은 문장 안에 '성령(프뉴마)'이라는 한 이름이 서로 다른 두 개의 문법적 옷을 입고 두 번 등장합니다.</p>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">앞선 성령은 관사 없는 소유격(속격)으로 쓰여, 제자들의 내면을 채운 '채움의 내용', 곧 선물의 자리에 앉습니다. 그런데 바로 뒤이어 등장하는 성령은 관사를 입은 온전한 주격으로 다시 나타나, 제자들에게 말할 것을 건네시는 '주심의 주체' 자리에 우뚝 섭니다. 선물을 가리키는 이름과, 그 선물을 지금도 주고 계시는 분의 이름이 완벽하게 일치하는 것입니다. 일찍이 교부 아우구스티누스가 성령을 '하나님의 선물'이라 부르며 증여자와 선물이 동등하다고 고백했던 그 거룩한 신비가 이 문장의 구조 속에 고스란히 담겨 있습니다.</p>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">세상의 그 어떤 관계도 이와 같지 않습니다. 발전소는 전기를 공급하지만 발전소 자체가 전류는 아니며, 부모가 자녀에게 용돈을 주지만 부모 자신이 화폐일 수는 없습니다. 세상의 모든 증여에서는 선물을 주는 이와 손에 쥐어지는 선물이 명확히 분리됩니다. 그렇기에 사람은 선물을 받는 즉시 증여자의 손을 떠나 그것을 자기 주머니에 넣고 제 뜻대로 운용할 수 있습니다. 그러나 오순절의 성령은 결코 증여자의 손에서 떨어져 나가는 독립된 물건이 아닙니다. 채우시는 분 자신이 곧 채워지는 내용이며, 선물을 건네시는 분 자신이 곧 우리에게 건네지는 선물 그 자체입니다. 주시는 분과 주어지는 것이 하나라면, 우리는 그분을 내 손안에 가두거나 내 마음대로 운용할 수 있는 권한을 영원히 얻지 못합니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">조롱은 주체의 칸을 지워버린 문장이다</h3>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">그날 다락방 밖에서 제자들의 광경을 지켜보던 사람들 중 어떤 이들은 혀를 차며 조롱했습니다. "그들이 새 술에 취하였다(가득 찼다)"(행 2:13). 우리는 흔히 이 말을 무지한 구경꾼들의 단순한 비아냥으로 치부합니다. 하지만 그들이 뱉은 조롱의 문장을 가만히 뜯어보면, 놀랍게도 그들은 사도행전 2장 4절의 문장 구조를 교묘하게 흉내 내고 있습니다. 제자들이 '성령으로 가득 찼다'고 고백했던 그 '채움의 틀'을 그대로 가져와, 단지 채워진 내용 칸에 성령 대신 '새 술'이라는 물질을 집어넣은 것입니다.</p>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">조롱의 본질은 여기에 있습니다. 그들은 설명할 수 없는 하나님의 영적 임재와 주권적 역사를, 인간이 돈을 주고 사서 병에 담아 소유할 수 있는 물질의 차원으로 끌어내렸습니다. 그리고 가장 결정적으로, 2장 4절 후반부에 엄연히 살아 숨 쉬던 '주체 칸(성령이 말하게 하심)'을 흔적도 없이 지워버렸습니다. 주체가 사라진 문장에는 오직 사람이 마시고 취하여 마음대로 휘두르는 알코올의 기운만이 남을 뿐입니다.</p>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">이 조롱자의 문장은 오늘 우리를 비추는 날카로운 거울이 됩니다. 만일 우리가 성령을 향해 언제나 목적어로만 부르고 있다면—성령을 '받는다', '구한다', '체험한다'며 내가 취하고 누리는 대상으로만 취급하고 있다면—우리 역시 그 옛날 다락방 문밖에서 주체 칸을 삭제해 버렸던 조롱자들의 문법을 그대로 답습하고 있는 셈입니다. 성령 충만은 내가 과거에 획득하여 영적 창고에 보관해 둔 훈장이 아닙니다. 본문에서 "채워졌다"는 단어는 단회적인 사건(부정과거)으로 기록되었지만, "말할 것을 주고 계셨다"는 주님의 행위는 지금도 쉼 없이 이어지는 현재진행형의 파도(미완료)로 적혀 있습니다. 충만은 과거의 저장된 상태가 아니라, 지금도 내게 말씀을 건네고 계시는 인격적인 분과의 끊어지지 않는 관계 그 자체입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">한 줄씩 받아 읽는 빈손의 평안</h3>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">한번 마음속으로 한 장면을 상상해 보십시오. 무대에 선 낭독자가 책 한 권의 두꺼운 원고 뭉치를 손에 꽉 쥔 채 서 있습니다. 그의 손가락마디는 종이를 놓치지 않으려 하얗게 굳어 있고, 눈은 지금 읽는 문장 너머 다음 장의 내용을 훑느라 쉴 새 없이 흔들립니다. 다음 말을 내가 틀리지 않고 완벽하게 해내야 한다는 책임감이 온몸을 짓누릅니다. 이것이 바로 원고를 내 손으로 쥐고 통제하려는 우리의 일상이며 사역의 자화상입니다.</p>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">그런데 방식을 바꾸어 봅니다. 낭독자는 두 손바닥을 하늘로 향해 활짝 편 채 눈을 감습니다. 곁에 선 동행자가 얇은 종이 띠에 적힌 글귀를 '한 줄씩' 그의 손바닥 위에 살며시 얹어 줍니다. 낭독자는 눈을 떠 손바닥에 놓인 그 한 줄을 소리 내어 읽고는, 띠를 조용히 내려놓고 다시 빈손을 폅니다. 다음 줄이 언제 올지, 어떤 문장이 적혀 있을지 낭독자는 알지 못합니다. 그는 다음 줄을 억지로 당겨올 수도 없습니다. 그런데 참으로 신비하게도, 원고 뭉치를 쥐고 있을 때보다 이 한 줄씩 받아 읽는 자리에서 영혼은 비로소 깊고 고요한 평안을 누립니다. 다음 줄을 내가 준비하고 책임져야 할 몫이 아니라, 곁에 계신 그분이 건네주실 몫이기 때문입니다.</p>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">빈손은 아무것도 가지지 못한 가난이나 결핍이 아닙니다. 빈손은 주님이 건네실 '다음 한 줄'이 살포시 내려앉을 가장 정결하고 거룩한 자리입니다. 그렇다고 해서 이 믿음이 사람을 아무 생각 없이 말만 읊어대는 기계나 수동적인 꼭두각시로 만드는 것은 결코 아닙니다. 2장 4절은 분명히 증언합니다. 공급은 성령께서 주시는 대로 흘러오지만, 실제로 입술을 달싹여 "말하기를 시작한" 것은 제자들 자신이었습니다. 주권적인 은혜에 나를 완전히 내맡기면서도, 내게 주어진 삶의 자리에서 책임을 다해 첫마디를 떼는 정직한 순종, 이것이 바로 성경이 말하는 성숙한 인격의 열매입니다.</p>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">우리의 일터와 인간관계, 사역의 현장에서도 마찬가지입니다. 내 지식과 경험의 완벽한 원고를 쥐고 누군가를 설득하려 들 때, 우리의 말은 메마른 잔소리가 되어 튕겨 나가기 십상입니다. 그러나 완벽해야 한다는 강박의 손을 풀고, "오늘 주께서 이 사람에게 건네기를 원하시는 마음이 무엇인가"를 묻는 빈손으로 다가설 때, 비로소 우리의 서툰 입술을 통해 흘러나간 한마디가 상대방의 가슴속 가장 연약하고 아픈 '난 곳'(행 2:8)에 온기로 가닿습니다.</p>
+<p style="font-size: 1.15rem; line-height: 1.9; color: #2d3748; margin-bottom: 24px;">받은 것을 돌아보면 주시는 분이 곁에 계시고, 주시는 분을 바라보면 우리가 받은 선물이 바로 그분 자신입니다. 그러므로 오늘, 내 힘으로 삶을 운용하려 바짝 쥐었던 손가락의 힘을 조용히 빼어 봅니다. 잔뜩 쥐었던 손을 펴서 빈손으로 주님 앞에 설 때, 우리는 비로소 성령을 소유하려는 피로한 집착에서 벗어나 지금도 내 손바닥 위에 새로운 한 줄을 건네시는 그분의 따스한 손길을 만나게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 02편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

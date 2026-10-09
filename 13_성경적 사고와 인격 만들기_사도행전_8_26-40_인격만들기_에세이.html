@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>멈춰 선 자리에서 건네는 단 하나의 이름</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 13편 &middot; 사도행전 8:26-40</span>
+      <h1>멈춰 선 자리에서 건네는 단 하나의 이름</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>
+메마른 바람이 흙먼지를 일으키는 유대 광야, 예루살렘에서 가사로 내려가는 외딴길 위로 한 대의 병거가 덜컹거리며 달리고 있었습니다. 병거 안에는 아프리카 에디오피아 여왕 간다게의 모든 국고를 맡은 막강한 권세의 고관이 타고 있었습니다. 세상의 기준에서 보면 남부러울 것 없는 부와 지위를 거머쥔 인물이었지만, 덜컹거리는 수레 안에서 그의 어깨는 말할 수 없는 고독과 깊은 결핍에 짓눌려 있었습니다. 이방인이라는 태생적 한계, 그리고 '내시'라는 신체적 결손으로 인해 그는 성전의 문턱을 넘어 온전히 들어가지 못하고 발길을 돌려야 했던 상처 입은 영혼이었습니다. 메마른 심령을 채우고자 먼 길을 달려와 예배했지만, 종교의 중심지에서조차 거룩한 환대를 온전히 누리지 못한 채 홀로 돌아가는 광야의 귀환길. 그의 떨리는 손가락은 무릎 위에 펼쳐진 이사야 선지자의 두루마리 한 구절 위에 오래도록 멈추어 서 있었습니다.
+</p>
+<p>
+"그가 도살자에게로 가는 양과 같이 끌려갔고 털 깎는 자 앞에 있는 어린 양이 조용함과 같이 그의 입을 열지 아니하였도다. 그가 굴욕을 당했을 때 공정한 재판도 받지 못하였으니 누가 그의 세대를 말하리요 그의 생명이 땅에서 빼앗김이로다."<br/>
+억울하게 짓밟히고도 소리 한번 지르지 못한 채 끌려간 이름 없는 어린 양의 고난. 공의를 빼앗기고 비참하게 끊어진 그 침묵의 생명 앞에서 내시의 심장은 거세게 요동쳤습니다. 세상의 중심에서 늘 배제당하고 온전한 인격으로 존중받지 못했던 자기 자신의 아픔이, 거친 양피지 위 침묵하는 어린 양의 형상 위로 고스란히 겹쳐졌기 때문입니다. 바로 그 순간, 거친 숨을 몰아쉬며 병거 곁으로 바짝 달려온 한 사람이 있었습니다. 성령의 세미한 음성에 순종하여 광야 길로 주저 없이 내달려온 전도자 빌립이었습니다.
+</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">누구에 관하여 묻는 광야에서 나란히 앉기까지</h3>
+<p>
+"읽는 것을 깨닫느뇨?" 달리는 병거 곁에서 나지막하게 건넨 빌립의 따뜻한 물음에 내시는 자신의 높은 지위를 내세우거나 지적 자존심을 세우지 않고 자신의 무력함을 투명하게 고백합니다. "지도해 주는 사람이 없으니 어찌 깨달을 수 있겠습니까." 그리고는 빌립을 청하여 병거에 올라 '같이 앉으라'고 손을 내밉니다.<br/>
+성경 원문이 묘사하는 이 장면은 참으로 깊고 묵직한 울림을 줍니다. 마주 보고 앉아 위에서 아래로 상대를 가르치고 훈계하는 자리가 아니라, 흔들리는 병거 위에서 어깨를 맞대고 '나란히 앉는' 자리였습니다. 마주 앉으면 시선이 상대의 얼굴과 결점을 겨누게 되지만, 나란히 앉으면 두 사람의 시선은 같은 곳, 즉 눈물로 젖은 성경의 한 줄을 함께 바라보게 됩니다. 전도와 위로는 정면에서 상대방을 설득하려는 싸움이 아니라, 곁에 앉아 그가 마주한 어둠을 함께 바라보아 주는 거룩한 동행에서 출발합니다.
+</p>
+<p>
+내시는 빌립을 향해 가슴속에 응어리진 간절한 질문을 쏟아냅니다. "청컨대 묻노니, 선지자가 이 말 한 것이 누구를 가리킴입니까? 자기를 가리킴입니까, 아니면 다른 사람을 가리킴입니까?"<br/>
+헬라어 본문에서 내시의 물음은 '페리(περί, ~에 관하여)'라는 전치사와 함께 속격으로 세 번이나 반복됩니다. 누구에 관한 이야기인가, 선지자 자신인가, 아니면 또 다른 어떤 사람인가. 내시의 질문은 대상의 소속을 따져 묻는 '판정의 물음'이었습니다. 그는 A냐 B냐 둘 중 하나의 선택지를 골라 지적이고 교리적인 결론을 내려달라고 요청한 것입니다. 우리 역시 인생의 곤경과 고통을 마주할 때마다 이처럼 묻곤 합니다. "이 고난은 누구 때문입니까? 왜 나에게 이런 비극이 찾아왔습니까? 옳은 것은 저쪽입니까, 이쪽입니까?"
+</p>
+<p>
+만약 빌립이 조급한 변증가나 자기 논리에 취한 종교인이었다면, 내시의 물음을 단칼에 끊어내며 "이것은 메시아에 대한 예언입니다"라고 즉각적인 판정을 내렸을지도 모릅니다. 혹은 자신이 준비해 온 교재와 신학적 청사진을 들이밀며 상대를 압도하려 했을 것입니다. 그러나 빌립은 내시가 손가락을 짚은 채 머뭇거리던 바로 그 자리, 빼앗긴 생명과 참담한 침묵이 서린 이사야의 고난의 구절을 결코 건너뛰지 않았습니다. 상대방의 고통과 혼란이 고여 있는 그 아픈 자리를 온전히 존중하며, "이 글에서 시작하여" 조용히 입을 열었습니다.
+</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">판정의 칸을 비우고 오직 한 인격을 채우는 일</h3>
+<p>
+사도행전 8장 35절은 성경 전체를 통틀어 가장 정밀하고 아름다운 문법적 구조를 품고 있습니다. 열네 절에 달하는 긴 이야기 속에서 오직 본동사(정동사)가 단 하나만 사용된 유일한 문장입니다. "빌립이 입을 열어 이 글에서 시작하여 그에게(여격) 예수를(대격) 전하니라."<br/>
+놀랍게도 빌립은 내시가 던졌던 '누구에 관하여'라는 속격의 틀을 되풀이하지 않았습니다. "이 글은 누구에 관한 이야기다"라는 판정의 문장으로 맞서는 대신, 문장의 장르 자체를 바꾸어 '전달의 문장'을 완성한 것입니다.
+</p>
+<p>
+우리가 일상에서 마주하는 택배 송장이나 병원의 처방전을 떠올려 보십시오. 송장에는 물건을 '받는 사람'의 칸과 보내는 '물품'의 칸이 엄격하게 구분되어 있습니다. 받는 사람의 주소나 개인적 사정이 아무리 복잡해도 품목 칸에는 오직 보내야 할 물건 하나만이 명확하게 적혀야 합니다. 의사의 처방전 역시 마찬가지입니다. 환자의 눈물겨운 증상 호소는 처방의 중요한 출발점이지만, 약품명 칸에는 질병을 고칠 정밀한 약의 이름이 적혀야만 생명을 살려냅니다. 두 칸이 뒤섞이면 배송은 엉뚱한 곳으로 빗나가고 환자는 치료의 기회를 잃고 맙니다.
+</p>
+<p>
+빌립의 전달이 바로 그러했습니다. 그는 전하는 자신(주어)과, 복음을 받는 내시(여격), 그리고 전해지는 중심 내용(대격)의 세 칸을 결코 뒤섞지 않았습니다. 내시의 처절한 상처와 질문은 대화를 풀어가는 고마운 '출발점'이었으나, 그것이 복음의 본질적인 '내용'이 되지는 않았습니다. 오늘날 수많은 사역과 상담이 사람의 필요와 현세적 결핍을 달래주는 감상주의로 흘러 복음의 중심에 사람의 사정을 채워 넣는 실수를 범하곤 합니다. 반대로 어떤 이들은 하나님의 일을 말한다면서 자신이 겪은 신앙적 무용담과 종교적 열심을 늘어놓느라, 전하는 자의 자아로 내용 칸을 어지럽히기도 합니다.
+</p>
+<p>
+그러나 빌립은 자신의 경험이나 화려한 간증을 내용 칸에 들이밀지 않았고, 내시의 질문이 지닌 협소한 선택지에도 갇히지 않았습니다. 손가락은 내시가 멈추어 선 성경의 그 아픈 구절을 짚고, 시선은 상처 입은 한 영혼을 따뜻하게 바라보며, 입술로는 오직 단 하나의 이름, '예수(τὸν ἸηSOῦν)'라는 고유명사를 대격 칸에 온전히 올려놓았습니다. 도살장으로 끌려가는 어린 양처럼 묵묵히 십자가의 고난을 받으사 세상의 모든 소외와 저주를 짊어지신 분, 빼앗긴 자들의 영원한 벗이 되신 살아있는 인격, 바로 그 예수 그리스도를 건넨 것입니다.
+</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">전달자가 사라진 자리에도 영원히 남는 기쁨</h3>
+<p>
+성경 기자는 참으로 경이롭게도 빌립이 어떤 현란한 논리와 수사학으로 이사야서를 풀어냈는지 그 구체적인 설명이나 방법론을 일절 기록하지 않았습니다. 빌립의 화려한 설득 기술과 변증의 언어는 거룩한 침묵 속에 묻어두고, 오직 "그에게 예수를 전했다"는 단단하고 순결한 구조만을 역사 속에 남겨두었습니다. 복음의 영광과 구원의 무게는 전달자의 화려한 기술이나 방법론에 있지 않고, 대격 칸에 온전히 놓인 예수 그리스도라는 이름 그 자체의 생명력에 있음을 웅변하기 위함입니다.
+</p>
+<p>
+전달자가 자신의 욕심을 비우고 오직 한 인격을 순전하게 건넸을 때, 그 이름은 받는 사람의 영혼 속에서 스스로 거대한 파도를 일으키기 시작했습니다. 병거가 길을 가다 물 있는 곳에 이르렀을 때, 먼저 입을 열어 세례를 요청한 사람은 빌립이 아니라 내시 자신이었습니다. "보라 물이 있으니 내가 세례를 받음에 무슨 거리낌이 있느냐!" 세상의 문턱에서 늘 '부정하고 결손된 자'라는 이유로 배제당했던 그가, 이제 그리스도의 십자가 안에서 조건 없이 용납되고 하늘의 자녀로 온전히 환대받았음을 깨닫고 스스로 신앙의 결단을 고백한 것입니다.
+</p>
+<p>
+두 사람이 물에서 올라왔을 때, 성경은 또 하나의 잊을 수 없는 장면을 펼쳐 보입니다. 주의 영이 빌립을 홀연히 다른 곳으로 이끌어 가신 것입니다. 길을 열어주었던 영적 안내자는 안개처럼 눈앞에서 사라졌습니다. 그러나 홀로 남겨진 내시는 허망함에 사로잡히거나 빌립의 부재를 슬퍼하며 방황하지 않았습니다. "내시가 흔연히 길을 가므로 그를 다시 보지 못하니라."<br/>
+그는 가슴 벅찬 깊은 기쁨에 겨워 홀로 자신의 조국을 향해 당당히 걸어갔습니다. 그의 기쁨은 빌립이라는 인간 메신저에게 종속되어 있지 않았고, 메신저가 떠나간 자리에도 여전히 그의 영혼 속에 영원히 살아 숨 쉬는 '예수 그리스도'라는 이름에 닻을 내리고 있었기 때문입니다.
+</p>
+<p>
+오늘 우리는 곁에 있는 이들을 어떤 눈빛과 태도로 대하고 있습니까? 누군가의 깊은 신음과 절박한 물음 앞에서 우리는 여전히 옳고 그름을 따져 묻는 심판관처럼 메마른 판정의 말만을 던지고 있지는 않습니까? 혹은 나의 지식과 영적 영향력을 과시하느라 정작 상대의 가슴에 새겨져야 할 그리스도의 자리를 가로채고 있지는 않습니까?
+</p>
+<p>
+성경적 사고가 빚어내는 가장 아름다운 인격의 열매는, 타인이 눈물로 멈추어 선 그 고통의 자리로 기꺼이 내려가 나란히 어깨를 맞대고 앉는 겸손에서 피어납니다. 내가 준비한 답을 일방적으로 쏟아붓지 않고 그가 걸려 넘어진 그 한 줄을 함께 짚어주며, 내 이야기나 화려한 방법론을 비워낸 그 순결한 자리에 오직 살아계신 예수 그리스도 한 분만을 정성껏 건네는 일입니다. 그리하여 마침내 나라는 전달자가 조용히 잊히고 사라진 뒤에도, 홀로 남은 그 사람의 삶에 영원히 꺼지지 않는 기쁨과 생명의 빛이 환하게 타오르게 하는 것. 이것이야말로 광야의 덜컹거리는 병거 위에서 오늘 우리에게 들려주는 가장 고결하고 향기로운 복음의 품격입니다.
+</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 13편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

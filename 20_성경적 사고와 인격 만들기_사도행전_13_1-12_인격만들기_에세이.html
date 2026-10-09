@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>이름표는 바뀌어도 부르심의 자리는 흔들리지 않는다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 20편 &middot; 사도행전 13:1-12</span>
+      <h1>이름표는 바뀌어도 부르심의 자리는 흔들리지 않는다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p style="line-height: 1.8; margin-bottom: 20px;">우리는 평생을 호칭과 직함의 그늘 아래서 살아갑니다. 명함 앞면에 또렷하게 박힌 직책, 이름 석 자 앞에 붙는 수식어, 조직도 안에서 내가 차지하는 위치와 순서는 때로 우리의 존재 그 자체처럼 여겨지기도 합니다. 그것이 한 계단 올라설 때면 세상 전부를 얻은 듯 어깨가 으쓱해지지만, 반대로 직함이 사라지거나 이름의 순서가 뒤로 밀려나는 순간, 우리는 마치 삶의 기반 전체가 송두리째 흔들리는 것 같은 깊은 소외감과 박탈감에 사로잡히곤 합니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">신앙의 세계에서도 우리는 익숙하고 편리한 공식에 갇혀 있곤 합니다. 대표적인 것이 바로 “사울이 변하여 바울이 되었다”는 이야기입니다. 스스로를 ‘큰 자(사울)’로 여기며 기세등등하던 교만한 사람이 다메섹 도상에서 주님을 만나 회심한 뒤, 스스로를 가장 ‘작은 자(바울)’로 낮추었다는 이 매끄러운 교훈은 수많은 설교와 신앙 간증을 통해 모범적인 공식처럼 전해져 내려왔습니다. 그러나 성경 원문의 문면을 정직하게 들여다보면, 본문은 우리가 만들어낸 그 뻔하고 통속적인 도덕주의적 설정을 단호하게 비껴갑니다. 사도행전 13장의 현장에는 인간의 조급한 자기 증명과 서열 다툼을 부끄럽게 만드는, 전혀 다른 차원의 침묵과 부르심의 신비가 깃들어 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">옛 이름표를 떼지 않고 새 이름표를 곁에 붙이다</h3>
+<p style="line-height: 1.8; margin-bottom: 20px;">성경에서 한 사람의 이름이 바뀌는 순간들은 언제나 장엄한 하나님의 직접적인 발화(發話)와 그에 따르는 명확한 이유로 채워져 있었습니다. 아브람을 부르실 때 하나님은 “이제 후로는 네 이름을 아브람이라 하지 아니하고 아브라함이라 하리니 이는 내가 너를 여러 민족의 아버지가 되게 함이니라” 하고 장엄하게 선언하셨습니다. 얍복 나루에서 야곱을 꺾으신 후에도 “네 이름을 다시는 야곱이라 부를 것이 아니요 이스라엘이라 부를 것이니 이는 네가 하나님과 및 사람들과 겨루어 이겼음이니라”라며 개명의 까닭을 분명히 밝히셨습니다. 예수께서 시몬을 처음 바라보셨을 때 역시 “네가 요한의 아들 시몬이니 장차 게바라 하리라” 하시며 번역과 호칭의 의미를 열어주셨습니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">그런데 사도행전 13장 9절, 사울이라는 이름 곁에 바울이라는 이름이 인류 역사상 처음으로 함께 놓이는 그 결정적인 문턱에는 이러한 성경적 개명의 문법이 철저할 정도로 존재하지 않습니다. 하늘에서 음성이 들려와 이름을 바꾸어준 것도 아니고, “내가 이제부터 너를 바울이라 부르겠다”는 신적 명령도 없습니다. 헬라어 원문은 무심하리만큼 담담하고 건조합니다. <em>‘사울로스 데, 호 카이 파울로스(Σαῦλος δέ, ὁ καὶ Παῦλος)’</em>, 즉 “사울, 곧 또한 바울인 그 사람”일 뿐입니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">놀랍게도 이 문장에는 ‘이름이 바뀌었다’는 서술어는 물론이거니와 정동사(finite verb) 하나조차 들어 있지 않습니다. 그 문장의 정동사는 다음 절에 이르러서야 비로소 입을 여는 “그가 말하되(εἶπεν)”에 가 있습니다. 사울은 이미 다메섹 길 위에서 부활하신 주님을 만난 지 십여 년이 훌쩍 지난 성숙한 사역자였습니다. 안디옥 교회에서 금식하며 기도할 때 성령께서 친히 “내가 불러 시키는 일을 위하여 바나바와 사울을 따로 세우라”고 지명하셨던 그 거룩한 부르심의 현장에서도 그의 이름은 여전히 ‘사울’이었습니다. 사울이라는 이름은 회심하기 전의 추악한 과거가 아니었고, 부끄러워 벗어던져야 할 죄악의 잔재도 아니었습니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">성경의 서술자는 가슴 왼쪽에 붙어 있던 ‘사울’이라는 유대식 이름표를 매정하게 떼어내 버리지 않았습니다. 옛 이름표를 고스란히 둔 채, 로마 제국의 광야로 걸어 나가는 이방 선교의 현장에서 이방인들에게 친숙하고 다가가기 쉬운 로마식 이름 ‘바울’이라는 또 하나의 이름표를 그 오른쪽에 조용히 덧붙였을 뿐입니다. 그것은 ‘바뀜’이 아니라 ‘더함’이었습니다. 과거의 나를 억지로 부정하고 지워버려야만 새로운 사람이 되는 것이 아닙니다. 하나님께서 지나온 세월 동안 빚어오신 나의 역사를 온전히 긍정한 채, 부르심이 가리키는 새로운 사명의 지평을 향해 기꺼이 자신을 넓혀가는 성숙한 온유함이 바로 이름표를 떼지 않고 하나 더 붙이는 손길에 담겨 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">해설이 필요한 이름과 침묵 속에 서 있는 이름</h3>
+<p style="line-height: 1.8; margin-bottom: 20px;">사도행전을 기록한 누가는 왜 바울이라는 이름이 처음 등장하는 이 위대한 전환점 앞에서 그토록 철저한 침묵을 지켰을까요? 혹시 그가 원래 사람의 이름이나 유래 따위에는 무관심한 서술자였기 때문일까요? 결코 그렇지 않습니다. 바로 한 절 앞인 13장 8절을 보면 기이할 정도로 대조적인 장면이 펼쳐집니다. 구브로 총독 곁에서 복음의 길을 가로막던 마술사 바예수를 가리킬 때, 누가는 아주 친절하고 상세한 해설을 덧붙입니다. “이 마술사 엘루마는 (이 이름을 번역하면 마술사라)…” 헬라어 본문에는 이유를 설명하는 접속사 ‘가르(γάρ, 왜냐하면)’와 이름을 다루는 수동태 정동사(μεθερμηνεύεται, 번역되다)가 명확하게 박혀 있습니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">누가는 결코 이름을 설명할 줄 모르는 사람이 아니었습니다. 그는 거짓과 술수로 권력자 곁에 기생하며 자신을 부풀리던 대적자의 이름에는 번역의 괄호를 열고 그 숨은 정체를 낱낱이 파헤쳐 고발했습니다. 그런데 정작 기독교 역사의 가장 위대한 사도가 무대의 전면에 나서는 장엄한 순간에는, 어떠한 수식어도, 어떠한 신학적 설명도 달지 않은 채 그저 두 이름을 나란히 적고 침묵 속으로 물러섭니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">왜 대적자의 이름에는 장황한 해설이 붙고, 부름받은 사도의 이름에는 설명 없는 침묵만이 흐르는 것일까요? 스스로를 꾸며내고 위장해야 하는 세상의 권세자들에게는 끝없는 자기변명과 화려한 수식어가 필요하지만, 하나님의 절대적인 부르심 속에 서 있는 사람에게는 사람의 해설이 필요치 않기 때문입니다. 바울의 정체성은 그가 ‘사울’로 불리든 ‘바울’로 불리든, 세상이 그를 어떻게 규정하든 조금도 흔들리지 않습니다. 그의 존재의 근거는 인간이 매겨주는 호칭의 값어치나 사람들의 평판에서 오는 것이 아니라, 이미 안디옥에서 성령께서 “내가 불러 시키는 일을 위하여”라고 선언해 주신 하나님의 거룩한 선택 속에 온전히 뿌리내리고 있었기 때문입니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">자기를 증명하려 안달하지 않는 사람의 침묵은 얼마나 단단하고 아름답습니까. 세상의 인정과 칭찬이라는 해설을 구걸하지 않고, 오직 나를 아시고 나를 부르신 분의 신실하심 앞에서 잠잠히 설 수 있는 사람만이, 비로소 세상의 거짓과 대적의 궤계를 꿰뚫어 보는 참된 영적 권위를 지니게 됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">서열의 그늘에 선 바나바와 바뀌지 않는 부르심의 칸</h3>
+<p style="line-height: 1.8; margin-bottom: 20px;">사도행전 13장이 우리에게 건네는 가장 시리고도 가슴 뭉클한 울림은 바울의 그늘 뒤로 묵묵히 걸어 들어간 동역자, 바나바의 뒷모습에서 그 절정에 도달합니다. 안디옥 교회가 두 사람을 안수하여 떠나보내던 13장 2절에서, 성령의 음성은 분명 “바나바와 사울”을 지명했습니다. 언제나 교회의 영적 어른이자 온유한 후원자였던 바나바의 이름이 맨 앞자리에 있었고, 사울은 그의 뒤를 따르는 동역자였습니다. 총독의 관저에 들어갈 때(13:7)까지만 해도 이름의 순서는 변함없이 “바나바와 사울”이었습니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">그러나 마술사와의 치열한 영적 전투를 지나 구브로 섬을 떠나 버가에 이르렀을 때(13:13), 성경의 문장은 숨을 멎게 할 만큼 냉정하게 바뀝니다. “바울과 및 동행하는 사람들이(οἱ περὶ Παῦλον)…” 오랫동안 모든 문장의 주어 첫머리를 지키고 있던 바나바의 이름이 본문에서 흔적도 없이 사라진 것입니다. 한때 사울을 발굴하여 신앙 공동체로 이끌어주었던 위대한 영적 스승 바나바는, 이제 독자적인 이름조차 적히지 않은 채 ‘바울 곁에 머무는 사람들’이라는 복수 명사의 그늘 속으로 완전히 스며들어 버렸습니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">세상의 잣대로 본다면 이것은 가혹한 역전이자 뼈아픈 밀려남입니다. 20년을 함께 동업한 회사의 공동 창업자가 어느 날 갑자기 대표이사 명의를 넘겨주고 ‘그 외 임원’으로 물러났을 때 찾아오는 지독한 소외감, 평생을 헌신한 부교역자가 새로 부임한 후임자에게 주보의 첫 줄을 내어줄 때 겪는 모멸감을 우리는 너무나 잘 알고 있습니다. 인간의 조직 속에서 이름의 순서가 바뀌고 결재란의 위치가 뒤바뀔 때, 사람들은 얼마나 쉽게 상처받고 갈등하며 “누가 밀려났다”는 소문에 마음을 베이곤 합니까.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">하지만 성경은 바나바의 섭섭함이나 서운함을 단 한 줄도 적지 않습니다. 바울 역시 자신이 리더십의 정점에 섰다고 의기양양해하지 않습니다. 13장 14절에서 두 사람은 비시디아 안디옥의 회당에 들어가 나란히 “앉았습니다(ἐκάθισαν)”. 그들의 행동을 묘사하는 동사는 여전히 나뉠 수 없는 복수형입니다. 앞자리에 선 바울도, 이름 없이 곁으로 물러선 바나바도 회당의 긴 의자에 어깨를 나란히 맞대고 앉아 하나님의 말씀에 귀를 기울였습니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">어떻게 이런 기적 같은 인격의 평정과 평안이 가능했을까요? 그것은 종교개혁자 장 칼뱅이 깊이 통찰했듯, 신자의 정체성은 세속의 지위나 직함에 의해 좌우되는 것이 아니라 하나님께서 각 사람에게 정해주신 고유한 삶의 초소(statio)를 묵묵히 지키는 일이기 때문입니다. 사도행전 13장 2절에서 성령께서 “내가 불러 시키는 일을 위하여”라고 말씀하셨을 때, 그 거룩한 부르심의 완료형 동사가 품어 안았던 목적어는 바로 “그들을(αὐτούς)”이었습니다. 하나님의 시선 속에는 언제나 두 사람이 함께 있었습니다. 인간의 서술과 제도의 문서는 바울을 앞세우고 바나바의 이름을 생략했을지 몰라도, 하나님께서 영원 속에 새겨두신 부르심의 복수 목적어 칸에는 바나바의 자리가 단 한 번도 지워진 적이 없었습니다.</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">인생의 계절이 바뀌면 우리의 이름표도 바뀝니다. 어제는 앞장서서 무대를 이끌던 주역이었지만, 오늘은 무대 뒤편에서 조용히 짐을 챙기는 조연이 될 수도 있습니다. 지갑 속에 ‘목사’와 ‘세무사’, 혹은 ‘대표’와 ‘실무자’라는 두 장의 명함을 번갈아 만지작거리며 어느 자리가 진짜 내 자리인지 번민하는 날들도 있습니다. 그러나 세상이 매기는 서열의 칸과 호칭의 명패가 아무리 어지럽게 뒤바뀐다 해도, 하늘의 장부에는 결코 지워지지 않는 영원한 칸이 있습니다. “내가 너를 지명하여 불렀나니 너는 내 것이라.”</p>
+<p style="line-height: 1.8; margin-bottom: 20px;">서열이 앞으로 당겨진 사람도, 이름 없이 그림자 속으로 들어간 사람도, 우리 모두는 그분의 변함없는 부르심이라는 거대한 품 안에 나란히 안겨 있습니다. 이름표의 유한함에 마음을 빼앗기지 않고 바뀌지 않는 부르심의 깊이를 응시할 때, 우리는 비로소 앞선 자를 향해 진심 어린 축복의 박수를 보내고, 뒤로 물러선 자리에서도 한결같은 평안과 미소로 내 몫의 사명을 완수하는 성숙한 인격의 열매를 맺게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 20편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>한 손이 깨우고 한 손이 칠 때, 영광은 어디로 흐르는가</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 19편 &middot; 사도행전 12:1-25</span>
+      <h1>한 손이 깨우고 한 손이 칠 때, 영광은 어디로 흐르는가</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사도행전 12장을 펼치면 한 편의 극적인 반전 드라마가 눈앞에 펼쳐집니다. 삼엄한 로마 군사들의 경비가 무색하게 굳게 닫혔던 쇠문이 저절로 열리고, 베드로의 두 손을 결박했던 서슬 퍼런 쇠사슬이 힘없이 벗겨집니다. 반면 초대교회를 무자비하게 짓밟으며 기고만장하던 헤롯 아그립바 1세는 화려한 은빛 왕복을 입고 대중의 환호를 받던 바로 그 왕좌에서 벌레에 먹혀 비참한 최후를 맞이합니다. 우리는 흔히 이 통쾌한 이야기를 보며 손뼉을 칩니다. "간절히 기도했더니 기적이 일어났고, 오만한 악인은 심판을 받았다!"</p>
+<p>하지만 성경을 한 걸음 물러서서 정직하고 깊은 시선으로 들여다보면, 이 승리의 이야기 첫머리에서 가슴을 서늘하게 베고 지나가는 한 문장을 마주하게 됩니다. <em>"헤롯 왕이 손을 들어 교회 중에서 몇 사람을 해하려 하여 요한의 형제 야고보를 칼로 죽이니"</em>(행 12:1-2). 단 일곱 단어, 그 어떤 수식어도 감정의 묘사도 없이 기록된 야고보의 순교 앞에는 기적의 천사도, 열리는 감옥 문도 없었습니다. 왜 누구에게는 천사가 내려와 쇠사슬을 풀어주고, 누구에게는 차디찬 망나니의 칼날만 허락되었을까요? 야고보는 기도가 부족했고 베드로는 믿음이 특출했기 때문이었을까요? 성경은 그 물음 앞에서 깊은 침묵을 지킵니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">설명 없는 상실과 조건 없는 은혜 사이에서</h3>
+<p>우리는 삶에서 뜻밖의 고통이나 눈부신 성공을 만날 때마다 본능적으로 그 '이유'를 캐내려 합니다. 세상의 법정과 행정 문서는 모든 처분마다 엄격한 법적 조항과 사유를 밝혀 적습니다. 이유가 적히지 않은 처분은 불복과 분쟁의 대상이 되기 때문입니다. 우리는 신앙생활에서도 은연중에 그러한 세상의 잣대를 들이대곤 합니다. 누군가 사업에 실패하거나 큰 병에 걸리면 "무슨 숨은 죄가 있나 보지"라며 욥의 친구들처럼 섣부른 해설자가 되고, 누군가 뜻밖의 형통을 누리면 "기도를 많이 하더니 축복받았다"며 원인을 규정합니다.</p>
+<p>그러나 놀랍게도 사도행전 12장은 세상의 관료적 문법을 완전히 깨뜨립니다. 성경은 야고보가 왜 죽어야 했는지 단 한 줄의 이유도 적지 않았고, 베드로가 왜 구출되었는지에 대해서도 어떤 자격이나 조건을 설명하지 않았습니다. 베드로가 다른 사도들보다 거룩해서 구원받은 것이 아니었습니다. 감옥에서 풀려난 베드로 자신조차 자신이 건짐을 받은 사실이 참인 줄 모르고 꿈이나 환상을 보는 줄 알았을 만큼, 구원은 인간의 이해와 자격을 훌쩍 뛰어넘어 거저 주어진 선물이었습니다.</p>
+<p>성경이 두 사람의 엇갈린 운명 앞에서 이유를 침묵한 것은 결코 우연이 아닙니다. 만약 베드로의 풀려남 뒤에 '기도의 공로'나 '믿음의 우월함'이라는 이유서가 붙었다면, 같은 칼날 아래 목숨을 잃은 야고보는 순식간에 '믿음이 부족해 버림받은 패배자'로 전락하고 말았을 것입니다. 하나님께서 이유를 아끼신 것은, 상실의 밤을 통과하는 이들의 눈물을 정죄하지 않으시고, 은혜를 입은 자들이 자신의 공로를 자랑하지 못하게 하시려는 거룩한 목양적 배려였습니다. 은혜에는 영수증이 붙지 않습니다. 그러므로 우리는 풀려남 앞에서 우쭐할 수 없고, 열리지 않은 문 앞에서도 하나님의 신실하신 다스림을 의심하지 않을 수 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">말씀이 따라오는 아픔과 침묵으로 끝나는 심판</h3>
+<p>이 장에서 가장 신비롭고 경이로운 관찰은 '주의 사자'가 취하는 손길의 움직임입니다. 헬라어 원문은 옥중에 갇힌 베드로를 찾아온 존재와 왕좌에 앉은 헤롯을 친 존재를 정확히 같은 이름인 '주의 사자(ἄγγελος κυρίου)'로 부릅니다. 심지어 두 장면에서 사용된 동사 역시 '치다'를 뜻하는 같은 뿌리의 단어(πατάσσω)입니다.</p>
+<p>하지만 그 두 타격의 문법은 완전히 달랐습니다. 칠흑 같은 감옥 안에서 주의 사자는 곤히 잠든 베드로의 옆구리를 툭 쳐서 깨웁니다(πατάξας). 내일이면 처형당할지도 모를 공포 속에서 깊이 잠들어 있던 제자를 흔들어 깨우는 손길이었습니다. 그런데 그 찌름의 타격 뒤에는 곧바로 다정하고 명확한 음성이 이어졌습니다. <em>"급히 일어나라. 띠를 띠고 신을 신으라. 겉옷을 입고 따라오라."</em> 거친 깨움 뒤에 생명의 말씀이 따라왔고, 쇠사슬이 손에서 벗겨졌으며, 옷을 추스르고 신발을 꿰매어 신는 새로운 삶의 구체적인 걸음들이 시작되었습니다. 아프게 치셨지만, 그것은 죽이기 위함이 아니라 일으켜 세우기 위한 은혜의 손길이었습니다.</p>
+<p>그러나 열여섯 절 뒤, 같은 사자의 손이 왕좌를 향했을 때는 전혀 다른 풍경이 펼쳐집니다. 백성들의 신적인 찬양을 흡족하게 받으며 스스로 교만의 극치에 올랐던 헤롯을 주의 사자가 쳤을 때(ἐπάταξεν), 거기에는 어떠한 빛도, 한마디의 말씀도 뒤따르지 않았습니다. 오직 서늘한 마침표처럼 찍힌 단 하나의 정동사만이 홀로 남아 그의 숨을 끊어놓았을 뿐입니다. 아무런 후속 동작도, 말씀도 허락되지 않은 고요하고 냉혹한 종말이었습니다. 우리 인생에도 때로는 뼈아프게 옆구리를 찌르시는 하나님의 손길이 닿을 때가 있습니다. 익숙하고 안일했던 영적 잠에서 강제로 깨어나는 고통을 겪기도 합니다. 그러나 그 아픔 뒤에 우리를 향한 주의 말씀이 머물고 회복의 걸음이 이어진다면, 그것은 결코 끝이 아닙니다. 말씀이 따라오는 타격은 우리를 옭아맨 죄와 절망의 사슬을 벗겨내시는 하나님의 가장 역설적인 사랑의 시작입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">세상의 환호 앞에서 영광의 주인을 기억하는 삶</h3>
+<p>그렇다면 사도행전 12장이 유일하게 입을 열어 분명한 목소리로 밝히고 있는 단 하나의 '이유'는 무엇일까요? 본문 전체에서 원인을 나타내는 접속사(ἀνθ' ὧν)가 쓰인 자리는 오직 헤롯의 죽음뿐입니다. <em>"헤롯이 영광을 하나님께로 돌리지 아니하는 고로 주의 사자가 곧 치니."</em></p>
+<p>성경은 사람의 고난과 구출, 그 엇갈리는 운명 앞에서는 말을 아끼셨지만, 오직 '영광이 어디로 흘러가는가'라는 물음 앞에서는 서슬 퍼런 이유를 명백히 드러내셨습니다. 가이사랴의 화려한 연단에서 울려 퍼진 백성들의 외침은 달콤했습니다. "이것은 신의 소리요 사람의 소리가 아니라!" 헤롯의 파멸은 사람들이 그렇게 아첨해서가 아니었습니다. 그 찬란한 박수와 영광을 가로채어 자기가 하나님의 자리에 앉았기 때문이었습니다. 세상의 권력은 교회를 핍박하고 성도의 목숨을 빼앗을 수는 있을지언정, 하나님의 영광의 보좌만큼은 결코 침범할 수 없습니다. 왕이 그 영광을 제 손으로 쥐려 한 순간, 천하를 호령하던 권력자는 가장 비천한 존재로 스러지고 말았습니다.</p>
+<p>이 본문이 오늘 우리에게 가르쳐 주는 참된 성경적 인격은 매우 분명합니다. 첫째는, 타인의 고난과 상실 앞에서 함부로 해설가가 되지 않는 겸손입니다. 같은 기도를 드렸음에도 한쪽은 기적 같은 응답을 얻고 한쪽은 눈물의 장례를 치러야 하는 부조리한 세상 속에서, 우리는 "기도가 부족해서", "정성이 모자라서"라는 잔인한 이유를 지워내야 합니다. 구원받은 자는 다만 "주께서 나를 건지셨다"는 감사만을 남기고, 아픔을 겪는 이의 곁에서는 섣부른 충고 대신 그저 묵묵히 함께 우는 법을 배워야 합니다.</p>
+<p>둘째는, 세상의 환호와 박수가 쏟아질 때 영광의 자리를 비워내는 정직함입니다. 사업이 번창하고, 사역의 열매가 맺히며, 사람들의 찬사가 귓가를 맴돌 때 우리는 은근히 그 영광을 가슴에 품고 싶어 합니다. 그러나 성경적인 사람은 박수가 쏟아지는 바로 그 자리에서 시편 기자의 탄식을 자신의 기도로 삼습니다. <em>"여호와여 영광을 우리에게 돌리지 마옵소서 우리에게 돌리지 마옵소서 오직 주의 인자하심과 진실하심을 인하여 주의 이름에 돌리옵소서"</em>(시 115:1). 풀려남에 교만하지 않고, 설명되지 않는 침묵 속에서도 주님을 신뢰하며, 모든 삶의 자리에서 영광을 본래의 주인에게 돌려드리는 온유한 삶. 그것이 바로 같은 사자의 두 손길을 바라보며 우리가 빚어가야 할 가장 아름다운 그리스도인의 품격입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 19편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

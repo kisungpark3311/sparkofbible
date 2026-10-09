@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>영수증이 없는 사람의 고요함: 산 신분과 난 신분이 빚어내는 인격</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 37편 &middot; 사도행전 22:30~23:11</span>
+      <h1>영수증이 없는 사람의 고요함: 산 신분과 난 신분이 빚어내는 인격</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>세상은 늘 우리에게 묻습니다. "당신은 얼마짜리 사람입니까? 당신의 손에 쥐어진 명함과 신분은 얼마의 값을 치르고 산 것입니까?" 자본과 치열한 경쟁의 질서 속에서 우리는 쉼 없이 영수증을 모으듯 살아갑니다. 밤잠을 줄여가며 쌓아 올린 학위, 피땀 흘려 마련한 자격증, 오랜 시간 버텨내어 얻어낸 사회적 직함까지, 우리는 스스로 지불한 비싼 대가를 증명서 삼아 세상 앞에 가슴을 펴고 서고자 합니다. 내가 치른 대가가 클수록 내 존재의 무게도 무거워진다고 믿기 때문입니다. 하지만 사도행전 22장의 서늘한 로마 병영 안에서, 우리는 전혀 다른 두 세계관과 두 종류의 인생이 정면으로 마주하는 숨 막히는 침묵의 순간을 목도하게 됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">동전 소리 요란한 영수증과 침묵의 출생증명서</h3>
+<p>가죽줄에 양손이 묶인 채 채찍질 직전에 놓인 죄수 바울, 그리고 그를 내려다보는 로마의 군 지휘관 천부장. 천부장은 위압적인 어조로 자신의 자부심을 드러냅니다. "나는 돈을 많이 들여 이 시민권을 얻었노라." 헬라어 원문은 그의 말을 부정과거 동사(ἐκτησάμην)와 막대한 값을 뜻하는 단어(πολλοῦ κεφαλαίου)로 기록합니다. 과거의 어느 특정한 날, 거액의 은전을 치르고 로마 시민이라는 빛나는 지위를 매입했다는 뜻입니다. 그의 문장에서는 주머니 속 금화와 은화가 부딪치는 요란한 쇳소리가 납니다. 거래의 일시와 지불한 액수가 빼곡하게 적힌 일종의 '영수증'입니다. 그는 자신이 치른 대가를 근거 삼아 세상의 우위에 섰습니다.</p>
+<p>그런데 결박당한 죄수의 입에서 흘러나온 대답은 기이할 정도로 짧고 담담했습니다. "나는 나면서부터로라."(Ἐγὼ δὲ καὶ γεγέννημαι). 바울의 대답은 단 네 낱말에 불과했습니다. 거기에는 얼마의 돈을 들였는지, 어떤 노력을 기울였는지에 대한 수식어가 단 한 글자도 붙어 있지 않습니다. 시제 역시 과거의 한 시점에 끝난 거래가 아니라, 태어난 그 순간부터 지금까지 흔들림 없이 이어져 온 존재의 상태를 가리키는 '완료형'입니다. 천부장이 거래 내역이 적힌 영수증을 흔들며 자신을 과시할 때, 바울은 아무런 가격표도 적혀 있지 않은 조용한 '출생증명서' 한 장을 세상 앞에 펼쳐 보인 것입니다. 성경 본문은 두 사람 중 누가 더 우월한지 비교하지 않습니다. 다만 한 신분은 과거의 거래 장부에, 다른 신분은 존재의 귀속 장부에 적혀 있다는 엄연한 차이를 침묵 속에 보여줄 뿐입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">값을 증명하려는 어깨와 고요히 버티는 몸</h3>
+<p>신분이 어느 장부에 기록되어 있느냐는 한 사람의 몸짓과 인격을 완전히 바꾸어 놓습니다. 우리가 스스로 치른 대가와 공로로 자기를 증명하려 할 때, 우리의 어깨와 턱에는 필연적으로 힘이 들어갑니다. "내가 이 공동체에서 얼마나 오랜 세월을 바쳤는지 아는가?", "내가 쏟아부은 헌금과 헌신의 무게가 얼마인 줄 아는가?" 숫자를 세는 문장은 늘 상대를 향해 날카롭게 밀고 나갑니다. 내 대가를 인정받지 못하면 깊은 억울함이 솟구치고, 나보다 적게 수고한 이가 동등한 대우를 받으면 분노가 터져 나옵니다. 영수증을 쥐고 사는 사람의 내면은 늘 불안합니다. 그 영수증의 유효기간이 언제 끝날지 모르고, 더 비싼 값을 치른 강자 앞에서는 순식간에 주눅 들기 때문입니다. 더구나 온몸이 결박당하는 인생의 위기 앞에서는 과거에 치렀던 값비싼 영수증들이 아무런 방패가 되어주지 못합니다.</p>
+<p>하지만 바울의 몸은 달랐습니다. 증명해야 할 가격표가 없는 사람은 어깨에 힘을 줄 이유가 없습니다. 바울은 묶인 채로도 흔들리지 않았고, 억울하게 공회 앞에서 입을 얻어맞으면서도 비굴해지지 않았습니다. 그는 하나님 앞에서도 동일한 고백을 이어갑니다. "여러분 형제들아 오늘날까지 나는 범사에 양심을 따라 하나님을 섬겨왔노라"(행 23:1). 여기서 '섬겼다'는 말은 로마 시민권을 뜻하던 단어와 같은 어간을 지닌 헬라어(πεπολίτευμαι)로, "나는 오늘날까지 하나님 앞의 시민으로 살아왔다"는 뜻의 완료형입니다. 바울은 로마 권력 앞에서도, 사형 권한을 쥔 공회 앞에서도 '내가 무엇을 성취했는가'를 늘어놓지 않았습니다. 그에게 신앙이란 영수증을 모아 하나님께 보상을 청구하는 상거래가 아니라, 거저 주어진 생명의 모국어를 하루하루 숨 쉬듯 살아내는 정직한 인격이었습니다. 은혜는 공로와의 싸움에서 이긴 훈장이 아닙니다. 은혜는 공로와는 아예 다른 장부, 그 누구도 빼앗을 수 없는 하늘의 생명책에 적힌 영원한 신분입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">원가는 다른 분의 이름으로 치러졌기에</h3>
+<p>그렇다면 바울이 누렸던 그 당당함, "나는 나면서부터라"는 거저 받은 신분의 배후에는 정말 아무런 대가도 없었던 것일까요? 우리의 시선을 사도행전을 넘어 신약 성경 전체의 거대한 지평으로 넓혀볼 때, 우리는 숨이 멎을 듯한 복음의 가장 큰 전복을 마주하게 됩니다. 사도행전 22장은 '산 신분'(천부장)과 '난 신분'(바울)을 나란히 놓았지만, 십자가의 복음은 이 두 가지를 우리 한 사람의 영혼 안에 놀랍도록 포개어 놓습니다.</p>
+<p>성경은 분명히 선언합니다. "너희는 값으로 산 것이 되었으니"(고전 6:20), 우리가 얻은 하늘의 신분은 "은이나 금 같이 없어질 것으로 된 것이 아니요 오직 흠 없고 점 없는 어린 양 같은 그리스도의 보배로운 피로 된 것"(벧전 1:18-19)이라고 말입니다. 하나님 앞의 신분은 결코 헐값이 아니었습니다. 우주의 주인이신 하나님께서 자신의 독생자를 십자가에 내어주시기까지 지불하신, 온 세상을 다 주고도 살 수 없는 가장 비싸고 거룩한 원가가 치러진 신분입니다. 다만, 그 천문학적인 원가를 내가 치르지 않았을 뿐입니다.</p>
+<p>거래의 원가 장부에는 나의 수고나 공로가 아니라 오직 예수 그리스도의 거룩한 이름과 보혈이 지불인으로 적혀 있습니다. 그리고 내 손에 쥐어진 내 몫의 장부에는, 오직 하나님께로서 난 자(요 1:13)라는 영원한 '출생의 완료형'만이 은혜의 선물로 남겨져 있습니다. 원가가 지불되었기에 결코 취소될 수 없고, 내가 지불하지 않았기에 결코 스스로를 자랑할 수 없는 신분. 이것이 바로 복음이 신자의 가슴속에 빚어내는 참된 겸손과 평안의 비밀입니다.</p>
+<p>그러므로 참된 그리스도인은 하나님 앞에서도, 세상 앞에서도 영수증을 흔들며 서열을 매기지 않습니다. 오랜 신앙의 연수나 헌신의 크기를 내세워 다른 이들 위에 군림하려 들지 않습니다. 캄캄한 감옥의 밤, 지치고 상처 입은 바울의 곁에 찾아오셔서 "담대하라"(행 23:11) 말씀하시던 주님의 곁에 머무는 것만으로 충분하기 때문입니다. 당신은 오늘 어떤 문장으로 자신을 증명하고 있습니까? 당신의 어깨를 짓누르는 영수증의 피로함을 이제 내려놓으십시오. 우리는 거래로 살아가는 계약직 종이 아니라, 한없는 십자가의 대가로 태어난 하나님의 자녀입니다. 값을 말하지 않아도 되는 그 너른 은혜의 품 안에서, 오늘 우리의 삶은 비로소 세상이 흉내 낼 수 없는 깊고 고요한 품격을 회복하게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 37편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>명령은 위로만 간다 — 스데반의 무릎에서 배운 인격의 문법</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 11편 &middot; 사도행전 7:44~8:3</span>
+      <h1>명령은 위로만 간다 — 스데반의 무릎에서 배운 인격의 문법</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살아가다 보면 억울하고 분통 터지는 순간을 마주합니다. 누군가 나를 부당하게 오해하고, 비난하고, 심지어 삶의 기반을 흔들어놓을 때, 우리는 본능적으로 상대방의 멱살을 잡고 명령하기 시작합니다. "당장 사과해라", "네가 틀렸음을 인정해라", "내게 입힌 상처를 어떻게든 보상해라." 그러나 상대에게 아무리 소리를 지르고 비난을 쏟아부어도 돌아오는 것은 더 깊은 냉소와 마찰뿐입니다. 왜냐하면 애초에 상대방에게는 내 억울함을 온전히 씻어주거나 내 영혼의 상처를 지워낼 권한이 없기 때문입니다.</p>
+<p>우리는 흔히 사도행전 7장에 등장하는 스데반 집사의 순교를 바라보며, 그를 범접할 수 없는 초인적인 성자로 우러러보곤 합니다. 자신을 향해 무자비하게 빗발치는 돌무더기 속에서도 원수를 용서한 그의 마지막 기도를 보며, "나 같은 보통 사람은 흉내조차 낼 수 없는 도덕적 영웅담"이라며 고개를 떨구기도 합니다. 그러나 성경 텍스트를 한 걸음 더 깊이 파고들면, 스데반의 위대함은 감정을 억누른 초인적인 도덕성에 있지 않습니다. 그곳에는 놀라울 만큼 명확하고 정교한 '말의 수신자 선택', 즉 성경적 사고가 빚어낸 거룩한 인격의 문법이 숨겨져 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">사람을 향한 담담한 진술, 하늘을 향한 간절한 탄원</h3>
+<p>사도행전 7장 44절부터 60절에 이르는 긴 서사 속에서 스데반의 설교와 마지막 숨을 이루는 정동사는 모두 서른세 개입니다. 그런데 놀랍게도 그중 서른한 개가 사실을 객관적으로 서술하는 '직설법'입니다. 공회원들의 완고함을 통렬하게 꾸짖던 순간을 다시 펼쳐보십시오. "너희가 항상 성령을 거스르고 있다", "너희 조상들이 선지자들을 박해하였고, 너희는 그 의인을 잡아준 자가 되었다", "율법을 받고도 지키지 아니하였다." 그의 입에서는 서슬 퍼런 사실의 폭로가 쏟아졌지만, 그 문장 속에는 사람을 향해 강요하거나 조종하려는 '명령형'이나 '간청'이 단 하나도 들어있지 않았습니다. 그는 상대방에게 억지로 무릎 꿇고 뉘우치라며 매달리거나 협박하지 않았습니다. 사람 앞에서는 오직 진실과 판단을 냉정하리만치 담담하게 '진술'했을 뿐입니다.</p>
+<p>그렇다면 스데반의 입에서 명령과 간청의 언어가 터져 나온 것은 언제였을까요? 바로 군중이 귀를 막고 이를 갈며 달려들어 성 밖으로 끌고 가 돌로 치기 시작한 그 절체절명의 순간이었습니다. 뼈가 부서지고 숨이 턱 끝까지 차오르는 비명 같은 현장 속에서, 스데반의 입술에 비로소 명령의 법이 실렸습니다. 그러나 그 명령은 돌을 던지는 살인자들을 향해 떨어지지 않았습니다.</p>
+<p style="text-align: center; font-style: italic; color: #173f35; margin: 24px 0; line-height: 1.8;">
+    "주 예수여, 내 영혼을 받으시옵소서."<br/>
+    "주여, 이 죄를 저들에게 돌리지 마옵소서."
+  </p>
+<p>명령은 오직 위로만 올라갔습니다. 스데반은 사람을 향해서는 끝까지 진술에 머물렀고, 오직 영혼을 받으실 수 있고 죄를 세우지 않으실 권한이 있는 단 한 분, '주 예수'께만 명령과 금지의 요청을 올렸습니다. 세무조사를 받는 납세자가 현장의 조사 공무원에게는 사실관계를 담담히 진술하되 처분의 취소 청구는 결정 권한이 있는 처분청에 제출하듯, 스데반은 권한이 없는 사람에게 에너지를 낭비하며 분노하지 않았습니다. 영혼의 주인이시며 역사의 주관자이신 하늘의 창구로 자신의 생명과 원수들의 죄를 고스란히 올려보낸 것입니다. 이것이 바로 성경적 사고가 만들어내는 인격의 첫 번째 품격입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">서 계신 주님을 바라보며 죄를 세우지 않기를 빌다</h3>
+<p>스데반의 기도는 한 걸음 더 나아가 세상의 모든 법정을 뒤흔드는 거룩한 전복을 보여줍니다. 헬라어 원문 속에는 잊을 수 없는 하나의 단어 뿌리(ἵστημι)가 기묘하게 교차하고 있습니다. 하나는 스데반이 영의 눈을 들어 바라본 "하나님 우편에 서 계신(ἑστῶτα) 인자 예수"이고, 다른 하나는 그가 마지막 숨으로 부르짖은 "이 죄를 저들에게 세우지(στήσῃς) 마옵소서"라는 간구입니다.</p>
+<p>땅의 공회실에서 스데반은 무력한 피고인이었습니다. 종교 지도자들과 거짓 증인들은 온갖 모함으로 스데반의 머리 위에 유죄 판결을 세우려 했고, 마침내 그를 돌로 쳐 죽임으로써 자신들의 승리를 확정 지으려 했습니다. 그러나 무자비하게 날아드는 돌 아래 엎드러진 스데반의 눈은 땅의 재판정을 벗어나 하늘의 법정을 향하고 있었습니다. 그곳에는 자신을 위해 친히 일어서 계신 영원한 변호자이자 참된 재판장이신 주 예수가 계셨습니다.</p>
+<p>자신을 변호하기 위해 보좌 우편에 서 계신 주님을 보았기에, 스데반은 땅의 재판관들이 내린 불법한 판결을 단숨에 무효로 돌리는 놀라운 청구서를 하늘로 밀어 올립니다. "주여, 저들이 내게 던지는 이 끔찍한 죄를, 저들의 몫으로 세워두지 마옵소서." 피고의 자리에 서서 돌을 맞던 자가, 도리어 자기를 치는 자들의 죄를 탕감해 달라고 하늘 법정에 탄원하는 거룩한 중보자가 된 것입니다.</p>
+<p>그것은 스데반이 본래 마음이 넓고 착해서가 아니었습니다. 하늘에 서 계신 주님이 어떤 분이신지를 보았기 때문입니다. 십자가 위에서 "아버지여 저희를 사하여 주옵소서"라고 기도하셨던 바로 그 주님이 지금 하늘 우편에 서서 자신을 지켜보고 계심을 알았기에, 그는 주님의 호흡과 기도를 그대로 이어받을 수 있었습니다. 용서는 내 감정의 너그러움에서 억지로 쥐어짜 내는 도덕적 과시가 아닙니다. 보좌에 서 계신 주님의 긍휼에 내 억울함과 원수의 죄까지 송두리째 넘겨드리는 믿음의 결단입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">비어 있는 응답의 칸, 맡김이 완성된 거룩한 잠</h3>
+<p>그러나 이 장엄하고 처절한 순교의 드라마 끝에서, 성경은 뜻밖에도 깊은 침묵을 지킵니다. 우리는 흔히 이런 거룩한 기도가 울려 퍼지면 하늘이 열려 불이 떨어지거나, 돌을 던지던 사울과 군중들이 그 자리에서 가슴을 치며 회개하는 극적인 응답을 기대합니다. 하지만 성경은 스데반의 기도가 당장 어떤 응답을 받았는지 단 한 줄도 적지 않습니다. 그저 "이 말을 하고 자니라(ἐκοιμήθη)"라는 담담하고 고요한 한마디로 서사의 막을 내려버립니다. 그리고 이어지는 사도행전 8장의 첫 문장은 교회를 향한 잔혹한 박해와 신자들의 피난길을 차갑게 기록할 뿐입니다.</p>
+<p>성경은 왜 이 위대한 기도의 응답 칸을 텅 빈 채로 남겨두었을까요? 그것은 실패나 허무가 아닙니다. 오히려 그것은 기도가 가장 완전하게 하나님께 위탁(寄託)되었음을 보여주는 거룩한 여백입니다. 스데반은 자기 기도의 영수증을 현장에서 즉시 확인하려 들지 않았습니다. 기도의 결과를 제 뜻대로 통제하거나 증명하려 하지 않았습니다. 맡길 자격이 있는 유일한 수탁자이신 주 예수 그리스도께 자신의 영혼과 원수들의 미래를 온전히 넘겨드렸기에, 그는 빗발치는 돌무더기 속에서도 어머니의 품에 안긴 아이처럼 평안한 잠에 빠져들 수 있었던 것입니다.</p>
+<p>성경이 남겨놓은 그 '비어 있는 응답의 칸'은, 바로 오늘 부당한 상처와 오해 속에서 씨름하는 우리를 위한 자리입니다. 우리는 누군가에게 상처를 받을 때마다 그 사람을 향해 삿대질하며 분노를 터뜨리고, 내 손으로 직접 복수하거나 상대가 고통받는 결말을 확인하고 싶어 조급해합니다. 그러나 성경적 사고가 빚어내는 인격은 다른 길을 걷습니다. 사람에게는 억울한 사실을 담담하고 정직하게 진술할 뿐, 그 사람에게 내 상처의 치유나 억지 사과를 강요하지 않는 것입니다. 나를 향한 정죄와 원수를 향한 심판의 칼을 온전히 하늘 보좌에 계신 주님께 넘겨드리는 것입니다.</p>
+<p>당장 내 손에 기도의 응답과 판결문이 쥐어지지 않아도 괜찮습니다. 기도가 온전히 그분의 손에 닿았다면, 우리는 요동치는 분노의 세상 한가운데서도 스데반처럼 깊고 고요한 평안을 누릴 수 있습니다. 사람을 향해 치켜들었던 비난의 손을 거두고, 무릎을 꿇어 오직 하늘을 향해 두 손을 펴서 "받으소서, 그리고 세우지 마소서"라고 아뢸 수 있는 사람. 그 사람이 바로 돌 아래에서도 하늘의 영광을 비추는, 가장 아름답고 성숙한 인격을 가진 사람입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 11편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

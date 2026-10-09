@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>밀려난 그 사람을 바닥에서 다시 집으시다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 10편 &middot; 사도행전 7:17-43</span>
+      <h1>밀려난 그 사람을 바닥에서 다시 집으시다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살아가다 보면 누구나 영혼의 밑바닥이 쿵 하고 내려앉는 순간을 마주합니다. "네가 뭔데 나서느냐", "누가 너를 인정했느냐"라는 차가운 거절의 말 앞에 무너져 본 사람이라면 압니다. 그 서늘한 한마디가 얼마나 오래 가슴에 박혀 흉터로 남는지, 얼마나 질기게 스스로를 '자격 없는 자'라는 고립의 감옥에 가두어 두는지 말입니다. 마흔 살의 모세가 바로 그 자리에 서 있었습니다. 동족의 고통을 차마 외면하지 못해 떨쳐 일어났던 그의 가슴에 돌아온 것은 고마움이 아니라 서슬 퍼런 조롱이었습니다. "누가 너를 우리를 다스리는 관원과 재판장으로 세웠느냐." 그 날카로운 거절 앞에 모세는 광야로 도망쳤고, 사십 년이라는 기나긴 세월 동안 모래바람 속에 잊혀진 이름으로 늙어갔습니다. 누군가에게 배척당하고 밀려났다는 낙인은 그토록 깊고 어둡습니다.</p>
+<p>그러나 사도행전 7장 35절에서 스데반이 공회 앞에서 증언하는 하나님의 구원 역사는 우리가 상상할 수 없었던 찬란한 은혜의 역설로 가득 차 있습니다. 스데반은 모세의 일생을 단 한 문장으로 압축하며, 거절당한 인간을 대하시는 하나님의 놀라운 심장을 펼쳐 보입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">거절의 말 사이에 갇힌 사람을 그대로 다시 부르시다</h3>
+<p>헬라어 성경 원문으로 사도행전 7장 35절을 가만히 들여다보면, 문장의 첫머리부터 범상치 않은 호흡이 느껴집니다. 대개의 문장은 주어로 시작하기 마련이지만, 스데반은 하나님이나 모세의 행동보다 먼저 '목적어'를 무대 한가운데 번쩍 들어 올려놓습니다. "이 모세를(Τοῦτον τὸν Μωϋσῆν)..." 스데반은 듣는 이들의 시선을 먼저 거절당해 초라해진 한 사람에게 온전히 고정시킵니다.</p>
+<p>그리고 그 사람의 이름 뒤에 곧바로 세상의 잔인한 거절을 덧붙입니다. "그들이 거절하여 '누가 너를 관원과 재판장으로 세웠느냐' 말하던..." 그런데 그다음 이어지는 문법의 배열이 실로 경이롭습니다. 관계절로 거절의 상처를 무겁게 얹어놓은 뒤, 문장은 딴 사람을 찾지 않고 다시 똑같은 지시대명사로 그를 집어 올립니다. "바로 이 사람을(τοῦτον) 하나님이 보내셨다."</p>
+<p>거절당한 모세와 하나님이 보내신 모세 사이에 이름표를 바꿀 틈이란 존재하지 않습니다. 하나님은 모세를 다른 사람으로 교체하지 않으셨습니다. 세상은 흔히 실패하거나 거절당한 사람을 손쉽게 갈아치웁니다. 조직이나 공동체에서 밀려나 상처 입은 사람이 생기면, 그의 아픔을 들여다보기보다는 옆 선반에 놓인 번듯하고 결함 없는 '대체자'를 집어 드는 편을 택합니다. 서서 다른 돌을 집어 올리는 것은 허리를 굽힐 필요도 없이 너무나 쉽고 편하기 때문입니다.</p>
+<p>하지만 하나님은 결코 그렇게 일하지 않으십니다. 하나님은 사십 년 전 동족의 비웃음 속에 내팽개쳐져 광야 바닥에 뒹굴던 '바로 그 돌'을 다시 집어 드십니다. 그러기 위해 하나님은 스스로를 낮추셨습니다. 타오르는 떨기나무 아래 서서 "내가 내 백성의 괴로움을 보고 그 탄식하는 소리를 듣고 그들을 건지려고 내려왔노라" 말씀하십니다. 대체품은 서서 집을 수 있지만, 바닥에 내던져진 그 사람을 다시 집으려면 집는 이가 바닥까지 몸을 굽혀야 합니다. 하나님은 기꺼이 무릎을 꿇고 낮아지셔서, 세상이 버린 바로 그 사람을 다시 품에 안으셨습니다. 모세가 사십 년 동안 성자처럼 완벽해져서가 아닙니다. 하나님의 들으심과 긍휼이 인간의 거절보다 컸기 때문입니다. 세상이 내뱉은 거절의 독한 말들은 두 개의 '이 사람' 사이에 갇혀, 하나님의 선택을 단 1밀리미터도 수정하지 못했습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">비웃음의 조롱을 거두어 속량의 이름으로 빚으시다</h3>
+<p>하나님께서 다시 집어 드신 모세에게 맡기신 사명의 이름을 볼 때, 우리는 은혜의 한없는 깊이에 다시 한번 숙연해집니다. 과거 동족들이 모세를 밀쳐내며 던졌던 비아냥은 이것이었습니다. "누가 너를 관원(ἄρχων)과 재판장(δικαστής)으로 세웠느냐." "네가 감히 우리 머리 위에 군림하는 통치자가 되려 하느냐, 네가 우리를 심판하는 판관이라도 된단 말이냐"라는 독기 어린 빈정거림이었습니다.</p>
+<p>그런데 떨기나무 불꽃 가운데서 하나님은 그를 다시 보내시며 그의 어깨에 새로운 옷을 입히십니다. "관원과 속량하는 자(λυτρωτής)로 보내셨으니."</p>
+<p>얼마나 놀라운 반전입니까. 하나님은 거부자들이 비웃음으로 던졌던 첫 번째 단어인 '관원'을 땅바닥에서 주워 올리십니다. 조롱의 침이 묻어 있던 그 칭호를 거두어 거룩한 은혜로 씻어내신 뒤, 모세의 이마에 진짜 사명의 영광스러운 관으로 얹어주신 것입니다. 거절의 말이 거절했던 사람들의 의도와 정반대로 찬란하게 성취되는 순간입니다.</p>
+<p>그리고 두 번째 단어를 바꾸십니다. 사람들은 그를 '재판장'이라 비웃었지만, 하나님은 그 자리에 '속량하는 자'라는 칭호를 새겨 넣으셨습니다. 만일 하나님께서 모세를 '재판장'의 자격으로 다시 보내셨다면 어떻게 되었을까요? 그것은 사십 년 묵은 원한을 갚는 서슬 퍼런 보복의 귀환이 되었을 것입니다. 자기를 밀쳐내고 광야로 내몰았던 이들을 법정에 세워 단죄하고 처벌하는 피의 심판이 되었을 것입니다.</p>
+<p>하지만 하나님의 나라는 복수의 논리로 세워지지 않습니다. 하나님은 모세의 손에서 심판의 회초리를 거두시고, 그 손에 대신 구원의 등불을 들려주셨습니다. 자신을 배척했던 바로 그 사람들을 구원하기 위해, 자기 몸을 던져 그들의 죗값을 대신 치르는 '속량하는 자'로 그를 파견하신 것입니다. 성숙한 신앙이란, 나를 밀어냈던 세상과 사람들을 향해 칼을 갈며 심판관의 자리에 앉는 것이 아닙니다. 오히려 하나님이 내게 베푸신 한없는 용서를 품고, 나를 상처 입혔던 그들을 위해 기도의 무릎을 꿇으며 그들을 살려내는 속량의 자리로 나아가는 것입니다. 하나님은 비웃음의 상처를 지닌 모세를 그렇게 아름답고 성숙한 구원자로 빚어내셨습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">거부는 어제로 흘러가고 부르심은 오늘을 지탱한다</h3>
+<p>스데반이 공회 앞에서 쏟아낸 이 설교에는 가슴을 울리는 또 하나의 거대한 비밀이 문법의 시제 속에 숨겨져 있습니다. 사도행전 7장 35절 한 구절 안에서, 사람들이 모세를 매정하게 거절했던 행위는 '부정과거(aorist)' 시제로 기록되어 있습니다. 부정과거란 과거의 한 시점에 일어나 이미 흘러가 버린 사건을 뜻합니다. 당시에는 온 세상을 뒤흔들 만큼 서럽고 치명적인 거절이었을지라도, 그것은 이미 지나간 어제의 파편에 불과하다는 선언입니다.</p>
+<p>그러나 그 거절당한 모세를 하나님께서 보내셨다는 단어(ἀπέσταλκεν)에 이르면, 문장의 시제는 경이롭게도 '완료(perfect)' 시제로 우뚝 솟아오릅니다. 스데반이 설교 속에서 수많은 역사적 사건들을 열거하며 태어났고, 자랐고, 도망쳤고, 인도했다는 지나간 과거 시제를 사용하는 동안, 오직 모세를 세상으로 파견하신 하나님의 보내심에 대해서만큼은 단 하나의 예외적인 완료 시제를 부여한 것입니다.</p>
+<p>완료 시제란 무엇입니까. 과거에 일어난 사건의 효력이 시간을 뚫고 지금 이 순간까지 조금도 쇠하지 않고 살아서 효력을 발휘하고 있음을 뜻하는 꼴입니다. 스데반은 살기등등한 공회원들 앞에서 담대하게 선포하고 있었던 것입니다. 모세를 밀쳐냈던 조상들의 거절은 지나간 과거의 재에 불과하지만, 밀려난 그 사람을 집어 구원자로 세우신 하나님의 보내심은 지금 이 순간, 바로 우리 눈앞에서도 여전히 살아서 역사하고 있다고 말입니다.</p>
+<p>세상의 거절은 결코 하나님의 작정과 소명을 무효로 만들지 못합니다. 마치 세무 당국에서 부당하게 반려되었던 서류가 재심을 통해 인용되면, 처음 제출했던 그 날짜 그대로 효력을 되살려내는 것처럼 말입니다. 하나님은 모세에게 "새로운 인생 신청서"를 써 오라고 요구하지 않으셨습니다. 사십 년 전 내쳐졌던 그 서류를, 상처투성이인 그 청년의 마음을 고스란히 간직한 여든의 노인을 그대로 들어 쓰셨습니다.</p>
+<p>정경 전체가 이 장엄한 승리의 노래를 함께 부르고 있습니다. 시편 기자는 "건축자의 버린 돌이 집 모퉁이의 머릿돌이 되었다"(시 118:22)고 노래했고, 사도 요한은 "자기 땅에 오매 자기 백성이 영접지 아니하였으나 영접하는 자 곧 그 이름을 믿는 자들에게는 하나님의 자녀가 되는 권세를 주셨다"(요 1:11-12)고 증언합니다. 세상에서 가장 차갑게 거절당하셨던 예수 그리스도께서, 그 거절의 십자가를 통하여 온 인류를 속량하시는 모퉁잇돌이 되셨습니다.</p>
+<p>오늘 우리 가슴속을 여전히 갉아먹고 있는 옛 상처와 거절의 기억들이 있습니까? "너는 안 돼", "네가 무엇을 할 수 있겠어"라며 나를 주저앉혔던 과거의 독기 어린 말들은 모두 부정과거로 흘려보내십시오. 그것은 지나간 어제의 그림자일 뿐입니다. 그리고 오늘, 나를 향해 여전히 살아 있는 하나님의 음성을 들으십시오. 주님은 바닥에 뒹굴고 있는 나를 다시 집기 위해 지금도 내 삶의 가장 낮은 자리로 허리를 굽혀 찾아오십니다. 그리고 세상이 던진 비웃음의 상처를 보혈로 씻어내사, 나를 밀쳐냈던 이웃과 세상을 품어 안는 속량의 사람으로 우리를 보내십니다. 거부는 어제로 지나갔고, 주님의 부르심은 오늘 우리의 삶을 영원토록 굳건히 지탱하고 있습니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 10편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

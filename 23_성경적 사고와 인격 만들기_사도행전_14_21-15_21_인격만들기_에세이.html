@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>주어를 감춘 멍에와 이름을 건 사랑</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 23편 &middot; 사도행전 14:21~15:21</span>
+      <h1>주어를 감춘 멍에와 이름을 건 사랑</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>
+우리는 종종 '주어가 사라진 말들'의 무게에 짓눌려 살아갑니다. "신자라면 마땅히 이 정도는 해야지", "교회 일꾼이라면 당연히 헌신해야 하는 법이야", "부모라면, 자식이라면 당연히 그래야지." 누가 처음 꺼냈는지도 모를 그 수많은 '마땅함'과 '당연함'들은 공기처럼 떠돌며 우리 어깨 위에 소리 없는 짐을 얹어 놓습니다. 법령이나 사내 규정처럼 건조하고 엄격한 이 비인칭의 말들은 반박하기조차 어렵습니다. 말하는 사람은 보이지 않고 오직 거대한 당위의 벽만 우뚝 서 있기 때문입니다. 사람들은 저마다 규칙과 명분이라는 커튼 뒤로 숨어버리고, 남겨진 이들은 죄책감과 피로 속에서 헐떡이며 그 익명의 짐을 끌어안습니다.
+</p>
+<p>
+이천 년 전, 초대교회가 마주했던 첫 번째 거대한 갈등의 현장도 바로 이 '주어를 감춘 마땅함'에서 비롯되었습니다. 이방인들이 복음을 받아들이고 하나님께로 돌아오기 시작했을 때, 예루살렘의 한구석에서 엄숙한 목소리들이 일어났습니다. "이방인에게 할례를 주고 모세의 율법을 지키라 명하는 것이 마땅하다(사도행전 15:5)." 헬라어 원문은 이 문장의 지배 동사로 주어가 없는 비인칭 동사 '데이(δεῖ, 마땅하다)'를 사용합니다. 규정집의 문체를 빌려 거룩한 당위를 선언했지만, 정작 그 무거운 요구 뒤에는 책임을 지겠다는 그 누구의 이름도 적혀 있지 않았습니다.
+</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">익명의 "마땅함" 뒤에 숨어 타인의 목을 짓누르던 우리</h3>
+<p>
+성경은 이 요구를 제기한 사람들을 '바리새파 중에 믿는 어떤 사람들'이라고 기록합니다. 그들은 교회를 무너뜨리러 온 외부의 적이 아니었습니다. 주님을 믿고 공동체 안에 머물던 우리의 지체들이었습니다. 하지만 오랜 세월 익숙해진 종교적 규범과 문화적 자부심이 그들의 눈을 가렸습니다. 그들은 자기들이 소중히 여기는 신앙의 형태를 타인에게 강요하면서, 정작 '내가 이것을 원한다'고 정직하게 고백하지 않았습니다. 대신 '마땅히 그래야 한다'는 비인칭 규정의 외투를 둘러썼습니다.
+</p>
+<p>
+주어를 지운 요구는 폭력이 되기 쉽습니다. 내 선호와 고집, 내 불안과 편견을 "하나님의 뜻"이나 "신앙의 당연한 도리"라는 거룩한 외피로 포장할 때, 우리는 손쉽게 심판자의 자리에 앉게 됩니다. 그 말에는 요구하는 자의 연약함이나 떨림이 담겨 있지 않습니다. 책임을 질 주어가 없기에, 그 말이 상대방의 삶을 얼마나 짓누르고 숨 막히게 하는지에 대해서도 돌아보지 않습니다. "할례를 주라, 명하라, 지키게 하라." 세 겹으로 쌓아 올린 율법의 요구는 하나님께로 갓 돌아온 이방 형제들의 어깨를 짓누르는 감당 못 할 멍에가 되었습니다.
+</p>
+<p>
+돌아보면 우리 자신의 모습도 다르지 않습니다. 가정에서, 직장에서, 그리고 교회 공동체 안에서 우리는 얼마나 자주 '제도'와 '원칙'이라는 안전한 방패 뒤에 숨어 타인에게 짐을 지워왔습니까? "원래 우리 부서 원칙이 그래요", "신앙생활을 제대로 하려면 당연히 이 정도는 감수해야죠." 비인칭의 문체 뒤에 숨을 때 우리는 비겁해집니다. 상처받을 위험도, 비난받을 두려움도 피한 채 거룩한 의무만을 타인의 목에 얹어놓기 때문입니다.
+</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">먼저 내 목을 만져본 자만이 "괴롭게 말라"고 말할 수 있다</h3>
+<p>
+숨 막히는 논쟁의 침묵을 깬 것은 사도 베드로였습니다. 그는 거창한 교리나 논리를 앞세우지 않았습니다. 대신 아주 정직하게 자신의 목을 어루만졌습니다. "지금 너희가 어찌하여 하나님을 시험하여 우리 조상과 우리도 능히 메지 못하던 멍에를 제자들의 목에 두려느냐(사도행전 15:10)." 이 고백 앞에서는 그 어떤 비인칭의 마땅함도 설 자리를 잃습니다. "우리도 메지 못했던 멍에." 율법의 엄중함 앞에서 스스로 넘어지고 쓰러졌던 자의 아픈 자기 고백이었습니다.
+</p>
+<p>
+타인에게 짐을 얹으려던 손을 거두고 먼저 내 목을 만져보는 정직함, 이것이 바로 성경적 사고가 인격으로 변모하는 첫 번째 순간입니다. 내가 짊어질 수 없었던 삶의 무게, 나조차 지키지 못해 허덕이던 종교적 완벽주의를 어떻게 이제 막 걸음마를 뗀 이웃에게 떠넘길 수 있겠습니까? 베드로는 자신의 무능을 인정한 그 자리에서 비로소 복음의 가장 눈부신 진실을 선포합니다. "그러나 우리는 그들이 우리와 동일하게 주 예수의 은혜로 구원받는 줄을 믿노라(사도행전 15:11)." 
+</p>
+<p>
+구원은 우리가 쌓아 올린 율법의 무게나 자격으로 얻어지는 것이 아닙니다. 처음부터 끝까지 거저 주시는 주 예수의 은혜로 말미암는 선물입니다. 은혜를 깊이 맛본 사람만이 남의 어깨에 놓인 짐을 알아봅니다. 무거운 배낭을 멘 채로는 결코 부드러운 손길로 펜을 쥘 수 없습니다. 내 목을 짓누르던 율법주의의 멍에를 십자가 앞에 내려놓고 두 손이 비워졌을 때, 교회는 비로소 타인을 향한 환대의 문을 열 준비를 갖추게 됩니다.
+</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">사랑하는 것을 지우지 않으면서 책임을 짊어지는 한 사람의 서명</h3>
+<p>
+베드로와 바울과 바나바의 증언이 끝난 후, 마침내 예루살렘 공의회의 수장이었던 야고보가 일어섰습니다. 그리고 교회의 역사를 바꾼 결정을 내립니다. "그러므로 내 의견에는 이방인 중에서 하나님께로 돌아오는 자들을 괴롭게 말고(사도행전 15:19)." 개역한글 성경은 "내 의견에는"이라고 부드럽게 완곡히 번역했지만, 헬라어 원문은 놀랍도록 결연합니다. "디오 에고 크리노(διὸ ἐγὼ κρίνω) — 그러므로 내가 판단하노니." 
+</p>
+<p>
+야고보는 헬라어 문법상 생략해도 무방한 1인칭 대명사 '에고(ἐγώ, 내가)'를 동사 앞에 따로 겹쳐 적었습니다. "내가 판단한다." 그는 비인칭의 제도 뒤로 숨지 않았습니다. 당회의 결의나 관례 뒤에 숨어 모호하게 발을 빼지도 않았습니다. 수많은 사람의 눈총과 비난이 쏟아질 수 있는 그 엄중한 갈림길에서, 그는 온전히 자기 이름을 걸고 판결문 맨 아래에 서명했습니다. 주어를 지워버린 무책임한 요구에 맞서, 책임을 오롯이 짊어지는 담대한 1인칭의 결단으로 응답한 것입니다.
+</p>
+<p>
+더욱 감동적인 것은 야고보가 펜을 들어 적어 내려간 판결문의 첫 번째 문장이었습니다. "파레노클레인(괴롭게 하다)"이라는 단어 앞에 부정어 '메(μὴ)'를 붙여, "괴롭게 하지 말라"고 선언한 것입니다. 세무 행정에서 납세자에게 불필요한 서류와 번거로운 절차를 요구하지 않는 '협력비용 최소화'의 원칙처럼, 야고보는 하나님께로 돌아오는 영혼들에게 불필요한 문턱과 짐을 지우지 않도록 '부담 심사'를 통과시켰습니다. 무언가를 더하고 명하고 지키게 하려던 세 겹의 요구를, 단 한마디 "괴롭게 말라"는 은혜의 뺌으로 뒤집어엎은 것입니다.
+</p>
+<p>
+그러나 야고보의 결정은 옛 전통을 무자비하게 폐기처분하는 혁명의 가위가 아니었습니다. 그는 이방 형제들에게 최소한의 배려 — 우상의 더러운 것과 음행과 목매어 죽인 것과 피를 멀리하라는 네 가지 권면을 남기며, 그 이유를 이렇게 덧붙입니다. "이는 예로부터 각 성에서 모세를 전하는 자가 있어 안식일마다 회당에서 그 글을 읽음이라(사도행전 15:21)." 야고보는 유대인 형제들이 오랜 세월 목숨처럼 사랑해온 모세의 낭독 소리를 지우지 않았습니다. 한 사람의 현재적 판단(`κρίνω`)이 수 세대에 걸쳐 이어져 온 말씀의 낭독(`ἀναγινωσκό메νος`) 옆에 조용히 나란히 놓인 것입니다. 야고보는 새로운 형제를 환대하면서도, 옛 형제의 아픔과 상처를 보듬었습니다. 누구도 패배자로 만들지 않고, 그리스도의 식탁에서 유대인과 이방인이 함께 밥을 먹을 수 있도록 사랑으로 빚어낸 성숙한 지혜였습니다.
+</p>
+<p>
+우리는 지금 어떤 문장으로 우리의 신앙과 인격을 표현하고 있습니까? 여전히 "마땅히 ~해야 한다"는 비인칭의 당위 뒤에 숨어 타인에게 상처를 주고 있지는 않습니까? 아니면 내 목에 먼저 멍에를 대어보는 정직함으로 내 한계를 고백하고 있습니까? 성경적 사고가 빚어내는 참된 인격은, 익명의 짐을 타인의 어깨에서 벗겨내고 기꺼이 내 이름을 걸고 "괴롭게 하지 말라"고 선언하는 자리에서 태어납니다. 복음의 은혜에 빚진 자로서, 사랑하는 이들의 걸림돌을 치워주고 기꺼이 책임을 끌어안는 한 사람의 거룩한 서명이 오늘 우리 삶의 자리마다 깊고 아름답게 새겨지기를 소망합니다.
+</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 23편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>두 손으로 품고 손가락으로 짚어가는 고귀한 삶</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 27편 &middot; 사도행전 17:1-15</span>
+      <h1>두 손으로 품고 손가락으로 짚어가는 고귀한 삶</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 질문하는 것을 두려워하는 시대를 살아가고 있습니다. 믿는다는 것은 그저 눈을 감고 고개를 끄덕이는 것이라 여겨왔거나, 반대로 날 선 의심으로 모든 것을 해체하고 비틀어 보아야만 비로소 지성적인 인간이라 인정받는 양극단의 세상에 서 있기 때문입니다. 신앙의 테두리 안에서는 흔히 "의심하지 말고 무조건 믿으라"는 침묵이 강요되기도 하고, 교회 문밖에서는 모든 권위를 냉소적으로 비웃는 지적 오만이 넘쳐납니다. 맹목적인 순종과 차가운 회의주의 사이에서, 현대인의 영혼은 길을 잃은 채 지쳐가고 있습니다.</p>
+<p>그러나 성경은 우리에게 전혀 다른 제3의 길, 참으로 고귀하고 아름다운 성경적 인격의 길을 보여줍니다. 사도행전 17장 11절, 낯선 이방의 땅 베뢰아에서 등불처럼 빛났던 사람들의 이야기입니다. 성경은 그들을 향해 "데살로니가에 있는 사람들보다 더 너그럽고 고귀해서(εὐγενέστεροι), 간절한 마음으로 말씀을 받고 이것이 그러한가 하여 날마다 성경을 상고했다"고 기록합니다. 우리는 오랫동안 이 구절을 '비판적 검증'의 모범으로만 읽어왔습니다. 마치 법정에 선 엄격한 판사처럼, 모든 것을 꼼꼼히 따져본 뒤에야 겨우 믿어주는 도도한 태도가 성숙한 신앙인 양 착각했던 것입니다.</p>
+<p>하지만 헬라어 원문의 결을 가만히 들여다보면, 우리의 선입견을 뒤흔드는 눈물겨운 은혜의 순서가 숨어 있습니다. '상고하다(ἀνακρίνοντες)'라는 말은 독립된 명령이나 결단의 정동사가 아닙니다. 그것은 '말씀을 간절히 받았다(ἐδέξαντο)'라는 주절의 품에 온전히 안겨 있는 작은 분사(分詞)에 불과합니다. 성경을 상고하는 일은 진리를 받아들일지 말지를 저울질하는 차가운 문지기가 아니었습니다. 이미 생명의 말씀을 온몸으로 뜨겁게 껴안은 사람이, 그 받은 은혜가 너무나 벅차고 귀하여 날마다 저녁마다 두루마리를 펴서 손가락으로 짚어 내려간 다정하고 성실한 일과였습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">두 손으로 먼저 껴안은 자만이 가질 수 있는 온유한 물음</h3>
+<p>사랑을 고백하고 평생을 약속한 연인의 모습을 떠올려 봅니다. 결혼 서약은 일생에 단 한 번, 온 마음을 다해 자신을 내어주는 결정적인 사건입니다. 그러나 그 서약이 끝났다고 해서 상대방을 향한 알아감이 멈추는 것은 아닙니다. 오히려 한 번 온전히 품어 안았기에, 다음 날 아침부터 평생에 걸쳐 그 사람의 작은 습관과 눈빛, 마음에 담긴 고유한 이야기들을 매일 다정하게 알아가는 경이로운 여정이 시작됩니다. 만약 누군가가 "당신을 완전히 다 파악하고 모든 조건을 검증한 뒤에야 사랑을 받아들이겠다"고 말한다면, 그 사람은 평생 누구와도 참된 사랑의 언약을 맺지 못할 것입니다.</p>
+<p>베뢰아 사람들이 걸었던 길도 바로 그와 같았습니다. 그들에게 '받음'은 단 한 번의 전인격적인 수용이었습니다. 바울이 전한 복음, 십자가에서 죽으시고 부활하신 예수 그리스도의 소식을 들었을 때, 그들은 온갖 계산과 의심의 빗장을 풀고 "모든 간절함(μετὰ πάσης προθυμίας)"으로 그 말씀을 덥석 품에 안았습니다. 그것은 이미 끝난 확신이요, 흔들리지 않는 영혼의 닻이었습니다.</p>
+<p>그리고 바로 그 확신이 든든하게 받쳐주고 있었기에, 그들은 비로소 두려움 없이 자유롭게 물을 수 있었습니다. "과연 그러한가(εἰ ἔχοι ταῦτα οὕτως)." 그 물음은 믿음을 철회하기 위해 꼬투리를 잡는 적대적인 심문이 아니었습니다. 마음에 들지 않으면 반품할 작정으로 물건을 뒤적거리는 냉랭한 검수조서가 아니었습니다. 처방전을 받아 든 환자가 의사를 신뢰하며 약 봉투의 복약 안내를 한 줄 한 줄 정성스럽게 읽어 내려가듯, 자신이 이미 생명으로 받아들인 그 보화가 얼마나 깊고 영광스러운지 확인하기 위해 두루마리를 펴 든 것입니다.</p>
+<p>놀랍게도 사도행전 17장 전체에는 "성경을 상고하라"는 식의 명령형 동사가 단 하나도 등장하지 않습니다. 성경은 이것을 '너희도 의무적으로 이렇게 행하라'는 율법적 계명으로 강요하지 않습니다. 다만 사랑에 사로잡힌 사람들이 살아내는 자연스럽고 평화로운 일상의 호흡으로 그려낼 뿐입니다. 받음이 판결의 종착점이 되어버리면 질문은 질식당하고 맙니다. 그러나 받음이 출발점이 되면, 질문은 가장 안전하고 자유로운 날개를 얻습니다. 참된 확신은 질문을 금지하지 않습니다. 오히려 하나님을 향한 가장 따뜻한 호기심과 사모함으로 우리를 이끕니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">말하는 자와 듣는 자가 함께 무릎 꿇는 유일한 기준</h3>
+<p>여기서 우리는 또 하나의 가슴 벅찬 전복을 목격합니다. 베뢰아 사람들이 매일 밤 등불 아래에서 확인했던 것은 과연 무엇이었을까요? 우리는 흔히 성경이 시험대에 오른 것이라 생각하기 쉽지만, 본문은 정반대의 위계를 가르쳐 줍니다. 그들이 성경을 펴서 확인한 대상은 성경 자체가 아니라, 위대한 사도 바울이 전했던 '설교'였습니다.</p>
+<p>본문의 간접의문문에서 주어로 쓰인 '이것들(ταῦτα)'은 바울이 전한 설교였고, 그들이 상고하며 짚어간 기준은 바로 '오래된 성경(τὰς γραφάς)'이었습니다. 바울 역시 회당에 들어섰을 때 "성경에서부터(ἀπὸ τῶν γραφῶν)" 강론을 시작했습니다. 전하는 자는 성경에서 길어 올린 말을 증언했고, 듣는 자는 그 말이 참으로 성경과 일치하는지를 성경으로 대조했습니다. 이 얼마나 눈부시게 아름답고 건강한 영적 질서입니까.</p>
+<p>이 거룩한 질서 앞에서는 어떤 영적 엘리트주의도, 맹목적인 교주화도 비집고 들어설 틈이 없습니다. 설교자나 지도자가 성경 위에 올라타서 군림하는 것이 아니라, 말하는 사도 바울도, 그 말을 듣는 베뢰아의 성도들도 모두 '하나님의 말씀'이라는 같은 보좌 아래 나란히 무릎을 꿇고 있는 것입니다. 설교는 판정받는 자리요, 성경은 영원한 기준입니다.</p>
+<p>종교개혁자 장 칼뱅은 성경이 그 자체로 신적인 권위를 지니며(autopiston), 성령의 내적 증거로 말미암아 우리 영혼에 깊은 확신을 새긴다고 역설했습니다. 웨스트민스터 신앙고백 또한 교회의 회의나 사람의 어떤 탁월한 가르침도 판단할 최고 재판관은 오직 성경 안에서 말씀하시는 성령뿐이라고 선언합니다. 베뢰아 사람들의 성경 상고는 바로 이 개혁교회의 심장을 미리 보여주는 거룩한 몸짓이었습니다.</p>
+<p>오늘날 강단과 성도 사이에 흐르는 참된 겸손은 바로 이 지점에서 회복됩니다. 성숙한 설교자는 회중의 진지한 질문과 묵상을 자신의 권위에 대한 '도전'으로 받아들이며 불쾌해하지 않습니다. 오히려 설교를 마친 후 이렇게 담담하고도 깊은 목소리로 부탁할 수 있는 사람입니다. "오늘 제가 전한 말 중에서 하나님의 기록된 말씀과 어긋나는 것이 있는지, 이번 한 주간 성경을 펴서 날마다 짚어보십시오. 확인받아야 할 것은 성경이 아니라 부족한 저의 말이며, 우리 모두를 살리는 것은 오직 영원한 하나님의 말씀뿐입니다." 그럴 때 강단은 신비화된 권위의 우상이 아니라, 은혜를 나누는 정직한 식탁이 됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">흔들리는 일상 속에서 매일 말씀의 결을 매만지는 인격</h3>
+<p>이 아름다운 성경적 사고는 결코 메마른 신학적 사변에 머물지 않습니다. 그것은 우리의 거친 일상을 어루만지고 다듬어내는 구체적인 인격의 열매로 피어납니다.</p>
+<p>몸의 태도를 가만히 생각해 보십시오. 의심과 냉소는 성경을 덮어버린 채 팔짱을 끼고 등을 돌리는 자세입니다. 그러나 베뢰아의 상고는 두 손으로 말씀을 소중히 받쳐 든 채, 떨리는 검지 손가락으로 한 줄 한 줄 글자를 어루만지며 짚어 내려가는 온유한 자세입니다. 왼손으로는 이미 내게 주신 약속의 말씀을 꼭 쥐고 놓지 않으면서, 오른손으로는 그 말씀의 결을 따라 매일 조용히 걸어가는 사람. 그 사람의 손끝에서는 결코 타인을 정죄하는 날카로운 가시가 돋아나지 않습니다.</p>
+<p>우리의 일상과 인간관계도 이와 같습니다. 세무사가 의뢰인의 장부를 매월 대사(對査)하는 것은 고객을 의심하거나 내치기 위함이 아니라, 이미 수임한 고객의 삶과 일터를 끝까지 책임지기 위한 사랑의 성실함입니다. 마찬가지로 우리가 삶의 중대한 갈림길에서 깊은 기도 끝에 어떤 결정을 내렸을 때, 매일 밤 문득 찾아오는 불안과 의문 앞에서도 우리는 걸음을 멈추거나 결정을 번복하며 자책할 필요가 없습니다. 하나님께서 주신 그 부르심과 결단을 가슴에 깊이 품은 채(받음), "주님, 이미 주신 이 길 위에서 오늘 하루 제 걸음이 주님의 말씀과 맞닿아 있었습니까?"(상고)라며 겸허히 삶의 행로를 다듬어가면 되는 것입니다. 결단은 내려놓지 않고, 물음은 열어두는 지혜, 그것이 우리를 성숙한 어른으로 빚어냅니다.</p>
+<p>사도행전 17장의 후반부, 아덴의 사람들은 그저 '가장 새로운 것'을 지껄이고 듣는 데에만 공허한 시간을 낭비했습니다. 오늘날 우리도 끊임없이 쏟아지는 자극적인 소문과 찰나의 이슈들에 영혼을 빼앗긴 채 피로하게 부유하고 있지 않습니까? 반면에 베뢰아의 사람들은 빛바랜 두루마리, 오래된 성경의 말씀 앞에 머물렀습니다. 화려하지 않아도 변함없는 진리의 터전 위에서, 이미 받은 은혜를 되새기며 매일 손가락으로 거룩한 궤적을 짚어갔습니다. 그 결과 그들은 소란스러운 세상 속에서도 결코 흔들리지 않는, 세상에서 가장 너그럽고 품격 있는(εὐγενέστεροι) 인격의 소유자가 되었습니다.</p>
+<p>오늘 저녁, 분주했던 하루의 소음을 뒤로하고 서재의 작은 등불을 켭니다. 그리고 이미 우리 가슴에 심겨진 그 생명의 말씀을 두 손으로 조용히 폅니다. 정죄하기 위해서가 아니라 사랑하기 위하여, 의심하기 위해서가 아니라 더 깊이 누리기 위하여 한 줄씩 짚어 내려갑니다. "과연 그러한가." 그 열려 있는 온유한 물음 속에서, 오늘도 주님은 우리 안에 세상이 흉내 낼 수 없는 가장 아름답고 고귀한 예수의 성품을 말없이 빚어가십니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 27편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>비교급은 원급을 지우지 않는다: 빨간 펜 대신 건네는 '더함'의 온기</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 30편 &middot; 사도행전 18:23~19:20</span>
+      <h1>비교급은 원급을 지우지 않는다: 빨간 펜 대신 건네는 '더함'의 온기</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 살아가며 수많은 '지적'과 '교정'의 칼날 위에 서곤 합니다. 누군가가 정성껏 내놓은 보고서나 조심스레 건넨 이야기 속에서 사소한 빈틈 하나가 발견되는 순간, 세상은 기다렸다는 듯 붉은 펜을 꺼내 듭니다. 그 사람이 쏟아부은 99가지의 진실과 노력은 단 하나의 미흡함 뒤로 순식간에 표백되고, '틀렸다'는 낙인이 그 자리를 대신합니다. 조직에서도, 일상의 대화에서도, 심지어 믿음의 공동체 안에서조차 우리는 타인의 부족함을 발견했을 때 서둘러 우월감을 증명하려는 조급한 본능과 마주하곤 합니다. 그러나 서툰 걸음을 바로잡겠다는 명분으로 휘두르는 칼날은 종종 사람의 영혼에 깊은 생채기를 남기고, 성장할 기회마저 꺾어버립니다.</p>
+<p>이 메마른 교정의 문화 속에서 1세기 지중해의 거점 도시 에베소 회당에서 일어난 한 풍경은 우리에게 숨이 멎을 듯한 감동과 질문을 던집니다. 그곳에 알렉산드리아 출신의 한 젊은 설교자가 서 있었습니다. 그의 이름은 아볼로였습니다. 그는 언변이 탁월했고, 구약 성경에 능통했으며, 마음이 뜨거워 예수에 관한 일들을 누구보다 열심히, 그리고 '자세히(ἀκριβῶς)' 풀어내고 가르치던 걸출한 인물이었습니다. 하지만 그 눈부신 열정 한가운데에는 메워지지 않은 거대한 웅덩이가 있었습니다. 그는 예수 그리스도의 십자가와 부활, 그리고 오순절 성령의 임재를 알지 못한 채 오직 '요한의 세례만 알 따름(μόνον τὸ βάπτισμα Ἰωάννου)'이었습니다. 회당 안의 모든 사람이 그의 화려한 웅변에 매료되어 환호하고 있을 때, 그 미완의 지식을 꿰뚫어 본 두 쌍의 눈동자가 회당 뒷자리에 머물러 있었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">빨간 펜을 내려놓고 끝까지 듣는 거룩한 절제</h3>
+<p>그들은 로마에서 쫓겨와 천막 깁는 일로 생계를 잇던 평범한 신앙의 장인, 브리스길라와 아굴라 부부였습니다. 바울과 함께 복음의 본질을 깊이 경험했던 이 부부는 아볼로의 설교를 듣는 순간, 그가 전하는 진리에 결정적인 복음의 정점이 빠져 있음을 단번에 알아차렸습니다. 오늘날 우리의 모습이라면 어떠했을까요? 아마도 즉시 자리에서 일어나 발언권을 요구하거나, 설교가 끝난 뒤 회중들 앞에서 그의 신학적 허점을 날카롭게 지적하며 교리적 우위를 뽐냈을지도 모릅니다. 단톡방에 글을 올려 문제를 공론화하거나 "그의 가르침은 반쪽짜리 이단성에 불과하다"며 공개적인 망신을 주었을지도 모를 일입니다.</p>
+<p>그러나 성경은 이 부부의 첫 번째 반응을 단 한 단어로 엄숙하게 증언합니다. 바로 '듣고(ἀκούσαντες)'였습니다. 그들은 아볼로의 가르침에 공백이 있다는 것을 눈치챘음에도 불구하고, 그의 말이 끝날 때까지 단 한 번도 끼어들지 않았습니다. 덜 익은 문장이 흘러나올 때마다 입술이 달싹이고 몸이 들썩이는 것은 인간의 본능이지만, 두 사람은 그 충동을 온몸의 근육으로 억눌렀습니다. 상대의 말문이 완전히 닫힐 때까지 손을 무릎 위에 얹고 침묵으로 지켜봐 주는 것, 그것은 상대방이 쏟아놓은 정직한 수고와 하나님을 향한 순수한 열정에 바치는 가장 깊은 경의이자 거룩한 절제였습니다.</p>
+<p>설교가 끝난 후에도 그들은 군중들 앞에서 목소리를 높이지 않았습니다. 그들은 조용히 아볼로에게 다가가 그를 '자기들 곁으로 데려갔습니다(προσελάβοντο)'. 이 헬라어 동사는 거절하며 밀쳐내는 손짓이 아니라, 자신의 품 안으로 가만히 끌어안는 따뜻한 영접의 몸짓을 뜻합니다. 타인의 부족함을 모두가 보는 광장에 전시하여 부끄럽게 만드는 대신, 사적인 식탁과 조용한 처소로 그를 품어 안는 환대의 공간을 마련한 것입니다. 상대를 고쳐야 할 골칫거리로 취급하지 않고, 소중히 맞아들여야 할 존귀한 손님으로 대접하는 태도 속에서 이미 회복과 성장의 씨앗은 싹트고 있었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">'더 정확하게'는 당신이 이미 옳았다는 가장 조용한 인정</h3>
+<p>조용한 처소에서 마주 앉은 브리스길라와 아굴라가 행한 가르침 속에는 언어의 경이로운 신비가 깃들어 있습니다. 성경 기자는 아볼로가 본래 예수에 관해 가르치던 모습을 '자세히(ἀκριβῶς)'라고 기록했습니다. 그런데 이 부부가 그를 데려다가 하나님의 도를 풀어준 방식을 묘사할 때는 '더 자세히(ἀκριβέστερον)'라는 단어를 사용합니다. 놀랍게도 같은 어근의 꼬리에 비교급 어미(-τερον)를 살포시 얹었을 뿐입니다. 개역한글 성경이 이 미묘한 결을 포착하여 '자세히'와 '더 자세히'로 번역해 둔 것은 참으로 놀라운 축복입니다.</p>
+<p>비교급은 결코 원급을 파괴하거나 부정하지 않습니다. "이것이 더 좋다"라는 고백은 "앞선 것이 이미 좋았다"는 전제가 참일 때에만 성립하는 언어적 법칙입니다. 만약 본문이 아볼로를 틀렸다고 꾸짖으려 했다면 책망이나 비판의 어휘를 사용했을 것입니다. 그러나 본문 전체를 통틀어 아볼로를 질책하거나 단죄하는 단어는 단 한 번도 나오지 않습니다. 오히려 서술자는 비교급을 사용하는 그 순간, 아볼로의 가르침이 진실로 정확하고 가치 있는 것이었음을 다시 한번 공인해 줍니다. "더 정확하게"라는 말은 완곡한 비판이 아니라, 앞사람의 진실함을 품에 안고 그 위에 한 걸음을 더 얹어주는 가장 정밀하고 다정한 칭찬이었습니다.</p>
+<p>두 사람은 아볼로가 걸어온 길을 지우지 않았습니다. 본문에서 아볼로가 배운 '주의 길(τὴν ὁδὸν τοῦ κυρίου)'과 부부가 풀어준 '하나님의 길(τὴν ὁδὸν τοῦ θεοῦ)'은 '길(ὁδός)'이라는 명사를 그대로 공유합니다. 궤도를 이탈한 실패작이라며 새 길을 깔아준 것이 아니라, 그가 걷고 있던 그 복된 길의 지평을 더 멀리, 더 넓게 확장해 주었을 뿐입니다. 그들의 손길 또한 아볼로의 얼굴이나 부족함을 향해 손가락질하지 않았습니다. 두 손으로 성경을 정성스레 펼쳐놓고(ἐξέθεντο) 함께 머리를 맞대었습니다. 고쳐야 할 대상이 아볼로가 아니라, 둘 사이에 놓인 영원한 진리였기에 가능한 모습이었습니다. 피드백의 칼끝이 사람의 인격을 겨누지 않고 함께 바라보아야 할 기준을 향할 때, 배움은 모욕이 아니라 경이로운 탐험이 됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">굳은살 박인 손에서 피어난 겸손, 사람을 남기는 환대</h3>
+<p>이 장면이 이토록 가슴 벅찬 감동을 주는 이유는 가르치는 이들의 온유함 뒤에 배우는 이의 찬란한 겸손이 마주 서 있기 때문입니다. 종교개혁자 장 칼뱅은 사도행전 주석에서 이 만남을 조명하며 아볼로의 태도에 깊은 경탄을 보냅니다. 아볼로는 당대 최고의 학문과 수사학의 요람이었던 알렉산드리아 출신의 최고 지식인이었습니다. 반면 브리스길라와 아굴라는 거친 천막 가죽을 만지며 평생을 살아온 가난하고 투박한 손을 가진 부부였습니다. 배움과 지위로 따지자면 하늘과 땅 차이였을 그 자리에서, 웅변가 아볼로는 가죽 냄새 풍기는 평신도 부부의 굳은살 박인 손길 앞에 기꺼이 무릎을 꿇고 어린아이처럼 가르침을 청했습니다.</p>
+<p>칼뱅은 『기독교강요』에서 하나님께서 하늘의 천사를 보내어 우리를 가르치지 않으시고 평범한 인간의 입술을 사용하시는 이유를 설명하며, 그것이 바로 우리의 교만과 순종을 시험하는 거룩한 장치라고 말했습니다. 아볼로는 자신이 가진 지식의 성채에 갇혀 자존심을 내세우지 않았습니다. 자신보다 학식이 낮고 지위가 보잘것없어 보이는 이웃의 입술에서도 하나님의 음성을 분별해 낼 줄 아는 겸손, 그것이 학문보다 위대한 아볼로의 진짜 인격이었습니다. 그는 '내가 틀렸다'는 수치심에 함몰되지 않고, '내가 아직 다 가보지 못한 은혜의 지평이 더 남아 있었구나'라며 두 손을 모아 그 더함을 기쁨으로 받아들였습니다.</p>
+<p>이렇게 피어난 '더함'의 가르침은 놀라운 열매를 맺습니다. 아볼로는 부끄러움에 얼굴을 붉히며 뒷골목으로 사라진 '지적받은 패배자'로 기록되지 않았습니다. 에베소 교회의 성도들은 새로운 복음의 눈을 뜬 아볼로를 기쁨으로 축복하며 아가야 지방으로 보냈고, 그의 영적 권위를 지지하는 따뜻한 추천서(ἔγραψαν... ἀποδέξασθαι)를 써주었습니다. 건너간 아볼로는 그곳에서 은혜로 믿은 자들에게 큰 유익을 주었으며, 성경을 가지고 대중 앞에서 담대히 예수가 그리스도이심을 증명하는 강력한 사역자로 우뚝 섰습니다. 훗날 사도 바울은 고린도 교회를 향해 "나는 심었고 아볼로는 물을 주었으되 오직 하나님은 자라나게 하셨다"(고전 3:6)고 회고합니다. 한때 요한의 세례밖에 몰랐던 청년이, 당대 최고의 사도와 나란히 서서 교회를 세우는 거룩한 동역자로 자라난 것입니다.</p>
+<p>그리고 이 장엄한 드라마의 끝자락에서, 그에게 '더함'을 선물했던 브리스길라와 아굴라 부부의 이름은 조용히 무대 뒤편으로 물러납니다. 그들은 결코 "우리가 아볼로를 키워냈다"고 자랑하거나 자기 이름을 전면에 내세우지 않았습니다. 사람을 살리는 참된 사랑은 언제나 자신이 세운 이에게 조명을 비추고, 스스로는 어두운 그늘 속으로 물러서는 법입니다. 그들의 지혜롭고 절제된 더함 덕분에 교회는 상처 입은 변론가를 잃지 않았고, 시대를 밝히는 위대한 하나님의 사람을 얻을 수 있었습니다.</p>
+<p>오늘 우리의 손에는 무엇이 쥐어져 있습니까? 타인의 불완전함을 마주할 때마다 상대방의 존재를 통째로 그어버리는 매서운 빨간 펜을 쥐고 있지는 않습니까? 아니면 그가 서툴게 써 내려간 첫 줄의 진실함을 귀하게 여기며, 그 곁에 조용히 생명의 밑줄을 그어주고 한 걸음을 더 얹어주는 온유한 손길을 품고 있습니까? 누군가를 깎아내려 나의 정당함을 증명하는 지식은 세상을 차갑게 얼어붙게 만들지만, 이미 있는 참됨을 긍정하며 조용히 지평을 넓혀주는 비교급의 사랑은 한 사람의 인생을, 나아가 세상을 구원합니다. 끝까지 들어주는 인내로, 곁으로 데려오는 환대로, 성경을 함께 마주하는 겸손으로 누군가의 삶에 거룩한 '더함'이 되어주는 사람. 그 온기 어린 동역자의 품에서 메마른 광야는 비로소 아름다운 숲으로 자라날 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 30편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>칭찬과 비난의 파도를 넘어, 감사가 머무는 자리로</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 44편 &middot; 사도행전 28:1-16</span>
+      <h1>칭찬과 비난의 파도를 넘어, 감사가 머무는 자리로</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 하루에도 수없이 많은 타인의 시선과 평가 속에서 살아갑니다. 어제의 작은 실수 하나로 무능한 사람이라는 낙인이 찍히기도 하고, 오늘 우연히 거둔 성과 하나로 세상의 영웅이라도 된 양 치켜세워지기도 합니다. 사람들의 입술은 얼마나 가벼운지, 손바닥을 뒤집듯 한 사람을 절망의 구렁텅이에 빠뜨렸다가 하늘 높이 올려놓기를 주저하지 않습니다. 비난의 화살에 가슴이 찔려 밤잠을 설치고, 찬사의 단물에 취해 발이 허공에 붕 뜨는 경험은 현대인이라면 누구나 겪는 일상의 멀미입니다. 그러나 정작 그 어지러운 소용돌이 속에서 길을 잃고 상처 입는 것은 바로 '나'라는 존재의 본질입니다.</p>
+<p>성경 사도행전 28장의 한 자락은, 비바람이 몰아치고 살을 에는 추위가 가득했던 지중해의 작은 섬 멜리데(몰타)의 해변으로 우리를 데려갑니다. 파선된 배에서 간신히 헤엄쳐 나온 바울 일행을 위해 섬 사람들은 따뜻한 모닥불을 피워 주었습니다. 바울이 비에 젖은 나뭇가지 한 묶음을 거두어 불에 넣는 순간, 뜨거운 열기를 견디지 못한 독사 한 마리가 튀어나와 그의 손등을 덥석 물고 매달렸습니다. 그 끔찍한 광경을 본 섬 사람들은 웅성거리며 단호하게 소리쳤습니다. "이 사람은 틀림없이 살인자다. 바다에서는 간신히 살아남았는지 몰라도, 신의 공의가 그를 살려두지 않는구나." 그들에게 바울은 이미 죽어 마땅한 흉악범이었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">뒤집힌 것은 내가 아니라 그들의 시선이었다</h3>
+<p>그러나 그다음 순간, 기이한 침묵이 해변을 감쌉니다. 바울은 아무런 비명도, 두려운 기색도 없이 그저 손을 가볍게 털어 뱀을 모닥불 속으로 떨어뜨렸습니다. 그리고 그의 몸에는 붓거나 쓰러지는 어떠한 이상도 나타나지 않았습니다. 섬 사람들은 그가 당장이라도 피를 토하며 거꾸러질 것이라 기대하며 숨죽여 오랫동안 지켜보았습니다. 그러나 아무 일도 일어나지 않자, 그들의 입술에서 전혀 다른 말이 튀어나왔습니다. "그는 신이다."</p>
+<p>원문 성경을 가만히 들여다보면 무릎을 치게 만드는 놀라운 문법적 진실이 숨어 있습니다. 섬 사람들은 그를 '살인자'라고 부를 때도, '신'이라고 부를 때도 똑같은 발화 동사(ἔλεγον)를 사용했습니다. 같은 입술, 같은 목소리로 한 사람을 두고 지옥의 죄인과 하늘의 신이라는 양극단의 판정을 쏟아낸 것입니다. 그리고 그 극적인 변화를 이어주는 접속 낱말인 "돌려 생각하여(μεταβαλόμενοι)"의 문법적 주어는 바울이 아니라 바로 '섬 사람들'이었습니다.</p>
+<p>바울은 손등에 뱀이 물렸을 때나 뱀을 불에 털어냈을 때나 동일한 한 사람의 그리스도인이었을 뿐입니다. 변한 것은 바울의 인격도, 그의 삶의 실체도 아니었습니다. 오직 그를 둘러싸고 바라보던 사람들의 가벼운 시선과 해석이 제멋대로 뒤집혔을 뿐입니다. 세상의 평판이란 이처럼 얄팍합니다. 그들은 자신이 본 단 하나의 장면, 자기 눈앞에 스쳐 지나간 찰나의 현상만을 보고 타인을 쉽게 규정합니다. 그러므로 타인이 내리는 비난과 칭찬은 나의 본질에 관한 선언이 아니라, 그 말을 내뱉는 사람들의 마음에 비친 변덕스러운 날씨에 불과합니다. 평판의 진짜 주어는 내가 아니라, 언제나 판정하는 저들의 몫인 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">비난을 털어내는 손보다 칭송 앞에 멈추어 서는 몸</h3>
+<p>이 극적인 장면에서 더욱 경이로운 것은 바울의 반응입니다. 본문 전체를 통틀어 바울이 섬 사람들의 말에 대답하거나 항변하는 발화 동사는 단 한 차례도 등장하지 않습니다. 그는 "나는 살인자가 아닙니다"라고 억울함을 호소하지도 않았고, 사람들이 자신을 "신이다"라고 칭송할 때 그 달콤한 환호에 기대어 어깨를 으쓱거리지도 않았습니다. 비난 앞에서도, 찬사 앞에서도 그는 깊고 온전한 침묵을 지켰습니다.</p>
+<p>독사를 불 속에 털어버리는 동작(ἀποτινάξας)은 찰나에 불과합니다. 손을 한 번 휘젓는 데는 1초도 걸리지 않습니다. 정작 견디기 힘든 것은 그 뒤에 이어지는 시간, 즉 타인의 수많은 눈동자가 나를 주시하며 결과를 기다리는 그 숨 막히는 침묵의 시간(ἐπὶ πολύ)입니다. 인간의 본성은 누군가 나를 지켜볼 때 끊임없이 자신을 증명하고 싶어 합니다. "보아라, 내 손은 말짱하다", "나는 너희가 생각하는 그런 죄인이 아니다"라고 떠들고 싶어 안달합니다. 비난을 받을 때는 억울함에 몸부림치지만, 정작 더 무서운 유혹은 나를 추켜세우는 칭송 앞에서 찾아옵니다. "그는 신이다"라는 찬사를 들을 때, 우리의 육체는 저절로 그 찬사의 방향으로 스르륵 기울어지기 마련입니다.</p>
+<p>나치 감옥의 차디찬 독방에서 순교를 앞두고 있던 신학자 디트리히 본회퍼는 유명한 시 「나는 누구인가」에서 이렇게 읊조렸습니다. "사람들은 내가 담담하고 당당하게 감방을 나선다고 말하지만, 내 안의 나는 새장 속의 새처럼 떨고 불안해한다. 나는 누구인가? 사람들이 말하는 나인가, 아니면 내가 아는 나인가?" 본회퍼는 타인의 칭송에도, 자기 내면의 나약함에도 안주하지 않고 결국 마지막 한 줄로 나아갔습니다. "내가 누구이든, 오 하나님, 당신은 나를 아십니다. 나는 오직 당신의 것입니다." 비난의 독사를 털어내는 것보다 더 위대한 영적 품격은, 세상의 찬사 앞에서 나를 특별한 존재로 착각하지 않고 조용히 멈추어 서는 성숙함에 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">타인의 판정을 돌려보내고 내 삶에 감사를 적다</h3>
+<p>사도행전의 기록자인 누가는 참으로 지혜로운 관찰자였습니다. 세상의 언론이나 호사가들은 대개 마지막 판정을 기정사실로 받아 적곤 합니다. 처음에 죄인으로 의심받던 이가 무죄로 풀려나면 '영웅의 탄생'이라며 호들갑을 떱니다. 그러나 누가는 섬 사람들이 바울을 향해 "신이다"라고 외쳤던 그 찬탄조차 서술자의 권위를 실어 인정해 주지 않았습니다. 첫 번째 비난은 그들의 무지한 육성 그대로 직접 인용해 두었지만, 두 번째 칭송은 따옴표조차 주지 않은 채 그저 '그렇게 말하더라'는 간접적인 요약으로 흘려보냈습니다. 누가는 인간이 인간에게 붙이는 꼬리표에 일절 동조하지 않았던 것입니다.</p>
+<p>그렇다면 이 서사의 끝에서 바울과 누가가 기록한 삶의 진짜 문장은 무엇이었을까요? 모닥불가의 소동이 지나가고 마침내 로마를 향해 나아가던 길목에서, 압비오 광장과 세 여관에 마중 나온 믿음의 형제들을 마주했을 때 성경은 이렇게 기록합니다. "바울이 그들을 보고 하나님께 감사하고 담대한 마음을 얻으니라(행 28:15)."</p>
+<p>그의 영혼을 가득 채우고 있던 것은 사람들의 평가가 아니었습니다. 살인자라는 억울한 모함도, 신이라는 허망한 찬사도 그의 마음에 자리를 잡지 못했습니다. 그의 영혼의 중심에는 오직 하나, 여전히 자신을 인도하시고 보호하시는 '하나님을 향한 감사'만이 선명하게 아로새겨져 있었습니다. 사도 바울이 훗날 고린도 교회에 보낸 편지에서 고백했던 고별의 음성이 겹쳐 들립니다. "너희에게나 다른 사람에게나 판단 받는 것이 내게는 매우 작은 일이라. 나도 나를 판단하지 아니하노니... 다만 나를 판단하실 이는 주시니라(고전 4:3-4)."</p>
+<p>오늘도 세상은 저마다의 잣대로 우리를 재단합니다. 한 번의 실패에 무능하다며 등을 돌리고, 한 번의 성취에 대단하다며 환호성을 지릅니다. 그러나 기억해야 합니다. 나를 향한 세상의 판정은 그들의 입술에서 나와 그들의 허공으로 흩어질 그림자일 뿐, 결코 내 영혼의 본질을 규정할 수 없습니다. 타인의 손가락질과 박수갈채는 모두 그것을 만들어낸 화자들의 몫으로 정중히 돌려보내십시오. 그리고 오늘 우리가 써 내려가야 할 인생의 문장 한가운데에는, 세상의 판정이 아닌 하나님을 향한 깊은 감사와 소명의 걸음을 묵묵히 채워 넣으십시오. 그때 비로소 우리는 칭찬과 비난의 파도 속에서도 침몰하지 않는 단단하고 거룩한 인격의 사람으로 우뚝 서게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 44편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

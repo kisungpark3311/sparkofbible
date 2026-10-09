@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묶인 손이 비워둔 마지막 동사의 자리</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 41편 &middot; 사도행전 26:1-32</span>
+      <h1>묶인 손이 비워둔 마지막 동사의 자리</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>가이사랴의 장엄한 총독 관저 접견실, 번쩍이는 로마 군단병들의 창검과 붉은 망토 사이로 차가운 쇠사슬 소리가 울려 퍼집니다. 왕의 위엄을 과시하는 헤롯 아그립바 2세의 화려한 예복, 총독 베스도의 서슬 퍼런 위세, 그리고 도시의 유력자들이 가득 메운 그 서늘한 법정 한가운데에 한 죄수가 홀로 서 있습니다. 남루한 옷차림에 두 손목에는 굵은 사슬이 칭칭 감겨 있지만, 그의 눈빛과 기품은 그 자리에 모인 그 어떤 제국의 권력자보다 깊고 단정했습니다. 바로 사도 바울이었습니다.</p>
+<p>사도행전 26장은 바울이 로마 황제에게 상소하기 직전 남긴 마지막 공적 변론을 기록하고 있습니다. 목숨이 경각에 달린 피고인의 최후 진술이라면, 보통 자신을 변호하기 위한 절박한 행위 동사들로 가득 차기 마련입니다. "나는 결백합니다", "나는 로마 법과 성전의 규례를 어기지 않았습니다", "내가 겪은 이 억울한 결박을 풀어 주십시오." 그러나 바울의 입술을 통해 흘러나온 변론의 결론은 세상의 어떤 법정에서도 들어본 적 없는 전혀 다른 영적 궤도를 그리고 있었습니다. 그것은 자기를 증명하려는 소란스러운 웅변이 아니라, 자기 삶의 가장 중요한 동사를 기꺼이 다른 분께 넘겨드리는 숭고한 물러섬이었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">고난 곁에는 동사를 두지 않는다</h3>
+<p>사도행전 26장 23절을 헬라어 원문의 결을 따라 찬찬히 들여다보면, 숨이 멎을 듯한 문법적 침묵과 마주하게 됩니다. 바울은 모세와 선지자들이 예언했던 복음의 진수를 두 줄의 대구(對句)로 요약합니다. 우리말 성경에는 "곧 그리스도가 고난을 받으실 것과 죽은 자 가운데서 먼저 다시 살아나사 이스라엘과 이방인들에게 빛을 선전하시리라"고 유려하게 이어지지만, 원문의 첫 줄에는 놀랍게도 문장을 떠받쳐야 할 정동사가 단 하나도 존재하지 않습니다(εἰ παθητὸς ὁ χριστός).</p>
+<p>그곳에는 오직 '고난받을 속성을 지닌'이라는 뜻의 형용사와 관사가 붙은 거룩한 주어 '그리스도'만이 나란히 놓여 있을 뿐입니다. 헬라어 문장은 십자가의 고난 곁에 '당하셨다', '버텨내셨다', '감내하셨다' 같은 어떠한 동작이나 행위의 동사도 붙이지 않았습니다. 세무 신고서의 확정란이나 판결문의 이유처럼, 이미 다툼의 여지 없이 확정된 진실에는 굳이 소란스러운 이행 동사를 덧붙이지 않는 법입니다. 그리스도의 고난은 누군가와 논쟁하거나 입증해야 할 사건이 아니라, 온 인류의 구원을 위해 그분의 이름 곁에 묵묵히 놓인 거룩하고 장엄한 전제였습니다.</p>
+<p>우리는 일상에서 고난을 마주할 때 얼마나 많은 동사들을 동원하여 자아를 소란스럽게 만듭니까. 억울한 오해를 받거나 깊은 상처의 골짜기를 지날 때, 우리는 그 고난을 무수한 행위의 언어로 치장하려 듭니다. 내가 얼마나 처절하게 아파했는지, 세상이 나를 어떻게 짓밟았는지, 그리고 내가 그것을 얼마나 영웅적으로 이겨냈는지를 끊임없이 설명하며 내 고난의 주인공이자 행위자가 되려 안달합니다. 고난마저도 자기 증명의 도구로 삼으려는 가련한 본성입니다. 그러나 십자가의 고난은 자기를 변명하지 않습니다. 고난 곁에 불필요한 동사를 두지 않았던 바울의 문장처럼, 성숙한 인격은 고통의 신비 앞에서 소란스러운 말을 거두고 십자가의 침묵을 배웁니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">묶인 손으로는 자기를 가리킬 수 없다</h3>
+<p>첫 줄에서 묵직하게 가라앉았던 문장은 둘째 줄에 이르러 비로소 생명력 넘치는 동사를 터뜨립니다. "죽은 자 가운데서 먼저 다시 살아나사 백성과 이방인들에게 빛을 선포하시리라." 23절 전체를 통틀어 단 하나 등장하는 정동사는 바로 '하려 하신다'라는 뜻의 멜레이(μέλλει)입니다. 이 현재형 동사가 '선포하다'(καταγγέλλειν)라는 행동과 온 세상을 비출 '빛'(φῶς)을 목적어로 힘차게 이끌어냅니다.</p>
+<p>그렇다면 이 어두운 세상에 생명의 빛을 선포하시는 위대한 주어는 누구입니까? 놀랍게도 법정에 서서 변론하고 있는 바울 자신이 아닙니다. 변론 본문 전체에서 바울이 1인칭으로 구사한 마지막 동사는 앞선 22절의 "내가 하나님의 도우심을 받아 오늘까지 서서 증언한다"(ἕστηκα)에서 영원히 멈추어 섰습니다. 증인 바울의 동사는 '서서 증거하는 자리'까지였습니다. 그 변론의 대미를 장식하며 빛을 선포하시는 최종 주어는 오직 '죽은 자 가운데서 가장 먼저 살아나신 부활의 첫 사람', 바로 예수 그리스도이셨습니다.</p>
+<p>바울은 다메섹 도상에서 정오의 태양보다 더 밝은 빛에 눈이 멀어 흙먼지 바닥에 고꾸라졌던 사람입니다. 그는 결코 빛을 만들어내는 발광체가 아니었습니다. 그저 하늘의 빛에 완전히 압도당했던 은혜의 수혜자, 곧 빛의 목적어였을 뿐입니다. 우리말 옛 성경은 바울이 전한 것도 "선전하므로", 주님이 비추시는 것도 "선전하시리라"고 같은 단어로 덮어버렸지만, 원문은 인간 증인의 겸손한 사역과 주님의 주권적인 역사를 결코 뒤섞지 않았습니다.</p>
+<p>쇠사슬에 묶인 채 서 있는 바울의 두 손을 상상해 보십시오. 두 손목이 굵은 사슬에 결박되어 포개진 사람은 결코 자기 가슴을 탕탕 치며 "내가 해냈다"고 자기를 가리킬 수 없습니다. 묶인 손을 가진 자가 취할 수 있는 유일한 몸짓은, 포개진 두 손목은 그대로 둔 채 고개만을 들어 저 하늘의 주님을 향하는 것뿐입니다. 바울은 변론의 가장 찬란한 절정에서 자기 자신을 완벽하게 지워버리고, 오직 부활하신 그리스도께 마지막 동사의 영광을 온전히 넘겨드렸습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">증인의 성실은 마지막 자리를 비워두는 데 있다</h3>
+<p>오늘날 우리가 겪는 수많은 관계의 균열과 사역의 탈진, 그리고 영혼의 메마름은 대부분 '내가 주어가 되려는 끈질긴 욕망'에서 비롯됩니다. 가정과 일터, 심지어 거룩한 교회의 봉사 현장에서조차 우리는 무의식적으로 "내가 이 공동체를 먹여 살렸다", "내가 이 프로젝트를 성공시켰다", "내가 이 어둠 속에 빛을 비췄다"며 생명과 열매의 동사 칸을 자신의 이름으로 채우려 듭니다. 그러나 피조물에 불과한 인간이 감당할 수 없는 주어의 자리를 억지로 탐할 때, 영혼은 필연적으로 교만에 취하거나 깊은 탈진의 늪에 빠지게 됩니다.</p>
+<p>참된 증인의 성실함은 '내가 무엇을 더 이루었는가'가 아니라, '무엇을 주님의 자리로 남겨두었는가'에서 완성됩니다. 세무 대리인이 고객의 장부를 정직하게 확인하되 납세의 주체가 될 수 없고, 밤하늘의 달이 태양의 광채를 아름답게 반사하되 스스로 빛을 낸다고 우기지 않듯, 성도의 자리는 오직 은혜의 도우심에 힘입어 묵묵히 서서 그분을 가리키는 데 있습니다. 우리가 쓸 수 있는 동사는 "도우심을 얻어 서 있는 것", "신실하게 섬기며 전하는 것"까지입니다. 굳어버린 영혼을 살려내고 상처 입은 마음에 생명의 빛을 비추는 일은 오직 부활하신 그리스도만의 고유한 몫입니다.</p>
+<p>비록 지금 우리의 손목에 여전히 풀리지 않는 고난과 결핍의 사슬이 감겨 있을지라도 우리가 낙심하지 않는 이유가 여기에 있습니다. 온 세상에 빛을 비추시는 그 거룩한 동사의 주어는 결박당한 연약한 내가 아니라, 사망의 권세를 깨뜨리고 영원히 살아 계신 주님이시기 때문입니다. 비록 바울의 두 손은 쇠사슬에 묶여 로마의 감옥으로 향했지만, 그가 빈자리로 남겨둔 문장 속에서 주님이 친히 행하신 빛의 선포는 제국의 심장을 관통하며 거침없이 온 세상으로 뻗어나갔습니다. 오늘, 내 고난 곁에서 소란스러운 자기주장의 동사를 내려놓고, 삶의 마지막 동사를 주님께 온전히 내어드릴 때, 우리는 비로소 결박 속에서도 참된 안식과 천국의 자유를 누리게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 41편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

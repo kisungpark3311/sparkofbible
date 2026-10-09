@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>판관의 저울을 내려놓고 증인의 길을 걷다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 07편 &middot; 사도행전 5:12-42</span>
+      <h1>판관의 저울을 내려놓고 증인의 길을 걷다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살아가다 보면 누구나 수많은 물음과 낯선 파도 앞에 멈춰 서게 됩니다. 내가 이해할 수 없는 사람, 기존의 질서를 뒤흔드는 새로운 움직임, 혹은 내 경험의 테두리를 훌쩍 뛰어넘는 낯선 상황을 만날 때, 우리는 흔히 '신중함'이라는 이름 뒤로 한 걸음 물러섭니다. 섣불리 단정 짓지 않고 상황을 지켜보는 것은 분명 세상의 지혜요 미덕처럼 보입니다. 그러나 그 온건하고 합리적인 유예 뒤편에 인간의 얼마나 서늘한 위선과 계산이 숨어 있는지를, 성경은 사도행전 5장의 예루살렘 법정 한가운데서 우리에게 날카롭게 폭로합니다.</p>
+<p>살기등등한 대제사장들과 종교 지도자들의 공회 앞에 갈릴리 출신의 사도들이 죄인처럼 끌려 나왔습니다. 성전을 발칵 뒤집어놓고 예수의 부활을 외치는 이들을 당장이라도 처형할 듯 분노가 끓어오르던 바로 그 순간, 모든 백성에게 존경받던 당대 최고의 율법학자 가말리엘이 조용히 일어섰습니다. 그는 사도들을 잠시 밖으로 내보낸 뒤 동료들에게 차분하게 권고했습니다. "이제 내가 너희에게 말하노니 이 사람들을 상관 말고 버려두라. 이 사상과 소행이 사람에게로서 났으면 무너질 것이요, 만일 하나님께로서 났으면 너희가 저희를 무너뜨릴 수 없겠고 도리어 하나님을 대적하는 자가 될까 하노라."</p>
+<p>폭풍을 잠재운 노학자의 혜안, 무죄한 피를 흘리지 않게 한 탁월한 중재처럼 보입니다. 그러나 성경의 결을 한 겹 더 벗겨내어 들여다보면, 이 고상한 권고는 안온한 해방의 복음이 아니라 판관의 자리에 앉은 인간의 밑천을 드러내는 서글픈 자화상에 가깝습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">판관의 신중함과 내려놓지 못한 채찍</h3>
+<p>원문의 문법을 자세히 살피면 가말리엘의 문장은 두 저울의 무게가 결코 대칭을 이루지 않는다는 사실을 보여줍니다. 사람에게서 난 일이라면 그저 '무너질 것'이라는 3인칭의 객관적 사태로 끝나지만, 하나님께로서 난 일이라면 주어가 돌연 '너희'라는 2인칭으로 전환됩니다. "너희가 무너뜨릴 수 없겠고, 도리어 너희가 하나님을 대적하는 자로 발견될까 하노라." 저울의 무거운 추는 명백히 하나님 편으로 기울어져 있었고, 그 위험은 고스란히 재판석에 앉은 판관들의 목을 겨누고 있었습니다.</p>
+<p>하지만 가말리엘은 결코 "이것은 하나님께로서 난 일이다"라고 고백하지 않았습니다. 그는 단지 '만일'이라는 조건문 뒤로 물러서며 결론을 모호한 시간의 저편으로 떠넘겼을 뿐입니다. 마치 세무당국이 세무조사를 마친 뒤 "이번에는 추징할 세액이 없다"고 통보하는 종결 공문과 같습니다. 그것은 그 기업의 경영이 완전히 적법하고 의롭다고 인정한 것이 아니라, 단지 지금 당장 손을 대지 않고 지켜보겠다는 유예에 불과합니다. 사도들에게 내려진 "버려두라"는 선언 역시 무죄의 영예가 아니라 잠정적인 연기에 지나지 않았습니다.</p>
+<p>더욱 기막힌 것은 그 말을 들은 공회의 반응이었습니다. 성경은 그들이 가말리엘의 신중한 논리에 "설득되었다"고 증언합니다. 옳게 여겨 고개를 끄덕였다는 뜻입니다. 그렇다면 그들은 그 신중한 조언대로 가만히 지켜보았을까요? 결코 그렇지 않았습니다. 그들은 사도들을 다시 불러들여 살을 찢는 가혹한 채찍질을 가하고, 예수의 이름으로 말하는 것을 엄히 금지하며 협박했습니다.</p>
+<p>말로는 "하나님의 뜻인지 두고 보자"며 그럴듯한 저울을 들어 올렸지만, 정작 손에서는 피 묻은 채찍을 내려놓지 않은 것입니다. 두 손으로 가능성의 무게를 떠받들고 침묵을 견디는 일은 영적으로 몹시 고단한 일입니다. 인간의 부패한 본성은 신중함의 가면을 쓴 채 언제나 무거운 쪽—'어쩌면 저 사람의 말이 옳을지도 모른다, 이것이 참으로 하나님의 역사일지도 모른다'는 진실—을 가장 먼저 내팽개칩니다.</p>
+<p>오늘 우리의 일상은 어떠합니까? 우리는 가정에서, 교회 공동체에서, 일터에서 낯설고 불편한 사람들을 향해 "어디 어떻게 하는지 두고 보자", "네 마음대로 해보라"며 고상하고 관대한 척 말합니다. 그러나 그 기다림의 시간 동안 우리의 손은 무엇을 하고 있습니까? 차가운 침묵과 외면, 배제와 은밀한 험담이라는 보이지 않는 채찍을 휘두르고 있지는 않습니까? 설득된 귀와 기다리지 못하는 손의 이 기괴한 이중성이야말로, 스스로 판관의 자리에 앉아 신중함을 핑계로 이웃을 난도질하는 우리의 부끄러운 실상입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">성공이라는 우상과 고난 속의 거룩한 증언</h3>
+<p>우리는 오랫동안 가말리엘의 이 말을 편리한 성공주의의 잣대로 오독해 왔습니다. "사람의 일이면 망할 것이고, 하나님의 일이면 흥할 것이다. 그러니 살아남고 번성하는 것이 곧 하나님의 축복이요 승인의 증거다." 그러나 종교개혁자 장 칼뱅이 준엄하게 경고했듯, 역사를 돌아보면 불의하고 사악한 권세와 거짓 가르침도 수백 년 동안 거대한 제국을 이루며 번성할 수 있었고, 반대로 하나님의 거룩한 진리와 참된 백성들은 오랜 세월 짓밟히고 숨죽여 울어야 했습니다.</p>
+<p>외적인 번영과 지속성을 하나님의 승인 표지로 삼는 논리는 복음이 아니라 세속의 적자생존 법칙일 뿐입니다. 만약 "무너지지 않고 성공하는 것"이 하나님의 편에 선 유일한 증거라면, 그날 공회의 재판정에서 피투성이가 된 채 쫓겨난 사도들은 하나님의 저주를 받은 패배자여야 마땅합니다.</p>
+<p>그러나 성경이 보여주는 하나님의 일은 세상의 계산법을 송두리째 뒤흔듭니다. 사도들은 매를 맞고 쫓겨나면서도 기가 죽거나 신세를 한탄하지 않았습니다. 오히려 그들은 "예수의 그 거룩한 이름을 위하여 능욕받는 일에 합당한 자로 여기심을 기뻐하며" 성전을 나섰습니다. 그리고 날마다 성전에 있든지 집에 있든지 예수는 그리스도라고 가르치고 전파하기를 멈추지 않았습니다.</p>
+<p>하나님의 일은 '역경이 없는 형통'으로 증명되는 것이 아니라, '역경 속에서도 꺾이지 않는 인내와 찬송'으로 증명됩니다. 가말리엘은 미래의 결과가 어떠한지 지켜보자며 시간 뒤에 숨었지만, 사도들은 이미 완결된 하나님의 역사를 온몸으로 웅변하고 있었습니다. "너희가 나무에 달아 죽인 예수를 우리 조상의 하나님이 다시 살리셨다! 그를 오른손으로 높이사 이스라엘의 임금과 구주로 삼으셨다!" 그들은 앞으로 일어날 세상의 결과에 목을 매지 않았습니다. 이미 십자가와 부활로 역사를 뒤흔드신 하나님의 행동을 목격했기에, 피 맺힌 채찍질 아래서도 결코 침묵할 수 없는 증인으로 살았던 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">재판석에서 내려와 증인의 자리로 걷는 삶</h3>
+<p>이 이야기의 가장 눈부신 전복은 '재판석의 뒤바뀜'에 있습니다. 가말리엘이 경고했던 단어, "너희가 하나님을 대적하는 자로 '발견될까' 하노라"의 '발견되다'는 법정에서 최종 유죄 판결이 드러나는 순간을 가리키는 사법 용어입니다. 사도들이 잠시 밖으로 나간 사이, 높은 재판석에 앉아 거만하게 눈을 부라리던 권력자들은 자신들도 모르는 사이에 하나님의 법정에서 준엄한 피고석으로 내동댕이쳐지고 있었습니다. 그들은 갈릴리 어부들을 심문하고 있다고 착각했지만, 실상은 하나님께서 그들의 오만과 폭력을 심문하고 계셨던 것입니다.</p>
+<p>우리는 너무나 쉽게 인생의 재판석에 기어오릅니다. 나 자신의 안전한 자리를 지키며, 배우자를, 자녀를, 동료를, 교회의 지체들을 내 마음의 법정에 세워두고 끊임없이 판결봉을 두드립니다. "과연 얼마나 잘하나 보자", "내 기준에 맞지 않으면 두고 봐라"며 차가운 관찰자의 시선으로 이웃을 저울질합니다.</p>
+<p>그러나 성경이 우리에게 요구하는 성숙한 인격은 관찰자나 판관의 자리가 아닙니다. 가말리엘은 탁월한 지식과 분별력을 가졌지만 끝내 '만일'이라는 조건 뒤에 숨은 채 기득권의 공회원으로 남았습니다. 그는 사도들의 목숨을 건지는 도구로는 쓰임받았을지언정, 십자가를 지고 그리스도를 따르는 제자가 되지는 못했습니다. 신중함의 의자에 걸터앉아 진리를 유예하는 자는 결코 생명의 신비에 도달할 수 없습니다.</p>
+<p>이제 우리는 판관의 차가운 저울을 내려놓아야 합니다. 누군가를 지켜보기로 했다면, 내 손에 쥐어진 은밀한 채찍과 비난의 칼날부터 땅에 떨어뜨려야 합니다. 내 뜻과 다르고 내 이해를 벗어난다 할지라도, 그 사람 안에 일하실 하나님의 섭리를 경외하며 온전히 기다려주는 거룩한 침묵을 배워야 합니다. 그것이 바로 '설득된 귀'와 '손을 떼는 정직'이 일치하는 성경적 인격의 시작입니다.</p>
+<p>그리고 더 나아가, 우리는 세상의 승패를 가늠하는 판관의 자리에서 내려와 그리스도의 은혜를 증언하는 증인의 자리로 걸어가야 합니다. 삶에 억울한 오해가 찾아오고 뜻하지 않은 고난의 채찍이 등을 후려칠 때조차, 성공의 크기로 하나님을 재단하지 않고 부활의 주님을 바라보며 담대히 기뻐하는 삶. "우리는 이 일의 증인이라" 고백하며 날마다 내 삶의 자리에서 사랑과 진리를 그치지 않는 삶.</p>
+<p>판관의 교만한 의자를 비우고 상처 입은 증인의 걸음을 걷는 이들에게, 세상은 결코 무너뜨릴 수 없는 하나님의 거룩한 임재를 보게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 07편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

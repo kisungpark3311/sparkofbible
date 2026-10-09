@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>끝난 줄 알았던 일들이 현재로 되돌아올 때</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 36편 &middot; 사도행전 21:37~22:29</span>
+      <h1>끝난 줄 알았던 일들이 현재로 되돌아올 때</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 살아가면서 수많은 상처와 과오를 ‘과거’라는 깊은 서랍 속에 밀어 넣곤 합니다. "그때는 어쩔 수 없는 상황이었어", "조직의 질서를 세우기 위해 불가피했지", "이미 다 지난 일인데 어쩌겠어." 자기변명과 합리화라는 도장을 찍어 단단히 봉인한 장부. 우리는 그렇게 타인의 마음에 남긴 생채기를 ‘과거완료형’으로 서둘러 정리한 채, 아무 일도 없었던 것처럼 오늘을 살아갑니다.</p>
+<p>그러나 정말로 그 일들은 끝난 것일까요? 내가 가볍게 털어내 버린 과거가, 정작 상처를 입은 이에게는 숨을 쉴 때마다 덧나는 아픈 ‘현재진행형’의 신음으로 남아 있다면 어찌해야 할까요. 사도 바울의 생애를 송두리째 뒤흔들었던 다메섹 도상의 사건은, 바로 이 서늘한 영적 진실 앞으로 우리를 정면으로 불러 세웁니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">닫아버린 과거의 장부와 하늘의 현재 시제</h3>
+<p>사도행전 22장에서 바울은 성난 군중을 마주하며 자신의 부끄러운 과거를 숨김없이 털어놓습니다. "내가 이 도를 핍박하여 사람을 죽이기까지 하고 남녀를 결박하여 옥에 넘겼노니"(행 22:4). 여기서 바울이 사용한 헬라어 동사 ‘에디오크사(ἐδίωξα)’는 문법적으로 1인칭 부정과거 시제입니다. 즉, 이미 완료되어 지나가 버린 과거의 사건을 뜻합니다. 바울에게 박해는 자신의 지난 이력서에 남은 뼈아픈 한 줄이자, 이미 닫아버린 낡은 장부 속의 일이었습니다. 그는 그릇된 열심에 눈이 멀어 수많은 사람을 가두었지만, 적어도 스스로는 그것을 ‘끝난 과거의 일’로 정리해 두고 있었습니다.</p>
+<p>그런데 바로 그 정오, 하늘에서 번개보다 강렬한 빛이 쏟아져 내리며 한 음성이 바울의 귓전을 때립니다. "사울아 사울아, 네가 왜 나를 핍박하느냐(τί με διώκεις)!"(행 22:7). 하늘에서 울려 퍼진 주님의 동사 ‘디오케이스(διώκεις)’는 놀랍게도 과거형이 아닌 ‘2인칭 현재형’이었습니다. "네가 왜 나를 핍박했었느냐"가 아니라, "네가 왜 지금 나를 핍박하고 있느냐"라는 물음이었습니다.</p>
+<p>시제의 엄청난 비대칭이 여기서 폭로됩니다. 가해자는 이미 장부를 덮고 "다 지난 일"이라며 과거로 물러서는데, 지체의 아픔을 온몸으로 끌어안으신 하늘의 머리께서는 그 박해를 ‘지금 내가 받고 있는 현재의 아픔’으로 받아내고 계셨습니다. 가해자의 기억은 서둘러 망각과 합리화의 방으로 숨어들지만, 고통받는 이의 살갗과 그들의 주님이신 그리스도의 심장 속에서는 여전히 시퍼렇게 멍이 든 현재로 살아서 숨 쉬고 있었던 것입니다. 내가 무심코 던진 말 한마디, 내 이익을 위해 타인의 가슴에 박았던 못들이 허공으로 사라진 줄 알았는데, 실은 하늘 보좌 앞에서 여전히 현재진행형의 신음으로 울리고 있다는 사실은 우리의 가슴을 서늘하게 무너뜨립니다. 참된 회개는 바로 이 시제의 충돌, 내가 닫아버린 과거의 장부를 주님께서 현재 시제로 다시 열어 보이실 때 비로소 시작됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">추상적인 집단 뒤에 숨겨진 얼굴과 하나의 이름</h3>
+<p>사울이 처음에 겨냥했다고 믿었던 공격 대상은 ‘이 도(ταύτην τὴν ὁδόν)’, 곧 신흥 종교 운동이라는 추상적인 이념이자 집단이었습니다. 인간은 잔인해질 때 언제나 추상명사 뒤로 숨는 버릇이 있습니다. "나는 단지 원칙을 지켰을 뿐이다", "그 부서가 비협조적이었을 뿐이다", "그 거래처와의 계약 문제를 정리한 것뿐이다." 우리는 거창한 명분과 조직, 법과 규정이라는 투명한 장막 뒤에 숨어 거침없이 칼을 휘두릅니다.</p>
+<p>그러나 그 칼날이 실제로 가닿아 피를 흘리게 한 자리는 언제나 살과 뼈를 지닌 구체적인 개인이었습니다. 바울의 분노가 실제로 손을 댄 곳이 ‘남자와 여자들(ἄνδρας τε καὶ γυναῖκας)’의 가녀린 손목이었듯이 말입니다. 우리는 ‘그 사람들’이라는 차가운 복수형의 집단 명사 뒤에 숨어, 한 사람 한 사람이 가진 고유한 이름과 삶의 무게를 지워버립니다.</p>
+<p>그런데 다메섹 도상에서 들려온 주님의 음성은 그 비겁한 껍질을 단숨에 벗겨냅니다. 주님은 "네가 왜 성도들을 핍박하느냐"라거나 "네가 왜 우리 교회를 괴롭히느냐"라고 묻지 않으셨습니다. 만약 복수형인 "우리를"이라고 물으셨다면, 그것은 피해자 집단끼리 어깨를 겯는 단순한 사회적 연대에 머물렀을 것입니다. 주님은 놀랍게도 단수 대명사, 오직 한 음절인 "나를(με)"이라고 선언하셨습니다. 그리고 "주여 뉘시니이까"라는 바울의 되물음에 마침내 당신의 존귀한 신원을 밝히십니다. "나는 네가 핍박하는 나사렛 예수라(Ἐγώ εἰμι Ἰησοῦς ὁ Ναζωραῖος ὃν σὺ διώκεις)"(행 22:8).</p>
+<p>따로 묶이고 갇혔던 수많은 남자와 여자의 아픔이, 나사렛 예수라는 하나의 이름 안으로 온전히 수렴되는 순간입니다. 이것은 개개인의 상처를 거대 담론으로 뭉뚱그려 지워버리는 축소가 아닙니다. 오히려 홀로 결박당해 고독하게 신음하던 이들의 고통에서 ‘외로움’을 빼앗아 가시고, 그들의 눈물을 당신 자신의 눈물로 품어 안으시는 거룩한 귀속입니다. 내가 함부로 대했던 동료, 무시했던 이웃, 손해를 떠넘겼던 거래처 사람의 이름 뒤에, 실은 예수 그리스도라는 존귀한 이름이 겹쳐져 있었습니다. 나의 무자비한 손끝이 실은 하늘의 주님께 닿아 있었다는 이 두려운 진실 앞에, 인간이 내세울 수 있는 변명은 단 하나도 남지 않게 됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">바닥에 엎드려 '왜' 대신 '누구'를 묻는 인격</h3>
+<p>말 위에서 기세등등하던 사울이 차가운 흙바닥에 고꾸라졌을 때, 그의 내면에서는 거대한 영적 지각변동이 일어났습니다. 바닥에 이마를 대고 엎드린 인간은 더 이상 거만한 눈으로 타인을 굽어볼 수 없습니다. 더 이상 그럴듯한 명분을 늘어놓으며 자신의 행위를 정당화할 수도 없습니다. 눈이 멀어 아무것도 보이지 않는 칠흑 같은 어둠 속에서, 남는 것은 오직 영혼을 뒤흔드는 한 줄기 목소리뿐이었습니다.</p>
+<p>그 바닥에서 사울은 놀라운 전환을 경험합니다. 주님께서 "왜(τί)" 나를 핍박하느냐고 물으셨을 때, 사울은 "왜냐하면..."이라며 자신의 종교적 열심이나 율법의 타당성을 변명하지 않았습니다. 대신 그는 질문의 차원을 바꿉니다. "주여, 뉘시니이까(Τίς εἶ, κύριε;)" 이유를 대려던 교만한 입술이 닫히고, 자신의 존재를 뿌리째 뒤흔드시는 참된 주인의 신원을 묻는 경외와 항복이 태어난 것입니다. '왜'라는 질문에 집착할 때 인간은 언제나 핑계를 찾지만, '누구'이신지를 겸손히 물을 때 인간은 비로소 인격의 문턱을 넘어서게 됩니다.</p>
+<p>놀라운 것은, 그 거룩한 마주침이 처절한 단죄나 멸망으로 끝나지 않았다는 사실입니다. 주님은 박해자를 벼락으로 내리치시는 대신, 먼저 찾아오셔서 당신의 이름을 들려주셨습니다. 그리고 다메섹 거리에서 아나니아를 보내어 바닥에 쓰러진 박해자를 향해 가장 다정한 첫마디를 건네게 하셨습니다. "형제 사울아(Σαοὺλ ἀδελφέ)!"(행 22:13). 어제까지 주님의 몸을 찢고 옥에 가두던 잔혹한 박해자가, 오늘 같은 몸을 이루는 ‘형제’로 불리는 것. 이것이 바로 기독교 복음이 지닌 가장 눈부신 신비입니다. 주님은 우리를 정죄하여 바닥에 눕히신 것이 아니라, 허망한 자기 의를 깨뜨리고 참된 형제로 다시 세우기 위해 우리를 바닥으로 부르신 것입니다.</p>
+<p>성경적 사고가 빚어내는 인격의 열매는 바로 이 다메섹의 엎드림에서 피어납니다. 남을 탓하고 환경을 핑계 대던 무책임한 3인칭의 언어를 거두고, "내가 주님 앞에 죄를 지었나이다"라는 1인칭 단수의 정직한 책임을 회복하는 것입니다. 가정에서, 교회에서, 그리고 일터에서 우리는 얼마나 자주 '그 사람들', '그 부서'라는 추상적인 벽 뒤에 숨어 타인에게 생채기를 냅니까. 이제는 그 모호한 집단의 가면을 벗겨내고, 고유한 인격의 이름을 정직하게 마주해야 합니다. 내가 내리는 결정 하나가 손을 대고 있는 구체적인 사람의 이름을 적어보고, 그 이름 뒤에 겹쳐 계시는 주님의 얼굴을 두려움과 떨림으로 바라보아야 합니다.</p>
+<p>우리가 닫아두었던 과거의 장부를 열어 상처 입은 이들의 눈물을 닦아주고, 변명 대신 무릎을 꿇어 그분의 음성에 귀를 기울일 때, 우리는 비로소 타인을 수단이 아닌 인격으로 대접하는 법을 배우게 됩니다. 그리스도와의 연합은 메마른 교리책 속에 갇힌 박제가 아닙니다. 그것은 오늘 내가 마주하는 지극히 작은 자 하나의 눈동자 속에서 주님의 얼굴을 뵙고, 내 모든 손길과 말이 결국 그분께 닿아 있음을 기억하며 한 걸음 한 걸음 조심스럽고 거룩하게 살아가는 삶의 태도입니다. 그 거룩한 떨림 속에서, 우리의 거칠었던 옛 인격은 마침내 주님을 닮은 온유하고 따뜻한 그릇으로 빚어져 갑니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 36편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

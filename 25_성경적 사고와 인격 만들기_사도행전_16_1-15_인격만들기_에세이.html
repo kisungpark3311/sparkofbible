@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>갈라선 자리의 빈칸, 그리고 다시 걷는 길</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 25편 &middot; 사도행전 16:1-15</span>
+      <h1>갈라선 자리의 빈칸, 그리고 다시 걷는 길</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살아가다 보면 가장 아프고 시린 순간은, 악한 이들이 벌이는 다툼이 아니라 선하고 신실한 두 사람이 등을 돌릴 때 찾아옵니다. 같은 비전을 품고 험한 전도 여행의 고비를 함께 넘겼던 동역자, 서로를 누구보다 깊이 아끼고 존중하던 두 영혼이 어떤 문제 앞에서 첨예하게 부딪치고 끝내 등을 돌릴 때, 곁에서 지켜보는 이들도, 당사자들의 가슴도 형언할 수 없는 상실감에 무너져 내립니다.</p>
+<p>사도행전 15장 말미에는 교회의 역사 속에서 가장 가슴 저미는 이별의 장면이 기록되어 있습니다. 바로 바울과 바나바의 결별입니다. 첫 전도 여행 때 밤빌리아에서 일행을 떠나 집으로 돌아가 버렸던 청년 마가를 다시 데려갈 것인가를 두고, 두 거목은 한 치의 양보도 없이 맞섰습니다. 우리는 보통 누군가가 갈라섰다는 소식을 들으면 본능적으로 질문을 던집니다. "도대체 누구 잘못인가?", "누가 옳았고 누가 틀렸는가?" 세상의 법정과 사람들의 수다는 끊임없이 원인을 캐묻고, 누군가를 가해자와 피해자로, 승자와 패자로 갈라놓아야만 직성이 풀립니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">원인의 자리에 사람을 앉히지 않는 문법</h3>
+<p>그런데 이 아픈 결별을 기록하는 성경의 문장을 원문으로 가만히 들여다보면, 숨이 멎을 듯한 거룩한 침묵을 마주하게 됩니다. 사도행전 15장 39절의 원문 주어는 바울도, 바나바도, 마가도 아닙니다. 놀랍게도 그 문장의 주어는 사람이 아니라 '격한 다툼(παροξυσμός, 파록쉬스모스)'이라는 하나의 사태 자체입니다. 성경은 "바울이 다투었다"거나 "바나바가 완고했다"고 적지 않고, "격렬한 갈등이 일어났다"고만 담담하게 기록합니다.</p>
+<p>더욱 놀라운 것은 결별을 서술하는 여섯 절(15:36-41) 전체에 '왜냐하면', '~때문에'를 뜻하는 원어 접속사나 원인을 가리키는 전치사가 단 한 건도 등장하지 않는다는 사실입니다. 시비를 가리는 단어, 즉 옳음이나 그름, 죄나 책망을 뜻하는 어휘 역시 전무합니다. 성경을 기록한 저자가 이유를 설명할 줄 몰라서 쓰지 않은 것일까요? 결코 아닙니다. 본문은 바로 다음 장(16:3)으로 넘어가자마자, 디모데에게 할례를 행하는 장면에서는 무려 세 개의 이유 표지를 쏟아냅니다. 오해의 소지가 있는 실무적 사안에는 구차할 정도로 친절하게 이유를 셋이나 설명하면서도, 가장 사랑하던 두 동역자가 피차 갈라서는 참담한 자리에서는 이유 칸을 철저하게 텅 비워 둔 것입니다.</p>
+<p>성경은 왜 이 빈칸을 남겨두었을까요? 그것은 실패한 사람, 혹은 약한 사람을 영원한 피고석에 앉히지 않으려는 하나님의 자비로운 기록 윤리입니다. 만약 거기에 누군가의 허물을 탓하는 이유 접속사가 단 하나라도 들어갔다면, 젊은 날의 실수로 발을 뺐던 마가는 교회의 역사 내내 '위대한 두 사도의 결별을 초래한 만고의 죄인'이라는 낙인을 짊어져야 했을 것입니다. 그러나 성경은 원인의 자리에 사람을 앉히지 않았습니다. 사람 대신 아픈 사태만을 주어로 세우고, 서술자는 그 어떤 판결문도 덧붙이지 않은 채 침묵의 장막을 쳤습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">갈라섬은 끝이 아니라 새롭게 흐르는 길이다</h3>
+<p>우리는 갈라섬을 언제나 실패이자 파멸로 여깁니다. 그러나 성경이 보여주는 결별은 법원의 판결문이 아니라, 마치 기업의 '인적분할'이나 법정의 '조정조서'를 닮아 있습니다. 한 회사가 둘로 분할될 때, 분할계획서는 지난날의 원한을 묻지 않습니다. 오직 남아 있는 자산과 부채를 정직하게 나누고, 분할된 두 법인이 각자의 자리에서 존속하며 사업을 계속하게 할 뿐입니다. 법원의 조정조서 역시 마찬가지입니다. 누구의 주장이 맞았는지 시시비비를 판결하지 않은 채, 양측이 앞으로 이행해야 할 몫만을 간결하게 정리합니다. 조정조서를 손에 쥐고 나와 "내가 재판에서 이겼다"고 자랑할 수 있는 사람은 아무도 없습니다.</p>
+<p>사도행전의 카메라도 정확히 그와 같은 방식으로 움직입니다. 다툼 뒤에 바나바는 마가를 데리고 배를 타고 구브로로 향했고, 바울은 실라를 택하여 육로로 수리아와 길리기아를 향해 떠났습니다. 한 척의 배는 쪽빛 지중해 바다로 떠나가고, 한 무리의 행렬은 메마른 흙먼지 이는 대지를 밟으며 서로 등을 지고 멀어져 갑니다.</p>
+<p>등을 돌리는 순간은 참으로 시리고 아픕니다. 등을 맞대고 서 있는 자리는 역설적으로 가장 가까운 자리이지만, 서로 반대 방향을 향해 첫 발을 떼는 순간 상대의 얼굴은 시야에서 사라집니다. 그러나 눈에 보이지 않는다고 해서 상대의 삶이 끝난 것은 아닙니다. 바다로 간 이도 여전히 복음의 노를 젓고 있었고, 땅으로 간 이도 묵묵히 걷고 있었습니다. 갈라섬은 하나님 나라의 끝이 아니었습니다. 하나의 물줄기가 바위에 부딪혀 두 갈래의 강으로 나뉘어 더 넓은 광야를 적시듯, 사역은 두 개의 지평으로 확장되고 있었던 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">자기 증명을 내려놓고 주의 은혜에 기대어 걷는 법</h3>
+<p>그렇다면 서로 등을 돌리고 각자의 길을 떠난 두 사람은 무엇을 붙들고 걸어갔을까요? 사도행전 15장 40절은 바울이 떠나는 모습을 이렇게 묘사합니다. "형제들에게 주의 은혜에 부탁함을 받고 떠나." 바울은 "내가 옳았음을 증명하겠다"는 결기로 떠나지 않았습니다. 내가 원칙을 지켰고 저쪽이 나약했다는 자기변호의 갑옷을 입고 길을 나선 것이 아니라, 그저 온 교회가 빌어주는 '주의 은혜'라는 보형물에 자신의 상처 입은 전 존재를 맡긴 채 걸어갔습니다. 갈라선 사람을 끝까지 지탱해 주는 힘은 "내가 맞았다"는 독기 서린 확신이 아니라, 판정할 수 없는 아픔마저도 통째로 하나님께 맡기는 '은혜에의 의탁'뿐입니다.</p>
+<p>그리고 바울의 걸음이 닿은 곳에서 무슨 일이 일어납니까? 15장 41절은 그가 "교회들을 굳게 하니라"라고 증언합니다. 본래 바울이 15장 36절에서 여행을 시작하며 바나바에게 건넸던 최초의 제안은 "형제들이 어떠한가 방문하여 돌아보자"는 것이었습니다. 비록 동역자와의 다툼으로 가슴이 찢기고 계획은 어그러졌지만, 결국 성령은 갈라선 그 길 위에서 최초의 선한 열망이었던 '교회들을 굳게 세우는 일'을 한 치의 오차도 없이 성취해 가십니다.</p>
+<p>우리 삶에도 돌이킬 수 없이 갈라선 관계들이 있습니다. 평생을 함께할 줄 알았던 친구, 뜻을 같이했던 동료, 가슴으로 섬겼던 공동체와 등을 지게 되었을 때, 우리는 종종 홀로 밤을 지새우며 마음속으로 끝없는 재판을 엽니다. "그 사람이 왜 그랬을까", "그때 내가 맞았고 그가 틀렸어"라며 끝나지 않는 자기변론을 되풀이합니다. 그러나 오늘 성경은 우리에게 그 헛된 법정을 폐정하라고 권면합니다. 남의 하인을 판단하는 자리를 하나님께 돌려드리고, 내 마음대로 채워 넣으려 했던 그 잔인한 '이유의 칸'을 백지로 남겨 두십시오. 떠나간 사람을 내 인생의 가해자라는 피고석에 영원히 가두어 두지 마십시오.</p>
+<p>등을 돌린 채 세 걸음을 걷고 가만히 눈을 감아보십시오. 그 사람도 하나님의 하늘 아래에서 여전히 울며 걷고 있는 한 사람의 연약한 순례자일 뿐입니다. 내가 옳았음을 증명하려 애쓰는 대신, 오늘 내게 허락된 길 위에서 "주의 은혜에 맡겨져" 조용히 발걸음을 옮기십시오. 설명할 수 없는 이별의 공백 너머에서도, 하나님은 여전히 당신의 걸음을 통해 무너진 마음들을 굳게 세워 가실 것입니다. 판결 없는 빈칸을 지켜내는 그 침묵과 관용의 자리야말로, 거친 세상을 통과하며 가장 깊고 단단해지는 참된 그리스도인의 인격입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 25편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

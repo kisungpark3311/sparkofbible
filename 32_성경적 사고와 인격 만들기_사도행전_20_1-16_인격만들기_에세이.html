@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>우리는 기다려지는 자리에서 시작한다: 동행의 첫 문장은 '우리를'이다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 32편 &middot; 사도행전 20:1-16</span>
+      <h1>우리는 기다려지는 자리에서 시작한다: 동행의 첫 문장은 '우리를'이다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 언제나 나 자신을 증명하느라 지쳐 있습니다. 낯선 문턱을 넘어 새로운 조직이나 모임에 들어설 때마다, 마음 한구석에서는 무거운 긴장감이 차오릅니다. '내가 무엇을 할 수 있는 사람인지 보여주어야 한다', '내 쓸모와 능력을 입증해야만 비로소 이곳에 내 자리가 생길 것이다'라는 강박입니다. 세상은 끊임없이 우리에게 당당한 '주어'가 되라고 요구합니다. 남들보다 먼저 손을 뻗어 기회를 움켜쥐고, 스스로 길을 개척하며, 성과를 증명해 내지 못하면 언제든 밀려날 수 있다는 두려움이 현대인의 영혼을 늘 가쁜 숨을 몰아쉬는 대기실에 가두어 둡니다. 그러나 내가 내민 손이 허공을 가를까 봐 전전긍긍하며 관계의 문을 두드리는 일은 얼마나 외롭고 고단한 일입니까.</p>
+<p>그런데 신약성경 사도행전 20장은 지중해의 거친 바닷바람이 불어오는 항구 드로아에서, 우리의 이 팽팽한 긴장을 단숨에 무너뜨리는 너무도 다정하고 낯선 문장 하나를 건네옵니다. 3차 전도 여행의 막바지, 수많은 박해와 위험 속에서 아시아로 건너가던 여정 한가운데 성경 기자는 이렇게 기록합니다. "그들은 먼저 가서 드로아에서 우리를 기다리더라"(행 20:5). 헬라어 원문 일곱 낱말로 이루어진 이 짧은 기록 속에는, 관계의 본질을 송두리째 뒤흔드는 거대한 은혜의 역설과 성경이 빚어내는 참된 인격의 신비가 숨 쉬고 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">내가 내민 손보다 먼저 맞잡아 준 손의 안도</h3>
+<p>이 구절을 원문으로 가만히 들여다보면 참으로 놀라운 문법적 배치가 눈에 들어옵니다. 본문 앞머리의 네 낱말은 모두 3인칭입니다. 소바더, 아리스다고, 세군도, 가이오, 디모데, 두기고, 드로비모 등 여러 지역에서 온 일곱 명의 동역자가 먼저 배를 타고 드로아로 건너갔습니다. 그리고 다섯 번째 자리에 이르러서야 비로소 서술자인 누가가 속한 '우리'라는 1인칭 복수가 모습을 드러냅니다. 그런데 그 자리가 '우리가(ἡμεῖς)'라는 주격이 아니라, '우리를(ἡμᾶς)'이라는 대격 목적어의 자리였습니다. 주절 정동사는 3인칭 복수 미완료 동사인 '에메논(ἔμενον)', 즉 '그들이 포구에서 계속해서 끈기 있게 기다리고 있었다'였습니다.</p>
+<p>문법이 서술자를 행위의 주체 칸이 아니라, 기다림을 받는 목적어 칸에 앉힌 것입니다. 동행의 첫 문장은 "우리가 갔다"가 아니라 "그들이 우리를 기다렸다"였습니다. 함께 길을 떠나는 동행은 내가 주어가 되어 시작하고 쟁취하는 성취가 아니라, 먼저 나를 위해 자리를 비워둔 사람들의 품에 '받아들여짐'에서 시작된다는 거룩한 선언입니다.</p>
+<p>돌아보면 우리 삶에서 가장 소중하고 따뜻했던 순간들은 모두 이 문법 속에서 피어났습니다. 갓난아이가 세상에 첫 울음을 터뜨릴 때를 떠올려 보십시오. 아기는 스스로 무엇을 증명하거나 자격을 갖추어 세상에 오지 않습니다. 아이가 태어나기 전부터 부모는 작은 옷을 정성스레 빨아 개어두고, 작은 침대를 펴놓으며, 따뜻한 품을 비워둔 채 벅찬 가슴으로 기다립니다. 아기는 아무런 조건 없이, 이미 마련된 자리에 '기다려진 존재'로 도착합니다. 첫 출근 날의 책상 위에도 신입사원이 첫 업무를 시작하기 전에 이미 그의 이름이 적힌 명패와 사원증, 따뜻한 환영의 메모가 놓여 있습니다. 여행지의 숙소 예약 명부에도 내 이름 석 자가 먼저 적혀 있고, 우리는 그 환대의 명부를 확인받으며 비로소 안도의 한숨을 내쉽니다.</p>
+<p>조용히 눈을 감고 몸의 감각으로 이를 느껴보십시오. 낯선 방에서 눈을 감고 손을 앞으로 내밀며 더듬어 걸을 때, 온몸의 근육은 극도로 긴장합니다. 내가 부딪히지 않아야 하고, 내가 길을 찾아내야 하기 때문입니다. 그러나 두 팔을 편안히 내린 채 걷다가, 저편에서 두 팔 벌려 기다리던 누군가가 내 손을 불쑥 따뜻하게 맞잡아 줄 때 밀려오는 안도는 내가 허공을 헤매다 찾아낸 안도와는 비교할 수 없이 깊고 온전합니다. 드로아 부두에 발을 디딘 바울과 누가가 경험한 것이 바로 이 안도였습니다. 바닷바람 부는 부두에서 닷새 동안이나 자리를 뜨지 않고 수평선을 바라보며 기다려 준 동역자들의 체온. 참된 동행은 내가 나를 증명하려는 긴장을 내려놓고, 나를 기다려 준 이들의 문장 속으로 대격이 되어 걸어 들어갈 때 비로소 시작됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">돌봄이 공로가 되지 않도록 문장을 비워두는 사랑</h3>
+<p>그렇게 목적어로 받아들여진 '우리'는, 바로 다음 절인 6절에 이르러 비로소 주어인 '우리가(ἡμεῖς)'로 올라섭니다. 빌립보에서 배로 떠나 닷새 만에 드로아에 이르러 동역자들과 합류하고, 밤이 깊도록 함께 떡을 떼며 말씀을 나눕니다. 그런데 바로 그 은혜의 다락방 한가운데서 아무도 예상치 못한 비극이 터져 나옵니다. 바울의 강론이 밤중까지 길어지자, 삼층 창문에 걸터앉아 듣던 청년 유두고가 쏟아지는 졸음을 이기지 못하고 그만 삼층에서 땅으로 떨어져 죽어버린 것입니다(행 20:9).</p>
+<p>창문 밖으로 사람이 추락하고 비명과 통곡이 다락방을 뒤흔드는 그 순간, 성경 기록에는 숨이 멎을 듯한 기적이 일어납니다. 사도행전 20장 9절부터 12절까지 이어지는 가장 긴 네 구절 동안, 서술자 누가는 방금 전까지 활발하게 움직이던 1인칭 복수 '우리'라는 단어를 단 한 번도 쓰지 않습니다(0회). 네 절에 등장하는 모든 동사는 철저하게 3인칭으로만 내려앉습니다. 청년이 떨어졌고(ἔπεσεν), 죽은 자로 들려 올려졌으며(ἤρθη), 바울이 내려가 그 위에 엎드려 끌어안았고(ἐπέπεσεν), 사람들에게 "떠들지 말라 그에게 생명이 있다"고 말했습니다(εἶπεν).</p>
+<p>오늘날 우리들의 모임과 조직이었다면 과연 어떠했을까요? 위기가 닥치고 누군가의 생명을 건져내는 기적이 일어났을 때, 세상의 기록과 보고서는 어김없이 '우리'의 활약상으로 도배되곤 합니다. "우리가 신속하게 달려가 응급처치를 했다", "우리가 밤을 새워 눈물로 통성기도를 올렸더니 놀라운 역사가 일어났다." 우리는 누군가의 고통과 위기마저도 공동체의 유능함을 홍보하고 '우리가 한 일'을 자랑하는 트로피로 삼기 십상입니다. 그러나 그런 요란한 공로주의 속에서, 쓰러졌던 한 사람은 공동체의 자랑거리를 증명하는 무대 장치로 전락하며 평생 씻을 수 없는 마음의 부채감을 짊어지게 됩니다.</p>
+<p>하지만 성경의 문법은 두려울 만큼 깊고 맑은 절제를 보여줍니다. 성경은 유두고의 죽음과 살아남이라는 거대한 슬픔과 회복의 현장에서 '우리'의 이름을 깨끗이 지워버렸습니다. 오케스트라의 웅장한 연주 속에서 가장 가녀리고 애절한 독창자의 노래가 흘러나올 때, 모든 악기가 숨을 죽이고 마디 전체를 쉼표로 비워두듯이, 공동체는 기꺼이 침묵의 쉼표가 되어 무대 전체를 오롯이 아파하는 청년 유두고와 그를 품어 살리시는 하나님의 생명 앞에 온전히 내어주었습니다. 돌봄이 공동체의 치적이 되지 않도록, 회복된 영혼이 사람에게 빚진 자가 되지 않도록 자기를 감추는 거룩한 익명성. 이 눈부신 비움이 있었기에 유두고는 사람들의 수군거림 없이 온전한 위로를 얻을 수 있었고(20:12), 그 위기가 모두 지나간 13절에 이르러서야 '우리'는 다시 대문자 '우리는(Ἡμεῖς)'으로 조용히 돌아와 다음 행선지를 향해 배를 띄울 수 있었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">증명의 피로를 넘어 이미 마련된 은혜의 자리로</h3>
+<p>사도행전 20장이 우리에게 보여주는 '격의 동행 곡선'—대격으로 받아들여지고(우리를), 주격으로 함께 걸으며(우리가), 누군가 무너졌을 때는 이름을 지우고(0), 회복된 뒤에야 다시 주격으로 길을 잇는(우리는) 이 놀라운 순서는, 끊임없이 자기를 과시해야만 살아남는 현대인의 병든 인격을 깊숙이 치유합니다.</p>
+<p>독일의 신학자 디트리히 본회퍼는 그의 고전 『신도의 공동생활』에서 가슴을 울리는 경고를 남겼습니다. "그리스도인의 공동체는 우리가 열정으로 만들어 내야 할 인간적 이상이 아니라, 하나님께서 그리스도 안에서 이미 우리에게 값없이 주신 신령한 실재다. 공동체를 자기 꿈과 이상의 실현 장소로 삼으려는 사람은 결국 자기 열심으로 공동체를 파괴하고 만다." 우리는 얼마나 자주 가정과 교회, 일터에서 '내가 주어가 되어 무언가를 이루어내겠다'는 오만에 사로잡힙니까. 내가 헌신하고 내가 희생해서 이 공동체를 바로 세우겠다는 영웅주의가 고개를 드는 순간, 동행의 자리는 은혜의 안식처가 아니라 시기와 피로, 원망과 상처가 들끓는 전쟁터로 변하고 맙니다.</p>
+<p>그러나 복음의 문법은 언제나 역전되어 있습니다. "우리가 사랑함은 그가 먼저 우리를 사랑하셨음이라"(요일 4:19). 하나님과 우리 사이의 거대한 구원의 역사에서도, 인간은 결코 주어로 출발한 적이 없습니다. 우리는 언제나 그분의 영원한 사랑과 긍휼을 먼저 입은 '목적어'였습니다. 모든 재산을 탕진하고 돼지 우리를 벗어나 터덜터덜 돌아오던 탕자가 아직 저 멀리서 발을 끌고 있을 때, 먼저 달려 나와 목을 끌어안고 눈물을 흘리며 입을 맞춘 것은 아버지였습니다. 탕자는 아들의 자격을 증명해서 돌아온 것이 아니라, 아버지가 문지방 너머에 미리 마련해 둔 '기다림의 자리'로 걸어 들어왔을 뿐입니다.</p>
+<p>오늘, 세상의 무거운 경쟁 속에서 "내가 무엇을 더 증명해야 하나", "내가 쓸모없는 존재로 버려지면 어쩌나" 밤잠을 설치며 가슴 졸이고 계십니까. 그렇다면 허공을 향해 잔뜩 힘주고 뻗었던 그 손을 가만히 내려놓으십시오. 당신이 무언가를 증명하기 전에, 하나님께서는 이미 당신을 위한 은혜의 자리를 마련해 두셨고, 당신의 삶 곁에는 묵묵히 기도로 당신을 기다려 준 따뜻한 이웃들이 서 있습니다. "당신은 이 공동체를 위해 무엇을 했습니까?"라는 차가운 채점관의 질문을 거두고, "누가 나를 먼저 기다려 주었는가?"라는 감사의 질문을 회복하십시오. 그리고 당신 곁의 누군가가 감당할 수 없는 슬픔으로 쓰러질 때, 당신의 이름을 앞세우는 대신 조용히 문장에서 물러나 그 한 사람에게 무대를 내어주는 쉼표의 사랑을 실천하십시오.</p>
+<p>동행의 첫 문장은 '우리가'가 아니라 '우리를'입니다. 나를 먼저 품어 준 그 기다려짐의 깊은 안도 속에서, 우리는 비로소 세상을 참된 온기로 품어내는 성숙하고 아름다운 성경적 인격으로 자라나게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 32편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

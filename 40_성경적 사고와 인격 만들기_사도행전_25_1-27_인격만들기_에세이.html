@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>무심한 보고서에 실려 온 생명</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 40편 &middot; 사도행전 25:1-27</span>
+      <h1>무심한 보고서에 실려 온 생명</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>지중해의 푸른 파도가 부서지는 팔레스타인의 로마 총독 관저, 가이사랴의 화려한 응접실에는 피로에 지친 한 행정관의 한숨이 맴돌고 있었습니다. 새로 부임한 총독 보르기오 베스도는 방문해 온 유대 왕 아그립바 2세와 버니게 공주를 앞에 두고, 자신이 떠안게 된 골치 아픈 미결수 바울에 대한 이야기를 조심스럽게 꺼내놓습니다. 로마 제국의 엄격한 법과 행정 체계로 다스려야 할 총독에게, 예루살렘 종교 지도자들의 격렬한 고소와 바울의 항변은 도무지 가늠할 수 없는 낯설고 기이한 난제였습니다. 베스도는 어깨를 으쓱거리며 사건의 전말을 이렇게 요약합니다.</p>
+<p>"오직 자기들의 종교와 또는 예수라 하는 이의 죽은 것을 살았다고 바울이 주장하는 그 일에 관한 문제로 송사하는 것뿐이라." (사도행전 25:19)</p>
+<p>로마 총독의 입에서 흘러나온 그 이름 앞에는 '어떤(τινος)'이라는 무심한 부정대명사가 덤덤하게 붙어 있었습니다. 베스도에게 예수는 제국의 공식 서류 구석을 스쳐 지나가는 '어떤 사람', 즉 이름 모를 유대인 중 하나에 불과했습니다. 총독은 그를 믿지도 않았고, 그 주장이 사실인지 판정할 수도 없었으며, 단지 황제 네로에게 보낼 상소문에 죄목 하나 변변히 적어 넣지 못할까 염려하던 행정관이었을 뿐입니다. 그러나 역사의 가장 눈부신 아이러니는 바로 이 무심하고 메마른 관청의 보고서 한가운데에서 시작됩니다. 인류 역사를 송두리째 뒤흔든 가장 거대한 생명의 선언이, 가장 차갑고 무관심한 불신자의 공문서 행간에 실려 온 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">식어버린 보고서의 행간에서 살아남은 두 낱말</h3>
+<p>사도행전 25장 19절의 문장은 양파 껍질처럼 겹겹이 포개어진 구조를 지니고 있습니다. 맨 바깥에는 역사를 기록하는 담담한 역사가 누가가 서 있고, 그 안쪽에는 아그립바 왕에게 상황을 설명하는 총독 베스도의 목소리가 있습니다. 베스도의 보고 속에는 바울을 처형하고자 혈안이 된 유대 지도자들의 고소 요약이 담겨 있고, 그 적의에 찬 요약의 가장 깊은 심장부에 바울의 확신에 찬 증언이 박혀 있습니다. 성경 원문은 바울이 "주장했다(ἔφασκεν)"는 말을 단 한 번의 외침이 아닌, 멈추지 않고 거듭해서 되풀이된 미완료 시제로 기록합니다. 총독의 법정에 서서 매 순간 쏟아지는 비난과 위협 속에서도, 바울은 한결같이 그 한마디를 되풀이하고 또 되풀이했던 것입니다.</p>
+<p>이 네 겹의 전언 사슬을 따라 바깥으로 걸어 나올수록 목소리의 온도는 급격하게 식어갑니다. 바울의 타오르는 1인칭 확신은 고소인들의 자리로 건너가며 서슬 퍼런 적의로 바뀌고, 베스도의 자리에 이르면 골치 아픈 사건을 대하는 공무원의 냉랭한 당혹감으로 변하며, 맨 바깥에 선 역사가의 자리에 이르면 감정을 배제한 담담한 기록으로 가라앉습니다. 열정과 증오, 당혹과 무관심이 교차하며 목소리의 온도는 얼음처럼 차갑게 식어갔습니다.</p>
+<p>그런데 놀라운 것은 온도가 급격히 식어가는 그 전언의 여정 속에서도, 문장의 뼈대인 두 핵심 낱말은 결코 깨지거나 흔들리지 않았다는 사실입니다. 바로 '죽어 있는(τεθνηκότος)' 상태와 '살아 있다(ζῆν)'는 선언입니다.</p>
+<p>우리는 어릴 적 귓속말 놀이를 떠올려 봅니다. 줄지어 선 서너 사람의 귓가를 거치기만 해도 원래의 말은 온데간데없이 왜곡되고 우스꽝스럽게 변해버리기 십상입니다. 하물며 바울을 죽이고자 했던 원수들의 손을 거치고, 그 내용에 아무런 관심도 없던 이방인 총독의 관료주의적 요약을 통과한 문장이라면 본래의 뜻이 산산조각 났어야 마땅하지 않겠습니까? 하지만 바울의 증언은 너무나 단단하고 명료했습니다. 군더더기 사족도, 감정적인 덧칠도 없이 '예수', '죽음', 그리고 '부활의 살아 있음'이라는 기둥으로만 이루어진 바위 같은 문장이었습니다.</p>
+<p>동물의 거친 소화관을 통과하면서도 단단한 껍질 덕분에 파괴되지 않고 오히려 멀리 퍼져나가 마침내 새싹을 틔우는 식물의 포자처럼, 이 생명의 문장은 적들의 고소장과 총독의 보고서라는 거친 경로를 통과하면서도 그 순전한 생명력을 잃지 않았습니다. 베스도의 무심함도, 원수들의 증오도, 단단한 복음의 알맹이 앞에서는 아무런 흠집을 내지 못했던 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">믿지 않는 자의 기록이 증명하는 단단한 공적 진실</h3>
+<p>여기서 우리는 깊은 질문을 던지게 됩니다. 성경은 왜 부활이라는 기독교 최고의 신비를, 사도들의 뜨거운 찬송가나 제자들의 감격 어린 눈물이 아니라 하필이면 이를 전혀 믿지 않는 이방인 총독의 메마른 보고서 속에서 다루고 있을까요?</p>
+<p>만약 부활의 증언이 오직 예수를 따르던 이들의 사적 일기장이나 신자들의 밀실 모임에서만 맴돌았다면, 세상은 그것을 패배한 제자들이 겪은 집단적 환각이나 슬픔을 달래기 위해 지어낸 감정적 신화로 치부했을 것입니다. 그러나 역사는 부활의 주장이 로마 제국의 공식 법정 한복판에서 다루어졌음을 명백히 보여줍니다.</p>
+<p>베스도는 그리스도를 믿지 않았습니다. 그는 유대 종교의 내막을 알지 못해 "의심이 있어 어찌할 줄 몰랐고(25:20)", 로마 황제 가이사에게 피고를 압송하면서도 "죄목을 밝히지 아니하고 죄수를 보내는 것이 무리한 일(25:26)"이라며 난감해하던 행정관이었습니다. 베스도의 보고서에는 화려한 신학적 수사나 감동적인 헌사가 들어설 자리가 없었습니다. 그는 단지 자신이 처리해야 할 공무의 기록으로서, 피고인 바울이 목숨을 걸고 되풀이했던 그 기이한 주장을 덧칠 없이 있는 그대로 적어 내려갔을 뿐입니다.</p>
+<p>바로 이 '판정하지 못한 무관심'과 '행정적 당혹감'이야말로, 부활이 개인의 내밀한 종교적 주관성을 넘어 제국의 최고 사법 체계가 직면해야 했던 명백한 '공적 사건의 쟁점'이었음을 증명하는 가장 객관적인 증거가 됩니다. 법정의 판결문이나 세무 결정서의 '청구인 주장란'에 남겨진 기록처럼, 반대자이자 관찰자의 공식 문서에 박제된 문장은 그 주장이 당대 사회에서 결코 지울 수 없는 거대한 공적 부딪침이었음을 역설적으로 웅변합니다.</p>
+<p>종교개혁자 장 칼빈이 통찰했듯이, 그리스도의 십자가 죽음과 부활은 결코 떼어놓을 수 없는 한 쌍입니다. 죽음으로 죄의 삯을 치르셨다면, 부활로 의의 승리를 확증하셨기 때문입니다. 베스도는 믿음이 없었기에 복음의 영광스러운 구원 섭리를 다 알지 못했습니다. 그러나 그가 남긴 뼈대—'죽었던 자가 살아 있다'는 역설—는 교회가 세대를 넘어 고백해 온 복음의 원초적 골격과 정확히 일치했습니다. 부활은 밀실의 속삭임이 아니라, 제국의 공문서조차 지워버릴 수 없었던 엄연한 역사적 실재였던 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">다섯 번째 자리에서 시작되는 정직과 증언의 인격</h3>
+<p>이제 우리는 이 전언의 사슬 맨 바깥에서 천천히 몸을 돌려 오늘을 바라봅니다. 바울과 고소인들, 베스도와 누가를 거쳐 이천 년의 시공간을 가로질러 온 이 문장은, 마침내 '다섯 번째 자리'에 서 있는 바로 우리 자신의 문턱 앞에 가닿았습니다.</p>
+<p>베스도는 판정하지 못하고 문장을 아그립바에게 넘겼고, 아그립바는 호기심 어린 청중으로 머물렀으며, 보고를 받아야 했던 로마 황제는 역사의 무대 뒤로 사라졌습니다. 그렇다면 전언의 맨 마지막 수신인이자 독자로 서 있는 우리는 이 문장 앞에서 과연 어떤 자리에 서야 하겠습니까? 여전히 타인의 입을 통해 전해 들은 '어떤 예수', 교양의 한 조각이나 남의 종교 이야기로 그분을 흘려보내는 구경꾼으로 머물 것입니까, 아니면 그 살아 계신 생명 앞에 무릎 꿇는 참된 응답자로 설 것입니까? 베스도의 자리에 머물며 안일한 앎을 신앙으로 착각하던 우리의 시선은, 이제 생명의 주님을 인격적으로 대면하는 신앙의 고백으로 나아가야 합니다.</p>
+<p>더 나아가 이 본문은 오늘을 살아가는 그리스도인들에게 두 가지 거룩한 인격의 열매를 요구합니다.</p>
+<p>첫째는 타인의 목소리를 대하는 '정직과 품격'의 인격입니다. 우리는 일터와 교회, 가정에서 나와 생각이 다른 사람, 소수의 반대 의견을 마주할 때 어떻게 반응합니까? 내 생각에 맞추어 상대의 논리를 가위질하거나, 왜곡하여 배척하지는 않습니까? 총독 베스도는 바울의 신앙에 동의할 수 없었고 도무지 이해할 수도 없었지만, 그 주장의 알맹이를 축약하거나 왜곡하지 않고 있는 그대로 보고서에 담아냈습니다. 성숙한 그리스도인의 인격은 나와 다른 의견, 심지어 나를 비판하는 소리 앞에서도 그 알맹이를 정직하게 기록하고 경청하는 태도에서 피어납니다. 판정할 수 없는 것은 정직하게 유보하고, 타인의 진실을 훼손하지 않는 그 깊은 공정함이야말로 불신과 왜곡으로 가득 찬 세상 속에서 교회가 회복해야 할 신뢰의 주춧돌입니다.</p>
+<p>둘째는 차가운 세상 한복판에서 드러내는 '담담한 증언'의 인격입니다. 세상은 오늘날에도 우리를 향해 무심하게 묻거나 냉소적인 시선을 보낼지 모릅니다. "저 사람들은 아직도 낡은 옛이야기를 믿고, 죽은 자가 살아났다는 기적에 목을 맨다지." 그러나 그런 무관심과 비아냥 앞에서 조급해하거나 공격적으로 방어막을 칠 필요가 없습니다. 베스도의 메마른 입술이 역설적으로 부활의 핵심을 지켜냈듯, 세상의 거친 질문 속에도 이미 생명의 문장이 깃들어 있음을 기억해야 합니다.</p>
+<p>우리가 감당해야 할 몫은 화려한 웅변이 아닙니다. 바울이 총독의 법정에서 거듭해서 담담히 고백했던 것처럼, 우리의 매일의 일상 속에서 온유하고 단단한 어조로 삶의 증언을 이어가는 것입니다.</p>
+<p>"그렇습니다. 그분은 진실로 살아 계시며, 오늘 내 모든 호흡과 결정을 이끄시는 나의 주님이십니다."</p>
+<p>무심한 공문서의 어두운 행간을 뚫고 찬란하게 살아남은 그 생명의 문장이, 이제 우리의 말과 행동, 정직한 삶의 온기를 통해 세상 속에서 다시금 살아 숨 쉬기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 40편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

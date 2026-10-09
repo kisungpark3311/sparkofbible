@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>주어의 의자를 비워 타인의 짐을 덜어주는 사람</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 24편 &middot; 사도행전 15:22-41</span>
+      <h1>주어의 의자를 비워 타인의 짐을 덜어주는 사람</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    살아가면서 우리는 수없이 많은 결정을 내립니다. 가정에서 가족의 미래를 의논할 때, 직장에서 새로운 프로젝트의 방향을 정할 때, 혹은 신앙 공동체에서 중대한 사안을 다룰 때마다 우리는 선택의 기로에 섭니다. 그때마다 우리 마음속 깊은 곳에서 고개를 드는 은밀한 욕망이 하나 있습니다. 바로 '내가 결정했다'는 권위의 확인입니다. "내가 심사숙고하여 내린 결정이다", "내 뜻이 이러하니 다들 따르라"는 선언은 묘한 권력감과 효능감을 줍니다. 결정의 순간, 우리는 스스로를 문장의 맨 앞자리, 즉 당당한 '주어'의 의자에 앉히고 싶어 합니다.
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    하지만 우리가 문장의 주어로 군림하는 바로 그 순간, 반대편에 선 사람들의 처지는 어떠합니까? 그들은 나의 결정을 일방적으로 통보받고 수용해야만 하는 '목적어'로 전락합니다. 부모의 독단적인 결정 아래서 자녀의 가슴은 답답해지고, 리더의 일방적인 지시 앞에서 동료들의 어깨에는 무거운 짐이 얹힙니다. 권위를 세우려 할수록 관계는 경직되고, 결정은 생명을 살리기보다 상대방을 짓누르는 보이지 않는 족쇄가 되기 십상입니다. 과연 진정한 권위와 성숙한 인격이란 무엇일까요? 성경은 우리가 무심코 지나치는 고대 회의록의 작은 문법 하나를 통해, 결정을 내리는 사람의 태도가 어떠해야 하는지를 경이롭게 보여줍니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">주어의 의자에 앉고 싶어 하는 우리의 조급한 욕망</h3>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    기독교 역사상 가장 치열했던 회의로 꼽히는 사도행전 15장의 예루살렘 공의회를 떠올려봅니다. 이방인들이 예수 그리스도를 믿기 시작했을 때, 유대 전통에 갇혀 있던 이들은 그들에게 할례를 행하고 모세의 율법을 지키게 해야 한다고 거세게 주장했습니다. 교회가 두 쪽으로 갈라질 수도 있는 일촉즉발의 위기 속에서, 사도들과 장로들은 오랜 시간 변론하고 토론했습니다. 마침내 결론에 도달했고, 그들은 멀리 안디옥 교회의 이방인 성도들에게 보낼 공식 결의 서신을 작성했습니다.
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    우리가 읽는 한글 성경은 이 결정을 이렇게 번역합니다. "성령과 우리는 이 요긴한 것들 외에 아무 짐도 너희에게 지우지 아니하는 것이 가한 줄 알았노니"(사도행전 15:28). 이 문장을 언뜻 읽으면 우리는 여전히 익숙한 권위의 구조를 떠올리게 됩니다. '성령과 사도들이' 주어가 되어, '성도들에게' 무언가를 관대하게 면제해 준 것처럼 읽히는 것입니다. "우리가 성령의 뜻을 받아 너희를 위해 이렇게 결정해 주었다"는 식의 너그러운 시혜자적 태도 말입니다.
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    그러나 2천 년 전 기록된 헬라어 원문의 양피지를 가만히 들여다보면, 우리의 선입견을 송두리째 흔드는 놀라운 문법적 배치가 드러납니다. 결정을 선언하는 핵심 동사는 '좋게 여겨졌다', '옳게 보였다'는 뜻을 지닌 '에독센(ἔδοξεν)'입니다. 그런데 이 동사는 놀랍게도 3인칭 단수입니다. 결정을 내린 주체인 사도와 장로, 온 교회, 심지어 성령과 우리는 주어의 자리에 앉아 있지 않습니다. 그들은 문법적으로 '여격(dative)', 즉 "~에게(좋게 보였다)"라는 자리에 다소곳이 물러서 있습니다.
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    더욱 기이한 것은 15장 28절의 문법적 수 일치입니다. '성령(단수)'과 '우리(복수)'는 접속사 '카이(καί)'로 묶여 나란히 같은 여격 칸에 서 있습니다. 만약 이들이 동사의 주어라면 복수 동사가 와야 마땅하지만, 동사는 완고하게 단수 형태를 고수합니다. 문법 규칙 하나가 그들을 주어 자리에서 밀어낸 것입니다. 성령조차 인간을 짓누르는 절대적 주어로 군림하지 않으시고, 인간 역시 성령의 이름을 방패 삼아 결정의 왕좌에 오르지 않습니다. 그들은 그저 결정의 옆자리에서, 한 발 뒤로 물러나 그것을 기쁘게 승인하는 '받는 쪽'에 나란히 서 있을 뿐입니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">문장의 한가운데에 앉은 타인의 가벼워진 어깨</h3>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    결정의 주체가 주어의 의자에서 내려왔다면, 대체 그 빈자리는 누가 차지하고 있는 것일까요? 문법의 자리는 차갑지만, 그 자리가 품고 있는 진실은 눈물겹도록 따뜻합니다. 단수 동사 '에독센'의 진짜 주어로 앉아 있는 것은 다름 아닌 하나의 부정사구, 즉 "너희에게 아무 짐도 더 지우지 않는 것(μηδὲν πλέον ἐπιτίθεσθαι ὑμῖν βάρος)"이라는 '할 일' 자체였습니다.
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    결정문의 주인공 자리를 차지한 것은 사도들의 거룩한 이름도, 교회의 막강한 권세도 아니었습니다. 그곳에 앉은 주인공은 멀리 안디옥에서 "우리가 과연 온전한 형제인가"를 고민하며 불안에 떨고 있던 이방인 성도들의 '짐이 벗겨진 가벼운 어깨'였습니다. 문장의 주어 안에 이미 '너희에게(ὑμῖν)'라는 수신자의 형편과 안도가 오롯이 녹아들어 있었던 것입니다.
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    세상의 권력자들은 문서를 작성할 때 자신의 직함과 이름을 가장 큰 활자로 문장 중심에 새깁니다. "내가 이렇게 결정하고 명하노라." 그러나 예루살렘의 펜은 결코 '우리가 결정하노라'를 쓰지 않았습니다. 그들은 자신들의 이름을 문장의 중심에서 조용히 지웠습니다. 대신 그 자리에 타인의 평안과 자유를 앉혔습니다. "너희의 어깨에서 무거운 종교적 굴레와 짐을 내려놓는 것, 그것이 성령께도 우리에게도 참으로 좋고 아름답게 보였다."
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    이것은 정교한 외교적 수사나 행정적 겸양이 아닙니다. 십자가의 복음이 빚어낸 인격의 필연적인 열매입니다. 일찍이 베드로는 공의회에서 "우리가 그들과 동일하게 주 예수의 은혜로 구원받는 줄을 믿노라"(행 15:11)고 고백했습니다. 아무런 자격 없는 죄인이 하나님의 거저 주시는 은혜로 구원받았음을 뼛속 깊이 깨달은 사람은, 결코 타인의 목에 율법의 멍에를 얹을 수 없습니다. 내가 받은 은혜가 너무 커서 내 권리를 주장할 틈이 없고, 상대방의 아픔과 짐이 먼저 눈에 들어오기 때문입니다. 결정의 주인공 자리를 타인에게 기꺼이 내어주는 겸손은, 오직 십자가의 은혜를 통과한 인격에서만 흘러나오는 향기입니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">결정에서는 옆으로 물러서고 실행에서는 발 벗고 나서는 삶</h3>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    성경의 문법이 우리에게 가르쳐주는 인격의 신비는 여기서 끝나지 않습니다. 결정을 내릴 때 자신을 지우고 여격 칸에 머물렀던 사도와 장로들은, 그 결정된 평화의 소식을 들고 세상으로 나아갈 때 전혀 다른 모습으로 변모합니다. 그들은 실행의 자리에서 비로소 당당한 '주격(nominative)'으로 일어섭니다.
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    사도행전 15장 23절에서 그들은 "사도와 장로 된 형제들이 안디옥에 있는 형제들에게 문안하노라" 하며 주어의 자리에 섭니다. 그리고 25절과 27절에 이르러 "우리가 사람을 택하여 너희에게 보내었다"며 일인칭 주어로 나섭니다. 결정을 내릴 때는 권위의 칼을 휘두르지 않기 위해 뒤로 물러섰지만, 그 결정의 무거운 책임을 짊어지고 성도들을 위로하며 오해를 풀어주어야 하는 현장에서는 결코 숨지 않았습니다. 유다와 실라, 바울과 바나바는 생명을 걸고 험난한 길을 걸어 직접 안디옥으로 내려갔습니다. 종이 한 장 우편으로 부쳐놓고 "알아서 지키라"며 뒷짐 지지 않고, 자신들의 온몸과 발걸음으로 그 결정을 살아낸 것입니다.
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    미성숙한 사람은 결정의 순간에는 "내가 결정했다"며 주어 의자를 독점하고 큰소리를 치지만, 정작 그로 인해 갈등이 생기거나 궂은일을 감당해야 할 때는 슬그머니 발을 빼며 목적어 뒤로 숨어버립니다. 반면 성숙한 인격을 가진 사람은 결정할 때 상대방의 형편을 배려하여 주어의 자리를 기꺼이 비워두고, 그 결정을 지켜내기 위한 수고와 헌신의 자리에서는 기꺼이 자신의 이름을 걸고 가장 먼저 발 벗고 나섭니다. 결정에서는 여격의 겸손으로 서고, 실행에서는 주격의 책임으로 걷는 것입니다.
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    오늘 우리의 언어와 삶의 문법은 어떠합니까? 가정에서 우리는 배우자와 자녀를 향해 "내가 집안의 가장이니 내 결정을 따르라"며 상대방의 어깨에 묵직한 침묵의 짐을 얹고 있지는 않습니까. 일터와 교회에서 우리는 자신의 권위를 증명하기 위해 타인의 숨통을 조이는 결정을 내리고 있지는 않습니까.
+  </p>
+<p style="font-size: 1.1rem; line-height: 1.85; color: #2c3e50; margin-bottom: 1.5rem;">
+    이제 주어의 의자에서 한 걸음 옆으로 비켜서 봅시다. 내가 내리는 결정의 한가운데에, 나를 둘러싼 이들의 편안해진 숨결과 짐이 내려진 어깨를 앉혀봅시다. "이렇게 하는 것이 우리 모두에게, 그리고 당신에게 참 좋아 보였습니다." 그리고 그 결정을 온전히 이루기 위해 내가 먼저 땀 흘려 걸어가는 주어가 되어봅시다. 주어의 의자를 비워두는 거룩한 불편함을 견딜 때, 비로소 우리의 가정과 공동체에 진정한 자유와 샬롬의 기쁨이 깃들기 시작할 것입니다.
+  </p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 24편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

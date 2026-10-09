@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>지명은 셋이어도 걸어가는 몸은 하나이기에</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 15편 &middot; 사도행전 9:20-43</span>
+      <h1>지명은 셋이어도 걸어가는 몸은 하나이기에</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>어두운 밤, 높은 성벽 위에서 밧줄에 묶인 광주리 하나가 위태롭게 흔들리며 허공을 가릅니다. 그 좁은 바구니 안에는 사울이라는 한 사람이 숨죽인 채 웅크리고 있었습니다. 방금 전까지 다메섹의 살기등등한 눈빛과 밤낮으로 성문을 지키던 살해의 올가미를 피해 간신히 탈출한 그는 예루살렘에 당도해서도 안도의 한숨을 내쉬지 못했습니다. 어제의 박해자를 오늘의 형제로 쉬이 받아들일 수 없었던 제자들의 가슴속에는 여전히 짙은 두려움과 경계의 장벽이 굳게 닫혀 있었기 때문입니다. 성벽을 감시하던 적의, 은밀하고 절박했던 도피, 그리고 서로를 온전히 신뢰하지 못해 주저하던 차가운 눈빛들. 사도행전 9장은 이처럼 불안과 균열의 날카로운 파열음으로 가득 차 있습니다.</p>
+<p>그런데 참으로 놀랍게도, 성경은 그 깊은 갈등과 의심이 말끔히 해소되었다는 감정적 봉합의 설명이나 화해의 절차를 일절 덧붙이지 않은 채, 문장의 시선을 홀연히 하늘 높이 들어 올립니다. 그리고 숨 쉬듯 담담하고도 장엄하게 한 문장을 선언합니다. "그리하여 온 유대와 갈릴리와 사마리아 교회가 평안하여 든든히 서 가고 주를 경외함과 성령의 위로로 진행하여 수가 더 많아지니라."</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">불안과 갈등의 성벽 너머에 세워진 거룩한 단수</h3>
+<p>우리는 흔히 '평안'이란 모든 갈등이 눈 녹듯 사라지고, 구성원 간의 오해가 완벽하게 풀려 마음에 아무런 응어리가 남지 않은 무균실 같은 평온함을 의미한다고 생각합니다. 하지만 사도행전이 보여주는 평안의 풍경은 사뭇 다릅니다. 다메섹의 살해 음모와 예루살렘의 서슬 퍼런 경계라는 좁고 험난한 골목길 바로 뒤편에, 광활한 세 지역을 단숨에 아우르는 평안의 선언이 불쑥 맞닿아 자리하고 있기 때문입니다. 현실의 긴장이 채 가시지 않은 그 불안한 지반 위에, 하나님은 도대체 어떤 문장을 새겨 넣으신 것일까요?</p>
+<p>헬라어 원문의 결을 가만히 짚어보면 경이로운 문법적 신비와 마주하게 됩니다. 문장 안에는 유대와 갈릴리와 사마리아라는 세 개의 뚜렷한 땅의 이름이 줄지어 등장합니다. 지리적으로도 멀리 떨어져 있을 뿐 아니라, 역사와 문화, 심지어 오랜 반목으로 감정의 골이 깊을 대로 깊어진 세 곳입니다. 인간의 상식과 문법대로라면 '유대 교회들', '갈릴리 교회들', '사마리아 교회들'이라는 복수형 주어가 와야 마땅합니다. 그러나 성경은 세 지명을 전치사구 속격의 자리로 밀어내어 주어 바깥의 배경으로 둡니다. 그리고 그 중심에 선 주어 '교회(ἐκκλησία)'와 그 뒤를 받치는 동사 및 분사—평안을 누리고, 세워져 가며, 걸어가고, 수가 더해지는—여섯 개의 모든 자리를 철저하게 '단수'로 일치시키고 있습니다.</p>
+<p>세 지역이 모여 복수가 된 것이 아닙니다. 하나님은 세 지역의 교회를 산술적으로 합산하여 하나의 연합체를 만드신 것이 아니라, 그 모든 다름과 갈등의 현실 너머에 처음부터 '단 하나'인 교회를 우뚝 세워두셨습니다. 교회의 하나 됨은 사람들이 모여 치열하게 토론하고 감정적 합의를 이끌어내어 가까스로 쟁취하는 도덕적 과제가 아니었습니다. 그것은 우리가 아직 두려워하고 서먹해하며 성벽을 사이에 두고 머뭇거릴 때조차, 하나님께서 당신의 거룩한 주권으로 이미 우리를 하나의 이름으로 부르셨다는 은혜의 선언이었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">두 이름을 가졌어도 한 생명인 것처럼</h3>
+<p>자연 속에는 여러 곳에 흩어져 있으면서도 하나의 생명으로 존재하는 거룩한 원리가 숨어 있습니다. 광활한 숲을 이루는 사시나무 군락을 보면, 지상에는 수천, 수만 개의 푸른 줄기들이 저마다 바람에 흔들리고 있지만 땅밑을 파헤쳐 보면 거대한 뿌리 하나가 온 숲을 지탱하고 있습니다. 줄기가 수만 개라고 해서 나무가 수만 그루인 것이 아니라, 그 숲 전체가 실은 단 한 그루의 거대한 개체인 것입니다.</p>
+<p>사도행전 9장의 끝자락에서 우리는 이와 똑 닮은 또 하나의 다정한 장면을 만납니다. 욥바라는 항구 도시에 살던 한 여제자의 이야기입니다. 성경은 그녀를 소개하며 "욥바에 다비다라 하는 여제자가 있으니 그 이름을 번역하면 도르가라"고 적습니다. 아람어로는 다비다, 헬라어로는 도르가. 서로 다른 언어와 문화를 담은 두 개의 이름이 한 사람의 생애 속에 포개져 있었습니다. 그러나 두 개의 이름이 결코 두 사람을 만들어낼 수는 없습니다. 그녀를 수식하는 원어 분사의 문법 형태는 앞서 세 지역의 교회가 든든히 '세워져 간다'고 할 때 쓰인 분사의 꼴과 한 글자도 다르지 않게 정확한 단수 여성으로 호응합니다.</p>
+<p>세 개의 지명이 세 개의 교회를 만들 수 없듯이, 두 개의 이름도 결코 한 사람의 존재를 쪼갤 수 없습니다. 우리는 살아가는 동안 수많은 차이와 보이지 않는 경계선 앞에 섭니다. 출신 배경이 다르고, 세대가 다르고, 성향이나 살아온 삶의 문법이 달라 서로를 낯설어합니다. 때로는 교회 안에서조차 서로를 향해 '너희'와 '우리'라는 금을 긋고 벽을 쌓기도 합니다. 그러나 주님의 시선 앞에서 우리는 본점과 지점으로 쪼개진 조직이 아니며, 각자도생하는 파편들이 아닙니다. 다비다이자 도르가였던 그 여인이 주님 앞에서 오롯이 존귀한 한 사람이었듯, 서로 다른 사연과 아픔을 안고 모인 우리 모두는 이미 그리스도의 생명 안에서 엮인 하나의 살아있는 몸입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">숫자의 크기가 아닌 경외함과 위로의 보폭으로</h3>
+<p>가만히 선 채로 조용히 눈을 감고 몸을 움직여 봅니다. 몸을 남쪽으로 돌려 '유대'를 바라보고, 북쪽으로 돌려 '갈릴리'를 향하고, 그 사이를 향해 '사마리아'를 불러봅니다. 세 방향을 차례로 돌아보는 동안 발은 어지럽게 흩어지고 몸의 균형은 쉬이 흔들립니다. 지명이 지닌 차이와 갈등에만 시선을 빼앗길 때, 우리의 영혼은 이처럼 사방으로 흩어져 방황할 수밖에 없습니다. 그러나 다시 몸을 바르게 펴고, 발을 나란히 모은 채 깊은 숨을 내쉬며 '교회'라는 이름을 나직이 읊조릴 때, 흩어졌던 발은 비로소 제자리를 찾고 온몸은 하나의 방향을 향해 온전히 정렬됩니다.</p>
+<p>오직 하나의 몸만이 온전한 한 걸음을 내딛을 수 있습니다. 세 방향을 향해 동시에 발을 뗄 수 있는 사람은 세상에 없습니다. 성경이 교회를 단수로 기록하며 '진행하여(πορευομένη, 걸어가며)'라는 분사를 붙인 이유가 바로 여기에 있습니다. 세 지역의 사람들이 저마다의 주장과 욕망을 앞세워 사방으로 치달린 것이 아니라, 하나의 몸이 되어 같은 방향으로 걸어갔다는 뜻입니다.</p>
+<p>그리고 성경은 그 거룩한 걸음걸이에 붙어 있던 보폭의 비밀을 두 개의 단어로 밝혀줍니다. 그것은 세력의 화려함이나 숫자의 거대함이 아니라, 바로 "주를 경외함"과 "성령의 위로"였습니다. 참된 연합은 사람의 비위를 맞추거나 정치적인 타협을 능란하게 이루는 데서 오지 않습니다. 우리를 하나의 몸으로 묶으신 하나님을 두려워하고 공경하는 마음, 그리고 상처 입고 지친 서로의 영혼을 성령의 온기로 감싸 안는 위로의 마음이 있을 때 우리는 비로소 함께 걸을 수 있습니다.</p>
+<p>일찍이 사도행전 8장에서 유대와 사마리아는 박해를 피해 신자들이 뿔뿔이 흩어져야 했던 눈물과 상처의 땅이었습니다. 그러나 불과 한 장이 채 지나지 않아, 그 비통했던 흩어짐의 무대는 주님의 단수 문법 안에서 거룩한 평안이 머무는 은혜의 터전으로 다시 쓰였습니다. 오늘 우리가 발을 딛고 서 있는 자리에도 여전히 갈등의 흉터와 서운함의 그늘이 짙게 드리워져 있을지 모릅니다. 내가 도무지 품을 수 없을 것만 같은 불편한 사람, 나에게 생채기를 남겼던 공동체의 기억이 여전히 우리 발목을 잡을지도 모릅니다. 그러나 기억해야 합니다. 주님은 이미 그 사람과 나를, 그 아픈 기억과 오늘의 우리를 단 하나의 거룩한 주어 속에 함께 품으셨습니다.</p>
+<p>우리가 감당해야 할 일은 내 힘으로 하나 됨을 억지로 쥐어짜 내는 버거운 씨름이 아닙니다. 이미 우리를 하나로 부르신 그분의 단수 문법을 겸손히 받아들이는 것입니다. 흩어졌던 마음의 발을 모으고, 주를 향한 깊은 경외와 곁에 있는 이를 향한 다정한 위로를 품은 채, 오늘 우리에게 허락된 삶의 길 위로 정직한 한 걸음을 묵묵히 내딛는 것입니다. 그때 세상은 보게 될 것입니다. 상처와 갈등의 거친 땅 위에서도 결코 쪼개지지 않고, 하나님을 두려워하며 서로를 품어 안고 뚜벅뚜벅 걸어가는 단 하나의 거룩한 생명을 말입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 15편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

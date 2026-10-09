@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>날이 새기 전에 뗀 떡, 결과를 모르는 밤의 식탁</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 43편 &middot; 사도행전 27:27-44</span>
+      <h1>날이 새기 전에 뗀 떡, 결과를 모르는 밤의 식탁</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>인생을 항해하다 보면 해와 별이 며칠째 보이지 않고, 오직 거센 광풍만이 사방을 집어삼키는 막막한 계절을 통과할 때가 있습니다. 사도행전 27장의 아드리아 바다, 난파를 향해 내달리는 알렉산드리아 배 위에는 열나흘 동안 먹지도 자지도 못한 채 공포에 떨던 이백칠십여 명의 영혼이 갇혀 있었습니다. 배를 조종하던 노련한 사공도, 칼을 쥔 로마 군인도 파도 앞에서는 무력한 피조물에 불과했습니다. 그들이 할 수 있는 유일한 일은 닻 넷을 내리고 그저 밤이 지나 날이 새기만을 애타게 비는 것뿐이었습니다.</p>
+<p>그런데 이 처절한 조난의 기록 열여덟 절(사도행전 27:27-44) 속에는 아주 기묘하고도 서늘한 문법적 침묵이 흐릅니다. 헬라어 본문을 한 자 한 자 뜯어보면, 거센 파도를 잠재우시거나 배를 번쩍 들어 구원하시는 '하나님의 주어'가 단 한 번도 등장하지 않습니다. 성경은 기적의 영웅담처럼 "하나님이 바다를 꾸짖으셨다"거나 "주께서 그들을 건지셨다"고 말하지 않습니다. 일들은 그저 덤덤하게 '흘러갔고' 또 '일어났을' 뿐입니다. 기도가 무색하게 배는 깨어져 갔고, 바다는 여전히 포효했습니다. 그러나 하나님의 이름이 어떤 행동의 주어로도 적히지 않은 그 침묵의 한복판에서, 놀랍게도 하나님을 향해 자신의 온 존재를 실어 부른 한 사람이 있었습니다. 쇠사슬을 찬 죄수 바울이었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">칠흑 같은 어둠 속에서 정동사로 우뚝 선 감사</h3>
+<p>바울이 사람들 앞에서 떡을 나누는 장면(행 27:35)을 가만히 들여다보면 가슴 뭉클한 문장의 기둥이 드러납니다. 본문은 네 개의 동작을 번갈아 놓습니다. 떡을 쥐고, 하나님께 감사하고, 떡을 떼어, 먹기 시작했습니다. 여기서 손이 하는 물리적인 동작, 즉 떡을 '집어 드는 일'과 두 손으로 '떼는 일'은 문법적으로 그저 부수적인 분사(딸린 꼴)로 내려앉습니다. 이 위태로운 문장을 든든하게 떠받치며 당당히 정동사(기둥 동사)의 자리를 얻어낸 것은 바로 "감사했다"와 "먹기 시작했다"였습니다.</p>
+<p>더 깊은 울림은 그 감사가 향한 자리입니다. 열여덟 절에 달하는 긴 긴 난파 서사에서 하나님을 가리키는 신적 지시는 단 하나, 바울이 올린 "하나님께(τῷ θεῷ)"라는 여격(與格) 한 자리뿐이었습니다. 하나님을 사건의 주어로 쓸 수 없는 참담한 밤, 내 뜻대로 움직여주지 않는 현실 앞에서 신앙이 취한 태도는 하나님을 억지로 기적의 집행자로 지어내는 것이 아니었습니다. 아직 구원의 빛이 비치지 않은 칠흑 속에서, 여전히 하나님을 감사의 상대로 정직하게 호명하는 것이었습니다.</p>
+<p>우리는 흔히 밤이 다 지나고 아침 햇살이 비쳐올 때, 문제가 해결되고 난 뒤에야 감사의 노래를 부르려 합니다. 하지만 바울이 떡을 뗀 시간은 날이 밝은 뒤가 아니었습니다. 본문은 떡의 식탁이 "날이 새기를 고대하던 때"와 "날이 샌 때" 사이, 즉 한 치 앞도 분간할 수 없는 새벽 직전의 어둠 속에 놓여 있었다고 증언합니다. 감사는 해안을 확인한 뒤에 터져 나오는 안도의 기술이 아니라, 결과를 모르는 밤의 심연 속에서 생명의 주인을 향해 내어놓는 가장 맑고 굳센 첫 소리였습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">두 손을 비우고 먼저 삼킨 한 조각의 허락</h3>
+<p>그 식탁은 화려한 종교적 예식이 아니었습니다. 열나흘을 굶주려 뼈마디가 드러난 조난자들의 거친 숨결이 부딪히는 실제적인 '끼니'였습니다. 요동치는 갑판 위에서 마른 빵 한 덩이를 떼어내기 위해서는 두 손이 모두 필요했습니다. 살기 위해 안간힘으로 쥐고 있던 닻줄도, 가슴에 품고 있던 마지막 소지품도 내려놓아야만 비로소 두 손으로 떡을 마주 쪼갤 수 있었습니다. 감사의 식탁을 연다는 것은, 불안에 질려 움켜쥐고 있던 내 손의 힘을 풀고 빈손으로 하나님 앞에 서는 거룩한 포기였습니다.</p>
+<p>그리고 바울은 그 뗀 떡을 들고 "내가 먼저 먹기를 시작"했습니다. 극심한 탈진과 공포에 질려 굳어버린 수백 명의 시선 앞에서 먼저 빵을 입에 넣고 씹는 행위는 언뜻 배려 없는 몸짓처럼 보일지도 모릅니다. 그러나 아무도 움직이지 못하는 집단적 패닉의 현장에서, 한 사람이 먼저 삼키는 그 거친 한 조각은 절망의 빗장을 푸는 생명의 허락이었습니다. "살아야 한다. 그러니 두려워 말고 너희도 먹어라." 죄수의 목구멍을 타고 넘어가는 빵 한 조각의 목격이 있고 나서야, 사람들은 비로소 안심하고 떡을 받아먹기 시작했습니다.</p>
+<p>진정한 영성과 성숙한 인격은 불확실한 미래 앞에서 헛된 낙관주의를 설파하는 자리에 있지 않습니다. 위기가 닥쳐올 때 결과부터 성급하게 따져 묻지 않고, 결과를 기다리는 지친 이웃의 몸과 생명을 지키기 위해 먼저 식탁을 차리는 환대의 자리입니다. 결론이 나기 전에 끼니를 챙기고, 두려움에 사로잡힌 이들 앞에서 먼저 감사의 떡을 씹어 삼키는 그 담담한 한 걸음이 주위의 얼어붙은 영혼들을 비로소 숨 쉬게 합니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">버려진 곡식과 파도 위에 남은 부서진 널조각</h3>
+<p>마침내 날이 밝았을 때, 그들을 기다린 것은 평온한 항구가 아니라 두 물이 합쳐지는 모래톱이었습니다. 배의 앞머리는 암초에 박혀 꼼짝도 하지 않았고 뒷머리는 부서지는 파도에 사정없이 깨어져 나갔습니다. 배부르게 먹은 사람들은 살기 위해 그토록 아끼며 배 밑바닥에 실어두었던 밀가루와 곡식을 모조리 차가운 바다에 던져버렸습니다. 내일을 위해 쌓아두었던 부와 저장물은 성난 파도 속으로 자취도 없이 가라앉았습니다. 결국 그들이 몸을 싣고 해안에 닿은 것은 무엇이었습니까? 배에 남겨둔 화려한 소유가 아니라, 이미 감사함으로 먹어 내 몸의 피와 살이 된 떡, 그리고 산산이 부서진 배에서 떨어져 나온 거친 '널조각' 하나였습니다.</p>
+<p>성경은 "바울이 감사했기 때문에 배가 기적처럼 온전했다"거나 "풍랑이 거짓말처럼 멈추었다"고 미화하지 않습니다. 성경은 결코 감사를 결과와 맞바꾸는 거래의 수단으로 격하시키지 않는 정직함을 지닙니다. 배는 산산조각 났고, 사람들은 차가운 바닷물에 뛰어들어야 했으며, 초라한 나무판자 하나에 매달려 헤엄쳐 나와야 했습니다. 그러나 그 처절한 파도를 뚫고 상륙할 수 있었던 생명의 원동력은 바로 날이 새기 전, 그 어둠의 시간 속에서 하나님께 감사하며 나누었던 떡 한 조각에서 피어난 힘이었습니다.</p>
+<p>우리의 삶도 때로는 파선(破船)의 위기 앞에 섭니다. 믿었던 계획이 부서지고, 인생의 배 밑바닥까지 차오르는 절망 속에서 우리는 "왜 하나님이 도와주시지 않는가" 탄식하며 일의 결과를 설명해 줄 기적의 주어만을 찾아 헤매곤 합니다. 그러나 바로 그 순간, 여전히 결과를 알 수 없는 깜깜한 새벽의 자리에서 우리는 떡을 들 수 있습니다. 내 손에 남은 작고 초라한 일상의 선물을 하나님 앞에 올려드리며 감사의 여격을 회복하는 것입니다. 우리가 악착같이 쌓아둔 세상의 곡식은 언젠가 바다에 던져질지라도, 어둠 속에서 감사함으로 삼킨 그 거룩한 떡과 하나님이 허락하신 은혜의 널조각은, 우리를 기어이 생명의 언덕으로 이끌어 줄 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 43편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

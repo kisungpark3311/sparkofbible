@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>자기를 판정한 자리에도 문은 다시 열린다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 22편 &middot; 사도행전 13:42~14:20</span>
+      <h1>자기를 판정한 자리에도 문은 다시 열린다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>
+    살아가며 우리는 마음속에 너무나 손쉽게 법정을 세우곤 합니다. 기대가 어긋나거나 관계가 틀어질 때, 우리는 순식간에 판사의 법복을 입고 높은 판사석에 올라섭니다. 그리고 서늘한 눈빛으로 누군가를 향해 판사봉을 내리칩니다. “저 사람은 결코 달라지지 않아”, “이제 더는 기대할 것도 없어.” 때로는 그 차가운 판결의 화살촉이 타인이 아닌 자기 자신을 향해 꺾여 들어오기도 합니다. 거듭된 실패와 무기력 앞에서 우리는 스스로를 피고석에 앉혀둔 채 자인하듯 읊조립니다. “나는 이런 사랑을 받을 자격이 없어”, “내 인생은 여기까지일 뿐이야.”
+  </p>
+<p>
+    이처럼 쉽게 문을 닫아걸고 성급히 단죄해 버리는 우리의 메마른 일상 속으로, 사도행전의 아주 독특한 문법 하나가 잔잔하지만 거대한 파문을 일으키며 다가옵니다. 사도 바울과 바나바가 비시디아 안디옥에서 복음을 밀어내는 완고한 청중들을 향해 던진 한마디, “너희가 버리고 영생 얻음에 합당치 않은 자로 자처하기로 우리가 이방인에게로 향하노라”(행 13:46)라는 구절입니다. 오랫동안 이 장면은 사도들이 반대자들에게 내린 무자비한 최후통첩이나 단절의 선언처럼 읽혀 왔습니다. 그러나 원문의 문장 구조를 한 올 한 올 풀어내어 들여다보면, 그 안에는 우리가 짐작조차 하지 못했던 깊은 성경적 사고와 온유한 인격의 비밀이 숨겨져 있습니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">판사석을 비우고 거울을 비추는 손</h3>
+<p>
+    헬라어 원문에서 ‘판단하다’라는 동사(κρίνετε)의 뒤에는 놀랍게도 ‘너희 자신’을 뜻하는 재귀 대명사(ἑαυτούς)가 목적어로 놓여 있습니다. 직역하자면 “너희가 영원한 생명에 합당하지 않다고 스스로를 판정하고 있다”는 뜻입니다. 이 판결문에서 가장 경이로운 사실은, 판사석에 앉아 판결을 내리는 주체와 피고석에 앉아 판결을 받는 대상이 완전히 같은 이름으로 적혀 있다는 점입니다. 
+  </p>
+<p>
+    이 짧은 한 절 안에는 사도가 그들을 정죄했다는 어형이 단 하나도 없습니다. 심지어 하나님께서 그들을 버리셨다는 단어도 등장하지 않습니다. 외부의 어떤 제3자도 그들을 향해 유죄를 선고하지 않았습니다. 오직 말씀을 듣는 이들 자신이, 제 발로 찾아온 하늘의 선물을 스스로 밀어내며(ἀπωθεῖσθε) 스스로에게 ‘합당하지 않다’는 판정의 도장을 찍고 있었을 뿐입니다.
+  </p>
+<p>
+    바울과 바나바는 그들의 무례한 반박 앞에서도 결코 판사석에 오르지 않았습니다. 서슬 퍼런 검사처럼 상대를 향해 삿대질을 하지도 않았습니다. 사도들이 한 일은 오직 하나, 분노에 찬 그들의 얼굴 앞에 조용히 거울 하나를 들어 비추어 준 것뿐이었습니다. 거울을 든 두 손으로는 결코 상대를 향해 손가락질을 할 수 없습니다. 거울은 상대를 억누르거나 규정하지 않고, 단지 상대가 지금 무엇을 하고 있는지를 있는 그대로 비출 따름입니다. “보아라, 너희가 스스로에게 어떤 판결을 내리고 있는지를.”
+  </p>
+<p>
+    참된 인격의 품격은 여기서 비롯됩니다. 성숙한 사람은 결코 타인의 인생에 불쑥 끼어들어 그의 ‘판정 칸’을 대신 채우지 않습니다. 세무사가 납세자의 세금 신고서에 마음대로 서명할 수 없고 환자의 치료 선택을 의사가 강제로 대신할 수 없듯, 사람의 선택과 책임은 언제나 그 사람 자신에게 정직하게 돌려주어야 합니다. 타인을 섣불리 재단하거나 통제하려 들지 않고, 다만 은혜의 진리를 먼저 들려준 뒤 그가 마주해야 할 선택의 거울을 비춰주는 것. 이것이 복음이 빚어내는 인격의 첫 번째 깊이, 곧 대리 판정을 멈추는 거룩한 절제입니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">등을 돌리는 대신 옆으로 비켜서는 걸음</h3>
+<p>
+    자신들을 밀어내고 비방하는 무리 앞에서, 사도들은 이어서 말합니다. “보라, 우리가 이방인에게로 향하노라.” 흔히 우리는 이 대목에서 사도들이 상대에게 극도의 환멸을 느끼며 단호하게 등을 홱 돌려 떠나가는 서늘한 뒷모습을 상상하곤 합니다. 그러나 몸의 감각으로 이 장면의 동선을 차분히 따라가 보면 전혀 다른 따뜻한 결이 느껴집니다.
+  </p>
+<p>
+    사도들이 취한 전환(στρεφόμεθα)은 상대를 영원히 시야에서 지워버리는 ‘180도의 등 돌림’이 아니었습니다. 그것은 상대의 자리를 가로막지 않고 조용히 비켜서는 ‘90도의 방향 전환’이었습니다. 180도로 등을 보인다는 것은 상대와의 관계를 완전히 파탄 내고 저주와 단절을 선언하는 감정적 단절입니다. 반면 90도로 몸을 옆으로 트는 것은, 방금까지 마주했던 그 사람을 여전히 시야의 한쪽 끄트머리에 머물게 한 채, 막히지 않은 또 다른 부르심의 문을 향해 유연하게 발걸음을 옮기는 행위입니다.
+  </p>
+<p>
+    우리의 삶은 어떠합니까? 우리는 누군가가 나의 호의나 진심을 거절할 때, 혹은 가족이나 동료가 내 뜻대로 반응해 주지 않을 때 순식간에 모욕감과 상처에 사로잡히고 맙니다. 그리고는 “이제 너와는 끝이야”라며 문을 쾅 닫고 180도 등을 돌려버립니다. 관계의 단절을 무기로 삼아 상대를 벌주려 하는 것입니다.
+  </p>
+<p>
+    그러나 바울과 바나바는 자신들을 모욕하는 이들을 저주하거나 파문하지 않았습니다. 거울을 들었던 손을 거두고, 조용히 몸을 90도 돌려 다음 소명의 자리로 걸어갔습니다. 상대의 거절 때문에 자신의 정체성을 잃어버리지도 않았고, 분노로 인해 걸음을 멈추지도 않았습니다. 상처받지 않고 끝까지 사랑할 수 있는 힘, 타인의 배척 속에서도 적대감에 물들지 않고 부드럽게 시선의 여백을 남겨둔 채 다음 걸음을 내딛는 여유. 그것이 바로 십자가를 통과한 성경적 사고가 빚어내는 온유한 인격의 열매입니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">스스로 닫아건 자리 너머 다시 열리는 문</h3>
+<p>
+    그리고 이야기는 여기서 멈추지 않고, 숨이 멎을 만큼 벅찬 반전으로 우리를 이끕니다. 13장 46절에서 이방인으로 향하겠다고 선언한 지 불과 다섯 절 뒤, 사도행전 14장 1절은 믿기 힘든 장면을 담담하게 기록하고 있습니다. 박해를 피해 다음 도시인 이고니온에 도착한 두 사도가 가장 먼저 찾아간 곳은, 다름 아닌 또 다른 ‘유대인의 회당’이었습니다.
+  </p>
+<p>
+    “이에 이고니온에서 두 사도가 함께 유대인의 회당에 들어가 말하니 유대와 헬라의 허다한 무리가 믿더라.” 성경은 그들이 ‘함께, 같은 방식으로(κατὰ τὸ αὐτό)’ 회당에 다시 들어갔다고 증언합니다. 불과 며칠 전 “너희가 자처하였으니 우리는 떠난다”고 말했던 사람들이, 새로운 도시에 이르자마자 마치 아무 일도 없었던 것처럼 다시 똑같은 회당의 문손잡이를 잡은 것입니다. 그리고 그곳에서 유대인과 헬라인을 가리지 않고 수많은 무리가 믿음에 이르는 생명의 역사가 일어났습니다.
+  </p>
+<p>
+    조금 전 거울을 들었던 바로 그 손이, 이제는 다시 회당의 문손잡이를 잡았습니다. 만약 13장 46절이 사도들이 내린 최종 선고였다면, 14장 1절의 회당 재진입은 결코 일어날 수 없는 모순이었을 것입니다. 그러나 13장 46절은 최종 판결이 아니었습니다. 그것은 각 사람이 자기 연약함과 오만함으로 스스로 적어 넣은 잠정적인 자기판정이었을 뿐입니다.
+  </p>
+<p>
+    세법에는 납세자가 잘못 작성해 제출한 신고서라도 법정 기한 내에 정당하게 바로잡을 수 있는 ‘수정신고’와 ‘경정청구’라는 은혜로운 제도가 있습니다. 복음의 세계는 이보다 훨씬 더 광대합니다. 인간이 두려움과 불신으로 제 손으로 써 내려간 어설픈 판결문 뒤에도, 하나님의 은혜는 결코 문을 걸어 잠그지 않습니다. 비록 어제는 내가 스스로를 가두며 “나는 안 돼, 나는 자격이 없어”라고 판정했을지라도, 주님은 오늘 다시 우리 삶의 문을 두드리시며 그 판정의 칸을 생명과 용서의 글씨로 다시 채울 수 있는 기회의 창구를 활짝 열어 두십니다.
+  </p>
+<p>
+    인격의 성숙이란 결국 ‘닫힌 문을 대하는 태도’에서 결정됩니다. 타인의 부족함을 보고 섣불리 판결을 내리지 않는 겸손, 거절과 배척 앞에서도 등을 돌리지 않고 90도로 비켜서서 기다려 주는 온유함, 그리고 상대가 스스로 닫아걸었던 차가운 문 앞을 다시 찾아가 말없이 문손잡이를 돌려보는 끈질긴 용기. 
+  </p>
+<p>
+    오늘 우리를 낙심하게 만드는 닫힌 관계가 있습니까? 혹은 스스로를 정죄하며 자포자기의 어둠 속으로 밀어 넣은 내면의 방이 있습니까? 비시디아 안디옥에서 이고니온으로 이어지던 두 사도의 신비로운 발걸음을 기억하십시오. 판사석을 비우고 거울을 비추었던 손, 등을 돌리지 않고 유연하게 비켜섰던 몸, 그리고 다섯 절 뒤 다시 문손잡이를 잡았던 그 거룩한 손길. 자기를 판정하여 스스로 문을 닫아건 바로 그 황량한 자리 너머에서도, 은혜의 문은 언제나 다시 조용히 열리고 있습니다.
+  </p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 22편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

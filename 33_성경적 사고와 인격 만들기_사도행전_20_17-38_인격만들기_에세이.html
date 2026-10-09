@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>모름을 품에 안고 내딛는 단 하나의 걸음</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사도행전 제 33편 &middot; 사도행전 20:17-38</span>
+      <h1>모름을 품에 안고 내딛는 단 하나의 걸음</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>
+우리는 늘 모든 것이 확실해지기를 기다리며 서성입니다. 자욱한 안개가 완전히 걷히고, 내비게이션 화면에 목적지까지의 경로가 아무런 굴곡 없이 선명하게 표시될 때에만 비로소 첫 발을 내딛으려 합니다. 미래의 모든 변수를 내 손안에 쥐고 통제할 수 없다는 불안은 현대인을 영구적인 대기실에 가두어 둡니다. 회사의 중대한 기로에서, 새로운 도전을 앞둔 문턱에서, 혹은 삶의 예기치 못한 질곡 앞에서 우리는 매번 같은 질문을 던지며 멈춰 섭니다. "그곳에 가면 도대체 무슨 일이 일어납니까? 내가 안전하다는 확실한 보장이 있습니까?" 그러나 모든 위험을 제거한 뒤에야 움직이겠다는 결심은 결국 아무 데도 가지 않겠다는 선언과 다르지 않습니다.
+</p>
+<p>
+여기, 밀레도의 쓸쓸한 해변에서 예루살렘을 향해 등을 돌리는 한 사람이 있습니다. 늙은 사도 바울입니다. 그를 사랑하는 에베소의 장로들이 눈물로 옷자락을 붙잡으며 만류할 때, 바울은 담담하지만 영혼을 뒤흔드는 고백을 남깁니다. "보라 이제 나는 심령에 매임을 받아 예루살렘으로 가는데 저기서 무슨 일을 만날는지 알지 못하노라"(행 20:22). 열일곱 개의 헬라어 낱말로 이루어진 이 짧은 문장 속에는, 시대를 뛰어넘어 우리의 마비된 영혼을 깨우는 거대한 신앙의 역설과 성경이 빚어내는 인격의 정수가 숨 쉬고 있습니다. 그는 미래를 다 알고 떠난 것이 아니었습니다. 그는 도리어 '모름'을 품에 안은 채 걷고 있었습니다.
+</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">불안을 지우는 대신 모름에 정직한 이름을 붙이다</h3>
+<p>
+바울이 사용한 원문의 문법을 가만히 들여다보면 매우 낯설고도 놀라운 구조가 드러납니다. 그곳에서 자신에게 닥쳐올 앞일들(τὰ συναντήσοντά μοι)이라는 미래의 사건들이, '알지 못함'(μὴ εἰδώς)이라는 말의 목적어로 온전히 안겨 있습니다. 그는 미래를 훤히 꿰뚫어 보는 예언자처럼 앞일을 함부로 단정하지 않습니다. 그렇다고 닥쳐올 고난과 결박이 두려워 현실에서 도망치거나 애써 눈을 감아버리지도 않습니다. 그는 자신에게 닥쳐올 미지의 일들을 한데 모아 '알지 못함'이라는 괄호 속에 정직하게 봉인한 뒤, 그 짐을 가슴에 품어 안습니다. 성경은 이것을 '미지의 명사화'—즉 모르는 것에 정직한 이름을 붙여 품에 안는 태도라고 가르쳐 줍니다.
+</p>
+<p>
+이것은 우리 일상의 가장 정직하고 책임 있는 자리에서도 발견되는 보편적인 문법입니다. 지혜로운 옛 항해사는 아직 탐험하지 못한 거친 바다를 해도(海圖)에서 함부로 지워버리지 않았습니다. 대신 그 위험한 구역에 정직하게 테두리를 긋고 '미측량 해역'이라는 이름을 붙였습니다. 배는 그 테두리를 보며 조심스럽게 키를 잡았습니다. 정직한 회계 감사인 역시 결론을 알 수 없는 소송을 억지로 짜맞춘 숫자로 분식하지 않고, 재무제표 주석란에 '계류 중인 소송 1건, 결과는 현재 예측할 수 없음'이라고 투명하게 공시합니다. 원인을 알 수 없는 고통을 마주한 의사 또한 증상을 왜곡하지 않고 '상세불명'이라는 코드를 부여함으로써 진료의 출발점으로 삼습니다. 책임 있는 사람은 모르는 것을 공포로 부풀려 도망치지도 않고, 가짜 확신으로 지워버리지도 않습니다. 테두리를 그어 정직하게 이름을 붙입니다.
+</p>
+<p>
+현대인의 비극은 모르는 상태를 견디지 못해 그것을 막연한 괴물로 키우거나, 반대로 무모한 낙관주의로 회피하려는 조급함에 있습니다. 그러나 바울의 인격은 모름 앞에서 한없이 정직했습니다. "장소는 정해졌다. 나를 향한 길임도 분명하다. 그러나 거기서 무슨 일을 만날지는 오직 하나님만 아시며 나는 알지 못한다." 모르는 것을 모른다고 인정할 때, 불확실성은 더 이상 우리를 삼키는 불안의 늪이 아니라, 하나님 앞에서 두렵고 떨림으로 짊어져야 할 거룩한 신비가 됩니다.
+</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">모든 미래를 다 알지 못해도 단정할 수 있는 단 하나의 정동사</h3>
+<p>
+그렇다면 미래의 모든 것이 안개에 싸여 있던 그 순간, 바울이 단정할 수 있었던 확실한 사실은 무엇이었을까요? 사도행전 20장 22절의 열일곱 낱말 가운데 유일하게 직설법 현재형으로 선언된 동사는 오직 하나, "가는데(πορεύομαι)", 즉 '지금 내가 걷고 있다'는 사실뿐이었습니다. 바울의 영혼은 이미 하나님의 부르심에 묶여 있었고(완료 분사 δεδεμένος), 만날 일들은 여전히 오지 않은 채 남아 있었지만(미래 분사), 그 '이미'와 '아직' 사이에서 바울이 온 힘을 다해 단정한 것은 오직 '오늘 내딛는 한 걸음'이었습니다.
+</p>
+<p>
+부드러운 천으로 두 손목을 가볍게 묶은 채, 어디에 장애물이 놓여 있는지 모르는 낯선 방을 걷는 사람의 몸을 상상해 보십시오. 두 손이 묶인 사람은 결코 발걸음을 재촉할 수 없습니다. 보폭은 자연스레 작아지고, 발바닥은 땅의 굴곡을 더 오래, 더 깊이 느끼게 됩니다. 손이 묶였다고 해서 방향을 잃어버리는 것은 아닙니다. 오히려 어디서 부딪힐지 모르는 장애물 앞에서 온 신경이 곤두서며 영혼은 깊이 깨어납니다(γρηγορεῖτε). 바울이 밀레도에서 장로들에게 신신당부했던 "일깨어 있으라"는 명령은 바로 이러한 몸의 상태였습니다. 불안에 떠는 것이 아니라, 묶인 채 깨어 있는 것입니다. 발을 실제로 움직이게 만드는 것은 앞날에 대한 방대한 정보가 아니라, "나는 걷는다"라는 현재형 동사 하나입니다.
+</p>
+<p>
+우리는 흔히 모든 의문이 풀리고 성공이 보장되어야만 비로소 순종할 수 있다고 착각합니다. 그러나 모든 위험을 계산하고 안전을 확인한 뒤에 출발하는 길은 '계획의 집행'일 뿐, 결코 '순종'이 아닙니다. 일찍이 믿음의 조상 아브라함이 "갈 바를 알지 못하고 나아갔던"(히 11:8) 것처럼, 성경이 말하는 순종은 앞날을 다 알아맞히는 지식에서 나오지 않습니다. 모르는 것을 모른다고 인정하면서도, 나를 묶으신 신실하신 아버지를 신뢰하기에 오늘 내게 주어진 유일한 정동사 하나를 살아내는 것—그 묵묵한 한 걸음 속에서 순종은 비로소 그 거룩한 형태를 갖추게 됩니다.
+</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">스스로를 증명하는 영웅주의를 넘어 은혜의 품으로 떠나보내는 사랑</h3>
+<p>
+만약 바울의 이 발걸음이 자신의 불굴의 의지나 담력을 과시하는 호기였다면, 그것은 성경적 인격이 아니라 한낱 영웅주의적 오만에 불과했을 것입니다. 그러나 바울이 결박과 환난이 기다리는 예루살렘을 향해 평온하게 걸어갈 수 있었던 힘은 자신의 단단함에서 나오지 않았습니다. 그는 자신이 결코 스스로의 주인이 아니며, '이미' 하나님의 거룩한 은혜에 매여 있는 존재임을 알고 있었습니다. 장 칼뱅이 통찰했듯, 참된 섭리 신앙은 미래에 대한 정보가 아니라 미래를 그 손에 쥐고 계신 하나님을 향한 흔들리지 않는 신뢰입니다.
+</p>
+<p>
+자신이 역사의 주관자가 아니라는 이 깊은 겸손은 밀레도 포구에서 에베소 장로들과 작별하는 순간 눈부신 사랑의 인격으로 꽃을 피웁니다. 바울은 그들에게 "내가 끝까지 당신들을 지켜주겠다"라거나 "내가 없으면 교회가 무너질 것"이라는 식의 통제적 약속을 남기지 않습니다. 그는 자신의 손이 닿지 않는 한계를 인정하며, 자기가 목숨처럼 사랑했던 성도들을 "주와 및 그 은혜의 말씀"(행 20:32)께 온전히 위탁합니다. 자기가 모든 것을 책임질 수 없음을 아는 사람만이 상대를 소유하거나 옭아매지 않고 하나님께 온전히 돌려보낼 수 있습니다. 서로의 목을 끌어안고 눈물을 흘리며 입을 맞추던 그 바닷가의 풍경은, 무력한 이들의 슬픈 이별이 아니라 하나님의 섭리를 믿는 이들만이 나눌 수 있는 가장 숭고한 환대이자 성숙한 사랑이었습니다.
+</p>
+<p>
+오늘 우리의 일터와 삶의 자리는 어떠합니까? 우리는 여전히 내일의 결과에 목을 매며, 모르는 미래를 어떻게든 내 힘으로 틀어쥐려다 불안의 덫에 걸려 넘어지지는 않습니까? 예기치 못한 세무조사 통지서를 받아 든 납세자처럼, 인생의 중대한 이직과 개업의 갈림길에 선 직장인처럼, 우리는 모든 것이 확실해지기 전에는 한 걸음도 뗄 수 없다며 스스로를 정체시키곤 합니다. 
+</p>
+<p>
+그러나 성경이 우리에게 요구하는 인격의 성숙은 내일의 일을 미리 알아채는 능력이 아닙니다. 내일의 결과는 주석의 '우발부채'처럼 정직한 괄호 속에 넣어 하나님께 맡겨두고, 오늘 내게 허락된 단 하나의 정동사—정직하게 소명에 응답하고, 이웃의 손을 잡아주며, 곁에 있는 이를 은혜의 말씀께 위탁하는 그 작은 한 걸음—를 신실하게 내딛는 것입니다. 다 알지 못해도 괜찮습니다. 우리는 이미 그분의 신실한 사랑에 매여 있기 때문입니다. 모름을 품에 안고 오늘을 걸어가는 그 겸손한 발걸음 위에, 하나님께서는 당신의 영원한 길을 조용히 펼쳐 보이실 것입니다.
+</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사도행전 제 33편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
