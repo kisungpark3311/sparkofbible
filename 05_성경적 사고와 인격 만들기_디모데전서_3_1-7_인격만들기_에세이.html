@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>손끝은 일을 향하고 버티는 것은 사람이다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 디모데전후서 제 05편 &middot; 디모데전서 3:1-7</span>
+      <h1>손끝은 일을 향하고 버티는 것은 사람이다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사람은 누구나 가슴 뛰는 꿈을 꿉니다. 가치 있는 무언가를 이루고, 이웃을 돌보며, 세상에 선한 흔적을 남기고 싶다는 열망은 우리 영혼 깊은 곳에 자리 잡은 고귀한 본능입니다. 그러나 우리는 얼마나 자주 '하고 싶은 일'의 눈부심에 마음을 빼앗긴 채, 정작 그 무게를 짊어져야 할 '자신의 됨됨이'를 돌아보는 일에는 게을렀던가요? 큰일을 도모하겠다는 포부는 날로 커져 가지만, 정작 그 일을 감당할 내면의 그릇이 준비되지 않아 스스로 무너지거나 곁에 있는 이들에게 상처를 주는 비극을 우리는 일상에서도, 공동체 안에서도 수없이 목격합니다.</p>
+<p>디모데전서 3장의 문을 열면, 사도 바울은 언뜻 비슷해 보이지만 전혀 다른 두 개의 문장을 우리 앞에 정직하게 펼쳐 놓습니다. 우리말 성경에는 1절의 "감독의 직분"과 2절의 "감독은"이라는 표현이 마치 같은 대상을 반복하는 것처럼 보이지만, 헬라어 원문은 문장의 결부터 과녁까지 완전히 다른 두 단어를 씁니다. 1절은 일(에피스코페)을 향하고, 2절은 그 일을 질 사람(에피스코포스)을 직시합니다. 성경은 우리가 세상에서 품는 갈망과, 그 갈망을 두 어깨에 얹어야 할 인격의 자리를 놀랍도록 섬세하고 따스하게 짚어내고 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">높은 곳을 바라는 마음은 누구에게나 먼저 허락된다</h3>
+<p>디모데전서 3장 1절은 참으로 벅찬 위로와 긍정으로 시작합니다. "사람이 감독의 직분을 얻으려 하면 선한 일을 사모한다 함이로다." 여기서 '직분'으로 번역된 낱말은 어떤 계급이나 권세의 자리를 뜻하지 않습니다. 그것은 연약한 이들을 돌보고 살피는 '섬김의 일' 자체를 가리킵니다. 그리고 바울은 그 일을 곧바로 '선한 일(καλοῦ ἔργου)'이라고 부르며, 그 일을 향한 열망을 아낌없이 칭찬합니다.</p>
+<p>더욱 감동적인 것은 이 문장의 주어가 '누구든지(τις)'라는 사실입니다. 세상은 언제나 문턱을 높게 세우고 묻습니다. "너에게 그럴 자격이 있는가? 네 가문과 학벌과 스펙은 무엇인가?" 그러나 성경은 자격증을 요구하기 전에 먼저 갈망의 문을 활짝 열어둡니다. 연약한 영혼을 돌보고 교회를 섬기고자 하는 순수한 마음이라면, 그 바람 자체는 누구에게나 값없이 허락되며 칭찬받아 마땅하다는 선언입니다.</p>
+<p>우리는 때로 자신의 부족함 때문에 선한 꿈을 품는 것조차 주저하곤 합니다. '나 같은 사람이 어떻게 그런 귀한 일을 꿈꿀 수 있을까' 자책하며 고개를 숙이기도 합니다. 하지만 복음은 말합니다. 바람의 문은 자격의 문보다 먼저, 그리고 훨씬 더 넓게 열려 있습니다. 주님은 지위를 탐하는 사리사욕의 야망은 꺾으시지만, 생명을 살리고 이웃을 섬기려는 순결한 열망만큼은 결코 꾸짖지 않으시고 그 자체로 귀하게 받아주십니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">손끝이 높이 뻗을수록 무게를 견디는 것은 발바닥이다</h3>
+<p>그러나 따뜻한 격려에 이어지는 2절에 들어서면, 성경의 시선은 날카로울 만큼 엄중하게 전환됩니다. 1절이 아직 지지 않은 '앞의 일'을 향해 뻗어 있었다면, 2절은 '지금 여기 서 있는 그 사람'을 똑바로 응시합니다. 이번에는 그냥 사람이 아니라, 관사가 붙은 '바로 그 사람(τὸν ἐπίσκοπον)'이 등장하며 주어 없는 엄숙한 명령인 "마땅하다(δεῖ)"가 선포됩니다.</p>
+<p>벽 앞에 서서 한쪽 팔을 머리 위로 힘껏 뻗어 벽의 가장 높은 지점을 짚어보십시오. 그리고 그 자세를 가만히 30초만 유지해 보십시오. 몸은 우리에게 정직한 진실을 가르쳐 줍니다. 손끝은 저 높은 하늘을 가리키고 있지만, 그 손끝의 높이를 지탱하기 위해 정작 터질 듯한 긴장을 견뎌내고 있는 것은 손끝이 아니라 바닥을 딛고 선 발바닥과 종아리, 그리고 허리라는 사실을 말입니다. 손끝의 높이는 바람이 결정하지만, 그 높이를 꺾이지 않게 버텨내는 것은 오직 보이지 않는 발바닥의 힘입니다.</p>
+<p>바울이 2절부터 줄기차게 나열하는 열다섯 가지 요구를 살펴보십시오. 놀랍게도 거기에는 대단한 웅변 기술이나 탁월한 전략, 카리스마 넘치는 행정력 같은 것이 단 하나도 적혀 있지 않습니다. 책망할 것이 없으며, 한 사람을 성실히 사랑하고, 절제하며, 마음을 근신하고, 단정하며, 나그네를 대접하고, 술을 절제하며, 다투지 않고, 돈에 초연하며, 자기 가정을 따뜻하고 규모 있게 다스리는 사람이어야 한다는 것입니다. 모두가 기술이 아닌 '사람의 됨됨이'요, 무대 위가 아닌 '가장 내밀한 일상의 살림살이'에 관한 형용사들입니다.</p>
+<p>일을 향한 열망이 크면 클수록, 손끝이 높은 곳을 향할수록, 그 사람의 인격과 삶의 바닥에 가해지는 하중은 기하급수적으로 무거워집니다. 발바닥이 부실한 상태에서 손끝만 높이 뻗은 사람은 결국 작은 바람에도 위태롭게 흔들리며 자기 무게를 이기지 못해 고꾸라지고 맙니다. 큰 사역을 꿈꾸기 전에 먼저 내 몸의 습관을 돌아보고, 거창한 비전을 외치기 전에 내 식탁과 가정의 언어를 정돈해야 하는 이유가 바로 여기에 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">남을 베는 칼이 아니라 나를 비추는 거울을 마주할 때</h3>
+<p>사도 바울이 제시하는 이 열다섯 가지 묵직한 기준 앞에는 시험관의 이름이 적혀 있지 않습니다. 누가 채점표를 들고 점수를 매겨 당락을 결정하는 국가고시가 아니기 때문입니다. 만약 우리가 이 목록을 누군가를 떨어뜨리기 위한 '입사 심사표'로 전락시킨다면, 그것은 타인의 허물을 헤집고 정죄하는 잔인한 칼날이 되고 말 것입니다.</p>
+<p>요구하는 이의 이름이 문면에 비어 있는 까닭은, 이 목록이 남을 재단하는 칼이 아니라 오직 하나님 앞에서 자신을 비추어 보는 '맑은 거울'이기 때문입니다. 게다가 이 요구는 "언젠가 그런 사람이 되라"는 먼 훗날의 과제가 아니라, "지금 그런 사람으로 존재하는가"를 묻는 현재형의 물음입니다. 이미 어떤 자리에 올랐다고 해서 이 거울 앞에서 물러설 수 있는 사람은 아무도 없습니다. 직분을 맡은 자든, 그 일을 사모하는 자든 매일 아침 이 거울 앞에 서서 자신의 술과 돈, 분노와 가정이 건강하게 정돈되어 있는지를 두렵고 떨리는 마음으로 살펴야 합니다.</p>
+<p>나아가 바울은 이 단락의 마지막에 이르러 시선을 공동체 밖으로까지 확장합니다. 참된 인격의 최종 검증은 교회 담장 안의 박수가 아니라, "외인에게서도 선한 증거를 얻은 자라야 한다"(7절)는 것입니다. 1절에서 꿈꾸었던 '선한 일(καλοῦ)'은, 마침내 일상을 함께 살아가는 세상 이웃들의 입술을 통해 흘러나오는 '선한 증거(καλὴν)'로 온전히 완성됩니다. 신앙의 실력은 유창한 기도문에서 판가름 나는 것이 아니라, 이웃과의 거래에서, 분노가 치밀어 오르는 갈등의 순간에서, 약자를 대하는 은밀한 태도 속에서 증명됩니다.</p>
+<p>오늘 우리는 무엇을 사모하며 어디를 향해 손을 뻗고 있습니까? 더 높은 지위와 영향력을 꿈꾸고 계십니까? 그 선한 갈망 자체는 결코 부끄러운 것이 아닙니다. 그러나 그 열망 앞에서 잠시 손을 내리고 가슴에 손을 얹어 스스로에게 물어야 합니다. "나는 지금 그 거룩한 일을 온전히 떠받칠 수 있을 만큼, 내 발바닥을 일상의 진실 위에 단단히 딛고 서 있는가?" 열망은 하늘을 향하되, 우리의 발과 인격은 언제나 겸손히 흙을 딛고 있어야 합니다. 손끝의 부푼 꿈이 일상의 단단한 인격으로 뒷받침될 때, 비로소 우리의 삶은 세상을 아름답게 품어 안는 진정한 은혜의 통로가 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      디모데전후서 제 05편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

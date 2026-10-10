@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>바꿀 것은 타고난 재료가 아니라 오늘 나를 씻어내는 일입니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 디모데전후서 제 16편 &middot; 디모데후서 2:14-26</span>
+      <h1>바꿀 것은 타고난 재료가 아니라 오늘 나를 씻어내는 일입니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>어린 시절 우리는 누구나 그럴듯하고 특별한 사람이 되기를 꿈꿉니다. 세상은 일찍부터 우리 손에 보이지 않는 가격표를 쥐여주며, 더 화려하고 단단한 재질로 자신을 치장하라고 쉼 없이 다그칩니다. 금빛 찬란한 집안 배경, 은빛으로 빛나는 탁월한 재능과 스펙, 남들이 우러러볼 만한 번듯한 직함과 이력을 갖추어야만 비로소 '쓸모 있는 존재'가 된다고 믿게 만듭니다. 반대로 내 손에 쥔 밑천이 투박한 흙더미에 불과하거나 거친 나뭇조각 같을 때, 우리는 깊은 열등감과 서글픈 체념의 수렁으로 곤두박질치곤 합니다. "나는 날 때부터 질그릇이라 안 돼", "흙수저로 태어난 내 인생이 무슨 귀한 일을 하겠어"라며 스스로를 찬장 어두운 구석에 팽개쳐 버리는 것입니다.</p>
+<p>그러나 사도 바울이 로마의 차디찬 지하 감옥에서 사랑하는 영적 아들 디모데에게 보낸 마지막 편지, 디모데후서 2장의 '큰 집 비유'를 가만히 들여다보면, 우리의 이 완고한 상식을 단숨에 뒤흔드는 눈부신 복음의 빛을 마주하게 됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">가격표를 지우고 정결함을 마주하는 시간</h3>
+<p>바울은 큰 집 안에 금그릇과 은그릇뿐만 아니라 나무 그릇과 질그릇도 함께 놓여 있다고 말합니다. 세상의 계산법대로라면 당연히 금과 은은 귀한 잔칫상에 오르고, 나무와 흙은 허드렛일이나 감당하는 천한 자리에 놓여야 마땅해 보입니다. 우리 역시 성경을 읽으며 관성에 이끌려 금과 은을 '귀히 쓰는 것'에, 나무와 질그릇을 '천히 쓰는 것'에 서둘러 짝지어 버립니다.</p>
+<p>그런데 놀랍게도 바로 다음 절로 시선을 옮기는 순간, 거룩하고 신비로운 침묵이 찾아옵니다. 방금 전까지 시선을 어지럽히던 네 가지 재료의 이름—금, 은, 나무, 질흙—이 원문에서 단 한 글자도 다시 등장하지 않는다는 사실입니다. 성경은 질그릇더러 용광로에 들어가 금을 도금해 오라고 다그치지 않습니다. 나무 그릇에게 은박을 둘러 신분을 세탁하라고 요구하지도 않습니다. 재료의 목록이 통째로 지워진 그 고요한 자리에, 주님은 오직 하나의 문장만을 단정하게 남겨두셨습니다. "그러므로 누구든지 이런 것에서 자기를 깨끗하게 하면 귀히 쓰는 그릇이 되어."</p>
+<p>하늘의 주인이 그릇을 고르시는 기준은 타고난 몸값이나 번쩍이는 재질이 아니었습니다. 긴박하게 돌아가는 종합병원의 수술실을 떠올려 봅니다. 집도의의 손에 쥐어지는 기구의 가치를 결정하는 것은 제조사의 화려한 브랜드나 번쩍이는 금도금이 아닙니다. 아무리 수억 원을 호가하는 최고급 메스라 할지라도 멸균 테이프의 색이 변하지 않은 채 오염되어 있다면 그 즉시 수술대에서 폐기 처분됩니다. 반면 소박하고 투박한 스테인리스 겸자라 할지라도 온전히 멸균 소독되어 있다면, 꺼져가는 생명을 건져내는 가장 결정적인 순간 주저 없이 의사의 손에 들립니다. 우리의 영혼도 마찬가지입니다. 주인이 쓰시는 자격은 '과거에 어떤 재료로 만들어졌는가'라는 출신 성분이 아니라, '지금 당장 주인이 쓰시기에 깨끗한가'라는 사용 직전의 정결함에 있습니다. "누구든지"라는 단 한마디 속에는, 어떤 상처와 초라한 배경을 지닌 사람일지라도 오늘 자기를 비워 씻어내기만 하면 주님의 거룩한 도구로 쓰임받을 수 있다는 무한한 은혜의 초대장이 들어 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">남을 가려내는 시선에서 내 영혼을 씻는 손길로</h3>
+<p>우리는 종종 이 '큰 집 비유'를 오독하여 위험한 열심에 빠지곤 합니다. "어떻게 하면 이 공동체에서 불의와 찌꺼기를 솎아내어 순수한 금그릇들만 남길까?"를 고민하며, 주변 사람들을 날카롭게 채점하기 시작합니다. 저 사람은 결함투성이 질그릇이니 배제해야 하고, 이 사람은 교양이 부족하니 멀리해야 한다며, 마치 자기가 집주인의 감별사라도 된 양 심판의 칼을 휘두릅니다. 거룩이라는 이름 아래 타인을 정죄하고 밀어내는 차가운 분리와 배제의 영성이 싹트는 순간입니다.</p>
+<p>그러나 원문의 정교한 결을 따라가 보면 우리는 깊은 부끄러움으로 고개를 떨구게 됩니다. 큰 집 안에 널려 있던 수많은 그릇들은 복수(複數)였습니다. 하지만 쓰임을 약속하는 문장으로 건너오면 그릇은 오직 단 하나의 단수(單數)로 축소됩니다. 그리고 씻음의 행위를 이끄는 목적어는 다름 아닌 '자기 자신'입니다. 본문 그 어디에도 집안을 뒤엎어 청소하라거나, 곁에 있는 다른 그릇을 골라내라는 명령은 적혀 있지 않습니다. 성경이 우리에게 요구하는 것은 타인을 향한 집단적 검열이 아니라, 단 한 사람, 바로 '나'라는 그릇 하나를 하나님 앞에서 정직하게 들여다보는 일입니다.</p>
+<p>어스름한 저녁, 부엌 싱크대 앞에 서서 설거지를 해본 사람이라면 누구나 몸으로 깨닫습니다. 아끼는 얇은 크리스털 유리잔을 닦을 때나, 투박하고 이 빠진 머그잔을 닦을 때나, 손끝이 그릇 안쪽을 더듬어 원을 그리고 맑은 물로 헹구어내는 동작은 조금도 다르지 않습니다. 물은 그릇의 가격표를 묻지 않고 오직 표면에 엉겨 붙은 기름때와 찌꺼기만을 조용히 씻어냅니다. 내가 오늘 씻어내야 할 것은 이웃의 허물이 아니라, 내 내면에 덕지덕지 달라붙은 이기심과 탐욕, 비교와 독선입니다. "나는 작은 자라 어쩔 수 없다"는 게으른 체념과 "나 정도면 번듯한 그릇이지"라는 은밀한 교만을 한꺼번에 닦아내는 일입니다. 남을 판별하느라 분주했던 시선을 거두어, 오늘 내 손목으로 내 영혼의 한 자락을 정결하게 씻어낼 때, 우리는 비로소 참된 성화의 첫걸음을 내딛게 됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">진열장에 갇힌 결벽을 넘어 타인을 향해 내미는 두 손</h3>
+<p>그렇다면 자기를 깨끗하게 씻어낸 그릇은 이제 어디로 향해야 할까요? 우리는 흔히 거룩함을 '오염되지 않는 무균의 상태'로 오해합니다. 먼지 하나 앉지 않도록 유리 진열장 깊숙한 곳에 모셔두고 홀로 감상하는 도자기처럼, 세상의 때가 묻을까 두려워 사람들과 거리를 둔 채 고결한 척 머무는 것을 신앙의 완성이라 착각하는 것입니다.</p>
+<p>하지만 바울이 밝힌 씻음의 종착지는 결코 안으로 닫히지 않고 세상을 향해 활짝 열려 있습니다. "거룩하고 주인의 쓰심에 합당하며 모든 선한 일에 예비함이 되리라." 깨끗함은 그 자체가 최종 목적이 아니라, 주인의 거친 손에 기꺼이 붙들려 누군가를 살리는 '선한 일'에 쓰이기 위한 준비일 뿐입니다. 진열장에 갇힌 고고함은 복음이 아닙니다. 맑게 씻긴 그릇은 지체 없이 주인의 밥상으로, 그리고 목마르고 굶주린 이웃들이 신음하는 세상의 한복판으로 나아가야 합니다.</p>
+<p>설거지를 마친 그릇을 찬장에 엎어두지 않고, 두 손으로 정성껏 받쳐 앞으로 불쑥 내밀어 봅니다. 가벼운 빈 그릇 하나일 뿐이지만, 두 팔을 앞으로 곧게 뻗은 채 가만히 서 있으면 얼마 지나지 않아 어깨와 팔목에 묵직한 통증이 차오릅니다. 그 무게는 그릇 자체의 무게가 아니라, 그 그릇에 생명수를 담아 세상에 전해야 하는 섬김과 사명의 무게입니다. 사도 바울은 이어서 그 선한 일이 구체적으로 무엇인지를 들려줍니다. 바로 "거역하는 자를 온유함으로 훈계하며 온갖 억울함과 참소를 참아내는 것"입니다. 자기를 깨끗하게 씻은 사람이 가장 먼저 행하는 일은 놀랍게도 상처 입고 모난 이웃을 온유함으로 품어 안는 일입니다. 내 안의 가시와 분노를 씻어낸 사람만이, 길을 잃고 비틀거리는 타인을 정죄하지 않고 그리스도의 마음으로 따스하게 품어줄 수 있기 때문입니다.</p>
+<p>우리는 그동안 타고난 재료의 부족함을 한탄하거나, 남의 재료를 시기하고 품평하느라 얼마나 많은 생의 에너지를 낭비해 왔습니까. 이제 그 허망한 자격지심과 우월감을 모두 내려놓고, 십자가의 맑은 샘물 앞에 우리 영혼을 겸손히 내어놓기를 소망합니다. "주님, 저는 거친 흙으로 빚어진 초라한 질그릇에 불과하지만, 오늘 주님의 은혜로 나를 맑게 헹구어 주옵소서. 내 안에 보배이신 예수 그리스도를 충만히 담아, 갈식하는 이웃들에게 아낌없이 생명수를 건네는 주님의 참된 그릇이 되게 하옵소서." 비워지고 씻긴 그릇마다, 오늘도 주인의 따스한 손길이 머물며 세상을 살리는 가장 눈부신 역사가 시작됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      디모데전후서 제 16편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>확정된 집에서 열린 이름을 부르다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 디모데전후서 제 07편 &middot; 디모데전서 3:14~4:5</span>
+      <h1>확정된 집에서 열린 이름을 부르다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>
+    인생의 무거운 고비나 낯선 문턱에 설 때마다 우리는 늘 조급해집니다. 마음 밑바닥에서 피어오르는 불안을 잠재우기 위해 가장 먼저 던지는 질문은 대개 비슷합니다. "이제 내가 어떻게 해야 하지? 어떤 규칙을 따라야 실패하지 않을까?" 삶이 흔들릴수록 우리는 손에 쥘 수 있는 명확한 행동 지침과 매뉴얼을 찾아 헤매곤 합니다. 그래야만 내가 안전하다는 안도감을 얻을 수 있을 것 같기 때문입니다.
+  </p>
+<p>
+    사도 바울이 사랑하는 젊은 동역자 디모데에게 편지를 쓰며 남긴 말도 언뜻 그런 지침서처럼 보입니다. "내가 지체하면 너로 하나님의 집에서 어떻게 행하여야 할 것을 알게 하려 함이니." 이 구절을 읽으면 자연스레 뒤이어 빈틈없는 처신법과 엄격한 명령들이 쏟아질 것이라 기대하게 됩니다. 그러나 원문 성경을 가만히 들여다보면 참으로 놀랍고 당혹스러운 사실을 마주하게 됩니다. 이 단락 전체를 통틀어 '무엇을 하라'거나 '하지 말라'는 식의 명령법 동사가 단 하나도 존재하지 않는다는 사실입니다. 사도는 당장 취해야 할 행동 규칙을 쥐여주는 대신, 우리의 발밑과 시선을 전혀 다른 차원의 문장 속으로 이끌어갑니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">발밑의 자리를 단단히 확정하시는 은혜의 등기부</h3>
+<p>
+    바울은 행동의 요령을 나열하기에 앞서, 우리가 지금 서 있는 자리가 어디인지를 먼저 문장 안에 단단히 못 박아 둡니다. "이 집은 살아계신 하나님의 교회요 진리의 기둥과 터이니라." 고대 헬라어 원문의 결을 살피면 바울의 섬세한 배려가 더욱 선명해집니다. 문장 속에서 '그 집'을 받아내는 말은 앞선 단어의 꼴을 따르지 않고, 뒤이어 등장하는 '교회'라는 단어에 온전히 안착합니다. 다시 말해, '내가 지금 머물고 있는 이 집이 누구의 것인가'라는 질문은 문장 안에서 티끌만 한 의문도 남기지 않은 채 완벽하게 해소됩니다.
+  </p>
+<p>
+    마치 관청에서 발급받은 부동산 등기부등본을 펼쳐보는 것과 같습니다. 등기부등본의 소유자 란에 주인의 이름이 선명하게 기재되어 있으면, 집주인이 누구인지를 두고 불안해하거나 다툴 필요가 없습니다. 본문은 우리의 소속을 우리의 변덕스러운 감정이나 행위의 실적에 맡겨두지 않았습니다. 흔히 우리는 나의 영적 상태가 좋을 때만 하나님의 자녀 같고, 연약함에 걸려 넘어지면 그 집에서 내쫓긴 것 같은 불안에 사로잡히곤 합니다. 그러나 성경은 우리의 정체성을 사람의 느낌이나 자격이 아니라, 하나님께서 문장으로 확정해 두신 '그분의 소속' 위에 올려놓습니다. 우리는 흔들리는 허공에 서 있는 것이 아니라, 결코 무너지지 않는 살아계신 하나님의 교회, 진리의 기둥과 터 위에 굳건히 발을 딛고 서 있습니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">문장 안에 이름을 가두지 않은 거룩한 빈칸</h3>
+<p>
+    그런데 바로 다음 문장으로 넘어가면 아주 기이하고도 숨 막히는 침묵이 펼쳐집니다. "크도다 경건의 비밀이여, 그렇지 않다 하는 이 없도다. 그는 육신으로 나타난 바 되시고 영으로 의롭다 하심을 입으시고 천사들에게 보이시고 만국에서 전파되시고 세상에서 믿은 바 되시고 영광 가운데서 올리우셨음이니라." 앞선 문장에서는 집의 정체를 명쾌하게 밝혀주었던 바울이, 여기서는 정작 '그는'이라고 가리키는 대상의 이름을 문장 어디에도 적어두지 않았습니다. 원문 문법을 엄밀히 따져보아도 이 남성 대명사가 가리킬 수 있는 이름은 문장 안에 '0개'입니다.
+  </p>
+<p>
+    문법의 눈으로만 보면 이것은 불완전한 문장이거나 빠뜨린 실수처럼 보일지 모릅니다. 그러나 이것은 결핍이 아니라 눈부신 신학적 초대입니다. 만약 바울이 그분의 이름을 문장 안에 명사로 못 박아 닫아두었다면, 그 위대한 구원의 여정은 단지 책 속에 박제된 과거의 지식이나 차가운 법 조항으로 남았을 것입니다. 하지만 바울은 낮은 육신으로 오셔서 마침내 영광에 이르기까지 그분이 걸어가신 장엄한 사랑의 이력만을 여섯 줄의 거룩한 노래로 펼쳐놓은 채, 정작 그 노래의 주인을 부르는 자리는 텅 빈 여백으로 남겨두었습니다.
+  </p>
+<p>
+    소속은 문장 안에서 확정해 주셨지만, 찬송의 이름은 문장 밖으로 열어두신 것입니다. 그 빈칸은 아무나 들어가도 좋다는 방임이 아니라, 오직 부르는 사람의 인격적인 응답으로만 채워질 수 있는 거룩한 자리입니다. 마치 예수께서 제자들에게 "사람들이 나를 누구라 하느냐" 물으신 뒤, 마침내 "너희는 나를 누구라 하느냐"라고 각 사람의 가슴을 향해 물으셨던 것처럼 말입니다. 주님은 문장 속에 갇힌 관념이 되기를 거부하시고, 오늘을 살아가는 성도들의 살아있는 입술과 떨리는 목소리를 통해 비로소 고백되는 인격이 되기를 원하셨습니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">바닥을 짚는 손의 평안에서 하늘을 향해 펴는 손의 고백으로</h3>
+<p>
+    이 두 문장을 몸의 감각으로 지나쳐보면 그 깊이가 더욱 절실하게 와닿습니다. 3장 15절을 읽을 때 우리의 손은 단단하게 발밑 바닥을 가리킵니다. 손끝에 힘이 들어가고 흔들림이 없습니다. 내가 디딘 이 땅이 하나님의 은혜가 머무는 집임을 확신하기 때문입니다. 그러나 3장 16절에 이르러 우리는 바닥을 짚던 손을 거두어, 손바닥을 활짝 펴서 앞을 향해 내밀게 됩니다. 무엇인가를 억지로 움켜쥐지 않은 채, 육신에서 영광으로 나아가는 그분의 자취를 따라 가만히 손을 들어 올리는 것입니다.
+  </p>
+<p>
+    우리의 신앙과 인격도 바로 이 손의 움직임을 닮아가야 합니다. 성숙한 그리스도인은 소속을 확인하기 위해 매번 불안해하며 사람의 마음을 시험하지 않습니다. 내가 하나님의 은혜 안에 있음을 말씀의 약속으로 든든히 신뢰하는 사람은, 타인을 대할 때도 조건이나 규칙의 잣대로 상대를 옥죄지 않습니다. 소속은 하나님이 마련하신 확고한 터전에 맡겨두고, 자신의 삶으로는 그 사랑의 주인이신 예수 그리스도의 이름을 하루하루 진실하게 고백해 나갈 뿐입니다. 신앙은 정답을 달달 외워 체크리스트를 채우는 일이 아니라, 안전한 그분의 집에서 내 전 인격을 다해 그분의 이름을 노래하는 거룩한 모험입니다.
+  </p>
+<p>
+    지금 마음을 짓누르는 선택의 무게와 알 수 없는 미래 앞에서 서성이고 계십니까? "내가 무엇을 해야 하는가"라는 규율을 찾아 두리번거리기 전에, 먼저 가만히 고개를 숙여 발밑을 내려다보십시오. 당신이 서 있는 그 자리는 이미 살아계신 하나님의 품이요, 진리의 견고한 반석입니다. 그 안전한 집 안에서 이제 두 손을 부드럽게 펴 올리십시오. 그리고 문장이 미처 다 담아내지 못한 그 크고 아름다운 이름, 육신을 입고 우리 곁에 오셔서 마침내 영광이 되신 예수 그리스도의 이름을 당신의 온 마음을 다해 나지막이 불러보십시오. 확정된 집 안에서 터져 나오는 그 진실한 고백이야말로, 세상을 이기고 우리의 인격을 가장 온유하고 단단하게 빚어내는 참된 능력입니다.
+  </p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      디모데전후서 제 07편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

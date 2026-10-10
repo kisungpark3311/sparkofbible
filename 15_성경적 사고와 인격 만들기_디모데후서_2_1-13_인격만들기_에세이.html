@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>묶음으로 품는 믿음, 매이지 않는 자유</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 디모데전후서 제 15편 &middot; 디모데후서 2:1-13</span>
+      <h1>묶음으로 품는 믿음, 매이지 않는 자유</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>인간은 종종 대상의 이름을 안다는 것만으로 그 실체를 온전히 이해했다고 믿는 착각에 빠집니다. 그러나 이름은 수많은 사연과 무게를 간편하게 부르기 위해 달아둔 작은 '손잡이'에 불과합니다. 일상이 잔잔하고 평온할 때에는 손잡이만 가볍게 쥐고 있어도 아무런 문제가 없어 보이지만, 삶의 거센 비바람이 몰아치고 존재의 밑바닥이 흔들리는 위기의 순간이 오면 손잡이만으로는 결코 아무것도 지탱해낼 수 없음을 뼈아프게 깨닫게 됩니다.</p>
+<p>로마의 차디찬 지하 감옥, 다가오는 순교의 그림자 앞에서도 붓을 놓지 않았던 노사도 바울이 사랑하는 믿음의 아들 디모데에게 남긴 편지(디모데후서 2장 8-9절)는 바로 이 안일한 기억을 향해 던지는 깊은 각성의 소리입니다. "나의 복음과 같이 다윗의 씨로 죽은 자 가운데서 다시 살으신 예수 그리스도를 기억하라." 이 한 줄의 외침은 단순히 예수라는 성스러운 명패를 뇌리에 떠올리라는 상투적인 훈계가 아니었습니다. 헬라어 원문의 문법이 생생히 증언하듯, 그것은 낱낱으로 분리될 수 없도록 단단히 결속된 거대한 '삶의 보따리'를 통째로 쥐라는 생명 어린 명령이었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">이름이라는 손잡이 너머 삶을 지탱하는 증빙의 보따리</h3>
+<p>자산을 취득하거나 인생의 중대한 계약을 맺을 때, 사람들은 흔히 "내가 그때 그 집을 샀다"는 식의 이름만을 가볍게 기억하곤 합니다. 그러나 훗날 엄중한 세무 조사가 닥치거나 인생의 결산 시점이 찾아왔을 때, 과세 당국은 결코 이름 석 자만으로 그 가치를 인정해주지 않습니다. 언제, 어떤 원인으로, 얼마의 대가를 치렀으며, 어떤 출처의 피땀 어린 자금으로 일구었는지를 낱낱이 증명하는 '증빙 묶음'이 서류철에 고스란히 남아 있어야만 정당한 권리가 지켜집니다. 증빙이 결여된 채 이름만 쥐고 있는 사람은 결국 가혹한 불이익과 헐값의 추계를 감수해야만 합니다.</p>
+<p>우리의 내면과 신앙의 여정 역시 마찬가지입니다. 수많은 그리스도인이 '예수'라는 이름의 문패만 손에 쥔 채 안도하다가, 원치 않는 고난과 억울한 시련이라는 실존의 세무 조사가 닥치면 속수무책으로 무너져 내립니다. 영혼을 떠받쳐줄 근거의 묶음이 없기에, 자신이 겪는 아픔을 "그저 운이 나빴다"거나 "내 믿음이 부족해서 벌을 받았다"는 식의 값싼 자책과 추계로 치부해 버리고 맙니다.</p>
+<p>그러나 바울이 디모데에게 건넨 문장은 결코 이름 홀로 서 있지 않습니다. '예수 그리스도'라는 이름 뒤에는 '죽은 자들 가운데서 일으켜지신 상태'를 뜻하는 완료 분사가 문법적으로 한 몸처럼 단단히 맞물려 있습니다. 그리고 그 일어남의 자리에는 무덤이라는 밑바닥과 다윗의 씨라는 역사의 혈통이 두 겹의 출처로 든든히 받치고 있습니다. 참된 신앙의 인격은 이름이라는 손잡이만 가볍게 흔드는 것이 아니라, 고난의 정산소 앞에서도 당당히 꺼내 보일 수 있는 거룩한 증빙 묶음 전체를 영혼 깊숙이 간직하는 데서 비로소 자라납니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">무덤의 돌과 다윗의 씨앗을 양손에 품는 거룩한 절제</h3>
+<p>바울이 건네준 거룩한 보따리 속에는 서로 다른 시간의 방향을 가리키는 두 가지 출처가 공존합니다. 바로 '죽은 자들 가운데서(ἐκ νεκρῶν)'와 '다윗의 씨에서(ἐκ σπέρματος Δαυίδ)'입니다. 오른손에는 서늘한 죽음의 냄새가 밴 무덤 너머의 부활을 쥐고, 왼손에는 이 땅의 고단한 족보와 흙먼지가 묻은 다윗의 씨앗을 쥐는 형국입니다. 하나는 영원을 향해 솟구치고, 다른 하나는 눈물겨운 인간의 역사 속으로 깊이 뿌리를 내립니다.</p>
+<p>주목할 것은 원문의 문장 안에서 이 두 출처 사이에 그 흔한 '그리고'나 '그러나' 같은 접속사가 단 하나도 존재하지 않는다는 사실입니다. 성경은 부활의 영광이 혈통의 아픔을 지워버렸다거나, 혈통이 부활을 위한 단순한 도구였다는 식의 인위적인 설명을 일절 덧붙이지 않습니다. 하늘의 신비와 땅의 현실이 아무런 접속사 없이 침묵 속에 나란히 묶여 있을 뿐입니다.</p>
+<p>우리는 얼마나 자주 이 둘 중 편한 하나만을 골라잡으려 합니까? 부활의 승리만을 외치며 오늘 성도들이 흘리는 눈물과 억울함을 경박하게 지워버리거나, 반대로 눈앞의 고통스러운 현실에만 함몰되어 무덤 너머의 소망을 잊어버리곤 합니다. 하지만 양손에 든 돌과 씨앗 중 어느 하나라도 놓아버리면 우리의 중심은 여지없이 한쪽으로 기울어지고 맙니다. 진정한 성경적 인격은 접속사가 없는 그 거룩한 병치를 함부로 재단하지 않고, 두 손을 모아 가슴 깊이 품어 안는 절제에서 자라납니다. 더욱이 성경은 그분을 '누가 일으키셨는지'에 대한 행위자의 자리마저 조용히 비워두었습니다. 인간의 현학적인 지식이나 성급한 사변으로 그 침묵의 빈칸을 채우려 들지 않고, 성경이 멈춘 자리에서 경외함으로 함께 멈추어 서는 것—그것이야말로 신비를 신비로 보존하는 가장 맑고 겸손한 지혜입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">손목의 쇠사슬을 넘어 자유롭게 달리는 말씀</h3>
+<p>이 단단한 묶음의 끝자락에는 "나의 복음과 같이"라는 특별한 끈이 매여 있으며, 그 끈은 곧바로 로마 감옥에 갇힌 노사도의 쇠사슬로 이어집니다. "복음을 인하여 내가 죄인과 같이 매이는 데까지 고난을 받았으나 하나님의 말씀은 매이지 아니하니라." 바울이 전한 복음은 구름 위에 뜬 낭만적인 관념이 아니었습니다. 그것은 한 전도자가 차가운 감옥 바닥에서 겪어야 했던 수치와 고통, 즉 '악행자처럼 매이는 결박'과 한 핏줄로 연결된 실제의 역사였습니다. 우리가 오늘 손에 쥔 복음의 유산은 결코 진공 속에서 배달된 것이 아닙니다. 누군가가 쇠사슬에 손목이 짓무르면서까지 끝내 놓지 않고 지켜내어 건네준 눈물의 전달물입니다.</p>
+<p>그러므로 성경적 인격은 나 혼자만의 골방에서 관념적인 확신에 도취하는 것이 아니라, 내게 복음을 건네준 이들의 거친 손과 그들이 치른 대가를 기억하는 사람의 인격입니다. 내가 겪는 고난 앞에서 쉽게 남을 탓하거나 원망하지 않고, 나를 위해 먼저 사슬을 맸던 이들의 헌신을 기억하며, 지금 내 곁에서 외롭게 묶여 신음하는 이웃을 직접 찾아가 손을 맞잡는 인격입니다.</p>
+<p>그리고 이 에세이가 가닿는 가장 찬란한 역설의 정점은 사슬에 묶인 전도자의 초연한 시선에 있습니다. 바울의 두 손은 쇠사슬에 칭칭 감겨 죄수처럼 갇혀 있었지만, 그는 묶인 손을 결코 비관하여 풀지 않은 채 시선만은 번쩍 들어 하늘을 응시했습니다. "나는 묶여 있어도, 하나님의 말씀은 결코 매이지 않는다." 인간은 가둘 수 있고 전도자의 육신은 결박할 수 있을지 몰라도, 그를 통해 흐르는 진리의 생명력은 감옥의 벽을 뚫고 온 세상으로 거침없이 달려 나갑니다.</p>
+<p>내 삶의 형편이 비록 좁은 감옥 같고, 내 손발이 원치 않는 현실의 쇠사슬에 묶여 있을지라도 낙망하지 마십시오. 단단한 묶음을 양손에 쥐고 서 있는 자에게는 그 어떤 쇠사슬도 진정한 족쇄가 될 수 없습니다. 묶인 자리에서도 매이지 않는 말씀의 광활함을 바라보는 영혼, 그 당당하고 깊은 자유야말로 세상이 감당치 못할 그리스도인의 참된 아름다움입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      디모데전후서 제 15편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

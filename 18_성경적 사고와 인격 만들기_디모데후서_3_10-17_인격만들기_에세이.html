@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>책을 덮고 손을 펴는 순간, 말씀은 인격이 된다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 디모데전후서 제 18편 &middot; 디모데후서 3:10-17</span>
+      <h1>책을 덮고 손을 펴는 순간, 말씀은 인격이 된다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 흔히 성경을 거룩한 장식장에 고이 모셔두는 보물이나, 신앙의 정통성을 시험하기 위해 완벽히 외워야 할 교리 백과사전처럼 대하곤 합니다. 디모데후서 3장 16절의 익숙한 구절, "모든 성경은 하나님의 감동으로 된 것으로…"를 읊조릴 때마다 우리의 시선은 언제나 성경의 '정체'를 규정하는 거창한 선언에 멈춰 섰습니다. 그 위대한 고백을 앞세워 신학의 성벽을 견고히 쌓았고, 때로는 내가 가진 성경 지식의 무게로 다른 이의 연약함을 가늠하거나 비판하는 잣대로 삼기도 했습니다.</p>
+<p>그러나 헬라어 원문의 결을 따라 본문을 가만히 짚어가다 보면, 참으로 낯설고도 눈물겨운 진실을 마주하게 됩니다. 바울은 이 찬란한 구절에서 성경의 정체를 규정하는 장엄한 동사, 즉 '~이다'라는 서술어를 과감히 비워 두었습니다. 성경이 얼마나 절대적인 책인지를 높이 선언하는 자리 대신, 원문은 문장의 무게를 전혀 다른 곳으로 옮겨 싣습니다. 텅 빈 동사의 자리를 가득 채우고 있는 것은, 그 글이 무엇을 '향해' 나아가는지를 보여주는 다섯 번의 힘찬 전치사, 곧 '향함(πρός)'의 행렬입니다. 성경은 스스로의 신성함을 화려한 전시대 위에 박제해 두지 않습니다. 대신 자신이 가 닿아야 할 삶의 자리를 향해 묵묵히 걸음을 옮깁니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">정의의 자리를 비우고 삶의 방향을 채우다</h3>
+<p>생각해 보면 우리 삶을 진정으로 변화시키는 소중한 것들은 정의(定義) 속에 갇혀 있지 않고 쓰임 속에서 증명됩니다. 한 알의 약을 쥐었을 때, 상자 겉면에 인쇄된 복잡한 화학 성분명만 줄줄 외운다고 해서 환자의 병이 낫지는 않습니다. 그 약의 진정한 가치는 환자의 메마른 목구멍을 넘어 들어가 고통스러운 통증을 잠재우고 병든 몸을 다시 살려내는 치유의 효능에서 드러납니다. 종교개혁자 칼뱅이 성경을 '안경'에 비유했던 까닭도 여기에 있습니다. 안경은 벽에 걸어두고 경건하게 우러러보라고 만든 예술품이 아닙니다. 흐릿하고 일그러진 눈앞의 세상을 또렷하게 보고, 그 속에서 일하시는 하나님의 사랑을 온전히 발견하도록 눈에 걸쳐 쓰는 도구입니다.</p>
+<p>성경이 뻗어나가는 네 가지 향함—가르침과 책망과 바르게 함과 의로 교육함—은 바로 이러한 영혼의 치료 과정입니다. 특히 본문이 나열하는 '책망'과 '바르게 함'은 결코 달콤하지 않은 쓴 약과 같습니다. 내가 옳다고 우기던 자고함을 사정없이 허물어뜨리고, 삐뚤어진 욕망과 이기심의 뼈마디를 꺾어 제자리로 맞추는 쓰라린 교정의 시간입니다. 말씀은 우리의 머릿속을 현학적인 지식으로 살찌우기 위해 오지 않았습니다. 오히려 차가운 정의의 탑을 무너뜨리고, 굽은 마음을 펴서 하나님의 온전한 통치 앞에 무릎 꿇게 하는 거룩한 빚어짐의 손길입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">책에 얹은 손을 들어 세상의 짐을 향해 펴다</h3>
+<p>문장의 흐름은 17절에 이르러 숨 막히도록 아름다운 반전을 일으킵니다. 16절까지 줄곧 문장의 주어로 군림하던 '글(성경)'이 자취를 감추고, 그 자리에 비로소 '하나님의 사람'이라는 새로운 주어가 우뚝 일어섭니다. 글이 사람에게 바통을 넘겨주는 경이로운 순간입니다. 성경이 네 가지 쓰임으로 자신을 깎아내며 가 닿으려 했던 최종 목적지는, 성경 자체의 승리가 아니라 연약한 한 사람이 회복되어 일어서는 것이었습니다. 그리고 그 사람이 향하는 마지막 다섯 번째 '향함'의 종착지는 다름 아닌 '모든 선한 일'입니다.</p>
+<p>조용한 아침, 서재 책상 앞에 앉아 성경 위에 두 손을 얹어봅니다. 말씀을 귀히 여기고 경외하는 마음으로 가만히 머물러 봅니다. 그러나 묵상이 깊어질수록 본문은 우리에게 손가락을 꼽아보라 권합니다. 가르침, 책망, 바르게 함, 의로 교육함이라는 네 손가락을 접고, 마지막으로 '모든 선한 일'을 향해 엄지를 접는 순간, 놀랍게도 성경책을 덮고 있던 우리의 손은 책 위에서 스르르 떨어져 허공으로 들어 올려집니다. 다섯 손가락이 모두 접히면 그것은 굳게 쥔 주먹이 아니라, 누군가의 눈물을 닦아주고 거친 세상의 짐을 나누어 질 준비가 된 온유한 손이 됩니다.</p>
+<p>성경은 책상 머리에 안주하여 혼자만의 경건을 누리는 것으로 마침표를 찍지 않습니다. 책 위에 단정히 얹어두었던 그 손을 떼어, 오늘 내가 마주해야 할 비루하고 복잡한 삶의 현장으로 손을 뻗치게 만듭니다. 오랫동안 마음의 담을 쌓고 미뤄두었던 누군가에게 건네는 따뜻한 화해의 문자 한 통, 불의와 타협하지 않고 정직하게 고쳐 적는 장부의 한 줄, 주저앉아 우는 이웃의 곁에 가만히 얹어주는 투박한 손바닥—그 손의 수고로움이 시작될 때, 비로소 성경은 종이 위의 박제된 활자를 뚫고 나와 살아 숨 쉬는 인격의 열매를 맺습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">수많은 사랑의 기억 위에 머물러 사랑으로 일어서다</h3>
+<p>이 모든 치열한 향함과 손의 움직임을 지탱하는 단 하나의 뿌리가 있습니다. 그것은 바로 14절의 유일한 명령인 "머물러라(μένε)"입니다. 바울은 젊은 동역자 디모데에게 "너는 배우고 확신한 일에 거하라"고 명합니다. 그러나 이 머무름은 세상과 단절된 채 옹졸한 고집을 부리는 폐쇄적인 완고함이 아닙니다. 바울은 그 머무름의 이유로 "네가 누구에게서 배운 것을 알며"라는 말을 덧붙입니다. 여기서 '누구'는 단수가 아니라 복수(τίνων)입니다. 디모데가 의지할 수 있었던 것은 한 사람의 카리스마 넘치는 스승이 아니었습니다. 젖먹이 시절부터 머리맡에서 떨리는 목소리로 성경을 읽어주던 어머니 유니게와 외할머니 로이스, 감옥의 차디찬 바닥에서도 눈물로 편지를 써 내려가던 바울, 그리고 곁에서 묵묵히 신앙의 길동무가 되어 준 수많은 이들의 체온과 눈물이었습니다.</p>
+<p>머무름이란 내 머릿속의 논리로 홀로 버티는 외로운 요새가 아니라, 나를 살리고 먹여 준 수많은 사랑의 기억들 속으로 깊이 닻을 내리는 일입니다. 그 사랑의 출처를 온몸으로 기억하는 사람만이, 손을 뻗어 세상의 거친 일 속으로 나아갈 수 있습니다. 밖으로 나가 선한 일을 행하다가 오해를 받고 상처를 입어 지칠 때, 우리는 다시 그 거룩한 머무름의 자리로 돌아옵니다. 책에서 손을 떼어 세상으로 나갔던 사람이 다시 돌아와 성경을 펼칠 때, 어제 읽었던 말씀은 전혀 다른 깊이로 다가옵니다. 손으로 살아낸 사람만이 성경의 진정한 무게를 이해할 수 있기 때문입니다.</p>
+<p>말씀은 결코 허공을 맴도는 교리의 메아리가 아닙니다. 은혜를 얻어내기 위한 종교적 의무나 도덕적 훈계의 짐은 더더욱 아닙니다. 십자가의 은혜로 값없이 구원받은 하나님의 자녀들이, 하나님이 먼저 불어넣어 주신 숨결에 감격하여 세상을 향해 내미는 따스한 손길입니다. 오늘 성경을 덮고 문을 나서는 우리의 손끝에, 그리스도의 다정한 온기가 묻어 있기를 소망합니다. 그 손이 닿는 곳마다 차가운 정의 대신 따스한 회복이 피어날 때, 세상은 마침내 종이책 너머에 계신 살아계신 하나님을 우리를 통해 읽게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      디모데전후서 제 18편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

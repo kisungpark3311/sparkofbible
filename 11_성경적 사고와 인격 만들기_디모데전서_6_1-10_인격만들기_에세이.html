@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>낱말을 빼앗지 않는 품격: 지우는 손에서 덧쓰는 인격으로</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 디모데전후서 제 11편 &middot; 디모데전서 6:1-10</span>
+      <h1>낱말을 빼앗지 않는 품격: 지우는 손에서 덧쓰는 인격으로</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>흰 종이 한가운데 '돈'이나 '벌이', 혹은 '성공'이라는 낱말을 적어본 적이 있습니까. 펜을 쥔 채 그 글자를 가만히 내려다보고 있노라면, 우리 손끝에는 묘한 충동이 일어납니다. 바로 굵은 붉은색 잉크로 거침없이 'X' 표를 긋고 싶은 충동입니다. '경건한 그리스도인이라면 이런 세속적인 단어에 얽매여서는 안 된다', '이것은 타락한 세상이 좇는 헛된 욕망일 뿐이다'라며 단칼에 잘라내고 지워버리고 싶어 하는 조급함입니다. 붉은 줄 하나를 긋는 동작은 단 1초도 걸리지 않습니다. 지우는 행위는 언제나 빠르고, 단호하며, 순간적으로 도덕적인 우월감과 시원함을 안겨주기 때문입니다.</p>
+<p>그러나 그 손쉬운 지움 뒤에 남겨지는 풍경은 어떠합니까. 우리는 단어를 지우며 상대방의 고단한 삶의 자리를 함께 지워버리고, 대화의 문을 닫아걸며, 마침내 스스로를 고립된 섬으로 몰아넣고 맙니다. 상대를 틀렸다고 규정하며 말을 빼앗는 순간, 논리에서는 이겼을지 몰라도 사람의 마음은 영영 잃어버리고 마는 비극을 우리는 일상 속에서 얼마나 자주 마주하고 있습니까.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">붉은 줄을 긋는 손과 빈자리를 찾는 손</h3>
+<p>지우는 손은 오직 그 낱말 자체만을 매섭게 노려봅니다. 그 낱말이 어떤 삶의 자리에서 터져 나왔는지, 그 단어를 붙들고 밤잠을 설쳤을 상대의 눈물과 땀방울이 무엇인지 들여다볼 여유를 갖지 못합니다. 붉은 줄을 긋는 손은 오직 결벽에 가까운 심판관의 시선으로 대상을 단죄할 뿐입니다.</p>
+<p>하지만 펜을 쥔 손을 잠시 멈추고, 낱말을 지우지 않은 채 그 곁에 조심스레 새 글자를 적어 넣으려 해보십시오. 그 순간 손의 속도는 확연히 느려집니다. 원래 적혀 있던 글자를 상하게 하지 않으면서, 그 낱말 둘레의 여백을 찬찬히 살펴야 하기 때문입니다. 어디에 새로운 말을 넣어야 할지, 그 낱말이 본래 서 있어야 할 빈자리가 어디인지를 헤아리는 주의 깊은 시선이 필요합니다. 지우는 손에는 분노와 조급함만 있으면 족하지만, 덧쓰는 손에는 관찰과 배려, 그리고 낱말의 자리를 되찾아주려는 깊은 인내가 요구됩니다.</p>
+<p>우리의 일상 대화도 이와 다르지 않습니다. 세상 한복판에서 고군분투하는 이웃이나 동료가 "신앙이 밥 먹여 줍니까?", "인생은 결국 돈과 성과로 판가름 나는 것 아닙니까?"라는 거친 질문을 던져올 때가 있습니다. 그때 우리는 흔히 빼앗는 방식을 택합니다. "신앙은 밥 따위를 구하는 저급한 것이 아닙니다", "어떻게 거룩한 성도가 성과와 돈을 입에 올립니까!"라며 정색하고 상대의 입을 틀어막습니다. 상대방이 쓰던 언어를 단번에 빼앗아 쓰레기통에 던져버리는 것입니다. 그러나 그렇게 이긴 대화 끝에 남는 것은 싸늘한 침묵과 단절뿐입니다. 낱말을 빼앗긴 상대는 마음에 빗장을 걸어 잠그고, 복음이 깃들어야 할 대화의 다리는 힘없이 끊어지고 맙니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">낱말을 빼앗지 않고 두 마디를 더하는 지혜</h3>
+<p>사도 바울이 믿음의 아들 디모데에게 보낸 편지 속에는 이러한 세상의 언어 전쟁을 근원적으로 뒤집는 눈부신 성경적 사고와 인격의 지혜가 담겨 있습니다. 당시 에베소 교회에는 경건을 개인의 잇속을 채우는 돈벌이의 수단으로 삼던 거짓 교사들이 득세하고 있었습니다. 바울은 그들의 뒤틀린 실상을 가리켜 "마음이 부패하여지고 진리를 잃어버려 경건을 이익의 재료로 생각하는 자들"(딤전 6:5)이라고 적확하게 진단합니다. 여기서 '이익'으로 번역된 헬라어 원문은 '포리스모스(πορισμός)', 즉 일터와 장터에서 땀 흘려 먹고사는 '벌이'를 가리키는 지극히 세속적이고 일상적인 단어였습니다.</p>
+<p>그 거룩한 복음을 한낱 사리사욕의 수단으로 전락시킨 자들을 보며, 보통의 종교 지도자라면 어떻게 반응했겠습니까. 당장 격분하여 "경건은 벌이가 아니다! 어찌 거룩한 진리 앞에서 장사꾼의 셈법을 입에 올리느냐!"라며 호통을 치고 '벌이'라는 낱말 자체를 금기어로 낙인찍어 성도들의 입에서 빼앗아 버렸을 것입니다.</p>
+<p>그러나 바울의 펜끝은 전혀 다른 길을 걸어갑니다. 이어지는 6절에서 그는 우리의 통념을 뒤흔드는 경이로운 문장을 마주 세웁니다.</p>
+<blockquote style="font-style: italic; color: #4a5568; border-left: 4px solid #b7863c; padding-left: 16px; margin: 24px 0;">
+    "그러나 지족하는 마음이 있으면 경건이 큰 이익이 되느니라" (딤전 6:6)
+  </blockquote>
+<p>원문의 정밀한 구조를 들여다보면 깊은 탄성이 흘러나옵니다. 바울은 거짓 교사들이 오염시킨 '벌이(포리스모스)'라는 낱말을 빼앗아 내팽개치지 않았습니다. 5절과 6절의 주어는 여전히 '경건'이고, 서술어 역시 '벌이' 그대로입니다. 바울이 바꾼 것은 단어가 아니었습니다. 그는 남들의 일그러진 생각 안에 갇혀 있던 비루한 틀을 깨뜨리고, 문장 맨 앞에 당당하게 '참으로 그러하다(ἔστιν, 에스틴)'라는 정동사를 세워 진리의 기둥을 곧게 일으켜 세웠습니다.</p>
+<p>그리고 그 원래의 낱말 위에 정갈하고도 고귀한 두 마디를 나란히 얹었습니다. 하나는 '위대한(메가스, μέγας)'이라는 형용사였고, 다른 하나는 '지족함과 함께(메타 아우타르케이아스, μετὰ αὐταρκείας)'라는 전치사구였습니다. 바울은 상대의 입에서 단어를 거칠게 빼앗지 않았습니다. 오히려 그 낱말을 지킨 채, 탐욕에 눈이 멀어 그들이 미처 보지 못하고 빠뜨렸던 진짜 핵심을 그 자리에 채워 넣어 되살려낸 것입니다.</p>
+<p>이것은 상대를 조롱하고 깎아내리는 '작은 반박'이 아닙니다. 상대의 좁고 비루한 시야보다 훨씬 더 넓고 웅장한 하늘의 지평으로 생각을 들어 올리는 '키우는 반박'입니다. 장사꾼들이 계산기 두드리며 챙기는 푼돈의 벌이가 아니라, 온 우주의 주인이신 하나님 안에서 맛보는 '실로 위대하고 영원한 참된 벌이'의 세계를 활짝 열어 보여준 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">지족함과 웅장함이 빚어내는 삶의 거룩한 품격</h3>
+<p>바울이 덧붙인 두 마디는 결코 따로 떼어놓을 수 없는 영혼의 쌍둥이입니다. 만약 우리가 '위대함(큰)'이라는 한 마디만 탐욕스럽게 떼어낸다면 어떻게 되겠습니까. "경건은 큰 벌이다!"라는 외침은 순식간에 하나님의 이름을 팔아 세상의 부귀영화를 낚아채려는 번영신학의 천박한 구호로 타락하고 맙니다. 반대로 '지족함'이라는 마디만을 떼어내어 앞세운다면, 그것은 치열한 삶의 현장을 도피한 채 무기력한 체념에 빠지거나 가난 자체를 거룩함으로 포장하는 또 다른 율법주의적 청빈에 갇히고 말 것입니다.</p>
+<p>탐욕의 질주를 멈추게 하는 '지족함'과, 하나님 나라의 광활한 풍요를 누리게 하는 '위대함'이 하나의 문장 속에서 온전히 호흡할 때, 비로소 성도의 인격에는 세상이 결코 모방할 수 없는 깊고 은은한 품격이 깃듭니다. 밥을 벌고 처자식을 먹여 살리기 위해 새벽바람을 맞으며 나서는 우리의 고단한 일터는 더 이상 영혼을 갉아먹는 세속의 늪이 아니라, 하나님의 신실하심을 맛보고 살아내는 거룩한 성화의 무대로 변모합니다.</p>
+<p>진정한 성경적 사고와 인격이란, 거룩한 척 뒷짐을 진 채 세상의 낱말들을 함부로 검열하고 단죄하는 영적 결벽증이 아닙니다. 또한 지난날 실패와 상처에 걸려 넘어져 '성공', '인정', '물질' 같은 일상의 정직한 언어들을 스스로의 마음에서 지워버리는 영적 자포자기도 아닙니다.</p>
+<p>성숙한 사람은 내게 상처를 준 상대의 날 선 언어 앞에서도 즉각 붉은 줄을 긋지 않습니다. 오히려 그 거친 낱말을 온유하게 품어 안으며 조용히 자신의 내면과 세상을 향해 묻습니다. "이 낱말이 하나님 앞에서 온전해지기 위해 지금 빠져 있는 마디는 무엇인가? 무엇과 함께할 때 이 낱말이 비로소 부끄럽지 않은 위대함을 회복할 수 있는가?"</p>
+<p>타인의 언어를 빼앗는 사람은 당장의 논쟁에서는 통쾌할지 모르나 결국 메마른 광야에 홀로 남게 됩니다. 그러나 상대의 언어를 버리지 않고 그 빈자리를 읽어내어 은혜의 두 마디를 덧쓸 줄 아는 사람은, 소란스러운 장터 한복판에서도 막힌 담을 헐고 사람의 마음을 얻습니다. 오늘 우리의 혀와 손끝이 섣부른 삭제의 조급함을 내려놓고, 세상의 깨어진 언어들 위에 '지족함'과 '참된 위대함'을 덧쓰는 넉넉하고 아름다운 인격으로 빚어지기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      디모데전후서 제 11편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

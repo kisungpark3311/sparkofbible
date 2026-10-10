@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>명령의 끝에 서서 손바닥을 펼칠 때</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 디모데전후서 제 01편 &middot; 디모데전서 1:1-11</span>
+      <h1>명령의 끝에 서서 손바닥을 펼칠 때</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리의 하루는 얼마나 많은 '금지'의 말들로 둘러싸여 있습니까. 아침에 눈을 떠 아이에게 건네는 첫마디가 "뛰지 마", "흘리지 마"이고, 일터에서 동료나 후배에게 내미는 서류의 틈바구니에도 "이 규정을 넘어서는 안 됩니다", "이 방식은 틀렸습니다"라는 촘촘한 경계선이 그어집니다. 세상은 언제나 하지 말아야 할 것들의 목록으로 견고한 성벽을 쌓고, 우리는 그 성벽 안에서 넘어지지 않으려 종종걸음을 칩니다. 법전의 수많은 조문이 그러하고, 병원의 처방전에 적힌 빽빽한 주의사항들이 그러합니다. 하지 말라는 제동은 안전해 보이고 질서를 지켜주는 가장 빠른 길처럼 느껴집니다.</p>
+<p>사도 바울이 믿음의 아들 디모데를 에베소에 홀로 남겨두며 부탁했던 첫 번째 과제 역시 서슬 퍼런 금지였습니다. "어떤 사람들을 명하여 다른 교훈을 가르치지 말며, 신화와 끝없는 족보에 착념치 말게 하라." 혼탁한 사상과 헛된 말장난이 교회를 뒤흔들 때, 영적 지도자가 가장 먼저 해야 할 일은 제동을 거는 일이었습니다. 경계선을 긋고 벽을 세워 더러운 물이 흘러들지 못하게 막는 것, 그것이 바울이 디모데에게 맡긴 막중한 책임이었습니다. 그러나 바울은 금지의 목록을 나열하는 것으로 펜을 멈추지 않았습니다. 그는 곧바로 우리가 결코 예상치 못했던 놀라운 방향으로 시선을 돌려세웁니다. "경계의 목적은 사랑이다." 수많은 금지의 울타리를 세우던 바울의 손길이 가 닿은 종착점은, 메마른 규칙이 아닌 온기 가득한 '사랑'이었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">수많은 금지 뒤에 남겨진 단 하나의 종착점</h3>
+<p>바울이 '경계의 목적'이라 말할 때 사용한 헬라어 단어는 '텔로스(τέλος)'입니다. 텔로스는 단순히 시간이 흘러 다다르는 끝이나 일정표의 맨 마지막 칸을 의미하지 않습니다. 그것은 존재의 궁극적인 지향점이자, 모든 규율과 수고가 그곳을 향해 달려가야만 하는 참된 목적을 뜻합니다. 바울은 디모데에게 명령(παραγγελία)을 내리면서, 그 명령의 끝(τέλος)에 오직 단 하나의 단어, '아가페(ἀγάπη)'를 놓아두었습니다. 신기하게도 그 사랑이라는 단어 앞뒤에는 그 어떤 수식어도 붙어 있지 않습니다. 화려한 미사여구도, 까다로운 조건도 없이 오롯이 사랑 하나만이 우뚝 서 있습니다.</p>
+<p>음악을 만드는 화성학 교본을 펼쳐보면 하지 말아야 할 규칙들이 빼곡합니다. 연속 5도를 피하라, 증4도로 도약하지 마라. 규칙을 어기면 불협화음이 나고 음악의 질서가 깨진다고 엄격하게 경고합니다. 하지만 수많은 금지 규칙을 완벽하게 지켰다고 해서 그것이 곧 감동적인 음악이 되는 것은 아닙니다. 그 금지들이 궁극적으로 향하는 목적은 오직 하나, 흩어진 음들이 모여 온전한 으뜸화음으로 귀결되고, 그 소리가 누군가의 가슴을 울리는 노래가 되는 것입니다. 규칙은 노래를 위해 존재하지, 노래가 규칙을 위해 복무하지 않습니다. 몸이 아파 찾아간 의사가 건네는 처방전도 마찬가지입니다. 술을 끊어라, 담배를 피우지 마라, 짠 음식을 피하라는 엄격한 지침들은 그 자체로 생명이 아닙니다. 그 금지들은 상처가 스스로 아물 수 있는 자리를 마련해줄 뿐이며, 궁극적인 목적은 오직 환자의 온전한 회복과 생명에 닿아 있습니다.</p>
+<p>그러나 우리는 삶 속에서 얼마나 자주 이 '끝'을 잃어버립니까. 자녀를 향해, 배우자를 향해, 혹은 공동체의 지체들을 향해 수많은 "하지 마"를 쏟아내면서, 우리는 그 금지 조항들을 완벽하게 집행하는 재판관이 되어버리곤 합니다. "내가 말한 대로 했어, 안 했어?"를 따지는 차가운 눈빛 속에서, 원래 그 말을 시작했던 사랑의 목적은 산산조각이 나고 맙니다. 율법의 조문을 모두 지켰으나 결국 아무도 사랑하지 못했던 바리새인들의 비극이 바로 여기에 있었습니다. 바울은 명령과 끝을 한 줄기 호흡으로 묶어버림으로써 우리의 착각을 깨뜨립니다. 금지를 지켰는가가 중요한 것이 아니라, 그 금지가 마침내 사랑이라는 목적지에 닿았는가를 물어야 한다는 것입니다. 끝이 사랑이 아니라면, 우리가 아무리 정당한 원칙을 들이밀며 상대를 제압했을지라도 그 모든 것은 허무한 헛소리에 불과합니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">샘은 세 곳이나 길을 내는 동사는 없다</h3>
+<p>명령의 끝이 사랑이라면, 그 사랑은 도대체 어디에서 비롯되는 것일까요? 바울은 메마른 땅에서 솟구치는 세 개의 맑은 샘을 우리 앞에 펼쳐 보입니다. "청결한 마음과 선한 양심과 거짓이 없는 믿음." 전치사 '에크(ἐκ)'는 깊은 속에서부터 밖으로 흘러나오는 출처를 의미합니다. 사랑은 하늘에서 뚝 떨어지는 공허한 이상이 아니라, 깨끗해진 마음이라는 내면의 깊은 우물에서, 찔림을 부끄러워할 줄 아는 선한 양심의 물줄기에서, 그리고 꾸밈없이 하나님만을 바라보는 진실한 믿음의 토양에서 흘러넘쳐 이웃에게로 닿는 것입니다.</p>
+<p>그런데 이 구절을 원문의 눈으로 가만히 들여다보면 가슴이 철렁 내려앉는 침묵을 마주하게 됩니다. 바울은 사랑의 발원이 되는 세 개의 샘을 분명하게 적어놓았지만, 그 샘을 어떻게 파내고, 어떻게 채워야 하는지에 대한 '동사'를 단 하나도 적지 않았습니다. "마음을 청결하게 닦으라"거나, "선한 양심을 훈련하라", "거짓 없는 믿음을 소유하라"는 식의 실천 매뉴얼이 본문에는 철저하게 침묵 속에 잠겨 있습니다. 1장 5절의 문장을 지탱하는 동사는 오직 하나, "~이다(ἐστὶν)"라는 고요한 서술뿐입니다.</p>
+<p>우리는 늘 묻습니다. "그렇다면 내가 어떻게 해야 그 사랑을 할 수 있습니까? 어떤 기술을 배우고 얼마나 수양을 쌓아야 그 세 가지 샘물을 길어 올릴 수 있습니까?" 그러나 성경은 우리의 조급한 물음에 손쉬운 실천 조항을 던져주지 않습니다. 왜냐하면 인간의 자기 수양이나 도덕적 노력으로 그 샘을 인위적으로 파낼 수 없기 때문입니다. 만약 사랑이 내 노력의 결실이라면, 사랑은 또 하나의 율법적 성취가 되고 맙니다. "내가 이만큼 마음을 비웠고, 이만큼 양심을 지켰으니 나는 사랑할 자격이 있다"는 교만한 공로주의로 치닫게 되는 것입니다. 바울의 문법이 품고 있는 이 거룩한 침묵은, 사랑을 결코 인간의 종교적 업적이나 자기 훈련의 열매로 둔갑시키지 못하도록 막아서는 방파제입니다. 우리는 그 침묵 앞에서 우리의 무력함을 정직하게 시인할 수밖에 없습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">손바닥을 뒤집는 그 찰나의 침묵 속에서</h3>
+<p>조용히 눈을 감고 자신의 오른손을 들어 앞을 향해 세워보십시오. 손바닥을 바깥으로 향하게 세우는 동작, 그것은 누군가의 접근을 막아서는 "멈춰"의 손짓입니다. 내 삶을 침범하지 말라는 경계의 표시이자, 잘못된 길을 제지하는 금지의 몸짓입니다. 이 "멈춰"의 손짓은 건너편에 아무도 없어도, 벽을 향해서도 혼자서 얼마든지 할 수 있습니다. 차가운 원칙과 규칙은 이처럼 상대방과의 인격적인 마주침 없이도 얼마든지 휘두를 수 있는 무기입니다.</p>
+<p>이제 그 손을 천천히 돌려 손바닥이 하늘을 향하도록 펴고 앞으로 가만히 내밀어 보십시오. 무엇인가를 건네거나, 상대를 환대하며 맞이하는 손짓입니다. 놀랍게도 이 내민 손은 앞서 세웠던 손짓과 완전히 다릅니다. 이 손은 맞은편에 나의 손을 잡아줄 누군가가 서 있지 않으면 영원히 미완성으로 남겨집니다. 사랑은 홀로 고고하게 완결되는 덕목이 아니라, 반드시 타인을 향해 열려 있어야 하는 환대의 손짓이기 때문입니다. 더욱 놀라운 것은, 바울이 '사랑'이라는 말을 쓰면서 누구를 사랑해야 하는지 그 '목적어'를 적지 않았다는 사실입니다. 대상을 한정하지 않았다는 것은, 내가 사랑할 만한 자격이 있는 사람을 골라내어 사랑하고 마음에 들지 않는 자를 밀어내는 편협한 사랑을 성경이 허락하지 않는다는 뜻입니다.</p>
+<p>누군가에게 "그건 하지 마"라고 금지의 말을 뱉는 데 걸리는 시간은 고작 몇 초에 불과합니다. 그러나 그 찰나의 순간, 우리의 손바닥 뒤편에 숨어 있는 가슴은 어떤 상태였습니까? 분노와 짜증으로 굳어버린 마음이었습니까, 상대를 통제하려는 불안이었습니까, 아니면 상대를 진정으로 아끼는 온기였습니까? 손끝은 거짓 없는 믿음으로 평온했습니까, 아니면 내 주장을 관철하려는 욕망으로 떨리고 있었습니까? 끝은 모든 논쟁이 끝난 먼 훗날에 비로소 찾아오는 결과가 아니라, 우리가 첫마디를 뱉는 그 찰나의 몇 초 안에서 이미 우리의 인격을 달아보고 있습니다.</p>
+<p>굳어버린 가슴을 내 힘으로는 결코 녹일 수 없다는 사실을 깨달을 때, 우리는 비로소 성경의 가장 깊은 복음 앞으로 나아가게 됩니다. 에스겔 선지자를 통해 "내가 너희 속에 새 영을 두고 새 마음을 주어 너희 육신에서 굳은 마음을 제하고 부드러운 마음을 줄 것"이라 약속하셨던 하나님의 은혜 말입니다. 세 개의 샘은 내가 악착같이 파내어 자랑하는 트로피가 아니라, 십자가의 측량할 수 없는 사랑을 온몸으로 받아들인 자의 메마른 심령 속에서 하나님이 터뜨려주시는 생명수입니다. 오늘, 누군가를 향해 매섭게 치켜들었던 금지의 손바닥을 천천히 뒤집어 보십시오. 멈추라는 명령의 자리에서 손을 펴 하늘의 은혜를 구하고 이웃을 향해 다가설 때, 비로소 우리의 메마른 규칙은 누군가를 살리는 따스한 사랑의 노래로 다시 태어날 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      디모데전후서 제 01편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

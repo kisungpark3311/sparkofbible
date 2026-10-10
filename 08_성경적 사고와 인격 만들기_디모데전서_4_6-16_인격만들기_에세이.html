@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>내 손에서 내려놓아야 할 단 하나의 돌</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 디모데전후서 제 08편 &middot; 디모데전서 4:6-16</span>
+      <h1>내 손에서 내려놓아야 할 단 하나의 돌</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>세상이라는 무대에 서는 순간, 우리는 보이지 않는 수많은 짐을 양어깨에 짊어집니다. 특히 청년의 시절, 혹은 낯설고 새로운 자리에 첫발을 내디뎠을 때 우리를 가장 집요하게 짓누르는 것은 '남들이 나를 어떻게 바라볼까' 하는 은밀한 두려움입니다. 회의실에서 조심스럽게 의견을 냈을 때 공기 중으로 흩어지던 누군가의 짧은 실소, 첫 상담에서 앳된 얼굴을 마주하고 신뢰를 유보하던 상대방의 서늘한 눈빛 같은 것들 말입니다. 그 3초 남짓한 침묵의 순간 동안, 우리의 머릿속에는 수십 가지 번민과 방어기제가 번개처럼 스쳐 지나갑니다. "어떻게 해야 저 비웃음을 멈추게 할 수 있을까? 어떤 옷을 입고 어떤 목소리를 내야 나를 만만하게 보지 않을까?"</p>
+<p>그 무거운 마음을 안고 성경을 펼쳐 디모데전서 4장 12절을 마주할 때, 우리는 또 한 번 깊은 한숨을 내쉬곤 합니다. "누구든지 네 연소함을 업신여기지 못하게 하고..." 우리의 익숙한 번역 속에서 이 구절은 마치 "남들이 너를 얕보지 못하도록 빈틈없이 너 자신을 방어하고 증명하라"는 또 하나의 가혹한 처세의 훈계처럼 다가오기 때문입니다. 그렇지 않아도 감당하기 벅찬 일상의 무게 위에, '남의 시선과 평가까지 내가 통제해야 한다'는 무거운 바위 하나가 더 얹혀지는 순간입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">열두 짐을 그러안고 비틀거리던 손</h3>
+<p>디모데전서 4장 6절부터 16절까지를 원문으로 차분히 따라가다 보면 숨이 가빠질 만큼 빽빽한 명령의 물결을 만나게 됩니다. 사도 바울은 에베소 교회의 목회를 짊어진 젊은 동역자 디모데를 향해 망령된 신화를 버리라, 경건에 이르도록 네 자신을 연단하라, 이것들을 명하고 가르치라며 연이어 결단을 촉구합니다. 이 짧은 단락 안에서 명령법 동사는 무려 열두 번이나 솟구쳐 오릅니다.</p>
+<p>그런데 이 거센 명령의 급류 한가운데, 다섯 번째 자리에 아주 기이하고도 경이로운 문장 하나가 놓여 있습니다. 바로 12절 전반부의 "업신여기지 못하게 하고"(*καταφρονείτω*, 카타프로네이토)입니다. 놀랍게도 단락 전체의 열두 개 명령 중 열한 개는 모두 '너'를 향한 2인칭 단수 명령입니다. 성경은 굳이 '너'라는 주어를 문장에 적지 않았습니다. 헬라어 동사 어미 자체가 이미 "너 디모데야, 네가 이것을 행하라"며 디모데 한 사람을 똑바로 겨누고 있기 때문입니다. 그런데 오직 이 다섯 번째 명령에서만 문장 맨 앞에 독립된 명사 주어가 우뚝 솟아 있습니다. 바로 <em>μηδείς</em>(메데이스), 즉 "아무도"라는 주어입니다.</p>
+<p>이 문장의 진짜 주어는 디모데가 아니라 '아무도'입니다. 원문의 문법을 정직하게 직역하면 "아무도 너의 젊음을 업신여기지 말라"는 3인칭 명령입니다. 한국어 성경의 사역형 번역("~하지 못하게 하고")은 남의 생각을 통제해야 할 불가능한 책임을 디모데의 책상 위에 올려놓았지만, 원문은 정반대의 일을 행하고 있었습니다. 바울은 디모데가 결코 짊어질 수 없는 짐, 곧 '남이 나를 얕보지 않도록 만들어야 한다'는 방어 과제를 그의 손에서 깨끗하게 들어내어, 업신여길 가능성이 있는 '그 사람들'에게 되돌려주고 있었던 것입니다.</p>
+<p>쏟아지는 명령의 홍수 속에서 성경은 디모데를 짓누르지 않습니다. 오히려 명령이 본격적으로 시작되는 첫 머리에 평화로운 섬 하나를 띄워놓듯 속삭입니다. "디모데야, 시키는 말의 수와 네가 져야 할 몫의 수는 같지 않단다. 그 열두 개 중 하나는 애초에 네 짐이 아니었다."</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">남의 평가는 결코 나의 동사가 될 수 없다</h3>
+<p>타인이 나를 어떻게 바라보고 어떻게 평가할 것인가는 결코 '나의 동사'가 될 수 없습니다. 그것은 온전히 '남의 동사'입니다.</p>
+<p>세무와 회계의 세계를 들여다보면 이 지혜는 더욱 선명해집니다. 외부감사 제도에서 기업 경영진의 고유한 책임은 회계기준에 따라 재무제표를 공정하고 정직하게 '작성하는 일'에 있습니다. 그 장부를 들여다보고 적정인지 한정인지 감사의견을 '표명하는 일'은 독립된 감사인의 몫입니다. 건강하고 바른 기업은 감사의견을 관리하거나 조작하려 들지 않고, 오직 자신에게 맡겨진 장부를 진실하게 기록하는 데 전심을 다합니다. 만약 회사가 '적정의견을 받아내는 것' 자체를 자기 업무로 착각하는 순간, 숫자를 꿰맞추고 감사인에게 압력을 넣으려는 유혹과 왜곡이 싹트게 됩니다.</p>
+<p>운동장 위의 선수도 마찬가지입니다. 선수의 몫은 규칙 안에서 온 힘을 다해 달리는 것이지, 심판의 호각을 빼앗아 부는 것이 아닙니다. 무대 위의 연주자 역시 악보에 담긴 영혼을 정직하게 소리로 빚어낼 뿐, 다음 날 아침 신문에 실릴 평론가의 글귀를 대신 써줄 수는 없습니다.</p>
+<p>그런데 우리는 인생이라는 무대에서 얼마나 자주 '남의 동사'를 나의 숙제 목록 맨 위에 적어두고 밤잠을 설쳤습니까. "상사에게 무능해 보이지 않기", "고객에게 노련해 보이기", "동료들에게 결코 만만하게 보이지 않기"... 주어가 '남'으로 시작되는 문장을 내 목표로 삼는 순간, 우리의 내면은 가혹한 인정 투쟁과 끝없는 피로감, 그리고 타인의 눈치를 살피는 자기방어의 가시로 메말라가고 맙니다.</p>
+<p>성경은 디모데에게 젊음을 감추거나 억지로 늙은 체하라고 말하지 않습니다. 젊음은 부끄러워해야 할 허물이 아니며, 성경은 그의 나이를 탓하지 않습니다. 구약의 예레미야가 "주 여호와여, 보소서 나는 아이라 말할 줄을 알지 못하나이다"라고 탄식했을 때도, 하나님은 그의 나이를 바꾸어주신 것이 아니라 "너는 아이라고 말하지 말고, 내가 네게 명하는 것을 전하라"며 마땅히 걸어가야 할 소명의 자리를 열어주셨습니다. 나를 향한 세상의 시선은 그들의 몫으로 남겨두어야 합니다. 사도 바울이 고린도전서에서 담담하게 고백했듯, 나를 판단하시는 최종적인 법정은 사람의 눈도, 심지어 나 자신의 불안한 자아도 아닌, 오직 주님의 시선 아래에 있기 때문입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">남의 돌을 비워낸 자리에 들어 올리는 본</h3>
+<p>그렇다면 타인의 평가라는 무거운 돌을 내려놓은 빈손으로 우리는 무엇을 해야 합니까? 성경은 세상과의 단절이나 차가운 냉소로 숨어버리라고 말하지 않습니다. 바울은 12절의 3인칭 명령 바로 뒤에 단호한 역접 접속사 <em>ἀλλά</em>(알라, '오히려, 그러나')를 세우고, 디모데의 손에 진짜 그의 몫인 2인칭 명령 하나를 건넵니다. 바로 <em>τύπος γίνου</em>(튀포스 기누), "오히려 믿는 자에게 본이 되라!"는 말씀입니다.</p>
+<p>작은 조약돌 열두 개를 두 손 가득 움켜쥐어 보십시오. 손가락 틈새로 돌이 빠져나갈까 두려워 온몸에 잔뜩 힘이 들어가고 주먹은 하얗게 질립니다. 열두 개를 모조리 쥐고 있는 손으로는 그 어떤 새로운 것도 집어 올릴 수 없습니다. 하지만 그중 "아무도"라고 적힌 돌 하나를 내 손에서 풀어내어 상대방의 자리로 조용히 내려놓을 때, 비로소 경직되었던 손바닥이 부드럽게 펼쳐집니다.</p>
+<p>그리고 손이 비워진 바로 그 순간, 가슴 높이로 환하게 들어 올릴 수 있는 돌 하나가 눈앞에 선명히 드러납니다. 그것이 바로 <em>τύπος</em>(본)입니다. '본'이라는 낱말은 도장을 찍었을 때 새겨지는 뚜렷한 흔적을 뜻합니다. 남에게 그럴듯하게 보이기 위해 꾸며내는 인위적인 가면이 아니라, 하나님을 경외하는 중심에서 우러나와 삶의 자리에 정직하게 찍혀 나가는 거룩한 궤적입니다.</p>
+<p>말과 행실과 사랑과 믿음과 정절. 바울이 젊은 지도자에게 당부한 것은 사람들의 코를 납작하게 만들 현란한 처세술이 아니었습니다. 일상의 가장 평범하고도 본질적인 다섯 가지 자리에서 묵묵히 살아내는 인격의 진실함이었습니다. 여기서 우리는 결코 놓쳐서는 안 될 복음의 비밀을 발견합니다. 성경에서 '본이 되는 것'은 경멸을 막아내기 위한 '방패'나 '도구'가 아닙니다. 내가 진실하게 산다고 해서 세상의 모든 오해와 멸시가 단번에 사라진다는 보장도 없습니다. 본문 속의 '오히려'는 '그러므로 얕보이지 않을 것이다'라는 인과응보의 약속이 아닙니다. 그러나 결과에 대한 통제권을 하나님께 온전히 내어맡긴 사람만이, 사람들의 박수나 비난에 일희일비하지 않고 묵묵히 사랑하고 끝까지 믿으며 순결을 지켜낼 수 있습니다.</p>
+<p>오늘 당신의 손을 무겁게 짓누르고 있는 '남의 돌'은 무엇입니까? 오늘 하루의 계획표에서 '남의 동사'로 쓰인 불안한 문장들을 지워내 보십시오. "고객에게 신뢰받기" 대신 "정직한 근거를 성실히 준비하기"를 적고, "상대방의 마음을 조종하기" 대신 "내 말과 태도에 온유함을 담기"를 적어 넣으십시오.</p>
+<p>내 몫이 아닌 짐을 정직하게 내려놓을 때, 우리는 비로소 진정한 자유를 얻습니다. 비워진 그 손으로 하나님이 맡기신 진짜 나의 소명을 높이 들어 올릴 때, 메마른 세상 속에서 그리스도의 향기를 풍기는 아름답고 견고한 인격의 열매가 조용히 영글어 갈 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      디모데전후서 제 08편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

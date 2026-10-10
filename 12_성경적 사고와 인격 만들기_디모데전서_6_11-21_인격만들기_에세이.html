@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>흔들리는 손으로도 온전한 사랑을 건넬 수 있는 이유</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 디모데전후서 제 12편 &middot; 디모데전서 6:11-21</span>
+      <h1>흔들리는 손으로도 온전한 사랑을 건넬 수 있는 이유</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>
+    우리는 살아가며 문득 자신의 초라함 앞에 멈춰 서곤 합니다. 거룩한 소명이나 누군가를 돌보는 사명 앞에 설 때마다, 가슴 밑바닥에서 차가운 자책의 목소리가 피어오릅니다. "나 같은 사람이 어떻게 이 일을 감당하겠는가", "내 삶에도 이토록 수많은 흠과 상처가 가득한데, 내가 어찌 누군가에게 진리를 말하고 사랑을 건넬 수 있단 말인가."
+  </p>
+<p>
+    과거의 부끄러운 실패, 들쭉날쭉한 평판, 스스로도 용납하기 힘든 모난 성품을 마주할 때마다 우리는 슬그머니 쥐고 있던 손을 풀어버립니다. 자녀에게 건네려던 신앙의 권면을 삼키고, 이웃을 향해 내밀려던 따뜻한 섬김의 손길을 거두며, 공동체 안에서 맡았던 귀한 책임을 내려놓습니다. 성경 디모데전서 6장 14절의 "우리 주 예수 그리스도 나타나실 때까지 점도 없고 책망 받을 것도 없이 이 명령을 지키라"는 구절을 읽을 때도 마찬가지입니다. 우리는 이 말씀을 마치 통과하기 불가능한 냉혹한 자격 시험처럼 받아들입니다. '점도 없고 책망받을 것도 없는 무결한 인간만이 이 명령을 지킬 자격이 있구나'라고 생각하며 스스로 뒷걸음질 치는 것입니다.
+  </p>
+<p>
+    하지만 성경의 문장을 한 글자 한 글자 숨을 죽이고 깊이 들여다보면, 그 안에 숨겨진 하나님의 놀랍도록 다정한 시선을 발견하게 됩니다. 바울이 영적 아들 디모데에게 건넨 헬라어 원문의 어순은 우리의 오랜 통념을 조용히 뒤흔듭니다. '지키는 사람'인 디모데는 문장 앞머리에 서 있고, '점 없는'과 '책망 받을 것 없는'이라는 수식어는 사람이 아니라 바로 그가 손에 쥔 '명령' 바로 뒤에 바짝 붙어 있습니다. 흠 없이 보존되어야 할 과녁은 지키는 사람의 화려한 이력이 아니라, 그 사람의 손을 거쳐 흘러가는 '명령의 온전함'이었던 것입니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">찰랑이는 물그릇을 든 사람의 시선</h3>
+<p>
+    이 거룩한 역설을 이해하기 위해, 가장자리 끝까지 찰랑찰랑 물이 차오른 그릇을 두 손으로 받쳐 들고 걷는 한 사람을 상상해 보십시오. 방 저편까지 조심스레 걸어가는 동안, 그 사람의 시선은 과연 어디를 향하고 있겠습니까? 
+  </p>
+<p>
+    그의 두 눈은 오로지 잔잔한 수면에 고정되어 있습니다. 지금 내 걸음걸이가 남들에게 얼마나 우아하게 보일지, 내 옷매무새가 흐트러지지는 않았는지, 주변 사람들이 나를 어떻게 평가할지는 머릿속에서 깨끗이 지워집니다. 만약 걷는 도중에 '내가 지금 얼마나 멋지게 걷고 있는가'라며 자신을 의식하는 순간, 손끝은 미세하게 떨리고 물그릇은 사정없이 출렁이며 소중한 물을 바닥에 쏟아버리고 말 것입니다.
+  </p>
+<p>
+    오직 손에 든 물이 넘치지 않게 하는 데 마음을 다할 때, 사람은 비로소 무거운 자의식의 감옥에서 벗어납니다. 무릎은 저절로 부드러워지고, 걸음은 한없이 낮고 겸손해집니다. 내 발에 묻은 먼지와 내 걸음의 서투름에 매몰되지 않고, 손에 받쳐 든 물그릇의 수면을 바라보는 것—이것이 바로 성경이 말하는 '흠 없음'의 신비입니다. 하나님은 우리에게 티끌 하나 없는 완벽한 보행자가 되라고 요구하지 않으셨습니다. 다만 우리 손에 건네주신 생명의 물 한 모금이 세상의 오염과 욕심에 물들지 않은 채 온전히 보존되기만을 바라실 뿐입니다. 역설적이게도 나 자신의 흠결을 잊고 그분의 말씀에 시선을 둘 때, 우리는 비로소 온전한 걸음을 걷게 됩니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">보관자의 경력보다 소중한 말씀의 원본성</h3>
+<p>
+    우리가 살아가는 세상에서도 가장 소중한 가치는 맡은 사람의 명성이 아니라, 맡겨진 대상의 '원본성'으로 증명됩니다. 법정에 제출되는 결정적인 증거물을 다룰 때, 사람들은 증거물 보관 수사관의 화려한 스펙이나 개인적인 평판을 따지지 않습니다. 중요한 것은 오직 단 하나, 그 상자의 봉인이 사건 당일의 상태 그대로 온전하게 보존되었는가 하는 것입니다. 아무리 명망 높은 수사관이라 해도 봉인을 훼손했다면 그 증거는 무효가 되지만, 지극히 평범한 초임 수사관이라 할지라도 처음의 봉인을 손상 없이 지켜냈다면 그 증거는 법정에서 강력한 힘을 발휘합니다.
+  </p>
+<p>
+    사도 바울은 고린도후서 4장 7절에서 "우리가 이 보배를 질그릇에 가졌으니 이는 심히 큰 능력은 하나님께 있고 우리에게 있지 아니함을 알게 하려 함이라"고 고백했습니다. 우리는 모두 깨지기 쉽고, 여기저기 금이 가 있으며, 볼품없이 투박한 질그릇에 불과합니다. 그러나 그 질그릇에 금이 갔다고 해서 그 안에 담긴 찬란한 복음의 광채가 바래는 것은 결코 아닙니다. 
+  </p>
+<p>
+    오히려 비극은 그릇이 스스로를 금그릇이라 착각하며 자신의 아름다움을 과시하느라, 정작 그 안에 담긴 생명의 보배를 왜곡하고 쏟아버릴 때 일어납니다. 복음을 전하고 진리를 지키는 일에서 가장 경계해야 할 것은 내 부족함이 아니라, 나의 똑똑함으로 말씀에 무언가를 덧붙이거나 나의 편의를 위해 말씀의 본질을 깎아내는 일입니다. "내 손을 거쳐 가는 동안 복음의 원형이 손상되지 않았는가?" 이 정직한 물음 앞에 설 때, 우리는 비로소 내 이력의 흠결을 변명 삼아 도망치지도 않고, 내 경력을 내세워 교만해지지도 않는 거룩한 청지기로 빚어집니다.
+  </p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">나의 생애를 넘어 영원으로 이어지는 은혜</h3>
+<p>
+    성경이 제시하는 이 지킴의 시간표는 한 인간의 짧은 생애보다 훨씬 더 아득하고 깁니다. 본문은 그 기한을 '내가 은퇴할 때까지'나 '내 목숨이 다할 때까지'로 한정하지 않고, "우리 주 예수 그리스도 나타나실 때까지"라고 선언합니다. 그 약속된 기한은 시대를 가로질러 주님이 다시 오시는 영광스러운 날까지 뻗어 있습니다.
+  </p>
+<p>
+    만약 '흠 없음'의 기준이 한 사람의 완벽한 인격과 조건에 매여 있었다면, 그 사람이 연약하여 쓰러지거나 생을 마감하는 순간 복음의 역사도 멈추어 섰을 것입니다. 그러나 흠 없음의 과녁이 사람이 아니라 '명령'에 닿아 있기에, 진리는 한 사람의 한계를 훌쩍 뛰어넘어 다음 세대로 이어질 수 있었습니다. 바울에게서 디모데로, 디모데에게서 에베소 교회의 성도들로, 그리고 수많은 무명의 질그릇들을 거쳐 마침내 오늘 흔들리는 우리의 손에까지 이 거룩한 바통이 건네진 것입니다. 그러므로 과녁이 사람에게서 명령으로 옮겨진 것은 우리의 나태함을 방조하기 위한 기준의 완화가 아니라, 진리가 세대를 넘어 영원히 흘러가게 하시는 하나님의 영원한 보존 섭리입니다.
+  </p>
+<p>
+    그렇다고 해서 이것이 우리 자신의 삶을 함부로 내팽개쳐도 된다는 뜻은 결코 아닙니다. 바울은 바로 앞선 구절에서 "오직 너 하나님의 사람아 이것들을 피하고 의와 경건과 믿음과 사랑과 인내와 온유를 따르며 믿음의 선한 싸움을 싸우라"고 준엄하게 촉구합니다. 내 부족함 때문에 사명의 자리를 포기해서도 안 되지만, 은혜를 핑계 삼아 삶의 거룩한 분투를 게을리해서도 안 됩니다. 우리는 날마다 나의 옛 성품과 싸우는 치열한 성화의 길을 걸어가면서도, 동시에 내 손에 쥐여주신 복음의 원본성을 조금도 흐리지 않고 다음 손으로 넘겨주어야 하는 거룩한 이중의 부르심을 받은 사람들입니다.
+  </p>
+<p>
+    혹시 과거의 뼈아픈 실수나 마음의 상처 때문에 "나 같은 사람이 어떻게..."라며 슬그머니 내려놓았던 기도의 자리, 가정에서의 사랑의 섬김, 누군가를 향한 위로의 손길이 있습니까? 이제 자책의 시선을 거두고, 하나님께서 당신의 떨리는 손에 쥐여주신 한없는 긍휼과 사랑의 말씀을 바라보십시오. 금이 가고 투박한 질그릇 같은 손일지라도 괜찮습니다. 온전한 진리를 품고 조심스레 발걸음을 옮기는 당신의 흔들리는 손을 통해, 하나님의 완전한 사랑은 오늘도 메마른 세상 한가운데로 변함없이 흘러가고 있습니다.
+  </p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      디모데전후서 제 12편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
