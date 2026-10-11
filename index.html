@@ -297,9 +297,216 @@
             }
         }
 
+    
+        /* ==========================================
+           좌측 목차 (Sidebar Table of Contents)
+           ========================================== */
+        .toc-toggle-btn {
+            position: fixed;
+            bottom: 28px;
+            left: 28px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--title-color);
+            border-radius: 25px;
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.25s ease;
+        }
+
+        .toc-toggle-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.16);
+        }
+
+        .sidebar-toc {
+            position: fixed;
+            top: 40px;
+            left: max(16px, calc(50vw - 300px - 260px));
+            width: 236px;
+            max-height: calc(100vh - 80px);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+        }
+
+        .toc-header {
+            padding: 14px 16px 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toc-header-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--title-color);
+        }
+
+        .toc-close-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
+        }
+
+        .toc-close-btn:hover {
+            color: var(--text-color);
+        }
+
+        .toc-nav {
+            padding: 10px 8px;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border-color) transparent;
+        }
+
+        .toc-nav::-webkit-scrollbar {
+            width: 5px;
+        }
+        .toc-nav::-webkit-scrollbar-thumb {
+            background-color: var(--border-color);
+            border-radius: 10px;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 8px 10px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-radius: 8px;
+            border-left: 3px solid transparent;
+            line-height: 1.35;
+            transition: all 0.15s ease;
+            white-space: normal;
+            word-break: keep-all;
+        }
+
+        .toc-link:hover {
+            background-color: rgba(0, 0, 0, 0.03);
+            color: var(--accent-color);
+        }
+
+        .toc-link.active {
+            background-color: rgba(59, 130, 246, 0.08);
+            color: var(--accent-color);
+            border-left-color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .toc-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* 1160px 미만에서는 모바일/태블릿 드로어 모드로 전환 */
+        @media (max-width: 1159px) {
+            .sidebar-toc {
+                top: 0;
+                left: 0;
+                height: 100vh;
+                max-height: 100vh;
+                width: 280px;
+                border-radius: 0;
+                transform: translateX(-100%);
+                z-index: 10001;
+                box-shadow: 4px 0 25px rgba(0, 0, 0, 0.2);
+            }
+
+            .sidebar-toc.open {
+                transform: translateX(0);
+            }
+
+            .toc-close-btn {
+                display: block;
+            }
+
+            .toc-backdrop.open {
+                display: block;
+                opacity: 1;
+            }
+
+            .toc-toggle-btn {
+                display: flex;
+            }
+        }
+
+        /* 1160px 이상 데스크탑에서는 상시 노출 및 토글 버튼 숨김 */
+        @media (min-width: 1160px) {
+            .sidebar-toc {
+                transform: none !important;
+                display: flex !important;
+            }
+            .toc-toggle-btn {
+                display: none !important;
+            }
+            .toc-close-btn {
+                display: none !important;
+            }
+            .toc-backdrop {
+                display: none !important;
+            }
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- 좌측 목차 사이드바 -->
+    <div class="toc-backdrop" id="tocBackdrop"></div>
+    <aside class="sidebar-toc" id="sidebarToc" aria-label="빠른 목차">
+        <div class="toc-header">
+            <div class="toc-header-title">
+                <span>📖</span>
+                <span>목차 바로가기</span>
+            </div>
+            <button type="button" class="toc-close-btn" id="tocCloseBtn" title="목차 닫기">&times;</button>
+        </div>
+        <nav class="toc-nav" id="tocNav"></nav>
+    </aside>
+
+    <!-- 모바일/태블릿용 목차 토글 버튼 (화면 좌측 하단) -->
+    <button type="button" class="toc-toggle-btn" id="tocToggleBtn" title="목차 열기" aria-label="목차 열기">
+        <span>📖</span>
+        <span>목차</span>
+    </button>
+
 <div class="container">
 <div class="header">
 <h1>성경적 사고와 인격 만들기</h1>
@@ -1363,6 +1570,125 @@
                     }
                 }
             });
+        })();
+
+
+        // ==========================================
+        // 좌측 빠른 목차 (Sidebar TOC)
+        // ==========================================
+        (function() {
+            const sidebarToc = document.getElementById('sidebarToc');
+            const tocNav = document.getElementById('tocNav');
+            const tocToggleBtn = document.getElementById('tocToggleBtn');
+            const tocCloseBtn = document.getElementById('tocCloseBtn');
+            const tocBackdrop = document.getElementById('tocBackdrop');
+
+            if (!tocNav) return;
+
+            // 1. 모든 section-title을 수집하여 목차 링크 생성
+            const sections = document.querySelectorAll('.section-title');
+            const tocLinks = [];
+
+            sections.forEach((sec, idx) => {
+                const secId = sec.id || `sec-${idx}`;
+                sec.id = secId;
+                sec.style.scrollMarginTop = '30px';
+
+                const rawTitle = (sec.textContent || '').trim();
+                if (!rawTitle) return;
+
+                const link = document.createElement('a');
+                link.href = `#${secId}`;
+                link.className = 'toc-link';
+                link.textContent = rawTitle;
+                link.dataset.targetId = secId;
+
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    closeMobileDrawer();
+                });
+
+                tocNav.appendChild(link);
+                tocLinks.push({ link, section: sec });
+            });
+
+            // 2. 모바일 드로어 열기/닫기
+            function openMobileDrawer() {
+                sidebarToc.classList.add('open');
+                tocBackdrop.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMobileDrawer() {
+                sidebarToc.classList.remove('open');
+                tocBackdrop.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            if (tocToggleBtn) {
+                tocToggleBtn.addEventListener('click', openMobileDrawer);
+            }
+            if (tocCloseBtn) {
+                tocCloseBtn.addEventListener('click', closeMobileDrawer);
+            }
+            if (tocBackdrop) {
+                tocBackdrop.addEventListener('click', closeMobileDrawer);
+            }
+
+            // 3. 스크롤 스파이 (ScrollSpy)
+            function updateActiveLink() {
+                const scrollPos = window.scrollY + 120;
+                let currentSecId = null;
+
+                for (let i = 0; i < tocLinks.length; i++) {
+                    const sec = tocLinks[i].section;
+                    if (sec.style.display === 'none' || sec.offsetParent === null) continue;
+
+                    const top = sec.offsetTop;
+                    if (scrollPos >= top) {
+                        currentSecId = sec.id;
+                    }
+                }
+
+                tocLinks.forEach(({ link, section }) => {
+                    // 검색 필터링 동기화
+                    if (section.style.display === 'none') {
+                        link.style.display = 'none';
+                    } else {
+                        link.style.display = '';
+                    }
+
+                    if (currentSecId && link.dataset.targetId === currentSecId) {
+                        link.classList.add('active');
+                        const navRect = tocNav.getBoundingClientRect();
+                        const linkRect = link.getBoundingClientRect();
+                        if (linkRect.top < navRect.top || linkRect.bottom > navRect.bottom) {
+                            link.scrollIntoView({ block: 'nearest' });
+                        }
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveLink, { passive: true });
+            
+            // 검색 이벤트와 연동
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', () => setTimeout(updateActiveLink, 50));
+            }
+            const searchClearBtn = document.getElementById('searchClearBtn');
+            if (searchClearBtn) {
+                searchClearBtn.addEventListener('click', () => setTimeout(updateActiveLink, 50));
+            }
+            const searchResetBtn = document.getElementById('searchResetBtn');
+            if (searchResetBtn) {
+                searchResetBtn.addEventListener('click', () => setTimeout(updateActiveLink, 50));
+            }
+
+            setTimeout(updateActiveLink, 100);
         })();
 
 </script>
