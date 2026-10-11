@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>갈라디아서 해설서 목차</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">갈라디아서 해설서 &middot; 전체 목차</span>
+      <h1>갈라디아서 해설서 목차</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <h1>00_갈라디아서_해설서목차</h1>
+<h2>문서이력관리</h2>
+<table>
+<thead>
+<tr>
+<th>버전</th>
+<th>날짜</th>
+<th>변경 내용</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1.0</td>
+<td>2026-10-03</td>
+<td>최초 작성. 총론 1편 + 본문 해설 14편의 목차를 엮었다.</td>
+</tr>
+</tbody>
+</table>
+<h2>이 해설서는 무엇인가</h2>
+<p>갈라디아서 전체(149절)를 <strong>14단락으로 나누어 평신도가 읽을 수 있게 쓴 해설서</strong>다. 앞에 총론 한 편을 두어 이 책을 읽는 법을 먼저 다룬다.</p>
+<p>각 편은 일곱 절로 되어 있다.</p>
+<table>
+<thead>
+<tr>
+<th>절</th>
+<th>하는 일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>이 단락이 서 있는 자리</td>
+<td>앞뒤 흐름에서 이 단락이 어디에 놓였는지</td>
+</tr>
+<tr>
+<td>본문을 따라 걷기</td>
+<td>본체. 본문의 순서를 따라 연속 산문으로 읽는다</td>
+</tr>
+<tr>
+<td>눈여겨볼 낱말</td>
+<td>원어 낱말 세~다섯 개를 음역과 함께</td>
+</tr>
+<tr>
+<td>이 본문이 말하는 것</td>
+<td>본문이 실제로 말한 것</td>
+</tr>
+<tr>
+<td>이 본문이 말하지 않는 것</td>
+<td>본문이 정해 주지 않은 것 (판정을 미루는 자리)</td>
+</tr>
+<tr>
+<td>오늘 우리에게</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>함께 생각할 질문</td>
+<td>다섯 개</td>
+</tr>
+</tbody>
+</table>
+<h3>읽는 법 세 가지</h3>
+<ol>
+<li><strong>「말하지 않는 것」을 건너뛰지 말 것.</strong> 성경이 정해 주지 않은 자리를 정해진 것처럼 읽는 데서 대부분의 오독이 나온다.</li>
+<li><strong>원어는 참고다.</strong> 「눈여겨볼 낱말」을 몰라도 본문은 읽힌다. 다만 그 낱말을 보면 번역에서 가려진 것이 보인다.</li>
+<li><strong>단락 경계가 장 경계와 다르다.</strong> 이 해설서는 장이 아니라 의미 단락으로 끊었기 때문에, 한 편이 두 장에 걸치는 곳이 있다.</li>
+</ol>
+<h2>총론</h2>
+<ul>
+<li><strong><a href="./00_해설서_총론_갈라디아서을읽는법.html">총론 — 날이 선 편지를 끝까지 따라 읽기 위하여</a></strong> — 갈라디아서를 읽는 법</li>
+</ul>
+<h2>본문 해설 14편</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">#</th>
+<th>본문</th>
+<th>제목</th>
+<th>파일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td>1:1-10</td>
+<td>저주 목록의 첫 줄에 적힌 이름 — 떠나는 것은 교리가 아니라 사람입니다</td>
+<td><a href="./01_해설서_갈라디아서_1_1-10.html">01_해설서_갈라디아서_1_1-10</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>1:11-24</td>
+<td>감추지 않고 셈한 자전 — 두 번 다 주어가 아니었던 사람</td>
+<td><a href="./02_해설서_갈라디아서_1_11-24.html">02_해설서_갈라디아서_1_11-24</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>2:1-10</td>
+<td>더하여 준 것이 없고, 다만 하나 — 강요당하지 않은 사람과 맞잡은 손</td>
+<td><a href="./03_해설서_갈라디아서_2_1-10.html">03_해설서_갈라디아서_2_1-10</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>2:11-21</td>
+<td>함께 먹던 식탁에서 함께 못 박히는 십자가로 — 안디옥의 대면과 「의롭다 하심」</td>
+<td><a href="./04_해설서_갈라디아서_2_11-21.html">04_해설서_갈라디아서_2_11-21</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>3:1-5</td>
+<td>마침은 우리 몫이 아니었다 — 눈앞에 걸린 십자가 앞에서 묻는 물음</td>
+<td><a href="./05_해설서_갈라디아서_3_1-5.html">05_해설서_갈라디아서_3_1-5</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>3:6-14</td>
+<td>저주가 되신 분 — 같은 낱말이 두 번 나오는 자리</td>
+<td><a href="./06_해설서_갈라디아서_3_6-14.html">06_해설서_갈라디아서_3_6-14</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td>3:15-25</td>
+<td>그러면 율법은 무엇이냐 — 기한이 적힌 직무</td>
+<td><a href="./07_해설서_갈라디아서_3_15-25.html">07_해설서_갈라디아서_3_15-25</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td>3:26-4:7</td>
+<td>이제는 네가 종이 아니다 — 세 줄의 문장과 두 번의 보내심</td>
+<td><a href="./08_해설서_갈라디아서_3_26-4_7.html">08_해설서_갈라디아서_3_26-4_7</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">9</td>
+<td>4:8-20</td>
+<td>나처럼 되라 — 나도 너희처럼 되었으므로</td>
+<td><a href="./09_해설서_갈라디아서_4_8-20.html">09_해설서_갈라디아서_4_8-20</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td>4:21-31</td>
+<td>우리는 여종의 자녀가 아니요 — 이름이 있던 자리에 신분이 왔다</td>
+<td><a href="./10_해설서_갈라디아서_4_21-31.html">10_해설서_갈라디아서_4_21-31</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">11</td>
+<td>5:1-12</td>
+<td>굳건하게 서서 — 그 자리를 놓으면 「없음」이 아니라 「전체」가 옵니다</td>
+<td><a href="./11_해설서_갈라디아서_5_1-12.html">11_해설서_갈라디아서_5_1-12</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td>5:13-26</td>
+<td>그리스도의 사람들 — 이름은 소속에서 오고, 동사는 사람에게 남는다</td>
+<td><a href="./12_해설서_갈라디아서_5_13-26.html">12_해설서_갈라디아서_5_13-26</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">13</td>
+<td>6:1-10</td>
+<td>서로 지라, 각각 지리라 — 그리스도의 이름이 붙은 법</td>
+<td><a href="./13_해설서_갈라디아서_6_1-10.html">13_해설서_갈라디아서_6_1-10</a></td>
+</tr>
+<tr>
+<td style="text-align: right;">14</td>
+<td>6:11-18</td>
+<td>누구의 몸인가 — 바울이 제 손으로 닫는 편지</td>
+<td><a href="./14_해설서_갈라디아서_6_11-18.html">14_해설서_갈라디아서_6_11-18</a></td>
+</tr>
+</tbody>
+</table>
+<h2>분량</h2>
+<ul>
+<li>전체 <strong>15편 · 213,416자</strong></li>
+<li>본문 해설 한 편당 <strong>13,325~14,762자</strong> (중간값 14,145자)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      전체 목차
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
