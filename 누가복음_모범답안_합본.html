@@ -3,215 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>누가복음 해설서 모범답안 합본</title>
+    <title>누가복음 해설서 모범답안 합본 | 박기성</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         @font-face {
             font-family: 'KoPubWorld Batang';
-            src: url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Medium.ttf') format('truetype');
             font-weight: 500;
+            src: local('KoPubWorldBatang Medium'),
+                 local('KoPubWorld Batang Medium'),
+                 url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Medium.ttf') format('truetype'),
+                 url('https://cdn.jsdelivr.net/gh/fontbit/kopubworld-batang/KoPubWorldBatang-Medium.woff2') format('woff2');
         }
         @font-face {
             font-family: 'KoPubWorld Batang';
-            src: url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Bold.ttf') format('truetype');
             font-weight: 700;
+            src: local('KoPubWorldBatang Bold'),
+                 local('KoPubWorld Batang Bold'),
+                 url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Bold.ttf') format('truetype'),
+                 url('https://cdn.jsdelivr.net/gh/fontbit/kopubworld-batang/KoPubWorldBatang-Bold.woff2') format('woff2');
         }
+        
         :root {
             --bg-color: #f8fafc;
-            --text-color: #1e293b;
             --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --primary-color: #0369a1;
-            --primary-light: #f0f9ff;
-            --highlight-bg: #fef9c3;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --primary: #0369a1;
+            --accent: #0284c7;
+            --border: #e2e8f0;
+            --highlight: #fef9c3;
+            --highlight-border: #fef08a;
+            --font-size: 16.5px;
+            --line-height: 1.85;
         }
+        
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --accent: #0ea5e9;
+            --border: #334155;
+            --highlight: #854d0e;
+            --highlight-border: #a16207;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
-            font-family: 'KoPubWorld Batang', serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.8;
-            margin: 0;
-            padding: 0;
-            font-size: 17px;
-        }
-        .layout {
+            font-family: 'KoPubWorld Batang', serif;
+            font-size: var(--font-size);
+            line-height: var(--line-height);
             display: flex;
             min-height: 100vh;
+            word-break: keep-all;
+            transition: background-color 0.2s, color 0.2s;
         }
-        .sidebar {
+        
+        #sidebar {
             width: 320px;
-            background: #ffffff;
-            border-right: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            height: 100vh;
             position: fixed;
             top: 0;
-            bottom: 0;
             left: 0;
             overflow-y: auto;
-            padding: 24px 16px;
-            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
             z-index: 100;
+            transition: transform 0.3s;
         }
+        
         .sidebar-header {
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid var(--primary-light);
+            padding: 24px 20px 16px;
+            border-bottom: 1px solid var(--border);
         }
+        
         .sidebar-header h2 {
-            font-size: 20px;
-            color: var(--primary-color);
-            margin: 0 0 8px 0;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.15rem;
+            color: var(--primary);
+            margin-bottom: 6px;
             font-weight: 700;
         }
+        
         .sidebar-header p {
-            font-size: 13px;
-            color: #64748b;
-            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'Pretendard', sans-serif;
         }
+        
         .search-box {
-            margin-bottom: 16px;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
         }
-        .search-input {
+        
+        .search-box input {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 14px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-        .toc-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .toc-list li {
-            margin-bottom: 4px;
-        }
-        .toc-list a {
-            display: block;
             padding: 8px 12px;
-            color: #334155;
-            text-decoration: none;
             border-radius: 6px;
-            font-size: 14px;
-            transition: all 0.2s;
+            border: 1px solid var(--border);
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.9rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
         }
-        .toc-list a:hover, .toc-list a.active {
-            background: var(--primary-light);
-            color: var(--primary-color);
-            font-weight: 700;
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 12px 10px;
+            overflow-y: auto;
+            flex: 1;
         }
-        .content-area {
+        
+        .sidebar-menu li a {
+            display: block;
+            padding: 9px 12px;
+            border-radius: 6px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            transition: background 0.15s;
+        }
+        
+        .sidebar-menu li a:hover,
+        .sidebar-menu li a.active {
+            background: var(--border);
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        #main-container {
             margin-left: 320px;
             flex: 1;
-            padding: 40px 60px;
-            max-width: 900px;
-        }
-        .doc-header {
-            background: #ffffff;
-            padding: 32px 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 32px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .doc-header h1 {
-            font-size: 28px;
-            color: #0f172a;
-            margin: 0 0 12px 0;
-            font-weight: 700;
-        }
-        .doc-header .meta {
-            font-size: 15px;
-            color: #64748b;
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        .answer-card {
+        
+        .top-bar {
+            position: sticky;
+            top: 0;
             background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            padding: 36px 40px;
-            margin-bottom: 36px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-        }
-        .card-header {
+            border-bottom: 1px solid var(--border);
+            padding: 12px 28px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
+            justify-content: space-between;
+            z-index: 90;
         }
-        .badge {
-            background: var(--primary-color);
-            color: #ffffff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 14px;
+        
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        
+        .top-bar-left button#menu-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+        
+        .top-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.05rem;
             font-weight: 700;
+            color: var(--primary);
         }
-        .badge-sub {
-            font-size: 14px;
-            color: #64748b;
+        
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .card-body h2 {
+        
+        .btn-ctrl {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.15s;
+        }
+        
+        .btn-ctrl:hover {
+            background: var(--border);
+        }
+        
+        .content-area {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            width: 100%;
+        }
+        
+        .book-page {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 44px 48px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            margin-bottom: 30px;
+        }
+        
+        .book-page.active {
+            display: block;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chapter-running-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            font-family: 'KoPubWorld Batang', serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .book-page h2 {
             display: none;
         }
-        .card-body h3 {
-            font-size: 18px;
-            color: #1e3a8a;
-            margin: 28px 0 12px 0;
-            padding-left: 12px;
-            border-left: 4px solid var(--primary-color);
+        
+        .book-page h3 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 28px;
+            margin-bottom: 12px;
+            padding-left: 10px;
+            border-left: 4px solid var(--primary);
+            line-height: 1.45;
         }
-        .card-body p {
-            margin: 12px 0;
+        
+        .book-page p {
+            margin-bottom: 14px;
             text-align: justify;
         }
-        .card-body strong, .card-body b {
+        
+        .book-page strong, .book-page b {
+            font-family: 'KoPubWorld Batang', serif;
             font-weight: 700;
-            background-color: var(--highlight-bg);
-            padding: 1px 4px;
-            border-radius: 3px;
+            background-color: var(--highlight);
+            padding: 0 3px;
+            border-radius: 2px;
+            color: inherit;
         }
+        
+        [data-theme="dark"] .book-page strong, [data-theme="dark"] .book-page b {
+            color: #fef08a;
+        }
+        
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: 0.15s;
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
         @media (max-width: 900px) {
-            .layout { flex-direction: column; }
-            .sidebar { width: 100%; position: relative; height: auto; }
-            .content-area { margin-left: 0; padding: 20px; }
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            #sidebar.open {
+                transform: translateX(0);
+            }
+            #main-container {
+                margin-left: 0;
+            }
+            .top-bar-left button#menu-toggle {
+                display: block;
+            }
+            .content-area {
+                padding: 20px 16px 60px;
+            }
+            .book-page {
+                padding: 24px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="layout">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>누가복음 모범답안</h2>
-                <p>52개 단위 260선 해설서 모범답안집</p>
-            </div>
-            <div class="search-box">
-                <input type="text" id="searchInput" class="search-input" placeholder="본문 또는 질문 검색..." onkeyup="filterCards()">
-            </div>
-            <ul class="toc-list" id="tocList">
-                <li><a href="#sec-0" onclick="showPage(0)">01 해설서 누가복음 1 1-25 모범답안</a></li><li><a href="#sec-1" onclick="showPage(1)">02 해설서 누가복음 1 26-56 모범답안</a></li><li><a href="#sec-2" onclick="showPage(2)">03 해설서 누가복음 1 57-80 모범답안</a></li><li><a href="#sec-3" onclick="showPage(3)">04 해설서 누가복음 2 1-21 모범답안</a></li><li><a href="#sec-4" onclick="showPage(4)">05 해설서 누가복음 2 22-52 모범답안</a></li><li><a href="#sec-5" onclick="showPage(5)">06 해설서 누가복음 3 1-20 모범답안</a></li><li><a href="#sec-6" onclick="showPage(6)">07 해설서 누가복음 3 21-38 모범답안</a></li><li><a href="#sec-7" onclick="showPage(7)">08 해설서 누가복음 4 1-13 모범답안</a></li><li><a href="#sec-8" onclick="showPage(8)">09 해설서 누가복음 4 14-44 모범답안</a></li><li><a href="#sec-9" onclick="showPage(9)">10 해설서 누가복음 5 1-26 모범답안</a></li><li><a href="#sec-10" onclick="showPage(10)">11 해설서 누가복음 5 27-39 모범답안</a></li><li><a href="#sec-11" onclick="showPage(11)">12 해설서 누가복음 6 1-16 모범답안</a></li><li><a href="#sec-12" onclick="showPage(12)">13 해설서 누가복음 6 17-49 모범답안</a></li><li><a href="#sec-13" onclick="showPage(13)">14 해설서 누가복음 7 1-23 모범답안</a></li><li><a href="#sec-14" onclick="showPage(14)">15 해설서 누가복음 7 24-50 모범답안</a></li><li><a href="#sec-15" onclick="showPage(15)">16 해설서 누가복음 8 1-21 모범답안</a></li><li><a href="#sec-16" onclick="showPage(16)">17 해설서 누가복음 8 22-39 모범답안</a></li><li><a href="#sec-17" onclick="showPage(17)">18 해설서 누가복음 8 40-56 모범답안</a></li><li><a href="#sec-18" onclick="showPage(18)">19 해설서 누가복음 9 1-17 모범답안</a></li><li><a href="#sec-19" onclick="showPage(19)">20 해설서 누가복음 9 18-36 모범답안</a></li><li><a href="#sec-20" onclick="showPage(20)">21 해설서 누가복음 9 37-50 모범답안</a></li><li><a href="#sec-21" onclick="showPage(21)">22 해설서 누가복음 9 51-10 모범답안</a></li><li><a href="#sec-22" onclick="showPage(22)">23 해설서 누가복음 10 25-42 모범답안</a></li><li><a href="#sec-23" onclick="showPage(23)">24 해설서 누가복음 11 1-28 모범답안</a></li><li><a href="#sec-24" onclick="showPage(24)">25 해설서 누가복음 11 29-54 모범답안</a></li><li><a href="#sec-25" onclick="showPage(25)">26 해설서 누가복음 12 1-21 모범답안</a></li><li><a href="#sec-26" onclick="showPage(26)">27 해설서 누가복음 12 22-40 모범답안</a></li><li><a href="#sec-27" onclick="showPage(27)">28 해설서 누가복음 12 41-59 모범답안</a></li><li><a href="#sec-28" onclick="showPage(28)">29 해설서 누가복음 13 1-21 모범답안</a></li><li><a href="#sec-29" onclick="showPage(29)">30 해설서 누가복음 13 22-35 모범답안</a></li><li><a href="#sec-30" onclick="showPage(30)">31 해설서 누가복음 14 1-24 모범답안</a></li><li><a href="#sec-31" onclick="showPage(31)">32 해설서 누가복음 14 25-15 모범답안</a></li><li><a href="#sec-32" onclick="showPage(32)">33 해설서 누가복음 15 11-32 모범답안</a></li><li><a href="#sec-33" onclick="showPage(33)">34 해설서 누가복음 16 1-18 모범답안</a></li><li><a href="#sec-34" onclick="showPage(34)">35 해설서 누가복음 16 19-31 모범답안</a></li><li><a href="#sec-35" onclick="showPage(35)">36 해설서 누가복음 17 1-19 모범답안</a></li><li><a href="#sec-36" onclick="showPage(36)">37 해설서 누가복음 17 20-37 모범답안</a></li><li><a href="#sec-37" onclick="showPage(37)">38 해설서 누가복음 18 1-17 모범답안</a></li><li><a href="#sec-38" onclick="showPage(38)">39 해설서 누가복음 18 18-43 모범답안</a></li><li><a href="#sec-39" onclick="showPage(39)">40 해설서 누가복음 19 1-27 모범답안</a></li><li><a href="#sec-40" onclick="showPage(40)">41 해설서 누가복음 19 28-48 모범답안</a></li><li><a href="#sec-41" onclick="showPage(41)">42 해설서 누가복음 20 1-26 모범답안</a></li><li><a href="#sec-42" onclick="showPage(42)">43 해설서 누가복음 20 27-21 모범답안</a></li><li><a href="#sec-43" onclick="showPage(43)">44 해설서 누가복음 21 5-38 모범답안</a></li><li><a href="#sec-44" onclick="showPage(44)">45 해설서 누가복음 22 1-23 모범답안</a></li><li><a href="#sec-45" onclick="showPage(45)">46 해설서 누가복음 22 24-38 모범답안</a></li><li><a href="#sec-46" onclick="showPage(46)">47 해설서 누가복음 22 39-53 모범답안</a></li><li><a href="#sec-47" onclick="showPage(47)">48 해설서 누가복음 22 54-71 모범답안</a></li><li><a href="#sec-48" onclick="showPage(48)">49 해설서 누가복음 23 1-25 모범답안</a></li><li><a href="#sec-49" onclick="showPage(49)">50 해설서 누가복음 23 26-56 모범답안</a></li><li><a href="#sec-50" onclick="showPage(50)">51 해설서 누가복음 24 1-35 모범답안</a></li><li><a href="#sec-51" onclick="showPage(51)">52 해설서 누가복음 24 36-53 모범답안</a></li>
-            </ul>
-        </aside>
-        <main class="content-area">
-            <div class="doc-header">
-                <h1>누가복음 해설서 모범답안 합본</h1>
-                <div class="meta">
-                    <span>저자: 박기성, Th. D. in Min.</span>
-                    <span>수록: 52개 본문 단위 · 총 260개 문항</span>
-                </div>
-            </div>
-            <div id="cardsContainer">
-                
-    <section class="answer-card" id="sec-0" data-index="0" data-ref="01 해설서 누가복음 1 1-25">
-        <div class="card-header">
-            <span class="badge">01 해설서 누가복음 1 1-25</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>누가복음 모범답안</h2>
+            <p>52개 단위 260선 해설서 모범답안집</p>
         </div>
-        <div class="card-body">
-            <h2>01_해설서_누가복음_1_1-25.md - 누가복음 1:1-25</h2>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="목차 검색..." onkeyup="filterMenu()">
+        </div>
+        <ul class="sidebar-menu" id="menuList">
+            <li><a href="#sec-0" onclick="showPage(0)">01 해설서 누가복음 1 1-25 모범답안</a></li><li><a href="#sec-1" onclick="showPage(1)">02 해설서 누가복음 1 26-56 모범답안</a></li><li><a href="#sec-2" onclick="showPage(2)">03 해설서 누가복음 1 57-80 모범답안</a></li><li><a href="#sec-3" onclick="showPage(3)">04 해설서 누가복음 2 1-21 모범답안</a></li><li><a href="#sec-4" onclick="showPage(4)">05 해설서 누가복음 2 22-52 모범답안</a></li><li><a href="#sec-5" onclick="showPage(5)">06 해설서 누가복음 3 1-20 모범답안</a></li><li><a href="#sec-6" onclick="showPage(6)">07 해설서 누가복음 3 21-38 모범답안</a></li><li><a href="#sec-7" onclick="showPage(7)">08 해설서 누가복음 4 1-13 모범답안</a></li><li><a href="#sec-8" onclick="showPage(8)">09 해설서 누가복음 4 14-44 모범답안</a></li><li><a href="#sec-9" onclick="showPage(9)">10 해설서 누가복음 5 1-26 모범답안</a></li><li><a href="#sec-10" onclick="showPage(10)">11 해설서 누가복음 5 27-39 모범답안</a></li><li><a href="#sec-11" onclick="showPage(11)">12 해설서 누가복음 6 1-16 모범답안</a></li><li><a href="#sec-12" onclick="showPage(12)">13 해설서 누가복음 6 17-49 모범답안</a></li><li><a href="#sec-13" onclick="showPage(13)">14 해설서 누가복음 7 1-23 모범답안</a></li><li><a href="#sec-14" onclick="showPage(14)">15 해설서 누가복음 7 24-50 모범답안</a></li><li><a href="#sec-15" onclick="showPage(15)">16 해설서 누가복음 8 1-21 모범답안</a></li><li><a href="#sec-16" onclick="showPage(16)">17 해설서 누가복음 8 22-39 모범답안</a></li><li><a href="#sec-17" onclick="showPage(17)">18 해설서 누가복음 8 40-56 모범답안</a></li><li><a href="#sec-18" onclick="showPage(18)">19 해설서 누가복음 9 1-17 모범답안</a></li><li><a href="#sec-19" onclick="showPage(19)">20 해설서 누가복음 9 18-36 모범답안</a></li><li><a href="#sec-20" onclick="showPage(20)">21 해설서 누가복음 9 37-50 모범답안</a></li><li><a href="#sec-21" onclick="showPage(21)">22 해설서 누가복음 9 51-10 모범답안</a></li><li><a href="#sec-22" onclick="showPage(22)">23 해설서 누가복음 10 25-42 모범답안</a></li><li><a href="#sec-23" onclick="showPage(23)">24 해설서 누가복음 11 1-28 모범답안</a></li><li><a href="#sec-24" onclick="showPage(24)">25 해설서 누가복음 11 29-54 모범답안</a></li><li><a href="#sec-25" onclick="showPage(25)">26 해설서 누가복음 12 1-21 모범답안</a></li><li><a href="#sec-26" onclick="showPage(26)">27 해설서 누가복음 12 22-40 모범답안</a></li><li><a href="#sec-27" onclick="showPage(27)">28 해설서 누가복음 12 41-59 모범답안</a></li><li><a href="#sec-28" onclick="showPage(28)">29 해설서 누가복음 13 1-21 모범답안</a></li><li><a href="#sec-29" onclick="showPage(29)">30 해설서 누가복음 13 22-35 모범답안</a></li><li><a href="#sec-30" onclick="showPage(30)">31 해설서 누가복음 14 1-24 모범답안</a></li><li><a href="#sec-31" onclick="showPage(31)">32 해설서 누가복음 14 25-15 모범답안</a></li><li><a href="#sec-32" onclick="showPage(32)">33 해설서 누가복음 15 11-32 모범답안</a></li><li><a href="#sec-33" onclick="showPage(33)">34 해설서 누가복음 16 1-18 모범답안</a></li><li><a href="#sec-34" onclick="showPage(34)">35 해설서 누가복음 16 19-31 모범답안</a></li><li><a href="#sec-35" onclick="showPage(35)">36 해설서 누가복음 17 1-19 모범답안</a></li><li><a href="#sec-36" onclick="showPage(36)">37 해설서 누가복음 17 20-37 모범답안</a></li><li><a href="#sec-37" onclick="showPage(37)">38 해설서 누가복음 18 1-17 모범답안</a></li><li><a href="#sec-38" onclick="showPage(38)">39 해설서 누가복음 18 18-43 모범답안</a></li><li><a href="#sec-39" onclick="showPage(39)">40 해설서 누가복음 19 1-27 모범답안</a></li><li><a href="#sec-40" onclick="showPage(40)">41 해설서 누가복음 19 28-48 모범답안</a></li><li><a href="#sec-41" onclick="showPage(41)">42 해설서 누가복음 20 1-26 모범답안</a></li><li><a href="#sec-42" onclick="showPage(42)">43 해설서 누가복음 20 27-21 모범답안</a></li><li><a href="#sec-43" onclick="showPage(43)">44 해설서 누가복음 21 5-38 모범답안</a></li><li><a href="#sec-44" onclick="showPage(44)">45 해설서 누가복음 22 1-23 모범답안</a></li><li><a href="#sec-45" onclick="showPage(45)">46 해설서 누가복음 22 24-38 모범답안</a></li><li><a href="#sec-46" onclick="showPage(46)">47 해설서 누가복음 22 39-53 모범답안</a></li><li><a href="#sec-47" onclick="showPage(47)">48 해설서 누가복음 22 54-71 모범답안</a></li><li><a href="#sec-48" onclick="showPage(48)">49 해설서 누가복음 23 1-25 모범답안</a></li><li><a href="#sec-49" onclick="showPage(49)">50 해설서 누가복음 23 26-56 모범답안</a></li><li><a href="#sec-50" onclick="showPage(50)">51 해설서 누가복음 24 1-35 모범답안</a></li><li><a href="#sec-51" onclick="showPage(51)">52 해설서 누가복음 24 36-53 모범답안</a></li>
+        </ul>
+    </div>
+    
+    <div id="main-container">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <button id="menu-toggle" onclick="toggleSidebar()">목차</button>
+                <div class="top-title" id="currentSectionTitle">누가복음 모범답안</div>
+            </div>
+            <div class="top-bar-right">
+                <button class="btn-ctrl" onclick="changeFontSize(-1)">가-</button>
+                <button class="btn-ctrl" onclick="changeFontSize(1)">가+</button>
+                <button class="btn-ctrl" onclick="toggleTheme()">테마</button>
+                <button class="btn-ctrl" onclick="copyCurrentPage()">본문 복사</button>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            
+    <article class="book-page" id="sec-0" data-index="0" data-file-item="01 해설서 누가복음 1 1-25 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>01 해설서 누가복음 1 1-25</span>
+        </div>
+        <h2>01_해설서_누가복음_1_1-25.md - 누가복음 1:1-25</h2>
 <h3>질문 1: 1절에서 4절까지가 한 문장이고 "확실하게"가 그 문장의 맨 끝에 놓였다는 것을 알고 다시 읽으면, 이 서언의 인상이 어떻게 달라집니까?</h3>
 <p><strong>답변:</strong> 누가복음 서언(1:1-4)은 고전 헬라어 수사학의 정수인 <strong>정교한 주기문(periodic sentence)</strong> 구조로, 목격자의 전승과 면밀한 조사를 거쳐 마침내 도달하는 종착역에 헬라어 명사 <strong>아스팔레이아(ἀσφάλειαν, 확실함·견고함)</strong>를 배치합니다. 이는 복음서 기록의 목적이 단순한 연대기적 호기심의 충족이나 문학적 서술에 있지 않고, 성도가 이미 들은 복음의 진리가 흔들리지 않는 <strong>절대적인 역사적·신학적 확실성</strong> 위에 서 있음을 선언하는 것입니다. 수많은 수식어와 부사절의 파도를 통과하여 마지막 단어에 도달할 때, 우리는 이 책 전체가 성도의 신앙을 <strong>흔들리지 않는 반석</strong> 위에 올려놓기 위한 거룩한 구속사적 기획임을 압도적으로 실감하게 됩니다.</p>
 <h3>질문 2: 본문은 확실성의 대상을 "각하가 알고 있는 바"로 한정했습니다. 아직 가르침을 받지 않은 사람에게 이 서언은 무엇을 약속하고 있습니까, 혹은 약속하지 않고 있습니까?</h3>
@@ -223,16 +386,14 @@
 <h3>질문 5: 6절은 두 사람을 "흠이 없이 행하더라"로 적고 20절은 그중 한 사람을 "내 말을 믿지 아니함"으로 판정합니다. 본문이 어느 쪽도 지우지 않은 이유를 어디서 찾을 수 있습니까?</h3>
 <p><strong>답변:</strong> 6절의 "주의 계명과 규례대로 흠이 없음"은 율법적 성실성과 경건을 입증하지만, 20절의 "내 말을 믿지 아니함"은 상식을 깨뜨리고 들어오는 <strong>하나님의 초자연적 계시 앞에서의 실존적 한계</strong>를 가리킵니다. 누가는 인간의 종교적 의로움과 도덕적 탁월성이 아무리 완전할지라도, 그것이 곧 살아 계신 하나님의 말씀에 전적으로 자기를 던지는 <strong>참된 언약적 믿음과 자동 일치하지 않음</strong>을 냉철하게 보여줍니다. 인간의 구원은 인간의 흠 없는 공로에서 출발하지 않고, 의인조차 불신으로 넘어질 수밖에 없는 자리에서 시작되는 <strong>오직 하나님의 무조건적인 긍휼과 신실하심</strong>에 기인함을 증언하기 위함입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-1" data-index="1" data-ref="02 해설서 누가복음 1 26-56">
-        <div class="card-header">
-            <span class="badge">02 해설서 누가복음 1 26-56</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-1" data-index="1" data-file-item="02 해설서 누가복음 1 26-56 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>02 해설서 누가복음 1 26-56</span>
         </div>
-        <div class="card-body">
-            <h2>02_해설서_누가복음_1_26-56.md - 누가복음 1:26-56</h2>
+        <h2>02_해설서_누가복음_1_26-56.md - 누가복음 1:26-56</h2>
 <h3>질문 1: 천사는 이 아기가 무엇을 할지 말하기 전에 이름 셋을 먼저 주었습니다(1:31·1:32·1:35). 본문이 이 순서로 적은 것을 보고, 나는 사람을 소개할 때 무엇을 먼저 말하는지 견주어 보십시오.</h3>
 <p><strong>답변:</strong> 가브리엘은 아기가 행할 구속사적 사역(Doing)을 설명하기에 앞서, <strong>'예수(구원자)'</strong>, <strong>'지극히 높으신 이의 아들'</strong>, <strong>'하나님의 아들'</strong>이라는 본질적 호칭(Being)을 먼저 부여합니다. 세상은 언제나 사람의 기능과 업적, 사회적 쓸모와 성취를 먼저 묻고 규정하지만, 성경은 하나님과의 관계 안에서 드러나는 <strong>존재론적 정체성</strong>을 언제나 모든 행위에 앞세웁니다. 이는 사역의 열매 이전에 그 존재가 누구에게 속해 있는가를 묻는 것이며, 성도의 삶 또한 세상적 업적이 아닌 <strong>하나님의 자녀 됨이라는 존재의 은혜</strong>에 단단히 닻을 내려야 함을 성찰하게 합니다.</p>
 <h3>질문 2: 마리아의 「어찌 이 일이 있으리이까」(1:34)에 돌아온 것은 방법이 아니라 다른 사람의 몸에 있는 사실이었습니다(1:36). 본문은 왜 그 물음을 취소하지 않고 그대로 두었을까요. 본문이 적지 않은 것을 적어 채우려는 마음이 어디서 생기는지 짚어 보십시오.</h3>
@@ -244,16 +405,14 @@
 <h3>질문 5: 1:52-53은 이미 일어난 일로 적혀 있고 1:56은 한 사람이 집으로 돌아갔다고만 적습니다. 본문은 그 사이를 설명하지 않았습니다. 이 두 절을 함께 들고 있으려면 내가 무엇을 하지 않아야 하는지 말해 보십시오.</h3>
 <p><strong>답변:</strong> 마리아의 찬가는 권세자를 내리치시고 굶주린 자를 배불리신 종말론적 전복을 헬라어 부정과거 시제로 <strong>이미 완결된 확정적 사실</strong>처럼 선포하지만, 곧이어 56절의 현실은 여전히 로마 치하의 가난하고 조용한 집으로 돌아가는 마리아의 일상입니다. 이 두 구절의 거대한 긴장을 공존시키기 위해 우리는 선포된 영적 승리를 즉각적인 물질적·정치적 성취로 착각하거나, 반대로 척박한 현실 때문에 <strong>하나님의 약속을 무기력한 환상으로 단정해 버리는 조급증</strong>을 버려야 합니다. 성도는 종말론적으로 <strong>'이미(already)' 성취된 승리의 약속</strong>을 영혼에 품고, 여전히 억압이 지속되는 <strong>'아직(not yet)'의 일상 속으로 묵묵히 걸어 들어가는 역설적 인내</strong>를 살아야 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-2" data-index="2" data-ref="03 해설서 누가복음 1 57-80">
-        <div class="card-header">
-            <span class="badge">03 해설서 누가복음 1 57-80</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-2" data-index="2" data-file-item="03 해설서 누가복음 1 57-80 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>03 해설서 누가복음 1 57-80</span>
         </div>
-        <div class="card-body">
-            <h2>03_해설서_누가복음_1_57-80.md - 누가복음 1:57-80</h2>
+        <h2>03_해설서_누가복음_1_57-80.md - 누가복음 1:57-80</h2>
 <h3>질문 1: 1:60에서 어머니가 먼저 그 이름을 말했는데 회복이 따라오지 않았고, 1:63에서 같은 이름이 서판에 적힌 뒤에 회복이 붙습니다. 두 자리를 나란히 놓으면 어떤 법칙이 무너집니까. 나는 그동안 이 장면에서 어떤 법칙을 읽고 있었습니까.</h3>
 <p><strong>답변:</strong> '요한'이라는 이름 자체에 마술적 주술력이 깃들어 있어 이름을 발음하기만 하면 즉각 기적이 일어난다는 <strong>기계적 인과응보의 법칙</strong>이 완전히 무너집니다. 우리는 흔히 특정한 종교적 언어나 올바른 정답을 입술로 선언하기만 하면 문제가 해결된다는 도식적 신앙 공식에 익숙해져 있었습니다. 그러나 회복은 소리의 발음이 아니라, 1:20에서 불신으로 침묵의 징계를 받았던 언약의 제사장 사가랴가 자기 가문의 기득권과 인간적 고집을 완전히 꺾고 <strong>서판에 하나님의 말씀을 기록하며 온전히 굴복(순종)하는 순간</strong>에 언약적 은혜로 임한 것입니다.</p>
 <h3>질문 2: 이 단락에서 이유나 근거를 대는 말이 붙은 자리는 1:58, 1:66, 1:68, 1:76, 1:78입니다. 1:64에는 무엇이 붙어 있습니까. 그 차이가 이 단락을 읽는 방식을 어떻게 바꿉니까.</h3>
@@ -265,16 +424,14 @@
 <h3>질문 5: 1:71과 1:74는 "원수"를 말하면서 그 이름을 적지 않습니다. 본문이 비워 둔 그 칸에 내가 넣고 있던 이름이 있습니까. 본문이 적지 않은 자리를 비워 둔 채로 이 노래를 읽으면 무엇이 달라집니까.</h3>
 <p><strong>답변:</strong> 유대인들은 '원수'라는 빈칸에 당대의 압제자인 '로마 제국'이나 헤롯 분봉왕을 투사했을 것이며, 오늘날 우리는 우리를 괴롭히는 특정한 환경이나 사람의 이름을 채워 넣기 쉽습니다. 그러나 본문이 원수의 고유명사를 특정하지 않고 공란으로 남겨둔 것은, 메시아가 상대하시는 원수가 역사적 압제자에 국한되지 않고 <strong>죄와 사망, 사탄의 권세와 어둠의 그늘(1:79)이라는 근원적인 영적 흑암</strong> 전체를 포괄하기 때문입니다. 이 칸을 비워 둔 채 노래를 부를 때, 우리는 협소한 사적 원한이나 정치적 복수의 차원을 훌쩍 뛰어넘어 <strong>평생에 주의 앞에서 성결과 의로 두려움 없이 하나님을 예배하는 영원한 영적 해방(1:74-75)</strong>을 소망하게 됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-3" data-index="3" data-ref="04 해설서 누가복음 2 1-21">
-        <div class="card-header">
-            <span class="badge">04 해설서 누가복음 2 1-21</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-3" data-index="3" data-file-item="04 해설서 누가복음 2 1-21 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>04 해설서 누가복음 2 1-21</span>
         </div>
-        <div class="card-body">
-            <h2>04_해설서_누가복음_2_1-21.md - 누가복음 2:1-21</h2>
+        <h2>04_해설서_누가복음_2_1-21.md - 누가복음 2:1-21</h2>
 <h3>질문 1: 12절이 「이것이 너희에게 표징이다」라고 말할 때, 그 「이것」이 가리키는 범위는 어디까지입니까? 본문에서 직접 짚어 보십시오.</h3>
 <p><strong>답변:</strong> 천사가 지목한 표징(세메이온, σημεῖον)의 정확한 범위는 바로 뒤따르는 구절인 <strong>"강보에 싸여 구유에 뉘어 있는 아기(βρέφος ἐσπαργανωμένον καὶ κεί메νον ἐν φάτνῃ)"</strong>입니다. 하늘의 찬란한 영광이나 초자연적인 광채가 아니라, 갓 태어난 연약한 아기가 거친 천 조각에 둘러싸여 짐승의 밥그릇인 <strong>구유라는 가장 낮고 누추한 자리에 누워 있는 역설적 광경 전체</strong>가 표징입니다. 이는 참된 메시아의 영광이 세상의 화려한 궁정이 아니라, 스스로를 비워 가장 낮고 가난한 자의 자리로 내려오신 <strong>성육신의 철저한 자기 비하(비하의 신학, Kenosis)</strong> 속에 감추어져 있음을 선언합니다.</p>
 <h3>질문 2: 천사는 「가서 찾아라」라고 하지 않고 「너희가 찾을 것이다」라고 말합니다. 그런데도 목자들은 갑니다. 그들이 서로 한 말(2:15)에서 무엇이 그들을 움직였는지 찾아보십시오.</h3>
@@ -286,16 +443,14 @@
 <h3>질문 5: 17절의 목자들과 19절의 마리아는 같은 말을 각각 다르게 다룹니다. 본문은 둘 중 하나를 더 낫다고 적습니까? 적지 않는다면, 그 사실에서 무엇을 읽을 수 있습니까?</h3>
 <p><strong>답변:</strong> 목자들은 천사에게 들은 말을 사람들에게 <strong>"널리 알리는(외적 증언과 선포)"</strong> 행동으로 반응했고, 마리아는 그 모든 사건과 말을 마음에 간직하여 <strong>"생각하는(쉼발루사, συμβάλλουσα, 내적 묵상과 심화)"</strong> 태도로 반응했습니다. 본문은 이 두 반응 중 어느 하나를 더 우월하거나 거룩하다고 평가하지 않고, 동등하게 소중한 구속사적 응답으로 나란히 기록합니다. 이는 복음 앞에서의 합당한 성도의 삶이란 <strong>세상을 향해 담대하게 진리를 선포하는 사도적 증언</strong>과, 그 신비를 영혼의 심연에 품고 되새기는 <strong>깊은 내적 관상과 묵상의 영성</strong>이 온전히 통합되어야 함을 가르쳐 줍니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-4" data-index="4" data-ref="05 해설서 누가복음 2 22-52">
-        <div class="card-header">
-            <span class="badge">05 해설서 누가복음 2 22-52</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-4" data-index="4" data-file-item="05 해설서 누가복음 2 22-52 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>05 해설서 누가복음 2 22-52</span>
         </div>
-        <div class="card-body">
-            <h2>05_해설서_누가복음_2_22-52.md - 누가복음 2:22-52</h2>
+        <h2>05_해설서_누가복음_2_22-52.md - 누가복음 2:22-52</h2>
 <h3>질문 1: 율법을 가리키는 말 다섯 자리가 모두 문장의 주된 동사 자리 밖에 놓였습니다. 그 자리에 오는 동사들(데리고 올라갔다 · 받아 안았다 · 축복했다 · 말했다 · 자라고 있었다)을 다시 읽어 보십시오. 본문이 앞에 세워 둔 것은 무엇입니까?</h3>
 <p><strong>답변:</strong> "주의 율법에 쓴 바", "모세의 법대로" 같은 율법의 조문들은 모두 부사구나 종속적 전치사구의 자리에 머물며 배경으로 물러서 있습니다. 문장의 주동사 자리에는 아기를 성전에 <strong>"데리고 올라감"</strong>, 시므온이 품에 <strong>"받아 안음"</strong>, 하나님을 <strong>"축복함"</strong>, 사람들에게 메시아를 <strong>"말함"</strong>, 그리고 아기가 생명력 있게 <strong>"자라감"</strong>이라는 역동적인 인격적 행동들이 우뚝 서 있습니다. 본문이 율법의 조문보다 전면에 앞세운 것은, 율법의 궁극적 지향점이 문자적 규례의 준수 자체에 갇히는 것이 아니라 <strong>율법의 완성이신 메시아와의 구체적이고 인격적인 만남, 그리고 그분을 영접하는 생명적 응답</strong>임을 명백히 보여줍니다.</p>
 <h3>질문 2: 시므온이 팔에 안은 「그를」과 그의 눈이 본 「당신의 구원」은 성과 격이 같은데, 둘을 잇는 문장이 본문에 없습니다. 본문이 선언 대신 장면으로 적은 것을 우리는 어떻게 읽어야 합니까?</h3>
@@ -307,16 +462,14 @@
 <h3>질문 5: 안나가 말을 건넨 사람들은 「기다리는 모든 이」였습니다. 본문이 그 상대를 그렇게 적어 둔 것이 오늘 당신에게 무엇을 말합니까?</h3>
 <p><strong>답변:</strong> 여선지자 안나는 아기 예수의 속량의 소식을 성전의 제사장들이나 기득권층이 아니라, 오직 <strong>"예루살렘의 속량을 바라는(기다리는, προσδεχομένοις) 모든 사람"</strong>에게 전했습니다. 구속의 은총과 메시아의 신비는 종교적 권력이나 세속적 풍요를 가진 자들에게 자동으로 열리는 것이 아니라, 시대의 흑암과 자신의 무력함 속에서 <strong>하나님의 개입을 간절히 갈망하며 깨어 기다리는 가난한 심령들</strong>에게만 분별되고 전달됩니다. 오늘 우리에게 이 말씀은, 분주한 종교적 활동에 매몰되기보다 선행되어야 할 본질이 바로 <strong>주의 구원을 향한 메마른 갈망과 종말론적 기다림의 영성</strong>임을 준엄하게 경고합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-5" data-index="5" data-ref="06 해설서 누가복음 3 1-20">
-        <div class="card-header">
-            <span class="badge">06 해설서 누가복음 3 1-20</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-5" data-index="5" data-file-item="06 해설서 누가복음 3 1-20 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>06 해설서 누가복음 3 1-20</span>
         </div>
-        <div class="card-body">
-            <h2>06_해설서_누가복음_3_1-20.md - 누가복음 3:1-20</h2>
+        <h2>06_해설서_누가복음_3_1-20.md - 누가복음 3:1-20</h2>
 <h3>질문 1: 1절과 2절에서 문장을 세우는 동사는 하나뿐이고, 그 앞의 서른아홉 낱말은 「언제」를 표시합니다. 본문이 권세의 이름들을 지우지 않고 그 자리에 둔 것은 무엇을 뜻한다고 보십니까.</h3>
 <p><strong>답변:</strong> 눅 3:1-2의 유일한 본동사는 문장 맨 끝의 <strong>"하나님의 말씀이 임했다(에게네토 레마 데우, ἐγένετο ῥῆμα θεοῦ)"</strong>이며, 그 앞을 채우는 서른아홉 개의 단어는 로마 황제 디베료와 총독 빌라도, 분봉왕들과 대제사장들의 이름을 나열하며 시대적 배경을 구성합니다. 누가는 세속 제국과 타락한 종교 권력이 온 세상을 틀어쥐고 역사의 지배자 행세를 하던 <strong>냉혹하고 엄연한 역사적 실재성</strong>을 결코 축소하거나 지우지 않습니다. 그러나 문법적으로 이 막강한 군주들은 모두 덧없이 흘러가는 시간의 부사구로 전락하고, <strong>역사의 진정한 주관자이자 영원한 동력은 그 제국의 심장부를 뚫고 들어오시는 살아 있는 하나님의 말씀</strong>임을 극적으로 선언합니다.</p>
 <h3>질문 2: 말씀이 임한 곳은 궁정도 성전도 아니고 빈 들이었습니다. 본문은 그 까닭을 설명하지 않습니다. 도착지가 그렇게 적혀 있다는 사실에서 무엇이 보입니까.</h3>
@@ -328,16 +481,14 @@
 <h3>질문 5: 16절의 불과 17절의 불은 같은 낱말인데 하는 일이 다릅니다. 본문은 둘을 이어 주는 문장을 놓지 않았습니다. 그 둘을 나란히 둔 채로 읽을 때 이 단락은 어떻게 읽힙니까.</h3>
 <p><strong>답변:</strong> 16절의 불은 성령과 함께 임하여 영혼의 불순물을 태우고 거룩하게 재창조하는 <strong>정결과 성화의 은혜로운 불</strong>이지만, 17절의 불은 알곡과 분리된 쭉정이를 영원히 삼켜버리는 <strong>소멸과 종말론적 심판의 불</strong>입니다. 본문이 두 불 사이에 아무런 완충 설명을 두지 않고 나란히 병치한 것은, 메시아의 도래가 가져오는 사역의 <strong>궁극적인 분리와 타협 없는 절대적 엄중함</strong>을 각인시킵니다. 동일한 메시아의 임재와 말씀의 불이, 순종하여 회개하는 자에게는 <strong>생명을 살리는 거룩한 성령의 세례</strong>가 되지만 완고하게 거부하는 자에게는 <strong>피할 수 없는 영원한 파멸의 심판</strong>이 된다는 거룩한 두려움을 불러일으킵니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-6" data-index="6" data-ref="07 해설서 누가복음 3 21-38">
-        <div class="card-header">
-            <span class="badge">07 해설서 누가복음 3 21-38</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-6" data-index="6" data-file-item="07 해설서 누가복음 3 21-38 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>07 해설서 누가복음 3 21-38</span>
         </div>
-        <div class="card-body">
-            <h2>07_해설서_누가복음_3_21-38.md - 누가복음 3:21-38</h2>
+        <h2>07_해설서_누가복음_3_21-38.md - 누가복음 3:21-38</h2>
 <h3>질문 1: 21절에서 세례를 받는 주체 자리에 선 것은 누구입니까? 본문은 예수의 세례를 그 시간의 어디에 놓으며, 두 세례를 구분하는 표현을 따로 주었습니까?</h3>
 <p><strong>답변:</strong> 21절은 <strong>"온 백성이 다 세례를 받을새(ἐν τῷ βαπτισθῆναι ἅπαντα τὸν λαὸν)"</strong>라는 시간적 전치사 구문 안에서, 그 백성들의 세례 한복판에 <strong>"예수도 세례를 받으시고"</strong>를 자연스럽게 이어 놓습니다. 누가는 예수의 세례를 백성들의 세례와 시간적으로 분리하거나 거룩하게 구별 짓는 어떠한 특권적 수식어도 부여하지 않습니다. 이는 죄가 전혀 없으신 거룩한 하나님의 아들이 스스로를 죄인들의 행렬 한가운데로 던지시며, <strong>고통당하는 인류의 비참한 실존과 자신을 온전히 일치시키시는 '고난받는 종'으로서의 철저한 연대(Solidarity)</strong>를 선언하는 것입니다.</p>
 <h3>질문 2: 이 단락에서 문장을 끌고 가는 동사 하나에 매달린 세 가지는 무엇입니까? 그 셋의 방향은 어느 쪽이며, 세례와 기도는 그 가운데 들어 있습니까?</h3>
@@ -349,16 +500,14 @@
 <h3>질문 5: 이 목록은 아브라함에서 멈추지 않습니다. 본문이 적은 마지막 두 칸은 무엇이며, 목록이 어디서 끝나는지가 무엇을 보여 줍니까?</h3>
 <p><strong>답변:</strong> 마태복음의 족보가 유대인의 조상 아브라함에서 시작하는 것과 달리, 누가복음의 족보는 인류의 역사를 거슬러 올라가 마지막 두 칸에 <strong>"그 위는 아담이요 그 위는 하나님이시니라(τοῦ Ἀδὰμ τοῦ θεοῦ)"</strong>로 마침표를 찍습니다. 아브라함이나 다윗이라는 이스라엘의 민족적 경계를 훌쩍 뛰어넘어 인류의 시조 아담을 거쳐 창조주 하나님께로 직결되는 이 종착지는, 예수 그리스도의 구속 사역이 유대인을 넘어 <strong>온 인류와 만유를 향한 보편적 구원(Universal Salvation)</strong>임을 웅장하게 선포합니다. 나아가 예수는 첫 사람 아담의 실패로 잃어버렸던 생명을 회복하고 인류를 다시 하나님의 자녀로 복원하시는 <strong>참된 '마지막 아담'이자 '하나님의 참된 아들'</strong>이심을 완성합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-7" data-index="7" data-ref="08 해설서 누가복음 4 1-13">
-        <div class="card-header">
-            <span class="badge">08 해설서 누가복음 4 1-13</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-7" data-index="7" data-file-item="08 해설서 누가복음 4 1-13 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>08 해설서 누가복음 4 1-13</span>
         </div>
-        <div class="card-body">
-            <h2>08_해설서_누가복음_4_1-13.md - 누가복음 4:1-13</h2>
+        <h2>08_해설서_누가복음_4_1-13.md - 누가복음 4:1-13</h2>
 <h3>질문 1: 4:1-2에서 성령의 이끄심과 마귀의 시험은 본문의 문장 안에서 어떤 관계로 놓여 있습니까. 「사십 일 동안」은 어느 말에 붙어 있습니까.</h3>
 <p><strong>답변:</strong> 4:1-2에서 예수는 "성령의 충만함을 입어 요단 강에서 돌아오사 광야에서 <strong>성령에게 이끌리시며(ἦγετο ἐν τῷ πνεύματι)</strong>", 동시에 <strong>"마귀에게 시험을 받으시더라(πειραזόμενος ὑπὸ τοῦ διαβόλου)"</strong>로 두 개의 수동태 분사가 긴밀하게 병렬되어 있습니다. 「사십 일 동안(ἡμέρας τεσσεράκοντα)」은 광야에서 성령께 이끌리시는 기간과 마귀에게 시험을 받으시는 기간 양쪽 모두에 걸쳐 있어, 시험이 성령의 주권을 벗어나 우발적으로 일어난 사건이 아님을 증명합니다. 이는 마귀의 유혹조차 하나님의 섭리 아래 허용된 것이며, 광야 시험은 <strong>성령의 주도적인 인도하심 속에서 하나님의 아들로서의 전적인 순종과 메시아적 자격을 연단하고 증명하는 구속사적 관문</strong>이었음을 보여줍니다.</p>
 <h3>질문 2: 마귀는 4:3·4:9에서 쓴 말투와 4:7에서 쓴 말투를 다르게 골랐습니다. 두 말투는 각각 무엇을 전제로 놓고 무엇을 열어 둡니까.</h3>
@@ -370,16 +519,14 @@
 <h3>질문 5: 4:13은 「얼마 동안」으로 닫힙니다. 이 마지막 절이 선언하는 것과 선언하지 않는 것은 각각 무엇입니까.</h3>
 <p><strong>답변:</strong> 4:13은 마귀가 모든 시험을 다 마친 후 <strong>"얼마 동안 떠나니라(아크리 카이루, ἄχρι καιροῦ, 다음 기회까지)"</strong>라는 엄중한 단서로 닫힙니다. 이 구절이 선언하는 것은 광야 시험에서 예수께서 사탄의 모든 궤계를 완벽하게 물리치시고 결정적인 승리를 거두셨다는 역사적 사실입니다. 그러나 결코 선언하지 않는 것은 영적 전쟁의 영구적 종결이나 평화가 아니며, 사탄이 포기하지 않고 메시아의 공생애 마지막 고난의 시간인 <strong>겟세마네와 십자가라는 결정적 '때(카이로스)'에 다시 공격해 올 것</strong>이라는 긴박한 영적 전쟁의 연속성을 암시합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-8" data-index="8" data-ref="09 해설서 누가복음 4 14-44">
-        <div class="card-header">
-            <span class="badge">09 해설서 누가복음 4 14-44</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-8" data-index="8" data-file-item="09 해설서 누가복음 4 14-44 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>09 해설서 누가복음 4 14-44</span>
         </div>
-        <div class="card-body">
-            <h2>09_해설서_누가복음_4_14-44.md - 누가복음 4:14-44</h2>
+        <h2>09_해설서_누가복음_4_14-44.md - 누가복음 4:14-44</h2>
 <h3>질문 1: 본문은 책을 덮고 돌려주고 앉는 동작을 차례로 적은 다음에 입이 열리게 합니다. 말이 시작되기 전에 손이 비는 이 순서를 본문이 적어 둔 까닭을 어디까지 말할 수 있고, 어디부터는 우리의 짐작입니까?</h3>
 <p><strong>답변:</strong> 본문이 명시적으로 진술하는 팩트는 두루마리를 말고, 시중드는 자에게 넘겨주고, 가르치기 위해 <strong>"앉으시매 회당에 있는 자들의 눈이 다 그를 주목하더라"</strong>는 정적인 동작의 순서와 숨 막히는 침묵의 조성입니다. 말씀이 선포되기 전 성경 두루마리가 손에서 떠나 빈손이 된 이 배치는, 이제 기록된 문자의 시대가 종결되고 <strong>구약의 모든 예언을 성취하시는 예수 그리스도 자신이 살아 있는 말씀(Logos)이자 권위의 본체로 우뚝 서셨음</strong>을 시각적으로 웅변합니다. 그 이상의 심리적 정황이나 극적 효과는 인간의 해석적 짐작일 수 있으나, 본문 자체는 <strong>문자적 율법의 시대가 닫히고 메시아의 직접적인 통치가 개막되는 역사적 분기점</strong>을 장엄한 침묵으로 연출하고 있습니다.</p>
 <h3>질문 2: 4:21의 발화 안에 동사가 하나뿐이고 그 하나가 「이미 이루어져 있다」는 꼴입니다. 앞으로 될 일의 예고가 아니라 이미 된 일의 통고라면, 이 문장은 듣는 사람에게 무엇을 요구합니까?</h3>
@@ -391,16 +538,14 @@
 <h3>질문 5: 4:28에서 본문이 적은 상대는 「회당 안에서 모두가」까지입니다. 본문이 이렇게 좁게 적었는데도 사람들이 이 장면을 넓게 읽어 온 까닭은 무엇이고, 그 넓힘을 막아 주는 것을 본문 자체에서 어디서 찾을 수 있습니까?</h3>
 <p><strong>답변:</strong> 28절은 분노에 사로잡혀 예수를 낭떠러지로 끌고 간 자들을 정확히 <strong>"회당에 있는 자들이 다(πάντες ἐν τῇ συναγωγῇ)"</strong>라는 좁은 범위로 한정합니다. 사람들이 이를 유대 민족 전체의 거부나 보편적 인류의 적대감으로 손쉽게 확대 해석해 온 까닭은, 나사렛 사람들의 편협성을 유대인 전체를 향한 반유대주의적 편견으로 투사하여 자신들은 거절의 책임에서 벗어나려는 심리에서 비롯되었습니다. 그러나 본문은 분노의 자리를 예수를 어린 시절부터 잘 안다고 자부하던 <strong>'나사렛 동네 회당'이라는 친숙함과 종교적 기득권의 덫</strong>으로 좁혀 놓으며, 곧이어 가버나움 등 다른 갈릴리 동네들에서는 백성들이 예수를 열광적으로 붙들려 했다는 사실(4:42)을 대조시킴으로써 무분별한 일반화를 차단합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-9" data-index="9" data-ref="10 해설서 누가복음 5 1-26">
-        <div class="card-header">
-            <span class="badge">10 해설서 누가복음 5 1-26</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-9" data-index="9" data-file-item="10 해설서 누가복음 5 1-26 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>10 해설서 누가복음 5 1-26</span>
         </div>
-        <div class="card-body">
-            <h2>10_해설서_누가복음_5_1-26.md - 누가복음 5:1-26</h2>
+        <h2>10_해설서_누가복음_5_1-26.md - 누가복음 5:1-26</h2>
 <h3>질문 1: 5:5와 5:8은 같은 사람의 두 발화입니다. 두 문장에서 뼈대가 되는 동작이 각각 무엇입니까. 그 차이가 두 호칭의 차이와 어떻게 맞물립니까.</h3>
 <p><strong>답변:</strong> 5:5에서 베드로의 핵심 동작은 말씀에 의지하여 그물을 <strong>"내리리이다(χαλάσω)"</strong>이며, 5:8에서 그의 동작은 예수의 무릎 아래 <strong>"엎드려(프로세페센, προσέπεσεν)"</strong> 간구하는 것입니다. 5:5의 호칭 <strong>"선생님(에피스타타, ἐπιστάτα, 스승·지도자)"</strong>은 전문 지식을 가진 존경받는 랍비를 향한 예우였기에 자신의 어업 전문성을 유보하고 협조하는 노동의 순종으로 나타났습니다. 그러나 상식을 깨뜨린 신적 권능을 목도한 5:8에서는 무릎을 꿇으며 <strong>"주여(퀴리에, κύριε, 거룩한 신적 통치자)"</strong>로 호칭이 급변하며, 단순한 선생 앞에서의 순종을 넘어 <strong>거룩하신 하나님 현존 앞에 선 죄인의 실존적 붕괴와 전인적 경배</strong>로 맞물려 전환됩니다.</p>
 <h3>질문 2: 본문은 「나에게서 나가소서」가 거두어졌다고 적지 않습니다. 그 말을 그대로 둔 채 5:10과 5:11을 붙여 놓은 배치는 무엇을 보여 줍니까.</h3>
@@ -412,16 +557,14 @@
 <h3>질문 5: 5:21이 세운 「오직 하나님 외에」라는 전제는 이 단락에서 철회되지 않습니다. 그 전제를 그대로 둔 채 5:24를 읽으면 무엇이 남습니까.</h3>
 <p><strong>답변:</strong> 서기관과 바리새인들이 제기한 신학적 전제, 즉 <strong>"오직 하나님 한 분 외에 누가 능히 죄를 사하겠느냐"</strong>라는 명제는 타협할 수 없는 성경적 진리이며 본문에서 결코 부정되거나 철회되지 않습니다. 그러나 5:24에서 예수는 "인자가 땅에서 죄를 사하는 권세가 있는 줄을 너희로 알게 하리라"고 선포하시며 중풍병자를 자리에서 일으켜 걷게 하십니다. 바리새인들의 그 정통 신학적 전제를 고스란히 살려둔 채 24절을 마주할 때 도출되는 유일하고 필연적인 결론은, 지금 죄인들 눈앞에 서 계신 <strong>예수 그리스도 자신이 바로 그 '유일하신 하나님'의 신적 권위와 본질을 지니신 분</strong>이라는 경이로운 기독론적 진실만이 남게 됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-10" data-index="10" data-ref="11 해설서 누가복음 5 27-39">
-        <div class="card-header">
-            <span class="badge">11 해설서 누가복음 5 27-39</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-10" data-index="10" data-file-item="11 해설서 누가복음 5 27-39 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>11 해설서 누가복음 5 27-39</span>
         </div>
-        <div class="card-body">
-            <h2>11_해설서_누가복음_5_27-39.md - 누가복음 5:27-39</h2>
+        <h2>11_해설서_누가복음_5_27-39.md - 누가복음 5:27-39</h2>
 <h3>질문 1: 27절은 레위가 <strong>어디에 있을 때</strong> 부름이 왔다고 적습니까? 그 시점이 28절의 세 동작을 어떻게 다르게 읽게 합니까? 그리고 27-28절이 <strong>적지 않은</strong> 것들을 꼽아 보십시오.</h3>
 <p><strong>답변:</strong> 27절은 레위가 종교적 회개의 자리가 아니라, 민족적 배신과 착취의 상징인 <strong>"세관에 앉아 있는 것을 보시고(καθήμενον ἐπὶ τὸ τελώνιον)"</strong> 부르셨다고 명시합니다. 가장 세속적이고 부끄러운 기득권의 책상에 앉아 있을 때 부름이 임했기에, 28절의 <strong>"모든 것을 버리고", "일어나", "따르니라"</strong>는 세 동작은 점진적 교화의 결과가 아니라 말씀의 주권적 권능 앞에 옛 삶의 터전을 단번에 단절하고 돌아선 파격적 결단으로 다가옵니다. 본문이 적지 않은 것은 레위의 사전 신앙적 고뇌, 세리 직업에 대한 회한, 예수와의 사전 접촉이나 망설임, 그리고 장부 정리나 재산 처분 과정 등 인간적인 완충 설명 일체를 생략합니다.</p>
 <h3>질문 2: 30절의 수군거림은 누구에게 갔고, 대답은 누가 했습니까? 본문이 묻는 사람들을 적는 방식에서 무엇이 보입니까?</h3>
@@ -433,16 +576,14 @@
 <h3>질문 5: 36절과 37절은 손실을 몇 쪽에 적습니까? 그리고 담화의 마지막 자리에 39절을 둔 것을 본문은 어떻게 처리했습니까? 38절에서 멈추고 읽을 때와 39절까지 읽을 때 이 단락의 결론은 어떻게 달라집니까?</h3>
 <p><strong>답변:</strong> 36-37절의 옷과 가죽부대 비유는 찢어지고 터짐으로써 헌 옷과 새 옷, 헌 부대와 새 포도주 <strong>'양쪽 모두(둘 다)'에게 파멸적 손실</strong>을 가져온다고 경고합니다. 누가는 다른 복음서와 달리 39절의 "묵은 포도주를 마시고 새 것을 원하는 자가 없나니 이는 묵은 것이 좋다 함이니라"라는 인간의 뿌리 깊은 영적 타성을 마지막에 담담히 덧붙입니다. 38절에서 멈추면 새 포도주를 새 부대에 담는 복음의 승리주의적 낙관론으로 끝나지만, 39절까지 읽으면 <strong>옛 질서와 율법적 익숙함에 안주하여 메시아의 새로운 은혜를 본능적으로 거부하는 인간의 절망적인 완고함</strong>을 폭로하는 깊은 탄식과 경고로 결론이 전환됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-11" data-index="11" data-ref="12 해설서 누가복음 6 1-16">
-        <div class="card-header">
-            <span class="badge">12 해설서 누가복음 6 1-16</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-11" data-index="11" data-file-item="12 해설서 누가복음 6 1-16 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>12 해설서 누가복음 6 1-16</span>
         </div>
-        <div class="card-body">
-            <h2>12_해설서_누가복음_6_1-16.md - 누가복음 6:1-16</h2>
+        <h2>12_해설서_누가복음_6_1-16.md - 누가복음 6:1-16</h2>
 <h3>질문 1: 6:2와 6:4가 같은 낱말로 규정을 말하는데, 6:3은 그 사이에 「시장할 때에」를 끼워 넣습니다. 이 끼워 넣음이 논쟁의 재료를 어떻게 바꾸어 놓습니까.</h3>
 <p><strong>답변:</strong> 바리새인들은 안식일에 밀 이삭을 자르는 행위를 율법상 '하지 못할 일(ἔξεστιν)'이라는 차가운 조문 위반의 프레임으로 정죄합니다. 그러나 예수는 다윗이 진설병을 먹은 성경적 사건을 인용하시며 그 한가운데에 다윗과 일행이 <strong>"시장할 때에(굶주렸을 때, ἐπείνασεν)"</strong>라는 인간 생명의 원초적 고통과 결핍을 끼워 넣으십니다. 이 끼워 넣음은 논쟁의 본질을 조문의 형식적 준수 여부라는 메마른 법리 논쟁에서, 율법의 참된 제정 목적이자 핵심 정신인 <strong>인간 생명의 보존과 언약적 긍휼(Covenant Mercy)</strong>이라는 본질적 지평으로 단숨에 전환시킵니다.</p>
 <h3>질문 2: 6:5는 「주인이다」를 문장 맨 앞에 놓고 그 이름을 맨 끝에 둡니다. 듣는 사람이 문장 끝까지 기다려야 그 이름을 듣는 순서가, 이 말씀을 어떻게 다르게 들리게 합니까.</h3>
@@ -454,16 +595,14 @@
 <h3>질문 5: 6:12의 밤과 6:16의 마지막 낱말 사이에 「그러므로」가 없습니다. 이 접속사가 없는 덕분에 본문이 지키고 있는 것은 무엇입니까.</h3>
 <p><strong>답변:</strong> 6:12에서 예수는 "밤이 새도록 하나님께 기도하시고" 열두 사도를 임명하셨으나, 그 목록의 맨 마지막은 비극적이게도 <strong>"배반자가 된 가룟 유다(ὃς ἐγένε토 προδότης)"</strong>로 끝을 맺습니다. 밤샘 기도와 배반자의 임명 사이에 인과적 접속사('그러므로')가 없다는 사실은, 기도가 불완전했다거나 하나님의 뜻이 좌절되었다는 식의 천박한 기계적 인과론을 철저히 차단합니다. 이 거룩한 긴장은 하나님의 절대적 주권과 섭리가 인간의 자유의지와 배반이라는 어둠 속에서도 결코 실패하지 않고, <strong>가룟 유다의 배역까지도 구속사의 거대한 십자가 성취의 경륜 속으로 품어내시는 하나님의 신비로운 구원 경영</strong>을 온전히 보존합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-12" data-index="12" data-ref="13 해설서 누가복음 6 17-49">
-        <div class="card-header">
-            <span class="badge">13 해설서 누가복음 6 17-49</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-12" data-index="12" data-file-item="13 해설서 누가복음 6 17-49 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>13 해설서 누가복음 6 17-49</span>
         </div>
-        <div class="card-body">
-            <h2>13_해설서_누가복음_6_17-49.md - 누가복음 6:17-49</h2>
+        <h2>13_해설서_누가복음_6_17-49.md - 누가복음 6:17-49</h2>
 <h3>질문 1: 6:20에서 부르는 쪽은 「가난한 자들」이고 이유를 대는 쪽은 「너희의 것」입니다. 본문이 그 사이에 아무 신호를 두지 않은 것에서 우리가 말할 수 있는 것은 어디까지입니까.</h3>
 <p><strong>답변:</strong> 6:20은 "너희 가난한 자는 복이 있나니 <strong>하나님의 나라가 너희 것임이요(ὅτι ὑμετέρα ἐστὶν ἡ βασιλεία τοῦ θεοῦ)</strong>"라고 선언하며, 가난함과 하나님 나라의 소유 사이에 어떠한 도덕적 공로나 인간적 조건을 끼워 넣지 않습니다. 본문이 자격 조건을 침묵하는 것은 가난 그 자체가 자동 구원을 보장하는 미덕이라는 뜻이 아니라, 세상에서 기댈 언덕이 완전히 무너져 <strong>오직 하나님만을 유일한 기업과 피난처로 삼을 수밖에 없는 파산자들의 실존(아나윔, Anawim)</strong>을 가리킵니다. 따라서 하나님 나라의 수여는 인간의 종교적 업적에 대한 보상이 아니라, <strong>자신의 전적 무능을 인정하고 하나님만을 바라는 자들에게 값없이 주어지는 주권적 은혜의 선물</strong>임을 말할 수 있을 뿐입니다.</p>
 <h3>질문 2: 6:19는 능력이 나와 <strong>모두를</strong> 낫게 했다고 적고, 다섯 절 뒤에 같은 입에서 「너희에게 화로다」가 나옵니다. 둘 중 하나를 부드럽게 바꾸지 않고 둘 다 그대로 두면, 이 단락을 읽는 내 자리는 어디입니까.</h3>
@@ -475,16 +614,14 @@
 <h3>질문 5: 6:48과 6:49에 「강이 부딪쳤다」가 똑같이 적혀 있습니다. 본문에 강을 피하는 법이 없다는 사실은 이 비유를 듣는 방식에 무엇을 요구합니까.</h3>
 <p><strong>답변:</strong> 반석 위에 깊이 파고 주추를 놓은 집이나 주추 없이 흙 위에 지은 집이나 가리지 않고, <strong>"탁류가 부딪치되(플림뮈라스 데 게노메네스 프로세렉센 호 포타모스, πλημμύρης δὲ γενομένης προσέρηξεν ὁ ποταμός)"</strong>라는 종말론적 시련과 심판의 격류는 양쪽 모두에게 동일하게 들이닥칩니다. 본문이 환난이나 심판을 우회할 수 있는 어떠한 예외적 특권이나 면제 통행증도 약속하지 않는다는 사실은, 신앙을 고난 없는 만사형통의 도피처로 여기는 기복주의적 환상을 완전히 깨뜨립니다. 따라서 이 비유는 성도에게 시험을 피하는 요령이 아니라, 닥쳐올 거센 풍파 속에서도 무너지지 않도록 <strong>주님의 말씀을 듣고 삶의 실천으로 깊이 파내려가 반석이신 그리스도께 존재의 기초를 온전히 박는 참된 제자도(순종)</strong>를 결단할 것을 엄중하게 요구합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-13" data-index="13" data-ref="14 해설서 누가복음 7 1-23">
-        <div class="card-header">
-            <span class="badge">14 해설서 누가복음 7 1-23</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-13" data-index="13" data-file-item="14 해설서 누가복음 7 1-23 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>14 해설서 누가복음 7 1-23</span>
         </div>
-        <div class="card-body">
-            <h2>14_해설서_누가복음_7_1-23.md - 누가복음 7:1-23</h2>
+        <h2>14_해설서_누가복음_7_1-23.md - 누가복음 7:1-23</h2>
 <h3>질문 1: 7:8에서 백부장이 자기를 「아래 놓인 사람」으로 적을 때, 그가 설명한 명령의 구조에는 상위 권위와 실행자라는 두 칸이 있습니다. 7:14의 명령에서 그 두 칸은 어떻게 되어 있습니까?</h3>
 <p><strong>답변:</strong> 백부장의 고백에서 명령의 구조는 상위 권위인 황제나 상관의 위임 아래 백부장 자신이 서고, 그의 수하에 있는 군병이나 종이 명령을 수행하는 <strong>위임된 권위의 매개 구조</strong>로 이루어져 있습니다. 그러나 7:14에서 나인 성 과부의 죽은 아들을 향해 "청년아 내가 네게 이르노니 일어나라"고 명하실 때, 상위 권위의 자리에는 다른 중개자가 아닌 <strong>예수 그리스도 자신(ἐγώ)</strong>이 절대적이고 최종적인 생명의 원천으로 직접 좌정하십니다. 동시에 그 명령을 받아내는 실행자의 자리에는 인간 하수인이 아니라 그 누구도 거스를 수 없는 <strong>죽음과 생명의 영역(죽은 청년)</strong>이 직결되어 있습니다. 결국 예수께서는 위임된 인간적 권세를 행사하시는 것이 아니라, 말씀 한마디로 만유를 복종시키시는 <strong>창조와 부활의 신적 주권자</strong>로서 친히 명령하고 계십니다.</p>
 <h3>질문 2: 본문은 종이 어떻게 나았는지 적지 않고 돌아간 사람들이 본 결과만 적습니다. 이 빈자리를 채우고 싶어질 때 우리는 보통 무엇으로 채우려 합니까? 본문은 왜 그 자리를 채우지 않았다고 말해 주지 않습니까?</h3>
@@ -496,16 +633,14 @@
 <h3>질문 5: 요한은 「이 모든 일」을 전해 들은 뒤에 물었고, 답으로 그가 이미 들은 목록을 돌려받았습니다. 그 목록 끝에 붙은 7:23은 복의 조건을 어디에 걸고 있습니까?</h3>
 <p><strong>답변:</strong> 감옥에 갇힌 세례 요한이 "오실 그이가 당신이오니이까"라고 물었을 때, 예수께서는 이미 알려진 이사야적 회복의 기적 목록을 되돌려주신 후 7:23에서 <strong>"누구든지 나로 말미암아 실족하지 아니하는 자는 복이 있도다"</strong>라고 선언하십니다. 예수님은 참된 복의 조건을 기적의 물리적 수혜나 로마를 뒤엎는 정치적 승리에 두지 않으시고, <strong>자신이 기대했던 메시아상과 일치하지 않는 예수의 사역 방식과 고난의 길 앞에서도 끝내 걸려 넘어지지 않는 믿음</strong>에 두고 계십니다. 즉 참된 제자도와 복락은 자기 확신과 종교적 선입견을 내려놓고, <strong>자신의 기대를 배반할지라도 하나님의 일하심의 방식 그 자체이신 예수 그리스도를 온전히 수용하고 신뢰하는 것</strong>에 달려 있습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-14" data-index="14" data-ref="15 해설서 누가복음 7 24-50">
-        <div class="card-header">
-            <span class="badge">15 해설서 누가복음 7 24-50</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-14" data-index="14" data-file-item="15 해설서 누가복음 7 24-50 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>15 해설서 누가복음 7 24-50</span>
         </div>
-        <div class="card-body">
-            <h2>15_해설서_누가복음_7_24-50.md - 누가복음 7:24-50</h2>
+        <h2>15_해설서_누가복음_7_24-50.md - 누가복음 7:24-50</h2>
 <h3>질문 1: 7:24-26에서 예수님은 답을 주시기 전에 같은 물음을 세 번 하십니다. 본문이 답보다 물음을 먼저 세 번 놓은 것은 듣는 사람에게 무엇을 하게 하려는 배치입니까.</h3>
 <p><strong>답변:</strong> 예수님은 요한의 정체성을 교리적으로 즉각 정의해 주시기 전에 "너희가 무엇을 보려고 광야에 나갔더냐"라는 동일한 질문을 세 번 연속으로 던지십니다(바람에 흔들리는 갈대, 화려한 옷 입은 자, 선지자). 본문이 이 3중 질문을 선행 배치한 것은, 청중으로 하여금 요한을 찾아갔던 과거의 기억과 내면의 세속적 동기를 철저히 소환하여 <strong>자신들이 품었던 정치적·감각적 기대의 허망함을 스스로 폭로하고 직시하게 하려는 의도</strong>입니다. 청중은 질문의 거듭된 부정(갈대도 아니고 왕궁의 사람도 아니다)을 통과하면서 수동적인 관객에서 벗어나, <strong>자신들이 광야에서 마주했던 이가 구약 예언의 종결자이자 메시아의 길을 예비하는 선지자였음을 실존적으로 자각하고 고백하는 자리</strong>로 이끌립니다.</p>
 <h3>질문 2: 7:29와 7:30은 같은 꼴의 동사로 정반대의 결과를 적습니다. 본문이 두 줄을 나란히 두고 설명을 붙이지 않은 것을, 읽는 사람은 어떻게 받아야 합니까.</h3>
@@ -517,16 +652,14 @@
 <h3>질문 5: 7:49의 물음에 본문은 답을 적지 않고 7:50에서 여자에게 돌아섭니다. 답이 적히지 않은 그 물음을 본문은 왜 지우지 않고 남겨 두었다고 보십니까.</h3>
 <p><strong>답변:</strong> 바리새인의 식사 자리에 앉은 자들은 "이가 누구이기에 죄도 사하는가?"라며 예수를 참람한 자로 의심하지만, 예수님은 그 종교적 비판자들에게 교리적 해명을 주지 않으시고 여인을 향해 "네 믿음이 너를 구원하였으니 평안히 가라"며 돌아섭니다. 본문이 논쟁자들의 미완성된 물음을 삭제하지 않고 여운으로 남겨둔 까닭은, <strong>예수가 참으로 죄를 사하는 신적 권세를 가진 하나님이신가라는 질문을 독자 자신의 궁극적인 실존적 질문으로 전환</strong>시키기 위함입니다. 비판적 관찰자로 팔짱을 끼고 앉은 자들은 끝내 그 답을 알지 못하고 의혹 속에 머물지만, 여인처럼 상한 심령으로 발 앞에 엎드려 옥합을 깨뜨린 자만이 <strong>죄를 사하시는 그리스도의 신성을 '구원과 평안(샬롬)'으로 체험하여 알게 된다는 산 신앙의 역설</strong>을 증언합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-15" data-index="15" data-ref="16 해설서 누가복음 8 1-21">
-        <div class="card-header">
-            <span class="badge">16 해설서 누가복음 8 1-21</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-15" data-index="15" data-file-item="16 해설서 누가복음 8 1-21 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>16 해설서 누가복음 8 1-21</span>
         </div>
-        <div class="card-body">
-            <h2>16_해설서_누가복음_8_1-21.md - 누가복음 8:1-21</h2>
+        <h2>16_해설서_누가복음_8_1-21.md - 누가복음 8:1-21</h2>
 <h3>질문 1: 8:3은 세 사람의 이름을 적고 나머지를 「다른 여러 여자」로 묶었습니다. 요안나에게는 수식이 셋 붙고 수산나에게는 하나도 붙지 않습니다. 본문이 이름을 적은 자리와 적지 않은 자리에서 당신은 무엇을 읽습니까?</h3>
 <p><strong>답변:</strong> 일곱 귀신이 나간 막달라 마리아, 헤롯의 청지기 구사의 아내로서 왕실의 권력층과 연결된 요안나, 아무런 사회적 수식도 없는 수산나, 그리고 무명의 '다른 여러 여자'가 한데 묶여 자기들의 소유로 예수 공동체를 섬깁니다. 본문이 특정 인물의 사회적 배경을 구체적으로 명시함과 동시에 다른 이들을 이름 없는 자리로 남겨둔 것은, <strong>하나님 나라의 공동체가 사회적 신분, 계급, 부의 장벽을 완전히 허물어버린 거룩한 영적 연대</strong>를 이루고 있음을 보여줍니다. 이름의 기록 여부나 세상적 직함의 유무와 상관없이, 그들 모두는 <strong>은혜에 빚진 자로서 동등한 헌신으로 복음의 전진을 지탱한 필수적 동역자들</strong>이었으며, 하나님의 생명책 앞에는 무의미한 무명의 헌신이란 결코 존재하지 않음을 웅변합니다.</p>
 <h3>질문 2: 8:11의 풀이는 씨가 무엇인지, 네 자리가 무엇인지는 말해 주고 뿌리는 이가 누구인지는 말해 주지 않습니다. 풀이가 받은 것과 받지 않은 것의 선을 따라가 보면 이 비유가 무엇에 대해 말하고 있습니까?</h3>
@@ -538,16 +671,14 @@
 <h3>질문 5: 8:21에는 명령문이 없고 「~은 ~이다」 문장만 있습니다. 그 문장이 8:19-20에 적힌 사실을 어떻게 다루고 있습니까?</h3>
 <p><strong>답변:</strong> 예수의 육신의 어머니와 형제들이 밖에서 만나기를 청한다는 혈연적 통보(8:19-20)에 대해, 예수님은 아무런 명령적 훈계를 내리지 않으시고 "내 어머니와 내 동생들은 곧 하나님의 말씀을 듣고 행하는 이 사람들이라"(8:21)는 단정적인 서술문으로 응답하십니다. 이 정의적 선언은 육체적 혈통이나 가문의 유대를 폭력적으로 폐기하는 것이 아니라, <strong>하나님 나라의 도래와 함께 혈연의 지평을 영원히 뛰어넘는 새로운 종말론적 가족의 탄생</strong>을 공식적으로 선포합니다. 즉 예수 그리스도의 참된 권속이 되는 절대적 기준은 타고난 생물학적 혈통이 아니라, <strong>살아계신 하나님의 말씀을 청종하고 삶으로 살아내는 순종의 결속</strong>에 있음을 확정 짓습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-16" data-index="16" data-ref="17 해설서 누가복음 8 22-39">
-        <div class="card-header">
-            <span class="badge">17 해설서 누가복음 8 22-39</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-16" data-index="16" data-file-item="17 해설서 누가복음 8 22-39 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>17 해설서 누가복음 8 22-39</span>
         </div>
-        <div class="card-body">
-            <h2>17_해설서_누가복음_8_22-39.md - 누가복음 8:22-39</h2>
+        <h2>17_해설서_누가복음_8_22-39.md - 누가복음 8:22-39</h2>
 <h3>질문 1: 본문에서 두 물음은 잔잔해진 다음에 섭니다. 예수의 물음과 제자들의 물음은 각각 무엇을 향하고 있으며, 제자들은 그 물음을 누구에게 했습니까.</h3>
 <p><strong>답변:</strong> 광풍이 멎고 바다가 완전한 평온을 되찾은 후, 예수님의 질문 "너희 믿음이 어디 있느냐?"(8:25a)는 위기 앞에서 순식간에 증발해 버린 <strong>제자들의 내면적 불신앙과 영적 무기력의 자리</strong>를 정조준합니다. 반면 제자들의 질문 "그가 누구이기에 바람과 물을 명하매 순종하는가?"(8:25b)는 피조 세계를 말씀 한마디로 복종시키시는 <strong>예수 그리스도의 초월적이고 신적인 정체성</strong>을 향하고 있습니다. 특히 제자들은 이 질문을 예수께 감히 직접 묻지 못하고 <strong>"그들이 두려워하고 놀랍게 여겨 서로 말하되"</strong>라며 자기들끼리 전율 속에 속삭였는데, 이는 광풍의 공포를 넘어 <strong>자기들의 배 안에 서 계신 하나님의 거룩한 임재(누미노제) 앞에 압도당했음</strong>을 생생하게 보여줍니다.</p>
 <h3>질문 2: 8:31에서 간구하는 쪽이 이미 전제하고 있는 것은 무엇입니까. 그 전제와 8:25에서 제자들이 물음의 근거로 내놓은 말을 나란히 놓아 보십시오.</h3>
@@ -559,16 +690,14 @@
 <h3>질문 5: 8:39의 두 문장에서 「하신」이라는 동사의 꼴은 같고 주어는 다릅니다. 앞 문장에서 그 주어를 지정한 분은 누구이고, 뒤 문장의 주어를 적은 손은 누구의 손입니까.</h3>
 <p><strong>답변:</strong> 8:39의 앞 문장에서 "집으로 돌아가 <strong>하나님이 네게 어떻게 큰 일을 행하셨는지</strong> 말하라"고 명하시며 그 은혜의 주어를 <strong>하나님(ὁ θεός)</strong>으로 지정하신 분은 바로 예수님이십니다. 그러나 뒤이어 누가가 성취를 서술하는 뒷문장은 "그가 가서 <strong>예수께서 자기에게 어떻게 큰 일을 행하셨는지를</strong> 온 성내에 전파하니라"로 이어지며 주어가 <strong>예수(ὁ Ἰησοῦς)</strong>로 담대하게 치환됩니다. 이 뒷문장의 주어를 '예수'로 기록한 복음서 기자 누가의 손은, <strong>하나님께서 행하시는 종말론적 구원의 위대한 일들이 곧 나사렛 예수의 인격과 사역을 통해 온전히 성취되었음을 확증하는 성령 충만한 기독론적 고백</strong>을 내러티브 속에 선명하게 아로새기고 있습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-17" data-index="17" data-ref="18 해설서 누가복음 8 40-56">
-        <div class="card-header">
-            <span class="badge">18 해설서 누가복음 8 40-56</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-17" data-index="17" data-file-item="18 해설서 누가복음 8 40-56 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>18 해설서 누가복음 8 40-56</span>
         </div>
-        <div class="card-body">
-            <h2>18_해설서_누가복음_8_40-56.md - 누가복음 8:40-56</h2>
+        <h2>18_해설서_누가복음_8_40-56.md - 누가복음 8:40-56</h2>
 <h3>질문 1: 8:44에서 몸에 일어난 일을 적은 문장의 주어는 무엇입니까. 그 주어가 여인도 예수도 아니라는 사실은 이 장면에서 무엇을 가려 줍니까.</h3>
 <p><strong>답변:</strong> 8:44에서 여인의 치유를 기록한 헬라어 문장의 주어는 여인도 예수도 아닌 바로 <strong>"그의 혈루 근원(ἡ ῥύσις τοῦ αἵματος αὐτῆς)"</strong>이며, 동사는 "즉시 멎었더라(ἔστη παραχρῆμα)"입니다. 신체적 변화의 주어가 인간의 행위나 예수의 작위적 행위가 아니라 질병의 발원지 그 자체로 서술된 것은, <strong>치유가 인간의 조작이나 마술적 터치가 아니라 거룩한 생명의 권능이 부정한 죽음의 근원을 즉각 삼켜버린 결과</strong>임을 가리킵니다. 이는 여인의 접촉이 주술적 효험을 노린 미신적 행위가 아님을 밝히며, <strong>부정을 전염당하지 않으시고 도리어 부정한 사망의 원천을 완전히 마르게 하시는 예수의 압도적인 신적 거룩과 생명력</strong>을 명료하게 부각시킵니다.</p>
 <h3>질문 2: 8:43과 8:47과 8:48에 쓰인 낱말이 서로 다른 낱말이라는 것을 알고 세 절을 다시 읽으면, 예수가 그 여인에게 건넨 마지막 말은 무엇이 달라집니까.</h3>
@@ -580,16 +709,14 @@
 <h3>질문 5: 8:53의 비웃음이 소녀가 일어난 뒤에도 본문에 남아 있다는 것은 이 단락의 끝을 어떻게 만듭니까. 그 구절이 지워졌다면 무엇이 달라졌겠습니까.</h3>
 <p><strong>답변:</strong> 8:53에서 사람들은 아이가 "죽은 것을 아는 고로 비웃었더라"(κατεγέλων αὐτοῦ)고 기록되며, 아이가 부활한 이후에도 그 비웃던 무리가 회개했다는 서술 없이 본문 뒤편의 씁쓸한 배경으로 방치됩니다. 이 조롱의 잔재는 본 단락의 결말을 손쉬운 승리주의나 감상적 해피엔딩으로 흐르지 않게 하며, <strong>그리스도의 부활 생명이 완악한 세상의 냉소와 불신앙 한복판에서 오직 믿음으로 순종하는 자들에게만 거룩한 신비로 계시된다는 십자가적 현실</strong>을 각인시킵니다. 만약 이 비웃음의 기록이 지워졌다면 기적은 단순한 대중적 환호의 스펙터클로 소비되었을 것이나, 냉소가 남겨짐으로써 <strong>세상의 냉혹한 사망 권세와 생명의 주권자이신 그리스도 사이의 타협할 수 없는 거룩한 심연</strong>이 폭로됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-18" data-index="18" data-ref="19 해설서 누가복음 9 1-17">
-        <div class="card-header">
-            <span class="badge">19 해설서 누가복음 9 1-17</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-18" data-index="18" data-file-item="19 해설서 누가복음 9 1-17 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>19 해설서 누가복음 9 1-17</span>
         </div>
-        <div class="card-body">
-            <h2>19_해설서_누가복음_9_1-17.md - 누가복음 9:1-17</h2>
+        <h2>19_해설서_누가복음_9_1-17.md - 누가복음 9:1-17</h2>
 <h3>질문 1: 9:1에서 열둘이 <strong>받은</strong> 것과 9:3에서 <strong>금지된</strong> 것을 각각 목록으로 적어 보십시오. 두 목록을 나란히 놓으면 무엇이 보입니까?</h3>
 <p><strong>답변:</strong> 9:1에서 제자단이 예수께 공식적으로 부여받은 것은 <strong>"모든 귀신을 제어하며 병을 고치는 능력과 권위(δύναμις καὶ ἐξουσία)"</strong>이며, 9:3에서 여행을 위해 금지된 목록은 <strong>"지팡이나 배낭이나 양식이나 돈이나 두 벌 옷"</strong>입니다. 이 영적 수여의 목록과 세속적 금지의 목록을 대조적으로 병렬해 놓으면, 하나님 나라의 일꾼은 <strong>세상적 자원과 물질적 방패를 철저히 박탈당한 결핍의 자리에서 오직 위로부터 임하는 하늘의 권능만을 무기 삼아야 함</strong>이 분명하게 드러납니다. 즉 복음 사역의 참된 파워는 인간적 비축과 안전망에서 나오는 것이 아니라, <strong>자기 결핍을 철저히 인정하고 하나님 아버지의 전적인 공급하심에 온 실존을 내맡길 때 비로소 순전하게 발현함</strong>을 가르칩니다.</p>
 <h3>질문 2: 9:12에서 열둘이 내놓은 말에는 목적과 이유가 붙어 있습니다. 그들이 든 목적은 무엇이고 이유는 무엇입니까? 그 말을 불신으로만 읽을 수 있습니까?</h3>
@@ -601,16 +728,14 @@
 <h3>질문 5: 9:3의 "지고 가지 말라"와 9:17의 "들려졌다"는 본디 한 낱말입니다. 두 자리에서 그 낱말이 받는 목적어와 주어는 각각 무엇입니까? 9:17은 들어 올린 사람을 적었습니까?</h3>
 <p><strong>답변:</strong> 9:3의 "양식을 가져가지(αἴρετε) 말라"와 9:17의 "남은 조각을 거두니(ἦρθεν)"에 사용된 동사는 모두 동일한 '아이로'(αἴρω)입니다. 9:3에서 금지된 목적어는 전도 여행을 위해 인간이 챙기려 했던 <strong>"지팡이나 배낭이나 양식"</strong>이었던 반면, 9:17에서 거두어진 목적어는 모든 무리가 배불리 먹고도 차고 넘친 <strong>"남은 조각 열두 광주리"</strong>입니다. 더욱이 9:17의 동사는 신적 수동태(ἦρθεν)로 기록되어 구체적으로 누가 그것을 들어 올렸는지 인간 주어를 명시하지 않는데, 이는 <strong>자신의 양식을 비우고 떠났던 제자들에게 하나님께서 친히 채워주신 넘치는 풍요와 영광스러운 결실</strong>임을 은연중에 선포하는 절묘한 언어적 일치입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-19" data-index="19" data-ref="20 해설서 누가복음 9 18-36">
-        <div class="card-header">
-            <span class="badge">20 해설서 누가복음 9 18-36</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-19" data-index="19" data-file-item="20 해설서 누가복음 9 18-36 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>20 해설서 누가복음 9 18-36</span>
         </div>
-        <div class="card-body">
-            <h2>20_해설서_누가복음_9_18-36.md - 누가복음 9:18-36</h2>
+        <h2>20_해설서_누가복음_9_18-36.md - 누가복음 9:18-36</h2>
 <h3>질문 1: 무리가 내놓은 세 답(9:19)과 베드로의 답(9:20)은 무엇이 다릅니까. 본문은 베드로의 답을 어떻게 다루고, 그 답 위에 무엇을 얹습니까.</h3>
 <p><strong>답변:</strong> 무리가 내놓은 세 가지 대답(세례 요한, 엘리야, 옛 선지자의 부활)은 예수를 과거 역사의 익숙한 선지자적 범주 안에 끼워 맞추려는 <strong>인간적 유비와 피상적 관찰</strong>에 불과했으나, 베드로의 고백 "하나님의 그리스도시니이다"는 예수를 구속사를 완성하실 <strong>유일회적이고 종말론적인 메시아</strong>로 정확히 꿰뚫어 본 참된 신앙고백이었습니다. 누가는 마태복음과 달리 베드로에 대한 칭찬을 생략하고 곧바로 엄히 경계하여 아무에게도 이르지 말라 명하신 후, 그 고백 위에 즉각적으로 <strong>"인자가 많은 고난을 받고 장로들과 대제사장들과 서기관들에게 버린 바 되어 죽임을 당하고 제삼일에 살아나야 하리라"(9:22)는 수난과 십자가의 필연성</strong>을 무겁게 얹어 놓습니다. 이는 고난 없는 영광의 메시아주의는 사탄적 환상에 불과하며, <strong>참된 그리스도 인식이란 십자가의 죽음을 통과해야만 완성된다는 교정</strong>입니다.</p>
 <h3>질문 2: 9:22에서 그분께 일어날 일로 적힌 네 가지를 차례로 적어 보십시오. 본문이 그 일을 행하는 이들을 어떻게 적어 두었습니까.</h3>
@@ -622,16 +747,14 @@
 <h3>질문 5: 9:35의 소리는 지목과 명령을 한 문장에 담았습니다. 그 명령이 요구하는 내용을 이 단락 안에서 찾으면 어디입니까. 그리고 그 명령을 받고 내려온 사람들이 9:36에서 한 일은 무엇입니까.</h3>
 <p><strong>답변:</strong> 9:35 구름 속에서 들려온 하늘의 음성은 "이는 나의 아들 곧 택함을 받은 자니 <strong>너희는 그의 말을 들으라(αὐτοῦ ἀκούετε)</strong>"는 신적 정체성의 지목과 청종의 명령을 결합하고 있습니다. 이 단락 안에서 제자들이 반드시 귀 기울여 순종해야 할 그리스도의 말씀은 바로 앞서 선포하셨던 <strong>"날마다 제 십자가를 지고 나를 따르라"(9:23)는 제자도의 길과 "인자가 버린 바 되어 죽임을 당하리라"(9:22)는 수난의 예고</strong>입니다. 그러나 이 엄위한 명령을 받고 산 아래로 내려온 제자들이 9:36에서 취한 행동은 <strong>"그들이 잠잠하여 그 본 것을 무엇이든지 그 때에는 아무에게도 이르지 아니하니라"</strong>는 침묵이었습니다. 이는 영광의 신비와 십자가 수난의 필연성을 아직 통합하지 못한 인간적 당혹감과 유예된 이해의 침묵이었습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-20" data-index="20" data-ref="21 해설서 누가복음 9 37-50">
-        <div class="card-header">
-            <span class="badge">21 해설서 누가복음 9 37-50</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-20" data-index="20" data-file-item="21 해설서 누가복음 9 37-50 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>21 해설서 누가복음 9 37-50</span>
         </div>
-        <div class="card-body">
-            <h2>21_해설서_누가복음_9_37-50.md - 누가복음 9:37-50</h2>
+        <h2>21_해설서_누가복음_9_37-50.md - 누가복음 9:37-50</h2>
 <h3>질문 1: 9:45는 "알지 못하였고 · 가려져 있었으며 · 묻기를 두려워하였다" 세 마디를 나란히 놓습니다. 이 가운데 <strong>가운데 한 마디만</strong> 주어가 사람이 아닙니다. 본문은 왜 그 한 마디를 따로 적어 두었을까요. 그 한 마디를 지우면 9:45는 어떻게 달라집니까.</h3>
 <p><strong>답변:</strong> 9:45에서 제자들의 심리적 반응을 묘사하는 세 마디 중 첫째와 셋째는 사람이 주어이지만, 가운데 마디인 <strong>"이는 그들로 깨닫지 못하게 가려진 바 되었음이라(ἦν παρακεκαλυμμένον)"</strong>는 인간이 아닌 '신적 수동태'로 기술되어 있습니다. 누가가 이 한 마디를 독립적으로 삽입한 이유는, 수난에 대한 제자들의 영적 무지가 단순한 지적 게으름이나 인격적 우둔함 때문만이 아니라 <strong>십자가의 때가 이르기까지 진리를 은닉하시는 하나님의 주권적 구속사 경륜</strong>에 속해 있음을 보여주기 위함입니다. 만약 이 구절을 지워버린다면, 본문은 단지 제자들의 도덕적 둔감함과 영적 무능만을 단죄하는 인간학적 실패의 기록으로 축소되어 <strong>하나님이 이끌어가시는 계시의 점진적 섭리</strong>를 상실하게 됩니다.</p>
 <h3>질문 2: 9:43에서는 놀란 까닭을 바로 붙여 적었고(하나님의 위엄), 9:45에서는 가린 이를 적지 않았습니다. 같은 책이 적을 수 있을 때는 적었습니다. 이 대조 앞에서 우리가 <strong>적어 넣고 싶어지는 이름</strong>은 무엇입니까.</h3>
@@ -643,16 +766,14 @@
 <h3>질문 5: 9:40에서는 명부 안의 사람들이 그 이름으로도 하지 못했고, 9:49에서는 명부 밖의 사람이 그 이름으로 했습니다. 본문은 두 장면을 이어 주는 설명을 쓰지 않았습니다. 9:50의 금지가 멈추라고 한 <strong>손</strong>은 누구의 손입니까.</h3>
 <p><strong>답변:</strong> 9:40에서 공식 제자단(명부 안)은 권능을 위임받고도 귀신을 쫓아내지 못하는 영적 무기력을 드러냈으나, 9:49에서 요한은 자기 교단에 속하지 않은 낯선 자(명부 밖)가 예수의 이름으로 귀신을 제어하는 것을 보고 시기하여 금지시켰습니다. 본문 9:50에서 예수께서 "금지하지 말라(Μὴ κωλύετε)"고 명하시며 가로막으신 손은, 귀신을 내쫓던 낯선 사역자의 은혜로운 손이 아니라 <strong>자신들의 영적 무능은 성찰하지 못한 채 기득권적 배타주의와 당파성으로 타인의 사역을 억압하려 했던 제자들의 오만한 손</strong>이었습니다. 이는 복음의 사역이 특정 분파의 전유물이 될 수 없으며, <strong>그리스도를 위하는 모든 거룩한 역사 앞에서 편협한 종교적 독점욕을 즉각 멈추라는 준엄한 경고</strong>입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-21" data-index="21" data-ref="22 해설서 누가복음 9 51-10">
-        <div class="card-header">
-            <span class="badge">22 해설서 누가복음 9 51-10</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-21" data-index="21" data-file-item="22 해설서 누가복음 9 51-10 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>22 해설서 누가복음 9 51-10</span>
         </div>
-        <div class="card-body">
-            <h2>22_해설서_누가복음_9_51-10_24.md - 누가복음 9:51-10:24</h2>
+        <h2>22_해설서_누가복음_9_51-10_24.md - 누가복음 9:51-10:24</h2>
 <h3>질문 1: 9:53은 그 마을이 받아들이지 않은 이유를 「그의 얼굴이 예루살렘으로 가고 있었기 때문」이라고 적습니다. 거절의 이유를 이렇게 적어 두는 것이, 거절을 곧 실패의 증거로 읽는 우리 습관에 어떤 선을 긋습니까?</h3>
 <p><strong>답변:</strong> 사마리아 마을이 예수를 영접하지 않은 원인은 예수의 인격적 흠결이나 선교적 역량 부족 때문이 아니라, <strong>그분이 십자가의 대속적 죽음이 기다리는 "예루살렘을 향하여 얼굴을 굳게 정하셨기"(9:51, 53)</strong> 때문이었습니다. 복음서가 거절의 까닭을 사명자의 확고한 십자가적 지향성에서 찾고 있다는 사실은, 눈앞의 환대와 수적 성공만을 사역의 척도로 삼아 거절을 곧 무능과 실패로 동일시하는 인간적 편견에 준엄한 경계선을 긋습니다. 즉 <strong>그리스도를 따르는 참된 순종의 여정에서는 세상의 배척과 거절이야말로 십자가의 길을 바르게 걷고 있다는 가장 역설적인 사명 완수의 표지</strong>가 될 수 있음을 가르쳐 줍니다.</p>
 <h3>질문 2: 9:55는 꾸짖음의 내용을 적지 않고 멈춥니다. 본문이 비워 둔 자리를 우리가 설명으로 채우려 할 때 무엇을 잃게 됩니까?</h3>
@@ -664,16 +785,14 @@
 <h3>질문 5: 10:20은 기쁨을 거두지 않고 기쁨이 걸릴 데만 옮깁니다. 본문이 기쁨 자체를 금하지 않았다는 사실이, 성과가 사라진 날에 무엇을 남겨 줍니까?</h3>
 <p><strong>답변:</strong> 예수께서는 전도 사역에서 귀신들이 항복하는 눈부신 성공을 거두고 돌아온 칠십 인에게 "귀신들이 너희에게 항복하는 것으로 기뻐하지 말고 <strong>너희 이름이 하늘에 기록된 것으로 기뻐하라(10:20)</strong>"며 기쁨의 근거지를 옮겨 주십니다. 예수님이 기쁨 자체를 억압하지 않으시고 그 기쁨의 닻을 하나님의 영원한 언약적 은혜의 보좌로 이동시켜 주셨다는 사실은, <strong>사역의 가시적 성과가 완전히 증발하고 참담한 무력감과 박해만이 남겨진 날에도 흔들리지 않는 궁극적인 위로와 안식</strong>을 남겨 줍니다. 성도의 참된 기쁨은 지상에서 거둔 승리의 전리품에 있지 않고, <strong>하나님의 은혜로 하늘 생명책에 결코 지워지지 않게 기록된 자기 존재의 구원 그 자체</strong>에 영원히 닻을 내리고 있기 때문입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-22" data-index="22" data-ref="23 해설서 누가복음 10 25-42">
-        <div class="card-header">
-            <span class="badge">23 해설서 누가복음 10 25-42</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-22" data-index="22" data-file-item="23 해설서 누가복음 10 25-42 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>23 해설서 누가복음 10 25-42</span>
         </div>
-        <div class="card-body">
-            <h2>23_해설서_누가복음_10_25-42.md - 누가복음 10:25-42</h2>
+        <h2>23_해설서_누가복음_10_25-42.md - 누가복음 10:25-42</h2>
 <h3>질문 1: 10:29와 10:36을 나란히 적어 보십시오. 두 물음에서 <strong>같은 것</strong>과 <strong>달라진 것</strong>을 각각 적어 보십시오. "이웃" 앞에 붙은 말이 어떻게 바뀌었습니까?</h3>
 <p><strong>답변:</strong> 10:29에서 율법교사는 "내 이웃이 누구이니이까?"(Τίς ἐστίν μου πλησίον;)라고 물었고, 10:36에서 예수님은 "네 생각에는 이 세 사람 중에 누가 강도 만난 자의 이웃이 되겠느냐?"(τίς ... πλησίον δοκεῖ σοι γεγονέναι τοῦ ἐμπεσόντος;)라고 되물으셨습니다. 두 질문에서 동일한 것은 <strong>"이웃(πλησίον)"</strong>이라는 핵심 단어이지만, 달라진 것은 질문의 관점과 실존적 주체성입니다. 율법교사의 질문에서 이웃 앞에 붙은 말은 <strong>"내(나의)"</strong>로서 자기를 중심에 두고 사랑의 의무를 제한하려는 수동적 경계 짓기였으나, 예수님의 질문에서는 <strong>"강도 만난 자의"</strong>로 바뀌어 고통당하는 자의 편에 서서 자비를 베푸는 능동적 실천자로 완전히 전환되었습니다.</p>
 <h3>질문 2: 10:31·10:32·10:33에서 세 사람에게 <strong>똑같이</strong> 붙은 말은 무엇입니까? 그 뒤에 붙은 동사는 각각 어떻게 다릅니까? 본문은 앞의 두 사람이 지나간 <strong>이유</strong>를 적었습니까?</h3>
@@ -685,16 +804,14 @@
 <h3>질문 5: 10:25의 "얻으리이까"와 10:42의 "빼앗기지 아니하리라"를 나란히 적어 보십시오. 앞의 것에는 무엇이 붙어 있고, 뒤의 것에는 무엇이 붙어 있습니까?</h3>
 <p><strong>답변:</strong> 10:25에서 율법교사의 질문은 "내가 무엇을 하여야 영생을 <strong>얻으리이까(상속하리이까, κληρονομήσω)</strong>"이며, 10:42에서 마리아를 향한 예수의 칭찬은 "마리아는 이 좋은 편을 택하였으니 <strong>빼앗기지 아니하리라(οὐκ ἀφαιρεθήσεται)</strong>"입니다. 앞의 질문에는 율법교사가 주체가 되어 조건을 성취하려는 <strong>"내가 무엇을 하여야(인간의 공로적 행위와 획득의 의지)"</strong>가 붙어 있는 반면, 뒤의 약속에는 주님의 발치에서 말씀을 청종하는 은혜의 상태를 하나님이 영원히 수호하시겠다는 <strong>"신적 보호의 절대적 부정어(결코 빼앗기지 아니하리라)"</strong>가 붙어 있습니다. 이는 영생이 인간의 주체적 쟁취나 분주한 종교적 노동의 대가가 아니라, <strong>오직 그리스도의 말씀 앞에 머물러 은혜를 수납하는 자에게 값없이 주어지는 종말론적 선물</strong>임을 확증합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-23" data-index="23" data-ref="24 해설서 누가복음 11 1-28">
-        <div class="card-header">
-            <span class="badge">24 해설서 누가복음 11 1-28</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-23" data-index="23" data-file-item="24 해설서 누가복음 11 1-28 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>24 해설서 누가복음 11 1-28</span>
         </div>
-        <div class="card-body">
-            <h2>24_해설서_누가복음_11_1-28.md - 누가복음 11:1-28</h2>
+        <h2>24_해설서_누가복음_11_1-28.md - 누가복음 11:1-28</h2>
 <h3>질문 1: 2절은 「나라가 오게 하십시오」라고 구하라 하고 20절은 「이미 이르렀다」고 말합니다. 이 두 문장 사이에 본문이 무엇을 적어 두었고 무엇을 적지 않았는지 찾아보십시오.</h3>
 <p><strong>답변:</strong> 11:2의 주기도문에서 "아버지의 나라가 오시며(종말론적 미래의 도래 청원)"와 11:20에서 "하나님의 나라가 이미 너희에게 임하였느니라(역사적 현재의 도래 선언)" 사이에, 누가는 <strong>바알세불 논쟁과 귀신 축출을 통한 강력한 영적 전쟁(11:14-19)</strong>을 상세히 기록해 두었습니다. 반면 본문이 의도적으로 적지 않은 것은 <strong>로마 제국의 붕괴나 민족주의적 정치 혁명, 혹은 눈에 보이는 군사적 메시아 왕국의 외적 성립 과정</strong>입니다. 이는 하나님 나라의 도래가 정치적 영토 확장이 아니라, <strong>성령(하나님의 손가락)을 힘입어 사탄의 결박을 파쇄하고 포로 된 영혼을 해방시키는 그리스도의 실제적 구속 사역을 통해 '이미(Already) 그러나 아직(Not yet)'의 긴장 속에서 성취됨</strong>을 보여줍니다.</p>
 <h3>질문 2: 8절은 떡을 주는 이유에서 「친구라는 사실」을 빼고 「뻔뻔함」을 남겨 둡니다. 본문이 왜 보기 좋은 이유를 물렸는지, 그리고 그 「그의」가 누구인지 본문이 정해 주는지 살펴보십시오.</h3>
@@ -706,16 +823,14 @@
 <h3>질문 5: 27절의 여자는 몸 둘을 들어 복을 말하고 28절은 복의 대상을 바꿉니다. 본문은 그 바꿈의 이유를 적었습니까. 그리고 21절과 28절에 두 번 나오는 「지키다」의 목적어는 각각 무엇입니까.</h3>
 <p><strong>답변:</strong> 11:27에서 한 여인은 예수의 육체적 기원인 "태(배)와 젖가슴"을 들어 혈연적 모성을 축복하지만, 예수께서는 11:28에서 "오히려 하나님의 말씀을 듣고 지키는 자가 복이 있느니라"며 복의 대상을 근본적으로 재정의하십니다. 본문은 그 전환의 이유를 구구절절 설명하지 않는데, 이는 <strong>참된 복이 생물학적 혈통이나 외적 인연이라는 우연한 특권에 있지 않고 오직 말씀에 대한 순종적 응답에 있음</strong>이 자명한 진리이기 때문입니다. 한편 11:21과 11:28에 반복되는 '지키다'(퓨랏소, φυλάσσω)의 목적어는 극명하게 대비되는데, 11:21에서 무장한 강한 자가 지키려 했던 목적어는 <strong>"자기의 집과 세속적 소유(재물)"</strong>였던 반면, 11:28에서 참된 신자가 생명 다해 지켜야 할 목적어는 바로 <strong>"하나님의 말씀"</strong>입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-24" data-index="24" data-ref="25 해설서 누가복음 11 29-54">
-        <div class="card-header">
-            <span class="badge">25 해설서 누가복음 11 29-54</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-24" data-index="24" data-file-item="25 해설서 누가복음 11 29-54 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>25 해설서 누가복음 11 29-54</span>
         </div>
-        <div class="card-body">
-            <h2>25_해설서_누가복음_11_29-54.md - 누가복음 11:29-54</h2>
+        <h2>25_해설서_누가복음_11_29-54.md - 누가복음 11:29-54</h2>
 <h3>질문 1: 11:29는 「주어지지 않을 것이다」라고 하면서 주시는 이를 밝히지 않습니다. 주시는 이를 밝히지 않은 이 문장이, 주시는 이를 밝힌 문장과 어떻게 다르게 읽힙니까?</h3>
 <p><strong>답변:</strong> 11:29에서 "이 세대는 악한 세대라 표적을 구하되 요나의 표적 밖에는 보일 표적이 없느니라(주어지지 않을 것이다, οὐ δοθήσεται)"는 문장은 능동적 주어를 생략한 <strong>신적 수동태(divine passive)</strong>의 형식을 취하고 있습니다. 만약 "하나님께서 표적을 주지 않으실 것이다"라고 주어를 명시했다면 표적의 수여 여부가 하나님의 주권적 거절이나 섭리적 처분으로 읽혔을 것이나, 주어를 밝히지 않음으로써 <strong>표적을 탐닉하는 악한 세대 자신의 맹목성과 불신앙이 자초한 영적 단절과 냉혹한 심판의 절대성</strong>이 부각됩니다. 즉 하나님이 인색하게 감추시는 것이 아니라, <strong>이미 메시아가 눈앞에 와 계심에도 보지 못하는 세대에게는 더 이상의 그 어떤 표적도 원천적으로 무의미하다는 준엄한 종말론적 폐쇄</strong>를 각인시킵니다.</p>
 <h3>질문 2: 11:30은 인자를 표적이라 부르면서 어떤 점에서 표적인지는 적지 않았습니다. 본문이 적지 않은 그 칸을 메우려는 마음이 올 때, 무엇이 그 마음을 멈춰 세울 수 있습니까?</h3>
@@ -727,16 +842,14 @@
 <h3>질문 5: 11:33의 등불은 들어오는 사람들이 보게 하려고 놓이고, 11:52의 열쇠는 들어가려는 사람들이 못 들어가게 치워집니다. 두 절 사이에 열아홉 절이 있습니다. 본문은 이 어긋남을 어디서부터 적기 시작합니까?</h3>
 <p><strong>답변:</strong> 11:33에서 등불은 "들어가는 자들로 그 빛을 보게 하려고" 등경 위에 높이 두어지지만, 11:52에 이르면 율법교사들이 "지식의 열쇠를 가져가고 자기들도 들어가지 않고 들어가려 하는 자도 막았느니라"는 비극적 폐쇄로 귀결됩니다. 누가가 이 참담한 영적 왜곡과 어긋남을 적기 시작한 최초의 분기점은, 바로 11:34-35에서 <strong>"네 몸의 등불은 눈이라 네 눈이 성하면 온 몸이 밝을 것이요 만일 나쁘면 네 몸도 어두우리라 그러므로 네 속에 있는 빛이 어둡지 아니한가 보라"</strong>고 경고하신 내면적 시선의 오염(마음의 눈멂)에서부터였습니다. 진리의 빛이 비추어도 <strong>마음의 중심이 탐욕과 종교적 자기 의로 어두워진 영적 지도자들이 빛을 등경 아래 숨기고 열쇠를 감추어버리는 영적 질식의 참사</strong>를 초래한 것입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-25" data-index="25" data-ref="26 해설서 누가복음 12 1-21">
-        <div class="card-header">
-            <span class="badge">26 해설서 누가복음 12 1-21</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-25" data-index="25" data-file-item="26 해설서 누가복음 12 1-21 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>26 해설서 누가복음 12 1-21</span>
         </div>
-        <div class="card-body">
-            <h2>26_해설서_누가복음_12_1-21.md - 누가복음 12:1-21</h2>
+        <h2>26_해설서_누가복음_12_1-21.md - 누가복음 12:1-21</h2>
 <h3>질문 1: 12:1의 「주의하라」가 받는 대상은 누구입니까. 앞 장에서 책망을 들은 사람들과 이 명령을 받는 사람들이 다르다는 것은 이 담화의 시작을 어떻게 만듭니까.</h3>
 <p><strong>답변:</strong> 12:1에서 예수께서 "바리새인들의 누룩 곧 외식을 주의하라"고 엄중히 명하신 대상은 바리새인들이 아니라 바로 <strong>"먼저 제자들에게 말씀하여 이르시되"</strong>에 명시된 예수의 제자 공동체입니다. 앞선 11장에서 무서운 화의 선고를 들었던 대상은 바리새인과 율법교사들이었으나, 12장에 들어서며 그 외식의 전염성을 경계해야 할 수신자가 제자들로 전격 교체되었다는 사실은 이 담화의 도입부를 <strong>외부의 대적을 향한 종교적 비판이 아닌, 신앙 공동체 내부의 영혼을 향한 서늘한 자기 성찰과 자정의 경고</strong>로 탈바꿈시킵니다. 즉 위선과 외식은 타락한 종교 지도자들만의 죄악이 아니라, <strong>수만 명의 군중이 밟힐 만큼 몰려드는 성공과 부흥의 열기 속에서 제자들 자신마저 순식간에 삼켜버릴 수 있는 가장 치명적인 영적 독소</strong>임을 폭로합니다.</p>
 <h3>질문 2: 12:4와 12:5와 12:7을 차례로 소리 내어 읽어 보십시오. 금지와 명령과 금지가 같은 낱말로 나란히 섭니다. 금지된 쪽에만 붙어 있는 한정 어구는 무엇이며, 본문이 두 말을 하나로 합치지 않은 채 둔 것은 이 네 절을 어떻게 읽게 합니까.</h3>
@@ -749,16 +862,14 @@
 <p><strong>답변:</strong> 12:16에서 풍성한 결실을 낸 주어는 부자 개인이 아니라 <strong>"한 부자의 밭(그 땅, ἡ χώρα)"</strong>이며, 12:17에서 그 부자가 어떻게 할까 홀로 깊이 고뇌하고 계산을 따진 자리는 바로 <strong>"심중에(자신의 내면, ἐν ἑαυτῷ)"</strong>였습니다. 결실의 원천은 하나님이 햇빛과 비를 내려주신 창조 세계의 '밭'이었음에도 불구하고, 부자는 그 수확을 온전히 자신의 사적 소유로 독점하며 이웃과 하나님을 완전히 배제한 채 오직 '자기 내면의 독백' 속에서 곡간 증축만을 도모했습니다. 따라서 12:21의 <strong>"자기를 위하여 재물을 쌓아 두고 하나님께 대하여 부요하지 못한 자"</strong>라는 선언은, 물질을 공급하신 창조주 하나님과의 관계와 굶주린 이웃과의 연대를 철저히 차단한 채 <strong>오직 자신의 탐욕과 헛된 현세적 안전만을 위해 하나님이 주신 은혜의 결실을 사유화하고 우상화하는 영적 폐쇄성과 자기 숭배</strong>를 가리킵니다.</p>
 <hr />
 <h1>누가복음 12:22~18:43 심층 주석 및 묵상 모범답안 (Units 27~39)</h1>
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-26" data-index="26" data-ref="27 해설서 누가복음 12 22-40">
-        <div class="card-header">
-            <span class="badge">27 해설서 누가복음 12 22-40</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-26" data-index="26" data-file-item="27 해설서 누가복음 12 22-40 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>27 해설서 누가복음 12 22-40</span>
         </div>
-        <div class="card-body">
-            <h2>27_해설서_누가복음_12_22-40.md - 누가복음 12:22-40</h2>
+        <h2>27_해설서_누가복음_12_22-40.md - 누가복음 12:22-40</h2>
 <h3>질문 1: 22절의 금지를 읽을 때, 나는 24절과 28절과 30절과 32절의 진술을 함께 읽고 있습니까. 본문은 그 순서로 놓여 있습니다.</h3>
 <p><strong>답변:</strong> 22절의 <strong>"염려하지 말라(μὴ μεριμνᾶτε)"</strong>는 인간의 윤리적 의지나 결단에 호소하는 단순한 도덕적 명령이 아닙니다. 본문은 공중의 까마귀를 먹이시는 <strong>하나님의 창조적 공급(24절)</strong>과 오늘 있다가 내일 아궁이에 던져지는 들풀조차 입히시는 <strong>돌보심의 신실함(28절)</strong>을 먼저 보게 합니다. 나아가 이 모든 필요를 이미 꿰뚫어 아시는 <strong>아버지의 부성적 인지(30절)</strong>를 거쳐, 마침내 그 나라를 값없이 주시기를 기뻐하시는 <strong>주권적 은혜의 기쁨(32절)</strong>으로 귀결됩니다. 따라서 22절의 금지는 뒤따르는 <strong>은혜의 사실적 지평(Indicative)</strong> 위에 기초할 때에만 비로소 인간을 짓누르는 율법적 짐이 아닌 <strong>참된 해방과 안식의 초대</strong>로 작동합니다.</p>
 <h3>질문 2: 이 단락에서 명령을 받는 쪽과 사실을 말하는 문장의 주어는 각각 누구입니까. 그 차이가 염려하지 말라는 말의 무게를 어떻게 바꿉니까.</h3>
@@ -770,16 +881,14 @@
 <h3>질문 5: 35절의 명령이 붙은 주어는 누구이고, 37절에서 같은 낱말이 다시 나올 때 띠를 당기는 쪽은 누구입니까.</h3>
 <p><strong>답변:</strong> 35절에서 허리에 띠를 띠고 등불을 켜고 있으라는 종말론적 경성의 명령을 받는 주어는 깨어 있어야 할 <strong>"종들(제자들)"</strong>입니다. 그러나 37절에서 주인이 밤중에 돌아와 깨어 있는 종들을 볼 때, 놀랍게도 허리에 띠를 두르고(περιζώσεται) 종들을 자리에 앉힌 뒤 나아와 수종드는 쪽은 <strong>"주인 자신"</strong>입니다. 종이 감당해야 할 성실한 기다림의 수고는 종말의 식탁에서 <strong>주인이 친히 종의 자리에 내려앉아 섬기시는 전복적 은혜</strong>에 의해 압도당합니다. 제자들의 깨어 있음은 심판의 공포 때문이 아니라, <strong>자기를 낮추어 우리를 먹이시는 메시아의 파격적인 사랑의 잔치</strong>를 향한 벅찬 설렘에 뿌리를 내리고 있습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-27" data-index="27" data-ref="28 해설서 누가복음 12 41-59">
-        <div class="card-header">
-            <span class="badge">28 해설서 누가복음 12 41-59</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-27" data-index="27" data-file-item="28 해설서 누가복음 12 41-59 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>28 해설서 누가복음 12 41-59</span>
         </div>
-        <div class="card-body">
-            <h2>28_해설서_누가복음_12_41-59.md - 누가복음 12:41-59</h2>
+        <h2>28_해설서_누가복음_12_41-59.md - 누가복음 12:41-59</h2>
 <h3>질문 1: 12:47과 12:48에 같은 동사가 각각 적혀 있고, 두 절에서 갈리는 것은 그 옆의 한 낱말뿐입니다. 이 배치는 독자에게 무엇을 먼저 보게 합니까?</h3>
 <p><strong>답변:</strong> 47절과 48절에는 공히 매를 맞을 것이라는 동일한 동사 <strong><code>δαρήσεται</code>(맞으리라)</strong>가 적혀 있으며, 두 절의 운명을 가르는 유일한 차이는 <strong>'알고도(γνούς)'</strong>와 <strong>'알지 못하고(μὴ γνούς)'</strong>, 그리고 그에 따른 <strong>'많이(πολλά)'</strong>와 <strong>'적게(ὀλίγα)'</strong>뿐입니다. 이러한 문학적 병치 배치는 독자로 하여금 행위의 외형보다 <strong>주인의 뜻에 대해 부여받은 계시와 지식의 분량</strong>을 먼저 직시하게 만듭니다. 심판의 공의는 기계적이고 획일적인 징벌이 아니라, <strong>자신에게 허락된 진리의 빛과 청지기적 앎의 크기에 정비례하는 엄중한 영적 책임</strong>을 묻는 자리임을 뼈아프게 깨닫게 합니다.</p>
 <h3>질문 2: 본문은 많고 적음을 말하면서 세어지는 것의 이름을 두 절에 적지 않았습니다. 그런데 같은 담화의 12:58-59는 관리와 재판장과 옥리와 옥, 그리고 가장 작은 돈의 단위까지 적습니다. 한 담화 안의 이 차이는 무엇을 하고 있습니까?</h3>
@@ -791,16 +900,14 @@
 <h3>질문 5: 이 열아홉 절에서 명령의 꼴로 주어진 말은 12:58 하나입니다. 그 하나가 무엇을 하라고 하며, 어디서 하라고 합니까?</h3>
 <p><strong>답변:</strong> 본 단락 전체에서 유일하게 명령형으로 주어진 구절인 58절은, 고발하는 자와 함께 법정으로 갈 때에 <strong>"길에서 화해하기를 힘쓰라(ἐν τῇ ὁδῷ δὸς ἐργασίαν ἀπηλλάχθαι)"</strong>고 명령합니다. 그 명령이 가리키는 행동은 피차간의 고발과 원한을 풀고 벗어나는 <strong>철저한 화해의 노력</strong>이며, 그 행위가 이루어져야 할 장소는 판결이 확정되는 법정이 아니라 바로 <strong>"길 위(ἐν τῇ ὁδῷ)"</strong>입니다. 이는 돌이킬 수 없는 영원한 심판대 앞에 서기 전, 지금 우리가 호흡하며 걸어가는 <strong>역사적 삶의 시공간이야말로 회개와 용서를 결단할 수 있는 유일한 은혜의 기회</strong>임을 강력히 시사합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-28" data-index="28" data-ref="29 해설서 누가복음 13 1-21">
-        <div class="card-header">
-            <span class="badge">29 해설서 누가복음 13 1-21</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-28" data-index="28" data-file-item="29 해설서 누가복음 13 1-21 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>29 해설서 누가복음 13 1-21</span>
         </div>
-        <div class="card-body">
-            <h2>29_해설서_누가복음_13_1-21.md - 누가복음 13:1-21</h2>
+        <h2>29_해설서_누가복음_13_1-21.md - 누가복음 13:1-21</h2>
 <h3>질문 1: 예수께서 두 재난에 같은 물음을 세우고 같은 말로 두 번 답하셨습니다. 종류가 다른 두 재난에 같은 답을 놓으신 것에서, 본문이 막고 있는 읽기가 무엇이라고 보십니까.</h3>
 <p><strong>답변:</strong> 예수께서는 빌라도에 의한 정치적 학살(인재)과 실로암 망대 붕괴(자연적 참사)라는 서로 다른 성격의 비극 앞에서, 동일하게 <strong>"이 사람들이 다른 모든 사람보다 죄가 더 있는 줄 아느냐? 아니라"</strong>고 반문하시며 같은 선언을 반복하십니다. 이는 타인의 불행과 참사를 목격할 때 발동하는 <strong>인과응보적 징벌론과 종교적 우월감</strong>을 전면적으로 차단합니다. 본문은 고통당한 희생자들을 손가락질하며 자신은 의롭기에 화를 면했다고 착각하는 <strong>바리새적 자기의와 관음증적 신학 해석</strong>의 문을 완전히 폐쇄하고 있습니다.</p>
 <h3>질문 2: 두 번의 「아니다」 뒤에 오는 조건은 「너희가」로 적혀 있습니다. 본문 안에서 이 「너희」는 누구입니까. 그것이 이 두 절을 읽는 방향에 무엇을 바꿉니까.</h3>
@@ -812,16 +919,14 @@
 <h3>질문 5: 넷째 토막의 두 비유는 앞 토막의 경고를 거두지 않습니다. 본문이 네 토막을 나란히 두고 하나의 결론으로 묶지 않은 채 끝내는 것을, 읽는 사람은 어떻게 받아야 할까요.</h3>
 <p><strong>답변:</strong> 본문은 재난 앞에서의 회개 촉구, 유예된 무화과나무의 위기, 안식일의 파격적 치유, 그리고 겨자씨와 누룩의 비유라는 네 개의 독립된 단락을 <strong>단일한 논리적 결론으로 봉합하지 않고 병렬</strong>합니다. 이는 심판의 서슬 퍼런 경고와 하나님 나라의 은밀하고도 강력한 확장이 모순되지 않고, <strong>역사 속에서 팽팽한 종말론적 긴장</strong>을 이루며 공존하고 있음을 독자에게 보여줍니다. 독자는 경고를 은혜로 희석하거나 은혜를 방종으로 왜곡하지 말고, <strong>엄중한 심판의 경고 앞에서 떨며 회개하는 동시에 보잘것없이 시작되어 온 세상을 뒤덮을 하나님 나라의 생명력</strong>에 전율하며 응답해야 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-29" data-index="29" data-ref="30 해설서 누가복음 13 22-35">
-        <div class="card-header">
-            <span class="badge">30 해설서 누가복음 13 22-35</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-29" data-index="29" data-file-item="30 해설서 누가복음 13 22-35 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>30 해설서 누가복음 13 22-35</span>
         </div>
-        <div class="card-body">
-            <h2>30_해설서_누가복음_13_22-35.md - 누가복음 13:22-35</h2>
+        <h2>30_해설서_누가복음_13_22-35.md - 누가복음 13:22-35</h2>
 <h3>질문 1: 23절은 수를 물었고 24절은 명령으로 답했습니다. 본문이 수를 주지 않은 그 자리에, 우리는 보통 무엇을 채워 넣고 있습니까.</h3>
 <p><strong>답변:</strong> 23절의 익명의 질문자는 <strong>"구원을 받는 자가 적으니이까"</strong>라며 구원받을 대상의 수량과 비율에 대한 지적 호기심을 던졌으나, 예수는 통계를 주시는 대신 <strong>"좁은 문으로 들어가기를 힘쓰라(Ἀγωνίζεσθε)"</strong>는 결단의 명령으로 응수하십니다. 본문이 숫자를 비워 둔 그 자리에 우리는 대개 '나와 내 집단은 안전한 소수 정예에 속해 있다'는 <strong>종교적 배타주의의 안도감</strong>이나, 반대로 '얼마나 많은 사람이 천국에 갈 것인가'를 저울질하는 <strong>사변적 구원론의 통계학</strong>을 채워 넣곤 합니다. 그러나 주님은 계산하는 자의 관음증을 박살 내시고, 구원은 방관자적 관찰이 아니라 <strong>자기 생명을 걸고 문을 통과해야 하는 치열한 실존적 투쟁</strong>임을 선포하십니다.</p>
 <h3>질문 2: 26절의 항변은 함께 먹은 횟수와 들은 시간을 내밉니다. 본문은 그 항변의 내용이 거짓이라고 말하지 않습니다. 그렇다면 그 항변에서 잘못된 것은 무엇입니까.</h3>
@@ -833,16 +938,14 @@
 <h3>질문 5: 35절은 버림과 축복을 접속사 하나로만 이어 두고 끝납니다. 본문이 이 단락을 해결 없이 닫은 까닭을 당신은 어떻게 읽습니까.</h3>
 <p><strong>답변:</strong> 35절은 성전과 도성이 황폐하여 버려지리라는 <strong>파멸의 심판 선고</strong>와, 주의 이름으로 오시는 이를 찬송하리라고 외칠 종말의 때까지 보지 못하리라는 <strong>메시아적 축복의 예언</strong>을 설명 없이 맞붙여 놓은 채 단락을 마감합니다. 본문이 이 파국과 회복 사이의 논리적 연결고리를 제공하지 않고 미결의 상태로 닫아둔 까닭은, <strong>이스라엘을 향한 하나님의 준엄한 공의의 심판과 결코 포기할 수 없는 언약적 긍휼의 거대한 긴장</strong>을 독자의 몫으로 남기기 위함입니다. 독자는 값싼 낙관론이나 절망적인 폐기론으로 도피하지 말고, <strong>심판의 황폐함 너머에서 울려 퍼질 종말론적 회개의 찬송</strong>을 바라보며 두려움과 떨림으로 순종의 자리에 서야 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-30" data-index="30" data-ref="31 해설서 누가복음 14 1-24">
-        <div class="card-header">
-            <span class="badge">31 해설서 누가복음 14 1-24</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-30" data-index="30" data-file-item="31 해설서 누가복음 14 1-24 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>31 해설서 누가복음 14 1-24</span>
         </div>
-        <div class="card-body">
-            <h2>31_해설서_누가복음_14_1-24.md - 누가복음 14:1-24</h2>
+        <h2>31_해설서_누가복음_14_1-24.md - 누가복음 14:1-24</h2>
 <h3>질문 1: 예수께서 안식일의 물음을 던지신 상대를 본문은 어떻게 좁게 적어 두었습니까(14:3). 그리고 본문이 두 번의 침묵 뒤에 적은 것은 무엇입니까(14:4·6).</h3>
 <p><strong>답변:</strong> 3절에서 예수께서는 안식일 치유의 합당성을 온 대중이 아닌 <strong>"율법교사들과 바리새인들(τοὺς νομικοὺς καὶ Φαρισαίους)"</strong>이라는 율법의 전문적 수호자들에게 핀셋처럼 좁혀 질문하십니다. 그러나 그들이 말문이 막혀 첫 번째로 잠잠했을 때 본문이 적은 것은 그들을 설득하는 논쟁이 아니라 <strong>"예수께서 그 수종병 든 사람을 데려다가 고쳐 보내시는 생명 회복의 행동(4절)"</strong>이었습니다. 이어 아들이나 소가 우물에 빠졌을 때의 자비를 묻는 두 번째 질문 뒤에 기록된 그들의 무력한 침묵(6절)은, <strong>생명을 살리는 하나님의 자비 앞에서 율법 조문에 갇힌 자들의 영적 파산과 무능</strong>을 적나라하게 폭로합니다.</p>
 <h3>질문 2: 같은 「말씀하시되」가 14장 7절과 12절에 두 번 나오는데, 말씀을 받는 쪽이 어떻게 갈립니까. 두 쪽이 각각 어떤 물음을 받습니까.</h3>
@@ -854,16 +957,14 @@
 <h3>질문 5: 14장 24절의 「너희에게」가 한 사람에게 하는 말이 아니라는 사실이, 그 절의 「내 잔치」를 누구의 말로 읽게 만듭니까. 그리고 그 절은 청함을 받은 쪽의 결말만 적고 무엇을 적지 않았습니까.</h3>
 <p><strong>답변:</strong> 24절에서 주인이 종에게 명령하던 비유의 틀을 깨고 청중 전체를 겨냥하는 복수형 <strong>"너희에게(ὑμῖν)"</strong>가 사용된 순간, 비유 속 '내 잔치'는 비유를 뚫고 나와 바로 <strong>"예수 그리스도 자신의 메시아적 종말 잔치"</strong>로 치환됩니다. 이 절은 핑계를 대며 초대를 거절했던 원래의 청함받은 자들이 하나도 잔치를 맛보지 못하리라는 <strong>기득권자들의 비참한 배제와 종말론적 파멸</strong>만을 기록하고 있습니다. 정작 길과 산울타리에서 강권적으로 끌려와 잔치 자리를 가득 채운 <strong>부정하고 가난한 자들이 그 잔치에서 무엇을 누리고 어떻게 반응했는지는 적지 않음</strong>으로써, 오늘 말씀을 듣는 우리 자신에게 "너는 과연 그 은혜의 잔치에 합당하게 머물고 있는가"를 엄중히 묻고 있습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-31" data-index="31" data-ref="32 해설서 누가복음 14 25-15">
-        <div class="card-header">
-            <span class="badge">32 해설서 누가복음 14 25-15</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-31" data-index="31" data-file-item="32 해설서 누가복음 14 25-15 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>32 해설서 누가복음 14 25-15</span>
         </div>
-        <div class="card-body">
-            <h2>32_해설서_누가복음_14_25-15_10.md - 누가복음 14:25-15:10</h2>
+        <h2>32_해설서_누가복음_14_25-15_10.md - 누가복음 14:25-15:10</h2>
 <h3>질문 1: 14:26의 「미워한다」가 주절의 동사가 아니라 조건절 안에 있고 명령의 꼴이 아니라는 사실은, 이 절을 읽는 방식을 어떻게 바꾸는가?</h3>
 <p><strong>답변:</strong> 14:26의 <strong>"미워하지 아니하면(εἰ... οὐ μισεῖ)"</strong>은 신자들에게 가족을 감정적으로 증오하고 저주하라고 지시하는 능동적 도덕 명령(Imperative)이 아니라, 제자가 되는 자격을 서술하는 <strong>조건절(Condition) 안의 기술적 진술</strong>입니다. 이는 본문을 가족 윤리를 파괴하라는 반인륜적 교설로 오독하는 것을 원천적으로 방지합니다. 본문이 서술하는 것은 제자가 그리스도를 따를 때 직면하게 되는 <strong>궁극적 충성의 절대성</strong>이며, 하나님 나라의 가치와 혈연의 애착이 충돌하는 위기의 순간에 그리스도를 향한 사랑이 너무나 절대적이어서 <strong>다른 모든 관계는 상대화되어 미워하는 것처럼 보일 수밖에 없는 실존적 우선순위</strong>를 뜻합니다.</p>
 <h3>질문 2: 일곱 항 가운데 일곱째(자기 목숨) 앞에만 급을 올리는 접속사가 붙었다. 본문은 왜 거기서만 한 칸을 올렸다고 적지 않았는가 — 적지 않은 자리를 우리는 어떻게 읽어야 하는가?</h3>
@@ -875,16 +976,14 @@
 <h3>질문 5: 15:7은 「하늘에」라고 적고 15:10은 「하나님의 천사들 앞에」라고 적는다. 본문이 두 표현을 구별해 적었는데 우리가 자주 하나로 합쳐 기억하는 까닭은 무엇인가?</h3>
 <p><strong>답변:</strong> 잃은 양 비유는 회개하는 죄인을 향한 기쁨이 <strong>"하늘에서(ἐν τῷ οὐρανῷ)"</strong> 있다고 선언하고, 잃은 드라크마 비유는 그 기쁨이 <strong>"하나님의 사자들 앞에(ἐνώπιον τῶν ἀγγέλων τοῦ θεοῦ)"</strong> 있다고 장소를 정밀하게 구분하여 표현합니다. 우리가 이 둘을 무심코 하나의 '천국'으로 합쳐 뭉뚱그리는 이유는, 성경의 섬세한 수사학을 살피기보다 내세적 공간이라는 관념적 도식으로 빠르게 단순화하려는 게으름 때문입니다. 그러나 본문이 공간을 구별한 것은, 한 죄인의 회개가 저 광활한 초월적 영역(하늘)의 거대한 기쁨일 뿐만 아니라 <strong>하나님의 보좌를 둘러싼 하늘 어전 회의와 거룩한 천상 공동체 전체를 뒤흔드는 가장 친밀하고 감격적인 축제</strong>임을 입체적으로 계시하기 위함입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-32" data-index="32" data-ref="33 해설서 누가복음 15 11-32">
-        <div class="card-header">
-            <span class="badge">33 해설서 누가복음 15 11-32</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-32" data-index="32" data-file-item="33 해설서 누가복음 15 11-32 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>33 해설서 누가복음 15 11-32</span>
         </div>
-        <div class="card-body">
-            <h2>33_해설서_누가복음_15_11-32.md - 누가복음 15:11-32</h2>
+        <h2>33_해설서_누가복음_15_11-32.md - 누가복음 15:11-32</h2>
 <h3>질문 1: 15:24와 15:32의 두 선언을 나란히 놓고 읽어 보십시오. 바뀐 것이 무엇이고 바뀌지 않은 것이 무엇입니까? 바뀐 것을 본문은 설명해 줍니까?</h3>
 <p><strong>답변:</strong> 24절에서 아버지는 집으로 돌아온 탕자를 향해 <strong>"이 내 아들은(ὁ υἱός μου οὗτος)"</strong>이라고 선언하지만, 32절에서 분노한 맏아들을 설득할 때는 <strong>"이 네 동생은(ὁ ἀδελφός σου οὗτος)"</strong>으로 호칭을 전환하며 기쁨의 주체를 '나'에서 <strong>"우리(우리가 즐거워하고 기뻐하는 것이 마땅하다)"</strong>로 확장합니다. 그러나 두 구절 모두에서 <strong>"죽었다가 살아났으며 내가 잃었다가 다시 얻었노라"</strong>는 구원과 부활의 절대적 선언은 단 한 글자도 바뀌지 않고 그대로 유지됩니다. 본문은 이 호칭의 변화에 대해 어떠한 설명도 덧붙이지 않는데, 이는 맏아들이 "아버지의 이 아들(30절)"이라며 동생과의 연대를 거부했을 때, 아버지는 설명 대신 <strong>깨어진 형제 관계를 회복하고 한 가족의 잔치로 들어오라는 초대 자체</strong>를 행동으로 건네고 계심을 보여줍니다.</p>
 <h3>질문 2: 아버지의 다섯 명령(15:22-23)의 목적어를 모두 적어 보십시오. 그중 마음이나 감정을 가리키는 것이 있습니까? 없다면 그 사실이 이 이야기에서 무엇을 뜻합니까?</h3>
@@ -896,16 +995,14 @@
 <h3>질문 5: 이 이야기는 맏아들의 응답을 적지 않고 끝납니다. 그 결말을 채워 읽고 싶어지는 쪽이 둘 중 어느 쪽입니까 — 그가 들어갔다는 쪽입니까, 끝내 거부했다는 쪽입니까? 그 쪽을 고르고 싶은 이유는 본문에 있습니까?</h3>
 <p><strong>답변:</strong> 비유는 맏아들이 아버지의 간곡한 권유를 받아들여 잔치로 들어갔는지, 아니면 끝내 분노하며 바깥 어두운 데 머물렀는지에 대한 최종 응답을 일절 기록하지 않은 채 <strong>열린 결말</strong>로 문을 닫습니다. 우리는 심리적 안도감을 위해 '그가 결국 감화되어 들어갔을 것'으로 결말짓고 싶어 하거나, 혹은 바리새인들을 향한 단죄의 쾌감을 위해 '끝내 거부하고 멸망했을 것'으로 단정 짓고 싶어 합니다. 그러나 이러한 선택의 동기는 본문 안에 있지 않고 독자 자신의 자기의나 안일함이라는 편향에서 비롯된 것입니다. 본문이 결말을 침묵으로 비워 둔 까닭은, 이 비유를 듣고 있는 <strong>바리새인들과 서기관들, 그리고 오늘날 스스로 의롭다 여기는 우리 자신에게 "당신은 과연 아버지의 마음을 품고 저 잔치 식탁으로 들어갈 것인가"라는 실존적 응답</strong>을 결단하도록 촉구하기 위함입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-33" data-index="33" data-ref="34 해설서 누가복음 16 1-18">
-        <div class="card-header">
-            <span class="badge">34 해설서 누가복음 16 1-18</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-33" data-index="33" data-file-item="34 해설서 누가복음 16 1-18 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>34 해설서 누가복음 16 1-18</span>
         </div>
-        <div class="card-body">
-            <h2>34_해설서_누가복음_16_1-18.md - 누가복음 16:1-18</h2>
+        <h2>34_해설서_누가복음_16_1-18.md - 누가복음 16:1-18</h2>
 <h3>질문 1: 16:1은 청지기가 낭비했다고 적지 않고 「낭비한다는 말이 들린지라」라고 적습니다. 본문이 고발의 내용을 끝까지 확정하지 않은 것은 이 이야기를 읽는 방식에 무엇을 바꿉니까?</h3>
 <p><strong>답변:</strong> 1절은 청지기의 횡령을 객관적 사실로 단정하지 않고, 주인의 소유를 낭비한다는 소문과 고발이 들려왔다는 <strong>보고의 간접적 형식(ὡς διασκορπίζων)</strong>으로 기록합니다. 본문이 청지기의 과거 비위 사실을 사법적으로 확정하지 않은 까닭은, 이 비유의 핵심이 '과거의 도덕적 잘못에 대한 진상 규명이나 권선징악'에 있지 않음을 분명히 하기 위함입니다. 이러한 모호성은 독자의 시선을 과거의 죄목을 캐묻는 법정적 흥미로부터, 직분을 빼앗기게 된 절체절명의 위기 앞에서 <strong>다가올 미래의 거처를 어떻게 준비할 것인가라는 청지기의 실존적 대응과 종말론적 결단</strong>으로 급선회시킵니다.</p>
 <h3>질문 2: 16:8의 칭찬은 「지혜 있게 하였으므로」입니다. 본문이 「정직하게 하였으므로」라고 적지 않았는데도 그 손을 본받을 본보기로 읽고 싶어지는 까닭은 무엇일까요?</h3>
@@ -917,16 +1014,14 @@
 <h3>질문 5: 16:15는 「아신다」는 진술과 「가증한 것」이라는 판결을 한 절에 함께 둡니다. 둘 중 하나만 기억하고 돌아갈 때 각각 무엇을 잃게 됩니까?</h3>
 <p><strong>답변:</strong> 15절은 인간의 중심을 꿰뚫어 보시는 <strong>"하나님께서 너희 마음을 아신다(ὁ θεὸς γινώσκει τὰς καρδίας ὑμῶν)"</strong>는 통찰과, 세상의 높임을 받는 것이 <strong>"하나님 앞에 미움을 받는(가증한) 것(βδέλυγμα ἐνώπιον τοῦ θεοῦ)"</strong>이라는 준엄한 심판 선언을 한 문장에 병치합니다. 만약 "마음을 아신다"는 은혜의 진술만 기억한다면, 하나님의 거룩한 공의를 망각한 채 자기 죄악을 '주님이 내 연약함을 아신다'는 식의 <strong>값싼 감상주의와 방종한 자기합리화</strong>로 타락시키게 됩니다. 반대로 "가증한 것"이라는 심판의 선고만 기억한다면, 인간의 내면을 긍휼로 감찰하시는 하나님의 사랑을 잃어버리고 <strong>율법주의적 공포와 차가운 종교적 냉소주의</strong>에 갇히게 됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-34" data-index="34" data-ref="35 해설서 누가복음 16 19-31">
-        <div class="card-header">
-            <span class="badge">35 해설서 누가복음 16 19-31</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-34" data-index="34" data-file-item="35 해설서 누가복음 16 19-31 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>35 해설서 누가복음 16 19-31</span>
         </div>
-        <div class="card-body">
-            <h2>35_해설서_누가복음_16_19-31.md - 누가복음 16:19-31</h2>
+        <h2>35_해설서_누가복음_16_19-31.md - 누가복음 16:19-31</h2>
 <h3>질문 1: 본문은 처음 세 절에서 두 사람의 속마음을 한 마디도 적지 않고 옷과 상과 문과 종창만 적습니다. 본문이 적은 것만으로 이 장면을 다시 말해 본다면, 무엇이 남고 무엇이 사라집니까?</h3>
 <p><strong>답변:</strong> 19~21절은 부자의 자색 옷과 고운 베옷, 호화로운 식탁과 그 대문 곁에 버려진 나사로의 종창, 떨어지는 부스러기, 그리고 상처를 핥는 개들만을 건조하게 기록합니다. 이처럼 철저히 외면적인 묘사만을 남길 때, 부자의 잔인한 내면 동기나 나사로의 경건한 신앙고백 같은 <strong>주관적인 심리 상태와 변명의 여지들은 완전히 증발</strong>해 버립니다. 오직 남는 것은 풍요의 극치와 결핍의 지옥이 대문 하나를 사이에 두고 분리된 채 방치되어 있는 <strong>사회적 공간의 잔인한 단절과 냉혹한 물질적 불의의 실재</strong>뿐입니다. 심판은 내면의 추상적 선의가 아니라, <strong>내 대문 곁에 신음하는 타자의 고통을 가시적으로 방치한 죄</strong> 위에 임함을 침묵으로 웅변합니다.</p>
 <h3>질문 2: 22절의 「품」은 단수이고 23절의 「품」은 복수입니다. 본문이 수를 달리 적고 그 차이의 뜻을 말하지 않았을 때, 읽는 사람이 할 수 있는 일은 어디까지입니까?</h3>
@@ -938,16 +1033,14 @@
 <h3>질문 5: 31절은 「듣는다」를 능동으로, 「설득된다」를 수동으로 적고, 대화는 설득되지 않은 자리에서 끊깁니다. 이 결말을 덮지 않고 그대로 두는 읽기는, 아직 설득되지 않은 사람 앞에서 우리의 말과 태도를 어떻게 바꿉니까?</h3>
 <p><strong>답변:</strong> 31절은 모세와 선지자들의 말을 <strong>"듣는 것(οὐκ ἀκούουσιν, 능동태)"</strong>의 거부를 다루며, 죽은 자가 살아 돌아갈지라도 그들이 <strong>"설득되지는 못할 것(οὐδὲ... πεισθήσονται, 수동태)"</strong>이라는 단호한 선언과 함께 대화를 영구히 단절시킵니다. 이 설득되지 않은 비극적 결말을 인위적으로 봉합하지 않고 마주하는 것은, 복음을 거부하는 완고한 인간 앞에서 사역자의 태도를 근본적으로 바꾸어 놓습니다. 우리는 화려한 수사학이나 기적적 체험, 혹은 인간적 강압으로 타인을 설득할 수 있다는 영적 교만을 내려놓고, <strong>오직 계시된 하나님의 말씀을 신실하게 전파하며 인간의 완악함을 애통해하는 '두렵고 떨리는 겸손과 기도의 태도'</strong>를 회복하게 됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-35" data-index="35" data-ref="36 해설서 누가복음 17 1-19">
-        <div class="card-header">
-            <span class="badge">36 해설서 누가복음 17 1-19</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-35" data-index="35" data-file-item="36 해설서 누가복음 17 1-19 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>36 해설서 누가복음 17 1-19</span>
         </div>
-        <div class="card-body">
-            <h2>36_해설서_누가복음_17_1-19.md - 누가복음 17:1-19</h2>
+        <h2>36_해설서_누가복음_17_1-19.md - 누가복음 17:1-19</h2>
 <h3>질문 1: 17:3은 「경고하라」를 「용서하라」보다 앞에 두었습니다. 이 순서가 본문에 있다는 사실은 용서에 대한 우리의 통상적인 이해를 어디서 흔듭니까.</h3>
 <p><strong>답변:</strong> 3절은 형제가 죄를 범했을 때 <strong>"경고하고(책망하고, ἐπιτίμησον)"</strong>를 먼저 명하고, 그가 <strong>"회개하거든 용서하라(ἄφες αὐτῷ)"</strong>를 그 뒤에 배치합니다. 이 엄격한 순서는 용서를 단순히 감정적인 너그러움이나 죄를 무마하고 은폐하는 값싼 동정(Cheap Grace)으로 치부해 온 우리의 통념을 근본적으로 뒤흔듭니다. 참된 성경적 용서는 불의를 모른 척 눈감아주는 도덕적 방임이 아니라, <strong>죄의 파괴성을 진리 안에서 엄중히 직시하고 아프게 지적하는 거룩한 직언(책망)과 진정한 회개의 과정을 통과할 때에만 비로소 온전한 치유와 회복으로 완성</strong>된다는 사실을 일깨웁니다.</p>
 <h3>질문 2: 사도들은 믿음을 더해 달라고 청했고(17:5), 돌아온 답은 가장 작은 단위를 말했습니다(17:6). 본문은 왜 분량으로 답하지 않았겠습니까. 본문이 실제로 적은 것은 무엇까지입니까.</h3>
@@ -959,16 +1052,14 @@
 <h3>질문 5: 17:19의 주어는 예수님이 아니라 「네 믿음」입니다. 이 문장이 이 복음서의 네 자리에서 쓰이는 익은 표현이라는 사실은, 이 절을 읽는 우리의 무게를 어디에 두게 합니까.</h3>
 <p><strong>답변:</strong> 19절에서 사마리아인을 향해 선언된 말씀의 주어는 예수의 권능이 아니라 바로 <strong>"네 믿음이 너를 구원하였느니라(ἡ πίστις σου σέσωκέν σε)"</strong>라는 수동적 귀결입니다. 누가복음의 네 결정적 자리(7:50, 8:48, 17:19, 18:42)에서 반복되는 이 정형구는, 독자의 시선의 무게를 단순한 육체적 질병의 치유(Healing)를 넘어 <strong>예수 그리스도와의 인격적 연합을 통해 주어지는 영혼의 종말론적 구원(Salvation)</strong>에 두게 만듭니다. 참된 믿음은 은혜를 당연시하는 기적의 소비자가 되는 것이 아니라, <strong>베푸신 분의 은혜를 깨닫고 그분 앞에 돌아와 감사와 경배를 드리는 인격적 관계성</strong> 속에서만 온전히 증명됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-36" data-index="36" data-ref="37 해설서 누가복음 17 20-37">
-        <div class="card-header">
-            <span class="badge">37 해설서 누가복음 17 20-37</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-36" data-index="36" data-file-item="37 해설서 누가복음 17 20-37 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>37 해설서 누가복음 17 20-37</span>
         </div>
-        <div class="card-body">
-            <h2>37_해설서_누가복음_17_20-37.md - 누가복음 17:20-37</h2>
+        <h2>37_해설서_누가복음_17_20-37.md - 누가복음 17:20-37</h2>
 <h3>질문 1: 17:20의 물음은 무엇을 물었고, 응답에서 실제로 부정된 것은 무엇입니까. 물음과 응답이 서로 다른 것을 다룬다는 사실이 이 단락 전체에 어떤 영향을 줍니까.</h3>
 <p><strong>답변:</strong> 바리새인들은 하나님 나라가 도래할 역사적 <strong>'시간의 때(어느 때에, πότε)'</strong>를 물었으나, 예수께서는 시간표 대신 <strong>"하나님의 나라는 볼 수 있게(관찰할 수 있게, μετὰ παρατηρήσεως) 임하는 것이 아니다"</strong>라며 인간의 가시적 징조 포착 방식을 전면 부정하십니다. 물음(언제)과 응답(어떻게/어디에)이 서로 다른 층위를 다룬다는 사실은, 단락 전체의 신학적 패러다임을 <strong>묵시적 시간 계산의 호기심으로부터 예수 그리스도의 인격과 사역 안에서 이미 활동하고 계시는 하나님 나라의 현재적 실재(너희 안에 있느니라)</strong>로 이동시킵니다. 종말은 먼 미래의 날짜를 점치는 자들의 것이 아니라, <strong>지금 내 삶의 한복판에 침투한 메시아의 통치에 굴복하는 자들의 실존적 사건</strong>이 됩니다.</p>
 <h3>질문 2: 「하나님의 나라」가 문장의 주인 자리에 서는 절들을 찾아 적어 보십시오. 그리고 17:22 이후 그 자리를 받는 것이 무엇인지 적어 보십시오. 두 표현이 한 절에서 나란히 나오는 곳이 있습니까.</h3>
@@ -980,16 +1071,14 @@
 <h3>질문 5: 17:34-35에서 본문이 적은 것과 적지 않은 것을 두 줄로 갈라 적어 보십시오. 그리고 17:37의 물음과 대답을 다시 읽고, 대답이 물음에 준 것이 무엇인지 적어 보십시오.</h3>
 <p><strong>답변:</strong> 34~35절에서 본문이 적은 것은 한자리에서 잠을 자거나 맷돌을 갈던 두 사람 중 <strong>"하나는 데려감을 당하고 하나는 버려둠을 당한다"는 종말론적 분리의 냉혹한 사실</strong>뿐이며, 적지 않은 것은 <strong>왜 한 사람은 선택되고 다른 사람은 유기되는지에 대한 그들의 내적 자격, 도덕적 공로, 혹은 선악의 판별 기준</strong>입니다. 37절에서 제자들이 "주여 어디오니이까"라며 심판의 지리적 장소를 물었을 때, 주님은 <strong>"주검이 있는 곳에는 독수리가 모이느니라"</strong>는 격언으로 답하셨습니다. 이 대답이 물음에 준 것은 특정한 시공간적 좌표가 아니라, 시체가 부패하면 독수리가 필연적으로 덮치듯 <strong>죄악이 가득 찬 곳에는 하나님의 종말론적 심판이 우주적이고 보편적이며 불가피하게 임한다</strong>는 심판의 확실성입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-37" data-index="37" data-ref="38 해설서 누가복음 18 1-17">
-        <div class="card-header">
-            <span class="badge">38 해설서 누가복음 18 1-17</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-37" data-index="37" data-file-item="38 해설서 누가복음 18 1-17 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>38 해설서 누가복음 18 1-17</span>
         </div>
-        <div class="card-body">
-            <h2>38_해설서_누가복음_18_1-17.md - 누가복음 18:1-17</h2>
+        <h2>38_해설서_누가복음_18_1-17.md - 누가복음 18:1-17</h2>
 <h3>질문 1: 18:1은 「항상 기도하고 낙심하지 말아야 할 것」을 명령의 꼴로 적지 않았습니다. 본문이 이 비유에 붙여 둔 목적은 정확히 어떤 말로 적혀 있습니까.</h3>
 <p><strong>답변:</strong> 1절은 성도들에게 기도하라고 윽박지르는 직접 명령형을 쓰는 대신, <strong>"항상 기도하고 낙심하지 말아야 할 당위(πρὸς τὸ δεῖν πάντοτε προσεύχεσθαι αὐτοὺς καὶ μὴ ἐγκακεῖν)"</strong>라는 목적격 부정사 구문으로 기록합니다. 본문이 비유의 서두에 못 박아 둔 목적은 단순한 종교적 열심이나 인간적 의지의 분발을 촉구하는 데 있지 않습니다. 그것은 불의와 고난이 만연한 종말론적 긴장과 지체 속에서, 택하신 백성이 하나님과의 언약적 신뢰를 붙들고 낙심(ἐγκακέω)이라는 영적 탈진에 굴복하지 않아야 한다는 <strong>구속사적 삶의 절대적 필연성이자 존재 양식(δεῖ)</strong>으로 제시되어 있습니다.</p>
 <h3>질문 2: 18:6과 18:7은 접속사 하나로 두 주어를 갈라 세웁니다. 본문이 세운 것이 닮음이 아니라 갈라섬이라면, 이 비유에서 끌어낼 수 없는 결론은 무엇입니까.</h3>
@@ -1001,16 +1090,14 @@
 <h3>질문 5: 18:15에서 오는 일을 막은 쪽은 제자들이었고, 꾸짖음을 받은 쪽은 데려온 사람들이었습니다. 본문이 적어 둔 이 사실이 「오는 일」에 대해 무엇을 보여 줍니까.</h3>
 <p><strong>답변:</strong> 사람들이 예수의 안수를 바라고 어린 아기들(βρέφη)을 데리고 왔을 때, 그 길을 가로막고 사람들을 엄하게 꾸짖은 주체는 세속의 대적이 아니라 주님을 가장 가까이서 모시던 <strong>"제자들 자신(ἐπετίμων αὐτοῖς)"</strong>이었습니다. 본문이 고발하는 이 역설적 장면은, 주님께로 나아오는 은혜의 길을 차단하는 최대의 걸림돌이 때로는 종교적 기득권과 사역의 효율성을 앞세우는 <strong>교회 내부의 영적 엘리트주의</strong>일 수 있음을 경고합니다. 나아가 하나님 나라는 성인의 도덕적 성취나 자격을 갖춘 자들의 전유물이 아니라, <strong>어린아이처럼 아무런 공로도 자격도 없이 오직 무력하게 베푸시는 은혜의 품에 자신을 내맡기는 절대적 수용성</strong>을 통해서만 들어갈 수 있음을 보여줍니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-38" data-index="38" data-ref="39 해설서 누가복음 18 18-43">
-        <div class="card-header">
-            <span class="badge">39 해설서 누가복음 18 18-43</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-38" data-index="38" data-file-item="39 해설서 누가복음 18 18-43 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>39 해설서 누가복음 18 18-43</span>
         </div>
-        <div class="card-body">
-            <h2>39_해설서_누가복음_18_18-43.md - 누가복음 18:18-43</h2>
+        <h2>39_해설서_누가복음_18_18-43.md - 누가복음 18:18-43</h2>
 <h3>질문 1: 18장 22절의 세 명령은 누구에게 주어졌습니까? 본문은 그 사람을 어떤 말로 규정하고, 어떤 말로는 규정하지 않습니까?</h3>
 <p><strong>답변:</strong> 22절의 세 명령("다 팔아 가난한 자들에게 나누어 주라, 그리고 와서 나를 따르라")은 18절에서 질문을 던진 <strong>"어떤 관리(지도자, ἄρχων τις)"</strong>이자 23절에서 밝혀진 <strong>"큰 부자(ἦν γὰρ πλούσιος σφόδρα)"</strong>에게 주어졌습니다. 본문은 그를 도덕적 파렴치한이나 위선자로 규정하지 않으며(그는 어려서부터 십계명을 철저히 지킨 경건한 자였습니다), 다른 복음서와 달리 '청년'이라는 연령적 한계로도 규정하지 않습니다. 본문은 그를 사회적 권세와 막대한 재력, 그리고 흠 없는 율법적 의로움까지 겸비한 <strong>유대 종교·사회적 엘리트의 완벽한 전형</strong>으로 규정함으로써, 인간이 성취할 수 있는 최고의 도덕과 종교적 열심조차도 영생을 얻는 데에는 <strong>근본적인 한계와 결핍</strong>이 있음을 드러냅니다.</p>
 <h3>질문 2: 18장 23절은 그 사람에 대해 무엇까지 적고 무엇을 적지 않습니까? 적히지 않은 것을 채우지 않고 읽으면 이 장면은 어떻게 끝납니까?</h3>
@@ -1023,16 +1110,14 @@
 <p><strong>답변:</strong> 28절에서 베드로가 자랑스럽게 내세운 고백은 "우리가 우리의 것을 다 버리고 <strong>주를 따랐나이다(ἠκολουθήσαμέν σοι)</strong>"라며 '주님(예수)'을 따랐음을 강조한 것이었습니다. 그러나 29절에서 예수께서는 모든 것을 버린 희생을 받으시며 그 목적어를 <strong>"하나님의 나라를 위하여(ἕνεκεν τῆς βασιλείας τοῦ θεοῦ)"</strong>로 바꾸어 놓으십니다. 본문은 예수와 하나님 나라가 동등하다고 개념적인 등호 선언을 하지 않고, <strong>같은 메시아적 사명을 인격적 차원(주를 따름)과 구속사적 통치 차원(하나님 나라)이라는 두 가지 방식으로 나란히 서술</strong>합니다. 이는 참된 제자도가 추상적인 이상이나 이념을 추구하는 것이 아니라, <strong>살아 계신 예수 그리스도의 인격과 십자가의 발자취를 온 삶으로 따르는 구체적인 순종 속에서만 비로소 하나님 나라가 현존한다</strong>는 사실을 명백히 보여줍니다.</p>
 <hr />
 <h1>누가복음 19:1~24:53 질문별 모범답안 (Units 40~52)</h1>
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-39" data-index="39" data-ref="40 해설서 누가복음 19 1-27">
-        <div class="card-header">
-            <span class="badge">40 해설서 누가복음 19 1-27</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-39" data-index="39" data-file-item="40 해설서 누가복음 19 1-27 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>40 해설서 누가복음 19 1-27</span>
         </div>
-        <div class="card-body">
-            <h2>40_해설서_누가복음_19_1-27.md - 누가복음 19:1-27</h2>
+        <h2>40_해설서_누가복음_19_1-27.md - 누가복음 19:1-27</h2>
 <h3>질문 1: 19:9에서 「일어났다」의 주인 자리에 있는 것은 무엇입니까. 그 자리에 삭개오를 넣어 읽어 보면 문장의 뜻이 어떻게 달라집니까.</h3>
 <p><strong>답변:</strong> 19:9에서 헬라어 동사 <strong>「일어났다/이르렀다(ἐγένετο)」</strong>의 주어 자리에 놓인 것은 삭개오가 아니라 바로 <strong>「구원(σωτηρία)」</strong>입니다. 만약 그 자리에 삭개오를 넣어 "오늘 삭개오가 구원에 이르렀다"로 읽게 되면, 구원은 인간의 결단, 도덕적 회개, 혹은 재산의 절반을 내어놓은 <strong>인간의 공로와 윤리적 성취의 결과물</strong>로 전락하고 맙니다. 그러나 본문은 <strong>「구원」 자체를 능동적 주어</strong>로 세움으로써, 구원이란 인간이 도달하는 자격이 아니라 삭개오의 닫힌 집 안으로 뚫고 들어오신 <strong>하나님의 주권적 은혜의 사건</strong>이자 <strong>예수 그리스도의 임재 그 자체</strong>임을 선언합니다. 따라서 삭개오는 구원을 쟁취한 영웅이 아니라, 스스로 찾아와 임하신 <strong>하나님의 전적인 은혜를 선물로 영접한 수혜자</strong>로 남습니다.</p>
 <h3>질문 2: 19:9의 「~이기 때문에」라는 근거절이 댄 것은 무엇입니까. 그리고 19:10이 「왜냐하면」으로 근거를 하나 더 다는 것은 그 읽기에 무엇을 보탭니까.</h3>
@@ -1044,16 +1129,14 @@
 <h3>질문 5: 19:10의 「구원하려」와 19:27의 「죽이라」가 같은 단락 안에 있습니다. 본문은 이 둘을 어떤 낱말로 이어 놓았고, 둘을 화해시키는 문장을 주었습니까.</h3>
 <p><strong>답변:</strong> 본문은 19:10의 <strong>「잃어버린 자를 찾아 구원하려(σῶσαι)」</strong> 하심과 19:27의 "내 왕 됨을 원하지 아니하던 저 원수들을 이리로 끌어다가 내 앞에서 <strong>「죽이라(κατασφάξατε)」</strong>"라는 극단적인 두 선언을, 19:11의 <strong>「이 말씀을 듣고 있을 때에 비유를 더하여 말씀하시니 이는 자기가 예루살렘에 가까이 오셨고」</strong>라는 역사적-종말론적 여정의 서술로 이어 놓습니다. 그러나 본문은 '구원하려'와 '죽이라' 사이를 논리적으로 얼버무리거나 긴장을 해소해 주는 <strong>어떠한 중재적 화해의 문장도 제공하지 않고 그대로 병치</strong>합니다. 이는 하나님의 통치가 잃어버린 자를 향해서는 무한히 열려 있는 <strong>「압도적인 은혜의 영접」</strong>이지만, 끝까지 왕 되신 그리스도의 통치를 거부하고 대적하는 자들에게는 피할 수 없는 <strong>「준엄한 종말론적 심판의 실재」</strong>임을 날카로운 긴장 속에서 정직하게 대면하도록 촉구하기 위함입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-40" data-index="40" data-ref="41 해설서 누가복음 19 28-48">
-        <div class="card-header">
-            <span class="badge">41 해설서 누가복음 19 28-48</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-40" data-index="40" data-file-item="41 해설서 누가복음 19 28-48 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>41 해설서 누가복음 19 28-48</span>
         </div>
-        <div class="card-body">
-            <h2>41_해설서_누가복음_19_28-48.md - 누가복음 19:28-48</h2>
+        <h2>41_해설서_누가복음_19_28-48.md - 누가복음 19:28-48</h2>
 <h3>질문 1: 19:41에서 "우셨다"가 이야기의 유일한 동작이고 19:43-44의 선고가 그 울음 뒤에 열린 입 안에 있다는 사실은, 이 선고를 읽는 방식을 어떻게 바꿉니까?</h3>
 <p><strong>답변:</strong> 19:41에서 예수께서 성을 바라보시며 <strong>「우셨다(ἔκلاυσεν)」</strong>는 외침은 단순한 눈물이 아니라 창자가 끊어질 듯 내지르는 <strong>비통한 오열과 통곡</strong>의 신체적 동작입니다. 이 울음 뒤에 터져 나온 19:43-44의 무서운 멸망의 선고는 냉혈한 판관의 차가운 저주나 징벌적 판결문이 아니라, <strong>거절당한 신적 사랑의 찢어지는 비가(Lamentation)</strong>이자 <strong>애통의 눈물 속에서 발음된 탄식</strong>으로 그 성격이 완전히 전환됩니다. 따라서 예루살렘의 파멸에 대한 예고는 잔인한 복수의 위협이 아니라, 평화의 길을 스스로 걷어찬 도성을 바라보며 가슴을 쥐어짜는 <strong>목자의 비통한 눈물의 외침</strong>으로 읽어야 합니다. 하나님의 심판은 차가운 보복이 아니라, 구원의 손길을 끝내 뿌리친 대상을 향한 <strong>하나님의 상처 입은 슬픔의 절규</strong>입니다.</p>
 <h3>질문 2: 19:42의 조건문은 뒤를 받지 못하고 끊깁니다. 같은 단락의 19:31과 19:40은 끝까지 갑니다. 끊긴 자리를 본문이 그대로 둔 것을 나는 어떻게 읽어야 합니까?</h3>
@@ -1065,16 +1148,14 @@
 <h3>질문 5: 19:47은 궁리한 쪽을 좁게 적고 19:48은 백성이 다 매달려 들었다고 적습니다. 본문이 둘을 갈라 적은 것은 이 장면을 누구에게 적용할지에 관해 무엇을 요구합니까?</h3>
 <p><strong>답변:</strong> 19:47은 예수를 죽이려고 모의한 자들을 대제사장들과 서기관들과 백성의 지도자들, 즉 <strong>기득권을 지키려는 소수의 종교·정치 권력층</strong>으로 한정하여 좁게 지목합니다. 반면 19:48은 "백성이 다 그에게 귀를 기울여 들으므로(ὁ λαὸς γὰρ ἅπας ἐξεκρέματο αὐτοῦ ἀκούων, 직역: 백성이 그에게 매달려 들었다)" 방책을 찾지 못했다고 하여 <strong>가난한 민중 전체의 갈망과 밀착</strong>을 대조적으로 서술합니다. 본문이 이 두 층위를 엄격히 갈라 적은 것은, 예수의 죽음과 배척의 책임을 막연히 '유대인 전체'나 '군중'으로 뭉뚱그려 비난하는 <strong>집단적 일반화의 오류를 철저히 차단</strong>할 것을 요구합니다. 나아가 권력을 지키기 위해 진리를 제거하려는 <strong>종교적 기득권의 살인적 맹목성</strong>과, 생명의 말씀에 목말라 매달리는 <strong>가난한 자들의 순전한 갈망</strong> 중 우리가 오늘 어느 자리에 서 있는지를 엄정히 성찰하게 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-41" data-index="41" data-ref="42 해설서 누가복음 20 1-26">
-        <div class="card-header">
-            <span class="badge">42 해설서 누가복음 20 1-26</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-41" data-index="41" data-file-item="42 해설서 누가복음 20 1-26 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>42 해설서 누가복음 20 1-26</span>
         </div>
-        <div class="card-body">
-            <h2>42_해설서_누가복음_20_1-26.md - 누가복음 20:1-26</h2>
+        <h2>42_해설서_누가복음_20_1-26.md - 누가복음 20:1-26</h2>
 <h3>질문 1: 20장 2절의 두 물음 가운데 뒤의 것은 권위를 건네준 사람을 묻습니다. 이 단락에서 그 물음은 끝내 답을 받지 못합니다. 본문이 그 물음을 열어 둔 채 다음 장면으로 넘어간 것을 어떻게 읽어야 할까요.</h3>
 <p><strong>답변:</strong> 20:2에서 종교 지도자들은 "당신이 무슨 권위로 이런 일을 하는지, <strong>이 권위를 준 이가 누구인지</strong>" 물으며 제도적 출처와 정통성의 배후를 집요하게 캐묻습니다. 그러나 예수는 세례 요한의 권위의 출처를 역질문하심으로써 그들의 정치적 위선을 폭로하신 후, "나도 무슨 권위로 이런 일을 하는지 너희에게 이르지 아니하리라(20:8)"며 물음에 끝내 답을 주지 않고 열어 두십니다. 본문이 이 답을 침묵으로 남겨둔 것은, 예수의 권위가 인간적 제도나 산헤드린 공회의 인가로 증명되는 것이 아니라 <strong>오직 회개와 순종을 통해서만 인식되는 신적 기원(하늘로부터)</strong>에 속해 있음을 역설합니다. 진리를 계산과 기득권 방어의 도구로 삼는 자들에게는 권위의 신비가 영원히 감추어지며, 그 답은 이어지는 <strong>포도원 비유 속 아들의 운명과 십자가의 복종 속에서 비로소 계시</strong>됩니다.</p>
 <h3>질문 2: 비유에서 주인이 요구한 것은 "열매" 한 낱말이었습니다. 그 요구에 돌아온 것들을 본문의 순서대로 적어 보십시오. 요구와 응답 사이의 간격이 어디서부터 벌어졌습니까.</h3>
@@ -1086,16 +1167,14 @@
 <h3>질문 5: 20장 25절의 두 몫 가운데 앞쪽은 확인을 거쳤고 뒤쪽은 확인 절차가 없습니다. 본문이 뒤쪽을 채우지 않고 멈춘 것을 그대로 두고 읽으려면 무엇을 조심해야 할까요.</h3>
 <p><strong>답변:</strong> 예수는 데나리온의 형상과 글귀를 눈으로 대면케 하신 후 <strong>「가이사의 것은 가이사에게」</strong> 돌리라고 명확히 확인하셨으나, <strong>「하나님의 것은 하나님께」</strong> 돌리라는 뒤쪽 몫에 대해서는 어떠한 물리적 증거물이나 구체적 조항도 제시하지 않고 멈추십니다. 이 뒤쪽의 공백을 그대로 두고 읽기 위해 우리가 가장 조심해야 할 것은, 가이사의 몫과 하나님의 몫을 대등한 두 개의 영토로 분할하는 <strong>이원론적 세속화(세속과 성역의 타협)</strong>나, 반대로 하나님의 몫을 십일조나 종교 의식 몇 가지로 축소하여 규정하려는 시도입니다. 가이사의 형상이 새겨진 동전이 가이사에게 속한다면, <strong>하나님의 형상(Imago Dei)이 아로새겨진 인간의 전 존재와 삶 전체</strong>가 온전히 하나님의 소유임을 깨닫고, 삶의 어떤 영역도 하나님의 주권 밖으로 떼어놓지 않도록 스스로를 성찰해야 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-42" data-index="42" data-ref="43 해설서 누가복음 20 27-21">
-        <div class="card-header">
-            <span class="badge">43 해설서 누가복음 20 27-21</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-42" data-index="42" data-file-item="43 해설서 누가복음 20 27-21 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>43 해설서 누가복음 20 27-21</span>
         </div>
-        <div class="card-body">
-            <h2>43_해설서_누가복음_20_27-21_4.md - 누가복음 20:27-21:4</h2>
+        <h2>43_해설서_누가복음_20_27-21_4.md - 누가복음 20:27-21:4</h2>
 <h3>질문 1: 20장 34절은 사두개인의 사례를 틀렸다고 하지 않고 「이 세대의 아들들은」이라는 한정을 붙여 받습니다. 본문이 그들의 전제를 부수지 않고 범위만 적어 준 것을 본문 안에서 어떻게 확인할 수 있습니까?</h3>
 <p><strong>답변:</strong> 사두개인들은 일곱 형제가 한 여인과 차례로 혼인한 형사취수제(계대결혼)의 극단적 사례를 들어 부활의 모순을 조롱하려 했습니다. 예수는 그들의 질문 자체를 억지라며 거칠게 부수는 대신, <strong>「이 세상의 자녀들은(οἱ υἱοὶ τοῦ αἰῶνος τούτου) 장가도 가고 시집도 가되(20:34)」</strong>라는 존재론적 범위의 한정선을 명확히 그으십니다. 이 한정은 그들의 논리가 죽음이 지배하여 종족 보존과 가문 계승이 필수적인 <strong>'현재의 유한한 세대'</strong> 안에서는 성립할지 몰라도, 이어지는 20:35의 <strong>「저 세상과 및 죽은 자 가운데서 부활함을 얻기에 합당히 여김을 받은 자들」</strong>이 속한 완전히 새로운 차원에는 결코 적용될 수 없음을 보여줍니다. 즉 본문은 전제를 파괴하지 않고 <strong>존재의 범주를 전환</strong>시킴으로써 그들의 질문이 품은 근본적 한계를 폭로합니다.</p>
 <h3>질문 2: 본문이 「천사와 같은 자들」에 채워 준 내용은 「다시 죽을 수도 없다」 한 항입니다. 이 한 항을 넘어 우리가 흔히 보태는 말에는 어떤 것들이 있습니까?</h3>
@@ -1107,16 +1186,14 @@
 <h3>질문 5: 20장 47절의 고발과 21장 4절의 판정 사이는 네 절입니다. 본문이 이 두 문장을 잇지 않고 나란히 둔 것을, 우리는 어느 한쪽을 덜어 내지 않고 어떻게 함께 읽을 수 있습니까?</h3>
 <p><strong>답변:</strong> 20:47은 종교 귀족들이 <strong>「과부의 가산을 삼키는(κατεσθίουσιν τὰς οἰκίας τῶν χηρῶν)」</strong> 구조적 착취를 고발하고, 21:4는 가난한 과부가 <strong>「그 가난한 중에서 자기가 가지고 있는 생활비 전부를 넣었느니라」</strong>며 그녀의 헌신을 평가하는 판정을 내립니다. 우리는 흔히 한쪽을 덜어내어 과부의 눈물겨운 개인적 헌신만을 낭만화하여 착취의 구조를 은폐하거나, 반대로 성전 제도의 부패에만 분노하며 가난한 여인의 숭고한 믿음의 결단을 무의미한 희생으로 격하시키기 쉽습니다. 본문이 두 문장을 접속사 없이 나란히 둔 것은, <strong>약자를 쥐어짜는 부패한 종교 권력과 불의한 시스템을 향한 서슬 퍼런 예언자적 분노</strong>를 견지하는 동시에, 그 착취의 그늘 속에서도 하나님만을 전적으로 신뢰하며 자신의 생명 전체를 던진 <strong>한 무명한 여인의 순전한 믿음에 대한 한없는 경의</strong>를 온전히 함께 껴안을 것을 요구합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-43" data-index="43" data-ref="44 해설서 누가복음 21 5-38">
-        <div class="card-header">
-            <span class="badge">44 해설서 누가복음 21 5-38</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-43" data-index="43" data-file-item="44 해설서 누가복음 21 5-38 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>44 해설서 누가복음 21 5-38</span>
         </div>
-        <div class="card-body">
-            <h2>44_해설서_누가복음_21_5-38.md - 누가복음 21:5-38</h2>
+        <h2>44_해설서_누가복음_21_5-38.md - 누가복음 21:5-38</h2>
 <h3>질문 1: 제자들은 「언제」와 「무슨 징조」를 물었습니다(21:7). 본문이 그 물음에 돌려준 첫 문장은 무엇이며, 그 문장은 물음과 어떻게 다릅니까?</h3>
 <p><strong>답변:</strong> 제자들은 화려한 성전의 파괴 예고 앞에서 사태가 일어날 시간표인 <strong>「어느 때에(πότε)」</strong>와 시각적 표징인 <strong>「무슨 징조(τί τὸ σημεῖον)」</strong>를 물었습니다(21:7). 그러나 예수께서 돌려주신 첫 문장은 종말의 연대기적 정보가 아니라, <strong>「미혹을 받지 않도록 주의하라(Βλέπετε μὴ πλανηθῆτε, 21:8)」</strong>는 실존적 경계와 내면적 분별의 명령이었습니다. 제자들의 물음이 종말의 파국을 지적으로 관망하고 계산하여 안전을 도모하려는 <strong>지적 통제욕과 호기심</strong>에 기반하고 있다면, 예수의 응답은 역사의 소용돌이 한복판에서 영혼이 길을 잃거나 거짓 확신에 휩쓸리지 않도록 자기를 지켜내는 <strong>제자도의 영적 각성과 실존적 태도</strong>로 물음의 차원 자체를 근본적으로 뒤바꾸어 놓습니다.</p>
 <h3>질문 2: 「그 때가 가까웠다」는 말이 이 담화 안에서 누구의 입에 놓여 있습니까(21:8)? 그 사실이 시기를 말하는 오늘의 주장들을 들을 때 무엇을 바꿉니까?</h3>
@@ -1128,16 +1205,14 @@
 <h3>질문 5: 이 단락에서 「백성」이라는 한 낱말이 21장 23절과 21장 38절에 놓여 있습니다. 두 자리의 백성은 어떤 자리에 서 있습니까? 담화의 마지막 장면이 반복되는 아침이라는 것은 이 담화를 어떻게 읽게 합니까?</h3>
 <p><strong>답변:</strong> 21:23의 백성은 땅의 큰 환난과 진노 속에서 칼날에 쓰러지고 이방에 사로잡혀가는 <strong>「심판과 멸망의 형벌을 받는 비극적 대상」</strong>의 자리에 서 있습니다. 반면 담화의 대단원인 21:38의 백성은 "그 말씀을 들으려고 이른 아침에 성전에 나아오는(πᾶς ὁ λαὸς ὤρθριζεν... ἀκούειν αὐτοῦ)" <strong>「생명의 말씀을 듣기 위해 새벽을 깨우는 거룩한 청취자」</strong>의 자리에 서 있습니다. 우주적 파멸과 심판의 담화가 폐허로 끝나지 않고 날마다 이른 아침 성전에서 예수를 찾아와 말씀을 듣는 <strong>'반복되는 아침의 일상'</strong>으로 마감된다는 것은, 종말론적 신앙이 공포와 종말적 도피가 아니라 <strong>매일 아침 주님의 음성에 귀 기울이며 삶을 견뎌내는 거룩한 일상의 성실함</strong>으로 응답되어야 함을 강력히 교훈합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-44" data-index="44" data-ref="45 해설서 누가복음 22 1-23">
-        <div class="card-header">
-            <span class="badge">45 해설서 누가복음 22 1-23</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-44" data-index="44" data-file-item="45 해설서 누가복음 22 1-23 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>45 해설서 누가복음 22 1-23</span>
         </div>
-        <div class="card-body">
-            <h2>45_해설서_누가복음_22_1-23.md - 누가복음 22:1-23</h2>
+        <h2>45_해설서_누가복음_22_1-23.md - 누가복음 22:1-23</h2>
 <h3>질문 1: 22:2는 죽이려는 쪽이 멈춘 이유를 「백성을 두려워함」으로 적습니다. 본문은 그 두려움을 비난하지도 변호하지도 않습니다. 이 짧은 설명이 이 단락 전체에서 하는 일은 무엇입니까?</h3>
 <p><strong>답변:</strong> 22:2는 대제사장들과 서기관들이 예수를 죽일 방책을 찾으면서도 머뭇거린 이유를 오직 <strong>「백성을 두려워함(ἐφοβοῦντο γὰρ τὸν λαόν)」</strong> 때문이었다고 담담히 기록합니다. 본문이 이 두려움에 대해 어떠한 도덕적 규탄이나 변호도 달지 않은 것은, 종교 지도자들의 결정을 지배하는 진짜 동기가 하나님의 법이나 양심이 아니라 철저히 <strong>「정치적 이해관계와 여론에 대한 눈치보기」</strong>였음을 서늘하게 폭로합니다. 동시에 이 객관적 서술은 종교 권력의 내적 무력함과 비겁함을 드러냄으로써, 뒤이어 사탄이 가룟 유다에게 들어가고(22:3) 은밀한 배반의 거래가 성사되는 <strong>어둠의 배후 메커니즘을 작동시키는 필연적 배경막</strong>의 역할을 수행합니다.</p>
 <h3>질문 2: 본문은 유다를 소개하면서 「열둘 중의 하나」라고 먼저 적습니다(22:3). 본문이 그 소속을 먼저 적어 둔 것과, 그 사람의 속마음을 끝까지 적지 않은 것을 함께 놓고 보면 무엇이 보입니까?</h3>
@@ -1149,16 +1224,14 @@
 <h3>질문 5: 22:23은 「우리 중에서 이 일을 행할 자가 누구일까」라는 물음에서 그대로 끝납니다. 본문이 답을 달지 않은 이 물음 앞에서, 답을 만들어 덮지 않고 머무른다는 것은 구체적으로 어떤 모습이겠습니까?</h3>
 <p><strong>답변:</strong> 제자들은 서로 "우리 중에서 이 일을 행할 자가 누구일까"라고 웅성거리며 묻지만, 본문은 특정 인물을 지목하여 답을 주지 않고 그 당혹스러운 물음 자체로 단락을 끝맺습니다. 이 열린 물음 앞에서 유다라는 손쉬운 정답을 던져 서둘러 덮어버리지 않고 머무른다는 것은, 배반의 가능성을 타인에게 투사하여 정죄하는 대신 <strong>「그 배반자가 바로 나 자신이 될 수도 있다」는 실존적 전율과 참회</strong>로 자신을 돌아보는 태도입니다. 그것은 자신의 의로움과 충성심을 맹신하지 않고, 인간 내면의 깊은 어둠과 변절의 위험을 통감하며 <strong>오직 주님의 긍휼만을 의지하여 떨리는 마음으로 은혜의 보좌 앞에 엎드리는 영적 가난함</strong>의 모습입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-45" data-index="45" data-ref="46 해설서 누가복음 22 24-38">
-        <div class="card-header">
-            <span class="badge">46 해설서 누가복음 22 24-38</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-45" data-index="45" data-file-item="46 해설서 누가복음 22 24-38 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>46 해설서 누가복음 22 24-38</span>
         </div>
-        <div class="card-body">
-            <h2>46_해설서_누가복음_22_24-38.md - 누가복음 22:24-38</h2>
+        <h2>46_해설서_누가복음_22_24-38.md - 누가복음 22:24-38</h2>
 <h3>질문 1: 22:27에서 예수께서는 「상에 기댄 자가 더 크지 않으냐」는 상식의 답을 고치지 않으신 채 자기를 다른 쪽에 두십니다. 통념을 반박하지 않고 자기 자리를 옮기신 이 방식은, 통념을 뒤집는 말씀과 어떻게 다릅니까.</h3>
 <p><strong>답변:</strong> 세상의 지배 논리는 식탁에 앉아 섬김을 받는 자가 시중드는 자보다 크다고 여기며, 예수는 "앉아서 먹는 자가 크지 아니하냐(22:27a)"라며 그 세상적 현실과 통념의 대답을 굳이 이론적으로 논박하거나 부정하지 않으십니다. 대신 "그러나 나는 섬기는 자로 너희 중에 있노라(22:27b)"고 선언하시며, 논쟁 대신 <strong>자신의 몸과 삶의 자리를 가장 낮은 시중드는 자의 위치로 직접 이동</strong>시키십니다. 이는 세상의 가치관을 관념적인 말의 유희나 폭력적 구호로 뒤집으려 하는 것이 아니라, <strong>성육신적 자기 비하와 종의 실천을 통해 세상의 통념 자체를 무력화하고 새로운 하나님 나라의 질서를 몸소 살아내시는 방식</strong>입니다.</p>
 <h3>질문 2: 22:28이 「나와 함께 머물러 온 자들」을 22:29의 수여 앞에 놓습니다. 본문은 이 둘의 관계를 설명하지 않습니다. 본문이 설명하지 않은 것을 설명하지 않은 채로 두면, 이 두 절은 각각 무엇을 말하게 됩니까.</h3>
@@ -1170,16 +1243,14 @@
 <h3>질문 5: 22:38의 「족하다」에는 주어가 없어 무엇이 족한지 문면이 지정하지 않습니다. 본문이 이 대화를 닫지 않고 끝낸다면, 이 단락에서 닫힌 것과 닫히지 않은 것은 각각 무엇입니까.</h3>
 <p><strong>답변:</strong> 제자들이 "주여 보소서 여기 검 둘이 있나이다"라고 하자 예수는 <strong>「족하다(Ἱκανόν ἐστιν)」</strong>라는 주어 없는 한마디로 대화를 끊어버리십니다. 이 단락에서 결정적으로 닫힌 것은 칼을 의지하여 물리적 폭력과 무력으로 하나님 나라를 방어하거나 성취하려는 제자들의 <strong>세상적 무력 사용에 대한 헛된 환상과 논쟁</strong>입니다. 반면 닫히지 않고 열려 있는 것은, 칼을 준비해야 할 만큼 험악한 십자가의 고난과 불법자의 동류로 취급당해야 하는 <strong>메시아적 수난의 신비</strong>, 그리고 제자들의 영적 무지를 고스란히 짊어진 채 홀로 골고다의 십자가로 걸어가셔야 하는 <strong>예수의 외롭고 숭고한 순종의 여정</strong>입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-46" data-index="46" data-ref="47 해설서 누가복음 22 39-53">
-        <div class="card-header">
-            <span class="badge">47 해설서 누가복음 22 39-53</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-46" data-index="46" data-file-item="47 해설서 누가복음 22 39-53 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>47 해설서 누가복음 22 39-53</span>
         </div>
-        <div class="card-body">
-            <h2>47_해설서_누가복음_22_39-53.md - 누가복음 22:39-53</h2>
+        <h2>47_해설서_누가복음_22_39-53.md - 누가복음 22:39-53</h2>
 <h3>질문 1: 22장 39절은 이 밤의 걸음을 「습관을 따라」라고 적습니다. 본문이 이 말을 장면의 입구에 둔 것이 뒤에 벌어지는 일들을 읽는 데 어떤 차이를 만듭니까?</h3>
 <p><strong>답변:</strong> 22:39는 예수께서 잡히시던 밤에 감람산으로 나아가신 발걸음을 <strong>「습관을 따라(κατὰ τὸ ἔθος)」</strong> 행하신 일이라고 장면의 문 앞에 기록합니다. 이 짧은 어구는 겟세마네로의 걸음이 체포의 위기를 피해 도망치거나 두려움에 쫓겨 우발적으로 택한 피난처가 아니라, <strong>오랜 세월 하나님 아버지와 깊이 교제해 오셨던 일상적 기도의 연장선</strong>이었음을 명확히 보여줍니다. 나아가 유다가 이미 알고 있는 익숙한 장소로 숨김없이 나아가셨다는 점에서, 십자가의 수난을 피하지 않고 당당하게 마주하시는 <strong>예수 그리스도의 자발적 순종과 주권적 결단</strong>을 뚜렷이 각인시킵니다.</p>
 <h3>질문 2: 22장 42절의 뒷마디에는 「뜻」에 해당하는 명사가 놓이지 않았습니다. 본문이 한쪽에만 명사를 세운 것을 읽으며 무엇이 보입니까?</h3>
@@ -1191,16 +1262,14 @@
 <h3>질문 5: 22장 50절의 잘린 귀와 22장 51절의 고쳐진 귀를 본문은 서로 다른 낱말로 적었습니다. 본문이 두 일을 하나로 합치지 않은 것이 이 장면을 읽는 사람에게 무엇을 요구합니까?</h3>
 <p><strong>답변:</strong> 22:50에서 칼에 맞아 잘려 나간 귀는 신체 기관 전체를 가리키는 <strong>「귀(οὖς, 우스)」</strong>로 기록되었으나, 22:51에서 예수께서 만져 낫게 하신 귀는 귓불 혹은 바깥귀를 뜻하는 <strong>「귓바퀴(ὠτίον, 오티온)」</strong>라는 섬세하고 부드러운 낱말로 기록됩니다. 본문이 제자들의 폭력으로 훼손된 사건과 주님의 자비로 치유된 사건을 하나의 동작으로 얼버무리지 않고 엄격히 언어를 달리하여 분리한 것은, <strong>세상의 폭력적 저항 방식과 예수의 치유적 사랑 방식 사이의 메울 수 없는 질적 차이</strong>를 직시할 것을 요구합니다. 제자들의 칼이 빚어낸 상처와 파괴를 친히 만져 수습하시는 주님의 손길을 보며, 우리는 <strong>하나님 나라가 결코 세상의 무력이나 증오가 아니라 적대자까지 품어 치유하시는 희생적 사랑을 통해서만 세워진다</strong>는 진리를 붙들어야 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-47" data-index="47" data-ref="48 해설서 누가복음 22 54-71">
-        <div class="card-header">
-            <span class="badge">48 해설서 누가복음 22 54-71</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-47" data-index="47" data-file-item="48 해설서 누가복음 22 54-71 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>48 해설서 누가복음 22 54-71</span>
         </div>
-        <div class="card-body">
-            <h2>48_해설서_누가복음_22_54-71.md - 누가복음 22:54-71</h2>
+        <h2>48_해설서_누가복음_22_54-71.md - 누가복음 22:54-71</h2>
 <h3>질문 1: 이 열여덟 절에서 본문은 베드로를 평가하는 문장을 쓰지 않습니다. 본문이 그에 관해 적은 동작을 차례로 적어 보십시오. 그 목록만 보았을 때 받는 인상과, 흔히 들어 온 설명이 어떻게 다릅니까.</h3>
 <p><strong>답변:</strong> 본문이 기록한 베드로의 동작은: <strong>「멀찍이 따라감(22:54)」 -&gt; 「불 가운데 함께 앉음(22:55)」 -&gt; 「여종을 주목함/부인함("나는 그를 알지 못하노라", 22:56-57)」 -&gt; 「조금 후에 부인함("나는 아니로라", 22:58)」 -&gt; 「한 시간쯤 있다가 맹렬히 부인함("나는 네가 하는 말을 알지 못하노라", 22:59-60)」 -&gt; 「닭이 욺(22:60)」 -&gt; 「주를 바라봄/돌아봄을 받음(22:61)」 -&gt; 「말씀이 생각남(22:61)」 -&gt; 「밖에 나가 심히 통곡함(22:62)」</strong>입니다. 우리가 흔히 들어온 설교적 설명은 베드로를 비열하고 배은망덕한 배신자로 일방적으로 매도하기 일쑤였으나, 이 담담한 동작의 목록만을 직시할 때 받는 인상은 <strong>주님을 끝내 버리지 못해 위험한 대제사장의 뜰까지 서성이다가 죽음의 공포 앞에서 처절하게 무너져 내린 가련한 인간의 비극과 뼈아픈 참회</strong>입니다. 본문은 도덕적 단죄를 유보함으로써, 그 자리가 <strong>우리 모두의 연약한 실존의 자리</strong>임을 고발합니다.</p>
 <h3>질문 2: 22장 61절에서 세 번의 부인 다음에 본문이 가장 먼저 적는 동작은 무엇입니까. 그 동작이 담고 있는 뜻을 본문이 설명해 줍니까.</h3>
@@ -1212,16 +1281,14 @@
 <h3>질문 5: 이 단락은 판결 없이 끝납니다. 본문이 적지 않은 것을 적지 않은 대로 두고 읽으려면, 내가 이 본문에 보태고 싶어 하는 문장이 무엇인지 먼저 알아야 합니다. 그 문장은 무엇입니까.</h3>
 <p><strong>답변:</strong> 공회는 "어찌 더 증거를 요구하리요 우리가 친히 그 입에서 들었노라(22:71)"고 외칠 뿐, 마태나 마가복음처럼 "그는 사형에 해당하니라"는 공식적 유죄 판결문을 명시하지 않은 채 단락을 마감합니다. 이때 우리가 이 본문에 조급하게 보태어 채워 넣고 싶어 하는 문장은 <strong>"그러므로 공회가 예수를 신성모독죄로 정죄하여 사형에 처하기로 결의하였다"</strong>는 사법적 완결의 선고문입니다. 텍스트가 판결문을 비워둔 채 끝나는 까닭을 직시할 때, 우리는 불의한 인간 법정이 감히 생명의 주님을 합법적으로 정죄할 수 없으며, <strong>진짜 유죄 판결을 받아야 할 자는 피고석의 예수가 아니라 예수를 재판석에 앉혀두고 귀를 닫아버린 심문자들 자신</strong>임을 깨닫게 됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-48" data-index="48" data-ref="49 해설서 누가복음 23 1-25">
-        <div class="card-header">
-            <span class="badge">49 해설서 누가복음 23 1-25</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-48" data-index="48" data-file-item="49 해설서 누가복음 23 1-25 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>49 해설서 누가복음 23 1-25</span>
         </div>
-        <div class="card-body">
-            <h2>49_해설서_누가복음_23_1-25.md - 누가복음 23:1-25</h2>
+        <h2>49_해설서_누가복음_23_1-25.md - 누가복음 23:1-25</h2>
 <h3>질문 1: 본문이 「세 번째로」라고 스스로 적어 둔 것(23:22)은 무엇을 하라는 표시로 보입니까. 세 문장을 나란히 놓고 읽어 보면 무엇이 같고 무엇이 다릅니까.</h3>
 <p><strong>답변:</strong> 본문이 "빌라도가 <strong>세 번째로(τρίτον)</strong> 말하되(23:22)"라고 횟수를 스스로 명시한 것은, 독자로 하여금 앞선 두 차례의 무죄 선언(23:4, 23:14-15)과 이 선언을 나란히 대조하며 <strong>로마 사법권의 타락과 비겁한 후퇴의 과정</strong>을 면밀히 추적하도록 요구하는 문학적 표지입니다. 세 문장의 공통점은 빌라도가 아무리 심문해도 <strong>「이 사람에게서 죽일 죄목을 전혀 찾지 못했다(οὐδὲν αἴτιον)」</strong>는 무죄의 절대적 확인입니다. 그러나 다른 점은 첫 번째(23:4)는 단호한 거절이었고, 두 번째(23:14-16)는 헤롯의 판결까지 끌어들여 설득하며 태형 후 석방이라는 타협안을 내놓았으며, 세 번째(23:22)는 "이 사람이 무슨 악한 일을 하였느냐"며 군중의 아우성 앞에서 <strong>자신의 법적 확신을 지키지 못하고 비열하게 굴복해 가는 권력자의 무기력한 붕괴</strong>를 보여줍니다.</p>
 <h3>질문 2: 23장 23절의 마지막 문장은 「그들의 소리가 이겼다」입니다. 본문이 「그들이 총독을 이겼다」고 쓰지 않은 것은 이 장면을 읽는 데 어떤 차이를 만듭니까.</h3>
@@ -1233,16 +1300,14 @@
 <h3>질문 5: 23장 13절에서 본문은 불려 온 사람들을 세 묶음으로 적어 둡니다. 본문이 상대를 이렇게 좁게 적어 두는 것은 이 장면을 읽을 때 무엇을 막아 줍니까.</h3>
 <p><strong>답변:</strong> 23:13은 빌라도가 불러 모은 자들을 <strong>「대제사장들과 관리들과 백성(τοὺς ἀρχιερεῖς καὶ τοὺς ἄρχοντας καὶ τὸν λαόν)」</strong>이라는 세 묶음으로 구체적으로 명시합니다. 본문이 재판의 현장에 서 있는 자들을 이렇게 제도적·상황적 묶음으로 엄밀히 특정한 것은, 십자가 처형의 책임을 추상적인 '인류 일반'으로 모호하게 희석시키거나 반대로 역사 속에서 '모든 유대인'이라는 민족 전체에게 돌려 <strong>반유대주의적 광기를 정당화하려는 집단적 일반화의 오류를 철저히 차단</strong>합니다. 동시에 그 자리에 종교 권력(대제사장), 정치 권력(관리), 그리고 여론에 휩쓸린 대중(백성)이 모두 결탁해 있었음을 명시함으로써, <strong>인간 사회의 모든 계층이 공모하여 의인을 배척한 죄책의 구체성</strong>을 직시하게 만듭니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-49" data-index="49" data-ref="50 해설서 누가복음 23 26-56">
-        <div class="card-header">
-            <span class="badge">50 해설서 누가복음 23 26-56</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-49" data-index="49" data-file-item="50 해설서 누가복음 23 26-56 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>50 해설서 누가복음 23 26-56</span>
         </div>
-        <div class="card-body">
-            <h2>50_해설서_누가복음_23_26-56.md - 누가복음 23:26-56</h2>
+        <h2>50_해설서_누가복음_23_26-56.md - 누가복음 23:26-56</h2>
 <h3>질문 1: 23:28에서 예수는 울음을 그치게 하지 않고 울음의 대상을 바꾸셨습니다. 본문이 바꾸어 준 대상은 누구입니까. 그리고 본문은 그 뒤에 왜 답을 붙이지 않고 물음으로 끝냈다고 보십니까(23:31)?</h3>
 <p><strong>답변:</strong> 예수는 가슴을 치며 슬피 우는 여인들에게 울음을 멈추라 하지 않으시고, "예루살렘의 딸들아 나를 위하여 울지 말고 <strong>너희와 너희 자녀를 위하여 울라(23:28)</strong>"며 애도의 대상을 십자가로 가시는 자신이 아니라 <strong>장차 닥쳐올 파멸의 심판을 맞이할 예루살렘과 그 후손들</strong>로 바꾸어 주십니다. 그리고 23:31에서 "푸른 나무에도 이같이 하거든 마른 나무에는 어떻게 되리요"라는 답 없는 수사학적 질문으로 말씀을 마감하십니다. 본문이 답을 달지 않고 질문으로 열어둔 것은, 생명력 넘치는 무죄한 의인(푸른 나무)에게도 끔찍한 진노의 잔이 쏟아진다면, 열매 없는 영적 불모의 도성(마른 나무)이 당할 종말론적 심판의 무게가 얼마나 참혹한 것인가를 <strong>듣는 이들 스스로 자신의 양심과 역사 앞에서 전율하며 직면하도록 촉구</strong>하기 위함입니다.</p>
 <h3>질문 2: 「구원하라」는 말이 이 단락에서 네 번 다 조롱하는 입에 있다는 사실(23:35·37·39)은 이 단락을 읽는 데 어떤 차이를 만듭니까?</h3>
@@ -1254,16 +1319,14 @@
 <h3>질문 5: 이 단락의 마지막 동사는 「쉬더라」입니다(23:56). 본문이 백부장의 말이 아니라 이 동사로 단락을 닫은 것이 읽는 사람에게 무엇을 요구합니까?</h3>
 <p><strong>답변:</strong> 본문 23:56의 마지막 문장은 향품과 향유를 준비한 갈릴리 여인들이 <strong>「계명을 따라 안식일에 쉬더라(τὸ μὲν σάββατον ἡσύχασαν κατὰ τὴν ἐντολήν)」</strong>는 침묵의 동사로 마감됩니다. 십자가의 거대한 우주적 파동과 백부장의 감탄 이후에 찾아온 이 거룩한 쉼은, 인간 편에서의 모든 조급한 행동과 소란을 멈추고 <strong>하나님의 침묵 속에서 안식하며 기다릴 것</strong>을 요구합니다. 그것은 주님의 시신이 무덤에 갇힌 칠흑 같은 어둠 속에서도 말씀에 순종하며 멈추어 서는 거룩한 인내이며, <strong>인간의 모든 가능성과 활동이 완전히 중단된 그 자리에서 비로소 하나님의 부활의 역사가 시작된다는 믿음의 안식</strong>을 훈련하도록 촉구합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-50" data-index="50" data-ref="51 해설서 누가복음 24 1-35">
-        <div class="card-header">
-            <span class="badge">51 해설서 누가복음 24 1-35</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-50" data-index="50" data-file-item="51 해설서 누가복음 24 1-35 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>51 해설서 누가복음 24 1-35</span>
         </div>
-        <div class="card-body">
-            <h2>51_해설서_누가복음_24_1-35.md - 누가복음 24:1-35</h2>
+        <h2>51_해설서_누가복음_24_1-35.md - 누가복음 24:1-35</h2>
 <h3>질문 1: 무덤 장면에서 두 남자가 던진 첫 말은 설명이 아니라 물음이었습니다(24:5). 본문은 왜 이 단락을 물음으로 열었다고 적습니까. 그 물음이 묻는 것은 찾는 사람의 성실함입니까, 찾는 자리입니까.</h3>
 <p><strong>답변:</strong> 부활의 새벽 빈 무덤을 찾아온 여인들에게 찬란한 옷을 입은 두 사람이 던진 첫마디는 <strong>「어찌하여 살아 있는 자를 죽은 자 가운데서 찾느냐(Τί ζητεῖτε τὸν ζῶντα μετὰ τῶν νεκρῶν; 24:5)」</strong>라는 근원적인 질문이었습니다. 본문이 설명을 주기 전에 이 물음으로 단락을 연 것은, 부활이 기존의 죽음의 질서 안에서는 결코 포착될 수 없는 새로운 차원의 사건이기에 <strong>인간의 근본적인 인식의 전제와 시선의 방향을 송두리째 교정</strong>하기 위함입니다. 이 물음은 이른 새벽부터 향품을 들고 달려온 여인들의 눈물겨운 '성실함'을 탓하는 것이 아니라, 살아나신 생명의 주님을 여전히 무덤이라는 사망의 영역 안에 가두어 두고 헤매는 <strong>「찾는 자리(범주와 번지수)의 결정적 오류」</strong>를 찌르는 질문입니다.</p>
 <h3>질문 2: 24장 16절과 24장 31절은 둘 다 「눈」을 문장의 주어로 세웁니다. 두 절을 나란히 읽으면 사람의 자리는 어디에 놓입니까. 그리고 24장 31절이 바로 이어서 사람을 주어로 세우는 것은 무엇을 더해 줍니까.</h3>
@@ -1275,16 +1338,14 @@
 <h3>질문 5: 24장 35절에서 두 사람은 같은 절 안에서 주어이기도 하고 받는 쪽이기도 합니다. 그들이 받은 것과 그들이 한 일을 각각 적어 보십시오. 그리고 그 절의 마지막 동사가 완결이 아니라 지속인 것이, 알아본 사람에게 무엇을 남깁니까.</h3>
 <p><strong>답변:</strong> 24:35에서 두 제자가 <strong>받은 것(수동/경험)</strong>은 길에서 일어난 주님의 동행과 "예수께서 떡을 떼심으로 자기들에게 알려지신 것(ἐγνώσθη αὐτοῖς, 알려짐을 받음)"이며, 그들이 <strong>한 일(능동/증언)</strong>은 예루살렘으로 되돌아가 제자들에게 그 모든 사건을 "설명하고 증언한 일(ἐξηγοῦντο)"입니다. 그 절에서 알려지심을 묘사하는 문맥과 증언의 양상이 단회적 종결이 아니라 지속적인 사역의 차원을 띠는 것은, 부활하신 주님과의 만남이 과거의 흘러간 추억으로 끝나지 않고 <strong>성찬의 떡을 떼는 예배의 자리와 증인의 삶 속에서 끊임없이 새롭게 재현되고 경험되어야 할 살아있는 현재적 실재</strong>임을 남깁니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-51" data-index="51" data-ref="52 해설서 누가복음 24 36-53">
-        <div class="card-header">
-            <span class="badge">52 해설서 누가복음 24 36-53</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-51" data-index="51" data-file-item="52 해설서 누가복음 24 36-53 모범답안">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서 모범답안</span>
+            <span>52 해설서 누가복음 24 36-53</span>
         </div>
-        <div class="card-body">
-            <h2>52_해설서_누가복음_24_36-53.md - 누가복음 24:36-53</h2>
+        <h2>52_해설서_누가복음_24_36-53.md - 누가복음 24:36-53</h2>
 <h3>질문 1: 24:36-38에서 본문은 제자들의 첫 반응을 어떤 말로 적습니까? 그 반응을 받으신 주님이 먼저 하신 일은 설명이었습니까, 다른 것이었습니까?</h3>
 <p><strong>답변:</strong> 24:36-37에서 부활하신 예수께서 평강을 선포하며 나타나셨을 때 제자들의 첫 반응은 <strong>「놀라고 무서워하여 그 보는 것을 영(유령, πνεῦμα)으로 생각한 것(24:37)」</strong>이었습니다. 이 당혹스러운 불신과 공포 앞에서 주님이 먼저 하신 일은 신학적인 논리적 설명이나 질책이 아니라, <strong>「내 손과 발을 보고 나인 줄 알라 또 나를 만져 보라(24:39)」</strong>며 못 자국 난 상흔의 육체를 직접 내어주시고 만지게 하신 <strong>구체적인 살과 뼈의 자기 제시(인격적 접촉)</strong>였습니다. 주님은 관념적 교리나 논증 이전에, 상처 입은 자신의 몸을 내어주심으로써 제자들의 의심과 공포를 온몸으로 품어 안으십니다.</p>
 <h3>질문 2: 24:41은 믿지 못하는 원인을 무엇이라고 적습니까? 그 구절은 「기쁨은 믿음의 증거다」라는 생각과 어떻게 어긋납니까? 그리고 본문은 그 상태의 사람들에게 무엇을 물었습니까?</h3>
@@ -1295,24 +1356,92 @@
 <p><strong>답변:</strong> 24:46에서 "이같이 기록되었으되" 뒤에 오는 내용은 구약의 특정한 한두 구절의 기계적 인용이 아니라, <strong>구약 전체가 가리키는 구속사적 성취의 통전적 요약</strong>입니다. 본문이 성경의 기록과 필연성의 근거로 내놓은 두 가지 핵심은: 첫째, <strong>「그리스도가 고난을 받고 제삼일에 죽은 자 가운데서 살아날 것(그리스도의 수난과 부활, 24:46)」</strong>, 둘째, <strong>「그의 이름으로 죄 사함을 받게 하는 회개가 예루살렘에서 시작하여 모든 족속에게 전파될 것(열방을 향한 회개와 복음 전파, 24:47)」</strong>입니다. 즉 예수께서는 메시아의 구속 사건뿐만 아니라, 교회가 감당해야 할 <strong>세계 선교의 사명까지도 성경에 기록된 필연적 약속의 핵심</strong>으로 확증하십니다.</p>
 <h3>질문 5: 24:49의 마지막 명령은 무엇입니까? 그 명령이 걸어 둔 조건이 채워졌다고 이 책이 적습니까? 24:53이 적는 것과 적지 않는 것을 각각 말해 보십시오.</h3>
 <p><strong>답변:</strong> 24:49의 마지막 명령은 "너희는 위로부터 능력으로 입혀질 때까지 <strong>「이 성에 머물라(καθίσατε ἐν τῇ πόλει)」</strong>"는 기다림의 명령입니다. 누가복음 본문은 성령이 임하여 이 약속의 조건이 최종적으로 채워졌다는 성취의 사건을 이 책 안에서 닫지 않고 사도행전의 지평으로 열어 둡니다. 그리하여 24:53이 적는 것은 제자들이 "늘 성전에서 하나님을 찬송하며(αἰνοῦντες τὸν θεόν)" 기쁨으로 예배하고 기다리는 <strong>「찬양과 예배의 지속적인 현재」</strong>이며, 적지 않는 것은 약속된 성령의 강림 사건이나 선교를 향한 외적 출발입니다. 복음서는 성급한 사역의 착수 이전에, 약속을 붙들고 하나님을 찬송하며 기다리는 <strong>예배 공동체의 온전한 서약 속에서 웅장한 막을 내립니다</strong>.</p>
-        </div>
-    </section>
+    </article>
     
+            
+            <div class="page-nav">
+                <button class="nav-btn" id="prevBtn" onclick="navigatePage(-1)">이전 편</button>
+                <span id="pageIndicator" style="font-family: Pretendard, sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">1 / 52</span>
+                <button class="nav-btn" id="nextBtn" onclick="navigatePage(1)">다음 편</button>
             </div>
-        </main>
+        </div>
     </div>
+
     <script>
-        function filterCards() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.answer-card');
-            const toc = document.querySelectorAll('.toc-list li');
-            cards.forEach((card, idx) => {
-                const text = card.innerText.toLowerCase();
-                const match = text.includes(q);
-                card.style.display = match ? 'block' : 'none';
-                if (toc[idx]) toc[idx].style.display = match ? 'block' : 'none';
+        let currentIndex = 0;
+        const totalSections = 52;
+        const pages = document.querySelectorAll('.book-page');
+        const menuLinks = document.querySelectorAll('#menuList li a');
+        
+        function showPage(index) {
+            if (index < 0 || index >= totalSections) return;
+            currentIndex = index;
+            
+            pages.forEach((p, idx) => {
+                if (idx === index) {
+                    p.classList.add('active');
+                    const fileItem = p.getAttribute('data-file-item');
+                    document.getElementById('currentSectionTitle').innerText = fileItem;
+                } else {
+                    p.classList.remove('active');
+                }
+            });
+            
+            menuLinks.forEach((a, idx) => {
+                if (idx === index) {
+                    a.classList.add('active');
+                    a.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                } else {
+                    a.classList.remove('active');
+                }
+            });
+            
+            document.getElementById('prevBtn').disabled = (index === 0);
+            document.getElementById('nextBtn').disabled = (index === totalSections - 1);
+            document.getElementById('pageIndicator').innerText = (index + 1) + ' / ' + totalSections;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function navigatePage(direction) {
+            showPage(currentIndex + direction);
+        }
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        
+        function filterMenu() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('#menuList li');
+            items.forEach(li => {
+                const txt = li.innerText.toLowerCase();
+                li.style.display = txt.includes(query) ? '' : 'none';
             });
         }
+        
+        let currentSize = 16.5;
+        function changeFontSize(delta) {
+            currentSize = Math.max(14, Math.min(24, currentSize + delta));
+            document.documentElement.style.setProperty('--font-size', currentSize + 'px');
+        }
+        
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', newTheme);
+        }
+        
+        function copyCurrentPage() {
+            const activePage = document.querySelector('.book-page.active');
+            if (!activePage) return;
+            navigator.clipboard.writeText(activePage.innerText).then(() => {
+                alert('해당 본문 텍스트가 클립보드에 복사되었습니다.');
+            }).catch(() => {
+                alert('복사에 실패했습니다.');
+            });
+        }
+        
+        showPage(0);
     </script>
 </body>
 </html>

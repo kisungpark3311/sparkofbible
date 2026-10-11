@@ -3,241 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>디모데전후서 해설서 모범답안 합본</title>
+    <title>디모데전후서 해설서 모범답안 합본 | 박기성</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         @font-face {
             font-family: 'KoPubWorld Batang';
-            src: url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Medium.ttf') format('truetype');
             font-weight: 500;
+            src: local('KoPubWorldBatang Medium'),
+                 local('KoPubWorld Batang Medium'),
+                 url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Medium.ttf') format('truetype'),
+                 url('https://cdn.jsdelivr.net/gh/fontbit/kopubworld-batang/KoPubWorldBatang-Medium.woff2') format('woff2');
         }
         @font-face {
             font-family: 'KoPubWorld Batang';
-            src: url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Bold.ttf') format('truetype');
             font-weight: 700;
+            src: local('KoPubWorldBatang Bold'),
+                 local('KoPubWorld Batang Bold'),
+                 url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Bold.ttf') format('truetype'),
+                 url('https://cdn.jsdelivr.net/gh/fontbit/kopubworld-batang/KoPubWorldBatang-Bold.woff2') format('woff2');
         }
+        
         :root {
             --bg-color: #f8fafc;
-            --text-color: #1e293b;
             --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --primary-color: #047857;
-            --primary-light: #ecfdf5;
-            --highlight-bg: #fef9c3;
-            --accent-color: #059669;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --primary: #047857;
+            --accent: #059669;
+            --border: #e2e8f0;
+            --highlight: #fef9c3;
+            --highlight-border: #fef08a;
+            --font-size: 16.5px;
+            --line-height: 1.85;
         }
+        
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --text-muted: #94a3b8;
+            --primary: #34d399;
+            --accent: #10b981;
+            --border: #334155;
+            --highlight: #854d0e;
+            --highlight-border: #a16207;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
-            font-family: 'KoPubWorld Batang', serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.8;
-            margin: 0;
-            padding: 0;
-            font-size: 17px;
-        }
-        .layout {
+            font-family: 'KoPubWorld Batang', serif;
+            font-size: var(--font-size);
+            line-height: var(--line-height);
             display: flex;
             min-height: 100vh;
+            word-break: keep-all;
+            transition: background-color 0.2s, color 0.2s;
         }
-        .sidebar {
+        
+        #sidebar {
             width: 320px;
-            background: #ffffff;
-            border-right: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            height: 100vh;
             position: fixed;
             top: 0;
-            bottom: 0;
             left: 0;
             overflow-y: auto;
-            padding: 24px 16px;
-            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
             z-index: 100;
+            transition: transform 0.3s;
         }
+        
         .sidebar-header {
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid var(--primary-light);
+            padding: 24px 20px 16px;
+            border-bottom: 1px solid var(--border);
         }
+        
         .sidebar-header h2 {
-            font-size: 20px;
-            color: var(--primary-color);
-            margin: 0 0 8px 0;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.15rem;
+            color: var(--primary);
+            margin-bottom: 6px;
             font-weight: 700;
         }
+        
         .sidebar-header p {
-            font-size: 13px;
-            color: #64748b;
-            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'Pretendard', sans-serif;
         }
+        
         .search-box {
-            margin-bottom: 16px;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
         }
-        .search-input {
+        
+        .search-box input {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 14px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-        .toc-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .toc-list li {
-            margin-bottom: 4px;
-        }
-        .toc-list a {
-            display: block;
             padding: 8px 12px;
-            color: #334155;
-            text-decoration: none;
             border-radius: 6px;
-            font-size: 14px;
-            transition: all 0.2s;
+            border: 1px solid var(--border);
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.9rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
         }
-        .toc-list a:hover, .toc-list a.active {
-            background: var(--primary-light);
-            color: var(--primary-color);
-            font-weight: 700;
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 12px 10px;
+            overflow-y: auto;
+            flex: 1;
         }
-        .content-area {
+        
+        .sidebar-menu li a {
+            display: block;
+            padding: 9px 12px;
+            border-radius: 6px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            transition: background 0.15s;
+        }
+        
+        .sidebar-menu li a:hover,
+        .sidebar-menu li a.active {
+            background: var(--border);
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        #main-container {
             margin-left: 320px;
             flex: 1;
-            padding: 40px 60px;
-            max-width: 900px;
-        }
-        .doc-header {
-            background: #ffffff;
-            padding: 32px 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 32px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .doc-header h1 {
-            font-size: 28px;
-            color: #0f172a;
-            margin: 0 0 12px 0;
-            font-weight: 700;
-        }
-        .doc-header .meta {
-            font-size: 15px;
-            color: #64748b;
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        .answer-card {
+        
+        .top-bar {
+            position: sticky;
+            top: 0;
             background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            padding: 36px 40px;
-            margin-bottom: 36px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-        }
-        .card-header {
+            border-bottom: 1px solid var(--border);
+            padding: 12px 28px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .badge {
-            background: var(--primary-color);
-            color: #ffffff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 700;
-        }
-        .badge-sub {
-            font-size: 14px;
-            color: #64748b;
-        }
-        .card-body h2 {
-            display: none;
-        }
-        .card-body h3 {
-            font-size: 18px;
-            color: #1e3a8a;
-            margin: 28px 0 12px 0;
-            padding-left: 12px;
-            border-left: 4px solid var(--primary-color);
-        }
-        .card-body p {
-            margin: 12px 0;
-            text-align: justify;
-        }
-        .card-body strong, .card-body b {
-            font-weight: 700;
-            background-color: var(--highlight-bg);
-            padding: 1px 4px;
-            border-radius: 3px;
-        }
-        .card-body ul, .card-body ol {
-            padding-left: 24px;
-        }
-        .nav-controls {
-            display: flex;
             justify-content: space-between;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
+            z-index: 90;
         }
-        .nav-btn {
-            padding: 10px 20px;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
+        
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        
+        .top-bar-left button#menu-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border);
+            padding: 6px 10px;
             border-radius: 6px;
             cursor: pointer;
-            font-family: inherit;
-            font-size: 15px;
-            transition: all 0.2s;
+            font-size: 1rem;
+            color: var(--text-color);
         }
-        .nav-btn:hover {
-            background: var(--primary-light);
-            border-color: var(--primary-color);
-            color: var(--primary-color);
+        
+        .top-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
         }
+        
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-ctrl {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.15s;
+        }
+        
+        .btn-ctrl:hover {
+            background: var(--border);
+        }
+        
+        .content-area {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            width: 100%;
+        }
+        
+        .book-page {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 44px 48px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            margin-bottom: 30px;
+        }
+        
+        .book-page.active {
+            display: block;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chapter-running-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            font-family: 'KoPubWorld Batang', serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .book-page h2 {
+            display: none;
+        }
+        
+        .book-page h3 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 28px;
+            margin-bottom: 12px;
+            padding-left: 10px;
+            border-left: 4px solid var(--primary);
+            line-height: 1.45;
+        }
+        
+        .book-page p {
+            margin-bottom: 14px;
+            text-align: justify;
+        }
+        
+        .book-page strong, .book-page b {
+            font-family: 'KoPubWorld Batang', serif;
+            font-weight: 700;
+            background-color: var(--highlight);
+            padding: 0 3px;
+            border-radius: 2px;
+            color: inherit;
+        }
+        
+        [data-theme="dark"] .book-page strong, [data-theme="dark"] .book-page b {
+            color: #fef08a;
+        }
+        
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+        
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: 0.15s;
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
         @media (max-width: 900px) {
-            .layout { flex-direction: column; }
-            .sidebar { width: 100%; position: relative; height: auto; }
-            .content-area { margin-left: 0; padding: 20px; }
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            #sidebar.open {
+                transform: translateX(0);
+            }
+            #main-container {
+                margin-left: 0;
+            }
+            .top-bar-left button#menu-toggle {
+                display: block;
+            }
+            .content-area {
+                padding: 20px 16px 60px;
+            }
+            .book-page {
+                padding: 24px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="layout">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>디모데전후서 모범답안</h2>
-                <p>21개 단위 105선 해설서 모범답안집</p>
-            </div>
-            <div class="search-box">
-                <input type="text" id="searchInput" class="search-input" placeholder="본문 또는 질문 검색..." onkeyup="filterCards()">
-            </div>
-            <ul class="toc-list" id="tocList">
-                <li><a href="#sec-0" onclick="showPage(0)">01 해설서 디모데전서 1 1-11 모범답안</a></li><li><a href="#sec-1" onclick="showPage(1)">02 해설서 디모데전서 1 12-20 모범답안</a></li><li><a href="#sec-2" onclick="showPage(2)">03 해설서 디모데전서 2 1-7 모범답안</a></li><li><a href="#sec-3" onclick="showPage(3)">04 해설서 디모데전서 2 8-15 모범답안</a></li><li><a href="#sec-4" onclick="showPage(4)">05 해설서 디모데전서 3 1-7 모범답안</a></li><li><a href="#sec-5" onclick="showPage(5)">06 해설서 디모데전서 3 8-13 모범답안</a></li><li><a href="#sec-6" onclick="showPage(6)">07 해설서 디모데전서 3 14-4 모범답안</a></li><li><a href="#sec-7" onclick="showPage(7)">08 해설서 디모데전서 4 6-16 모범답안</a></li><li><a href="#sec-8" onclick="showPage(8)">09 해설서 디모데전서 5 1-16 모범답안</a></li><li><a href="#sec-9" onclick="showPage(9)">10 해설서 디모데전서 5 17-25 모범답안</a></li><li><a href="#sec-10" onclick="showPage(10)">11 해설서 디모데전서 6 1-10 모범답안</a></li><li><a href="#sec-11" onclick="showPage(11)">12 해설서 디모데전서 6 11-21 모범답안</a></li><li><a href="#sec-12" onclick="showPage(12)">13 해설서 디모데후서 1 1-7 모범답안</a></li><li><a href="#sec-13" onclick="showPage(13)">14 해설서 디모데후서 1 8-18 모범답안</a></li><li><a href="#sec-14" onclick="showPage(14)">15 해설서 디모데후서 2 1-13 모범답안</a></li><li><a href="#sec-15" onclick="showPage(15)">16 해설서 디모데후서 2 14-26 모범답안</a></li><li><a href="#sec-16" onclick="showPage(16)">17 해설서 디모데후서 3 1-9 모범답안</a></li><li><a href="#sec-17" onclick="showPage(17)">18 해설서 디모데후서 3 10-17 모범답안</a></li><li><a href="#sec-18" onclick="showPage(18)">19 해설서 디모데후서 4 1-8 모범답안</a></li><li><a href="#sec-19" onclick="showPage(19)">20 해설서 디모데후서 4 9-15 모범답안</a></li><li><a href="#sec-20" onclick="showPage(20)">21 해설서 디모데후서 4 16-22 모범답안</a></li>
-            </ul>
-        </aside>
-        <main class="content-area">
-            <div class="doc-header">
-                <h1>디모데전후서 해설서 모범답안 합본</h1>
-                <div class="meta">
-                    <span>저자: 박기성, Th. D. in Min.</span>
-                    <span>수록: 21개 본문 단위 · 총 105개 문항</span>
-                </div>
-            </div>
-            <div id="cardsContainer">
-                
-    <section class="answer-card" id="sec-0" data-index="0" data-ref="01 해설서 디모데전서 1 1-11">
-        <div class="card-header">
-            <span class="badge">01 해설서 디모데전서 1 1-11</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>디모데전후서 모범답안</h2>
+            <p>21개 단위 105선 해설서 모범답안집</p>
         </div>
-        <div class="card-body">
-            <h2>01_해설서_디모데전서_1_1-11.md - 디모데전서 1:1-11</h2>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="목차 검색..." onkeyup="filterMenu()">
+        </div>
+        <ul class="sidebar-menu" id="menuList">
+            <li><a href="#sec-0" onclick="showPage(0)">01 해설서 디모데전서 1 1-11 모범답안</a></li><li><a href="#sec-1" onclick="showPage(1)">02 해설서 디모데전서 1 12-20 모범답안</a></li><li><a href="#sec-2" onclick="showPage(2)">03 해설서 디모데전서 2 1-7 모범답안</a></li><li><a href="#sec-3" onclick="showPage(3)">04 해설서 디모데전서 2 8-15 모범답안</a></li><li><a href="#sec-4" onclick="showPage(4)">05 해설서 디모데전서 3 1-7 모범답안</a></li><li><a href="#sec-5" onclick="showPage(5)">06 해설서 디모데전서 3 8-13 모범답안</a></li><li><a href="#sec-6" onclick="showPage(6)">07 해설서 디모데전서 3 14-4 모범답안</a></li><li><a href="#sec-7" onclick="showPage(7)">08 해설서 디모데전서 4 6-16 모범답안</a></li><li><a href="#sec-8" onclick="showPage(8)">09 해설서 디모데전서 5 1-16 모범답안</a></li><li><a href="#sec-9" onclick="showPage(9)">10 해설서 디모데전서 5 17-25 모범답안</a></li><li><a href="#sec-10" onclick="showPage(10)">11 해설서 디모데전서 6 1-10 모범답안</a></li><li><a href="#sec-11" onclick="showPage(11)">12 해설서 디모데전서 6 11-21 모범답안</a></li><li><a href="#sec-12" onclick="showPage(12)">13 해설서 디모데후서 1 1-7 모범답안</a></li><li><a href="#sec-13" onclick="showPage(13)">14 해설서 디모데후서 1 8-18 모범답안</a></li><li><a href="#sec-14" onclick="showPage(14)">15 해설서 디모데후서 2 1-13 모범답안</a></li><li><a href="#sec-15" onclick="showPage(15)">16 해설서 디모데후서 2 14-26 모범답안</a></li><li><a href="#sec-16" onclick="showPage(16)">17 해설서 디모데후서 3 1-9 모범답안</a></li><li><a href="#sec-17" onclick="showPage(17)">18 해설서 디모데후서 3 10-17 모범답안</a></li><li><a href="#sec-18" onclick="showPage(18)">19 해설서 디모데후서 4 1-8 모범답안</a></li><li><a href="#sec-19" onclick="showPage(19)">20 해설서 디모데후서 4 9-15 모범답안</a></li><li><a href="#sec-20" onclick="showPage(20)">21 해설서 디모데후서 4 16-22 모범답안</a></li>
+        </ul>
+    </div>
+    
+    <div id="main-container">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <button id="menu-toggle" onclick="toggleSidebar()">목차</button>
+                <div class="top-title" id="currentSectionTitle">디모데전후서 모범답안</div>
+            </div>
+            <div class="top-bar-right">
+                <button class="btn-ctrl" onclick="changeFontSize(-1)">가-</button>
+                <button class="btn-ctrl" onclick="changeFontSize(1)">가+</button>
+                <button class="btn-ctrl" onclick="toggleTheme()">테마</button>
+                <button class="btn-ctrl" onclick="copyCurrentPage()">본문 복사</button>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            
+    <article class="book-page" id="sec-0" data-index="0" data-file-item="01 해설서 디모데전서 1 1-11 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>01 해설서 디모데전서 1 1-11</span>
+        </div>
+        <h2>01_해설서_디모데전서_1_1-11.md - 디모데전서 1:1-11</h2>
 <h3>질문 1: 1:3-4는 금지 둘을 적고 1:5는 그 끝을 한 낱말로 적습니다. 1:3의 「명하여」와 1:5의 「경계」가 같은 뿌리라는 것을 알고 읽으면, 1:5의 첫머리는 어떻게 다르게 들립니까?</h3>
 <p><strong>답변:</strong> 1:3의 동사 <strong>파랑겔레스(παραγγείλῃς)</strong>와 1:5의 명사 <strong>파랑겔리아(παραγγελία)</strong>가 동일한 어근을 공유한다는 사실은, 1:5가 앞선 금지 조항들과 단절된 별개의 도덕적 교훈이 아니라 디모데가 수행해야 할 <strong>교정 사역의 내적 귀결점</strong>임을 명백히 드러냅니다. 개역한글의 서로 다른 번역을 걷어내고 원문의 짝을 회복할 때, 1:5의 첫머리는 '그 명령의 최종적 도달점(τέλος)'으로 들리며 거짓 교훈과 신화를 막아서는 <strong>모든 금지의 진정한 정당성과 방향성</strong>을 부여합니다. 따라서 에베소 공동체에 주어지는 엄격한 규범과 교리적 한계 설정은 그 자체가 목적이 아니라, 오직 <strong>순전한 사랑(ἀγάπη)</strong>을 피워내고 보호하기 위한 거룩한 울타리로서 제자리를 찾게 됩니다.</p>
 <h3>질문 2: 1:5는 사랑에 「누구를」을 적지 않았습니다. 대상이 적히지 않은 이 사랑 앞에서, 내가 속으로 빼 두고 싶은 이름이 떠오르지는 않습니까?</h3>
@@ -249,16 +386,14 @@
 <h3>질문 5: 1:11에서 복음은 「맡겨진」 것으로 적히고 맡긴 이는 적히지 않았습니다. 내가 지금 손에 들고 있는 것 가운데 내가 만든 것이 아니라 맡겨진 것은 무엇입니까?</h3>
 <p><strong>답변:</strong> 본문에서 복음은 바울이 스스로 쟁취하거나 개발한 소유물이 아니라, 전적인 수동태 형태인 <strong>'맡겨졌다(ἐπιστεύθην)'</strong>로 기술되며 그 위탁자의 이름을 문면에 밝히지 않습니다. 주어의 이름을 공백으로 둠으로써 본문은 오히려 이 복음의 기원이 오직 <strong>복되신 하나님의 영광과 절대 주권</strong>에 있음을 역설적으로 침묵 속에 증언합니다. 이는 내가 현재 쥐고 있는 말씀 사역의 권위, 목회적 은사, 지식과 직분 등 그 어느 것도 내 노력의 산물이 아니라 <strong>순전한 은혜로 위탁받은 거룩한 신임</strong>임을 겸허히 인정하게 합니다. 따라서 우리는 맡은 자에게 요구되는 충성의 본질이 자기 권리의 주장이 아니라, <strong>위탁받은 청지기로서의 거룩한 두려움과 겸비함</strong>에 있음을 깊이 자각하게 됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-1" data-index="1" data-ref="02 해설서 디모데전서 1 12-20">
-        <div class="card-header">
-            <span class="badge">02 해설서 디모데전서 1 12-20</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-1" data-index="1" data-file-item="02 해설서 디모데전서 1 12-20 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>02 해설서 디모데전서 1 12-20</span>
         </div>
-        <div class="card-body">
-            <h2>02_해설서_디모데전서_1_12-20.md - 디모데전서 1:12-20</h2>
+        <h2>02_해설서_디모데전서_1_12-20.md - 디모데전서 1:12-20</h2>
 <h3>질문 1: 1:15의 「모든」이 「사람」이 아니라 「받아들임」에 붙어 있다는 것을 알고 다시 읽으면, 이 절의 무게는 어디로 옮겨 갑니까?</h3>
 <p><strong>답변:</strong> 1:15의 원문에는 '사람'이라는 명사가 존재하지 않으며, 형용사 <strong>파세스(πάσης)</strong>는 여성 단수 명사인 <strong>아포도케(ἀποδοχή, 받아들임)</strong>와 성·수·격이 정확히 일치하여 결합되어 있습니다. 따라서 이 구절의 무게는 복음이 얼마나 광범위한 대중에게 통계적으로 수용되었는가 하는 외적 확산이 아니라, <strong>한 인간이 그리스도의 오심을 단 하나의 유보도 없이 전폭적으로 수용하는 내적 순종</strong>으로 옮겨 갑니다. 복음은 단순히 많은 사람이 찬동하는 대중적 표어가 아니라, 각 사람이 자신의 전 존재를 던져 <strong>받아들임의 전부를 바쳐야 하는 절대적인 진리</strong>로 다가옵니다.</p>
 <h3>질문 2: 화자는 「괴수였다」가 아니라 「괴수니라」로 적었습니다. 1:13의 「전에는」과 나란히 놓고 보면, 이 현재의 꼴은 무엇을 열어 둡니까?</h3>
@@ -270,16 +405,14 @@
 <h3>질문 5: 1:20은 「사단에게 내어준」과 「징계를 받아 훼방하지 말게 하려 함」을 한 문장에 적습니다. 두 말을 함께 붙들고 읽을 때, 나는 이 단락의 어디에 서 있습니까?</h3>
 <p><strong>답변:</strong> 본문은 출교라는 가장 엄중한 영적 파문 조치인 <strong>'사단에게 내어줌(παρέδωκα)'</strong>과 교육적 교정을 목적으로 하는 수동태 동사 <strong>'파이듀토신(παιδευθῶσιν, 징계를 받아)'</strong>을 하나의 호흡 안에 병치해 둡니다. 두 진술을 분리하지 않고 동시에 붙들 때, 우리는 죄인을 가혹하게 단죄하여 영원히 매장하려는 <strong>냉혹한 율법주의</strong>와 교회의 순결성을 훼손하는 불의를 방치하는 <strong>안일한 감상주의</strong> 사이의 위태로운 경계선에 서게 됩니다. 징계의 궁극적 지향점은 멸망이 아니라 <strong>회복과 훼방의 종식</strong>에 있음을 기억하며, 우리는 공동체의 거룩한 순결을 수호하는 동시에 실족한 지체의 회복을 눈물로 구하는 십자가의 자리를 지켜야 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-2" data-index="2" data-ref="03 해설서 디모데전서 2 1-7">
-        <div class="card-header">
-            <span class="badge">03 해설서 디모데전서 2 1-7</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-2" data-index="2" data-file-item="03 해설서 디모데전서 2 1-7 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>03 해설서 디모데전서 2 1-7</span>
         </div>
-        <div class="card-body">
-            <h2>03_해설서_디모데전서_2_1-7.md - 디모데전서 2:1-7</h2>
+        <h2>03_해설서_디모데전서_2_1-7.md - 디모데전서 2:1-7</h2>
 <h3>질문 1: 2:1-2의 기도 대상 가운데 임금들과 높은 지위에 있는 사람들이 들어 있고, 그 목적이 「우리」의 살림이라는 것을 볼 때, 내 기도에서 가장 먼저 빠지는 것은 무엇입니까?</h3>
 <p><strong>답변:</strong> 2:1-2는 교회의 공적 중보기도가 세속 권력을 쥔 통치자들을 포함해야 하며, 그 기도의 열매가 성도들의 <strong>고요하고 평안한 생활(βίος, 일상의 살림)</strong>로 귀결되어야 함을 선언합니다. 이러한 본문의 시선 앞에서 내 기도에서 가장 먼저 누락되는 것은 나와 정치적 성향이 다르거나 억압적인 <strong>세속 통치자들을 향한 공적인 중보</strong>, 그리고 신령함이라는 미명 아래 경시해 온 <strong>지극히 평범한 이웃들의 먹고사는 구체적인 생계의 평화</strong>입니다. 성경은 권력을 무비판적으로 추종하거나 적대적으로 배척하는 대신, <strong>모든 시민의 일상이 안전하게 보장되는 일반은총의 토대</strong>를 위해 기도할 것을 요청합니다.</p>
 <h3>질문 2: 2:2의 「생활」이 영혼의 생명이 아니라 먹고 자고 벌어 사는 살림을 가리키는 낱말이라면, 이 절을 읽는 내 눈은 어디를 새로 보아야 합니까?</h3>
@@ -291,16 +424,14 @@
 <h3>질문 5: 2:7의 바울은 세 이름으로 한 번 세워졌는데 세운 이를 적지 않았습니다. 이 절을 읽으며 나는 무엇을 덧붙이고 싶어지며, 본문은 그 대신 무엇을 붙들게 합니까?</h3>
 <p><strong>답변:</strong> 사도는 전파하는 자, 사도, 스승이라는 세 가지 중차대한 직함을 나열하면서도 복수의 임명이 아닌 <strong>단 한 번의 수동태 동사 '내가 세워졌다(ἐτέθην)'</strong> 아래 겸허히 자신을 묶어 두고 세우신 주권자의 이름을 침묵 속에 남겨 둡니다. 우리는 직함이 늘어날수록 자신의 권위와 정통성을 과시하기 위해 <strong>인간적인 자격 요건, 사역적 무용담, 혹은 특권 의식</strong>을 덧붙이고 싶어 하지만 본문은 그 모든 자기 증명의 욕망을 철저히 차단합니다. 성경은 나라는 사람의 이름을 돋보이게 하는 대신, <strong>2:6에 선언된 십자가의 대속적 증거(τὸ μαρτύριον)를 가감 없이 전하는 충직한 청지기의 자리</strong>만을 굳게 붙들게 만듭니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-3" data-index="3" data-ref="04 해설서 디모데전서 2 8-15">
-        <div class="card-header">
-            <span class="badge">04 해설서 디모데전서 2 8-15</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-3" data-index="3" data-file-item="04 해설서 디모데전서 2 8-15 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>04 해설서 디모데전서 2 8-15</span>
         </div>
-        <div class="card-body">
-            <h2>04_해설서_디모데전서_2_8-15.md - 디모데전서 2:8-15</h2>
+        <h2>04_해설서_디모데전서_2_8-15.md - 디모데전서 2:8-15</h2>
 <h3>질문 1: 2:8에서 남자들의 들어 올린 손에 붙은 조건은 무엇입니까? 이 단락을 읽을 때 그 조건을 얼마나 자주 기억해 왔습니까?</h3>
 <p><strong>답변:</strong> 2:8에서 공적 기도자로 서는 남자들이 높이 들어 올린 손에 요구된 유일한 본질적 조건은 외적 제스처의 웅장함이 아니라 <strong>'분노(ὀργῆς)와 다툼(διαλογισμοῦ)이 없는 거룩한 상태'</strong>입니다. 우리는 그동안 손을 올리는 종교적 열정이나 예배의 가시적 형식에는 몰두하면서도, 정작 그 손에 묻어 있는 <strong>형제를 향한 숨은 적의, 가시 돋친 언쟁, 그리고 화해하지 않은 분노의 독소</strong>를 성찰하는 일에는 너무나 둔감했습니다. 하나님께서 흠향하시는 참된 기도는 손의 높낮이가 아니라, <strong>타인을 향한 증오와 분열을 내려놓은 평화롭고 정결한 내면</strong>에서만 비로소 피어오를 수 있습니다.</p>
 <h3>질문 2: 2:10-12를 소리 내어 읽어 보십시오. 한국어로 명령처럼 들리는 어미는 몇 번입니까? 원문의 명령 「배우게 하라」 하나와 견주면 무엇이 달리 보입니까?</h3>
@@ -312,16 +443,14 @@
 <h3>질문 5: 2:15에서 약속은 한 사람을 가리키는 꼴로, 조건은 여럿을 가리키는 꼴로 적혀 있습니다. 개역한글이 「여자들이」로 맞추어 옮긴 문장과 원문의 갈림을 나란히 놓으면, 본문이 비워 둔 자리는 어디입니까?</h3>
 <p><strong>답변:</strong> 원문에서 구원의 약속인 <strong>'구원을 얻으리라(σωθήσεται)'는 단수 3인칭</strong>인 반면, 믿음과 사랑과 거룩함에 머물러야 한다는 조건의 동사인 <strong>'거하면(μείνωσιν)'은 복수 3인칭</strong>으로 문법적 수가 뚜렷하게 갈라져 있습니다. 개역한글은 문맥의 편의를 위해 '여자들이'라는 하나의 복수 주어로 통일하여 매끄럽게 번역했으나, 원문은 <strong>단수로 대표되는 하와의 약속(혹은 개별 여성)과 복수로 부름받은 언약 공동체의 지속적인 인내</strong> 사이에 거룩한 간극을 남겨 둡니다. 본문이 비워 둔 이 틈새는 해산이라는 육체적 행위의 공로를 넘어, <strong>공동체 전체가 성결과 절제의 믿음 안에 끝까지 함께 거할 때 완성되는 종말론적 구원의 신비</strong>를 가리키고 있습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-4" data-index="4" data-ref="05 해설서 디모데전서 3 1-7">
-        <div class="card-header">
-            <span class="badge">05 해설서 디모데전서 3 1-7</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-4" data-index="4" data-file-item="05 해설서 디모데전서 3 1-7 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>05 해설서 디모데전서 3 1-7</span>
         </div>
-        <div class="card-body">
-            <h2>05_해설서_디모데전서_3_1-7.md - 디모데전서 3:1-7</h2>
+        <h2>05_해설서_디모데전서_3_1-7.md - 디모데전서 3:1-7</h2>
 <h3>질문 1: 개역한글이 「감독」으로 옮긴 3:1과 3:2의 낱말은 원문에서 서로 다릅니다. 3:1이 바라는 대상을 「선한 일」로 받는다는 것은, 이 단락이 바람을 어떻게 대한다는 뜻입니까?</h3>
 <p><strong>답변:</strong> 3:1의 명사는 관사 없이 직무와 보살핌의 기능 자체를 가리키는 여성 명사 <strong>에피스코페(ἐπισκοπή)</strong>이고, 3:2는 관사를 수반하여 그 책임을 질 사람을 지칭하는 남성 명사 <strong>호 에피스코포스(ὁ ἐπίσκοπος)</strong>입니다. 성경이 사모함의 대상을 권력의 자리나 신분이 아니라 <strong>'선한 일(καλοῦ ἔργου)'</strong>로 명시한다는 것은, 하나님의 교회를 돌보고 섬기고자 하는 인간의 거룩한 열망 자체를 불순한 야망으로 매도하지 않고 <strong>그 순수한 가치를 있는 그대로 따뜻하게 긍정한다</strong>는 뜻입니다. 따라서 본문은 직분을 탐하는 명예욕은 엄격히 차단하되, <strong>희생과 사랑으로 공동체를 돌보고자 하는 자발적인 헌신의 소원</strong>을 매우 존귀하게 환대하며 문을 엽니다.</p>
 <h3>질문 2: 3:2와 3:7의 두 「마땅하다」에는 주어가 없습니다. 본문이 요구하는 이의 이름을 적지 않은 채로 목록을 두었다는 사실은, 이 목록을 읽는 사람의 자리를 어떻게 정해 줍니까?</h3>
@@ -333,16 +462,14 @@
 <h3>질문 5: 3:1의 「선한 일」과 3:7의 「선한 증거」에 같은 형용사가 섭니다. 바람에서 시작한 단락이 밖에서 오는 증거로 끝난다는 이 흐름은 무엇을 보여 줍니까?</h3>
 <p><strong>답변:</strong> 단락을 여는 내면적 사모함인 <strong>'선한 일(καλὸν ἔργον)'</strong>과 단락을 닫는 외부로부터의 인정인 <strong>'선한 증거(μαρτυρία καλὴ)'</strong>는 동일한 형용사 <strong>칼로스(καλός)</strong>로 아름다운 수미상관을 이룹니다. 이 구조적 흐름은 교회 안에서 품은 거룩한 소망과 사역이 마침내 <strong>교회 담장 밖 세상의 믿지 않는 이들에게까지 도덕적으로 신뢰받는 삶의 열매</strong>로 귀결되어야 함을 분명하게 보여줍니다. 참된 영적 권위는 신앙 공동체 내부의 자화자찬이나 폐쇄적인 인정으로 완성되지 않으며, <strong>공공 사회 속에서 빛과 소금으로 드러나는 인격의 선한 영향력</strong>을 통해 비로소 최종적으로 확증됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-5" data-index="5" data-ref="06 해설서 디모데전서 3 8-13">
-        <div class="card-header">
-            <span class="badge">06 해설서 디모데전서 3 8-13</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-5" data-index="5" data-file-item="06 해설서 디모데전서 3 8-13 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>06 해설서 디모데전서 3 8-13</span>
         </div>
-        <div class="card-body">
-            <h2>06_해설서_디모데전서_3_8-13.md - 디모데전서 3:8-13</h2>
+        <h2>06_해설서_디모데전서_3_8-13.md - 디모데전서 3:8-13</h2>
 <h3>질문 1: 3:8-9에는 문장을 끝맺는 동사가 없고, 요건 다섯이 모두 첫 낱말에 물려 있습니다. 이 목록을 「스스로 명령하는 문장」으로 읽을 때와 「앞의 말에 매달린 목록」으로 읽을 때, 같은 다섯 항목이 어떻게 다르게 들립니까?</h3>
 <p><strong>답변:</strong> 3:8-9에는 독립된 종결 동사가 존재하지 않으며, 다섯 가지 자격 요건은 모두 목적격 명사인 <strong>디아코누스(Διακόνους, 집사들도)</strong>에 걸려 앞 단락의 <strong>'마땅하다(δεῖ)'</strong>에 의존하여 매달려 있습니다. 이 목록을 '스스로 명령하는 독립 문장'으로 읽으면 인간이 자력으로 반드시 성취해야 할 무거운 율법의 채점표로 다가오지만, <strong>'앞선 거룩한 당위에 의존하여 매달린 목록'</strong>으로 읽을 때 이 요건들은 하나님의 은혜로운 부르심 안에서 빚어지는 인격의 윤곽으로 들립니다. 따라서 이 말씀은 신자를 압박하는 메마른 도덕적 멍에가 아니라, <strong>교회의 머리 되신 그리스도의 거룩한 질서에 접붙임될 때 맺히는 자연스러운 생명의 열매</strong>로 그 성격이 근본적으로 전환됩니다.</p>
 <h3>질문 2: 3:9는 목록의 마지막 항목을 「믿음의 비밀을 가진」 것으로 둡니다. 앞의 네 항목과 이 다섯째 항목은 무엇이 다르며, 그 배치는 목록 전체의 성격에 무엇을 더합니까?</h3>
@@ -354,16 +481,14 @@
 <h3>질문 5: 3:13은 얻는 것 둘 가운데 담력에만 「그리스도 예수 안에 있는 믿음」을 붙였고, 같은 절에서 「자기에게」를 겹쳤습니다. 3:8의 금지와 나란히 놓으면, 본문은 이 두 사실을 잇지 않은 채 무엇을 보여 줍니까?</h3>
 <p><strong>답변:</strong> 3:8이 사적인 탐욕과 부끄러운 이익(αἰσχροκερδεῖς)을 엄격히 금한 반면, 3:13은 신실하게 잘 섬긴 이들이 <strong>'자기 자신에게(ἑαυτοῖς)' 아름다운 지위와 큰 담력을 스스로 얻는다</strong>는 놀라운 반전을 진술합니다. 본문은 물질적 탐욕의 금지와 영적 상급의 획득을 인위적으로 화해시키지 않고 나란히 둠으로써, <strong>세속적 보상을 포기하고 묵묵히 헌신한 자에게 주어지는 참된 영적 자산의 존귀함</strong>을 선명하게 부각합니다. 특히 그 담력의 원천이 인간의 공로가 아니라 <strong>오직 '그리스도 예수 안에 있는 믿음'</strong>에 닻을 내리고 있음을 명시함으로써, 모든 영적 확신의 근거가 오직 주님께 있음을 잊지 않게 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-6" data-index="6" data-ref="07 해설서 디모데전서 3 14-4">
-        <div class="card-header">
-            <span class="badge">07 해설서 디모데전서 3 14-4</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-6" data-index="6" data-file-item="07 해설서 디모데전서 3 14-4 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>07 해설서 디모데전서 3 14-4</span>
         </div>
-        <div class="card-body">
-            <h2>07_해설서_디모데전서_3_14-4_5.md - 디모데전서 3:14-4:5</h2>
+        <h2>07_해설서_디모데전서_3_14-4_5.md - 디모데전서 3:14-4:5</h2>
 <h3>질문 1: 3:14-15에서 편지를 쓴 목적은 「어떻게 행하여야 할 것을 알게 하려 함」인데, 문장은 처신의 규칙보다 「이 집은 … 하나님의 교회요」를 먼저 적습니다. 이 순서는 「어떻게 행해야 하는가」라는 질문을 어떻게 바꾸어 놓습니까?</h3>
 <p><strong>답변:</strong> 바울은 편지를 쓰는 실천적 목적으로 처신의 지침을 제시하지만, 정작 문장의 첫머리는 행동의 매뉴얼이 아니라 <strong>'이 집은 살아 계신 하나님의 교회요 진리의 기둥과 터'라는 교회의 거룩한 존재론적 본질</strong>을 압도적으로 선포합니다. 이러한 배치의 전복은 '내가 무엇을 어떻게 행해야 하는가'라는 기능적이고 윤리적인 고민을, <strong>'내가 서 있는 이 거룩한 터전이 누구의 집이며 어떤 영광을 담고 있는가'라는 정체성의 질문</strong>으로 근본부터 바꾸어 놓습니다. 따라서 교회의 바른 처신은 인간적인 기술의 습득에서 출발하는 것이 아니라, <strong>하나님의 임재를 자각하고 교회의 영광스러움을 경외하는 거룩한 떨림</strong>으로부터 비로소 자연스럽게 흘러나오게 됩니다.</p>
 <h3>질문 2: 3:15의 「이 집은」은 뒤의 「교회」와 짝이 맞아 풀리고, 3:16의 「그는」은 문장 안에 짝이 없습니다. 붙어 있는 두 절이 이렇게 다르게 답한다는 사실은, 이 두 절을 따로 떼어 읽을 때 무엇을 놓치게 합니까?</h3>
@@ -375,16 +500,14 @@
 <h3>질문 5: 이 단락에서 「하나님」이 주어로 서서 자기 동사를 거느리는 곳은 4:3의 「지으신 바니」 한 곳이고, 받는 방식으로 적힌 말은 「감사함으로」 하나입니다. 이 두 사실은 4:4-5를 읽는 방식에 무엇을 더해 줍니까?</h3>
 <p><strong>답변:</strong> 단락 전체에서 하나님이 능동적 주어로 서서 직접 행하신 사건은 물질과 음식을 <strong>'지으셨다(ὁ θεὸς ἔκτισεν)'는 창조의 선언</strong>뿐이며, 이에 호응하는 피조물의 유일한 반응은 <strong>'감사함으로(μετὰ εὐχαριστίας)'</strong> 받는 것입니다. 이 두 가지 문법적 사실은 4:4-5를 대할 때 세상의 어떤 물질이나 피조물도 그 자체로 부정한 것은 없으며, <strong>창조주의 선하심을 온전히 신뢰하고 감사를 드릴 때 모든 일상이 거룩하게 성별된다</strong>는 확고한 창조신학적 토대를 제공합니다. 따라서 참된 경건은 세상을 혐오하여 도피하는 병적인 금욕에 있는 것이 아니라, <strong>하나님의 말씀과 기도로 만물을 성별하며 감사의 기쁨으로 풍성히 누리는 거룩한 회복</strong>에 있습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-7" data-index="7" data-ref="08 해설서 디모데전서 4 6-16">
-        <div class="card-header">
-            <span class="badge">08 해설서 디모데전서 4 6-16</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-7" data-index="7" data-file-item="08 해설서 디모데전서 4 6-16 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>08 해설서 디모데전서 4 6-16</span>
         </div>
-        <div class="card-body">
-            <h2>08_해설서_디모데전서_4_6-16.md - 디모데전서 4:6-16</h2>
+        <h2>08_해설서_디모데전서_4_6-16.md - 디모데전서 4:6-16</h2>
 <h3>질문 1: 4:12에서 「업신여기지 말게 하라」의 주어가 「아무도」로 적혀 있다는 것을 알고 나면, 개역한글의 「업신여기지 못하게 하고」가 다르게 읽힙니까?</h3>
 <p><strong>답변:</strong> 개역한글의 '업신여기지 못하게 하고'는 디모데가 주도적으로 나서서 타인의 멸시를 강제로 틀어막아야 하는 것처럼 들리지만, 원문의 주어는 3인칭 명사인 <strong>'아무도(μηδείς)'</strong>이며 명령의 내용은 '아무도 너를 업신여기지 못하게 하라'는 공동체를 향한 금지입니다. 이 문법적 진실은 타인의 무시와 냉대를 종식시키는 일이 연소한 디모데 개인의 완력이나 방어적 투쟁의 과제가 아니라, <strong>공동체 전체가 지켜내야 할 상호 존중의 규범</strong>임을 명확히 보여줍니다. 따라서 디모데는 타인의 시선과 평가를 통제하려는 소모적인 피로감에서 벗어나, <strong>자신에게 맡겨진 본질적인 사역의 몫에 온전히 집중할 수 있는 영적 자유</strong>를 얻게 됩니다.</p>
 <h3>질문 2: 4:12의 업신여김의 대상이 「너」가 아니라 「너의 연소함」으로 적힌 것은 이 절을 읽는 데 무엇을 바꿉니까?</h3>
@@ -396,16 +519,14 @@
 <h3>질문 5: 4:16이 살필 것으로 적은 「네 자신과 가르침」 둘 가운데, 나는 어느 하나만 살피고 있지 않습니까?</h3>
 <p><strong>답변:</strong> 사도는 사역의 객관적인 내용인 <strong>'가르침(τῇ διδασκαλίᾳ)'</strong>만을 점검하라고 명하지 않고, 반드시 그 말씀을 전하는 사역자 자신인 <strong>'네 자신(σεαυτῷ)'</strong>을 동일한 무게로 함께 살피라고 엄중히 권고합니다. 우리는 종종 정통 교리의 수호나 사역적 성과라는 외적 결과물에만 몰두한 채, 정작 <strong>그 말씀을 살아내야 할 사역자 내면의 영적 고갈과 거친 인격</strong>을 방치하는 치명적인 불균형에 빠지곤 합니다. 자기를 살피지 않는 가르침은 위선적인 율법주의로 전락하고 가르침 없는 경건은 주관적 맹목에 갇히기에, <strong>말씀과 삶이 온전히 일치될 때 비로소 자신과 듣는 자를 함께 건져내는 참된 구원의 능력</strong>이 나타납니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-8" data-index="8" data-ref="09 해설서 디모데전서 5 1-16">
-        <div class="card-header">
-            <span class="badge">09 해설서 디모데전서 5 1-16</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-8" data-index="8" data-file-item="09 해설서 디모데전서 5 1-16 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>09 해설서 디모데전서 5 1-16</span>
         </div>
-        <div class="card-body">
-            <h2>09_해설서_디모데전서_5_1-16.md - 디모데전서 5:1-16</h2>
+        <h2>09_해설서_디모데전서_5_1-16.md - 디모데전서 5:1-16</h2>
 <h3>질문 1: 5:2에는 동사가 없고 모든 사람이 5:1의 「권하라」에 걸려 있습니다. 네 쌍의 사람에게 모두 가족의 이름이 붙은 것은 이 단락의 나머지 지시를 읽는 데 무엇을 더해 줍니까?</h3>
 <p><strong>답변:</strong> 5:1-2는 늙은이와 젊은이, 나이 든 여성과 젊은 여성을 각각 <strong>아버지, 형제, 어머니, 누이라는 친밀한 가족의 이름</strong>으로 호칭하며, 단 하나의 목회적 동사인 <strong>파라칼레이(παρακάλει, 권하라)</strong> 아래 모두를 품어 안습니다. 이러한 가족적 호칭의 배치는 교회 안에서의 모든 훈계와 치리가 차가운 사법적 징벌이나 관료적 통제가 아니라, <strong>혈육을 대하듯 지극한 존중과 따뜻한 애정 안에서 이루어져야 함</strong>을 단락 전체의 대전제로 확립합니다. 따라서 뒤따르는 과부 명부의 관리와 구제의 엄격한 기준들도 차가운 복지 행정이 아니라, <strong>하나님의 영적 대가족 안에서 서로를 끝까지 품어내는 거룩한 돌봄의 발로</strong>로 읽히게 됩니다.</p>
 <h3>질문 2: 「참」의 내용을 적은 5:5는 이어지는 상태로 시작하고, 누가 그를 홀로 되게 했는지는 적지 않습니다. 본문이 그 자리를 비워 둔 것을 읽는 사람이 메우지 않고 두려면 무엇이 필요합니까?</h3>
@@ -417,16 +538,14 @@
 <h3>질문 5: 5:12의 「심판」에는 누가 그것을 내리는지가 적혀 있지 않고, 5:15는 돌아선 이들이 돌아오는 길을 적지 않습니다. 본문이 비워 둔 이 자리들 앞에서 본문을 읽는 사람이 지켜야 할 선은 어디입니까?</h3>
 <p><strong>답변:</strong> 본문은 첫 믿음을 저버린 이들에게 임할 '심판(κρίμα)'의 무거운 결과를 언급하면서도 그 심판을 집행하는 주체를 명시하지 않으며, 5:15에서 사탄에게로 돌아선 자들의 회복 경로에 대해서도 침묵합니다. 본문이 남겨 둔 이러한 침묵 앞에서 우리가 지켜야 할 엄격한 선은, <strong>인간이 감히 하나님의 최종적 심판대 위에 스스로 올라앉아 타인의 영혼에 대해 섣부른 영원한 유기나 단죄를 선언하지 않는 것</strong>입니다. 우리는 실족한 자들을 보며 배척의 선고를 내리는 교만을 버리고, <strong>심판과 구원의 최종 주권은 오직 하나님께 온전히 맡겨 둔 채 끝까지 애통함과 기도로써 자신을 돌아보는 겸비함</strong>을 지켜야 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-9" data-index="9" data-ref="10 해설서 디모데전서 5 17-25">
-        <div class="card-header">
-            <span class="badge">10 해설서 디모데전서 5 17-25</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-9" data-index="9" data-file-item="10 해설서 디모데전서 5 17-25 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>10 해설서 디모데전서 5 17-25</span>
         </div>
-        <div class="card-body">
-            <h2>10_해설서_디모데전서_5_17-25.md - 디모데전서 5:17-25</h2>
+        <h2>10_해설서_디모데전서_5_17-25.md - 디모데전서 5:17-25</h2>
 <h3>질문 1: 5:20의 「앞」은 「모든」 한 낱말을, 5:21의 「앞」은 하나님과 그리스도 예수와 택하심을 받은 천사들을 거느립니다. 두 절을 소리 내어 이어 읽을 때, 나는 그 사이에 어떤 말을 저절로 채워 넣고 있습니까?</h3>
 <p><strong>답변:</strong> 5:20의 <strong>'모든 앞(ἐνώπιον πάντων)'</strong>은 가시적인 신앙 공동체 전체를 가리키고, 5:21의 <strong>'앞(ἐνώπιον τοῦ θεοῦ...)'</strong>은 삼위 하나님과 거룩한 천사들의 장엄한 천상적 임재를 지칭합니다. 우리는 두 절을 읽으며 무의식중에 <strong>'사람들 앞에서의 체면과 합의가 곧 하나님 앞의 뜻이다'라거나, 반대로 '하나님 앞에서의 내적 확신이 있으니 사람들 앞에서의 공적인 해명은 무시해도 된다'는 인위적인 타협의 말</strong>을 채워 넣곤 합니다. 그러나 본문은 두 영역 사이에 아무런 접속사도 두지 않음으로써, <strong>공동체 앞에서의 투명한 공공성과 은밀한 하나님 앞에서의 절대적 경외라는 두 차원을 온전히 살아내야 함</strong>을 엄숙히 요청합니다.</p>
 <h3>질문 2: 5:21에서 바울은 명령하지 않고 「증언한다」고 말합니다. 같은 절의 「지켜」도 명령의 꼴이 아니라 「지키도록」입니다. 이 말의 꼴은 5:21 전체를 읽는 느낌을 어떻게 바꿉니까?</h3>
@@ -438,16 +557,14 @@
 <h3>질문 5: 5:24는 먼저 드러나는 죄와 뒤따르는 죄를 가르고, 5:25는 「숨겨질 수 없다」로 닫습니다. 5:19-20의 지시가 다룰 수 없는 것이 남는다는 사실을, 본문은 왜 메우지 않고 그대로 두었다고 생각합니까?</h3>
 <p><strong>답변:</strong> 인간의 불완전한 사법 절차로는 감추어진 모든 죄와 선행을 온전히 다 밝혀낼 수 없기에, 본문은 어떤 일들은 역사의 무대 뒤에 숨어 <strong>종말의 심판 날에야 비로소 뒤따라 드러날 것(ἐπακολουθοῦσιν)</strong>임을 선언합니다. 성경이 인간의 치리 영역 바깥에 남겨진 공백을 억지로 메우지 않은 까닭은, <strong>모든 은밀한 것을 백일하에 드러내실 최종 심판자 하나님의 주권적 자리를 인간이 침범하지 않도록 하기 위함</strong>입니다. 이는 지도자로 하여금 당장 눈앞의 억울함이나 밝혀지지 않은 진실 때문에 조급해하지 않고, <strong>역사의 마지막 날 모든 숨은 것을 공의롭게 판단하실 하나님을 신뢰하며 묵묵히 선을 행하게</strong> 만듭니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-10" data-index="10" data-ref="11 해설서 디모데전서 6 1-10">
-        <div class="card-header">
-            <span class="badge">11 해설서 디모데전서 6 1-10</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-10" data-index="10" data-file-item="11 해설서 디모데전서 6 1-10 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>11 해설서 디모데전서 6 1-10</span>
         </div>
-        <div class="card-body">
-            <h2>11_해설서_디모데전서_6_1-10.md - 디모데전서 6:1-10</h2>
+        <h2>11_해설서_디모데전서_6_1-10.md - 디모데전서 6:1-10</h2>
 <h3>질문 1: 6:1-2의 세 지시는 원문에서 「그들이 ~하게 하라」는 꼴이고, 디모데를 직접 부르는 지시는 6:2 끝의 둘뿐입니다. 이 차이를 알고 나서 두 절을 다시 읽으면 무엇이 달리 들립니까?</h3>
 <p><strong>답변:</strong> 6:1-2 전반부의 세 지시는 디모데가 종들을 물리적으로 통제하라는 직접 명령이 아니라 <strong>'그들로 하여금 상전을 마땅히 공경하게 하라'는 3인칭 간접 명령</strong>이며, 디모데를 직접 겨누는 명령은 오직 6:2 끝의 <strong>'너는 이것들을 가르치고 권하라(ταῦτα δίδασκε καὶ παρακάλει)'</strong>뿐입니다. 이 문법적 구별을 알고 나면 디모데의 사역이 성도들의 세속적 신분이나 처신을 무력으로 억압하는 통치자가 아니라, <strong>오직 진리의 말씀을 신실하게 교육하고 권면함으로써 성도 스스로가 신앙적 결단을 내리도록 돕는 목회적 스승의 자리</strong>에 서 있음이 분명해집니다. 복음은 외부에서 타율적인 멍에를 씌우는 것이 아니라, <strong>성도의 내면을 진리로 일깨워 가장 고단한 삶의 자리에서도 자발적인 순종을 낳게 하는 생명의 능력</strong>으로 들려옵니다.</p>
 <h3>질문 2: 6:1은 지시의 목표를 하나님의 이름과 교훈이 훼방을 받지 않는 일에 둡니다. 이 목적절과 1:10의 기재를 나란히 두고 읽을 때, 본문이 적은 것과 적지 않은 것을 각각 무엇이라고 말할 수 있습니까?</h3>
@@ -459,16 +576,14 @@
 <h3>질문 5: 6:9-10에서 사람을 망하게 하는 쪽은 욕심, 적히지 않은 누군가, 그리고 자기 자신으로 세 번 달리 적힙니다. 셋을 하나로 맞추지 않고 나란히 두고 읽으면 6:10의 「돈을 사랑함이」는 어떻게 들립니까?</h3>
 <p><strong>답변:</strong> 본문은 파멸의 원인을 인간을 얽어매는 <strong>'미혹과 올무'</strong>, 내면에서 솟구치는 <strong>'해로운 욕심'</strong>, 그리고 마침내 <strong>'자기를 많은 고통으로 찔러 꿰뚫은 자기 자신(ἑαυτοὺς περιέπειραν)'</strong>이라는 세 겹의 비극으로 중첩시켜 서술합니다. 이 셋을 억지로 하나로 환원하지 않고 입체적으로 읽을 때, 6:10의 <strong>'돈을 사랑함(φιλαργυρία)'</strong>은 단순한 화폐에 대한 애착을 넘어 인간의 전 인격을 서서히 부식시키는 치명적인 영적 우상숭배로 들립니다. 돈을 사랑하는 마음은 영혼을 유혹하여 믿음의 궤도에서 이탈하게 만들고, <strong>결국 피조물이 스스로 자신의 가슴에 날카로운 고통의 비수를 꽂게 만드는 무서운 자기 파멸의 뿌리</strong>임을 전율하며 깨닫게 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-11" data-index="11" data-ref="12 해설서 디모데전서 6 11-21">
-        <div class="card-header">
-            <span class="badge">12 해설서 디모데전서 6 11-21</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-11" data-index="11" data-file-item="12 해설서 디모데전서 6 11-21 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>12 해설서 디모데전서 6 11-21</span>
         </div>
-        <div class="card-body">
-            <h2>12_해설서_디모데전서_6_11-21.md - 디모데전서 6:11-21</h2>
+        <h2>12_해설서_디모데전서_6_11-21.md - 디모데전서 6:11-21</h2>
 <h3>질문 1: 6:14의 원문 차례에서 「점도 없고 책망 받을 것도 없이」는 「그 명령을」 바로 뒤에 놓여 있습니다. 우리말 차례로 읽을 때와 원문 차례로 읽을 때, 이 절이 나에게 묻는 질문은 어떻게 달라집니까?</h3>
 <p><strong>답변:</strong> 우리말 성경의 어순으로 읽으면 두 수식어가 지키는 행위자의 몸가짐을 수식하는 것처럼 보여, <strong>"내가 얼마나 도덕적 흠이 없고 책망받을 데 없는 완전한 자격으로 서 있는가"</strong>라는 사역자의 윤리적 자격과 평판을 먼저 묻게 됩니다. 그러나 헬라어 원문의 어순은 지키라는 동작 뒤에 지켜야 할 대상인 <strong>「그 명령을(τὴν ἐντολὴν)」</strong>이 먼저 오고, 그 직후에 <strong>「점 없는(ἄσπιλον)」</strong>과 <strong>「책망받을 것 없는(ἀνεπίλημπτον)」</strong>이 뒤따라 붙어 명령 자체의 순전한 상태를 규정합니다. 따라서 원문 차례로 읽을 때 이 절은 사역자 자신의 이력이나 평판에 집착하던 시선을 돌려, <strong>"내 손을 거쳐 지나가는 복음과 명령이 사람의 말을 섞거나 깎아내림 없이 본래 모습 그대로 순전하게 보전되고 있는가"</strong>라는 엄중한 위탁물의 보전 상태를 질문하게 만듭니다. 결국 과녁은 사람의 도덕적 결벽증이 아니라, <strong>하나님의 말씀이 가감 없이 전달되는 거룩한 보전</strong>으로 완전히 이동합니다.</p>
 <h3>질문 2: 6:11-12의 네 요구(피하라, 좇으라, 싸우라, 취하라)와 6:14의 지킴을 두 칸에 나누어 적어 보십시오. 본문이 이 둘을 서로 다른 자리에 둔 것은 무엇을 보여 줍니까?</h3>
@@ -480,16 +595,14 @@
 <h3>질문 5: 6:17-19는 금지 둘 뒤에 「쌓아」라는 말을 다시 씁니다. 재물에서 선한 사업으로, 거기서 좋은 터로 쌓는 대상이 옮겨 가는 이 흐름을 따라 읽으면, 6:17의 「정함이 없는 재물」은 무엇과 맞서 있습니까?</h3>
 <p><strong>답변:</strong> 6:17-19는 마음을 높이거나 불확실한 재물에 소망을 두는 일을 금지한 직후, 놀랍게도 6:19에서 <strong>「쌓아(ἀποθησαυρίζοντας)」</strong>라는 저축의 동사를 그대로 복원하여 사용합니다. 이는 기독교 신앙이 무언가를 쌓는 행위 자체를 금욕적으로 부정하는 것이 아니라, <strong>무엇을 어디에 쌓을 것인가라는 '대상의 자리 이동'</strong>을 명령하고 있음을 드러냅니다. 여기서 언제 안개처럼 사라질지 모르는 <strong>「정함이 없는 재물(ἀδηλότητι πλούτου)」</strong>은, 선한 사업과 나눔을 통해 영원한 미래를 위해 마련되는 견고한 <strong>「좋은 터(θεμέλιον καλὸν)」</strong>이자 흔들리지 않는 <strong>「참된 생명(ὄντως ζωῆς)」</strong>과 정면으로 맞서고 있습니다. 썩어질 세상의 화폐를 쌓는 헛된 수고를 멈추고, 후히 주시는 하나님을 향해 <strong>영원히 남을 선한 나눔의 보화</strong>를 쌓아 올리는 자만이 참된 생명을 두 손으로 굳게 움켜쥐게 됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-12" data-index="12" data-ref="13 해설서 디모데후서 1 1-7">
-        <div class="card-header">
-            <span class="badge">13 해설서 디모데후서 1 1-7</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-12" data-index="12" data-file-item="13 해설서 디모데후서 1 1-7 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>13 해설서 디모데후서 1 1-7</span>
         </div>
-        <div class="card-body">
-            <h2>13_해설서_디모데후서_1_1-7.md - 디모데후서 1:1-7</h2>
+        <h2>13_해설서_디모데후서_1_1-7.md - 디모데후서 1:1-7</h2>
 <h3>질문 1: 이 일곱 절에 명령의 꼴이 하나도 없다는 사실을 알고 다시 읽으면, 1:6의 「다시 불일듯 하게 하기 위하여」는 어떻게 들립니까? 편지를 쓰는 사람이 이 절에서 하고 있는 일은 무엇입니까?</h3>
 <p><strong>답변:</strong> 디모데후서의 문을 여는 첫 일곱 절에는 헬라어 원문상 <strong>명령의 꼴이 단 하나도 존재하지 않으며</strong>, 1:6을 이끄는 중심 동사 역시 "내가 다시 생각나게 하노라"는 사도 자신의 <strong>진술형 동사(ἀναμιμνῄσκω)</strong>입니다. 따라서 개역성경의 어감처럼 느껴지는 1:6의 "다시 불일듯 하게 하기 위하여(ἀναζωπυρεῖν)"는 수신자에게 무거운 의무를 윽박지르는 훈계가 아니라, 상기시키는 행위의 내용을 채우는 따뜻한 목적어로 들립니다. 편지를 쓰는 사도가 지금 하고 있는 일은 침체된 디모데를 채근하여 과제를 안겨주는 것이 아니라, <strong>하나님이 이미 그의 영혼 속에 심어두신 은사의 불씨가 꺼지지 않고 여전히 타오르고 있음을 기억하도록 다정하게 일깨우는 일</strong>입니다. 사역은 사람을 닦달하는 당위의 요구에서 시작되지 않고, <strong>이미 주어진 하나님의 선물에 대한 은혜로운 상기</strong>에서 비로소 힘차게 시작됩니다.</p>
 <h3>질문 2: 개역한글의 「생각」 네 번(1:3·1:4·1:5·1:6)이 원문에서 네 낱말이라는 것을 따라가 보십시오. 상기가 「너」를 직접 붙잡기 전에 거쳐 가는 사물은 무엇 무엇입니까?</h3>
@@ -501,16 +614,14 @@
 <h3>질문 5: 일곱 절 내내 「너」를 부르던 편지가 1:7에서만 받는 자리를 「우리」로 적습니다. 이 문장을 혼자가 아니라 「우리」로 읽는다면, 내 곁의 누구를 그 자리에 함께 세우게 됩니까?</h3>
 <p><strong>답변:</strong> 1:1부터 1:6까지 디모데 개인을 '너'로 지칭하며 집중하던 편지는, 오직 1:7에 이르러서만 은혜를 받는 자리를 복수형인 <strong>「우리에게(ἡμῖν)」</strong>로 전격 확장합니다. 이는 쇠사슬에 묶여 차가운 지하 감옥에 갇힌 노사도 바울 자신 역시, 에베소의 목회적 중압감에 짓눌려 눈물 흘리는 청년 디모데와 <strong>동일한 두려움의 파도와 맞서 싸우며 같은 은혜를 공급받는 연약한 동역자</strong>임을 보여줍니다. 이 문장을 '우리'로 읽을 때, 우리는 고립된 영적 탈진 속에서 혼자 싸우고 있다는 외로운 착각을 깨뜨리고, <strong>환난 가운데서 동일하게 분투하며 능력과 사랑과 절제를 덧입어야 할 내 곁의 동역자들과 고난받는 모든 지체들</strong>을 같은 은혜의 반열에 세우게 됩니다. 은혜는 고립된 영웅을 위한 것이 아니라, <strong>서로의 손을 맞잡고 함께 버티어내는 영적 공동체 전체를 위한 선물</strong>입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-13" data-index="13" data-ref="14 해설서 디모데후서 1 8-18">
-        <div class="card-header">
-            <span class="badge">14 해설서 디모데후서 1 8-18</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-13" data-index="13" data-file-item="14 해설서 디모데후서 1 8-18 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>14 해설서 디모데후서 1 8-18</span>
         </div>
-        <div class="card-body">
-            <h2>14_해설서_디모데후서_1_8-18.md - 디모데후서 1:8-18</h2>
+        <h2>14_해설서_디모데후서_1_8-18.md - 디모데후서 1:8-18</h2>
 <h3>질문 1: 1:8에서 부끄러워하지 말라는 대상은 「우리 주의 증거」와 「갇힌 자 된 나」 둘입니다. 둘째 대상이 사람의 몸이라는 것은 이 금지를 어떻게 구체적으로 만듭니까?</h3>
 <p><strong>답변:</strong> 첫째 대상인 '주의 증거'를 부끄러워하지 않는 것은 종교적 교리나 신앙고백이라는 관념적 차원에 머물기 쉽지만, 둘째 대상이 쇠사슬에 묶인 <strong>'바울이라는 구체적인 인간의 몸'</strong>이라는 사실은 이 요구를 처절할 정도로 실존적이고 육체적인 문제로 끌어내립니다. 당대 로마 제국에서 중범죄자로 결박된 죄수를 공개적으로 지지하고 찾아가는 일은, 곧 사적인 사회적 평판의 매장과 국가적 박해를 온몸으로 함께 뒤집어쓰는 것을 뜻했습니다. 따라서 이 금지는 안락한 교회당 안에서 복음을 관념적으로 긍정하는 신앙을 넘어, <strong>세상으로부터 낙인찍히고 결박당한 형제의 초라한 육체와 운명을 같이하는 구체적인 고난의 연대</strong>를 요구합니다. 참된 복음의 담력은 진리의 명제를 옹호하는 데서 그치지 않고, <strong>고난받는 지체의 깨어지고 묶인 몸을 부끄러워하지 않고 끌어안는 자리</strong>에서 비로소 입증됩니다.</p>
 <h3>질문 2: 「함께 고난을 받으라」는 한 줄 뒤에 1:9-11의 세 절이 매달려 있습니다. 그 세 절에서 요구를 받는 사람이 손에 쥘 것은 무엇무엇입니까?</h3>
@@ -522,16 +633,14 @@
 <h3>질문 5: 오네시보로의 일은 「주께서 … 긍휼을 베푸시옵소서」의 이유로 적혀 있습니다. 칭찬의 문장이 아니라 기도의 이유로 적혔다는 것은 그 일을 어떻게 기억하게 합니까?</h3>
 <p><strong>답변:</strong> 사도 바울은 로마 감옥을 부지런히 찾아와 숨을 돌리게 해 준 오네시보로의 헌신을 인간적 공로를 치켜세우는 위인전의 칭찬 문장으로 남기지 않고, <strong>주께서 그의 집과 종말의 '그 날'에 긍휼을 베풀어 주시기를 간구하는 중보기도의 이유</strong> 속에 단단히 묻어 둡니다. 이는 성도가 흘린 가장 아름답고 용기 있는 헌신조차 하나님 앞에서 당연한 보상을 요구할 수 있는 자기 의나 공로가 될 수 없음을 분명히 보여줍니다. 인간이 행한 모든 숭고한 사랑의 수고는 인간 사회의 명예나 보상으로 환원되지 않고, <strong>오직 종말론적인 하나님의 주권적인 자비(긍휼) 앞에 겸손히 올려드려야 할 기도의 제물</strong>로 기억되어야 합니다. 결국 가장 신실했던 사람의 수고조차 <strong>하나님의 무조건적인 긍휼이라는 은혜의 품 안에서만 영원한 가치</strong>를 부여받습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-14" data-index="14" data-ref="15 해설서 디모데후서 2 1-13">
-        <div class="card-header">
-            <span class="badge">15 해설서 디모데후서 2 1-13</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-14" data-index="14" data-file-item="15 해설서 디모데후서 2 1-13 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>15 해설서 디모데후서 2 1-13</span>
         </div>
-        <div class="card-body">
-            <h2>15_해설서_디모데후서_2_1-13.md - 디모데후서 2:1-13</h2>
+        <h2>15_해설서_디모데후서_2_1-13.md - 디모데후서 2:1-13</h2>
 <h3>질문 1: 2:1에서 명령보다 먼저 놓인 「내 아들아」라는 부름은, 뒤따르는 다섯 명령을 듣는 방식을 어떻게 바꿉니까?</h3>
 <p><strong>답변:</strong> 다섯 가지 무겁고 치열한 명령들(강하라, 부탁하라, 고난을 받으라, 생각하라, 기억하라)보다 원문 문장의 맨 앞에 먼저 울려 퍼지는 <strong>「내 아들아(τέκνον μου)」</strong>라는 부름은, 뒤따르는 모든 요구의 성격을 법정의 준엄한 규율이나 군대식 징집 명령에서 <strong>애틋한 생명적 유대와 사랑의 권면</strong>으로 근본적으로 바꾸어 놓습니다. 수신자는 이제 그 명령들을 자신을 짓누르는 차가운 율법적 멍에나 억압으로 듣지 않고, 영적 아비가 해산의 수고를 통해 낳은 아들을 향해 쏟아붓는 신뢰와 격려의 음성으로 듣게 됩니다. 명령을 지켜내야만 아들의 자격을 얻는 것이 아니라, <strong>이미 아들로 용납되고 사랑받고 있기에 은혜 속에서 강해질 수 있다</strong>는 복음적 자유가 이 부름 하나에 온전히 담겨 있습니다. 이 호칭은 모든 사역적 의무의 바닥에 <strong>아버지 하나님의 변함없는 은혜와 부성적 사랑</strong>이 흐르고 있음을 확증합니다.</p>
 <h3>질문 2: 2:8의 「예수 그리스도」, 「다시 살으신」, 「죽은 자 가운데서」, 「다윗의 씨로」 가운데, 내가 「예수를 기억한다」고 말할 때 실제로 쥐고 있는 것은 어느 것입니까?</h3>
@@ -543,16 +652,14 @@
 <h3>질문 5: 2:11의 「이 말」과 2:13의 「그이」에 같은 「미쁘다」가 걸립니다. 2:13이 우리의 미쁨 없음 옆에 「일향 미쁘시니」를 둔 자리에서, 나는 어느 쪽의 미쁨을 먼저 묻고 있습니까?</h3>
 <p><strong>답변:</strong> 2:11의 "미쁘다 이 말이여(πιστὸς ὁ λόγος)"와 2:13의 "그이는 미쁘시니(ἐκεῖνος πιστὸς μένει)"는 똑같은 형용사인 <strong>「피스토스(πιστός, 신실한/미쁜)」</strong>를 사용하여 계시된 말씀의 진실성과 하나님의 불변하시는 품성을 교차하여 증언합니다. 2:13은 인간의 요동치는 불신실함(우리는 미쁨이 없을지라도) 바로 곁에 하나님 자신의 영원한 신실하심(그이는 영원히 미쁘시니)을 나란히 배치함으로써, 구원의 근거가 인간의 충성도가 아님을 확증합니다. 우리는 흔히 내 자신의 변덕스러운 열심과 미쁨 없음을 먼저 응시하며 절망하거나 반대로 자기 의를 세우려 하지만, 성경은 <strong>자기를 부인할 수 없으신 하나님의 본질적이고 압도적인 신실하심</strong>을 먼저 앙망하라고 요구합니다. 나의 어떠함에 매이지 않고 <strong>영원토록 미쁘신 그분의 신실하신 손길</strong>을 신뢰할 때, 넘어진 성도는 비로소 참된 회개와 소망의 자리로 다시 일어설 수 있습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-15" data-index="15" data-ref="16 해설서 디모데후서 2 14-26">
-        <div class="card-header">
-            <span class="badge">16 해설서 디모데후서 2 14-26</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-15" data-index="15" data-file-item="16 해설서 디모데후서 2 14-26 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>16 해설서 디모데후서 2 14-26</span>
         </div>
-        <div class="card-body">
-            <h2>16_해설서_디모데후서_2_14-26.md - 디모데후서 2:14-26</h2>
+        <h2>16_해설서_디모데후서_2_14-26.md - 디모데후서 2:14-26</h2>
 <h3>질문 1: 2:14는 말다툼의 결과를 「듣는 자들」의 무너짐으로 적습니다. 다투는 두 사람이 아니라 듣는 사람을 셈하게 하는 이 문장은 내가 최근에 벌인 말다툼을 어떻게 다시 보게 합니까?</h3>
 <p><strong>답변:</strong> 본문은 무익한 말다툼(λογομαχία)의 파괴적 결과를 논쟁하는 당사자들의 승패나 논리적 자존심의 문제가 아니라, 그 곁에서 말을 듣고 있던 <strong>「듣는 자들의 파멸과 무너짐(καταστροφή, 카타스트로페)」</strong>으로 엄중하게 규정합니다. 이는 내가 최근에 벌였던 수많은 논쟁들이 상대방을 굴복시키고 내 지적 정당성을 증명하는 데는 성공했을지 몰라도, 그 거친 언어의 파편으로 인해 곁에서 지켜보던 연약한 성도들의 믿음을 허물어뜨린 영적 재앙이었을 수 있음을 뼈아프게 직시하게 합니다. 논쟁의 승리가 곧 영혼의 파멸을 낳는 비극 앞에서, 성도의 언어생활의 기준은 '내가 이겼는가'가 아니라 <strong>'듣는 이들의 영혼이 그리스도 안에서 세워졌는가'</strong>로 근본적으로 전환되어야 합니다. 말다툼은 자기 의를 뽐내는 잔치일 뿐, 곁에 선 형제들의 영혼을 실족시키는 가장 위험한 독백입니다.</p>
 <h3>질문 2: 2:20에서 불려 나온 금·은·나무·질은 2:21에서 한 번도 다시 나오지 않습니다. 재료 대신 「깨끗하게 하면」이 들어선 이 자리에서, 나는 나를 무엇으로 설명해 왔는지 돌아보면 무엇이 보입니까?</h3>
@@ -564,16 +671,14 @@
 <h3>질문 5: 2:25-26에서 회개함을 주시는 쪽과 깨어 벗어나는 쪽은 주의 종이 아닙니다. 그렇다면 「온유함으로」라는 방식 하나가 내게 적힌 칸이라는 사실은, 돌이키지 않는 사람을 대하는 내 태도를 어떻게 바꿉니까?</h3>
 <p><strong>답변:</strong> 본문에서 완악한 영혼에게 회개를 은혜의 선물로 주시는 분은 오직 <strong>「하나님」</strong>이시며(2:25), 마귀의 올무에서 스스로 깨어 일어나는 주체 역시 <strong>「미혹되었던 그 사람들」</strong> 자신입니다(2:26). 주의 종에게 할당된 유일한 몫은 상대방을 무력으로 제압하거나 논리적으로 굴복시키는 강제력이 아니라, 오직 거역하는 자를 대면하는 방식으로서의 <strong>「온유함(πραΰτης)」</strong> 하나뿐입니다. 이 구원론적 한계를 명확히 깨달을 때, 우리는 완악하게 거역하는 영혼을 대하면서 조급한 혈기를 부리거나 분노로 통제하려는 육체적 시도를 내려놓고, <strong>영혼을 변화시키는 절대 주권을 하나님께 온전히 맡겨드리는 거룩한 인내</strong>를 배우게 됩니다. 목회자의 사명은 사람을 억지로 뜯어고치는 심판관이 되는 것이 아니라, <strong>하나님이 일하실 때까지 끝까지 상처받기를 감수하며 온유한 그리스도의 심장으로 말씀을 가르치고 기다리는 일</strong>입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-16" data-index="16" data-ref="17 해설서 디모데후서 3 1-9">
-        <div class="card-header">
-            <span class="badge">17 해설서 디모데후서 3 1-9</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-16" data-index="16" data-file-item="17 해설서 디모데후서 3 1-9 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>17 해설서 디모데후서 3 1-9</span>
         </div>
-        <div class="card-body">
-            <h2>17_해설서_디모데후서_3_1-9.md - 디모데후서 3:1-9</h2>
+        <h2>17_해설서_디모데후서_3_1-9.md - 디모데후서 3:1-9</h2>
 <h3>질문 1: 3:1의 첫 명령은 「돌아서라」가 아니라 「알라」입니다. 본문은 왜 아는 일을 먼저 두었을까요? 몸을 옮길 수 없는 사람도 오늘 이 첫 명령에는 순종할 수 있습니까?</h3>
 <p><strong>답변:</strong> 단락을 여는 3:1의 첫 명령은 공간적 이탈이나 단절을 요구하는 행동적 지시가 아니라, 현실을 직시하라는 인식적 명령인 <strong>「알라(γίνωσκε)」</strong>입니다. 이는 말세의 고통하는 때가 지닌 영적 기만성과 부패의 실상을 진리의 빛으로 정확히 분별하지 못한 채 성급하게 움직이면, 또 다른 맹목적 타협이나 파멸에 빠질 수밖에 없기 때문입니다. 따라서 상황적 얽힘이나 가정과 직장의 한계로 인해 당장 물리적인 자리를 박차고 떠날 수 없는 처지에 놓인 사람이라 할지라도, <strong>영적 현실의 본질을 분별하고 하나님의 눈으로 시대를 꿰뚫어 보는 이 첫 명령에는 오늘 당장 온전히 순종</strong>할 수 있습니다. 행동의 분리 이전에 선행되어야 할 가장 위대한 순종은, <strong>세속의 유혹에 마취되지 않고 영적으로 각성하여 현실의 실상을 똑똑히 분별하는 앎</strong>입니다.</p>
 <h3>질문 2: 3:5에서 「모양」에는 관사가 없고 「그 능력」에는 관사가 붙습니다. 관사를 반대쪽으로 옮겨 읽으면 이 절의 무게는 어디로 옮겨 갑니까?</h3>
@@ -585,16 +690,14 @@
 <h3>질문 5: 3:9는 앞길이 닫히는 까닭을 무엇에 둡니까? 이 단락이 수신자에게 맡기지 않은 일은 무엇입니까?</h3>
 <p><strong>답변:</strong> 본문은 진리를 거역하는 자들이 더 이상 나아가지 못하고 멈추게 되는 이유를, 모세를 대적했던 애굽 마술사들의 패배처럼 그들의 <strong>「어리석음(ἄνοια)이 모든 사람 앞에 환히 드러날 것(ἔκδηλος ἔσται)」</strong>이라는 진리 자체의 자명성과 하나님의 주권적 심판의 필연성에 둡니다. 따라서 이 단락은 수신자인 디모데에게 그 거짓 교사들을 물리적으로 박멸하거나, 그들의 세력을 강제로 분쇄하기 위해 맞서 싸우는 <strong>정치적 투쟁이나 집행관의 역할</strong>을 결코 맡기지 않았습니다. 수신자에게 주어진 사명은 오직 진리의 실상을 분별하고 그들의 미혹에서 거룩하게 돌아서는 것뿐이며, 거짓의 궁극적인 붕괴와 폭로는 <strong>역사를 섭리하시는 하나님의 주권적 시간표</strong>에 온전히 맡겨져 있습니다. 진리는 스스로 빛을 발하여 어둠의 궤계를 드러내므로, 성도는 싸움에 매몰되지 않고 <strong>자신의 거룩한 자리를 지키는 일</strong>에 집중해야 합니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-17" data-index="17" data-ref="18 해설서 디모데후서 3 10-17">
-        <div class="card-header">
-            <span class="badge">18 해설서 디모데후서 3 10-17</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-17" data-index="17" data-file-item="18 해설서 디모데후서 3 10-17 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>18 해설서 디모데후서 3 10-17</span>
         </div>
-        <div class="card-body">
-            <h2>18_해설서_디모데후서_3_10-17.md - 디모데후서 3:10-17</h2>
+        <h2>18_해설서_디모데후서_3_10-17.md - 디모데후서 3:10-17</h2>
 <h3>질문 1: 10-11절의 아홉 항목은 일곱 개의 삶의 결에서 두 개의 「핍박과 고난」으로 넘어갑니다. 그 목록의 끝에 「주께서 … 나를 건지셨느니라」가 붙어 있다는 것은 목록 전체를 읽는 방식을 어떻게 바꿉니까?</h3>
 <p><strong>답변:</strong> 바울의 교훈, 행실, 의향, 믿음, 오래 참음, 사랑, 인내라는 7가지 내면적 인격의 결이 11절에 이르러 몸에 가해진 '핍박'과 '고난'이라는 2가지 외적 박해로 이어지며 완성됩니다. 이 치열한 전 생애의 목록 끝에 <strong>「주께서 이 모든 것 가운데서 나를 건지셨느니라(ἐκ πάντων με ἐρρύσατο ὁ κύριος)」</strong>라는 찬양의 결론이 맺혀 있다는 사실은, 이 고백이 사도 개인의 초인적인 무용담이나 종교적 의지력을 자랑하는 위인전이 아님을 분명히 선언합니다. 일곱 개의 성품과 두 개의 박해는 사도의 위대함을 드러내는 배경이 아니라, <strong>극심한 사망의 골짜기 한가운데서 사도를 끝까지 붙드시고 건져내신 주님의 신실하신 구원 역사</strong>를 증언하는 무대로 완전히 전환됩니다. 따라서 목록 전체는 인간의 인내를 칭송하는 노래가 아니라, <strong>고난받는 종의 곁에서 구원을 베푸신 하나님의 은혜를 향한 장엄한 송영</strong>으로 읽히게 됩니다.</p>
 <h3>질문 2: 11절의 「모든 것 가운데서」와 12절의 「무릇」은 같은 「모든」인데, 하나는 지난 일을, 하나는 올 일을 적습니다. 두 문장을 하나로 합치지 않고 함께 들고 읽으면 무엇이 보입니까?</h3>
@@ -606,16 +709,14 @@
 <h3>질문 5: 16절이 「이다」를 비워 두고 「~을 위하여」를 다섯 번 쌓아 17절의 「모든 선한 일」에서 끝난다면, 16절을 읽을 때 17절까지 한 호흡으로 읽는 것은 무엇을 달라지게 합니까?</h3>
 <p><strong>답변:</strong> 16절은 '성경은 ~이다'라는 식의 정적인 교리적 정의에 머물지 않고, 네 번에 걸친 전치사 <strong>「프로스(πρός, 교훈과 책망과 바르게 함과 의로 교육함을 위하여)」</strong>를 차례로 쌓아 올린 후 17절의 다섯 번째 <strong>「프로스(모든 선한 일을 행함을 향하여)」</strong>로 쉼 없이 내달립니다. 16절을 17절까지 단숨에 한 호흡으로 읽어 내려갈 때, 성경의 거룩한 영감 교리는 머릿속에 가두어두는 사변적 교리나 신학적 논쟁의 박제품에서 <strong>하나님의 사람을 전인적으로 빚어내어 세상 속에서 선한 일을 실천하게 만드는 거대한 생명력의 원천</strong>으로 완전히 탈바꿈합니다. 성경은 인간을 서재에 얌전히 앉혀두기 위해 주어진 것이 아니라, <strong>상처 입은 세상을 향해 거룩한 손과 발을 내밀어 모든 선한 일을 행하도록 준비시키는 실천적 능력</strong>입니다. 글에서 시작된 하나님의 호흡은, 결국 <strong>성도의 손끝에서 피어나는 사랑의 사역</strong>으로 그 장엄한 마침표를 찍습니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-18" data-index="18" data-ref="19 해설서 디모데후서 4 1-8">
-        <div class="card-header">
-            <span class="badge">19 해설서 디모데후서 4 1-8</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-18" data-index="18" data-file-item="19 해설서 디모데후서 4 1-8 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>19 해설서 디모데후서 4 1-8</span>
         </div>
-        <div class="card-body">
-            <h2>19_해설서_디모데후서_4_1-8.md - 디모데후서 4:1-8</h2>
+        <h2>19_해설서_디모데후서_4_1-8.md - 디모데후서 4:1-8</h2>
 <h3>질문 1: 4:1에서 명령보다 먼저 놓인 호칭은 무엇입니까? 그 호칭이 4:2의 다섯 요구보다 앞에 놓인 것은 이 단락을 읽는 방식에 무엇을 바꿉니까?</h3>
 <p><strong>답변:</strong> 4:2에 쏟아지는 다섯 가지 맹렬한 명령들(전파하라, 힘쓰라, 경책하라, 경계하라, 권하라)보다 앞서 4:1의 문을 여는 호칭은, 엄숙한 맹세의 자리로서 <strong>「하나님 앞과 산 자와 죽은 자를 심판하실 그리스도 예수 앞」</strong>이라는 두렵고 장엄한 신적 존전입니다. 이 절대적인 호칭이 모든 사역적 요구의 맨 머리에 놓여 있다는 사실은, 사도와 목회자가 감당해야 할 복음의 직무가 사람들의 평판이나 세상의 반응에 영합하는 사교적 활동이 아님을 분명히 못 박습니다. 사역자는 청중의 기호나 시대의 풍조에 휘둘리는 유약함을 벗어던지고, <strong>산 자와 죽은 자를 공의로 판결하실 최종 심판관의 엄위하신 시선(Coram Deo)</strong> 앞에서 떨림과 거룩한 위엄을 품고 명령을 수행해야 합니다. 모든 사역적 충성의 동력은 사람의 갈채가 아니라, <strong>심판주로 다시 오실 그리스도 예수의 거룩한 존전의식</strong>에서 흘러나옵니다.</p>
 <h3>질문 2: 4:2와 4:5의 아홉 요구가 각각 무엇을 받는지 적어 보십시오. 받는 말이 없는 「고난을 받으라」는 다른 요구들과 어떻게 다르게 들립니까?</h3>
@@ -627,16 +728,14 @@
 <h3>질문 5: 4:8에서 받는 자리를 넓히는 조건은 「그의 나타나심을 사모하는」 것입니다. 이 말이 4:1의 「그의 나타나실 것」과 같은 낱말이라는 것을 알고 나면, 단락의 처음과 끝이 어떻게 이어져 보입니까?</h3>
 <p><strong>답변:</strong> 4:1에서 사역자에게 가장 엄중한 심판의 두려움으로 선서되었던 <strong>「그의 나타나심(τὴν ἐπιφάνειαν αὐτοῦ)」</strong>과, 4:8 끝에서 면류관을 받을 모든 성도의 자격을 규정하는 <strong>「그의 나타나심을 사랑해 온 자들(τοῖς ἠγαπηκόσι τὴν ἐπιφάνειαν αὐτοῦ)」</strong>은 글자 하나 다르지 않은 동일한 낱말입니다. 이는 단락의 처음에서 사역자의 옷깃을 여미게 만들었던 심판주의 장엄한 재림이, 단락의 끝에 이르러서는 주님을 신실하게 갈망해 온 모든 평범한 성도들이 누리게 될 <strong>형언할 수 없는 환희와 위로의 복스러운 소망</strong>으로 완벽한 수미상관을 이루고 있음을 보여줍니다. 사역의 무거운 짐과 치열한 영적 전투는 두려운 존전의식으로 시작되지만, 결국 다시 오실 주님의 얼굴을 사모하는 <strong>모든 믿는 자의 거룩한 사랑과 영광스러운 종말론적 승리</strong>로 찬란하게 귀결됩니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-19" data-index="19" data-ref="20 해설서 디모데후서 4 9-15">
-        <div class="card-header">
-            <span class="badge">20 해설서 디모데후서 4 9-15</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-19" data-index="19" data-file-item="20 해설서 디모데후서 4 9-15 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>20 해설서 디모데후서 4 9-15</span>
         </div>
-        <div class="card-body">
-            <h2>20_해설서_디모데후서_4_9-15.md - 디모데후서 4:9-15</h2>
+        <h2>20_해설서_디모데후서_4_9-15.md - 디모데후서 4:9-15</h2>
 <h3>질문 1: 4:9 「어서 속히 내게로 오라」 뒤에 원문의 「왜냐하면」을 넣어 4:10과 이어 소리 내어 읽어 보십시오. 「이는」이 없을 때와 비교해 무엇이 다르게 들립니까?</h3>
 <p><strong>답변:</strong> 원문 4:10의 둘째 자리에 놓인 접속사 <strong>「가르(γάρ, 왜냐하면/이는)」</strong>를 살려 "너는 어서 속히 내게로 오라. 왜냐하면 데마는 이 세상을 사랑하여 나를 버리고 데살로니가로 갔기 때문이다"라고 이어 읽으면, 본문의 결은 완전히 달라집니다. 개역한글처럼 이유를 알리는 접속사가 생략되면 4:10은 그저 사도 바울의 신변에 일어난 객관적인 소식이나 흩어진 동역자들의 행적을 담담히 나열하는 전언처럼 들리기 쉽습니다. 그러나 "왜냐하면"을 온전히 회복할 때, 데마의 변절과 떠남은 단순한 정보 전달이 아니라 사도의 심장을 찢어놓은 <strong>처절한 영적 고독과 아픔의 실존적 사정</strong>이 되며, 디모데를 향해 어서 오라고 절규할 수밖에 없는 <strong>뜨겁고도 애절한 목회적 호소의 직접적인 이유</strong>로 심장을 울립니다. 사역자의 부름은 기능적인 명령이 아니라, <strong>배신당한 상처 한가운데서 형제의 체온을 갈망하는 깊은 영혼의 절규</strong>입니다.</p>
 <h3>질문 2: 4:10과 4:11은 떠난 사람과 남은 사람을 함께 적습니다. 내가 이 두 절을 읽을 때 주로 어느 쪽에 눈이 머물렀습니까? 본문은 두 쪽에 각각 무엇을 적고 무엇을 적지 않았습니까?</h3>
@@ -648,16 +747,14 @@
 <h3>질문 5: 4:14에서 갚는 동사의 주어는 「주」이고, 4:15에서 디모데에게 맡겨진 동사는 「주의하라」입니다. 두 절에서 디모데의 몫과 디모데의 몫이 아닌 것은 각각 무엇입니까?</h3>
 <p><strong>답변:</strong> 4:14에서 극심한 해를 입힌 구리 장색 알렉산더를 향해 그 행한 대로 심판하시는 동사인 <strong>「갚으시리니(ἀποδώσει)」</strong>의 주어는 인간 사역자가 아니라 오직 <strong>「주님(ὁ κύριος)」</strong>이십니다. 따라서 악을 행한 대적자에게 사적인 복수를 가하거나 하나님의 자리에 앉아 저주와 파멸을 선고하는 심판관의 노릇은 결코 디모데의 몫이 아니며, 온전히 공의로우신 하나님의 손에 위탁해야 할 영역입니다. 반면 4:15에서 디모데에게 직접 명령된 몫은 오직 <strong>「너도 그를 주의하라(φυλάσσου)」</strong>뿐이며, 이는 악한 자의 궤계와 훼방에 말려들지 않도록 <strong>자신과 양 떼를 지혜롭게 지키고 방어하는 파수꾼의 거룩한 경계</strong>입니다. 성도의 지혜는 원수를 갚으려는 피 흘리는 분노를 내려놓고, <strong>원수 갚는 주권을 하나님께 맡긴 채 자신은 교회의 순결을 지키는 방어적 파수에 전념하는 것</strong>입니다.</p>
 <hr />
-        </div>
-    </section>
+    </article>
     
-    <section class="answer-card" id="sec-20" data-index="20" data-ref="21 해설서 디모데후서 4 16-22">
-        <div class="card-header">
-            <span class="badge">21 해설서 디모데후서 4 16-22</span>
-            <span class="badge-sub">함께 생각할 질문 5선 모범답안</span>
+    <article class="book-page" id="sec-20" data-index="20" data-file-item="21 해설서 디모데후서 4 16-22 모범답안">
+        <div class="chapter-running-header">
+            <span>디모데전후서 해설서 모범답안</span>
+            <span>21 해설서 디모데후서 4 16-22</span>
         </div>
-        <div class="card-body">
-            <h2>21_해설서_디모데후서_4_16-22.md - 디모데후서 4:16-22</h2>
+        <h2>21_해설서_디모데후서_4_16-22.md - 디모데후서 4:16-22</h2>
 <h3>질문 1: 4:16과 4:17에서 「내게」와 「나를」은 같은 차례로 서 있고 주어만 바뀝니다. 두 절을 소리 내어 이어 읽을 때, 이 배치는 무엇을 먼저 보게 합니까?</h3>
 <p><strong>답변:</strong> 4:16에서 사도는 "내 곁에(μοι) 함께한 자가 없고 다 나를(με) 버렸다"고 토로하고, 4:17에서는 "주께서 내 곁에(μοι) 서서 나를(με) 강건하게 하셨다"고 고백하며, <strong>'내게(μοι)'와 '나를(με)'이라는 받는 자의 위치와 순서를 완벽하게 일치</strong>시킵니다. 수신자가 서 있는 고난의 자리와 법정의 차디찬 피고석은 4:16이나 4:17이나 조금도 달라지지 않았지만, 그 자리에 서 계신 주어만이 <strong>「아무도 없음 / 전부의 버림」</strong>이라는 인간의 완전한 배반에서 <strong>「오직 한 분 주님」</strong>이라는 신적 임재로 경이롭게 교체됩니다. 이 대구 배치는 성도가 직면한 외로운 고난의 환경 자체가 마술처럼 사라진 것이 아니라, 바로 그 버림받은 비참한 자리 한복판에 <strong>친히 찾아와 곁을 지켜주시는 주님의 현존과 위로</strong>가 사람의 부재를 완전히 삼켜버리고 있음을 보게 합니다. 위로는 자리를 옮겨주는 데 있지 않고, <strong>그 자리에 주님이 함께 서 계심</strong>을 깨닫는 데 있습니다.</p>
 <h3>질문 2: 4:17의 「곁에 서서」는 「오다」가 아니라 「곁에 서다」입니다. 본문이 도착이 아니라 곁에 섬을 적었다는 것은 이 장면을 어떻게 달리 보게 합니까?</h3>
@@ -668,24 +765,92 @@
 <p><strong>답변:</strong> 4:16의 "다(πάντες) 나를 버렸으나"와 4:21의 "모든 형제가 다(πάντες) 네게 문안하느니라"는 원문에서 글자 하나 다르지 않은 똑같은 <strong>「판테스(πάντες, 모두/전부)」</strong>라는 낱말입니다. 우리는 이 극단적인 두 '다' 사이의 모순을 견디지 못하고, "4:16의 '다'는 로마의 명망가들이고 4:21의 '다'는 지하 교회의 소수 교인들일 뿐이다"라는 식의 합리적인 설명이나 인간적 변명의 서사를 서둘러 채워 넣어 긴장을 해소하고 싶어 합니다. 그러나 본문은 두 '다' 사이에 어떠한 해명이나 잇는 문장도 두지 않음으로써, 사역의 현실이란 <strong>모든 사람에게 철저히 버림받는 것 같은 차디찬 고립감과, 여전히 보이지 않는 곳에서 주님의 형제들이 보내오는 따뜻한 사랑의 연대가 한 치의 왜곡 없이 공존하는 역설의 장</strong>임을 침묵 가운데 증언합니다. 성도는 인간에 대한 섣부른 절망이나 순진한 낙관주의를 모두 내려놓고, <strong>버림받음의 쓰라림과 형제 사랑의 온기를 있는 그대로 끌어안는 십자가의 현실감각</strong>을 배워야 합니다.</p>
 <h3>질문 5: 4:22는 동사 없이 「주께서 네 심령과 함께」로 끝납니다. 이 마지막 문장을 명사구 그대로 읽고 멈출 때, 앞의 4:17과 4:18은 어떻게 다시 읽힙니까?</h3>
 <p><strong>답변:</strong> 서신의 대미를 장식하는 4:22는 동사가 완전히 생략된 채 <strong>「주께서 너의 영과 함께(Ὁ κύριος μετὰ τοῦ πνεύματός σου)」</strong>라는 단출하고 고요한 명사구 자체로 장엄하게 닫힙니다. 이 구절을 인위적인 축원이나 당위의 문장으로 늘이지 않고 있는 그대로 멈추어 읽을 때, 앞서 차디찬 로마 법정에서 바울의 육체 곁에 우뚝 서서 힘을 주셨던 그 주님(4:17)과, 악한 세상의 손길에서 건져 영원한 천국으로 이끄실 그 신실하신 주님(4:18)의 임재가 이제는 <strong>스승을 떠나보내고 홀로 남겨질 디모데의 가장 깊은 내면과 심령 속에 영원히 거하시는 지성소의 임재</strong>로 고스란히 겹쳐집니다. 바울의 곁에 서셨던 바로 그 동일하신 주님이 이제 디모데의 영혼 한복판에 영원토록 함께 계실 것이라는 이 약속은, <strong>외로운 사역의 길을 홀로 걸어가야 할 제자에게 건네는 가장 웅장하고 영원한 임마누엘의 축복</strong>입니다. 주님이 네 심령과 함께 계시니, <strong>그 어떤 고난과 사슬도 결코 너를 무너뜨릴 수 없습니다.</strong></p>
-        </div>
-    </section>
+    </article>
     
+            
+            <div class="page-nav">
+                <button class="nav-btn" id="prevBtn" onclick="navigatePage(-1)">이전 편</button>
+                <span id="pageIndicator" style="font-family: Pretendard, sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">1 / 21</span>
+                <button class="nav-btn" id="nextBtn" onclick="navigatePage(1)">다음 편</button>
             </div>
-        </main>
+        </div>
     </div>
+
     <script>
-        function filterCards() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.answer-card');
-            const toc = document.querySelectorAll('.toc-list li');
-            cards.forEach((card, idx) => {
-                const text = card.innerText.toLowerCase();
-                const match = text.includes(q);
-                card.style.display = match ? 'block' : 'none';
-                if (toc[idx]) toc[idx].style.display = match ? 'block' : 'none';
+        let currentIndex = 0;
+        const totalSections = 21;
+        const pages = document.querySelectorAll('.book-page');
+        const menuLinks = document.querySelectorAll('#menuList li a');
+        
+        function showPage(index) {
+            if (index < 0 || index >= totalSections) return;
+            currentIndex = index;
+            
+            pages.forEach((p, idx) => {
+                if (idx === index) {
+                    p.classList.add('active');
+                    const fileItem = p.getAttribute('data-file-item');
+                    document.getElementById('currentSectionTitle').innerText = fileItem;
+                } else {
+                    p.classList.remove('active');
+                }
+            });
+            
+            menuLinks.forEach((a, idx) => {
+                if (idx === index) {
+                    a.classList.add('active');
+                    a.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                } else {
+                    a.classList.remove('active');
+                }
+            });
+            
+            document.getElementById('prevBtn').disabled = (index === 0);
+            document.getElementById('nextBtn').disabled = (index === totalSections - 1);
+            document.getElementById('pageIndicator').innerText = (index + 1) + ' / ' + totalSections;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function navigatePage(direction) {
+            showPage(currentIndex + direction);
+        }
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        
+        function filterMenu() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('#menuList li');
+            items.forEach(li => {
+                const txt = li.innerText.toLowerCase();
+                li.style.display = txt.includes(query) ? '' : 'none';
             });
         }
+        
+        let currentSize = 16.5;
+        function changeFontSize(delta) {
+            currentSize = Math.max(14, Math.min(24, currentSize + delta));
+            document.documentElement.style.setProperty('--font-size', currentSize + 'px');
+        }
+        
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', newTheme);
+        }
+        
+        function copyCurrentPage() {
+            const activePage = document.querySelector('.book-page.active');
+            if (!activePage) return;
+            navigator.clipboard.writeText(activePage.innerText).then(() => {
+                alert('해당 본문 텍스트가 클립보드에 복사되었습니다.');
+            }).catch(() => {
+                alert('복사에 실패했습니다.');
+            });
+        }
+        
+        showPage(0);
     </script>
 </body>
 </html>

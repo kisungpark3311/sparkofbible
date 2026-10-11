@@ -3,236 +3,428 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>누가복음 해설서 합본</title>
+    <title>누가복음 해설서 합본 | 박기성</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <style>
         @font-face {
             font-family: 'KoPubWorld Batang';
-            src: url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Medium.ttf') format('truetype');
             font-weight: 500;
+            src: local('KoPubWorldBatang Medium'),
+                 local('KoPubWorld Batang Medium'),
+                 url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Medium.ttf') format('truetype'),
+                 url('https://cdn.jsdelivr.net/gh/fontbit/kopubworld-batang/KoPubWorldBatang-Medium.woff2') format('woff2');
         }
         @font-face {
             font-family: 'KoPubWorld Batang';
-            src: url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Bold.ttf') format('truetype');
             font-weight: 700;
+            src: local('KoPubWorldBatang Bold'),
+                 local('KoPubWorld Batang Bold'),
+                 url('file:///C:/Users/user/AppData/Local/Microsoft/Windows/Fonts/KoPubWorld%20Batang%20Bold.ttf') format('truetype'),
+                 url('https://cdn.jsdelivr.net/gh/fontbit/kopubworld-batang/KoPubWorldBatang-Bold.woff2') format('woff2');
         }
+        
         :root {
             --bg-color: #f8fafc;
-            --text-color: #1e293b;
             --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-            --primary-color: #1e3a8a;
-            --primary-light: #eff6ff;
-            --highlight-bg: #fef9c3;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --primary: #1e3a8a;
+            --accent: #2563eb;
+            --border: #e2e8f0;
+            --highlight: #fef9c3;
+            --highlight-border: #fef08a;
+            --font-size: 16.5px;
+            --line-height: 1.85;
         }
+        
+        [data-theme="dark"] {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --text-muted: #94a3b8;
+            --primary: #60a5fa;
+            --accent: #3b82f6;
+            --border: #334155;
+            --highlight: #854d0e;
+            --highlight-border: #a16207;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
-            font-family: 'KoPubWorld Batang', serif;
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.8;
-            margin: 0;
-            padding: 0;
-            font-size: 16.5px;
-        }
-        .layout {
+            font-family: 'KoPubWorld Batang', serif;
+            font-size: var(--font-size);
+            line-height: var(--line-height);
             display: flex;
             min-height: 100vh;
+            word-break: keep-all;
+            transition: background-color 0.2s, color 0.2s;
         }
-        .sidebar {
+        
+        #sidebar {
             width: 320px;
-            background: #ffffff;
-            border-right: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            height: 100vh;
             position: fixed;
             top: 0;
-            bottom: 0;
             left: 0;
             overflow-y: auto;
-            padding: 24px 16px;
-            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
             z-index: 100;
+            transition: transform 0.3s;
         }
+        
         .sidebar-header {
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid var(--primary-light);
+            padding: 24px 20px 16px;
+            border-bottom: 1px solid var(--border);
         }
+        
         .sidebar-header h2 {
-            font-size: 20px;
-            color: var(--primary-color);
-            margin: 0 0 8px 0;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.15rem;
+            color: var(--primary);
+            margin-bottom: 6px;
             font-weight: 700;
         }
+        
         .sidebar-header p {
-            font-size: 13px;
-            color: #64748b;
-            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'Pretendard', sans-serif;
         }
+        
         .search-box {
-            margin-bottom: 16px;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
         }
-        .search-input {
+        
+        .search-box input {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 14px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-        .toc-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .toc-list li {
-            margin-bottom: 4px;
-        }
-        .toc-list a {
-            display: block;
             padding: 8px 12px;
-            color: #334155;
-            text-decoration: none;
             border-radius: 6px;
-            font-size: 14px;
-            transition: all 0.2s;
+            border: 1px solid var(--border);
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.9rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
         }
-        .toc-list a:hover, .toc-list a.active {
-            background: var(--primary-light);
-            color: var(--primary-color);
-            font-weight: 700;
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 12px 10px;
+            overflow-y: auto;
+            flex: 1;
         }
-        .content-area {
+        
+        .sidebar-menu li a {
+            display: block;
+            padding: 9px 12px;
+            border-radius: 6px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.88rem;
+            line-height: 1.4;
+            transition: background 0.15s;
+        }
+        
+        .sidebar-menu li a:hover,
+        .sidebar-menu li a.active {
+            background: var(--border);
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        #main-container {
             margin-left: 320px;
             flex: 1;
-            padding: 40px 60px;
-            max-width: 900px;
-        }
-        .doc-header {
-            background: #ffffff;
-            padding: 32px 40px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 32px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-        .doc-header h1 {
-            font-size: 28px;
-            color: #0f172a;
-            margin: 0 0 12px 0;
-            font-weight: 700;
-        }
-        .doc-header .meta {
-            font-size: 15px;
-            color: #64748b;
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        .commentary-card {
+        
+        .top-bar {
+            position: sticky;
+            top: 0;
             background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            padding: 36px 40px;
-            margin-bottom: 36px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-        }
-        .card-header {
+            border-bottom: 1px solid var(--border);
+            padding: 12px 28px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
+            justify-content: space-between;
+            z-index: 90;
         }
-        .badge {
-            background: var(--primary-color);
-            color: #ffffff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 14px;
+        
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        
+        .top-bar-left button#menu-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+        
+        .top-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.05rem;
             font-weight: 700;
+            color: var(--primary);
         }
-        .badge-sub {
-            font-size: 14px;
-            color: #64748b;
+        
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .card-body h1, .card-body h2 {
+        
+        .btn-ctrl {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.15s;
+        }
+        
+        .btn-ctrl:hover {
+            background: var(--border);
+        }
+        
+        .content-area {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+            width: 100%;
+        }
+        
+        .book-page {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 44px 48px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+            margin-bottom: 30px;
+        }
+        
+        .book-page.active {
+            display: block;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .chapter-running-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            font-family: 'KoPubWorld Batang', serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .book-page h1 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 24px;
+            line-height: 1.35;
+        }
+        
+        .book-page h2 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
             color: #0f172a;
-            border-bottom: 1px solid #cbd5e1;
-            padding-bottom: 8px;
-            margin-top: 28px;
+            margin-top: 32px;
+            margin-bottom: 14px;
+            border-left: 4px solid var(--primary);
+            padding-left: 10px;
         }
-        .card-body h3 {
-            color: #1e3a8a;
+        
+        [data-theme="dark"] .book-page h2 {
+            color: #f1f5f9;
+        }
+        
+        .book-page h3 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
             margin-top: 24px;
+            margin-bottom: 10px;
         }
-        .card-body p {
-            margin: 14px 0;
+        
+        .book-page p {
+            margin-bottom: 14px;
             text-align: justify;
         }
-        .card-body strong, .card-body b {
+        
+        .book-page strong {
+            font-family: 'KoPubWorld Batang', serif;
             font-weight: 700;
-            background-color: var(--highlight-bg);
-            padding: 1px 3px;
+            background-color: var(--highlight);
+            padding: 0 3px;
+            border-radius: 2px;
+            color: inherit;
         }
-        .card-body table {
+        
+        [data-theme="dark"] .book-page strong {
+            color: #fef08a;
+        }
+        
+        .book-page blockquote {
+            border-left: 4px solid var(--primary);
+            padding: 12px 18px;
+            background-color: #eff6ff;
+            margin: 18px 0;
+            color: var(--text-color);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        [data-theme="dark"] .book-page blockquote {
+            background-color: #1e293b;
+            border-left-color: var(--accent);
+        }
+        
+        .book-page table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 14.5px;
+            margin: 24px 0;
+            font-size: 0.92rem;
         }
-        .card-body th, .card-body td {
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
+        
+        .book-page th, .book-page td {
+            border: 1px solid var(--border);
+            padding: 10px 14px;
             text-align: left;
         }
-        .card-body th {
-            background-color: #f1f5f9;
+        
+        .book-page th {
+            background: var(--border);
             font-weight: 700;
+            font-family: 'Pretendard', sans-serif;
         }
-        .card-body blockquote {
-            margin: 16px 0;
-            padding: 12px 20px;
-            background-color: #f8fafc;
-            border-left: 4px solid var(--primary-color);
-            color: #475569;
+        
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
         }
+        
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: 0.15s;
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+        
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
         @media (max-width: 900px) {
-            .layout { flex-direction: column; }
-            .sidebar { width: 100%; position: relative; height: auto; }
-            .content-area { margin-left: 0; padding: 20px; }
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            #sidebar.open {
+                transform: translateX(0);
+            }
+            #main-container {
+                margin-left: 0;
+            }
+            .top-bar-left button#menu-toggle {
+                display: block;
+            }
+            .content-area {
+                padding: 20px 16px 60px;
+            }
+            .book-page {
+                padding: 24px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="layout">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h2>누가복음 해설서</h2>
-                <p>총 54개 섹션 (목차, 총론 및 52편 전편)</p>
-            </div>
-            <div class="search-box">
-                <input type="text" id="searchInput" class="search-input" placeholder="본문 또는 구문 검색..." onkeyup="filterCards()">
-            </div>
-            <ul class="toc-list" id="tocList">
-                <li><a href="#sec-0" onclick="showPage(0)">누가복음 해설서 목차</a></li><li><a href="#sec-1" onclick="showPage(1)">누가복음 총론: 누가복음을 읽는 법</a></li><li><a href="#sec-2" onclick="showPage(2)">누가복음 1:1-25</a></li><li><a href="#sec-3" onclick="showPage(3)">누가복음 1:26-56</a></li><li><a href="#sec-4" onclick="showPage(4)">누가복음 1:57-80</a></li><li><a href="#sec-5" onclick="showPage(5)">누가복음 2:1-21</a></li><li><a href="#sec-6" onclick="showPage(6)">누가복음 2:22-52</a></li><li><a href="#sec-7" onclick="showPage(7)">누가복음 3:1-20</a></li><li><a href="#sec-8" onclick="showPage(8)">누가복음 3:21-38</a></li><li><a href="#sec-9" onclick="showPage(9)">누가복음 4:1-13</a></li><li><a href="#sec-10" onclick="showPage(10)">누가복음 4:14-44</a></li><li><a href="#sec-11" onclick="showPage(11)">누가복음 5:1-26</a></li><li><a href="#sec-12" onclick="showPage(12)">누가복음 5:27-39</a></li><li><a href="#sec-13" onclick="showPage(13)">누가복음 6:1-16</a></li><li><a href="#sec-14" onclick="showPage(14)">누가복음 6:17-49</a></li><li><a href="#sec-15" onclick="showPage(15)">누가복음 7:1-23</a></li><li><a href="#sec-16" onclick="showPage(16)">누가복음 7:24-50</a></li><li><a href="#sec-17" onclick="showPage(17)">누가복음 8:1-21</a></li><li><a href="#sec-18" onclick="showPage(18)">누가복음 8:22-39</a></li><li><a href="#sec-19" onclick="showPage(19)">누가복음 8:40-56</a></li><li><a href="#sec-20" onclick="showPage(20)">누가복음 9:1-17</a></li><li><a href="#sec-21" onclick="showPage(21)">누가복음 9:18-36</a></li><li><a href="#sec-22" onclick="showPage(22)">누가복음 9:37-50</a></li><li><a href="#sec-23" onclick="showPage(23)">누가복음 9:51-10</a></li><li><a href="#sec-24" onclick="showPage(24)">누가복음 10:25-42</a></li><li><a href="#sec-25" onclick="showPage(25)">누가복음 11:1-28</a></li><li><a href="#sec-26" onclick="showPage(26)">누가복음 11:29-54</a></li><li><a href="#sec-27" onclick="showPage(27)">누가복음 12:1-21</a></li><li><a href="#sec-28" onclick="showPage(28)">누가복음 12:22-40</a></li><li><a href="#sec-29" onclick="showPage(29)">누가복음 12:41-59</a></li><li><a href="#sec-30" onclick="showPage(30)">누가복음 13:1-21</a></li><li><a href="#sec-31" onclick="showPage(31)">누가복음 13:22-35</a></li><li><a href="#sec-32" onclick="showPage(32)">누가복음 14:1-24</a></li><li><a href="#sec-33" onclick="showPage(33)">누가복음 14:25-15</a></li><li><a href="#sec-34" onclick="showPage(34)">누가복음 15:11-32</a></li><li><a href="#sec-35" onclick="showPage(35)">누가복음 16:1-18</a></li><li><a href="#sec-36" onclick="showPage(36)">누가복음 16:19-31</a></li><li><a href="#sec-37" onclick="showPage(37)">누가복음 17:1-19</a></li><li><a href="#sec-38" onclick="showPage(38)">누가복음 17:20-37</a></li><li><a href="#sec-39" onclick="showPage(39)">누가복음 18:1-17</a></li><li><a href="#sec-40" onclick="showPage(40)">누가복음 18:18-43</a></li><li><a href="#sec-41" onclick="showPage(41)">누가복음 19:1-27</a></li><li><a href="#sec-42" onclick="showPage(42)">누가복음 19:28-48</a></li><li><a href="#sec-43" onclick="showPage(43)">누가복음 20:1-26</a></li><li><a href="#sec-44" onclick="showPage(44)">누가복음 20:27-21</a></li><li><a href="#sec-45" onclick="showPage(45)">누가복음 21:5-38</a></li><li><a href="#sec-46" onclick="showPage(46)">누가복음 22:1-23</a></li><li><a href="#sec-47" onclick="showPage(47)">누가복음 22:24-38</a></li><li><a href="#sec-48" onclick="showPage(48)">누가복음 22:39-53</a></li><li><a href="#sec-49" onclick="showPage(49)">누가복음 22:54-71</a></li><li><a href="#sec-50" onclick="showPage(50)">누가복음 23:1-25</a></li><li><a href="#sec-51" onclick="showPage(51)">누가복음 23:26-56</a></li><li><a href="#sec-52" onclick="showPage(52)">누가복음 24:1-35</a></li><li><a href="#sec-53" onclick="showPage(53)">누가복음 24:36-53</a></li>
-            </ul>
-        </aside>
-        <main class="content-area">
-            <div class="doc-header">
-                <h1>누가복음 해설서 합본</h1>
-                <div class="meta">
-                    <span>저자: 박기성, Th. D. in Min.</span>
-                    <span>수록: 52개 본문 단위 · 총 54개 섹션</span>
-                </div>
-            </div>
-            <div id="cardsContainer">
-                
-    <section class="commentary-card" id="sec-0" data-index="0" data-title="누가복음 해설서 목차">
-        <div class="card-header">
-            <span class="badge">누가복음 해설서 목차</span>
-            <span class="badge-sub">00_누가복음_해설서목차.md</span>
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>누가복음 해설서</h2>
+            <p>총론 및 52개 본문 해설 통합 목차</p>
         </div>
-        <div class="card-body">
-            <h1>00_누가복음_해설서목차</h1>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="목차 검색..." onkeyup="filterMenu()">
+        </div>
+        <ul class="sidebar-menu" id="menuList">
+            <li><a href="#sec-0" onclick="showPage(0)">누가복음 해설서 목차</a></li><li><a href="#sec-1" onclick="showPage(1)">누가복음 총론: 누가복음을 읽는 법</a></li><li><a href="#sec-2" onclick="showPage(2)">누가복음 1:1-25</a></li><li><a href="#sec-3" onclick="showPage(3)">누가복음 1:26-56</a></li><li><a href="#sec-4" onclick="showPage(4)">누가복음 1:57-80</a></li><li><a href="#sec-5" onclick="showPage(5)">누가복음 2:1-21</a></li><li><a href="#sec-6" onclick="showPage(6)">누가복음 2:22-52</a></li><li><a href="#sec-7" onclick="showPage(7)">누가복음 3:1-20</a></li><li><a href="#sec-8" onclick="showPage(8)">누가복음 3:21-38</a></li><li><a href="#sec-9" onclick="showPage(9)">누가복음 4:1-13</a></li><li><a href="#sec-10" onclick="showPage(10)">누가복음 4:14-44</a></li><li><a href="#sec-11" onclick="showPage(11)">누가복음 5:1-26</a></li><li><a href="#sec-12" onclick="showPage(12)">누가복음 5:27-39</a></li><li><a href="#sec-13" onclick="showPage(13)">누가복음 6:1-16</a></li><li><a href="#sec-14" onclick="showPage(14)">누가복음 6:17-49</a></li><li><a href="#sec-15" onclick="showPage(15)">누가복음 7:1-23</a></li><li><a href="#sec-16" onclick="showPage(16)">누가복음 7:24-50</a></li><li><a href="#sec-17" onclick="showPage(17)">누가복음 8:1-21</a></li><li><a href="#sec-18" onclick="showPage(18)">누가복음 8:22-39</a></li><li><a href="#sec-19" onclick="showPage(19)">누가복음 8:40-56</a></li><li><a href="#sec-20" onclick="showPage(20)">누가복음 9:1-17</a></li><li><a href="#sec-21" onclick="showPage(21)">누가복음 9:18-36</a></li><li><a href="#sec-22" onclick="showPage(22)">누가복음 9:37-50</a></li><li><a href="#sec-23" onclick="showPage(23)">누가복음 9:51-10</a></li><li><a href="#sec-24" onclick="showPage(24)">누가복음 10:25-42</a></li><li><a href="#sec-25" onclick="showPage(25)">누가복음 11:1-28</a></li><li><a href="#sec-26" onclick="showPage(26)">누가복음 11:29-54</a></li><li><a href="#sec-27" onclick="showPage(27)">누가복음 12:1-21</a></li><li><a href="#sec-28" onclick="showPage(28)">누가복음 12:22-40</a></li><li><a href="#sec-29" onclick="showPage(29)">누가복음 12:41-59</a></li><li><a href="#sec-30" onclick="showPage(30)">누가복음 13:1-21</a></li><li><a href="#sec-31" onclick="showPage(31)">누가복음 13:22-35</a></li><li><a href="#sec-32" onclick="showPage(32)">누가복음 14:1-24</a></li><li><a href="#sec-33" onclick="showPage(33)">누가복음 14:25-15</a></li><li><a href="#sec-34" onclick="showPage(34)">누가복음 15:11-32</a></li><li><a href="#sec-35" onclick="showPage(35)">누가복음 16:1-18</a></li><li><a href="#sec-36" onclick="showPage(36)">누가복음 16:19-31</a></li><li><a href="#sec-37" onclick="showPage(37)">누가복음 17:1-19</a></li><li><a href="#sec-38" onclick="showPage(38)">누가복음 17:20-37</a></li><li><a href="#sec-39" onclick="showPage(39)">누가복음 18:1-17</a></li><li><a href="#sec-40" onclick="showPage(40)">누가복음 18:18-43</a></li><li><a href="#sec-41" onclick="showPage(41)">누가복음 19:1-27</a></li><li><a href="#sec-42" onclick="showPage(42)">누가복음 19:28-48</a></li><li><a href="#sec-43" onclick="showPage(43)">누가복음 20:1-26</a></li><li><a href="#sec-44" onclick="showPage(44)">누가복음 20:27-21</a></li><li><a href="#sec-45" onclick="showPage(45)">누가복음 21:5-38</a></li><li><a href="#sec-46" onclick="showPage(46)">누가복음 22:1-23</a></li><li><a href="#sec-47" onclick="showPage(47)">누가복음 22:24-38</a></li><li><a href="#sec-48" onclick="showPage(48)">누가복음 22:39-53</a></li><li><a href="#sec-49" onclick="showPage(49)">누가복음 22:54-71</a></li><li><a href="#sec-50" onclick="showPage(50)">누가복음 23:1-25</a></li><li><a href="#sec-51" onclick="showPage(51)">누가복음 23:26-56</a></li><li><a href="#sec-52" onclick="showPage(52)">누가복음 24:1-35</a></li><li><a href="#sec-53" onclick="showPage(53)">누가복음 24:36-53</a></li>
+        </ul>
+    </div>
+    
+    <div id="main-container">
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <button id="menu-toggle" onclick="toggleSidebar()">목차</button>
+                <div class="top-title" id="currentSectionTitle">누가복음 해설서</div>
+            </div>
+            <div class="top-bar-right">
+                <button class="btn-ctrl" onclick="changeFontSize(-1)">가-</button>
+                <button class="btn-ctrl" onclick="changeFontSize(1)">가+</button>
+                <button class="btn-ctrl" onclick="toggleTheme()">테마</button>
+                <button class="btn-ctrl" onclick="copyCurrentPage()">본문 복사</button>
+            </div>
+        </div>
+        
+        <div class="content-area">
+            
+    <article class="book-page" id="sec-0" data-index="0" data-file-item="누가복음 해설서 목차">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 해설서 목차</span>
+        </div>
+        <h1>00_누가복음_해설서목차</h1>
 <h2>문서이력관리</h2>
 <table>
 <thead>
@@ -631,16 +823,14 @@
 <li>전체 <strong>53편 · 855,053자</strong></li>
 <li>본문 해설 한 편당 <strong>14,829~18,535자</strong> (중간값 15,967자)</li>
 </ul>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-1" data-index="1" data-title="누가복음 총론: 누가복음을 읽는 법">
-        <div class="card-header">
-            <span class="badge">누가복음 총론: 누가복음을 읽는 법</span>
-            <span class="badge-sub">00_해설서_총론_누가복음을읽는법.md</span>
+    <article class="book-page" id="sec-1" data-index="1" data-file-item="누가복음 총론: 누가복음을 읽는 법">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 총론: 누가복음을 읽는 법</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음을 읽는 법</h1>
+        <h1>누가복음을 읽는 법</h1>
 <h2>총론 — 쉰두 단락으로 들어가기 전에</h2>
 <h2>첫 장에서 제일 먼저 걸리는 자리</h2>
 <p>성경을 펴고 누가복음을 처음부터 읽어 봅니다. 1절, 2절, 3절, 4절. 한글 성경은 이 넷을 각각 한 문장처럼 끊어 놓았습니다. 그런데 네 절을 다 읽고 나서도 무슨 말을 한 것인지 손에 잡히지 않습니다. 많은 사람이 무엇을 했다고 하고, 누군가가 무엇을 전했다고 하고, 나도 무엇을 하겠다고 하고, 당신이 무엇을 알게 하려 한다고 합니다. 주인이 되는 말이 어느 것인지 모르겠습니다.</p>
@@ -1095,16 +1285,14 @@
 <p>다만 설교를 듣고 그 본문을 더 보고 싶으시거나 성경 공부에서 맡은 자리가 있으시다면, 위의 지도에서 해당 장절을 찾아 그 단락만 읽으셔도 됩니다. 각 편의 첫 토막인 「이 단락이 서 있는 자리」가 앞뒤 흐름을 짧게 알려 주도록 썼습니다. 다른 단락의 주제가 지나가듯 언급될 때는 그 단락의 번호를 알려 드립니다.</p>
 <p>여럿이 함께 읽으신다면 「함께 생각할 질문 다섯」을 쓰시면 됩니다. 이 질문들은 서로의 사정을 캐묻는 질문이 아니라 <strong>본문을 향한 질문</strong>으로 만들었습니다. 답이 본문 안에 있는 것도 있고, 본문이 답을 주지 않는다는 것이 답인 것도 있습니다.</p>
 <p>마지막으로 한 가지만 부탁드립니다. 이 해설서가 본문을 대신하지 않습니다. 각 단락을 열기 전에 <strong>성경을 먼저 한 번 읽으십시오.</strong> 해설이 하는 일은 당신이 이미 읽은 것을 다시 보게 하는 것입니다. 이 책의 첫 문장이 말한 그대로입니다 — 이미 가르침 받은 말들에 대하여 그 확실한 것을 알게 되는 일.</p>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-2" data-index="2" data-title="누가복음 1:1-25">
-        <div class="card-header">
-            <span class="badge">누가복음 1:1-25</span>
-            <span class="badge-sub">01_해설서_누가복음_1_1-25.md</span>
+    <article class="book-page" id="sec-2" data-index="2" data-file-item="누가복음 1:1-25">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 1:1-25</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 1:1-25</h1>
+        <h1>누가복음 1:1-25</h1>
 <h2>끝에 와서야 발음되는 낱말 — 확실하게 하려고 쓴 책이 믿지 못한 사람으로 시작합니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>이 스물다섯 절 앞에는 아무것도 없습니다. 앞 장의 흐름을 이어받는 자리가 아니라, 앞이 비어 있는 자리입니다. 그래서 이 단락을 읽을 때 우리가 할 수 있는 일은 하나뿐입니다. 뒤를 미리 끌어오지 않고, 본문이 놓은 순서대로 따라가는 것입니다.</p>
@@ -1239,16 +1427,14 @@
 <p>6절은 두 사람을 "흠이 없이 행하더라"로 적고 20절은 그중 한 사람을 "내 말을 믿지 아니함"으로 판정합니다. 본문이 어느 쪽도 지우지 않은 이유를 어디서 찾을 수 있습니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-3" data-index="3" data-title="누가복음 1:26-56">
-        <div class="card-header">
-            <span class="badge">누가복음 1:26-56</span>
-            <span class="badge-sub">02_해설서_누가복음_1_26-56.md</span>
+    <article class="book-page" id="sec-3" data-index="3" data-file-item="누가복음 1:26-56">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 1:26-56</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 1:26-56</h1>
+        <h1>누가복음 1:26-56</h1>
 <h2>이름이 먼저 왔습니다 — 한 여종의 낮음에 두신 눈과 낮은 자들을 일으키는 손</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>앞 단락은 성전 안에서 끝났습니다. 늙은 제사장 하나가 향단 앞에서 천사를 만났고, 그 말을 믿지 못한 채 입을 잃고 집으로 돌아갔습니다(1:5-25). 이 단락은 바로 그 시간에 매여서 열립니다. 첫 구절이 「여섯째 달에」라고 적습니다. 앞 장면이 세기 시작한 달수를 그대로 이어받아 새 장면을 여는 것입니다.</p>
@@ -1355,16 +1541,14 @@
 <p>1:52-53은 이미 일어난 일로 적혀 있고 1:56은 한 사람이 집으로 돌아갔다고만 적습니다. 본문은 그 사이를 설명하지 않았습니다. 이 두 절을 함께 들고 있으려면 내가 무엇을 하지 않아야 하는지 말해 보십시오.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-4" data-index="4" data-title="누가복음 1:57-80">
-        <div class="card-header">
-            <span class="badge">누가복음 1:57-80</span>
-            <span class="badge-sub">03_해설서_누가복음_1_57-80.md</span>
+    <article class="book-page" id="sec-4" data-index="4" data-file-item="누가복음 1:57-80">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 1:57-80</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 1:57-80</h1>
+        <h1>누가복음 1:57-80</h1>
 <h2>이유가 적히지 않은 회복 — 원인이 적힌 자리는 다른 쪽입니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음은 첫 장에서 두 집의 이야기를 번갈아 적습니다. 1:5-25에서 늙은 제사장 사가랴가 성소에서 천사의 말을 듣고 말을 잃었고, 1:26-56에서는 장면이 나사렛과 유대 산골로 옮겨 가 마리아와 엘리사벳이 만납니다. 이 단락은 그 두 실을 다시 한자리에 모읍니다. 엘리사벳이 아들을 낳고(1:57), 여드레째 할례와 작명이 오고(1:59-63), 사가랴의 입이 열리고(1:64), 그 입에서 긴 노래가 나오고(1:67-79), 아이가 빈 들로 들어갑니다(1:80).</p>
@@ -1488,16 +1672,14 @@
 <p>1:71과 1:74는 "원수"를 말하면서 그 이름을 적지 않습니다. 본문이 비워 둔 그 칸에 내가 넣고 있던 이름이 있습니까. 본문이 적지 않은 자리를 비워 둔 채로 이 노래를 읽으면 무엇이 달라집니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-5" data-index="5" data-title="누가복음 2:1-21">
-        <div class="card-header">
-            <span class="badge">누가복음 2:1-21</span>
-            <span class="badge-sub">04_해설서_누가복음_2_1-21.md</span>
+    <article class="book-page" id="sec-5" data-index="5" data-file-item="누가복음 2:1-21">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 2:1-21</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 2:1-21</h1>
+        <h1>누가복음 2:1-21</h1>
 <h2>지목된 자리로 가 보니 — 표징은 손에 쥐는 물건이 아니었습니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음 1~2장은 두 아이의 잉태와 출생이 짝을 이루어 나란히 가는 대목입니다. 바로 앞 단락(1:57-80)은 요한 쪽 이야기를 마무리하면서 출생과 할례와 작명, 이 세 항목으로 닫혔습니다. 그리고 지금 읽는 단락도 <strong>같은 세 항목으로 닫힙니다</strong> — 아이가 나고(2:7), 여드레째에 할례를 받고, 이름이 불립니다(2:21). 두 단락이 같은 배열을 공유하고, 그 사이에서 이야기의 무게가 요한에게서 예수께로 옮겨 옵니다.</p>
@@ -1606,16 +1788,14 @@
 <p>17절의 목자들과 19절의 마리아는 같은 말을 각각 다르게 다룹니다. 본문은 둘 중 하나를 더 낫다고 적습니까? 적지 않는다면, 그 사실에서 무엇을 읽을 수 있습니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-6" data-index="6" data-title="누가복음 2:22-52">
-        <div class="card-header">
-            <span class="badge">누가복음 2:22-52</span>
-            <span class="badge-sub">05_해설서_누가복음_2_22-52.md</span>
+    <article class="book-page" id="sec-6" data-index="6" data-file-item="누가복음 2:22-52">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 2:22-52</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 2:22-52</h1>
+        <h1>누가복음 2:22-52</h1>
 <h2>두 팔에 안긴 구원 — 규정이 다 지켜진 자리에서 눈이 본 것</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞 단락(2:1-21)은 호적과 목자와 이름 지음으로 끝났습니다. 아기가 태어났고, 밤에 들에 있던 사람들이 찾아왔고, 여드레째에 이름이 붙었습니다. 그리고 이 단락에서 장소가 옮겨집니다. 베들레헴에서 예루살렘으로, 들에서 성전으로 올라갑니다.</p>
@@ -1747,16 +1927,14 @@
 <p>안나가 말을 건넨 사람들은 「기다리는 모든 이」였습니다. 본문이 그 상대를 그렇게 적어 둔 것이 오늘 당신에게 무엇을 말합니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-7" data-index="7" data-title="누가복음 3:1-20">
-        <div class="card-header">
-            <span class="badge">누가복음 3:1-20</span>
-            <span class="badge-sub">06_해설서_누가복음_3_1-20.md</span>
+    <article class="book-page" id="sec-7" data-index="7" data-file-item="누가복음 3:1-20">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 3:1-20</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 3:1-20</h1>
+        <h1>누가복음 3:1-20</h1>
 <h2>이름이 다 지나간 뒤에 오는 한 문장 — 권세의 연대는 사건의 날짜이고, 사건의 주어는 하나님의 말씀입니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음은 두 장 동안 아기들의 이야기를 했습니다. 늙은 제사장이 성전에서 말을 잃었고, 처녀가 수태를 알리는 말을 들었고, 아기가 구유에 눕혀졌고, 노인이 성전에서 그 아기를 품에 안았습니다. 2장 52절이 「예수는 지혜와 키가 자라가며」라는 성장 진술로 그 이야기를 덮습니다. 그러고 나서 3장 1절이 전혀 다른 문장을 엽니다.</p>
@@ -1860,16 +2038,14 @@
 <p>16절의 불과 17절의 불은 같은 낱말인데 하는 일이 다릅니다. 본문은 둘을 이어 주는 문장을 놓지 않았습니다. 그 둘을 나란히 둔 채로 읽을 때 이 단락은 어떻게 읽힙니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-8" data-index="8" data-title="누가복음 3:21-38">
-        <div class="card-header">
-            <span class="badge">누가복음 3:21-38</span>
-            <span class="badge-sub">07_해설서_누가복음_3_21-38.md</span>
+    <article class="book-page" id="sec-8" data-index="8" data-file-item="누가복음 3:21-38">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 3:21-38</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 3:21-38</h1>
+        <h1>누가복음 3:21-38</h1>
 <h2>줄 안에서 불린 한 사람 — 하늘이 한 세 가지와 이름만 남은 열다섯 절</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞 단락(3:1-20)은 세례 요한의 이야기였고, 그 이야기는 요한이 옥에 갇히는 데서 닫혔습니다. 요한은 이미 무대에서 내려갔습니다. 그러니까 21절은 요한이 퇴장한 자리에서 시작합니다. 그리고 이 복음서가 처음으로 예수를 이야기의 초점에 놓습니다.</p>
@@ -1970,16 +2146,14 @@
 <li>긴 이름 목록에서 형식이 깨지는 자리는 몇 군데이고 어디입니까? 그 두 낱말을 지워 보면 한 절 앞의 문장과 어떻게 부딪칩니까?</li>
 <li>이 목록은 아브라함에서 멈추지 않습니다. 본문이 적은 마지막 두 칸은 무엇이며, 목록이 어디서 끝나는지가 무엇을 보여 줍니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-9" data-index="9" data-title="누가복음 4:1-13">
-        <div class="card-header">
-            <span class="badge">누가복음 4:1-13</span>
-            <span class="badge-sub">08_해설서_누가복음_4_1-13.md</span>
+    <article class="book-page" id="sec-9" data-index="9" data-file-item="누가복음 4:1-13">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 4:1-13</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 4:1-13</h1>
+        <h1>누가복음 4:1-13</h1>
 <h2>아들 됨은 흥정 항목에서 빠집니다 — 광야에서 갈린 것</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞에서 예수께서 요단에서 세례를 받으시고 하늘에서 울린 음성을 들으셨습니다(3:21-22). 그 뒤에는 이름의 사슬이 길게 이어졌습니다(3:23-38). 이 단락은 그 자리를 받아서 열립니다 — 「요단 강에서 돌아오사」. 앞 장면의 장소 이름이 첫 절에 다시 적히는 것으로 이음매가 드러납니다.</p>
@@ -2063,16 +2237,14 @@
 <li>4:9의 요구를 말한 입은 누구의 입입니까. 그리고 4:12의 답은 그 요구에 대해 무엇을 금지합니까.</li>
 <li>4:13은 「얼마 동안」으로 닫힙니다. 이 마지막 절이 선언하는 것과 선언하지 않는 것은 각각 무엇입니까.</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-10" data-index="10" data-title="누가복음 4:14-44">
-        <div class="card-header">
-            <span class="badge">누가복음 4:14-44</span>
-            <span class="badge-sub">09_해설서_누가복음_4_14-44.md</span>
+    <article class="book-page" id="sec-10" data-index="10" data-file-item="누가복음 4:14-44">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 4:14-44</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 4:14-44</h1>
+        <h1>누가복음 4:14-44</h1>
 <h2>덮인 두루마리 — 오늘 이루어진 것은 조항 목록이 아니라 한 분입니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞 단락은 광야의 시험이었고, 그 기사는 「돌아오셨다」로 닫힙니다. 이 단락은 그 돌아옴에서 시작합니다(4:14). 그리고 세 장면이 차례로 놓입니다. 갈릴리로 돌아와 여러 회당에서 가르치시는 장면(4:14-15), 자라신 나사렛의 회당 장면(4:16-30), 가버나움에서 보내시는 하루(4:31-44)입니다.</p>
@@ -2157,16 +2329,14 @@
 <li>본문은 4:19의 「받으심이 되는 해」와 4:24의 「받아들여지지 않는」을 한 낱말로 적었습니다. 본문이 둘을 한 낱말로 묶어 둔 것은 우리가 수용과 거절을 따로 두고 생각하는 방식에 무엇을 묻습니까?</li>
 <li>4:28에서 본문이 적은 상대는 「회당 안에서 모두가」까지입니다. 본문이 이렇게 좁게 적었는데도 사람들이 이 장면을 넓게 읽어 온 까닭은 무엇이고, 그 넓힘을 막아 주는 것을 본문 자체에서 어디서 찾을 수 있습니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-11" data-index="11" data-title="누가복음 5:1-26">
-        <div class="card-header">
-            <span class="badge">누가복음 5:1-26</span>
-            <span class="badge-sub">10_해설서_누가복음_5_1-26.md</span>
+    <article class="book-page" id="sec-11" data-index="11" data-file-item="누가복음 5:1-26">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 5:1-26</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 5:1-26</h1>
+        <h1>누가복음 5:1-26</h1>
 <h2>스승에서 주로 — 고백은 엎드림에 매달립니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>앞 장에서 예수는 회당에서 이사야의 글을 펴 읽고, 자기 고향에서 배척을 당하고, 가버나움에서 가르치며 병을 고쳤습니다. 거기까지는 그가 말하고 그가 움직이는 장면이 이어집니다. 사람들의 반응은 놀라움과 소문, 그리고 한 번의 살의였습니다. 그러나 아직 그를 따라나선 사람의 이름은 하나도 적히지 않았습니다.</p>
@@ -2241,16 +2411,14 @@
 <li>5:20은 「그들의 믿음」이라고 복수로 적습니다. 본문이 그 뒤에 적은 것과 적지 않은 것의 경계가 어디입니까.</li>
 <li>5:21이 세운 「오직 하나님 외에」라는 전제는 이 단락에서 철회되지 않습니다. 그 전제를 그대로 둔 채 5:24를 읽으면 무엇이 남습니까.</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-12" data-index="12" data-title="누가복음 5:27-39">
-        <div class="card-header">
-            <span class="badge">누가복음 5:27-39</span>
-            <span class="badge-sub">11_해설서_누가복음_5_27-39.md</span>
+    <article class="book-page" id="sec-12" data-index="12" data-file-item="누가복음 5:27-39">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 5:27-39</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 5:27-39</h1>
+        <h1>누가복음 5:27-39</h1>
 <h2>세관에 앉은 채로 불린 사람 — 그리고 담화를 닫은 마지막 한 문장</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음 5장은 사람을 부르는 장면과 사람을 고치는 장면이 번갈아 나오는 대목입니다. 그 흐름의 끝자리에 이 열세 절이 놓입니다. 시작은 한 사람을 향한 한 마디이고, 끝은 포도주를 두고 하는 격언 한 줄입니다. 그 사이에 잔치가 한 번 차려지고, 항의가 두 번 들어오고, 비유가 한 번 열려 세 장면이 이어집니다.</p>
@@ -2342,16 +2510,14 @@
 <li>33절과 34절을 나란히 읽으면 예수의 대답은 무엇에 걸려 있습니까? 「선생이 함께 계시니」로는 왜 성립하지 않습니까? 그리고 35절은 금식을 없애는 쪽입니까, 옮기는 쪽입니까?</li>
 <li>36절과 37절은 손실을 몇 쪽에 적습니까? 그리고 담화의 마지막 자리에 39절을 둔 것을 본문은 어떻게 처리했습니까? 38절에서 멈추고 읽을 때와 39절까지 읽을 때 이 단락의 결론은 어떻게 달라집니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-13" data-index="13" data-title="누가복음 6:1-16">
-        <div class="card-header">
-            <span class="badge">누가복음 6:1-16</span>
-            <span class="badge-sub">12_해설서_누가복음_6_1-16.md</span>
+    <article class="book-page" id="sec-13" data-index="13" data-file-item="누가복음 6:1-16">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 6:1-16</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 6:1-16</h1>
+        <h1>누가복음 6:1-16</h1>
 <h2>안식일의 주인이 밤을 기도로 지내십니다 — 세 번 열리는 단락과 명단의 마지막 낱말</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>앞의 5장은 권위에 관한 물음을 차곡차곡 쌓아 왔습니다. 죄를 사하는 권세를 두고 다툼이 일었고, 금식을 두고도 다툼이 일었습니다. 누가 그렇게 말할 자격이 있느냐는 물음이 가라앉지 않은 채로 6장이 열립니다. 그리고 그 물음이 이제 <strong>안식일</strong>이라는 가장 단단한 제도와 정면으로 만납니다.</p>
@@ -2467,16 +2633,14 @@
 <p>6:12의 밤과 6:16의 마지막 낱말 사이에 「그러므로」가 없습니다. 이 접속사가 없는 덕분에 본문이 지키고 있는 것은 무엇입니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-14" data-index="14" data-title="누가복음 6:17-49">
-        <div class="card-header">
-            <span class="badge">누가복음 6:17-49</span>
-            <span class="badge-sub">13_해설서_누가복음_6_17-49.md</span>
+    <article class="book-page" id="sec-14" data-index="14" data-file-item="누가복음 6:17-49">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 6:17-49</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 6:17-49</h1>
+        <h1>누가복음 6:17-49</h1>
 <h2>「그들」로 불리고 「너희」로 받습니다 — 말 받는 쪽이 열 번 바뀌는 서른세 절</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞에서 예수께서 산에 올라 밤을 지내며 기도하시고 열둘을 택하셨습니다(6:12-16). 그리고 6:17에서 <strong>듣는 사람이 달라집니다.</strong> 그가 그들과 함께 내려와 평지에 서시는데, 그 자리에 모인 것은 열둘이 아닙니다. 본문은 두 무리를 따로 적습니다 — 「그의 제자의 많은 무리」와 「백성의 큰 떼」입니다. 그리고 그들이 온 곳을 지명으로 적습니다. 유대 온 땅과 예루살렘, 그리고 두로와 시돈의 해변입니다. 열둘을 고르던 좁은 자리에서 사방에서 몰려온 넓은 자리로 판이 바뀐 것, 그것이 이 담화의 경계입니다.</p>
@@ -2606,16 +2770,14 @@
 <p>6:48과 6:49에 「강이 부딪쳤다」가 똑같이 적혀 있습니다. 본문에 강을 피하는 법이 없다는 사실은 이 비유를 듣는 방식에 무엇을 요구합니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-15" data-index="15" data-title="누가복음 7:1-23">
-        <div class="card-header">
-            <span class="badge">누가복음 7:1-23</span>
-            <span class="badge-sub">14_해설서_누가복음_7_1-23.md</span>
+    <article class="book-page" id="sec-15" data-index="15" data-file-item="누가복음 7:1-23">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 7:1-23</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 7:1-23</h1>
+        <h1>누가복음 7:1-23</h1>
 <h2>자기를 「아래 놓인 사람」이라고 적은 사람 — 그리고 근거를 대지 않은 한마디</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>7:1은 끝맺는 문장으로 열립니다. 「예수께서 이 모든 말씀을 백성에게 들려 주시기를 마치신 후에.」 앞 장에서 평지에 서서 길게 가르치신 말씀이 여기서 닫히고, 본문은 그 말이 들어간 자리를 적습니다 — 백성의 귀입니다. 그리고 가버나움으로 들어가십니다. 말씀이 끝난 자리에서 이 단락이 시작됩니다.</p>
@@ -2743,16 +2905,14 @@
 <p>요한은 「이 모든 일」을 전해 들은 뒤에 물었고, 답으로 그가 이미 들은 목록을 돌려받았습니다. 그 목록 끝에 붙은 7:23은 복의 조건을 어디에 걸고 있습니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-16" data-index="16" data-title="누가복음 7:24-50">
-        <div class="card-header">
-            <span class="badge">누가복음 7:24-50</span>
-            <span class="badge-sub">15_해설서_누가복음_7_24-50.md</span>
+    <article class="book-page" id="sec-16" data-index="16" data-file-item="누가복음 7:24-50">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 7:24-50</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 7:24-50</h1>
+        <h1>누가복음 7:24-50</h1>
 <h2>옳다 하는 입과 옳다 함을 받는 지혜 — 값을 다 센 뒤에 터진 선포</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>이 단락은 사람들이 떠난 뒤에 열립니다. 7:24의 첫 어구가 「요한의 보낸 자들이 떠난 뒤에」입니다. 앞 단락에서 요한이 보낸 사람들이 와서 물었고, 예수님이 그 물음에 답하셨습니다. 그 사람들이 돌아간 다음에, 남은 무리를 향해 요한에 관한 말씀이 시작됩니다. 곧 요한을 두고 가장 높은 평가가 나오는 자리는 요한의 사람들이 자리에 없을 때입니다. 본문은 그 순서를 분명하게 적어 두고 시작합니다.</p>
@@ -2845,16 +3005,14 @@
 <p>7:49의 물음에 본문은 답을 적지 않고 7:50에서 여자에게 돌아섭니다. 답이 적히지 않은 그 물음을 본문은 왜 지우지 않고 남겨 두었다고 보십니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-17" data-index="17" data-title="누가복음 8:1-21">
-        <div class="card-header">
-            <span class="badge">누가복음 8:1-21</span>
-            <span class="badge-sub">16_해설서_누가복음_8_1-21.md</span>
+    <article class="book-page" id="sec-17" data-index="17" data-file-item="누가복음 8:1-21">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 8:1-21</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 8:1-21</h1>
+        <h1>누가복음 8:1-21</h1>
 <h2>있던 것에서 난 섬김, 네 자리에 뿌려진 씨 — 한 단락이 두 번 내린 「하나님의 말씀」</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞 장면(7:36-50)에 한 여자가 나왔는데 그 여자에게는 이름이 적히지 않았습니다. 그리고 8장이 열리면서 이 책은 이름 셋을 적습니다 — 마리아, 요안나, 수산나. 이름 없이 지나간 자리 다음에 이름이 적힌 자리가 옵니다.</p>
@@ -2967,16 +3125,14 @@
 <p>8:21에는 명령문이 없고 「~은 ~이다」 문장만 있습니다. 그 문장이 8:19-20에 적힌 사실을 어떻게 다루고 있습니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-18" data-index="18" data-title="누가복음 8:22-39">
-        <div class="card-header">
-            <span class="badge">누가복음 8:22-39</span>
-            <span class="badge-sub">17_해설서_누가복음_8_22-39.md</span>
+    <article class="book-page" id="sec-18" data-index="18" data-file-item="누가복음 8:22-39">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 8:22-39</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 8:22-39</h1>
+        <h1>누가복음 8:22-39</h1>
 <h2>잔잔해진 다음에 묻습니다 — 같은 두려움이 물음으로도 가고 축출로도 가는 자리</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞 단락은 듣는 일을 다루었습니다. 씨를 뿌리는 이야기와 등불 이야기, 그리고 어머니와 형제들이 찾아온 장면이 잇달아 나오면서, 말씀을 어떻게 듣는가가 계속 물어졌습니다. 그 끝에서 예수께서는 「내 어머니와 내 형제는 하나님의 말씀을 듣고 행하는 이 사람들이다」라고 하셨습니다.</p>
@@ -3090,16 +3246,14 @@
 <p>8:39의 두 문장에서 「하신」이라는 동사의 꼴은 같고 주어는 다릅니다. 앞 문장에서 그 주어를 지정한 분은 누구이고, 뒤 문장의 주어를 적은 손은 누구의 손입니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-19" data-index="19" data-title="누가복음 8:40-56">
-        <div class="card-header">
-            <span class="badge">누가복음 8:40-56</span>
-            <span class="badge-sub">18_해설서_누가복음_8_40-56.md</span>
+    <article class="book-page" id="sec-19" data-index="19" data-file-item="누가복음 8:40-56">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 8:40-56</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 8:40-56</h1>
+        <h1>누가복음 8:40-56</h1>
 <h2>죽었다는 말보다 먼저 발음된 말 — 고침의 낱말과 구원의 낱말</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞 단락에서 예수는 물결과 바람을 꾸짖으셨고, 호수 건너편에서 한 사람에게서 귀신을 내보내셨습니다. 그 지역 사람들은 떠나 달라고 청했고, 예수는 배를 타고 돌아오십니다. 그 돌아오는 장면이 이 단락의 첫 절입니다. 앞 단락이 바다와 귀신 위의 권한을 다루었다면, 이 단락은 몸의 병과 죽음 위의 권한을 다룹니다. 다루는 대상이 바뀌면서 장면의 공간도 바뀝니다. 앞에서는 배와 무덤과 산기슭이었고, 여기서는 사람이 빽빽한 길과 한 집의 안방입니다.</p>
@@ -3249,16 +3403,14 @@
 <p>8:53의 비웃음이 소녀가 일어난 뒤에도 본문에 남아 있다는 것은 이 단락의 끝을 어떻게 만듭니까. 그 구절이 지워졌다면 무엇이 달라졌겠습니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-20" data-index="20" data-title="누가복음 9:1-17">
-        <div class="card-header">
-            <span class="badge">누가복음 9:1-17</span>
-            <span class="badge-sub">19_해설서_누가복음_9_1-17.md</span>
+    <article class="book-page" id="sec-20" data-index="20" data-file-item="누가복음 9:1-17">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 9:1-17</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 9:1-17</h1>
+        <h1>누가복음 9:1-17</h1>
 <h2>아무것도 지지 말라 하신 입이 너희가 주라 하신다 — 주는 손이 한 번 바뀌었다가 되돌아옵니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>갈릴리에서 벌어진 일들이 한 고비에 이른 자리입니다. 바로 앞까지 예수께서 하신 일은 그분 혼자 하신 일이었습니다. 이제 9:1에서 열둘이 불려 모이고, 그분이 하시던 일 가운데 일부가 그들의 손에 건네집니다. 그리고 이 단락이 끝난 바로 뒤 9:18에서는 "너희는 나를 누구라 하느냐"는 물음이 제자들에게 떨어지고, 거기서부터 이 책은 예루살렘으로 향하는 긴 여행으로 접어듭니다. 그러니 9:1-17은 <strong>일이 제자들에게 넘어가는 자리</strong>이면서 <strong>그분이 누구신지를 묻는 물음이 세워지기 직전의 자리</strong>입니다.</p>
@@ -3452,16 +3604,14 @@
 <li>9:16에서 본문이 적은 동작을 순서대로 써 보십시오. 그리고 본문이 <strong>적지 않은 것</strong>을 한 가지 찾아보십시오.</li>
 <li>9:3의 "지고 가지 말라"와 9:17의 "들려졌다"는 본디 한 낱말입니다. 두 자리에서 그 낱말이 받는 목적어와 주어는 각각 무엇입니까? 9:17은 들어 올린 사람을 적었습니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-21" data-index="21" data-title="누가복음 9:18-36">
-        <div class="card-header">
-            <span class="badge">누가복음 9:18-36</span>
-            <span class="badge-sub">20_해설서_누가복음_9_18-36.md</span>
+    <article class="book-page" id="sec-21" data-index="21" data-file-item="누가복음 9:18-36">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 9:18-36</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 9:18-36</h1>
+        <h1>누가복음 9:18-36</h1>
 <h2>영광 속에서 오간 말 — 떠남을 적은 손과 들으라는 명령</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>갈릴리에서 이어져 온 일들이 여기서 한 묶음으로 마무리됩니다. 바로 앞에서 오천 명이 먹었고(9:10-17), 그 뒤를 잇는 것은 또 하나의 기적이 아니라 하나의 물음입니다. 예수께서 홀로 기도하시는 자리에서 그 물음이 나옵니다. 그리고 이 단락 뒤로는 귀신 들린 아이의 일(9:37-43)과 두 번째 수난 예고(9:43-45)가 오고, 이윽고 예루살렘을 향한 긴 여행이 열립니다(9:51). 그 여행의 문턱 앞에 놓인 열아홉 절이 바로 이 단락입니다.</p>
@@ -3554,16 +3704,14 @@
 <p>9:35의 소리는 지목과 명령을 한 문장에 담았습니다. 그 명령이 요구하는 내용을 이 단락 안에서 찾으면 어디입니까. 그리고 그 명령을 받고 내려온 사람들이 9:36에서 한 일은 무엇입니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-22" data-index="22" data-title="누가복음 9:37-50">
-        <div class="card-header">
-            <span class="badge">누가복음 9:37-50</span>
-            <span class="badge-sub">21_해설서_누가복음_9_37-50.md</span>
+    <article class="book-page" id="sec-22" data-index="22" data-file-item="누가복음 9:37-50">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 9:37-50</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 9:37-50</h1>
+        <h1>누가복음 9:37-50</h1>
 <h2>본문은 가린 이를 대지 않습니다 — 뒤틀림과 넘겨짐과 가려짐에 이름이 적히지 않은 자리</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>산에서 내려오는 길에서 시작합니다. 9:37의 첫 어구가 <code>κατελθόντων αὐτῶν ἀπὸ τοῦ ὄρους</code>(카텔톤톤 아우톤 아포 투 오루스), 그들이 산에서 내려왔을 때입니다. 산 위에서 있었던 일은 그 장의 해설이 다룹니다. 그리고 이 열네 절이 끝난 바로 뒤 9:51에서 이 책은 예루살렘을 향하는 긴 여행으로 접어듭니다. 그러니 9:37-50은 <strong>갈릴리에서 벌어진 일들의 마지막 묶음</strong>이고, 긴 여행이 시작되기 직전에 놓인 자리입니다.</p>
@@ -3759,16 +3907,14 @@
 <p>9:40에서는 명부 안의 사람들이 그 이름으로도 하지 못했고, 9:49에서는 명부 밖의 사람이 그 이름으로 했습니다. 본문은 두 장면을 이어 주는 설명을 쓰지 않았습니다. 9:50의 금지가 멈추라고 한 <strong>손</strong>은 누구의 손입니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-23" data-index="23" data-title="누가복음 9:51-10">
-        <div class="card-header">
-            <span class="badge">누가복음 9:51-10</span>
-            <span class="badge-sub">22_해설서_누가복음_9_51-10_24.md</span>
+    <article class="book-page" id="sec-23" data-index="23" data-file-item="누가복음 9:51-10">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 9:51-10</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 9:51-10:24</h1>
+        <h1>누가복음 9:51-10:24</h1>
 <h2>보내심과 거절이 한 길 위에 있다 — 사자의 말에 무게가 실리는 자리</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음을 처음부터 읽어 오던 사람은 9장 51절에서 책의 결이 바뀌는 것을 느낍니다. 그 앞까지는 갈릴리의 호수와 마을과 회당이 무대였습니다. 그런데 이 절에서 목적지가 하나로 좁혀지고, 그 뒤로 아주 긴 길이 열립니다. 예루살렘까지 가는 그 길이 이 책에서 열 장 가까이 이어집니다.</p>
@@ -3885,16 +4031,14 @@
 <p>10:20은 기쁨을 거두지 않고 기쁨이 걸릴 데만 옮깁니다. 본문이 기쁨 자체를 금하지 않았다는 사실이, 성과가 사라진 날에 무엇을 남겨 줍니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-24" data-index="24" data-title="누가복음 10:25-42">
-        <div class="card-header">
-            <span class="badge">누가복음 10:25-42</span>
-            <span class="badge-sub">23_해설서_누가복음_10_25-42.md</span>
+    <article class="book-page" id="sec-24" data-index="24" data-file-item="누가복음 10:25-42">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 10:25-42</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 10:25-42</h1>
+        <h1>누가복음 10:25-42</h1>
 <h2>누가 이웃이 되었느냐 — 범위를 물은 입이 판정을 되돌려 받고, 청한 말 대신 떼어지지 않을 몫이 옵니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>예루살렘을 향해 길을 가는 중간입니다. 10:25는 "그런데 보라" 하는 식으로 불쑥 열리고, 10:38은 "그들이 길을 가고 있을 때"라는 말로 앞 장면에 이어 붙습니다. 그러니까 이 열여덟 절은 <strong>같은 걸음 안에서 잇달아 일어난 두 장면</strong>입니다. 한 사람이 길에서 일어나 말을 걸어온 일과, 어느 마을에 들어가 한 집에 머문 일입니다.</p>
@@ -4044,16 +4188,14 @@
 <li>10:37b의 "이와 같이"는 이 단락에서 10:32에도 나옵니다. 두 자리에서 그 부사가 가리키는 것은 각각 무엇입니까? 이 부사가 척도를 정해 줍니까?</li>
 <li>10:25의 "얻으리이까"와 10:42의 "빼앗기지 아니하리라"를 나란히 적어 보십시오. 앞의 것에는 무엇이 붙어 있고, 뒤의 것에는 무엇이 붙어 있습니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-25" data-index="25" data-title="누가복음 11:1-28">
-        <div class="card-header">
-            <span class="badge">누가복음 11:1-28</span>
-            <span class="badge-sub">24_해설서_누가복음_11_1-28.md</span>
+    <article class="book-page" id="sec-25" data-index="25" data-file-item="누가복음 11:1-28">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 11:1-28</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 11:1-28</h1>
+        <h1>누가복음 11:1-28</h1>
 <h2>구하라 하신 그 나라가 이미 이르렀다 — 손가락 하나로 갈린 자리</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음 9장 51절에서 예수께서 예루살렘을 향해 길을 잡으셨습니다. 그 뒤로 이어지는 긴 여행 기록 안에 이 단락이 놓입니다. 바로 앞에서는 마르다의 집에서 한 상이 차려졌고, 바로 뒤에서는 요나의 표적이 화제가 됩니다. 그 사이에 기도를 가르치는 장면과 귀신을 쫓는 장면이 붙어 있습니다.</p>
@@ -4141,16 +4283,14 @@
 <p>27절의 여자는 몸 둘을 들어 복을 말하고 28절은 복의 대상을 바꿉니다. 본문은 그 바꿈의 이유를 적었습니까. 그리고 21절과 28절에 두 번 나오는 「지키다」의 목적어는 각각 무엇입니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-26" data-index="26" data-title="누가복음 11:29-54">
-        <div class="card-header">
-            <span class="badge">누가복음 11:29-54</span>
-            <span class="badge-sub">25_해설서_누가복음_11_29-54.md</span>
+    <article class="book-page" id="sec-26" data-index="26" data-file-item="누가복음 11:29-54">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 11:29-54</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 11:29-54</h1>
+        <h1>누가복음 11:29-54</h1>
 <h2>주께서 이르시되 — 이름은 확정하고 뜻은 열어 두는 본문</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음은 9:51에서 예루살렘을 향한 긴 여행을 열었고, 그 여행길 위에 말씀 묶음들을 차례로 놓습니다. 바로 앞 11:14-28에서는 귀신을 쫓아낸 일을 두고 논쟁이 벌어졌고, 한 여자가 「당신을 낳은 배가 복이 있다」고 외친 짧은 삽화가 그 끝에 붙었습니다. 그 뒤를 이 단락이 받습니다.</p>
@@ -4248,16 +4388,14 @@
 <p>11:33의 등불은 들어오는 사람들이 보게 하려고 놓이고, 11:52의 열쇠는 들어가려는 사람들이 못 들어가게 치워집니다. 두 절 사이에 열아홉 절이 있습니다. 본문은 이 어긋남을 어디서부터 적기 시작합니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-27" data-index="27" data-title="누가복음 12:1-21">
-        <div class="card-header">
-            <span class="badge">누가복음 12:1-21</span>
-            <span class="badge-sub">26_해설서_누가복음_12_1-21.md</span>
+    <article class="book-page" id="sec-27" data-index="27" data-file-item="누가복음 12:1-21">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 12:1-21</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 12:1-21</h1>
+        <h1>누가복음 12:1-21</h1>
 <h2>자기에게만 한 말에 응답이 온다 — 감추인 말과 두려워할 대상과 그 밤</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>예수께서 예루살렘을 향해 올라가시는 길(9:51 이후)에 놓인 말씀 묶음입니다. 바로 앞에서는 한 식탁 자리가 논쟁으로 끝났습니다. 바리새인과 율법 선생들을 향한 책망이 길게 이어졌고(11:37-54), 그 책망의 대상이 12:1에서 한 번 더 호명됩니다 — 「바리새인들의 누룩」입니다. 그러니 이 담화는 새 주제로 넘어가는 자리가 아니라, 앞 장면에서 들린 말이 이제 청중을 바꾸어 다시 울리는 자리입니다.</p>
@@ -4392,16 +4530,14 @@
 <p>12:16에서 많이 낸 주어는 누구입니까. 12:17에서 그 사람이 따진 자리는 어디입니까. 두 사실을 함께 보면 12:21의 「자기를 위하여」는 무엇을 가리킵니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-28" data-index="28" data-title="누가복음 12:22-40">
-        <div class="card-header">
-            <span class="badge">누가복음 12:22-40</span>
-            <span class="badge-sub">27_해설서_누가복음_12_22-40.md</span>
+    <article class="book-page" id="sec-28" data-index="28" data-file-item="누가복음 12:22-40">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 12:22-40</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 12:22-40</h1>
+        <h1>누가복음 12:22-40</h1>
 <h2>명령보다 먼저 놓인 진술 — 염려하지 말라에서 허리를 동이라까지</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음은 9장 51절부터 예루살렘을 향해 올라가는 긴 여행 기록으로 들어가고, 그 길에서 하신 말씀들이 묶음으로 이어집니다. 이 열아홉 절은 그 묶음 가운데 하나입니다.</p>
@@ -4520,16 +4656,14 @@
 <li>31절과 33절 사이에 본문은 순서를 두지 않았습니다. 그 둘을 나란히 둔 채로 읽으면 무엇이 남습니까.</li>
 <li>35절의 명령이 붙은 주어는 누구이고, 37절에서 같은 낱말이 다시 나올 때 띠를 당기는 쪽은 누구입니까.</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-29" data-index="29" data-title="누가복음 12:41-59">
-        <div class="card-header">
-            <span class="badge">누가복음 12:41-59</span>
-            <span class="badge-sub">28_해설서_누가복음_12_41-59.md</span>
+    <article class="book-page" id="sec-29" data-index="29" data-file-item="누가복음 12:41-59">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 12:41-59</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 12:41-59</h1>
+        <h1>누가복음 12:41-59</h1>
 <h2>갈리는 것은 분량이다 — 같은 동사 두 번과 그 옆의 한 낱말</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞에서 예수님은 허리를 매고 등불을 켜고 깨어 기다리라고 하셨습니다(12:35-40). 그 준비 담화가 닫히는 순간 베드로가 끼어듭니다. "주께서 이 비유를 우리에게 하심이니이까 모든 사람에게 하심이니이까"(12:41). 질문은 내용이 아니라 <strong>수신자</strong>를 묻습니다. 이 말씀이 우리 몫이냐, 저 사람들 몫이냐는 물음입니다.</p>
@@ -4618,16 +4752,14 @@
 <li>매의 분량을 매긴 바로 다음 절에서 말하는 이가 자기를 어떻게 적었습니까? 본문은 그 두 발화를 어떤 말로 이어 놓았습니까?</li>
 <li>이 열아홉 절에서 명령의 꼴로 주어진 말은 12:58 하나입니다. 그 하나가 무엇을 하라고 하며, 어디서 하라고 합니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-30" data-index="30" data-title="누가복음 13:1-21">
-        <div class="card-header">
-            <span class="badge">누가복음 13:1-21</span>
-            <span class="badge-sub">29_해설서_누가복음_13_1-21.md</span>
+    <article class="book-page" id="sec-30" data-index="30" data-file-item="누가복음 13:1-21">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 13:1-21</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 13:1-21</h1>
+        <h1>누가복음 13:1-21</h1>
 <h2>두 번의 「아니다」 — 재난을 설명하려는 입을 닫으시고 열여덟 해를 셈하신 분</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>이 단락에서 가장 먼저 읽어야 할 것은 예수께서 <strong>두 번 「아니다」라고 답하셨다</strong>는 사실입니다. 사람들이 와서 빌라도가 갈릴리 사람들의 피를 그들의 제물에 섞은 일을 알립니다(13:1). 예수께서 되묻습니다 — 이 사람들이 그런 일을 당했으니 다른 모든 갈릴리 사람보다 죄인이 되었다고 너희가 생각하느냐. 그리고 스스로 답하십니다. <code>οὐχί(우키)</code>, 아니다(13:3). 곧이어 실로암에서 망대가 무너져 열여덟 사람을 죽인 일을 들어 같은 물음을 다시 세우시고, 같은 낱말로 다시 답하십니다. <code>οὐχί(우키)</code>, 아니다(13:5).</p>
@@ -4732,16 +4864,14 @@
 <p>넷째 토막의 두 비유는 앞 토막의 경고를 거두지 않습니다. 본문이 네 토막을 나란히 두고 하나의 결론으로 묶지 않은 채 끝내는 것을, 읽는 사람은 어떻게 받아야 할까요.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-31" data-index="31" data-title="누가복음 13:22-35">
-        <div class="card-header">
-            <span class="badge">누가복음 13:22-35</span>
-            <span class="badge-sub">30_해설서_누가복음_13_22-35.md</span>
+    <article class="book-page" id="sec-31" data-index="31" data-file-item="누가복음 13:22-35">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 13:22-35</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 13:22-35</h1>
+        <h1>누가복음 13:22-35</h1>
 <h2>수를 묻는 물음과 이름을 두 번 부르는 애가 — 좁은 문에서 버려진 집까지</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>열네 절입니다. 그런데 그 안에 서사가 전해 주는 사건은 둘뿐입니다. 예수께서 지나가셨고, 어떤 바리새인들이 다가왔습니다. 나머지는 전부 두 번의 말씀입니다.</p>
@@ -4878,16 +5008,14 @@
 <li>32절과 33절은 첫째와 둘째 칸이 같고 셋째 칸만 다릅니다. 본문이 맞추어 주지 않은 두 진술을 그대로 두고 읽는 일은 왜 어렵습니까.</li>
 <li>35절은 버림과 축복을 접속사 하나로만 이어 두고 끝납니다. 본문이 이 단락을 해결 없이 닫은 까닭을 당신은 어떻게 읽습니까.</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-32" data-index="32" data-title="누가복음 14:1-24">
-        <div class="card-header">
-            <span class="badge">누가복음 14:1-24</span>
-            <span class="badge-sub">31_해설서_누가복음_14_1-24.md</span>
+    <article class="book-page" id="sec-32" data-index="32" data-file-item="누가복음 14:1-24">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 14:1-24</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 14:1-24</h1>
+        <h1>누가복음 14:1-24</h1>
 <h2>청함은 이미 끝났다 — 한 식탁에 앉은 두 자리와 닫히는 마지막 문장</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음은 9장 51절에서 예수께서 예루살렘을 향하여 올라가시는 긴 여정을 열고, 19장 27절까지 그 길 위에서 일어난 일들을 모아 둡니다. 14장 1절에서 24절까지는 그 여정의 한가운데에 놓인 한 장면입니다. 바로 앞 13장 31-35절에서 예루살렘을 향한 탄식이 울리고, 바로 뒤 14장 25-35절에서는 따라가는 일에 드는 값을 말씀하십니다. 그 두 무거운 말씀 사이에 이 스물네 절이 들어옵니다. 들어오는 방식이 뜻밖입니다. 한 집, 한 식탁, 한 끼의 식사 자리입니다.</p>
@@ -4991,16 +5119,14 @@
 <p>14장 24절의 「너희에게」가 한 사람에게 하는 말이 아니라는 사실이, 그 절의 「내 잔치」를 누구의 말로 읽게 만듭니까. 그리고 그 절은 청함을 받은 쪽의 결말만 적고 무엇을 적지 않았습니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-33" data-index="33" data-title="누가복음 14:25-15">
-        <div class="card-header">
-            <span class="badge">누가복음 14:25-15</span>
-            <span class="badge-sub">32_해설서_누가복음_14_25-15_10.md</span>
+    <article class="book-page" id="sec-33" data-index="33" data-file-item="누가복음 14:25-15">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 14:25-15</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 14:25-15:10</h1>
+        <h1>누가복음 14:25-15:10</h1>
 <h2>세 번 되돌아오는 「할 수 없다」와 두 번 다르게 놓인 기쁨 — 셈이 끝난 자리와 찾아진 자리</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>예수께서 예루살렘을 향해 올라가시는 긴 여정(9:51 이후)의 한 대목입니다. 바로 앞(14:1-24)에서는 한 바리새인 지도자의 집 식탁에서 잔치 이야기가 이어졌습니다. 14:25에서 장면이 집 밖으로 나오고 듣는 사람이 바뀝니다. 「많은 무리가 그와 함께 가고 있었다」(Συνεπορεύοντο δὲ αὐτῷ ὄχλοι πολλοί, 쉬네포레우온토 데 아우토 오클로이 폴로이)로 시작하고, 예수께서 「돌이켜」(στραφεὶς, 스트라페이스) 그들에게 말씀하십니다. 그리고 15:1-2에서 듣는 사람이 한 번 더 바뀝니다. 가까이 오는 쪽은 세리와 죄인들이고, 수군거리는 쪽은 바리새인들과 서기관들입니다.</p>
@@ -5113,16 +5239,14 @@
 <li>14:35에서 소금을 버리는 동사의 주어가 비어 있다. 그 빈 자리를 채우려는 충동은 본문을 어떻게 바꾸어 놓는가?</li>
 <li>15:7은 「하늘에」라고 적고 15:10은 「하나님의 천사들 앞에」라고 적는다. 본문이 두 표현을 구별해 적었는데 우리가 자주 하나로 합쳐 기억하는 까닭은 무엇인가?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-34" data-index="34" data-title="누가복음 15:11-32">
-        <div class="card-header">
-            <span class="badge">누가복음 15:11-32</span>
-            <span class="badge-sub">33_해설서_누가복음_15_11-32.md</span>
+    <article class="book-page" id="sec-34" data-index="34" data-file-item="누가복음 15:11-32">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 15:11-32</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 15:11-32</h1>
+        <h1>누가복음 15:11-32</h1>
 <h2>두 번 선 선언 — 같은 골격, 바뀐 낱말, 건너간 호칭</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음 15장은 세 이야기를 한 번의 말씀 안에 묶어 둡니다. 잃은 양(15:4-7)이 일곱 절, 잃은 드라크마(15:8-10)가 세 절, 그리고 이 단락이 스물두 절입니다. 분량만 놓고 보아도 이 단락은 앞의 둘을 합친 것의 두 배를 넘습니다. 앞의 두 이야기는 「너희 중에 어떤 사람이」 하는 물음으로 열리는데, 이 단락은 물음이 아니라 평서문으로 열립니다 — Ἄνθρωπός τις(안트로포스 티스), 「어떤 사람에게」입니다. 같은 자리에서 틀이 바뀝니다. 앞의 두 이야기는 그 단락의 해설이 다룹니다.</p>
@@ -5197,16 +5321,14 @@
 <li>맏아들의 「한 번도」 두 번(15:29)을 본문이 반박하지 않습니다. 반박되지 않은 고발이 본문에 남아 있다는 것을 어떻게 읽습니까?</li>
 <li>이 이야기는 맏아들의 응답을 적지 않고 끝납니다. 그 결말을 채워 읽고 싶어지는 쪽이 둘 중 어느 쪽입니까 — 그가 들어갔다는 쪽입니까, 끝내 거부했다는 쪽입니까? 그 쪽을 고르고 싶은 이유는 본문에 있습니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-35" data-index="35" data-title="누가복음 16:1-18">
-        <div class="card-header">
-            <span class="badge">누가복음 16:1-18</span>
-            <span class="badge-sub">34_해설서_누가복음_16_1-18.md</span>
+    <article class="book-page" id="sec-35" data-index="35" data-file-item="누가복음 16:1-18">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 16:1-18</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 16:1-18</h1>
+        <h1>누가복음 16:1-18</h1>
 <h2>재는 자리를 옮긴다 — 증서의 숫자에서 가장 작은 항목으로</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞에서 들려주신 세 이야기는 바리새인과 서기관을 향한 말씀이었습니다. 그 셋이 끝나는 자리에서 본문은 말을 받는 사람을 바꿉니다. 16:1이 「또한 제자들에게 이르시되」로 열립니다. 듣는 쪽이 달라진 것입니다.</p>
@@ -5301,16 +5423,14 @@
 <li>16:11과 16:12는 「누가 맡기겠느냐」, 「누가 주겠느냐」로 묻고 그 이름을 적지 않습니다. 본문이 그 이름을 16:13까지 미룬 것을 어떻게 읽으시겠습니까?</li>
 <li>16:15는 「아신다」는 진술과 「가증한 것」이라는 판결을 한 절에 함께 둡니다. 둘 중 하나만 기억하고 돌아갈 때 각각 무엇을 잃게 됩니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-36" data-index="36" data-title="누가복음 16:19-31">
-        <div class="card-header">
-            <span class="badge">누가복음 16:19-31</span>
-            <span class="badge-sub">35_해설서_누가복음_16_19-31.md</span>
+    <article class="book-page" id="sec-36" data-index="36" data-file-item="누가복음 16:19-31">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 16:19-31</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 16:19-31</h1>
+        <h1>누가복음 16:19-31</h1>
 <h2>들을 것은 이미 손에 있다 — 부자와 나사로, 그리고 설득되지 않은 자리에서 끊기는 대화</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음 16장은 세 덩이로 이어집니다. 16:1-13은 청지기 이야기와 재물에 관한 결론 어구들이고, 16:14-18은 듣던 사람들의 반응과 몇 마디 짧은 발언들이고, 16:19-31이 이 단락입니다. 세 덩이는 재물이라는 재료를 함께 쓰지만 쓰는 어구가 서로 다릅니다. 16:16에 놓인 어구는 「율법과 선지자」 곧 ὁ νόμος καὶ οἱ προφῆται(호 노모스 카이 호이 프로페타이)인데, 이 단락의 끝 두 절에 놓인 어구는 「모세와 선지자들」입니다. 같은 것을 다르게 부른 말이 아니라 어구 자체가 다릅니다. 이 차이는 뒤에서 다시 보겠습니다.</p>
@@ -5421,16 +5541,14 @@
 <p>31절은 「듣는다」를 능동으로, 「설득된다」를 수동으로 적고, 대화는 설득되지 않은 자리에서 끊깁니다. 이 결말을 덮지 않고 그대로 두는 읽기는, 아직 설득되지 않은 사람 앞에서 우리의 말과 태도를 어떻게 바꿉니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-37" data-index="37" data-title="누가복음 17:1-19">
-        <div class="card-header">
-            <span class="badge">누가복음 17:1-19</span>
-            <span class="badge-sub">36_해설서_누가복음_17_1-19.md</span>
+    <article class="book-page" id="sec-37" data-index="37" data-file-item="누가복음 17:1-19">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 17:1-19</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 17:1-19</h1>
+        <h1>누가복음 17:1-19</h1>
 <h2>열이 깨끗해지고 하나가 돌아왔다 — 판정의 자리에 선 족속의 낱말</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>예수께서 예루살렘을 향해 올라가시는 긴 여행 기사 안에 이 열아홉 절이 놓여 있습니다. 바로 앞에는 부자와 나사로의 비유가 있었고, 그 비유가 닫힌 뒤 본문은 제자들을 향한 짧은 담화 넷을 잇습니다. 실족, 용서, 믿음, 종의 본분입니다. 그리고 17:11에서 글의 성격이 바뀝니다. 「예루살렘으로 가시면서」라는 말이 다시 표면으로 올라오고, 말씀이 끊기고 사건이 시작됩니다.</p>
@@ -5535,16 +5653,14 @@
 <li>서술자는 그를 「사마리아 사람」이라 적고(17:16) 예수께서는 「이 이방인」이라 부르십니다(17:18). 한 사람을 두 낱말이 다르게 부르는 이 어긋남에서 본문이 적어 둔 것은 무엇입니까.</li>
 <li>17:19의 주어는 예수님이 아니라 「네 믿음」입니다. 이 문장이 이 복음서의 네 자리에서 쓰이는 익은 표현이라는 사실은, 이 절을 읽는 우리의 무게를 어디에 두게 합니까.</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-38" data-index="38" data-title="누가복음 17:20-37">
-        <div class="card-header">
-            <span class="badge">누가복음 17:20-37</span>
-            <span class="badge-sub">37_해설서_누가복음_17_20-37.md</span>
+    <article class="book-page" id="sec-38" data-index="38" data-file-item="누가복음 17:20-37">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 17:20-37</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 17:20-37</h1>
+        <h1>누가복음 17:20-37</h1>
 <h2>날짜를 물었더니 이름을 주셨다 — 관찰로 오지 않는 나라, 한 사람에게 묶인 날들</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>예루살렘을 향한 긴 여행의 후반입니다. 바로 앞에서 열 사람이 고침을 받고 그중 한 사람만 돌아와 감사했고, 그 장면이 「네 믿음이 너를 구원하였느니라」로 닫혔습니다(17:11-19). 그 직후에 말을 꺼내는 사람이 바뀝니다. 17:20에서 질문자가 등장하는데, 바리새인들입니다.</p>
@@ -5648,16 +5764,14 @@
 <p>17:34-35에서 본문이 적은 것과 적지 않은 것을 두 줄로 갈라 적어 보십시오. 그리고 17:37의 물음과 대답을 다시 읽고, 대답이 물음에 준 것이 무엇인지 적어 보십시오.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-39" data-index="39" data-title="누가복음 18:1-17">
-        <div class="card-header">
-            <span class="badge">누가복음 18:1-17</span>
-            <span class="badge-sub">38_해설서_누가복음_18_1-17.md</span>
+    <article class="book-page" id="sec-39" data-index="39" data-file-item="누가복음 18:1-17">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 18:1-17</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 18:1-17</h1>
+        <h1>누가복음 18:1-17</h1>
 <h2>같은 계단을 올라 다르게 내려왔다 — 명령으로 적히지 않은 비유와 비어 있는 행위자 칸</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>열일곱 절이 세 토막으로 갈라집니다. 과부와 재판관(18:1-8), 성전에 올라간 두 사람(18:9-14), 데려온 젖먹이들(18:15-17)입니다. 세 토막이 모두 「말하고 있었다」·「말씀하셨다」·「데려오고 있었다」는 서술 동사로 문을 엽니다. 누가는 둘째 줄부터 곧장 인용으로 들어가고, 인용이 끝나면 다시 서술로 돌아옵니다.</p>
@@ -5750,16 +5864,14 @@
 <li>18:14는 「의롭다 하심을 입은 채」라고만 적고 누가 그렇게 했는지는 적지 않았습니다. 그 칸을 비워 둔 채로 이 절을 읽으면 무엇이 남습니까.</li>
 <li>18:15에서 오는 일을 막은 쪽은 제자들이었고, 꾸짖음을 받은 쪽은 데려온 사람들이었습니다. 본문이 적어 둔 이 사실이 「오는 일」에 대해 무엇을 보여 줍니까.</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-40" data-index="40" data-title="누가복음 18:18-43">
-        <div class="card-header">
-            <span class="badge">누가복음 18:18-43</span>
-            <span class="badge-sub">39_해설서_누가복음_18_18-43.md</span>
+    <article class="book-page" id="sec-40" data-index="40" data-file-item="누가복음 18:18-43">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 18:18-43</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 18:18-43</h1>
+        <h1>누가복음 18:18-43</h1>
 <h2>한 길 위의 세 장면 — 묻는 사람, 깨닫지 못한 열둘, 소리친 사람</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>예루살렘을 향해 올라가는 긴 여행 기사의 마지막 국면입니다. 이 책은 9장 51절에서 예수께서 예루살렘을 향하여 올라가기로 굳게 결심하셨다고 적어 두었는데, 그 방향이 여기서 다시 말로 나옵니다. "보라 우리가 예루살렘으로 올라가노니"(18:31). 지금까지 서술로만 깔려 있던 방향이 이 단락에 와서 예수 자신의 발화로 다시 명시되는 것입니다.</p>
@@ -5871,16 +5983,14 @@
 <p>18장 29절에서 "위하여" 뒤에 오는 말은 28절의 어느 말과 바뀌어 놓였습니까? 본문은 그 둘을 같다고 선언합니까, 아니면 같은 일을 두 가지로 서술합니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-41" data-index="41" data-title="누가복음 19:1-27">
-        <div class="card-header">
-            <span class="badge">누가복음 19:1-27</span>
-            <span class="badge-sub">40_해설서_누가복음_19_1-27.md</span>
+    <article class="book-page" id="sec-41" data-index="41" data-file-item="누가복음 19:1-27">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 19:1-27</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 19:1-27</h1>
+        <h1>누가복음 19:1-27</h1>
 <h2>먼저 불린 이름 — 구원이 주어 자리에 서고, 단락은 두 명령으로 닫힙니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음 9:51에서 시작된 긴 여정이 여기서 끝납니다. 19:28부터는 예루살렘으로 들어가는 장면이 열리므로, 19:27의 마지막 두 마디가 그 여정 전체의 마지막 발화가 됩니다. 이 단락이 어디서 끝나는지가 생각보다 중요합니다. 많은 사람이 이 대목을 삭개오 이야기로만 기억하지만, 본문은 한 사람의 집에서 시작해 한 왕의 명령으로 닫힙니다. 19:26에서 읽기를 멈추면 마지막 절이 빠지고, 본문이 남겨 둔 긴장도 함께 빠집니다.</p>
@@ -5965,16 +6075,14 @@
 <li>19:16·18의 보고와 19:20의 보고는 같은 주인 자리를 세웁니다. 세 번째 보고에 없는 것은 무엇입니까.</li>
 <li>19:10의 「구원하려」와 19:27의 「죽이라」가 같은 단락 안에 있습니다. 본문은 이 둘을 어떤 낱말로 이어 놓았고, 둘을 화해시키는 문장을 주었습니까.</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-42" data-index="42" data-title="누가복음 19:28-48">
-        <div class="card-header">
-            <span class="badge">누가복음 19:28-48</span>
-            <span class="badge-sub">41_해설서_누가복음_19_28-48.md</span>
+    <article class="book-page" id="sec-42" data-index="42" data-file-item="누가복음 19:28-48">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 19:28-48</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 19:28-48</h1>
+        <h1>누가복음 19:28-48</h1>
 <h2>우신 뒤에 말씀하셨다 — 네게 온 방문의 때</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>긴 여행이 여기서 끝납니다. 이 책은 9장 51절에서 예수께서 예루살렘을 향하여 올라가기로 하셨다고 적었고, 그 뒤로 열 장 가까이 길 위의 이야기를 이어 왔습니다. 그 길의 마지막 걸음이 이 단락의 첫 절입니다. "예수께서 이 말씀을 하시고 예루살렘을 향하여 앞서서 가시더라"(19:28). 여기 쓰인 동사 <code>ἐπορεύετο</code>(에포류에토)는 "가고 계셨다"는 꼴이고, 목적지가 이 절에서 처음으로 이름까지 붙어 나옵니다.</p>
@@ -6076,16 +6184,14 @@
 <li>19:42는 숨겨졌다고 적고 19:44는 네가 알지 못했다고 적습니다. 본문이 둘을 맞추어 주지 않은 채 나란히 둔 것을 나는 어느 쪽으로 서둘러 닫으려 합니까?</li>
 <li>19:47은 궁리한 쪽을 좁게 적고 19:48은 백성이 다 매달려 들었다고 적습니다. 본문이 둘을 갈라 적은 것은 이 장면을 누구에게 적용할지에 관해 무엇을 요구합니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-43" data-index="43" data-title="누가복음 20:1-26">
-        <div class="card-header">
-            <span class="badge">누가복음 20:1-26</span>
-            <span class="badge-sub">42_해설서_누가복음_20_1-26.md</span>
+    <article class="book-page" id="sec-43" data-index="43" data-file-item="누가복음 20:1-26">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 20:1-26</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 20:1-26</h1>
+        <h1>누가복음 20:1-26</h1>
 <h2>네 번 밖으로 내몬 손과 돌려주라는 명령 — 성전에서 이어진 세 번의 문답</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞 단락에서 예수께서 성전을 정돈하시고, 그 뒤로 날마다 성전에서 가르치셨다는 진술이 놓입니다. 이 단락은 그 "날마다" 가운데 어느 하루를 끊어 옵니다. 20장 1절은 가르치고 복음을 전하던 일을 배경으로 깔아 놓고, 그 배경 위로 한 동작을 올립니다. 대제사장들과 서기관들이 장로들과 함께 들이닥치는 동작입니다.</p>
@@ -6177,16 +6283,14 @@
 <p>20장 25절의 두 몫 가운데 앞쪽은 확인을 거쳤고 뒤쪽은 확인 절차가 없습니다. 본문이 뒤쪽을 채우지 않고 멈춘 것을 그대로 두고 읽으려면 무엇을 조심해야 할까요.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-44" data-index="44" data-title="누가복음 20:27-21">
-        <div class="card-header">
-            <span class="badge">누가복음 20:27-21</span>
-            <span class="badge-sub">43_해설서_누가복음_20_27-21_4.md</span>
+    <article class="book-page" id="sec-44" data-index="44" data-file-item="누가복음 20:27-21">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 20:27-21</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 20:27-21:4</h1>
+        <h1>누가복음 20:27-21:4</h1>
 <h2>다시 죽을 수 없는 이들과 전부를 넣은 한 사람 — 셈이 뒤집히는 스물다섯 절</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>성전에서 벌어진 질문의 사슬, 그 후반부입니다. 20장 1절 이후로 예수께 묻는 사람이 세 번 바뀝니다. 먼저 대제사장과 서기관들이 묻고(20:1), 다음으로 보내진 사람들이 세금 이야기로 묻고(20:20), 그리고 사두개인 중 어떤 이들이 나아옵니다(20:27). 우리가 읽을 자리는 그 세 번째 교체에서 열립니다.</p>
@@ -6270,16 +6374,14 @@
 <p>20장 47절의 고발과 21장 4절의 판정 사이는 네 절입니다. 본문이 이 두 문장을 잇지 않고 나란히 둔 것을, 우리는 어느 한쪽을 덜어 내지 않고 어떻게 함께 읽을 수 있습니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-45" data-index="45" data-title="누가복음 21:5-38">
-        <div class="card-header">
-            <span class="badge">누가복음 21:5-38</span>
-            <span class="badge-sub">44_해설서_누가복음_21_5-38.md</span>
+    <article class="book-page" id="sec-45" data-index="45" data-file-item="누가복음 21:5-38">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 21:5-38</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 21:5-38</h1>
+        <h1>누가복음 21:5-38</h1>
 <h2>날짜를 물었는데 자세를 받았다 — 예고와 명령이 끝까지 나란히 가는 담화</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>예루살렘에 들어온 뒤로 예수는 성전에 머물며 가르쳤습니다. 바로 앞 단락이 헌금함 앞의 장면으로 끝나고(21:1-4 — 그 단락의 해설이 다룹니다), 이 단락은 그 성전 건물을 두고 어떤 이들이 감탄하는 말에서 시작합니다. 그리고 담화가 닫히는 자리에서 장면은 다시 성전의 낮과 감람산의 밤으로 돌아오고, 그 바로 다음 장 첫머리에서 유월절과 음모로 바뀝니다. 곧 이 서른네 절은 그 건물 안에서 한 마지막 긴 가르침입니다. 「성전」을 뜻하는 말이 놓인 자리는 이 단락에 세 곳이고, 그 세 곳이 첫 절(21:5)과 마지막 두 절(21:37-38)입니다. 무너질 것이라고 들은 그 건물 안에서 가르침이 계속되었다는 뜻입니다.</p>
@@ -6374,16 +6476,14 @@
 <li>도망이 명령된 뒤에(21:21) 본문이 도망할 수 없는 사람을 지목하고(21:23) 그들에게 아무 방법도 주지 않습니다. 그 다음에 주어진 명령은 무엇이며(21:28), 그것이 도망과 어떻게 다릅니까?</li>
 <li>이 단락에서 「백성」이라는 한 낱말이 21장 23절과 21장 38절에 놓여 있습니다. 두 자리의 백성은 어떤 자리에 서 있습니까? 담화의 마지막 장면이 반복되는 아침이라는 것은 이 담화를 어떻게 읽게 합니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-46" data-index="46" data-title="누가복음 22:1-23">
-        <div class="card-header">
-            <span class="badge">누가복음 22:1-23</span>
-            <span class="badge-sub">45_해설서_누가복음_22_1-23.md</span>
+    <article class="book-page" id="sec-46" data-index="46" data-file-item="누가복음 22:1-23">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 22:1-23</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 22:1-23</h1>
+        <h1>누가복음 22:1-23</h1>
 <h2>치워지지 않은 손 앞에서 떼어진 떡 — 「무슨 방도로」를 묻던 물음이 「우리 중 누구인가」로 돌아온다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>누가복음의 수난 기사가 여기서 열립니다. 바로 앞까지 예수께서는 성전에서 가르치고 계셨고, 이제 본문은 절기가 다가오는 배경 하나를 깔고 그 위에 서로 다른 두 가지 움직임을 나란히 올려놓습니다. 한쪽에서는 예수를 죽일 방도를 찾는 일이 계속되고, 다른 한쪽에서는 유월절 식사를 준비하는 일이 진행됩니다. 두 움직임이 만나는 자리가 한 상이고, 그 상 위에서 이 스물세 절이 끝납니다.</p>
@@ -6486,16 +6586,14 @@
 <p>22:23은 「우리 중에서 이 일을 행할 자가 누구일까」라는 물음에서 그대로 끝납니다. 본문이 답을 달지 않은 이 물음 앞에서, 답을 만들어 덮지 않고 머무른다는 것은 구체적으로 어떤 모습이겠습니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-47" data-index="47" data-title="누가복음 22:24-38">
-        <div class="card-header">
-            <span class="badge">누가복음 22:24-38</span>
-            <span class="badge-sub">46_해설서_누가복음_22_24-38.md</span>
+    <article class="book-page" id="sec-47" data-index="47" data-file-item="누가복음 22:24-38">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 22:24-38</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 22:24-38</h1>
+        <h1>누가복음 22:24-38</h1>
 <h2>다투는 상 앞에서 건네진 나라 — 받은 것으로 다시 듣는 「누가 더 큰 자냐」</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞 단락에서 유월절 식사가 준비되고 떡과 잔이 나뉘었고, 배반할 사람이 식탁에 함께 있다는 말씀이 나왔습니다. 그 끝에서 제자들은 「누구일까」를 서로 묻습니다. 그리고 우리 단락의 첫 문장이 옵니다. 「그들 사이에 다툼도 일어났다.」 자리가 바뀌지 않았습니다. 같은 상이고 같은 밤입니다. 장소가 옮겨지는 것은 22:39에 가서야입니다. 「예수께서 나가사 습관을 따라 감람산에 가시매」가 다음 장면을 열기 때문에, 이 단락은 22:38에서 끝납니다. 열다섯 절입니다.</p>
@@ -6591,16 +6689,14 @@
 <p>22:38의 「족하다」에는 주어가 없어 무엇이 족한지 문면이 지정하지 않습니다. 본문이 이 대화를 닫지 않고 끝낸다면, 이 단락에서 닫힌 것과 닫히지 않은 것은 각각 무엇입니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-48" data-index="48" data-title="누가복음 22:39-53">
-        <div class="card-header">
-            <span class="badge">누가복음 22:39-53</span>
-            <span class="badge-sub">47_해설서_누가복음_22_39-53.md</span>
+    <article class="book-page" id="sec-48" data-index="48" data-file-item="누가복음 22:39-53">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 22:39-53</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 22:39-53</h1>
+        <h1>누가복음 22:39-53</h1>
 <h2>책망이 올 자리에 원인이 적혀 있다 — 떼어져 무릎 꿇은 기도와 잘린 귀</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞까지 예수와 제자들은 한 상에 앉아 있었습니다. 떡과 잔을 나누고, 누가 크냐는 다툼이 있었고, 배반과 부인에 관한 말이 오갔습니다. 그 식탁의 말들이 끝나는 자리에서 22장 39절이 시작됩니다. 「예수께서 나가사 습관을 따라 감람산에 가시매.」 방을 나가는 동작 하나로 장면이 바뀌고, 이 책은 그 걸음이 <strong>처음이 아니었다</strong>는 것을 길 앞에 먼저 적어 둡니다.</p>
@@ -6713,16 +6809,14 @@
 <p>22장 50절의 잘린 귀와 22장 51절의 고쳐진 귀를 본문은 서로 다른 낱말로 적었습니다. 본문이 두 일을 하나로 합치지 않은 것이 이 장면을 읽는 사람에게 무엇을 요구합니까?</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-49" data-index="49" data-title="누가복음 22:54-71">
-        <div class="card-header">
-            <span class="badge">누가복음 22:54-71</span>
-            <span class="badge-sub">48_해설서_누가복음_22_54-71.md</span>
+    <article class="book-page" id="sec-49" data-index="49" data-file-item="누가복음 22:54-71">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 22:54-71</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 22:54-71</h1>
+        <h1>누가복음 22:54-71</h1>
 <h2>판결이 적히지 않은 심문 — 「이제부터」가 놓인 자리</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>앞 단락은 감람산에서 끝났습니다. 이 열여덟 절은 「그들이 예수를 잡아 끌고」(22:54)로 시작합니다. 붙들어 쥔다는 뜻의 낱말 <code>Συλλαβόντες(쉴라본테스)</code>가 이 단락의 첫 낱말입니다. 붙드는 동작이 글자로 적히는 자리가 바로 여기입니다. 그리고 마지막 절 다음은 23장 1절이고, 거기서 그는 또 다시 끌려갑니다. 그러니까 이 열여덟 절은 끌려감과 끌려감 사이에 걸려 있습니다. 들어올 때도 끌려오고 나갈 때도 끌려 나갑니다.</p>
@@ -6804,16 +6898,14 @@
 <p>이 단락은 판결 없이 끝납니다. 본문이 적지 않은 것을 적지 않은 대로 두고 읽으려면, 내가 이 본문에 보태고 싶어 하는 문장이 무엇인지 먼저 알아야 합니다. 그 문장은 무엇입니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-50" data-index="50" data-title="누가복음 23:1-25">
-        <div class="card-header">
-            <span class="badge">누가복음 23:1-25</span>
-            <span class="badge-sub">49_해설서_누가복음_23_1-25.md</span>
+    <article class="book-page" id="sec-50" data-index="50" data-file-item="누가복음 23:1-25">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 23:1-25</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 23:1-25</h1>
+        <h1>누가복음 23:1-25</h1>
 <h2>세 번 말한 판정과 이긴 소리 — 절차가 하나도 빠지지 않고 작동한 재판</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>앞 단락(22:54-71)은 공회의 심문으로 닫혔습니다. 23장 1절이 그 자리를 한 문장으로 옮깁니다. 「그들의 온 무리가 일어나 그를 빌라도에게 끌고 갔다.」 한 문장 안에서 장소가 바뀌고 재판정이 바뀝니다. 앞에서 심문하던 쪽이 이제 고발하는 쪽으로 서고, 판정을 내릴 사람은 로마가 보낸 총독입니다.</p>
@@ -6903,16 +6995,14 @@
 <li>23장 12절은 재판이 아무 결론도 내지 못한 날에 두 통치자가 친구가 되었다고 적습니다. 본문이 이 화해의 까닭을 적지 않은 것을 어떻게 읽어야 합니까.</li>
 <li>23장 13절에서 본문은 불려 온 사람들을 세 묶음으로 적어 둡니다. 본문이 상대를 이렇게 좁게 적어 두는 것은 이 장면을 읽을 때 무엇을 막아 줍니까.</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-51" data-index="51" data-title="누가복음 23:26-56">
-        <div class="card-header">
-            <span class="badge">누가복음 23:26-56</span>
-            <span class="badge-sub">50_해설서_누가복음_23_26-56.md</span>
+    <article class="book-page" id="sec-51" data-index="51" data-file-item="누가복음 23:26-56">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 23:26-56</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 23:26-56</h1>
+        <h1>누가복음 23:26-56</h1>
 <h2>집행자의 입에 놓인 한 마디 — 꼴을 바꾸며 세 자리를 지나는 말</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>바로 앞 23:1-25에서 심문이 끝났습니다. 빌라도에게 끌려갔고, 헤롯에게 보내졌다가 되돌아왔고, 결국 넘겨졌습니다. 말이 오가는 자리는 거기서 끝납니다. 그리고 바로 뒤에 오는 것이 24:1 「안식 후 첫날 새벽」입니다. 그러니 이 서른한 절은 재판과 부활 사이에 놓인 구간이며, 그 안에서 벌어지는 일은 길을 걸어가는 것, 십자가에 달리는 것, 숨이 끊어지는 것, 그리고 묻히는 것입니다.</p>
@@ -7009,16 +7099,14 @@
 <li>23:47의 말이 신앙의 고백인지 판단의 진술인지 본문은 적지 않습니다. 본문이 적은 것은 무엇까지입니까. 그리고 그 이상을 채우고 싶어지는 이유는 무엇이라고 보십니까?</li>
 <li>이 단락의 마지막 동사는 「쉬더라」입니다(23:56). 본문이 백부장의 말이 아니라 이 동사로 단락을 닫은 것이 읽는 사람에게 무엇을 요구합니까?</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-52" data-index="52" data-title="누가복음 24:1-35">
-        <div class="card-header">
-            <span class="badge">누가복음 24:1-35</span>
-            <span class="badge-sub">51_해설서_누가복음_24_1-35.md</span>
+    <article class="book-page" id="sec-52" data-index="52" data-file-item="누가복음 24:1-35">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 24:1-35</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 24:1-35</h1>
+        <h1>누가복음 24:1-35</h1>
 <h2>알려진 쪽은 그였다 — 빈 무덤에서 엠마오 길까지, 받는 자리에 놓인 사람들</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>앞 단락은 쉼으로 닫혔습니다. 무덤에 둔 일이 끝나고 여자들이 돌아가 향품과 향유를 준비했고, 안식일에는 계명을 따라 쉬었습니다. 그러고 나서 24장 1절이 열립니다. 「안식 후 첫날 새벽 깊을 때에.」 끊어진 것이 아니라 이어 붙은 시간입니다. 쉬었던 하루가 지나고 그 다음 날의 가장 이른 시각에 이 단락이 시작됩니다.</p>
@@ -7114,16 +7202,14 @@
 <p>24장 35절에서 두 사람은 같은 절 안에서 주어이기도 하고 받는 쪽이기도 합니다. 그들이 받은 것과 그들이 한 일을 각각 적어 보십시오. 그리고 그 절의 마지막 동사가 완결이 아니라 지속인 것이, 알아본 사람에게 무엇을 남깁니까.</p>
 </li>
 </ol>
-        </div>
-    </section>
+    </article>
     
-    <section class="commentary-card" id="sec-53" data-index="53" data-title="누가복음 24:36-53">
-        <div class="card-header">
-            <span class="badge">누가복음 24:36-53</span>
-            <span class="badge-sub">52_해설서_누가복음_24_36-53.md</span>
+    <article class="book-page" id="sec-53" data-index="53" data-file-item="누가복음 24:36-53">
+        <div class="chapter-running-header">
+            <span>누가복음 해설서</span>
+            <span>누가복음 24:36-53</span>
         </div>
-        <div class="card-body">
-            <h1>누가복음 24:36-53</h1>
+        <h1>누가복음 24:36-53</h1>
 <h2>성경을 열던 손이 사람을 열었다 — 그리고 마지막 명령은 「머물라」였다</h2>
 <h2>이 단락이 서 있는 자리</h2>
 <p>이 책의 마지막 열여덟 절입니다. 그런데 이 단락은 새 장면으로 시작하지 않습니다. 36절의 첫 구문은 「이 말을 할 때에」입니다. 누군가 말하고 있는 중이고, 그 말하는 중에 예수께서 그들 가운데 서십니다. 무엇을 말하고 있었는지는 바로 앞 단락이 적어 두었습니다. 엠마오로 가던 두 사람이 돌아와 보고하는 자리이고, 그 길에서 있었던 일은 앞 단락의 해설이 다룹니다.</p>
@@ -7218,24 +7304,92 @@
 <li>24:46의 「이같이 … 기록되었으니」 뒤에 오는 것은 구약의 어느 구절입니까, 아니면 다른 것입니까? 본문이 근거로 내놓은 것을 두 가지로 적어 보십시오.</li>
 <li>24:49의 마지막 명령은 무엇입니까? 그 명령이 걸어 둔 조건이 채워졌다고 이 책이 적습니까? 24:53이 적는 것과 적지 않는 것을 각각 말해 보십시오.</li>
 </ol>
-        </div>
-    </section>
+    </article>
     
+            
+            <div class="page-nav">
+                <button class="nav-btn" id="prevBtn" onclick="navigatePage(-1)">이전 편</button>
+                <span id="pageIndicator" style="font-family: Pretendard, sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">1 / 54</span>
+                <button class="nav-btn" id="nextBtn" onclick="navigatePage(1)">다음 편</button>
             </div>
-        </main>
+        </div>
     </div>
+
     <script>
-        function filterCards() {
-            const q = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.commentary-card');
-            const toc = document.querySelectorAll('.toc-list li');
-            cards.forEach((card, idx) => {
-                const text = card.innerText.toLowerCase();
-                const match = text.includes(q);
-                card.style.display = match ? 'block' : 'none';
-                if (toc[idx]) toc[idx].style.display = match ? 'block' : 'none';
+        let currentIndex = 0;
+        const totalSections = 54;
+        const pages = document.querySelectorAll('.book-page');
+        const menuLinks = document.querySelectorAll('#menuList li a');
+        
+        function showPage(index) {
+            if (index < 0 || index >= totalSections) return;
+            currentIndex = index;
+            
+            pages.forEach((p, idx) => {
+                if (idx === index) {
+                    p.classList.add('active');
+                    const fileItem = p.getAttribute('data-file-item');
+                    document.getElementById('currentSectionTitle').innerText = fileItem;
+                } else {
+                    p.classList.remove('active');
+                }
+            });
+            
+            menuLinks.forEach((a, idx) => {
+                if (idx === index) {
+                    a.classList.add('active');
+                    a.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                } else {
+                    a.classList.remove('active');
+                }
+            });
+            
+            document.getElementById('prevBtn').disabled = (index === 0);
+            document.getElementById('nextBtn').disabled = (index === totalSections - 1);
+            document.getElementById('pageIndicator').innerText = (index + 1) + ' / ' + totalSections;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function navigatePage(direction) {
+            showPage(currentIndex + direction);
+        }
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+        
+        function filterMenu() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('#menuList li');
+            items.forEach(li => {
+                const txt = li.innerText.toLowerCase();
+                li.style.display = txt.includes(query) ? '' : 'none';
             });
         }
+        
+        let currentSize = 16.5;
+        function changeFontSize(delta) {
+            currentSize = Math.max(14, Math.min(24, currentSize + delta));
+            document.documentElement.style.setProperty('--font-size', currentSize + 'px');
+        }
+        
+        function toggleTheme() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', newTheme);
+        }
+        
+        function copyCurrentPage() {
+            const activePage = document.querySelector('.book-page.active');
+            if (!activePage) return;
+            navigator.clipboard.writeText(activePage.innerText).then(() => {
+                alert('해당 본문 텍스트가 클립보드에 복사되었습니다.');
+            }).catch(() => {
+                alert('복사에 실패했습니다.');
+            });
+        }
+        
+        showPage(0);
     </script>
 </body>
 </html>
