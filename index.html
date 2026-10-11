@@ -484,6 +484,71 @@
             }
         }
 
+    
+        /* ==========================================
+           폰트 크기 조절 컨트롤러 스타일
+           ========================================== */
+        .font-size-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 6px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .font-size-label {
+            font-size: 0.82rem;
+            margin-right: 4px;
+            user-select: none;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .font-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 8px;
+            padding: 5px 11px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            line-height: 1;
+        }
+
+        .font-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: rgba(0, 0, 0, 0.02);
+            transform: translateY(-1px);
+        }
+
+        .font-btn:active {
+            transform: scale(0.96);
+        }
+
+        .font-size-val {
+            min-width: 44px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.82rem;
+            color: var(--title-color);
+            user-select: none;
+        }
+
+        .toc-font-bar {
+            padding: 8px 14px 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+        }
+
     </style>
 </head>
 <body>
@@ -498,6 +563,16 @@
             </div>
             <button type="button" class="toc-close-btn" id="tocCloseBtn" title="목차 닫기">&times;</button>
         </div>
+        
+        <div class="toc-font-bar">
+            <span class="font-size-label">글자 크기</span>
+            <div style="display:flex;align-items:center;gap:4px;">
+                <button type="button" class="font-btn font-dec-btn" title="글자 작게">가-</button>
+                <span class="font-size-val">100%</span>
+                <button type="button" class="font-btn font-inc-btn" title="글자 크게">가+</button>
+            </div>
+        </div>
+
         <nav class="toc-nav" id="tocNav"></nav>
     </aside>
 
@@ -514,7 +589,17 @@
 </div>
 
         <!-- 검색 영역 -->
-        <div class="search-section-wrapper" id="searchSection">
+        
+        <!-- 폰트 크기 조절 툴바 -->
+        <div class="font-size-toolbar" aria-label="글자 크기 조절">
+            <span class="font-size-label">글자 크기</span>
+            <button type="button" class="font-btn font-dec-btn" title="글자 작게">가-</button>
+            <span class="font-size-val">100%</span>
+            <button type="button" class="font-btn font-inc-btn" title="글자 크게">가+</button>
+            <button type="button" class="font-btn font-reset-btn" title="기본 크기로 초기화">기본</button>
+        </div>
+
+<div class="search-section-wrapper" id="searchSection">
             <div class="search-box">
                 <span class="search-icon-symbol">🔍</span>
                 <input type="text" id="searchInput" placeholder="성경 본문, 책 제목, 에세이, PDF, 합본 검색..." autocomplete="off" />
@@ -1689,6 +1774,57 @@
             }
 
             setTimeout(updateActiveLink, 100);
+        })();
+
+
+        // ==========================================
+        // 폰트 크기 조절 엔진 (Font Size Controls)
+        // ==========================================
+        (function() {
+            const FONT_SIZES = [13, 14.5, 16, 18, 20, 22];
+            const DEFAULT_SIZE = 16;
+            const STORAGE_KEY = 'site_index_font_size';
+
+            let saved = localStorage.getItem(STORAGE_KEY);
+            let currentSize = saved ? parseFloat(saved) : DEFAULT_SIZE;
+            if (isNaN(currentSize) || !FONT_SIZES.includes(currentSize)) {
+                currentSize = DEFAULT_SIZE;
+            }
+
+            function applyFontSize(size) {
+                document.documentElement.style.fontSize = size + 'px';
+                try {
+                    localStorage.setItem(STORAGE_KEY, size);
+                } catch(e) {}
+                currentSize = size;
+
+                const percent = Math.round((size / DEFAULT_SIZE) * 100) + '%';
+                document.querySelectorAll('.font-size-val').forEach(el => {
+                    el.textContent = percent;
+                });
+            }
+
+            // 초기 크기 적용
+            applyFontSize(currentSize);
+
+            function changeSize(delta) {
+                let idx = FONT_SIZES.indexOf(currentSize);
+                if (idx === -1) idx = FONT_SIZES.indexOf(DEFAULT_SIZE);
+                let nextIdx = idx + delta;
+                if (nextIdx >= 0 && nextIdx < FONT_SIZES.length) {
+                    applyFontSize(FONT_SIZES[nextIdx]);
+                }
+            }
+
+            document.querySelectorAll('.font-inc-btn').forEach(btn => {
+                btn.addEventListener('click', () => changeSize(1));
+            });
+            document.querySelectorAll('.font-dec-btn').forEach(btn => {
+                btn.addEventListener('click', () => changeSize(-1));
+            });
+            document.querySelectorAll('.font-reset-btn').forEach(btn => {
+                btn.addEventListener('click', () => applyFontSize(DEFAULT_SIZE));
+            });
         })();
 
 </script>
