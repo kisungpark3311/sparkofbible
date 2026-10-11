@@ -112,6 +112,191 @@
             color: #94a3b8;
             border-top: 1px solid var(--border-color);
         }
+    
+        /* 검색창 및 검색 버튼 스타일 */
+        .search-section-wrapper {
+            margin: 25px 0 35px 0;
+            position: relative;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
+            padding: 6px 8px 6px 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: all 0.25s ease;
+        }
+
+        .search-box:focus-within {
+            border-color: var(--accent-color);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .search-icon-symbol {
+            font-size: 1.1rem;
+            margin-right: 10px;
+            opacity: 0.7;
+            user-select: none;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-size: 0.98rem;
+            font-family: inherit;
+            color: var(--text-color);
+            padding: 8px 0;
+            min-width: 0;
+        }
+
+        .search-box input::placeholder {
+            color: #94a3b8;
+            font-size: 0.92rem;
+        }
+
+        .search-clear-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 0 10px;
+            line-height: 1;
+            transition: color 0.15s;
+        }
+
+        .search-clear-btn:hover {
+            color: var(--text-color);
+        }
+
+        .search-submit-btn {
+            background: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            padding: 9px 20px;
+            font-size: 0.92rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .search-submit-btn:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .search-result-summary {
+            margin-top: 12px;
+            padding: 10px 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.88rem;
+            color: var(--text-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-result-summary strong {
+            color: var(--accent-color);
+        }
+
+        .search-no-result {
+            background: var(--card-bg);
+            border: 1px dashed var(--border-color);
+            border-radius: 14px;
+            padding: 45px 20px;
+            text-align: center;
+            color: #64748b;
+            margin: 25px 0;
+        }
+
+        .no-result-icon {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+
+        .no-result-text {
+            margin: 0 0 16px 0;
+            font-size: 0.95rem;
+        }
+
+        .search-reset-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .search-reset-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* 우측 하단 플로팅 검색 버튼 */
+        .floating-search-btn {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            z-index: 9999;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0.92;
+        }
+
+        .floating-search-btn:hover {
+            opacity: 1;
+            transform: translateY(-3px) scale(1.06);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+        }
+
+        .floating-search-btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        @media (max-width: 600px) {
+            .floating-search-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 46px;
+                height: 46px;
+                font-size: 1.15rem;
+            }
+            .search-submit-btn {
+                padding: 8px 15px;
+                font-size: 0.88rem;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -120,6 +305,23 @@
 <h1>성경적 사고와 인격 만들기</h1>
 <p>매일 한 편의 묵상 에세이를 통해<br/>말씀이 우리의 인격이 되는 여정</p>
 </div>
+
+        <!-- 검색 영역 -->
+        <div class="search-section-wrapper" id="searchSection">
+            <div class="search-box">
+                <span class="search-icon-symbol">🔍</span>
+                <input type="text" id="searchInput" placeholder="성경 본문, 책 제목, 에세이, PDF, 합본 검색..." autocomplete="off" />
+                <button type="button" id="searchClearBtn" class="search-clear-btn" style="display:none;" title="검색어 지우기">✕</button>
+                <button type="button" id="searchSubmitBtn" class="search-submit-btn">검색</button>
+            </div>
+            <div id="searchResultSummary" class="search-result-summary" style="display:none;"></div>
+            <div id="searchNoResult" class="search-no-result" style="display:none;">
+                <div class="no-result-icon">🔍</div>
+                <p class="no-result-text">일치하는 항목을 찾을 수 없습니다.</p>
+                <button type="button" id="searchResetBtn" class="search-reset-btn">전체 목록 보기</button>
+            </div>
+        </div>
+
 
         <h2 class="section-title">북유럽 여행후기 완성본</h2>
         <div class="list-group">
@@ -1009,7 +1211,167 @@
             });
         }
 
+
+        // ==========================================
+        // 실시간 통합 검색 엔진 (Search Engine)
+        // ==========================================
+        (function() {
+            const searchInput = document.getElementById('searchInput');
+            const searchSubmitBtn = document.getElementById('searchSubmitBtn');
+            const searchClearBtn = document.getElementById('searchClearBtn');
+            const searchResultSummary = document.getElementById('searchResultSummary');
+            const searchNoResult = document.getElementById('searchNoResult');
+            const searchResetBtn = document.getElementById('searchResetBtn');
+            const floatingSearchBtn = document.getElementById('floatingSearchBtn');
+            const searchSection = document.getElementById('searchSection');
+
+            if (!searchInput) return;
+
+            // 검색 실행 함수
+            function performSearch() {
+                const rawQuery = searchInput.value.trim();
+                const terms = rawQuery.toLowerCase().split(/\s+/).filter(t => t.length > 0);
+
+                // 검색어가 없을 때 전체 복원
+                if (terms.length === 0) {
+                    searchClearBtn.style.display = 'none';
+                    searchResultSummary.style.display = 'none';
+                    searchNoResult.style.display = 'none';
+
+                    document.querySelectorAll('.list-item').forEach(item => {
+                        item.style.display = '';
+                    });
+                    document.querySelectorAll('.list-group').forEach(grp => {
+                        grp.style.display = '';
+                    });
+                    document.querySelectorAll('.section-title').forEach(title => {
+                        title.style.display = '';
+                    });
+                    return;
+                }
+
+                // 검색어가 있을 때
+                searchClearBtn.style.display = 'inline-block';
+                let totalMatches = 0;
+
+                // 모든 list-group을 순회하며 필터링
+                const listGroups = document.querySelectorAll('.list-group');
+                listGroups.forEach(grp => {
+                    const items = grp.querySelectorAll('.list-item');
+                    let groupMatches = 0;
+
+                    items.forEach(item => {
+                        const text = (item.textContent || '').toLowerCase();
+                        const href = (item.getAttribute('href') || '').toLowerCase();
+                        const fullText = text + ' ' + href;
+
+                        // 모든 검색어 토큰이 포함되어야 매칭 (AND 검색)
+                        const isMatch = terms.every(term => fullText.includes(term));
+                        if (isMatch) {
+                            item.style.display = '';
+                            groupMatches++;
+                            totalMatches++;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+
+                    // 해당 그룹의 섹션 타이틀 찾기 (직전 형제 요소 탐색)
+                    let prev = grp.previousElementSibling;
+                    let sectionTitle = null;
+                    while (prev) {
+                        if (prev.classList && prev.classList.contains('section-title')) {
+                            sectionTitle = prev;
+                            break;
+                        }
+                        if (prev.classList && prev.classList.contains('list-group')) {
+                            break;
+                        }
+                        prev = prev.previousElementSibling;
+                    }
+
+                    if (groupMatches > 0) {
+                        grp.style.display = '';
+                        if (sectionTitle) sectionTitle.style.display = '';
+                    } else {
+                        grp.style.display = 'none';
+                        if (sectionTitle) sectionTitle.style.display = 'none';
+                    }
+                });
+
+                // 검색 결과 요약 및 없음 안내
+                if (totalMatches > 0) {
+                    searchNoResult.style.display = 'none';
+                    searchResultSummary.style.display = 'flex';
+                    searchResultSummary.innerHTML = `<span>'<strong>${rawQuery}</strong>' 검색 결과</span> <span><strong>${totalMatches}</strong>건 발견</span>`;
+                } else {
+                    searchResultSummary.style.display = 'none';
+                    searchNoResult.style.display = 'block';
+                }
+            }
+
+            // 이벤트 리스너 등록
+            searchInput.addEventListener('input', performSearch);
+            searchSubmitBtn.addEventListener('click', function() {
+                performSearch();
+                searchInput.focus();
+            });
+
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    performSearch();
+                } else if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    performSearch();
+                }
+            });
+
+            searchClearBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                performSearch();
+                searchInput.focus();
+            });
+
+            if (searchResetBtn) {
+                searchResetBtn.addEventListener('click', function() {
+                    searchInput.value = '';
+                    performSearch();
+                    searchInput.focus();
+                });
+            }
+
+            // 플로팅 검색 버튼 클릭 시
+            if (floatingSearchBtn) {
+                floatingSearchBtn.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    setTimeout(() => {
+                        searchInput.focus();
+                        searchInput.select();
+                    }, 350);
+                });
+            }
+
+            // 단축키 '/' 누르면 검색창으로 이동
+            window.addEventListener('keydown', function(e) {
+                if (e.key === '/' && document.activeElement !== searchInput) {
+                    const tag = document.activeElement ? document.activeElement.tagName : '';
+                    if (tag !== 'INPUT' && tag !== 'TEXTAREA') {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        setTimeout(() => searchInput.focus(), 250);
+                    }
+                }
+            });
+        })();
+
 </script>
+
+
+    <!-- 플로팅 검색 버튼 -->
+    <button type="button" id="floatingSearchBtn" class="floating-search-btn" title="검색창으로 이동" aria-label="검색">
+        <span>🔍</span>
+    </button>
 
 </body>
 </html>
