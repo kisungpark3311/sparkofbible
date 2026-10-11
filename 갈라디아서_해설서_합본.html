@@ -46,13 +46,39 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             margin: 18px auto 100px;
         }
+        
+        /* Running Header inside web reader */
+        .chapter-running-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 7px;
+            margin-bottom: 28px;
+            border-bottom: 0.8px solid #cbd5e1;
+            font-size: 0.88rem;
+            color: #64748b;
+            font-family: 'KoPubWorld Batang Local', 'KoPubWorldBatang', serif;
+        }
+        .chapter-running-header .header-left {
+            font-weight: 700;
+            color: #14532d;
+            letter-spacing: -0.01em;
+        }
+        .chapter-running-header .header-right {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: #64748b;
+            letter-spacing: 0.02em;
+        }
+        
         h1, h2, h3, h4 {
             font-family: 'Noto Serif KR', serif;
             color: var(--title-color);
         }
         h1 {
             font-size: 2.2rem;
-            margin-top: 3.5rem;
+            margin-top: 1.5rem;
             margin-bottom: 1.5rem;
             color: #14532d;
             border-bottom: 3px solid var(--accent-color);
@@ -139,10 +165,10 @@
             z-index: 100;
             display: flex;
             align-items: center;
-            gap: 14px;
-            width: min(1020px, calc(100% - 32px));
+            gap: 12px;
+            width: min(1060px, calc(100% - 32px));
             margin: 16px auto 0;
-            padding: 12px 16px;
+            padding: 12px 18px;
             border: 1px solid rgba(22, 101, 52, 0.14);
             border-radius: 14px;
             background: rgba(255,255,255,0.94);
@@ -152,7 +178,7 @@
         .reader-brand {
             color: #14532d;
             font-family: 'Noto Serif KR', serif;
-            font-size: 0.96rem;
+            font-size: 0.98rem;
             font-weight: 700;
             white-space: nowrap;
         }
@@ -165,14 +191,27 @@
             background: #fff;
             color: #334155;
             font: inherit;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             cursor: pointer;
+        }
+        .file-item-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            background: #f8fafc;
+            color: #0f172a;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            white-space: nowrap;
         }
         .page-counter {
             display: flex;
             align-items: baseline;
             gap: 6px;
-            padding-left: 14px;
+            padding-left: 12px;
             border-left: 1px solid #e2e8f0;
             color: #475569;
             white-space: nowrap;
@@ -198,19 +237,17 @@
             transition: width 140ms ease;
         }
         .book-page {
-            display: none;
+            display: none !important;
             animation: fadeIn 220ms ease;
         }
         .book-page.active {
-            display: block;
+            display: block !important;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
+        .cover-page.active {
+            display: grid !important;
         }
         .cover-page {
             min-height: 72vh;
-            display: grid;
             place-items: center;
             overflow: hidden;
             position: relative;
@@ -363,6 +400,7 @@
             p { font-size: 1.05rem; }
             .reader-header { width: auto; margin: 10px 10px 0; gap: 8px; padding: 9px 10px; }
             .reader-brand { display: none; }
+            .file-item-badge { display: none; }
             .chapter-select { font-size: 0.82rem; }
             .page-counter { padding-left: 9px; gap: 4px; }
             .page-counter-label { display: none; }
@@ -372,10 +410,247 @@
             .reader-controls .text-button { display: none; }
         }
         @media print {
-            @page { size: A4; margin: 18mm 16mm 18mm; }
+            @page {
+                size: A4;
+                margin: 22mm 18mm 22mm 18mm;
+                @top-left {
+                    content: '갈라디아서 해설서';
+                    font-family: 'KoPubWorld Batang Local', 'KoPubWorldBatang', serif;
+                    font-size: 8.5pt;
+                    font-weight: 500;
+                    color: #718096;
+                    border-bottom: 0.8px solid #cbd5e1;
+                    vertical-align: bottom;
+                    padding-bottom: 5px;
+                }
+                @top-center {
+                    content: '';
+                    border-bottom: 0.8px solid #cbd5e1;
+                    vertical-align: bottom;
+                    padding-bottom: 5px;
+                }
+                @top-right {
+                    content: '';
+                    font-family: 'KoPubWorld Batang Local', 'KoPubWorldBatang', serif;
+                    font-size: 8.5pt;
+                    font-weight: 500;
+                    color: #718096;
+                    border-bottom: 0.8px solid #cbd5e1;
+                    vertical-align: bottom;
+                    padding-bottom: 5px;
+                }
+                @bottom-center {
+                    content: counter(page) ' / ' counter(pages);
+                    font-family: 'Pretendard', sans-serif;
+                    font-size: 9pt;
+                    color: #64748b;
+                }
+            }
+            @page page-cover {
+                margin: 0;
+                @top-left { content: none; }
+                @top-center { content: none; }
+                @top-right { content: none; }
+                @bottom-center { content: none; }
+            }
+            
+            
+@page page-sec-0 {
+    @top-right {
+        content: '00_갈라디아서_해설서목차';
+    }
+}
+.sec-0 {
+    page: page-sec-0;
+    break-before: auto;
+    page-break-before: auto;
+}
+
+
+@page page-sec-1 {
+    @top-right {
+        content: '00_해설서_총론_갈라디아서을읽는법';
+    }
+}
+.sec-1 {
+    page: page-sec-1;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-2 {
+    @top-right {
+        content: '01_해설서_갈라디아서_1_1-10';
+    }
+}
+.sec-2 {
+    page: page-sec-2;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-3 {
+    @top-right {
+        content: '02_해설서_갈라디아서_1_11-24';
+    }
+}
+.sec-3 {
+    page: page-sec-3;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-4 {
+    @top-right {
+        content: '03_해설서_갈라디아서_2_1-10';
+    }
+}
+.sec-4 {
+    page: page-sec-4;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-5 {
+    @top-right {
+        content: '04_해설서_갈라디아서_2_11-21';
+    }
+}
+.sec-5 {
+    page: page-sec-5;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-6 {
+    @top-right {
+        content: '05_해설서_갈라디아서_3_1-5';
+    }
+}
+.sec-6 {
+    page: page-sec-6;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-7 {
+    @top-right {
+        content: '06_해설서_갈라디아서_3_6-14';
+    }
+}
+.sec-7 {
+    page: page-sec-7;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-8 {
+    @top-right {
+        content: '07_해설서_갈라디아서_3_15-25';
+    }
+}
+.sec-8 {
+    page: page-sec-8;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-9 {
+    @top-right {
+        content: '08_해설서_갈라디아서_3_26-4_7';
+    }
+}
+.sec-9 {
+    page: page-sec-9;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-10 {
+    @top-right {
+        content: '09_해설서_갈라디아서_4_8-20';
+    }
+}
+.sec-10 {
+    page: page-sec-10;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-11 {
+    @top-right {
+        content: '10_해설서_갈라디아서_4_21-31';
+    }
+}
+.sec-11 {
+    page: page-sec-11;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-12 {
+    @top-right {
+        content: '11_해설서_갈라디아서_5_1-12';
+    }
+}
+.sec-12 {
+    page: page-sec-12;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-13 {
+    @top-right {
+        content: '12_해설서_갈라디아서_5_13-26';
+    }
+}
+.sec-13 {
+    page: page-sec-13;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-14 {
+    @top-right {
+        content: '13_해설서_갈라디아서_6_1-10';
+    }
+}
+.sec-14 {
+    page: page-sec-14;
+    break-before: page;
+    page-break-before: always;
+}
+
+
+@page page-sec-15 {
+    @top-right {
+        content: '14_해설서_갈라디아서_6_11-18';
+    }
+}
+.sec-15 {
+    page: page-sec-15;
+    break-before: page;
+    page-break-before: always;
+}
+
+            
             body { display: block; padding: 0; background: #fff; }
             .reader-header, .reading-progress, .reader-controls, .toast, .start-reading { display: none !important; }
-            .container { max-width: none; padding: 0; box-shadow: none; }
+            .chapter-running-header { display: none !important; }
+            .container { max-width: none; padding: 0; box-shadow: none; margin: 0; }
             .book-page, .book-page[hidden] { display: block !important; animation: none; }
             .book-page { break-before: page; page-break-before: always; }
             .cover-page { min-height: 245mm; break-before: auto; page-break-before: auto; }
@@ -387,13 +662,14 @@
     <header class="reader-header" aria-label="문서 페이지 이동">
         <div class="reader-brand">갈라디아서 해설서</div>
         <select class="chapter-select" id="chapterSelect" aria-label="본문 목차"></select>
+        <div class="file-item-badge" id="fileItemBadge" title="현재 파일 항목">00_갈라디아서_해설서목차</div>
         <div class="page-counter" aria-live="polite">
             <span class="page-counter-label">페이지</span>
-            <strong id="currentPage">1</strong><span>/</span><span id="totalPages">1</span>
+            <strong id="currentPage">1</strong><span>/</span><span id="totalPages">17</span>
         </div>
     </header>
     <div class="container">
-<section class="book-page cover-page" data-page-title="표지">
+<section class="book-page cover-page" data-file-item="표지" data-page-title="표지">
     <div class="cover-content">
         <p class="cover-kicker">THE EPISTLE TO THE GALATIANS</p>
         <h1>갈라디아서 해설서<span>총론 및 14개 본문 해설 합본</span></h1>
@@ -403,6 +679,14 @@
         <button class="start-reading" id="startReading" type="button">해설서 읽기 시작</button>
     </div>
 </section>
+
+<section class="book-page chapter-page sec-0" data-file-item="00_갈라디아서_해설서목차" data-page-title="갈라디아서 해설서 목차">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">00_갈라디아서_해설서목차</span>
+    </div>
+    
 <h1>갈라디아서 해설서 목차</h1>
 <blockquote>
 <p>총론 및 14개 본문 해설 합본<br />
@@ -578,7 +862,16 @@
 <li>전체 <strong>15편 · 213,416자</strong></li>
 <li>본문 해설 한 편당 <strong>13,325~14,762자</strong> (중간값 14,145자)</li>
 </ul>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-1" data-file-item="00_해설서_총론_갈라디아서을읽는법" data-page-title="갈라디아서를 읽는 법">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">00_해설서_총론_갈라디아서을읽는법</span>
+    </div>
+    
 <h1>갈라디아서를 읽는 법</h1>
 <h2>총론 — 날이 선 편지를 끝까지 따라 읽기 위하여</h2>
 <h2>첫 장에서 걸려 넘어지는 자리</h2>
@@ -782,7 +1075,16 @@
 <p>그런데 두 절 뒤에 몸에 새겨진 표가 다시 나옵니다. 「내가 내 몸에 예수의 흔적을 지니고 있노라」(6:17). 본문은 이 두 표를 내용으로 대조하지 않습니다. 할례가 거짓 표이고 흔적이 참된 표라고 쓰지 않았습니다. 15절은 할례를 무효로 돌리면서 그 자리에 다른 표를 세우지 않고 「새로 지으심」이라고만 말합니다. 그리고 무엇이 새로 지으심인지는 그 자리에서 풀어 쓰지 않습니다. 이 편지는 마지막까지 사람이 내세울 표를 하나도 남겨 두지 않습니다. 남은 것은 14절의 문장입니다. 「내게는 우리 주 예수 그리스도의 십자가 외에 결코 자랑할 것이 없으니.」</p>
 <p>갈라디아서를 읽는 일은 첫 장의 날카로움에 놀라는 데서 끝나지 않습니다. 그 날카로움이 무엇을 지키려 했는지를 알아보는 데까지 가야 합니다. 바울은 이미 치러진 값 위에 다른 값을 얹으려는 말 앞에서 물러서지 않았고, 그 기준으로 자기 자신을 먼저 쟀습니다. 열네 편의 해설은 그 걸음을 한 단락씩 따라갑니다.</p>
 <p>읽는 동안 이 편지를 들고 남을 재고 싶은 순간이 올 것입니다. 그때마다 1장 8절의 목록 첫 줄에 누구의 이름이 적혀 있었는지, 그리고 6장 1절이 바로잡는 사람에게 무슨 말을 덧붙였는지를 떠올려 보십시오. 「너 자신을 살펴보아 너도 시험을 받을까 두려워하라.」</p>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-2" data-file-item="01_해설서_갈라디아서_1_1-10" data-page-title="갈라디아서 1:1-10">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">01_해설서_갈라디아서_1_1-10</span>
+    </div>
+    
 <h1>갈라디아서 1:1-10</h1>
 <h2>저주 목록의 첫 줄에 적힌 이름 — 떠나는 것은 교리가 아니라 사람입니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -860,7 +1162,16 @@
 <li>8절의 목록 첫 줄에 「우리」가 놓였다는 사실은 이 저주의 성격을 어떻게 바꿉니까? 그리고 처분이 옮겨 가는 사람이 아니라 전하는 자에게 걸렸다는 사실은 무엇을 말해 줍니까?</li>
 <li>이 편지는 감사 없이 시작하지만 3-4절의 은혜와 평강, 「자기 몸을 주셨으니」로 시작합니다. 6-10절의 강한 말을 이 인사말 위에서 읽으면, 같은 말이 어떻게 다르게 들립니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-3" data-file-item="02_해설서_갈라디아서_1_11-24" data-page-title="갈라디아서 1:11-24">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">02_해설서_갈라디아서_1_11-24</span>
+    </div>
+    
 <h1>갈라디아서 1:11-24</h1>
 <h2>감추지 않고 셈한 자전 — 두 번 다 주어가 아니었던 사람</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -938,7 +1249,16 @@
 <li>1:16의 "내 속에"와 1:24의 "나로 말미암아"는 원문이 같은 두 낱말입니다. 두 문장의 주어는 각각 누구이며, 그 사실은 바울이 이 단락의 끝에서 어디에 서 있다고 말해 줍니까?</li>
 <li>1:23의 소문에는 "박해하던"과 "멸하려던"이 그대로 들어 있습니다. 1:13에서 바울이 자기를 두고 쓴 그 낱말들이 다른 사람들의 입에서 송영의 재료가 된 것을 보며, 나 자신의 불리한 이력은 이 본문 안에서 어떤 자리에 놓입니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-4" data-file-item="03_해설서_갈라디아서_2_1-10" data-page-title="갈라디아서 2:1-10">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">03_해설서_갈라디아서_2_1-10</span>
+    </div>
+    
 <h1>갈라디아서 2:1-10</h1>
 <h2>더하여 준 것이 없고, 다만 하나 — 강요당하지 않은 사람과 맞잡은 손</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1016,7 +1336,16 @@
 <li>6절의 문장이 "그들에게서 받았다"는 구도로 시작했다가 "그들이 얹지 않았다"로 다시 잡힙니다. 이 바뀜이 바울의 자리를 어떻게 바꿉니까?</li>
 <li>6절의 "아무것도"와 10절의 "다만" 사이에서, 얹히지 않은 할례와 남은 가난한 자들의 기억은 어떤 점에서 성질이 다릅니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-5" data-file-item="04_해설서_갈라디아서_2_11-21" data-page-title="갈라디아서 2:11-21">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">04_해설서_갈라디아서_2_11-21</span>
+    </div>
+    
 <h1>갈라디아서 2:11-21</h1>
 <h2>함께 먹던 식탁에서 함께 못 박히는 십자가로 — 안디옥의 대면과 「의롭다 하심」</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1111,7 +1440,16 @@
 <p>12-13절의 「함께 먹다」, 「함께 외식하다」가 20절의 「함께 못 박히다」로 이어집니다. 이 단락에서 「함께」의 대상은 어떻게 바뀝니까? 21절의 「그리스도께서 헛되이 죽으셨느니라」는 그 이동과 어떻게 이어집니까?</p>
 </li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-6" data-file-item="05_해설서_갈라디아서_3_1-5" data-page-title="갈라디아서 3:1-5">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">05_해설서_갈라디아서_3_1-5</span>
+    </div>
+    
 <h1>갈라디아서 3:1-5</h1>
 <h2>마침은 우리 몫이 아니었다 — 눈앞에 걸린 십자가 앞에서 묻는 물음</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1199,7 +1537,16 @@
 <li>2절과 5절을 나란히 놓으면 같은 대조가 되풀이되는데, 앞자리에 서는 주어가 "너희"에서 "성령을 주시고 능력을 행하시는 이"로 달라집니다. 이 배치는 3절이 남긴 "누가 마치느냐"는 물음에 어떻게 답합니까?</li>
 <li>4절의 "받았느냐"를 "고난받았느냐"로 읽을 때와 "겪었느냐"로 읽을 때, 바울이 "헛되이"라는 말로 지키려는 것은 각각 무엇입니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-7" data-file-item="06_해설서_갈라디아서_3_6-14" data-page-title="갈라디아서 3:6-14">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">06_해설서_갈라디아서_3_6-14</span>
+    </div>
+    
 <h1>갈라디아서 3:6-14</h1>
 <h2>저주가 되신 분 — 같은 낱말이 두 번 나오는 자리</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1274,7 +1621,16 @@
 <li>13절을 「저주를 받으셨다」로 읽을 때와 「저주가 되셨다」로 읽을 때, 10절의 「저주 아래」와 13절의 「저주에서」는 각각 어떻게 다르게 들립니까?</li>
 <li>저주라는 말이 가장 짙게 모인 13절 바로 다음에 14절이 「복」과 「성령의 약속」으로 돌아옵니다. 그 사이에 놓인 「~하게 하려 함이라」 하나는 13절과 14절을 어떤 관계로 묶고 있습니까? 그리고 3장 2절의 「너희가 성령을 받은 것이」와 14절의 「성령의 약속을 받게」를 나란히 읽으면 무엇이 이어집니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-8" data-file-item="07_해설서_갈라디아서_3_15-25" data-page-title="갈라디아서 3:15-25">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">07_해설서_갈라디아서_3_15-25</span>
+    </div>
+    
 <h1>갈라디아서 3:15-25</h1>
 <h2>그러면 율법은 무엇이냐 — 기한이 적힌 직무</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1346,7 +1702,16 @@
 <li>22절은 성경이 모든 것을 죄 아래 가둔 목적을 같은 문장 안에 적어 둡니다. 이 목적절이 22절 전체의 어조를 어떻게 바꿉니까?</li>
 <li>25절에서 임기를 끝낸 것은 "믿음이 온" 일이고, 우리가 주어로 서는 것은 "있지 아니하도다"뿐입니다. 이 문장 배치는 "아직 도착하지 못한 것 같다"는 내 감각에 무엇을 말해 줍니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-9" data-file-item="08_해설서_갈라디아서_3_26-4_7" data-page-title="갈라디아서 3:26-4:7">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">08_해설서_갈라디아서_3_26-4_7</span>
+    </div>
+    
 <h1>갈라디아서 3:26-4:7</h1>
 <h2>이제는 네가 종이 아니다 — 세 줄의 문장과 두 번의 보내심</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1417,7 +1782,16 @@
 <li>두 번째 보내심 앞에만 「너희가 아들이므로」가 놓여 있습니다. 이 순서가 거꾸로였다면 성령의 체험과 아들 됨의 관계를 우리는 어떻게 이해하게 되었을까요?</li>
 <li>4장 6절에서 부르짖는 주체는 문법상 「그 영」이고, 로마서 8장 15절에서는 「우리」입니다. 두 본문을 함께 읽을 때, 기도가 막힌 날의 나에게 4장 6절은 무엇을 말해 줍니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-10" data-file-item="09_해설서_갈라디아서_4_8-20" data-page-title="갈라디아서 4:8-20">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">09_해설서_갈라디아서_4_8-20</span>
+    </div>
+    
 <h1>갈라디아서 4:8-20</h1>
 <h2>나처럼 되라 — 나도 너희처럼 되었으므로</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1501,7 +1875,16 @@
 <li>4장 16절은 관계가 식은 원인을 "참된 말을 하므로"라고 댑니다. 4장 13절의 "너희가 안다"와 4장 16절의 "원수가 되었다"가 같은 사람들에 대해 동시에 서 있다는 것을 어떻게 받아들여야 할까요?</li>
 <li>4장 19절에서 산고를 지는 사람은 바울인데 형성되는 주어는 그리스도이십니다. 4장 20절의 "어찌할 바를 모른다"는 이 순서와 어떻게 함께 읽힙니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-11" data-file-item="10_해설서_갈라디아서_4_21-31" data-page-title="갈라디아서 4:21-31">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">10_해설서_갈라디아서_4_21-31</span>
+    </div>
+    
 <h1>갈라디아서 4:21-31</h1>
 <h2>우리는 여종의 자녀가 아니요 — 이름이 있던 자리에 신분이 왔다</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1584,7 +1967,16 @@
 <li>25절의 "지금 있는 예루살렘 … 그 자녀들과 더불어 종 노릇 하고"를 읽을 때, 본문이 분명히 말하는 것과 정해 주지 않는 것을 각각 무엇이라고 적을 수 있겠습니까?</li>
 <li>31절의 결론은 "그들은"이 아니라 "우리는"으로 시작합니다. 본래 유대인인 바울이 이방인 신자들과 함께 이 "우리" 안에 선다는 사실은, 이 단락의 판결문(4:30)을 읽는 방식을 어떻게 바꿉니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-12" data-file-item="11_해설서_갈라디아서_5_1-12" data-page-title="갈라디아서 5:1-12">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">11_해설서_갈라디아서_5_1-12</span>
+    </div>
+    
 <h1>갈라디아서 5:1-12</h1>
 <h2>굳건하게 서서 — 그 자리를 놓으면 「없음」이 아니라 「전체」가 옵니다</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1686,7 +2078,16 @@
 <p>5:12의 거친 말은 「너희를 어지럽게 하는 자들」을 향합니다. 그리스도께서 이미 하신 일에 무엇을 더 얹으려는 마음은 오늘 내 신앙의 어디에서 고개를 듭니까?</p>
 </li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-13" data-file-item="12_해설서_갈라디아서_5_13-26" data-page-title="갈라디아서 5:13-26">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">12_해설서_갈라디아서_5_13-26</span>
+    </div>
+    
 <h1>갈라디아서 5:13-26</h1>
 <h2>그리스도의 사람들 — 이름은 소속에서 오고, 동사는 사람에게 남는다</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1760,7 +2161,16 @@
 <li>24절에서 그리스도의 사람들은 자기 육체를 못 박는 주어로 섭니다. 이 동사를 「사실은 내가 한 일이 아니다」로 거두어들이고 싶어지는 때와, 반대로 이 동사를 내 공로처럼 붙들고 싶어지는 때는 각각 언제입니까?</li>
 <li>이 단락에서 「서로」는 여섯 번 나옵니다. 15절의 「서로 물고 먹으면」과 26절의 「서로 투기하지 말지니라」를 내 공동체에 비추어 볼 때, 목록 한가운데 어떤 항목이 가장 가까이 있습니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-14" data-file-item="13_해설서_갈라디아서_6_1-10" data-page-title="갈라디아서 6:1-10">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">13_해설서_갈라디아서_6_1-10</span>
+    </div>
+    
 <h1>갈라디아서 6:1-10</h1>
 <h2>서로 지라, 각각 지리라 — 그리스도의 이름이 붙은 법</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1834,7 +2244,16 @@
 <li>2절과 5절 사이에 잇는 문장이 없다는 것을 그대로 받아들인다면, 나는 지금 두 짐 가운데 어느 쪽을 지우고 싶어집니까?</li>
 <li>9절의 「자기 고유의 때」와 10절의 「우리에게 있는 때」가 같은 낱말이라는 사실은, 이번 주에 내가 낙심하지 않고 행할 일을 고르는 데 무엇을 말해 줍니까?</li>
 </ol>
-<hr />
+</section>
+
+
+<section class="book-page chapter-page sec-15" data-file-item="14_해설서_갈라디아서_6_11-18" data-page-title="갈라디아서 6:11-18">
+
+    <div class="chapter-running-header">
+        <span class="header-left">갈라디아서 해설서</span>
+        <span class="header-right">14_해설서_갈라디아서_6_11-18</span>
+    </div>
+    
 <h1>갈라디아서 6:11-18</h1>
 <h2>누구의 몸인가 — 바울이 제 손으로 닫는 편지</h2>
 <h2>이 단락이 서 있는 자리</h2>
@@ -1943,6 +2362,8 @@
 <li>6:16의 축복에는 조건이 붙고 6:18의 축도에는 조건이 없습니다. 이 두 절을 나란히 놓으면 무엇이 보입니까?</li>
 <li>바울은 6:17에서 자기 몸의 흔적을 「자랑하다」가 아니라 「지다」로 말합니다. 이 편지에서 자랑이 허락된 자리는 어디였습니까(6:14)?</li>
 </ol>
+</section>
+
     </div>
     <nav class="reader-controls" aria-label="페이지 이동 버튼">
         <button type="button" id="firstPage" class="text-button" title="첫 페이지">처음</button>
@@ -1956,27 +2377,12 @@
     <script>
     (() => {
         const container = document.querySelector('.container');
-        const cover = container.querySelector('.cover-page');
-        const sourceNodes = Array.from(container.children).filter(node => node !== cover);
-        const fragment = document.createDocumentFragment();
-        let chapter = null;
-
-        sourceNodes.forEach(node => {
-            if (node.tagName === 'H1') {
-                chapter = document.createElement('section');
-                chapter.className = 'book-page chapter-page';
-                chapter.dataset.pageTitle = node.textContent.trim();
-                fragment.appendChild(chapter);
-            }
-            if (chapter) chapter.appendChild(node);
-        });
-        container.appendChild(fragment);
-
         const pages = Array.from(container.querySelectorAll(':scope > .book-page'));
         const total = pages.length;
         const select = document.getElementById('chapterSelect');
         const currentLabel = document.getElementById('currentPage');
         const totalLabel = document.getElementById('totalPages');
+        const fileItemBadge = document.getElementById('fileItemBadge');
         const progress = document.getElementById('readingProgress');
         const prev = document.getElementById('prevPage');
         const next = document.getElementById('nextPage');
@@ -1989,7 +2395,13 @@
         pages.forEach((page, index) => {
             const option = document.createElement('option');
             option.value = index;
-            option.textContent = index === 0 ? '표지' : `${String(index).padStart(2, '0')}. ${page.dataset.pageTitle}`;
+            if (index === 0) {
+                option.textContent = '표지';
+            } else {
+                const fItem = page.dataset.fileItem || '';
+                const pTitle = page.dataset.pageTitle || '';
+                option.textContent = `${String(index).padStart(2, '0')}. ${fItem} — ${pTitle}`;
+            }
             select.appendChild(option);
             if (index > 0) {
                 const label = document.createElement('div');
@@ -2015,6 +2427,15 @@
             select.value = String(current);
             currentLabel.textContent = String(current + 1);
             totalLabel.textContent = String(total);
+            
+            if (fileItemBadge) {
+                if (current === 0) {
+                    fileItemBadge.textContent = '표지';
+                } else {
+                    fileItemBadge.textContent = pages[current].dataset.fileItem || '';
+                }
+            }
+            
             const ratio = total > 1 ? (current / (total - 1)) * 100 : 0;
             progress.style.width = `${ratio}%`;
             prev.disabled = current === 0;
