@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>쉼표 끝에 마침내 도착한 한 분의 목소리</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 01편 &middot; 히브리서 1:1-4</span>
+      <h1>쉼표 끝에 마침내 도착한 한 분의 목소리</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>새로운 계절이 찾아오거나 삶의 국면이 크게 바뀔 때마다 우리는 본능적으로 지난날을 정리하고 싶어 합니다. 어제까지 나를 지탱해 주던 익숙한 방식이나 오래도록 붙들어 온 기억을 조금은 낡고 부족했던 이전 단계로 치부해야만, 비로소 눈앞에 다가온 새로운 시대를 온전히 맞이할 수 있을 것처럼 느끼기 때문입니다. 신앙의 자리에서도 이러한 서열화의 유혹은 늘 조용히 고개를 듭니다. 새로운 은혜를 경험하거나 더 깊은 깨달음을 마주할 때, 우리는 과거에 들었던 투박한 말씀들과 지난 시절의 고투를 아들의 시대가 오기 전에 잠시 쓰였던 예비적 흔적쯤으로 낮추어 부르곤 합니다. 그러나 히브리서의 문을 여는 첫 문장은 무엇이 더 우월한지 등급을 매기려는 우리의 조급한 손길을 멈추어 세우며, 전혀 다른 호흡으로 우리를 초대합니다.</p>
+<p>원문의 어순을 따라 히브리서 1장 1절과 2절을 소리 내어 읽어 내려가다 보면, 우리의 가슴은 이내 기분 좋은 숨 가쁨을 경험하게 됩니다. 여러 부분으로, 여러 모양으로, 옛적에 하나님이 조상들에게 선지자들로 말씀하셨다는 긴 어구가 이어지지만, 정작 1절이 끝나는 자리에는 문장을 매듭짓는 마침표 동사가 하나도 놓여 있지 않습니다. 그곳에 서 있는 말은 홀로 문장을 닫지 못한 채 주어인 하나님께 매달려 있는 분사(랄레사스, λαλήσας)뿐입니다. 낭독자는 하나님이라는 주어를 입에 올린 뒤 숨을 새로 갈아 마시지 못한 채 다음 절을 기다려야만 하고, 마침내 이 모든 날 마지막에 아들로 우리에게 말씀하셨다는 본동사(엘랄레센, ἐλάλησεν)가 도착할 때에야 비로소 길게 참았던 숨을 내쉬며 안도하게 됩니다. 주어는 오직 한 번만 불렸고, 같은 뿌리를 가진 말하기의 동사가 처음에는 매달린 꼴로, 나중에는 매듭짓는 꼴로 두 번 울렸을 뿐입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">대리인이 바뀌어도 변하지 않는 주인의 이름</h3>
+<p>이 정교하고도 아름다운 문법의 대칭 속에서 우리가 마주하는 진실은 단순하면서도 묵직합니다. 옛적과 이 날들 마지막이라는 시간이 바뀌었고, 조상들과 우리라는 받는 이가 달라졌으며, 선지자들과 아들이라는 매개가 이동했지만, 정작 말씀하시는 주체인 하나님이라는 주어 칸만은 두 번 적힐 필요조차 없이 단 한 번의 호명으로 문장 전체를 지배하고 있습니다. 정말로 변하지 않는 본질은 굳이 반복하여 외치지 않아도 처음 불린 이름 하나로 끝까지 문장을 끌고 가는 법입니다. 세무 실무에서 사업자가 세무대리인을 변경할 때 수임 해지와 새로운 수임 신고가 이루어지고 신고 서식이나 과세기간이 달라지더라도, 정작 납세자 본인의 사업자등록번호와 납세의무는 결코 바뀌지 않는 것과 같습니다. 새 대리인이 들어왔다고 해서 이전 대리인을 통해 제출했던 지난 세월의 신고서가 남의 서류가 되거나 무효로 폐기되지 않듯, 선지자들을 통해 주셨던 말씀 또한 결코 버려질 옛 서류가 아니라 동일한 주인의 앞선 음성으로 선명히 살아 있습니다.</p>
+<p>물론 세상의 어떤 비유도 아들의 자리를 다 담아내지는 못합니다. 세무대리인은 언제든 교체될 수 있는 외부의 조력자이지만, 마지막 날에 말씀의 통로가 되신 아들은 만유의 상속자이시며 창조의 첫 순간부터 아버지와 함께 모든 세계를 지으신 분이기 때문입니다. 그럼에도 불구하고 첫 문장이 아들을 주어로 내세워 선지자들과 키 재기를 시키는 대신 끝내 하나님을 유일한 주어로 세워 둔 까닭은, 말의 귀속이 언제나 매개가 아니라 화자에게 있음을 우리 몸에 새겨 주기 위함입니다. 오랫동안 멀리서 전화로만 안부를 전하던 부모가 어느 날 직접 문을 열고 방 안으로 들어왔을 때, 자식이 가장 먼저 느끼는 감정은 전화기가 방문보다 열등하다는 매체의 우열 비교가 아니라 전화기 너머로 듣던 바로 그 목소리의 주인공이 내 눈앞에 왔다는 벅찬 안도감입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">높이는 같게 두되 시대의 방향만 돌려 세우는 손</h3>
+<p>하지만 우리의 몸은 얼마나 쉽게 비교와 서열의 습관으로 기울어지는지요. 선지자들로라는 대목에서 오른손을 앞으로 내밀었다가 아들로라는 대목에서 다시 손을 내밀어 보라고 하면, 우리는 거의 무의식적으로 두 번째 손을 첫 번째보다 훨씬 더 높이 치켜들고 싶어 합니다. 원문이 두 어구에 똑같은 전치사와 격을 부여하며 수평의 자리에 나란히 놓아두었는데도, 우리의 팔과 어깨는 본문이 주지 않은 등급표를 스스로 만들어 내며 옛것을 누르고 새것을 과시하려 드는 것입니다. 옛 말씀을 붙들고 살아온 이들에게는 자신의 세월이 부정당할지 모른다는 두려움을 남기고, 새로운 시대를 외치는 이들에게는 앞선 역사를 가볍게 지나치는 오만을 남기는 이 서열 독법을 멈추려면, 우리는 손의 높이를 바꾸는 대신 몸의 방향을 바꾸는 법을 배워야 합니다. 손의 높이는 똑같이 유지한 채 옛적에를 말할 때는 뒤를 가리키고 이 날들 마지막에를 말할 때는 앞을 가리키는 것, 그것이 화자의 동일성을 지키면서 시점의 이동을 몸으로 번역하는 정직한 태도입니다.</p>
+<p>시선을 구속사의 거대한 지평으로 넓혀 볼 때, 이 한 숨의 문장은 수천 년의 세대를 가로지르는 하나님의 호흡이 됩니다. 역사를 여러 개의 독립된 문장들이 늘어선 목록으로 읽으면 마지막이라는 단어는 이전 문장들을 지워 버리는 폐기의 선언으로 들립니다. 그러나 역사를 처음부터 끝까지 이어지는 단 하나의 긴 문장으로 읽으면, 옛적에 여러 부분과 여러 모양으로 주어졌던 수많은 사건들은 그 문장 속에 찍힌 쉼표들이 됩니다. 쉼표가 아무리 많아도 문장은 하나이며, 1절의 미완성 분사는 2절의 본동사가 와서 닫아 주어야만 비로소 온전한 뜻을 갖춘 문장으로 설 수 있습니다. 헤르만 바빙크가 구약과 신약의 계시를 두 개의 분리된 계시가 아니라 한 분 하나님이 역사 속에서 점진적으로 들려주신 하나의 계시로 보았듯, 아들로 말씀하신 마지막 날은 이전의 시간들을 무효로 만드는 자리가 아니라 미완의 쉼표들이 마침내 하나의 완성된 문장으로 세워지는 영광스러운 마침표의 자리입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">갈아엎는 이력이 아니라 이어 짓는 한 문장의 삶</h3>
+<p>더욱 놀라운 사실은 문장을 닫는 이 유일한 주절 동사에 무엇을 말씀하셨는지를 규정하는 목적어가 아예 적혀 있지 않다는 점입니다. 하나님은 우리에게 어떤 행동 지침이나 달성해야 할 과제를 먼저 던지신 것이 아니라, 그저 우리에게 말씀하셨다는 그 압도적인 사건 자체로 우리 앞에 서셨습니다. 이 네 절 안에는 우리가 주어가 되어 수행해야 할 명령도, 아들의 말을 더 잘 들으라는 도덕적 다그침도 들어 있지 않습니다. 풀은 마르고 꽃은 시드나 우리 하나님의 말씀은 영영히 서리라고 노래한 선지자의 고백처럼, 변덕스러운 인생과 달리 식언치 않으시고 변역지 않으시는 한 분 하나님이 옛적에도 말씀하셨고 오늘 우리에게도 동일한 음성으로 말씀하셨다는 그 신실한 연속성이 우리의 존재를 소멸되지 않게 붙드는 유일한 근거가 됩니다.</p>
+<p>이 문법이 우리의 인격과 일상에 스며들 때, 우리는 타인과 나의 시간을 대하는 태도를 근본적으로 고쳐 쓰게 됩니다. 새로운 고객을 상담하며 이전 세무대리인이 작성한 과거의 신고서를 마주할 때에도, 그것을 상관없는 남의 서류로 치부하며 백지에서 새로 시작하려 하기보다 동일한 납세자의 삶이 담긴 앞선 기록으로 존중하며 연속성을 살피는 신중함이 자라납니다. 교회나 조직에서 리더십이 교체될 때에도 새 사람이 새 시대를 연다는 단절과 과시의 언어 대신, 어제까지 그 사람으로 일하셨던 바로 그 주님께서 오늘도 같은 교회를 이 사람을 통해 이어가신다는 주어를 분명히 적음으로써 앞선 이들의 수고와 성도들의 기억을 따뜻하게 지켜 낼 수 있습니다. 무엇보다 내 개인의 신앙 여정에서 새로운 깨달음을 만날 때마다 지난날 눈물로 붙들었던 말씀들을 유치한 옛 단계로 갈아엎지 않고, 나를 처음 부르셨던 바로 그분의 음성이 오늘 내 삶 속에서 또 하나의 쉼표를 지나 마침표로 깊어지고 있음을 고백하는 단단하고 평안한 인격으로 서게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 01편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

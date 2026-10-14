@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>수많은 인계서 너머에서 끊기지 않는 한 분의 숨결</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 14편 &middot; 히브리서 7:20-28</span>
+      <h1>수많은 인계서 너머에서 끊기지 않는 한 분의 숨결</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>오래 거래하던 세무 대리 사무소에서 고객들이 가장 자주 내뱉는 탄식 가운데 하나는 담당자가 또 바뀌었네요라는 말입니다. 사무소 쪽에서는 업무 인계가 완벽하게 끝났으니 걱정하지 마시라고 안심시키지만, 고객은 새로 온 담당자 앞에서 자신의 복잡한 가족 사정과 지난날의 세무조사 경위와 말로만 나누었던 향후 사업 계획을 처음부터 다시 설명해야만 합니다. 인계서가 두꺼워질수록 사람의 살아 있는 사정은 건조한 문장으로 요약되고, 그 요약의 이음매마다 보이지 않는 맥락들이 소리 없이 빠져나갑니다. 교회 사역이나 조직의 현장에서도 사역자가 소진되거나 빈자리가 생기면 우리는 습관처럼 사람 수를 더 늘리고 프로그램을 추가하는 증원 기획서부터 올리곤 합니다. 한 사람이 끝까지 머무를 수 없는 한계를 숫자의 많음으로 메우려는 시도는 우리가 사는 세상의 가장 보편적인 생존 방식입니다.</p>
+<p>히브리서 7장 23절은 세상이 지속을 유지하기 위해 쌓아 올린 그 많음의 정체를 단 한 줄의 문장으로 정직하게 꿰뚫어 봅니다. 개역한글 성경은 저희 제사장 된 자의 수효가 많은 것은 죽음을 인하여 항상 있지 못함이로되라고 옮겼지만, 원문에는 수효에 해당하는 명사가 아예 존재하지 않고 비교급 형용사 플레이오네스, 곧 더 많은 이들이라는 낱말 하나가 그대로 문장의 주어로 서 있습니다. 그리고 그 뒤에 붙은 이유절이 왜 그들이 그토록 많아질 수밖에 없었는지를 밝힙니다. 죽음에 의하여 곁에 머무르는 일이 가로막혔기 때문이라는 것입니다. 역대 제사장들의 이름이 빼곡히 적힌 긴 명판은 풍성함의 자랑도 아니요 누군가의 도덕적 실패에 대한 고발도 아니며, 오직 죽음이라는 가로막힘이 남긴 끊김의 기록이었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">돌림 숨의 합창이 흉내 낼 수 없는 한 분의 머무름</h3>
+<p>한 개체가 끝까지 머무를 수 없을 때 숫자를 늘려 지속을 흉내 내는 패턴은 자연과 제도의 모든 영역에 깊이 새겨져 있습니다. 생물학에서 개체는 죽어도 종은 개체 수를 통해 이어지고, 회계의 계속기업 가정이나 법인 제도는 대표와 직원이 수없이 바뀌어도 법인격이라는 하나의 주체가 끊기지 않고 계속된다고 법적으로 의제합니다. 합창단이 아주 긴 음 하나를 끊김 없이 이어 갈 때 단원들이 서로 다른 타이밍에 몰래 숨을 나누어 쉬는 돌림 숨 기법은 많음이 지속을 흉내 내는 가장 아름다운 예술입니다. 객석의 청중은 하나의 긴 소리를 듣지만, 무대 위에서는 매 순간 누군가의 숨이 끊어지고 있습니다.</p>
+<p>그러나 아무리 정교한 돌림 숨의 합창도, 아무리 두꺼운 법인의 인계서도 결코 흉내 내거나 대신할 수 없는 영역이 하나 있습니다. 바로 누군가를 위해 이름을 부르며 간구하는 일입니다. 법인은 남을 위해 울며 기도하지 않으며, 인계서에는 담당자의 애끓는 마음까지 인계되지 않습니다. 그래서 24절은 많음의 반대편에 더 많은 수가 아니라 호 데, 곧 관사 하나로 지칭되는 단 한 분을 세웁니다. 앞 절에서 죽음에 가로막혔던 복합동사 파라메네인과 똑같은 어근을 가진 단일 동사 메네인을 똑같은 이유절 틀에 넣어, 그분은 영원히 머무르시므로 남에게 넘어가지 않는 제사 직분을 손에 쥐고 계신다고 선언합니다. 그리고 25절의 첫 낱말 호텐, 곧 그러므로라는 추론 부사가 구원의 능력을 거대한 물리적 힘이 아니라 바로 그 끊기지 않는 머무름에서 끌어냅니다. 그분이 떠나지 않고 머무르시기에, 항상 살아 계셔서 지금도 하나님께 나아가는 자들을 위하여 간구하실 수 있는 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">아주 긴 줄이 아니라 끊어지는 선이 없는 영원</h3>
+<p>끊김과 머무름의 차이를 머리가 아니라 우리의 호흡과 가슴의 기억으로 통과해 보면 이 본문의 위로가 얼마나 구체적인지 깨닫게 됩니다. 서너 사람이 둘러서서 아 하는 소리를 숨이 찰 때마다 옆 사람에게 넘기며 일 분간 이어 가 보면, 소리가 이어지기는 하되 바통을 넘기는 교대 지점마다 음높이와 음색이 미세하게 흔들리는 것을 피할 수 없습니다. 반대로 혼자서 흔들림 없는 소리를 내려 하면 흔들리지는 않으나 숨이 짧아 금세 끊어지고 맙니다. 더구나 우리 몸은 나를 위해 평생 새벽마다 기도해 주던 어머니나 믿음의 선배가 세상을 떠난 날, 그 기도가 멈춘 자리에 찾아오던 서늘한 빈자리를 똑똑히 기억합니다. 사람의 시간은 늘 길지만 흔들리는 소리와 흔들리지 않으나 짧은 소리 사이에서 한계를 마주합니다.</p>
+<p>여기서 우리의 차원적 사고에 중대한 전복이 일어납니다. 우리는 흔히 영원을 끝없이 이어지는 시간의 길이로만 상상하여, 수많은 제사장이 수백 년 동안 이어 온 명판과 한 분의 시간을 길이로 비교하려 듭니다. 그러나 7장 23절과 24절의 대조는 영원을 시간의 길이가 아니라 가로막힘의 부재, 곧 끊어지는 선이 그어지지 않는 상태로 정의합니다. 인용된 시편 110편의 영원히라는 어구가 24절의 머무름에 그대로 옮겨 달리고, 25절의 살아 계신다는 분사가 미래형이 아닌 현재 분사로 적힌 까닭이 여기에 있습니다. 웨스트민스터 소요리문답이 그리스도의 제사장 직분을 과거 십자가의 단회적 제사로만 닫지 않고 지금도 우리를 위해 계속 중보하시는 현재의 사역으로 고백하듯, 구원의 그러므로는 미래의 막연한 기대가 아니라 지금 내 기도가 끊어진 자리에서도 멈추지 않는 그분의 현재형 숨결에 걸려 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">한계를 고발하지 않고 이음매를 돌보는 성숙한 일상</h3>
+<p>사람은 결코 영원히 머무를 수 없다는 23절의 정직한 진술과 오직 한 분만이 끊김 없이 머무르신다는 24절의 복음은, 우리가 일터와 공동체에서 사람의 한계를 다루는 태도를 근본적으로 바꾸어 놓습니다. 세무 사무소에서 담당자가 바뀔 때 인계가 완벽히 끝났다는 말로 끊김을 감추는 대신, 교대 지점마다 문서에서 빠져나가기 쉬운 고객의 맥락과 사정들을 별도의 목록으로 만들고 새 담당자가 첫 면담에서 고객과 함께 그 이음매를 확인하는 절차를 마련합니다. 사람의 머무름이 막혀 있다는 사실을 정직하게 인정할 때 비로소 이음매를 정성껏 돌보는 진짜 서비스가 시작됩니다.</p>
+<p>교회 행정과 개인의 가업 승계 설계에서도 마찬가지입니다. 사역이 버거워 증원 기안서를 올릴 때 늘릴 인원과 예산만 적는 것이 아니라 지금 무엇이 막혀서 사역자가 소진되었는지를 첫 칸에 적되, 그 한계를 결코 개인의 믿음 부족이나 결함으로 고발하지 않는 성숙함이 필요합니다. 사업 승계나 유산 상속을 준비할 때도 사람은 죽음으로 머무름이 막힌다는 엄연한 현실 앞에서 후임자를 위한 인계 계획을 성실히 세우되, 그 승계 계획 자체가 영원한 소망의 대체물이 되지 않도록 이 계획이 이어 줄 수 있는 것과 오직 주님만이 이어 주실 수 있는 것을 겸손히 구분하여 적습니다. 우리의 숫자와 계획은 언제나 이음매마다 흔들리지만, 결코 갈리지 않는 직분을 쥐신 한 분이 지금도 우리를 위해 살아 간구하시기에 우리는 오늘도 안심하고 내 몫의 유한한 하루를 성실히 살아냅니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 14편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

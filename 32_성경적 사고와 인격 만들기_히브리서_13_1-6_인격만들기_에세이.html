@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>얼굴을 묻기 전에 문을 여는 손, 결과를 비워 두는 기억</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 32편 &middot; 히브리서 13:1-6</span>
+      <h1>얼굴을 묻기 전에 문을 여는 손, 결과를 비워 두는 기억</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>누군가에게 호의를 베풀고 문을 열어 줄 때, 우리의 마음은 자기도 모르게 상대방이 이 환대를 받을 만한 사람인지를 먼저 저울질하곤 합니다. 내가 쏟은 정성이 어떤 보람이나 열매로 돌아올지 미리 확인하고 싶어 하는 계산이 우리의 손끝을 무겁게 붙잡기 때문입니다. 그러나 히브리서 13장 2절은 열한 개의 짧은 낱말 속에 놀라운 대칭의 그물을 짜 넣어 우리의 계산적인 시선을 조용히 거두어 갑니다. 손님 대접하기를 잊지 말라, 이로써 부지중에 천사들을 대접한 이들이 있었느니라라는 이 한 절 안에는 두 개의 어근이 바깥쪽과 안쪽에서 서로를 거울처럼 마주 보고 있습니다.</p>
+<p>원문의 배열을 들여다보면 문장의 가장 바깥쪽 두 자리에는 손님이라는 한 뿌리에서 나온 명사와 분사가 나란히 서서 문장 전체를 감싸 안고 있습니다. 그리고 그 안쪽 두 자리에는 숨겨지다, 모르고 지나치다라는 같은 뿌리에서 나온 두 동사가 마주 서 있습니다. 우리말 성경은 바깥쪽의 두 단어를 대접이라는 같은 말로 살려 내었지만, 안쪽의 두 단어는 잊지 말라와 부지중에라는 서로 다른 말로 옮겼기에 두 표현이 한 뿌리에서 나왔다는 사실이 눈에 잘 띄지 않습니다. 더욱 깊어지는 지점은 같은 뿌리를 가진 안쪽의 두 단어가 문법의 법과 인칭에서 정반대로 갈라진다는 사실입니다. 앞의 단어는 우리를 향해 잊지 말라고 명하는 2인칭 현재 명령법이고, 뒤의 단어는 옛적에 어떤 이들이 자기도 모르는 사이에 그 일을 행했다고 전해 주는 3인칭 과거 직설법입니다. 한 뿌리의 단어가 한쪽에서는 우리가 지켜야 할 기억의 의무로, 다른 쪽에서는 우리의 앎 바깥에서 일어난 사건의 보고로 갈라져 서 있는 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">의무가 걸리는 기억의 층과 열매가 맺히는 앎 바깥의 층</h3>
+<p>우리가 마땅히 기억하여 행해야 할 의무의 층과 그 행위가 만들어 내는 열매의 층이 서로 다른 차원에 놓여 있다는 이 법칙은 삶의 여러 현장에서 뚜렷이 확인됩니다. 성실한 사업자와 세무 기장 담당자는 날마다 오가는 거래의 영수증과 증빙 서류를 빠짐없이 받아 정해진 기간 동안 철해 둡니다. 그 서류를 파일에 꽂아 넣는 날에는 수천 장의 종이 가운데 어느 한 장이 몇 해 뒤 결정적인 쟁점을 가르는 증거가 될지 아무도 알지 못합니다. 만약 나중에 쓸모가 있을 것 같은 증빙만 미리 골라서 보관하겠다고 마음먹는다면, 무엇이 필요할지 미리 알 수 없으므로 결국 아무것도 제대로 보관하지 못하는 결과에 이르고 맙니다. 의료진이 환자 한 사람을 만날 때마다 손을 씻는 일도 마찬가지입니다. 손 씻기가 막아 낸 감염은 아예 일어나지 않았기에 아무도 그 숫자를 눈으로 볼 수 없지만, 보이지 않는 그 모름 위에서 날마다 손을 씻는 반복된 기억이 생명을 지킵니다.</p>
+<p>어두운 밤마다 등탑에 올라 불을 밝히는 등대지기는 그 불빛을 보고 암초를 피해 간 배의 이름을 알지 못하며, 무대 한쪽에서 노래를 받쳐 주는 반주자의 연주는 잘될수록 청중의 귀에 따로 두드러지지 않습니다. 심방하는 목회자가 한 가정의 문을 두드리고 돌아온 날 밤, 그 짧은 방문이 한 영혼의 어떤 깊은 어둠을 붙들어 주었는지는 대개 끝내 알려지지 않은 채 남습니다. 게다가 세무조사의 증빙이나 감염 통계는 세월이 흐른 뒤에라도 그 쓸모가 드러날 때가 있지만, 히브리서 13장 2절은 대접한 이들이 나중에라도 상대가 천사였다는 사실을 알게 되었는지에 대해 끝내 침묵합니다. 대접한 사람들도 어떤 이들이라는 이름 없는 대명사로 남아 있고, 대접을 받은 천사들 앞에도 정관사가 없습니다. 성경이 명령의 근거로 내세운 것은 화려한 보상의 미담이 아니라, 대접한 이들이 끝내 몰랐다는 그 거룩한 부지의 사실 하나뿐입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">확인하기 전에 문고리를 잡는 손과 식탁 옆의 빈 의자</h3>
+<p>이 말씀을 머리의 논리에서 내려놓아 문 앞에 선 우리 몸의 감각으로 옮겨 보면, 우리가 일상에서 무엇과 싸우고 있는지가 선명해집니다. 눈을 감고 현관문 앞에 서서 누군가 밖에서 문을 두드린다고 상상해 보십시오. 문고리를 잡은 채 문밖에 누가 서 있는지 확인하기 전에 문을 열려고 하면, 우리 몸의 어깨와 목덜미가 먼저 뻣뻣하게 굳어지는 것을 느끼게 됩니다. 사람의 몸은 본능적으로 문 너머의 상대를 먼저 살피고 자격을 확인하려는 쪽으로 기울어집니다. 그 확인의 긴장을 넘어 문고리를 돌려 여는 데에는 작지만 분명한 몸의 결단이 필요합니다. 잊지 말라는 현재 명령이 겨누고 있는 자리는 바로 이 굳어진 어깨, 곧 확인하고 심사하려는 지체함을 넘어 손을 먼저 움직이게 하는 일상의 습관입니다.</p>
+<p>기억을 머릿속의 다짐으로만 두지 않고 몸의 공간에 새겨 넣는 또 하나의 방법이 있습니다. 오늘 식탁에 둘러앉을 때 아무도 올 예정이 없더라도 의자 하나를 조금 더 빼어 빈자리로 남겨 두어 보십시오. 하루 동안 그 식탁 곁을 지날 때마다 우리의 몸은 그 빈 의자를 의식하며 동선을 조금씩 바꾸게 됩니다. 아무도 앉지 않은 빈 의자 하나가 우리 몸의 걸음을 바꾸듯, 손님 대접하기를 잊지 말라는 말씀은 내 시간과 공간의 한구석에 타인을 위한 여백을 미리 빼어 두는 구체적인 배치로 지켜집니다. 사람들이 이 구절을 읽고 흔히 기억하는 단어는 문장 맨 끝에 나오는 천사라는 낱말이지만, 정작 성경의 명령이 잊지 말라고 목적어로 못 박아 둔 단어는 천사가 아니라 대접 그 자체입니다. 기억의 대상을 신비한 천사에서 문 여는 대접의 습관으로 되돌려 놓을 때, 이 말씀은 비로소 구름 위에서 내려와 우리의 식탁 곁에 자리를 잡습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">심사의 눈초리를 거두고 결과 칸을 비워 두는 환대의 인격</h3>
+<p>마태복음 25장에서 주님 앞에 선 의인들은 우리가 어느 때에 주께서 나그네 되신 것을 보고 영접하였으며 옥에 갇히신 것을 보고 가서 뵈었나이까라고 물으며 자신들이 행한 일의 가치를 전혀 알지 못했음을 고백합니다. 칼뱅 역시 기독교 강요에서 우리가 이웃에게 선을 행할 때 그 사람이 도움을 받을 만한 자격이 있는지를 따져 묻는 심사관의 태도를 버리고, 다만 그 사람 안에 새겨진 하나님의 형상을 바라보며 내 것을 나누라고 권면했습니다. 이어지는 히브리서 13장 4절이 모든 것을 아시고 판단하시는 심판자는 오직 하나님 한 분이심을 분명히 밝히고 있듯이, 대접하는 우리의 몫은 값을 매기고 결과를 확인하는 일이 아니라 그저 잊지 않고 문을 여는 일입니다. 우리 자신부터가 자격과 정체를 심사받지 않고 그리스도의 은혜 안으로 거저 영접받은 나그네였기 때문입니다.</p>
+<p>이제 이 말씀이 빚어내는 인격의 열매를 우리의 일터와 공동체 속에 심어 보십시오. 고객과 첫 상담을 진행할 때 당장 내 눈에 쓸모 있어 보이는 서류만 골라 받고 나머지는 물리치기보다, 고객이 가져온 모든 자료를 쓸모 판정 전에 먼저 정중히 받아 두는 태도가 곧 판단보다 수령을 앞세우는 지혜입니다. 교회에서 처음 찾아온 새가족을 맞이할 때에도 출신 교회나 직분이나 사회적 이력을 묻는 심사표 같은 등록 양식을 들이밀기보다, 안전을 위한 최소한의 절차는 별도로 두되 첫 만남의 기록지 맨 위에는 오직 오늘 함께 따뜻한 식사를 나누었는가라는 한 칸만 남겨 두는 배려가 필요합니다. 그리고 한 달 동안 누군가에게 문을 열고 안부를 묻고 자리를 내어준 내 개인의 작은 실천 기록지에서는, 그래서 어떤 보답과 결과가 있었는지를 적는 마지막 칸을 끝내 공란으로 비워 두십시오. 결과를 모른 채 묵묵히 문을 여는 그 빈칸 위에서, 우리의 삶은 계산을 넘어선 참된 하늘의 환대로 깊어질 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 32편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

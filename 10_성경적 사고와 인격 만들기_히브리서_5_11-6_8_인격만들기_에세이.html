@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>판정석을 허물고 허락 아래서 함께 걷는 길</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 10편 &middot; 히브리서 5:11~6:8</span>
+      <h1>판정석을 허물고 허락 아래서 함께 걷는 길</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>오래도록 제자리에 머물러 있는 사람이나 자기 관리를 미루어 온 사람을 마주할 때, 우리는 쉽게 조급해지고 목소리에 힘을 주곤 합니다. 언제까지 초보에 머물러 있을 것이냐며 이제는 좀 분발하여 완전한 자리로 나아가라고 다그치는 일은 언뜻 보기에 정당한 권면처럼 들립니다. 새해를 맞이하며 우리 스스로에게 내리는 결심들도 대개 그러합니다. 올해는 성경을 몇 독 하겠다거나 기도를 몇 시간 채우겠다는 결과 중심의 목표를 세워 두고, 며칠 지나지 않아 그 기준에 미달하면 아예 수첩을 덮어 버린 채 다시 처음부터 기초를 파야 한다고 자책합니다. 교회 안의 훈련 체계 역시 출석과 과제 점수로 진급을 판정하면서, 가르치는 이는 회중 바깥의 높은 판정석에 앉고 배우는 이는 결과 전체를 홀로 떠안은 채 위축되는 풍경이 반복되곤 합니다.</p>
+<p>그러나 히브리서 5장 후반부의 무거운 책망이 6장 1절의 요구로 꺾이는 자리를 가만히 들여다보면, 우리가 익숙하게 휘둘러 온 분발의 명령과는 전혀 다른 문법이 펼쳐집니다. 5장 11절과 12절에서 너희가 듣는 것이 둔하여졌고 젖이 필요한 자가 되었다고 굳어진 과거의 상태를 지적할 때만 해도 문장의 주어는 철저히 2인칭 복수인 너희였습니다. 그런데 그러므로라는 접속사 하나로 문장이 전환되는 6장 1절에 이르러, 본문은 단 하나의 명령법도 쓰지 않은 채 주어를 1인칭 복수인 우리로 바꾸어 놓습니다. 책망할 때는 바깥에서 거리를 두던 저자가, 막상 앞으로 나아가야 할 요구의 자리에서는 판정석에서 내려와 둔해진 사람들의 줄 한가운데로 걸어 들어와 함께 서는 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">손에서 내려놓을 교본과 발밑에 그대로 둘 주춧돌</h3>
+<p>우리라는 이름으로 나란히 선 이들에게 본문이 맡기는 동작은 놀랍도록 구체적이면서도 절제되어 있습니다. 우리는 흔히 초보를 버리고 완전한 데로 나아가라는 말씀을 모든 기초 교리를 다 졸업하고 더 높고 신비한 단계로 도약하라는 뜻으로 오해하곤 합니다. 하지만 원문은 버려야 할 것과 다시 닦지 말아야 할 것을 서로 다른 두 낱말과 두 분사로 엄격하게 갈라놓습니다. 능동 분사로 버리라고 명한 대상은 그리스도 도의 초보, 곧 처음 배울 때 손에 쥐고 있던 입문 교본의 말들이며, 중간태 분사로 다시 놓지 말라고 금한 대상은 회개와 신앙의 터, 곧 건물 전체를 떠받치는 주춧돌입니다. 금지된 것은 터 자체가 아니라 이미 놓인 터를 불안해하며 두 번 세 번 다시 파헤치는 일입니다.</p>
+<p>이 구별을 몸의 감각으로 옮겨 보면 두 동작의 차이가 손바닥과 발바닥에서 또렷이 느껴집니다. 오랫동안 손에 쥐고 다니던 낡은 수첩이나 입문 교재를 탁자 위에 내려놓을 때 내 손은 비로소 자유로워지지만, 내가 딛고 서 있는 바닥을 손바닥으로 짚어 보면 그 터는 사라지지 않고 내 발밑을 단단히 받치고 있습니다. 성장이란 발밑의 기초를 허물어 버리는 일이 아니라, 기초가 과연 제대로 놓였는지 의심하며 매일 원점으로 돌아가 땅을 파던 불안한 반복을 멈추고, 이미 놓인 그 터를 힘껏 딛고 서서 손에 쥔 낡은 표지만 내려놓는 일입니다. 어제의 실패 때문에 내 신앙의 주춧돌 전체가 무너진 것처럼 처음부터 다시 시작하려는 강박을 멈출 때 비로소 오늘의 걸음이 시작됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">정해진 다섯 칸 한가운데 비워 둔 한 칸의 신비</h3>
+<p>더욱 깊은 통찰은 두 분사가 매달려 있는 유일한 주절 동사 페로메타의 독특한 형태에 숨어 있습니다. 개역한글 성경은 이 말을 완전한 데 나아갈지니라 하여 마치 우리의 의지와 근력으로 힘써 전진해야 하는 능동적 당위처럼 옮겼으나, 원문 자료에는 이 동사가 받는 꼴인 수동태로 태깅되어 있고 형태상 중간태와도 모양이 같습니다. 앞뒤에 선 사람의 동작인 버림과 다시 놓지 않음은 능동과 중간으로 분명하게 적어 놓고서, 정작 앞으로 나아가는 전진 자체는 우리가 스스로 걷는 것인지 아니면 거대한 힘에 실려 가는 것인지 칼로 자르듯 판정하지 않은 채 열어 둔 것입니다. 그리고 그 열린 전진 바로 뒤에 하나님께서 허락하시면 우리가 이것을 하리라는 6장 3절의 고백이 테두리처럼 둘러섭니다.</p>
+<p>두 동력이 하나의 움직임 안에 포개질 때 정직한 기록은 그 몫을 반반씩 나누려 들지 않습니다. 공항의 무빙워크 위를 걸어갈 때 내 다리가 분명히 움직이고 있지만 지금 나를 앞으로 보내는 힘 가운데 몇 퍼센트가 내 다리의 몫이고 몇 퍼센트가 움직이는 바닥의 몫인지 몸으로 재어 볼 수 없는 것과 같습니다. 바람을 받아 나아가는 돛배에서 선원이 키와 돛줄을 부지런히 다루는 일과 바람이 배를 밀어 주는 일을 조각내어 계산하지 않고, 재활 치료실의 보조 보행 기록지에 환자의 다리 힘과 치료사의 손힘을 따로 나누어 적지 않는 이치와도 같습니다. 조세법률주의가 법문이 정한 과세 요건은 엄격히 지키되 법이 정하지 않은 빈칸을 해석자의 유추로 함부로 메우지 않듯, 본문은 누가, 무엇을 내려놓고, 무엇을 다시 파지 않으며, 어디를 향해, 누구의 허락 아래 가는지는 분명히 정하되 전진의 동력 배분만은 하나님의 주권 아래 겸손히 열어 두었습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">동작 두 개와 허락의 기도 한 줄로 세우는 일상</h3>
+<p>만약 이 열린 칸을 우리의 결심으로만 채워 넣으면 6장 3절의 하나님의 허락은 형식적인 도장으로 전락하고, 반대로 우리는 가만히 실려 갈 뿐이라고만 굳혀 버리면 손에서 낡은 것을 내려놓으라는 분사들이 무의미한 장식이 되고 맙니다. 웨스트민스터 신앙고백이 선을 행하는 능력은 온전히 그리스도의 영에게서 나오나 신자는 자기 안에 있는 은혜를 일깨우는 데 부지런해야 한다고 고백하며 두 진리를 나란히 지킨 이유가 바로 여기에 있습니다. 성장을 속도의 문제로만 읽으면 이 본문은 숨 막히는 압박이 되지만, 굳어진 과거의 시간 위에 우리라는 동행의 인칭이 내려앉고 미래 전체가 하나님의 허락에 맡겨진 구조로 읽으면 이 본문은 가장 따뜻한 초대가 됩니다.</p>
+<p>이 성경적 사고의 결을 따라 우리의 일터와 삶의 방식도 고요히 재정비됩니다. 장부 정리를 오랫동안 미루어 온 고객을 대할 때 이번에는 혼자서라도 꼭 다 끝내셔야 한다고 결과 전체를 떠넘기는 대신, 이번 분기에 우리가 함께할 일이라는 1인칭 복수로 상담 기록지를 나누어 적습니다. 섞어 쓰던 계좌 습관을 버리는 일과 이미 확정된 지난 신고를 불안해하며 다시 뒤집지 않는 일 두 가지만 고객의 몫으로 분명히 정해 주고, 최종 세액과 처리는 대리인과 함께 기관의 절차에 맡기도록 안내할 때 고객은 비로소 두려움을 떨치고 오늘 할 수 있는 작은 동작을 시작합니다. 우리의 하루 또한 거창한 성취 목록 대신 오늘 손에서 내려놓을 낡은 습관 하나, 발밑에서 흔들리지 않고 딛고 설 기초 하나, 그리고 하나님께서 허락하시면 나아가겠다는 짧은 기도 한 줄로 채워질 때, 우리는 걸으면서도 실려 가는 은혜의 걸음을 멈추지 않게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 10편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

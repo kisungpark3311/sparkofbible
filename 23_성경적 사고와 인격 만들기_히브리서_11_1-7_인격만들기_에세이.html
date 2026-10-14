@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>받은 아직 앞에서 먼저 고개를 숙이고 망치를 드는 인격</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 23편 &middot; 히브리서 11:1-7</span>
+      <h1>받은 아직 앞에서 먼저 고개를 숙이고 망치를 드는 인격</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">열린 안개 위에 관사 하나와 아직이라는 시간표가 내려앉을 때</h3>
+<p>히브리서 11장의 첫 문을 여는 1절과 첫 단락을 닫는 7절의 양 끝에는 '보지 못함'이라는 같은 모양의 분사가 나란히 서 있다. 우리말 성경은 두 자리를 똑같이 '보지 못하는'으로 옮겼지만, 원문의 결을 들여다보면 두 문장의 표정은 사뭇 다르다. 11장 1절은 절 전체에 관사가 단 하나도 없이 활짝 열려 있어서, 우리가 마주하는 모든 막막함과 시점 없는 보지 못함을 넓게 품어 안는다. 그러다 11장 3절에서 말씀으로 지어진 '보이는 세계'를 한 번 지나간 뒤, 11장 7절의 노아 이야기에 이르면 똑같은 분사 앞에 '그'라는 정관사 하나와 '아직'이라는 부사 하나가 조용히 내려앉는다. 막연하게 열려 있던 안개 위에 '아직 보지 못하는 그 일들'이라는 한정이 그어지면서, 끝없어 보이던 안개에 비로소 앞과 뒤라는 시간의 결이 생겨난 것이다.</p>
+<p>사람의 손은 언제 움직이기 시작하는가. 세상의 여러 장부와 일상의 풍경을 살펴보면, 미래가 막연한 '언젠가'에서 때가 매겨진 '아직'으로 바뀔 때 비로소 준비가 시작된다는 공통된 법칙을 발견하게 된다. 회계에서는 미래의 의무가 일어날지조차 불투명하면 우발부채로 분류해 재무제표 바깥의 주석에 한 줄 적어 두는 데 그치지만, 발생할 가능성이 높고 합리적 추정이 가능해지면 충당부채로 장부에 인식하여 실제로 자금을 쌓기 시작한다. 언젠가 비가 올 것이라는 말에는 아무도 우산을 챙기지 않지만 내일 오후 비가 온다는 예보를 들으면 현관 앞에 우산을 꺼내 놓고, 언젠가 손님이 올 것이라는 막연한 말과 달리 오늘 저녁 손님이 오기로 되어 아직 도착하지 않았다는 말을 들으면 당장 식탁을 닦고 상을 차리는 것과 같다. 다만 회계의 충당이나 일상의 기상 예보는 사람이 확률을 계산하고 날짜를 특정하여 매기는 '아직'이지만, 본문이 보여주는 노아의 '아직'은 날짜가 적히지 않은 채 오직 하늘로부터 받아서 생겨난 시간이라는 점에서 세상의 모든 계산과 갈라진다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">서둘러 손을 쥐기 전에 두 번 먼저 받는 몸의 순서</h3>
+<p>노아는 안개 너머의 홍수를 눈으로 미리 보았기 때문에 망치를 든 것이 아니었다. '아직'이라는 낱말은 눈앞의 안개를 걷어내는 대신, 그가 서 있는 지금 이 순간을 다가올 사건의 '이전'으로 바꾸어 놓았을 뿐이다. 더구나 본문의 어순을 가만히 따라가 보면 노아의 손은 결코 제일 먼저 움직이지 않았다. '방주를 지었다'는 능동형 주동사가 등장하기에 앞서, '경고하심을 받아'와 '경외함으로'라는 두 개의 수동형 분사가 먼저 그의 몸을 통과한다. 만약 이 두 분사를 능동형으로 바꾸어 읽는다면 노아는 남보다 앞서 미래를 내다본 뛰어난 예견자나 불굴의 의지로 결단한 도덕적 영웅이 되고 말겠지만, 원문의 수동 분사 둘은 이 이야기가 인간의 모범담이 아니라 말씀을 받은 한 사람의 사건임을 단단히 지켜 준다. 노아의 첫 동작은 나무를 깎는 지음이 아니라 귀를 여는 받음이었고, 두 번째 동작은 그 무거운 말씀 앞에 고개를 숙이는 경외였다.</p>
+<p>이 문법의 순서는 우리의 몸과 근육을 통해서도 고스란히 확인된다. 의자에 가만히 앉아 눈을 감고 '언젠가 누군가 이 집에 올 것이다'라고 속으로 되뇌어 보면 몸은 미동도 하지 않은 채 제자리에 머물러 있지만, '아직 오지 않았다, 그러나 온다'라고 말을 바꾸어 보면 손님이 보이지 않는데도 허벅지 근육에 긴장이 돌며 자리에서 일어나야 할 것 같은 감각이 깨어난다. 그러나 일어선다고 해서 다 같은 걸음이 되는 것은 아니다. 먼저 손바닥을 위로 펴고 귀를 기울여 받는 자세를 취하고, 이어서 고개를 깊이 숙여 경외의 숨을 고른 뒤에야 비로소 손을 쥐고 일어서는 몸은 차분하고 흔들림이 없다. 반대로 받음과 숙임의 시간을 건너뛴 채 다짜고짜 주먹부터 쥐고 일어서는 몸은 마음이 조급하고 발걸음이 서두를 뿐 어디로 가야 할지 방향을 잃고 만다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">조급한 계산을 내려놓고 들음에서 출발하는 삶의 분별</h3>
+<p>바울이 로마서 8장에서 보이는 소망은 소망이 아니며 보지 못하는 것을 바랄 때 참음으로 기다린다고 말했듯, 아직 보지 못하는 자리에 서 있다는 것은 믿음의 결핍이 아니라 소망과 사건이 시작되는 자리다. 칼뱅이 히브리서 주석에서 노아가 눈에 보이는 징조가 아니라 오직 하나님의 말씀에 의지하여 방주를 지었으며 그 믿음의 뿌리가 들음에 있다고 짚은 것도 같은 맥락이다. 그러므로 우리는 11장 1절을 박제된 교리적 정의로 암송하는 데서 멈추거나, 반대로 날짜 없는 '아직'을 인간의 시한부 계산이나 공포로 둔갑시켜 아직 응답의 때를 받지 못한 이들을 다그치는 도덕주의의 낭떠러지를 함께 경계해야 한다. 장의 첫 줄인 11장 1절이 관사 없이 열려 있다는 사실은, 아직 구체적인 '아직'의 경고를 듣지 못해 막막한 안개 앞에 서 있는 성도에게도 믿음의 자리가 온전히 열려 있음을 보여주는 따뜻한 배려다.</p>
+<p>이 성경적 분별력은 직장과 상담의 현장에서 불안을 다스리는 지혜로 열매 맺는다. 세무조사나 소송 가능성 같은 막연한 미래의 위험을 안고 찾아온 고객은 불안이 클수록 모든 가능성에 당장 손을 쓰려 하며 불필요한 비용과 에너지를 소진하곤 한다. 이때 상담자가 위험 목록을 두 칸으로 나누어, 근거 없는 막연한 불안은 주석 수준의 '언젠가' 칸에 두고, 실제 통지서나 법령 개정, 명확한 기한처럼 밖으로부터 '받은 근거'가 있는 사안만 '아직'의 칸에 분류해 주면 고객의 호흡은 한결 차분해진다. 고객의 불안을 자극해 임의로 날짜를 만들어 내는 대신, 받은 근거가 있는 일에만 차분히 손을 움직이게 돕는 것이다.</p>
+<p>교회와 조직의 장기 계획을 세우거나 개인의 중요한 결단을 내릴 때도 이 두 칸의 지혜는 빛을 발한다. 공동체의 계획서를 작성할 때 아직 때가 특정되지 않은 11장 1절의 열린 비전 칸과, 구체적인 근거와 기한이 주어진 11장 7절의 준비 칸을 구별하여 예산과 인력을 뒤의 칸에 먼저 배정하면, 비전은 열린 채로 보존되면서도 당장의 준비가 미루어지지 않는다. 무엇보다 개인이 새로운 일을 시작하기 전에 내 마음을 재촉하는 이 '아직'의 출처가 주님의 말씀과 분명한 사정에서 온 것인지, 아니면 남과의 비교나 내 안의 조급함에서 지어낸 것인지를 한 줄로 적어 보는 습관을 들여 보라. 출처가 조급함이라면 기꺼이 하루를 멈추어 손바닥을 펴고 고개를 숙이는 사람, 그에게는 들음에서 흘러나와 세월이 가도 지치지 않는 단단한 순종의 인격이 깃들게 된다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 23편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

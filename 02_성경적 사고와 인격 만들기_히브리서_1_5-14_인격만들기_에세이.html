@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>내 가슴의 이름표를 떼고 봉투의 수신인을 바라보다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 02편 &middot; 히브리서 1:5-14</span>
+      <h1>내 가슴의 이름표를 떼고 봉투의 수신인을 바라보다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 누군가를 만나거나 어떤 일을 시작할 때 습관적으로 이름표부터 확인하려 합니다. 내가 가진 직함과 자격증이 무엇인지, 조직 안에서 내 위치가 어디쯤인지를 먼저 세워 두어야만 비로소 내가 하는 일의 가치가 증명된다고 믿기 때문입니다. 심지어 가장 낮은 자리에서 타인을 돕는 봉사와 헌신의 영역에서조차 우리는 섬기는 자라는 또 하나의 명예로운 직함을 가슴에 달고 싶어 합니다. 그러나 히브리서 1장이 아들과 천사들을 긴 인용의 사슬로 견주어 온 끝에 당도하는 14절의 마지막 문장은, 존재를 고정하는 화려한 직함 대신 누군가를 향해 걸어가는 발걸음과 그 손에 들린 봉투의 수신인 쪽으로 우리의 시선을 조용히 돌려놓습니다.</p>
+<p>원문의 1장 14절을 찬찬히 들여다보면, 우리의 익숙한 문법 감각을 흔들어 깨우는 기묘한 어긋남들이 한 문장 안에 겹쳐 있습니다. 우선 문장의 주어 자리에는 천사라는 명사가 아예 적혀 있지 않고, 다만 남성 복수형으로 쓰인 모두(판테스, πάντες)라는 단어만 홀로 서 있습니다. 그런데 그 주어를 설명하는 술어인 섬기는 영들(레이투르기카 프뉴마타, λειτουργικὰ πνεύματα)과 보내심을 받은(아포스텔로메나, ἀποστελλόμενα)이라는 현재 분사는 남성이 아니라 사물을 가리키는 중성 복수로 한 편이 되어 맞물려 있습니다. 주어는 이름 없이 홀로 서 있고 술어와 분사가 중성으로 단단히 묶이면서, 문장의 무게 중심은 그들이 누구인가라는 신분에서 그들이 무엇으로 쓰이며 어디로 보내지는 중인가라는 역동적인 사역으로 기울어집니다. 더욱이 7절의 시편 인용문에서는 사역자들(레이투르구스, λειτουργούς)이라는 당당한 명사로 불렸던 단어가, 14절 저자의 결론 문장에 이르러서는 영들을 꾸미는 형용사(레이투르기카, λειτουργικά)로 한 계단 내려앉아 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">계약서의 명칭이 아니라 누구를 향해 걷는가의 실질</h3>
+<p>저자는 손안에 명사형 직함이 분명히 있었음에도 불구하고 그것을 쓰지 않는 편을 택했습니다. 명사로 적힌 직함은 자칫 그 존재 자체를 고정된 계급이나 영구적인 신분으로 굳어지게 만들지만, 수식어와 현재 분사로 적힌 보내짐은 언제나 그를 보낸 발신인과 그 섬김을 받는 수신인이라는 바깥의 두 자리를 가리키기 때문입니다. 세무와 노무 실무에서 어떤 이가 근로자인지 독립된 사업자인지를 판정할 때, 계약서 표지에 적힌 프리랜서나 위탁이라는 그럴듯한 명칭만으로 결론을 내리지 않는 이치와 같습니다. 실제 업무를 누가 지휘하고 감독하는지, 그리고 누구의 사업을 위해 그 땀방울이 쓰이는지라는 실질적인 세 항의 관계를 따져 보아야만 비로소 그 일의 진짜 정체가 드러납니다. 외교관의 권위가 개인의 직급이 아니라 파견한 국가의 신임장과 부임지의 임무에서 나오고, 집배원의 하루가 제복의 색깔이 아니라 가방 속 봉투에 적힌 수신인들의 주소록으로 짜이는 것처럼, 참된 섬김은 명함이 아니라 업무 지시서의 문법을 따릅니다.</p>
+<p>물론 세상의 실무와 히브리서 1장 14절 사이에는 어떤 비유로도 메울 수 없는 거룩한 여백이 하나 존재합니다. 세상의 모든 파견과 우편에는 반드시 발신인의 이름이 명시되어야 효력이 생기지만, 정작 본문의 보내지는 중이라는 분사에는 누가 보냈는지를 가리키는 행위자가 어형 속에 적혀 있지 않습니다. 우리말 번역은 보내심이라는 존칭 어미를 보태어 그 빈자리에 하나님의 그림자를 드리웠지만, 원문은 발신인의 자리를 아예 비워 둔 채 문장 맨 끝에 구원 얻을 상속자들 위하여라는 제3의 수혜자들만 선명하게 적어 두었습니다. 5절부터 13절까지 일곱 번의 구약 인용을 거치며 내내 천사 중 누구에게 말씀하신 적이 있는가를 물었던 저자는, 마지막에 이르러 발신인을 비워 둠으로써 독자 스스로가 앞선 모든 말씀의 주인이신 하나님께로 고개를 돌리게 만든 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">자기 가슴을 내려다볼 틈이 없는 걸음의 가벼움</h3>
+<p>이 문법의 비밀을 머리가 아니라 몸으로 통과해 보면 그 차이는 더욱 분명해집니다. 아무것도 들지 않은 채 가슴에 큼지막한 이름표 하나만 달고 방 끝에서 끝까지 걸어갈 때, 우리의 시선과 손끝은 걸음을 옮기는 내내 이름표가 삐뚤어지지 않았는지 자꾸만 자기 가슴 쪽으로 숙여집니다. 반면에 봉투 하나에 다른 사람의 이름을 정성껏 적어 들고 그 사람의 자리까지 걸어가 내려놓고 돌아올 때, 우리의 손은 내 몸 쪽으로 오그라들지 않고 앞을 향해 뻗어 있으며 시선은 오직 봉투에 적힌 이름과 그가 앉아 있는 자리를 번갈아 바라보게 됩니다. 나를 증명할 이름표를 떼어 버리고 타인의 이름이 적힌 봉투를 드는 순간, 자기를 내려다보느라 무거웠던 목덜미가 펴지고 빈손으로 돌아오는 발걸음에 기이한 가벼움이 찾아옵니다.</p>
+<p>구속사의 단락 전체를 놓고 볼 때, 이 한 절의 렌즈 전환은 놀라운 전복을 일으킵니다. 흔히 우리는 히브리서 1장을 아들의 우월성을 증명하기 위해 천사들을 아래 등급으로 끌어내린 비교의 장으로만 읽기 쉽습니다. 실제로 인용 사슬 내내 천사들은 아들에게 주어진 말씀을 받지 못한 쪽으로 배제되어 있었습니다. 그러나 저자는 천사들을 열등한 패배자의 칸에 가두어 둔 채 단락을 닫지 않습니다. 누구에게 말씀하셨는가라는 수신자의 렌즈를 누구를 위해 보내지는가라는 쓰임의 렌즈로 바꾸어, 그 영들을 장차 구원을 상속받을 이들을 향해 지금도 쉼 없이 파견되고 있는 현재 진행형의 섬김으로 다시 세워 준 것입니다. 장 칼뱅이 천사를 호기심이나 숭배의 대상으로 삼지 말고 우리를 향해 선하심을 베푸시는 하나님의 분배자로 바라보라고 권면했듯, 비교의 사슬이 끝나는 자리에서 우리 손에 남는 것은 차가운 서열표가 아니라 바로 우리 자신이 그 돌봄의 수신인이라는 벅찬 목록입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">나를 위해 보내진 이름 없는 손길들을 다시 세는 저녁</h3>
+<p>그러므로 이 본문 앞에서 우리가 가장 먼저 경계해야 할 태도는 천사도 이토록 섬기니 너희도 직함을 버리고 낮아져 섬기라는 성급한 도덕주의로 미끄러지는 일입니다. 14절에서 사람은 섬기는 주어의 자리에 서 있지 않고, 오직 섬김을 받는 수혜자의 자리에만 놓여 있습니다. 복음은 우리가 무엇을 해내야 하는지 다그치기 전에, 구원을 상속받을 우리를 위해 보이지 않는 영들의 걸음까지도 지금 보내지고 있다는 하나님의 세밀한 섭리를 먼저 들려줍니다. 설교자가 강단에서 이 구절을 읽을 때 손가락으로 자기 가슴을 짚거나 회중을 훈계하듯 가리키지 않고, 두 손바닥을 위로 펴서 회중을 향해 조용히 내밀어야 하는 이유가 바로 여기에 있습니다.</p>
+<p>이 문장의 시선을 배운 사람은 일상의 자리에서 사람과 사건을 기록하는 문법이 달라집니다. 고객이 계약서에 용역이라 적혀 있으니 무조건 사업소득으로 신고해 달라고 요구할 때에도, 서류상의 명칭에 갇히지 않고 누가 지시하며 누구를 위한 일인지 실질의 세 항을 차분히 물어 위험을 예방하는 지혜를 발휘합니다. 교회나 공동체에서 수고한 이들에게 감사패나 인사를 건넬 때에도 헌신적인 아무개라는 직함과 수식어에만 머물지 않고, 그분의 걸음 덕분에 우리 가운데 누가 어떤 위로를 받았는지 수혜자의 자리를 마지막 문장에 적어 넣음으로써 섬긴 이의 기쁨을 더욱 깊게 만들어 줍니다. 무엇보다 하루를 마감하는 고요한 저녁, 오늘 아무도 나를 도와주지 않았다며 외로움에 잠기는 대신 이름을 밝히지 않은 채 나를 위해 놓여 있던 제때 도착한 버스와 치워진 길과 보이지 않는 손길들을 하나씩 다시 세어 보며, 나를 구원의 상속자로 부르신 주님의 보내심 앞에 깊은 감사를 올리는 따뜻한 인격으로 자라나게 됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 02편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

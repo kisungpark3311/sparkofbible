@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>걸음을 늦추어 옆 사람의 어깨를 짚을 때 완성되는 우리의 나아감</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 20편 &middot; 히브리서 10:19-25</span>
+      <h1>걸음을 늦추어 옆 사람의 어깨를 짚을 때 완성되는 우리의 나아감</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>바쁜 일상에 쫓기며 신앙의 자리를 지키려 애쓸 때, 우리가 가장 먼저 챙기는 것은 대개 하나님 앞에 홀로 나아가는 개인의 경건 시간입니다. 새벽이나 밤늦은 시간에 조용히 성경을 펴고 기도하는 일은 가까스로 지켜 내면서도, 내 곁에 앉은 지체의 안부를 묻고 서로의 삶을 돌보는 일은 시간과 마음에 여유가 생길 때 해도 되는 부수적인 일로 미루어 두곤 합니다. 반대로 모임의 자리를 열심히 지키는 사람 가운데에는 남들의 빈자리를 날카롭게 헤아리며 왜 모이기를 폐하느냐고 속으로 책망하는 피로에 잠기는 이들도 있습니다. 우리가 이처럼 개인의 경건과 공동체의 돌봄을 주와 종의 위계로 나누거나 책망의 도구로 삼게 된 데에는, 우리말 성경의 번역 어미가 어쩔 수 없이 만들어 놓은 작은 문법의 그늘이 자리하고 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">번역의 연결형 아래 숨어 있던 대등한 세 가지 권유</h3>
+<p>개역한글 성경으로 히브리서 10장 22절부터 25절까지를 읽어 내려가면, 우리에게 청하는 권유의 어미로 끝나는 자리는 22절의 나아가자와 25절의 더욱 그리하자 두 곳뿐인 것처럼 보입니다. 그사이에 놓인 23절의 굳게 잡아와 24절의 서로 돌아보아 격려하며는 마치 나아가기 위한 준비 동작이나 부수적인 태도를 설명하는 연결형 어미로 낮추어져 있습니다. 그러나 헬라어 원문의 문법 구조를 들여다보면 풍경이 완전히 달라집니다. 문장의 본줄기에 똑같은 높이로 나란히 서 있는 1인칭 복수 현재 가정법 권유 동사는 22절의 나아가자(프로세르코메타), 23절의 굳게 잡자(카테코멘), 그리고 24절의 서로 돌아보자(카타노오멘)라는 세 낱말입니다. 오히려 우리말 성경에서 더욱 그리하자라고 주동사처럼 옮겨진 25절의 표현은 원문에서 파라칼룬테스, 곧 24절의 서로 돌아보자라는 셋째 권유 아래 매달려 있는 현재 능동 분사입니다.</p>
+<p>더욱 눈여겨보아야 할 사실은 우리말 번역에서 연결형으로 숨어 버린 23절과 24절의 두 권유가 실은 가장 선명하고 구체적인 목적어를 품고 있는 동사들이라는 점입니다. 정작 주된 동작처럼 보이는 22절의 나아가자에는 원문상 직접 목적어도 여격 보어도 적혀 있지 않은 반면, 23절의 잡자는 소망의 고백이라는 분명한 대격 목적어와 약속하신 이는 미쁘시니라는 든든한 근거절을 거느리고 있습니다. 그리고 24절의 돌아보자는 세 권유 가운데 유일하게 이웃을 직접 가리키는 상호 대명사 알렐루스, 곧 서로를 목적어로 삼고 사랑과 선한 일들을 향한 격려를 목표구로 세워 둡니다. 대등한 목록을 하나의 한국어 문장으로 엮는 과정에서 구체적인 대상을 품은 두 권유가 그늘로 내려앉았고, 그중에서도 다른 사람을 향한 항목이 가장 먼저 부록처럼 밀려난 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">신고를 완성하는 첨부서류와 복도로 옮겨 온 종말의 더욱</h3>
+<p>원래 대등한 무게를 지닌 일들이 문장이나 절차 속에서 주와 종의 위계로 오해될 때 생기는 문제는 세무 실무에서도 흔히 찾아볼 수 있습니다. 법인세 신고를 할 때 제출하는 재무상태표와 포괄손익계산서, 세무조정계산서는 법령상 필수 첨부서류라고 불립니다. 이름에 첨부라는 말이 붙어 있다 보니 고객들은 때로 법인세 과세표준 신고서 한 장만 내면 본래의 할 일은 다 한 것이고 첨부서류는 나중에 천천히 내도 되는 부수적인 서류라고 가볍게 여기곤 합니다. 그러나 필수 첨부서류가 빠진 신고는 세법상 아예 적법한 신고로 인정되지 않아 무신고 가산세의 대상이 됩니다. 합창에서 소프라노의 주선율만 남기고 안쪽에서 화음을 받쳐 주는 알토와 테너의 내성부를 지워 버리면 음악 전체가 무너지듯, 암벽을 함께 오르는 로프 팀의 세 사람이 오르는 동작과 줄을 쥐는 동작과 서로를 확인하는 동작 가운데 어느 하나만 생략해도 팀 전체가 위험에 빠지듯, 덜 보이는 동작이 실은 전체의 실체를 이룹니다.</p>
+<p>물론 세법의 첨부서류는 결국 신고를 위해 존재하는 수단이고 법인 각자가 개별적으로 이행하는 의무이지만, 히브리서 10장 22절에서 24절의 세 권유는 수단과 목적의 상하 관계가 아니라 완전히 대등한 세 기둥이며 처음부터 끝까지 우리라는 1인칭 복수로만 묶여 있습니다. 혼자 제출하는 신고서는 있을 수 있어도, 혼자서 수행하는 서로 돌아봄은 문법적으로도 현실적으로도 존재할 수 없습니다. 더구나 25절에서 그 날이 가까움을 볼수록 그만큼 더욱이라고 말할 때, 그 더욱이 붙어 있는 자리는 골방에서 홀로 쌓는 개인 경건의 열심이 아니라 24절의 서로 돌아보자 아래 매달린 두 분사, 곧 우리의 모임을 버리지 않고 서로 권하는 동작입니다. 디트리히 본회퍼가 신도의 공동생활에서 그리스도인의 공동체는 우리가 만들어 내야 할 이상이 아니라 그리스도 안에서 이미 주어진 실재라고 고백했듯이, 예수의 피로 얻은 담력과 큰 제사장이라는 든든한 근거 위에서 서로를 향해 고개를 돌리는 일은 종말을 살아가는 신앙의 본줄기 그 자체입니다.</p>
+<p>이 세 가지 대등한 권유를 몸의 감각으로 익히기 위해, 세 사람이 어깨를 나란히 맞추고 서서 한 걸음을 앞으로 내딛으면서(나아가자), 동시에 손에는 소망의 고백을 상징하는 끈을 단단히 쥐고(잡자), 동시에 고개는 옆 사람의 얼굴을 향해 돌리는(돌아보자) 동작을 한 호흡에 해 봅니다. 세 동작을 하나씩 순서대로 할 때는 걸음이 빠르고 수월하지만, 앞을 향해 걸으면서 옆 사람을 바라보면 걸음은 자연스럽게 느려질 수밖에 없습니다. 그러나 바로 그 느려진 걸음 덕분에 세 사람은 한 사람도 뒤에 처지지 않고 함께 목적지에 도착합니다. 걸어가면서 옆 사람의 어깨 위에 가만히 손을 얹어 보면, 누군가의 어깨에 손을 얹어 권면하는 그 자세가 곧 내가 대열에서 이탈하지 않고 모임을 떠나지 않게 막아 주는 가장 확실한 결속임을 손바닥의 온기로 깨닫게 됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">부록으로 밀려난 서로의 이름을 일정의 중심에 세우는 인격</h3>
+<p>연결형 어미에 가려져 있던 두 권유를 본래의 대등한 자리로 복원하는 일은 우리의 업무 문서와 공동체 행정, 그리고 일상의 시간표를 따뜻하고 균형 잡힌 모습으로 바꾸어 놓습니다. 고객에게 세무 신고 안내문을 보낼 때 주된 신고서와 필수 첨부서류를 상하 위계로 적지 않고 똑같은 높이의 필수 목록으로 나란히 배치하여 안내하듯, 교회와 조직의 연간 계획과 예산을 세울 때에도 예배와 기도라는 나아감, 말씀과 고백을 붙드는 교육, 그리고 지체들을 살피고 심방하는 서로 돌아봄을 어느 하나에 종속시키지 않고 세 개의 대등한 기둥으로 세우게 됩니다. 무엇보다 모이기를 폐하지 말라는 구절을 출석이 뜸한 어떤 사람들을 정죄하고 책망하는 무기로 쓰던 차가운 시선을 거두고, 그 분사가 우리 자신에게 걸려 있음을 기억하며 먼저 따뜻한 손을 내밀게 됩니다.</p>
+<p>이번 한 주간을 시작하며 우리의 개인 수첩과 주간 일정표를 펼칠 때, 해야 할 업무와 개인 경건 시간 옆에 서로라는 이름의 칸을 당당한 본줄기로 만들어 보시기 바랍니다. 서로라는 목적어를 지워 버리면 돌아봄은 그저 골방의 자기 성찰로 오그라들고 맙니다. 월요일 아침에 이번 주 내가 눈을 맞추고 안부를 물으며 격려할 세 사람의 이름을 미리 적어 두고, 예배가 끝난 주일 오후의 복도에서 스쳐 지나가는 삼 초의 순간에 걸음을 멈추어 그 이름을 다정히 불러 주십시오. 약속하신 이가 미쁘시다는 흔들리지 않는 근거에 기대어 소망의 고백을 함께 붙들고, 내 걸음을 조금 늦추어 옆 사람의 어깨에 손을 얹을 때, 우리의 신앙은 외로운 독주를 멈추고 그 날을 향해 함께 걸어가는 아름다운 화음으로 깊어질 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 20편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

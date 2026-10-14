@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>두 손이 다 내려간 빈틈 없이 소망이 들어오는 문틀</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 13편 &middot; 히브리서 7:11-19</span>
+      <h1>두 손이 다 내려간 빈틈 없이 소망이 들어오는 문틀</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사람들은 언제나 새로 들어온 것보다 사라지고 폐지된 것의 소식에 더 민감하게 반응하며 두려워합니다. 세법의 한 조항이나 한 호의 요건이 개정되어 다른 제도로 옮겨 갔을 뿐인데도, 상담 창구로 찾아오는 고객들은 그 공제가 아예 없어졌다면서요, 그 법이 폐지됐다면서요 하며 불안한 표정으로 묻곤 합니다. 교회나 조직에서 오래된 행사나 부서를 정리할 때도 폐지 공지가 먼저 나가고 대체 사역 안내가 몇 주 뒤로 밀리면, 그 빈틈 사이로 교회가 그 귀한 일을 아예 그만두었다는 서글픈 소문이 순식간에 퍼져 나갑니다. 우리의 새해 결심 또한 무엇을 끊고 버리겠다는 금지의 목록으로만 가득 차 있을 뿐, 그 끊어 낸 빈자리에 무엇이 들어와 누구에게 가까이 가려 하는지는 적히지 않아 결국 옛 습관이 다시 그 빈방을 차지하는 일이 되풀이됩니다.</p>
+<p>히브리서 7장 18절과 19절 역시 오랫동안 옛것의 철거 공고문처럼 읽혀 온 대표적인 본문입니다. 개역한글 성경이 전엣 계명이 연약하며 무익하므로 폐하고라고 먼저 끊은 뒤, 이어지는 절에서 이에 더 좋은 소망이 생기니라고 동사를 하나 더 보태어 번역했기 때문에, 우리는 흔히 옛 계명이 무너져 내리는 사건과 새 소망이 생겨나는 사건을 시간차를 둔 두 개의 별개 사건으로 받아들입니다. 그러나 원문의 문장 구조를 가만히 들여다보면 놀라운 사실 두 가지가 드러납니다. 하나는 폐함이라는 무거운 낱말이 율법 전체가 아니라 앞서 가던 계명 단수 하나에 정확히 배정되어 있다는 점이고, 다른 하나는 18절의 폐함과 19절의 들어옴이 실은 두 개의 동사가 아니라 기네타이라는 단 하나의 현재 중간태 동사를 함께 나누어 쓰고 있는 한 문장이라는 점입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">철거 현장이 아니라 한 개정문 안에서 일어나는 교대</h3>
+<p>책임 있는 교체 문서일수록 무엇이 빠지는지의 범위를 조항 단위로 엄밀하게 좁히고, 삭제와 신설을 반드시 한 장의 문서 안에 묶어 기록합니다. 법령 개정문이 제 몇 조 제 몇 항을 삭제하고 제 몇 조의 이를 다음과 같이 신설한다고 한 문장으로 고지하듯, 히브리서 기자도 어휘의 범위를 칼같이 나누어 배정합니다. 7장 12절에서 율법에 붙인 낱말은 폐함이 아니라 변역, 곧 자리 옮김이었으며, 18절의 폐함은 오직 앞서 가던 계명 하나에만 붙어 있습니다. 그리고 그 두 구절 사이에 끼어 있는 괄호 문장에서 율법은 관사를 달고 당당히 주어로 서서, 율법이 누군가에게 파괴를 당한 것이 아니라 스스로 아무것도 온전하게 하지 못했다는 한계의 증인으로 발언합니다. 폐함을 율법 전체에 씌우지 않고 계명 하나로 좁혀 두었기에, 율법은 지워지지 않고 새 소망을 가리키는 증인으로 문장 안에 남을 수 있었던 것입니다.</p>
+<p>나아가 의사가 기존 약을 끊고 새 약을 처방할 때 한 장의 처방전에 두 가지를 동시에 적어 환자의 치료에 단 하루의 공백도 생기지 않게 하듯, 원문은 폐함이라는 명사와 들어옴이라는 명사 사이에 다른 동사를 넣지 않고 한 동사에 두 주어를 나란히 걸어 두었습니다. 더욱이 약을 끊는 사유가 환자의 잘못이 아니라 약 자체의 효능 한계에 있듯, 본문은 연약함과 무익함의 소유격을 사람이 아닌 계명 자체에 붙여 그 계명 아래서 애쓰던 사람들을 정죄하지 않고 보호합니다. 물론 세상의 법령 개정문이나 처방전에는 언제나 개정한 주체와 시행 일자가 명시되지만, 히브리서 본문은 누가 언제 폐했는지를 적는 행위자 표시를 비워 둔 채 이미 시편 110편에 증언되어 있던 영원한 제사장의 약속 위에서 이 교대가 조용히 일어나고 있음을 보여 줄 뿐입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">한 호흡으로 건너가 하나님께 한 걸음 내딛는 발</h3>
+<p>동사 하나를 두 명사가 나누어 쓰는 이 문법을 우리의 호흡과 두 손의 움직임으로 통과해 보면 왜 본문이 그토록 공백을 경계했는지가 온몸으로 이해됩니다. 두 손을 앞으로 나란히 든 채 폐함이라는 말에서 왼손을 먼저 내리고, 잠시 숨을 끊었다가 생기니라는 말에서 오른손을 올리면, 그 두 동작 사이에 두 손이 모두 허공에서 내려가 있는 텅 빈 순간이 발생합니다. 그러나 같은 박자에 왼손을 내림과 동시에 오른손을 올리면 두 손이 다 내려간 상실의 공백은 단 일 초도 생기지 않습니다. 원문 순서대로 동사를 한 번만 소리 내어 읽고 들어옴이라는 명사 뒤에서 숨을 끊지 않고 달려가 보면, 우리의 귀는 두 번째 명사 뒤의 빈자리를 첫 번째 동사로 자연스럽게 메우며 이어달리기의 바통 구간처럼 막힘없이 소망의 자리로 건너가게 됩니다.</p>
+<p>무엇보다 이 문장의 진짜 정체는 문장의 첫 낱말이 아니라 맨 마지막 낱말을 기준으로 재어 볼 때 비로소 온전히 드러납니다. 문장은 앞서 가던 계명의 폐함에서 시작하지만 마침표는 그곳에 찍히지 않고, 더 좋은 소망의 들어옴을 지나 마침내 토 데오, 곧 하나님께라는 마지막 낱말에서 닫힙니다. 그리고 그 마지막 낱말 바로 앞에 이 단락 전체에서 유일한 1인칭 복수 동사인 엥기조멘, 곧 우리가 가까이 간다는 현재형 고백이 놓여 있습니다. 첫 낱말로 재면 이 단락은 서늘한 폐지 본문이지만, 문장이 도착하는 끝자리로 재면 이 단락은 우리가 하나님께 가까이 나아가는 뜨거운 접근 본문입니다. 명령법이 단 하나도 없는 이 단락에서 복음은 우리더러 가까이 가라고 다그치기 전에, 이미 우리가 하나님께 가까이 가는 길이 문틀 안으로 들어왔다고 선언합니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">끝자리의 하나님을 향해 교체 고시를 쓰는 삶</h3>
+<p>범위를 정확히 가르고 폐함과 들어옴을 한 호흡에 묶으며 끝자리의 방향을 놓치지 않는 이 성경적 사고는 우리의 언어와 행정을 정교하고도 따뜻하게 다듬어 줍니다. 제도가 바뀌어 혼란스러워하는 고객을 상담할 때 그 공제가 없어졌다는 뭉뚱그린 말을 그대로 두지 않고, 상담 메모 첫 줄에 정확히 어느 조항의 어느 호가 빠졌는지와 같은 개정문 안에 어떤 대체 제도가 새로 들어왔는지를 나란히 적어 보여 줍니다. 막연한 상실감이 정확한 정보로 바뀌는 순간 고객은 두려움을 내려놓고 새로 열린 길을 볼 수 있게 됩니다.</p>
+<p>교회와 공동체에서 오랜 사역이나 순서를 정리할 때도 폐지 공지와 신설 공지를 따로 내지 않고 반드시 한 장의 문서에 함께 담아내야 합니다. 그만두는 사유를 그동안 땀 흘려 섬겨 온 사람들의 부족함으로 돌리지 않고 제도 자체의 시대적 한계로 정직하게 적을 때, 회중은 두 손이 다 내려간 공백을 겪지 않으며 지난날의 수고는 고발이 아닌 감사의 기억으로 남게 됩니다. 개인의 결심 수첩에도 무엇을 끊겠다는 절반짜리 문장 대신, 옛 습관의 폐함과 새 소망의 들어옴을 한 문장으로 묶어 적고 그 문장의 맨 끝자리에 이를 통해 내가 하나님께 더 가까이 간다는 목적을 적어 넣기를 소망합니다. 마침표가 폐함이 아니라 하나님께 찍혀 있음을 아는 사람은, 삶의 어떤 교대 구간에서도 두 손을 다 떨어뜨리지 않고 소망의 걸음을 내딛습니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 13편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

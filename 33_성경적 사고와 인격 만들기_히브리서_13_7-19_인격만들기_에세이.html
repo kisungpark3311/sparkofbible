@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>그분께로 나아가는 문지방과 너희에게로 돌아오는 발걸음</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 33편 &middot; 히브리서 13:7-19</span>
+      <h1>그분께로 나아가는 문지방과 너희에게로 돌아오는 발걸음</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>신앙의 길을 걸으며 우리는 종종 거친 세상 밖으로 나아가는 선교적 결단과 공동체 안을 따뜻하게 지키는 돌봄 사이에서 어느 한쪽을 선택해야 하는 것처럼 갈등하곤 합니다. 안주하는 교회를 떠나 밖으로 나가자고 외치는 목소리는 공동체 안의 일상을 답답한 울타리로 여기기 쉽고, 반대로 안쪽의 질서와 모임만을 강조하는 목소리는 문밖의 고난을 외면한 채 성벽을 쌓기 쉽습니다. 그러나 히브리서 13장 7절부터 19절까지의 단락을 한 폭의 그림으로 펼쳐 놓고 보면, 성경은 밖으로 나아가는 걸음과 안으로 돌아오는 걸음을 결코 둘로 찢어 놓지 않는다는 사실을 발견하게 됩니다. 오히려 본문은 밖을 향해 나아가자는 가장 뜨거운 부름을 단락의 정중앙에 기둥처럼 세워 두고, 그 앞뒤를 공동체 안으로 향하는 일곱 개의 명령들로 겹겹이 감싸 안고 있습니다.</p>
+<p>이 단락의 중심축을 이루는 11절부터 13절까지의 세 구절에는 밖이라는 뜻을 가진 하나의 전치사가 연달아 세 번 등장합니다. 히브리서 전체를 통틀어 딱 세 번 나오는 이 전치사가 모두 이 세 구절에 모여 있으면서, 한 절씩 건너갈 때마다 문장의 주어와 태와 법을 숨 가쁘게 바꾸어 갑니다. 11절에서는 속죄제 짐승의 몸이 진영 밖으로 실려 나가 불살라진다는 현재 수동태로, 12절에서는 예수께서 자기 피로 백성을 거룩하게 하시려고 성문 밖에서 친히 고난을 당하셨다는 부정과거 능동태로, 그리고 마침내 13절에서는 그런즉 우리도 그의 능욕을 지고 진영 밖으로 그에게 나아가자는 1인칭 복수 권유형으로 이어집니다. 규정에 따라 끌려 나가던 수동의 자리가 예수님께서 친히 걸어 나가신 고난의 자리를 거쳐, 이제 우리가 자원하여 걸어 나가는 은혜의 발걸음으로 건네진 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">장소가 아니라 그분께로 향하는 방향, 날숨과 들숨의 두 박자</h3>
+<p>여기서 원문을 자세히 살피면 우리가 흔히 오해하던 한 가지 사실이 바로잡힙니다. 우리말 성경은 영문 밖, 성문 밖, 영문 밖으로 옮겨 마치 정해진 특정 장소 하나를 가리키는 것처럼 읽히지만, 원문에서 11절과 13절의 명사와 12절의 명사는 서로 다른 단어이며 세 구절에서 글자 모양이 똑같은 것은 오직 밖이라는 전치사 하나뿐입니다. 더욱이 13절의 권유는 밖으로라는 전치사구와 함께 그에게라는 인격적 방향을 나타내는 전치사구를 나란히 거느리고 있습니다. 만약 그에게라는 말을 지워 버린다면 밖으로 나가자는 권유는 그저 지금 있는 공동체가 싫어 어디로든 떠나 버리자는 탈출이나 이탈의 구호로 변질되고 맙니다. 그러나 본문이 고정해 둔 밖은 지도 위의 어떤 낯선 공간이 아니라, 먼저 고난의 길을 걸어 나가신 예수 그리스도 그분께로 나아가는 인격적인 방향입니다.</p>
+<p>그리고 이 놀라운 밖으로의 부름은 단락의 끝인 19절에 이르러 예상치 못한 따뜻한 인사로 마무리됩니다. 진영 밖으로 그에게 나아가자고 힘주어 권면했던 바로 그 저자가, 문단을 닫으면서는 내가 더 속히 너희에게로 돌아가기를 위하여 기도해 달라고 간곡히 청하고 있는 것입니다. 밖으로 나아가자는 말과 너희에게 돌아가고 싶다는 말이 한 사람의 한 편지 안에 나란히 들어 있습니다. 이것은 모순이 아니라 살아 있는 생명의 호흡입니다. 날숨만 쉬고 들숨을 쉬지 못하면 숨이 멎고, 심장이 온몸으로 피를 내보내는 박출만 하고 다시 받아들이는 환류를 멈추면 몇 박자 만에 비어 버리듯, 밖으로 나아가는 걸음은 돌아올 공동체의 품이 있을 때 지치지 않고 이어집니다. 소득세법에서 국외 근무자의 거주자 여부를 판정할 때 그가 비록 외국 현장에서 일하고 있더라도 생계를 같이하는 가족과 생활의 근거가 국내에 남아 있으면 그의 주소를 집으로 보듯이, 주님의 능욕을 지고 세상 밖으로 나아간 성도의 영적 주소는 여전히 함께 기도하며 기다려 주는 믿음의 지체들 안에 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">짐을 지고 문지방을 넘는 어깨와 등 뒤를 받쳐 주는 기도의 목소리</h3>
+<p>이 왕복의 신비를 우리 몸의 걸음으로 직접 살아 내어 보면 축과 테두리가 어떻게 서로를 지탱하는지 생생하게 느껴집니다. 어깨에 묵직한 가방 하나를 메고 방문의 문지방 앞에 서 보십시오. 13절이 말하는 그의 능욕을 지고 나아간다는 분사는 빈손으로 가볍게 산책하듯 나가는 걸음이 아닙니다. 무거운 짐을 어깨에 지고 문지방을 넘어 세 걸음 걸어 나갈 때, 우리의 보폭은 평소보다 짧아지고 상체는 무게를 이기기 위해 자연히 앞으로 기울어집니다. 그때 방 안에 남아 있던 이들이 등 뒤에서 18절의 말씀대로 우리를 위하여 기도하라는 청을 받아 소리 내어 기도해 준다고 생각해 보십시오. 등 뒤에서 들려오는 그 기도의 목소리는 나아가는 사람의 발목을 붙잡아 주저앉히는 소리가 아니라, 앞으로 기울어진 무거운 등과 어깨를 뒤에서 든든히 떠받쳐 주는 힘으로 전해집니다.</p>
+<p>이제 밖에서 걸음을 마치고 돌아서서 다시 문지방을 넘어 방 안으로 들어와 보십시오. 밖에서 고단한 싸움을 치르고 돌아온 몸은 어깨에 멘 가방의 무게를 아직 다 덜어 내지 못한 채 지쳐 있습니다. 그렇게 돌아온 사람이 무거운 가방을 내려놓고 숨을 고를 수 있는 바닥이 바로 단락의 앞뒤 테두리에 놓인 일곱 개의 명령들입니다. 하나님의 말씀을 일러 준 이들을 기억하고, 선을 행함과 서로 나누어 주기를 잊지 말며, 서로를 위해 기도하라는 공동체 안의 일상적인 돌봄이 없다면, 밖으로 나갔던 사람은 돌아와 짐을 내려놓을 자리를 찾지 못한 채 길 위에서 소진되고 말 것입니다. 등반대가 정상을 향해 걸음을 내디딜 수 있는 것은 돌아와 언 몸을 녹일 베이스캠프가 있기 때문이며, 더욱이 16절은 공동체 안에서 행하는 선행과 나눔 자체가 밖의 일을 위한 단순한 보조 수단이 아니라 하나님께서 기쁘게 받으시는 거룩한 제사임을 분명히 선언합니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">파송과 귀환이 맞물리는 공동체, 두 끝점을 오가는 성숙한 일상</h3>
+<p>사도행전 13장과 14장에 기록된 안디옥 교회의 모습은 이 거룩한 왕복의 원형을 그대로 보여 줍니다. 교회는 금식하며 기도하고 두 사도에게 안수하여 밖으로 떠나보냈고, 사도들은 험난한 여정을 마친 뒤 전에 하나님의 은혜에 부탁하던 바로 그곳 안디옥으로 돌아와 교회를 모으고 하나님이 함께 행하신 모든 일을 보고하며 긴 쉼을 얻었습니다. 본회퍼가 성도의 공동생활에서 홀로 있음과 함께 있음이 서로를 지켜 준다고 말했듯이, 히브리서 13장은 밖으로 그분께 나아가는 일과 안으로 너희에게 돌아오는 일이 한 생명의 두 박자임을 일깨워 줍니다. 여기는 영구한 도성이 없기에 우리는 안주하지 않고 문밖의 주님께로 나아가며, 동시에 주님께서 허락하신 지체들이 이곳에 있기에 우리는 기도를 부탁하며 다시 공동체의 품으로 돌아옵니다.</p>
+<p>이 균형 잡힌 성경적 시각은 우리의 일터와 교회와 개인의 삶을 한쪽으로 치우치지 않는 건강한 인격으로 세워 줍니다. 해외 파견이나 이주를 앞둔 고객과 상담할 때, 나가는 현지의 세무 요건과 체류 절차만 챙기는 데 그치지 않고 국내에 남는 가족과 자산 관계, 그리고 장차 귀국할 때 정리해야 할 돌아올 자리의 목록을 두 칸으로 나누어 함께 설계해 주는 세심함이 곧 삶을 온전히 돌보는 전문성입니다. 교회와 기관에서 선교사나 봉사팀을 보낼 때에도 화려한 파송 예배만 드리고 끝낼 것이 아니라, 모든 파송 계획서에 귀환 예배 날짜와 돌아온 뒤 석 달 동안 옆에서 짐을 함께 들어 줄 동역자의 이름을 의무적으로 적어 넣는 따뜻한 행정이 자리 잡아야 합니다. 오늘 내 한 주간의 삶을 돌아보며, 주일 예배당 문을 나서며 세상 속의 주님께로 나아갔던 걸음과 지친 어깨로 돌아와 지체들에게 기도를 부탁했던 흔적이 함께 적혀 있는지 살펴보십시오. 밖으로는 그분에게, 안으로는 너희에게라는 두 인격의 끝점 사이를 신실하게 오갈 때 우리의 걸음은 결코 길을 잃지 않을 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 33편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

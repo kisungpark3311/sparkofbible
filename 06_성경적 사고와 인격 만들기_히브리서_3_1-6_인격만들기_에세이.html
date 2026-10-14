@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>서로를 누르는 저울을 내려놓고 함께 지어지는 집으로 서다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 06편 &middot; 히브리서 3:1-6</span>
+      <h1>서로를 누르는 저울을 내려놓고 함께 지어지는 집으로 서다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 누군가를 높여야 할 때 거의 본능적으로 다른 누군가를 깎아내리는 방식을 택하곤 합니다. 새로 부임한 책임자의 역량을 돋보이게 하려고 이전 사람의 아쉬웠던 점을 은근히 들추어내거나, 내가 속한 공동체의 가치를 증명하기 위해 다른 집단을 열등한 자리에 세워 두는 일은 우리에게 너무나 익숙합니다. 양팔 저울 위에서는 한쪽 접시가 내려가야만 다른 쪽 접시가 위로 올라갈 수 있기 때문입니다. 그래서 많은 이들이 히브리서 3장 1절부터 6절까지의 말씀 또한 예수님을 높이기 위해 모세를 한 수 아래의 부족한 인물로 끌어내리는 우열 비교의 본문으로 읽습니다. 그러나 원문이 한 절 안에서 조용히 바꾸어 놓은 비교의 문법은, 누군가를 탈락시켜야만 성립하는 세상의 좁은 저울을 치우고 모두가 제자리를 얻는 거대한 집의 설계도를 우리 앞에 펼쳐 보입니다.</p>
+<p>히브리서 3장 3절을 원문으로 세밀하게 들여다보면, 한 문장 안에서 비교의 축이 두 번에 걸쳐 극적으로 이동하는 장면을 목격하게 됩니다. 앞 반절에서는 이분이 모세보다 더 많은 영광을 받으실 만하다고 말하며, 사람과 사람을 나란히 견주는 전치사 구문(파라 모위센, παρὰ Μωϋσῆν)을 사용합니다. 그런데 마치라는 연결어로 이어지는 뒤 반절에 이르면, 똑같은 뿌리의 비교급 단어를 쓰면서도 비교의 상대를 사람이 아닌 집(투 오이쿠, τοῦ οἴκου)으로 바꾸고, 문법 표시마저 전치사구에서 속격 하나로 바꾸어 버립니다. 사람 대 사람으로 나란히 서 있던 수평의 저울이, 한 절 안에서 집을 지은 이와 지어진 집이라는 전혀 다른 차원의 관계로 옮겨 간 것입니다. 이어지는 4절은 그 지은 이의 사슬을 끝까지 밀고 올라가 만물을 지으신 이는 하나님이시라는 선언에 도달하고, 5절은 비교의 아래쪽에 놓였던 모세를 향해 그가 하나님의 온 집에서 사환으로서 충성하였다(피스토스, πιστός)는 따뜻한 칭찬을 아낌없이 건넵니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">작곡가를 높인다고 연주자의 충실함이 모욕당하지 않는 집</h3>
+<p>같은 저울 위에 올라갈 수 없는 두 존재를 우열로 견주면 반드시 억지와 상처가 생기지만, 짓는 이와 그 집 안에서 일하는 이의 관계로 축을 옮기면 아무도 깎이지 않은 채 각자의 영광스러운 자리가 생겨납니다. 오케스트라 연주회에서 작곡가의 이름이 프로그램 맨 윗줄에 적히고 수석 연주자의 이름이 그 아래에 적힌다고 해서, 연주자가 작곡가에게 패배했다거나 모욕을 당했다고 느끼지 않는 이치와 같습니다. 연주자는 작곡가와 경쟁하는 사람이 아니라 그 작품 안에서 악보에 충실함으로써 빛나는 사람입니다. 법과 세무의 영역인 신탁 관계에서도 수탁자는 위탁받은 재산을 선량한 관리자의 주의로 성실히 돌볼 때 충실의무를 다했다는 높은 평가를 받지만, 아무리 훌륭한 수탁자라도 그가 재산 자체를 창설한 위탁자와 경쟁하지는 않습니다. 위탁자를 높인다고 수탁자의 성실함이 무효가 되지 않고, 수탁자의 충성을 칭찬한다고 해서 위탁자의 권위가 줄어들지 않는 것처럼, 본문은 예수님을 집을 지으신 분으로 한없이 높이면서도 모세를 그 집 안의 충실한 종으로 온전히 지켜 줍니다.</p>
+<p>이 문법의 전환을 몸으로 경험해 보기 위해, 눈을 감고 두 손바닥을 위로 펴서 양팔 저울처럼 수평으로 들어 보십시오. 오른손을 높이 올리려면 왼손을 아래로 눌러야만 하고, 두 손은 허공에서 끊임없이 서로를 밀어내며 경쟁합니다. 이제 자세를 바꾸어 오른손으로 컵 모양을 만들고 왼손 주먹을 그 안에 가만히 넣어 감싸 쥐어 보십시오. 그리고 감싼 오른손을 위로 높이 들어 올리면, 그 안에 담긴 왼손도 눌리는 대신 함께 하늘로 올라갑니다. 3절 앞 반절의 나란히 놓인 전치사구가 수평의 저울 자세라면, 뒤 반절의 속격과 5절의 온 집 안에서라는 표현은 한 손이 다른 손을 품어 안는 감쌈의 자세입니다. 누르는 비교에서 들어 올리는 비교로 자세가 바뀔 때, 감싸인 손 안에서도 사환으로서 마음껏 움직이며 일할 수 있는 평안한 공간이 열립니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">비교를 구경하던 관중석에서 지어지는 집 안으로 걸어 들어가다</h3>
+<p>더욱 놀라운 차원의 전복은 이 단락의 맨 마지막 절인 6절에서 일어납니다. 우리는 3절에서 지은 이보다 덜 존귀한 비교의 아래쪽 항으로 등장했던 집이라는 단어를 읽을 때만 해도, 우리 자신이 모세와 예수님을 저울질하며 구경하는 제3의 관중인 줄로만 알았습니다. 그런데 6절은 우리가 소망의 담대함과 자랑을 끝까지 굳게 잡으면 우리가 곧 그 집이라(오이코스 에스멘 헤메이스, οἶκός ἐσμεν ἡμεῖς)고 선언하며, 단락 처음에 놓였던 그 집이라는 명사를 우리에게 그대로 붙여 줍니다. 세상의 신탁 재산이나 대성당의 벽돌이나 교향곡의 악보는 모두 생명이 없는 사물이지만, 하나님이 지으시고 아들이 맡으시며 모세가 그 안에서 충실하게 섬겼던 그 집은 바로 우리 자신이었던 것입니다. 내가 비교를 판정하는 심사위원이 아니라 바로 그분이 짓고 계신 집 자체임을 깨닫는 순간, 누가 더 높은가를 따지던 모든 소모적인 우열 논쟁은 단번에 멈추어 섭니다.</p>
+<p>내 종 모세는 내 온 집에 충성됨이라고 변호하셨던 민수기의 말씀과 여호와께서 집을 세우지 아니하시면 세우는 자의 수고가 헛되다고 노래한 시편의 고백이 이 짧은 단락 안에서 하나로 만납니다. 장 칼뱅이 모세는 집의 탁월한 지체였을 뿐 집을 세운 건축자는 아니기에 이 비교가 모세의 영광을 조금도 손상시키지 않는다고 해석했듯, 개혁신학이 바라보는 구약과 신약의 관계는 낡은 것을 부수고 새것으로 대체하는 단절이 아니라 한 분 건축자가 지어 가시는 한 집의 경륜입니다. 만약 본문에서 모세가 충성하였다는 5절 한 절을 지워 버린다면 3절의 비교는 곧바로 옛 사람과 옛 시대를 깎아내리는 폭력이 되고 말겠지만, 성경은 끝내 5절을 그 자리에 박아 두어 높임과 깎아내림을 엄격히 분리해 놓았습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">전임자의 수고를 먼저 칭찬하며 한 집을 이어 짓는 사람의 품격</h3>
+<p>이 집의 문법을 배운 사람은 세상의 경쟁 구도 한복판에서도 타인을 대하는 손길이 판이하게 달라집니다. 다른 세무대리인에게서 넘어온 고객이 이전 담당자의 실수를 성토하며 불평을 쏟아낼 때, 전임자를 함께 깎아내려야 내가 더 유능해 보일 것이라는 얄팍한 유혹에 넘어가지 않습니다. 오히려 이전 대리인이 기장해 온 장부 속에서 성실하게 잘 지켜진 부분을 먼저 찾아내어 한 문장으로 인정해 주고, 앞으로 보완할 부분에 대해서도 누가 더 잘하는가의 승패가 아니라 이 사업장이라는 집을 어떻게 안전하게 이어 지을 것인가의 언어로 차분히 설명합니다. 그럴 때 고객은 대리인의 교체를 불신과 단절이 아니라 성숙한 이어 짓기로 경험하게 됩니다.</p>
+<p>교회나 조직에서 담임목회자나 부서장이 교체되는 자리에서도 이 원칙은 공동체를 지키는 든든한 버팀목이 됩니다. 새로 오는 사람을 부각하기 위해 무의식적으로 이제부터 모든 것이 새로워질 것이라며 지난 시간을 그늘로 밀어 넣는 대신, 앞선 이가 이 집 안에서 얼마나 충실하게 땀 흘렸는지를 구체적으로 먼저 기억하여 높이고, 무엇보다 이 공동체라는 집을 참으로 지으시고 이끌어 가시는 분은 사람이 아니라 하나님이심을 마지막에 분명히 새겨 넣는 것입니다. 나아가 일상에서 타인과 나를 비교하며 남몰래 위축되거나 우쭐해지는 순간이 찾아올 때마다, 나는 지금 남을 재는 저울의 관중석에 앉아 있는가 아니면 주님의 손에 지어지고 있는 집 안에 서 있는가를 스스로에게 물어보십시오. 저울을 내려놓고 주님의 손에 감싸인 집으로 서는 사람은, 남을 눌러야만 내가 오르는 피곤한 경쟁을 끝내고 내 곁의 사람을 함께 들어 올리는 넉넉하고 품위 있는 인격으로 살아가게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 06편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>시계를 풀어 내려놓고 두 번째 오실 그분을 향해 기우는 삶</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 18편 &middot; 히브리서 9:23-28</span>
+      <h1>시계를 풀어 내려놓고 두 번째 오실 그분을 향해 기우는 삶</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>기다림이 길어질 때 사람이 겪는 가장 흔한 피로는 시계 바늘에서 눈을 떼지 못하는 데서 찾아옵니다. 기도하며 바라던 회복이나 삶의 전환점이 언제쯤 도착할지 끊임없이 날짜를 세다 보면, 어느 순간 우리는 다가올 그분이나 그 은혜 자체보다 달력의 숫자와 기한에 마음을 빼앗기고 맙니다. 날짜가 보이지 않으면 아무 일도 일어나지 않는 것처럼 불안해하며 이미 받은 은혜까지 의심하고, 반대로 누군가 그럴듯한 날짜와 시기를 특정해 주면 헛된 들뜸에 휩쓸려 오늘 마땅히 감당해야 할 일상의 자리를 비워 두곤 합니다. 히브리서 9장 23절부터 28절까지의 본문은 이 불안과 들뜸이라는 두 극단을 동시에 치유하기 위해, 우리말 성경이 똑같이 나타나시다라는 한 단어로 옮겨 놓은 세 자리를 원문의 정교한 세 낱말과 세 시간표로 펼쳐 보입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">하나의 번역어 아래 숨겨진 세 개의 시간과 세 무대</h3>
+<p>개역한글 성경으로 9장 24절과 26절, 그리고 28절을 연이어 읽으면 나타나시고, 나타나셨느니라, 나타나시리라라는 세 표현이 마치 한 가지 사건의 단순한 변주처럼 들립니다. 그러나 헬라어 원문은 이 세 자리에 사전에 오르는 표제어부터가 전혀 다른 세 동사를 세워 두었습니다. 24절은 참 하늘에 들어가셔서 지금 우리를 위하여 하나님의 얼굴 앞에 모습을 드러내신다는 부정과거 수동 부정사 엠파니스테나이이고, 26절은 시대들의 끝에 자기를 단번에 제사로 드려 죄를 없게 하시려고 이미 드러나 서 계신다는 완료 수동 직설법 페파네로타이이며, 28절은 자기를 간절히 기다리는 자들에게 구원에 이르게 하기 위하여 두 번째로 보이실 것이라는 미래 수동 직설법 옵테세타이입니다. 세 동사 모두 수동태로 적혀 있어 시점을 진행시키는 손이 사람의 열심이나 제도에 있지 않음을 분명히 보여 줍니다.</p>
+<p>더욱 깊은 울림을 주는 것은 세 나타남의 시점과 함께 그 나타남을 마주하는 관객이 차례로 바뀐다는 사실입니다. 24절의 무대는 우리 눈에 보이지 않는 참 하늘이고, 그곳에서 그분을 마주하는 관객은 하나님의 얼굴입니다. 거기에는 이제라는 현재의 시간 부사가 붙어 있어, 바로 지금 이 순간에도 그분께서 우리 편에 서서 하나님 앞에 나타나 계심을 알려 줍니다. 이어지는 26절은 세상의 기초부터 시대들의 끝까지라는 거대한 역사의 축 위에서, 단번에 드리신 제사를 통해 죄를 치우신 일이 완료형으로 지금도 흔들림 없이 서 있음을 선언합니다. 그리고 앞의 두 자리가 거느렸던 이제라는 말이 물러간 28절의 자리에는 두 번째라는 순서 표지와 함께, 비로소 그분을 간절히 기다리는 사람들이 보는 관객으로 등장합니다. 보이지 않는 무대에서 지금 우리를 위해 서 계신 분과 이미 드러나 서 있는 사역의 완료가, 아직 오지 않은 두 번째 나타남을 든든히 받치고 있는 것입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">세 시점의 질서와 달력 없는 두 번째의 신비</h3>
+<p>서로 다른 시점의 일들을 하나의 우산 같은 낱말로 뭉뚱그려 부를 때 생기는 혼란은 세무나 법정의 실무에서도 자주 목격됩니다. 국세기본법은 납세의무가 과세기간 종료 등으로 성립하는 시점과 신고나 결정으로 확정되는 시점, 그리고 실제 납부와 징수로 소멸하는 단계를 엄격히 구별합니다. 만일 납세자가 세금이라는 한 단어 아래 이 세 단계를 접어 버려서, 신고서만 제출해 세액이 확정되었을 뿐인데 이미 납부까지 다 끝났다고 방심하거나, 반대로 고지서가 날아오기 전까지는 아무런 의무도 성립하지 않았다고 착각한다면 큰 낭패를 겪게 됩니다. 연극 무대에서 배우가 처음 등장하는 순간과 무대 위에서 극을 이끌며 서 있는 상태, 그리고 마지막 커튼콜에 다시 걸어 나오는 순간이 각각 다른 것처럼, 이미 확정되어 서 있는 완료와 아직 남아 있는 미래를 구별할 때에만 지금 내가 서 있는 자리가 선명해집니다.</p>
+<p>그러나 세상의 시간표와 히브리서 9장 28절 사이에는 어떤 비유로도 메울 수 없는 거룩한 단절이 하나 있습니다. 세법의 단계에는 법정 기한이 명시되어 있고, 출장 간 아버지는 아이에게 전화로 돌아올 날짜를 알려 주지만, 28절의 두 번째 나타남에는 시간을 적은 낱말이 단 하나도 없습니다. 두 번째라는 말은 첫 번째 드려지심과의 확실한 관계와 순서를 가리킬 뿐, 달력의 좌표를 찍어 주지 않습니다. 그리고 그 절에서 기다리는 사람들의 분사 아펙데코메노이스가 거느린 목적어는 특정한 날짜나 사건의 명사가 아니라 오직 그분 자신을 가리키는 인칭 대명사 아우톤입니다. 헤르만 바빙크가 개혁교의학에서 그리스도의 재림을 가장 확실한 소망으로 고백하면서도 연대표나 시기 계산으로 확정하려는 시도를 엄격히 경계했듯이, 본문에 없는 날짜를 끼워 넣는 순간 기다림의 목적어는 인격이신 그분에게서 차가운 달력의 숫자로 바뀌어 버립니다.</p>
+<p>이 세 시점의 조화를 몸으로 느껴 보기 위해, 의자에 깊이 앉아 먼저 고개를 들어 보이지 않는 위를 바라보며 다섯 번 깊게 숨을 쉽니다. 지금 하나님의 얼굴 앞에 나를 위해 서 계신 분을 생각할 때 어깨의 긴장이 풀리며 몸은 깊은 쉼을 얻습니다. 이어서 고개를 내려 내 주변과 책상 위의 성경을 손으로 짚어 봅니다. 이미 단번에 이루어져 지금도 효력 있게 서 있는 완료의 은혜를 만질 때 발바닥은 흔들리지 않는 바닥을 확인합니다. 마지막으로 아직 열리지 않은 앞쪽 문을 바라보며 상체를 살짝 앞으로 기울여 봅니다. 간절한 기다림은 몸이 문 쪽으로 자연스럽게 기우는 자세입니다. 그때 손목시계를 내려다보던 시선을 거두고 아예 시계를 풀어 책상 위에 내려놓은 채 다시 문을 바라보면, 조급하게 뛰던 맥박이 가라앉으며 문 너머에서 걸어 나오실 그분의 얼굴만이 또렷하게 마음에 차오릅니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">연대표의 조급함을 벗고 인격을 기다리는 사람의 하루</h3>
+<p>지금 맡겨 둔 것과 이미 확정되어 서 있는 것, 그리고 날짜 없이 다가오는 것을 섞지 않는 이 성경적 시간 감각은 우리의 일상과 직무의 태도를 단정하게 정돈해 줍니다. 고객과 상담할 때 성립된 의무와 확정된 세액, 앞으로 납부할 절차를 세 칸의 시간표로 명확히 나누어 짚어 주면, 이미 끝난 일을 두고 밤잠을 설치는 불안과 아직 남은 일을 끝났다고 여기는 방심이 함께 사라집니다. 교회와 조직의 사역 보고서를 작성할 때에도 이미 완료되어 지금도 유효하게 작동하는 일과 현재 진행하며 맡겨 둔 일, 그리고 앞으로 다가올 예정인 일을 한 문단에 뒤섞어 추진 중이라는 모호한 말로 뭉뚱그리지 않게 됩니다. 특히 아직 날짜가 정해지지 않은 일에 억지로 기한을 붙여 구성원들을 다그치는 대신 순서와 방향만을 정확히 기록하는 절제를 배우게 됩니다.</p>
+<p>개인의 깊은 기도 제목과 삶의 기다림 앞에서도 오늘 내 수첩에 조용히 한 줄의 질문을 적어 봅니다. 나는 지금 달력의 때를 기다리고 있는가, 아니면 나를 위해 하나님 앞에 서 계신 그분을 기다리고 있는가. 완료된 은혜를 미래로 미루어 버리면 오늘의 삶이 불안해지고, 미래의 완성을 이미 다 이루어진 것처럼 앞당기면 앞을 향해 몸을 기울이는 경건한 긴장이 사라집니다. 지금 보이지 않는 하늘에서 우리를 위해 서 계신 대언의 현재와, 단번에 이루어져 지금도 서 있는 속죄의 완료 위에 두 발을 단단히 딛고 서십시오. 손목에서 시계를 풀어 내려놓고 오직 두 번째로 우리에게 보이실 그분만을 목적어로 삼아 몸을 기울일 때, 우리의 기다림은 지루한 방치가 아니라 살아 있는 소망의 인격이 됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 18편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>공포로 매달리는 손을 풀고 말씀의 난간을 먼저 쥐다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 03편 &middot; 히브리서 2:1-4</span>
+      <h1>공포로 매달리는 손을 풀고 말씀의 난간을 먼저 쥐다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사람의 마음을 움직여 어떤 행동을 이끌어 내고 싶을 때, 우리가 가장 손쉽게 꺼내 드는 도구는 대개 두려움입니다. 기한 내에 서류를 내지 않으면 불이익을 당한다거나, 지금 깨어 있지 않으면 곧 모든 것을 잃고 떠내려갈 것이라는 경고를 앞세우면 당장 사람들의 눈빛이 긴장하고 발걸음이 빨라지기 때문입니다. 신앙의 언어 또한 이 유혹에서 자유롭지 못해서, 우리는 종종 히브리서 2장 1절을 흘러 떠내려가지 말자는 다급한 위협의 외침으로 읽고 전하곤 합니다. 그러나 두려움이 주동사가 된 마음은 두려움이 커질 때는 비명을 지르며 매달리다가도, 그 두려움이 조금만 옅어지면 언제 그랬냐는 듯 손에서 힘을 빼 버립니다. 원문의 열 낱말이 세워 놓은 정교한 위계는, 우리의 신앙이 공포라는 불안한 연료가 아니라 마땅히 붙들어야 할 말씀의 무게 위에 서야 함을 조용히 일깨워 줍니다.</p>
+<p>히브리서 2장 1절을 이루는 열 개의 헬라어 낱말을 층위별로 펼쳐 놓으면, 우리가 흔히 주인 자리에 앉혀 두었던 떠내려감이라는 단어가 실제로는 문장의 가장 낮은 아랫자리에 매달려 있다는 사실을 발견하게 됩니다. 이 문장에서 홀로 당당하게 서 있는 유일한 본동사는 문장 머리에 놓인 비인칭 동사 데이(δεῖ), 곧 마땅히 해야 한다라는 당위의 선언 하나뿐입니다. 더욱 간절히 주의하여 붙들어야 한다는 부정사(프로세케인, προσέχειν)와 그 주체인 우리(헤마스, ἡμᾶς), 그리고 주의의 대상인 들려진 것들(토이스 아쿠스테이신, τοῖς ἀκουσθεῖσιν)이 모두 그 당위의 품 안에 차례로 안겨 있습니다. 반면 우리말 성경이 흘러 떠내려갈까 염려하노라라고 옮긴 파라뤼오멘(παραρυῶμεν)은 문장 맨 끝, 혹시라도 그렇지 않도록이라는 종속 접속사 메포테(μήποτε) 아래에 자기 정동사조차 없이 조용히 딸려 있을 뿐입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">가산세가 두려워서가 아니라 마땅한 본문이기 때문에</h3>
+<p>잘 짜인 법조문이나 안내문은 언제나 마땅히 해야 할 의무를 본문에 두고, 그것을 어겼을 때 따르는 우려나 제재를 단서 조항에 둡니다. 세법이 납세의무자는 기한 내에 성실히 신고하여야 한다고 본문에 명시한 뒤 신고하지 않을 경우의 가산세를 별도의 결과로 두는 것이나, 의사가 치료를 위해 식후 30분에 약을 복용해야 한다고 먼저 말한 뒤 공복 복용 시의 위장 장애 우려를 덧붙이는 것과 같습니다. 만약 이 순서를 뒤집어 가산세가 무서우니 신고하자거나 위가 상할까 봐 약을 먹는다고 말하기 시작하면, 의무의 본래 목적은 사라지고 모든 일은 손익과 비용의 계산으로 전락하고 맙니다. 가산세 안내만으로 움직이는 납세자가 가산세가 적거나 없다고 판단되는 순간 신고를 미루어 버리듯, 벌을 받지 않으려는 두려움만으로 지탱되는 신앙은 위협의 목소리가 작아지는 순간 함께 무너져 내릴 수밖에 없습니다.</p>
+<p>더욱이 세법의 가산세는 금액과 요건이 확정되어 있어 계산이라도 할 수 있지만, 히브리서 2장 1절에서 4절까지의 단락은 우리가 두려워하는 그 결과를 계산 가능한 비용으로 확정해 주지조차 않습니다. 1절의 떠내려감은 누군가가 내리는 형벌이 아니라 주의하지 않을 때 일어나는 안타까운 사태로 적혀 있고, 3절에서 이같이 큰 구원을 등한히 여기면 어찌 피하리요라고 묻는 말 역시 끝내 대답하는 정동사 없이 열린 물음표로만 남아 있습니다. 단락 전체를 통틀어 직설법의 단호한 확정을 받은 동사는 오직 1절의 해야 한다는 당위와 2절과 3절에서 말씀이 이미 굳게 서고 확증되었다는 과거의 사실뿐입니다. 두려움은 지워지지 않고 분명히 문장 끝에 남아 있지만, 본문은 끝까지 두려움에게 문장의 주인 자리를 내어주지 않습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">아래를 먼저 내려다보지 않고 난간을 먼저 쥐는 손</h3>
+<p>이 문법의 순서가 왜 그토록 중요한지는 우리의 몸이 누구보다 먼저 알고 있습니다. 가파른 계단이나 벼랑 끝에서 먼저 발아래 아득한 낭떠러지를 내려다보며 떨어지면 어쩌지라고 말한 뒤 난간을 잡으려 해 보십시오. 순간적으로 어깨가 잔뜩 솟구치고 손아귀에는 필요 이상의 과한 힘이 들어가며, 난간을 잡는 동작은 의연하게 붙드는 일이 아니라 공포에 질려 매달리는 일이 되고 맙니다. 반면에 시선을 내 손이 닿을 난간에 먼저 고정한 채 우리가 들은 것들에 더욱 주의해야 한다고 천천히 말하며 난간을 단단히 움켜쥐고, 그다음에야 비로소 혹시 떠내려가지 않도록이라며 아래를 한 번 내려다보면 손이 이미 자리를 잡았기에 몸이 흔들리지 않습니다. 숙련된 등반가가 추락의 공포 때문이 아니라 그것이 산을 오르는 마땅한 방식이기에 침착하게 확보줄을 걸고 다음 홀드를 바라보듯, 당위가 먼저 서고 우려가 뒤에 올 때 우리의 손은 비로소 오래 버틸 수 있는 힘을 얻습니다.</p>
+<p>여기에 더해 본문이 주는 또 하나의 깊은 위로는 이 당위의 꼭대기에 누군가를 다그치는 명령권자의 얼굴이 없고, 오직 말하는 이 자신을 포함한 우리라는 1인칭 복수만이 자리하고 있다는 사실입니다. 2장 1절부터 4절까지에는 너희라고 손가락질하는 2인칭 어형도, 위에서 아래로 내리꽂는 명령법 동사도 단 하나도 등장하지 않습니다. 합창단원이 옆 사람의 숨소리를 들으며 함께 노래하기 위해 박자를 세듯, 저자는 강단 위 안전한 곳에서 회중을 내려다보며 경고하는 대신 자기 자신을 똑같이 물살 앞에 선 대열 한가운데 세워 두고 우리가 함께 붙들자고 어깨에 손을 얹습니다. 웨스트민스터 소요리문답이 말씀이 구원에 효력 있게 되려면 우리가 부지런함과 준비와 기도로 말씀에 주의해야 한다고 가르칠 때나, 사도 요한이 온전한 사랑이 두려움을 내어 쫓는다고 증언할 때처럼, 우리를 말씀 앞에 머물게 하는 진짜 동력은 형벌의 공포가 아니라 이미 우리에게 들려진 그 구원의 말씀이 지닌 영광스러운 무게입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">손가락질을 거두고 우리의 당위로 고쳐 쓰는 일상</h3>
+<p>그러므로 이 본문을 대하는 우리의 설교와 대화에서는 너희는 떠내려가지 말라는 날 선 손가락질이 사라져야 합니다. 회중을 향해 뻗으려던 손가락을 거두어들이고 나와 공동체를 하나의 원으로 묶는 손짓으로 우리가 들은 것을 더 단단히 붙들어야 한다고 먼저 말할 때, 그리고 혹시 떠내려갈까 하는 염려는 목소리를 한 톤 낮추어 문장 끝에 조용히 내려놓을 때, 경고는 위협이 아니라 동반자의 따뜻한 붙듦이 됩니다. 본문이 물음표로 남겨 둔 어찌 피하리요라는 여백에 설교자가 성급한 단정의 답을 적어 넣지 않고 그 물음의 무게를 회중과 함께 견디는 용기야말로 원문의 위계를 존중하는 성숙한 영성입니다.</p>
+<p>이 위계의 질서는 우리가 일터와 가정에서 건네는 말의 결까지도 품위 있게 바꾸어 놓습니다. 고객에게 세무 신고 기한을 안내할 때에도 기한을 넘기면 가산세가 나온다는 협박성 문구를 첫 줄에 내세우는 대신, 이번 기간의 신고는 사업자께서 마땅히 하셔야 할 일이고 저희가 함께 준비하겠다는 우리의 당위를 본문으로 먼저 적고 가산세 안내는 그 아래 단서로 차분히 덧붙일 수 있습니다. 교회나 조직의 공지문을 작성할 때에도 마감일까지 신청하지 않으면 배정에서 제외된다는 불이익 조항으로 문을 여는 대신, 우리가 함께 행사를 준비하기 위해 이날까지 마음을 모아야 한다는 이유와 당위를 먼저 적을 때 구성원들은 회피가 아니라 자발적인 참여로 응답하게 됩니다. 무엇보다 나 자신의 기도와 경건의 결심을 노트에 적을 때, 안 하면 큰일 난다는 두려움의 문장보다 내가 사랑하는 주님의 말씀을 붙들어야 한다는 당위의 문장을 첫 줄에 더 길고 선명하게 적어 넣는 사람은, 어떤 거센 물살 앞에서도 쉽게 휩쓸리지 않는 고요하고 단단한 인격으로 서게 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 03편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

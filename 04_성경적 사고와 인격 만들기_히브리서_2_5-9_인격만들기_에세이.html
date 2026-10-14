@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>위로를 서두르지 않고 쓴잔의 끝에서 십 초를 머물다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 04편 &middot; 히브리서 2:5-9</span>
+      <h1>위로를 서두르지 않고 쓴잔의 끝에서 십 초를 머물다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>누군가의 깊은 상실이나 설명할 길 없는 고난의 자리 앞에 설 때, 우리는 침묵을 견디지 못해 너무 빨리 위로의 결론을 꺼내 들곤 합니다. 모든 것이 결국 합력하여 선을 이룰 것이라거나, 이제 고생 끝에 영광스러운 회복이 찾아올 것이라는 말을 서둘러 덧붙여야만 내 마음의 불안이 가라앉기 때문입니다. 우리는 예수 그리스도의 생애를 요약할 때조차 낮아지셨으나 마침내 높아지셨다는 승리의 순서로만 깔끔하게 정리하여, 고난을 이미 지나가 버린 과거의 디딤돌쯤으로 치부하려 합니다. 그러나 히브리서 2장 5절부터 9절까지의 단락은, 아직 만물이 복종하지 않은 이 부조리한 세상의 한복판에서 우리가 바라보아야 할 예수님의 모습을 결코 성급한 승리의 마침표로 포장하지 않습니다.</p>
+<p>원문의 어순을 따라 2장 9절 한 절을 처음부터 끝까지 천천히 짚어 가다 보면, 우리의 익숙한 기대를 무너뜨리는 충격적인 배치가 눈앞에 드러납니다. 잠깐 동안 천사들보다 못하게 되신 예수를 우리가 본다는 주동사 뒤에, 죽음의 고난이라는 첫 번째 죽음이 먼저 등장하고, 그다음에 영광과 존귀로 관 쓰신 분이라는 표현이 이어집니다. 만약 문장이 여기서 끝났다면 우리는 안심하고 고난 끝에 찾아온 승리를 노래했을 것입니다. 하지만 저자는 그 관 쓰심 뒤에 단락 전체에서 유일하게 목적을 나타내는 접속사 호포스(ὅπως, ~하도록)를 열고, 모든 사람을 위하여 죽음을 맛보려 하심이라(게우세타이 타나투, γεύσηται θανάτου)라는 구절로 문장을 닫습니다. 영광과 존귀의 관이 두 번의 죽음 사이에 끼어 있고, 단락 전체를 마감하는 가장 마지막 낱말이 영광이 아니라 죽음(타나투, θανάτου)이라는 사실 앞에서 우리의 조급한 입술은 할 말을 잃고 멈추어 서게 됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">정리되었다는 한 줄의 요약이 지워 버린 먼저 겪은 이의 혀</h3>
+<p>세상의 요약은 언제나 결과만 남기고 그 결과를 위해 누군가가 먼저 겪어 낸 고통의 시간은 장부 밖으로 밀어냅니다. 아이가 이유식을 잘 먹었다는 한 줄의 요약 뒤에는 아이에게 숟가락을 내밀기 전 뜨거운지 상했는지 자기 혀에 먼저 대어 보며 머물렀던 부모의 시간이 숨어 있고, 수술이 잘 끝났다는 한마디 뒤에는 차가운 대기실에서 밤을 지새운 가족의 눈물이 배어 있습니다. 세무 실무에서도 주된 납세자가 감당하지 못한 체납 세액을 연대납세의무자나 보증인이 대신 떠안아 납부했을 때, 서류상으로는 체납이 정리되었다는 한 줄로 사건이 종결되지만 그 이면에는 자기가 만들지 않은 빚을 먼저 짊어진 이의 무거운 삶이 놓여 있습니다. 하물며 세상의 보증에는 구상권과 한도라도 있고 부모가 맛보는 이유식은 독이 아니며 옛 궁정의 독 감별사는 낮은 신분으로 한 사람의 왕을 위해 음식을 맛보았지만, 히브리서 2장 9절이 보여 주는 분은 영광의 관을 쓰신 가장 높은 분이시면서 모든 사람을 위하여 죽음 그 자체를 목적으로 삼아 자기 혀에 깊숙이 대어 맛보신 분입니다.</p>
+<p>더욱이 본문에서 잠깐 동안 못하게 되셨다는 말과 영광과 존귀로 관 쓰셨다는 말은 똑같은 완료 수동 분사 형태로 예수라는 한 이름에 나란히 걸려 있습니다. 어느 것이 먼저이고 어느 것이 나중인지 시간 순서로 갈라놓지 않은 채, 낮아짐과 관 쓰심이 한 분 안에서 겹쳐진 상태로 우리 눈에 보이고 있는 것입니다. 8절에서 만물이 아직 그에게 복종한 것을 우리가 보지 못한다고 정직하게 탄식했던 저자는, 9절에서 곧바로 만물이 복종하게 될 것이라는 미래형 동사를 꺼내어 문제를 해결해 버리지 않습니다. 아직 끝나지 않은 고난의 시대에 우리에게 허락된 시야는 고통이 싹 사라진 승리의 풍경이 아니라, 관을 쓰신 채로 우리의 죽음 한가운데 들어와 그 쓴맛을 끝까지 머금으신 예수 그리스도 한 분뿐입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">죽음이라는 마지막 낱말 뒤에서 아무것도 덧붙이지 않는 십 초</h3>
+<p>이 문장의 배치를 몸으로 익히기 위해, 2장 9절을 소리 내어 읽은 뒤 마지막 단어인 죽음을 맛보려 하심이라가 끝나는 자리에서 정확히 십 초 동안 아무 말도 덧붙이지 않고 침묵해 보십시오. 아멘이라는 습관적인 맺음말도, 그러나 부활하셨다는 해설도 보태지 않은 채 그저 성경을 펼치고 가만히 서 있으면, 불과 삼 초도 지나지 않아 입술이 들썩이고 목이 조여 오며 무언가 밝은 말을 덧붙여 문장을 안전하게 끝내고 싶어지는 강한 충동이 밀려옵니다. 진한 쓴 차를 한 모금 머금고 삼키지 않은 채 혀 위에 십 초간 올려 두면 머무는 시간만큼 쓴맛이 혀뿌리까지 깊게 번져 가듯, 맛본다는 것은 스쳐 지나가는 통과가 아니라 그 자리에 머무는 일입니다. 마지막 낱말 뒤의 침묵을 삼 초도 견디지 못하는 우리 몸의 조바심이야말로, 타인의 슬픔 앞에서 위로를 앞당겨 그 슬픔을 덮어 버리려 했던 우리의 오랜 습관입니다.</p>
+<p>마르틴 루터는 하이델베르크 논쟁에서 영광의 신학자는 고난을 외면하고 악을 선이라 부르지만, 십자가의 신학자는 사물을 있는 그대로 부르며 고난과 십자가 가운데 계신 하나님을 본다고 역설했습니다. 히브리서 2장 9절이 죽음을 두 번이나 적고 단락의 맨 끝자리를 죽음이라는 단어로 마감한 것은, 우리의 슬픔과 죽음을 별것 아닌 것처럼 덜어 주거나 가짜 웃음으로 지워 버리지 않으시는 십자가 신학의 정직함입니다. 장례식장 예배당에서 이 구절이 낭독될 때, 문장이 죽음에서 멈추는 바로 그 순간 유족들이 느끼는 것은 절망이 아니라 슬픔에서 빨리 나오라고 등을 떠미는 이가 아무도 없다는 안도감이며, 관 쓰신 주님이 바로 이 차가운 죽음의 자리 안으로 먼저 걸어 들어와 앉아 계신다는 가장 깊은 동행의 허락입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">타인의 상실과 나의 아픔을 서둘러 요약하지 않는 동행</h3>
+<p>이 묵직한 마침표의 영성을 품은 사람은 고난을 대하는 말투와 몸가짐이 달라집니다. 강단에서 설교할 때에도 관 쓰신 예수를 보니라는 대목에서 목소리를 높여 승리주의의 정점을 찍는 대신, 관 쓰신과 죽음을 맛보려를 똑같은 높이와 무게로 읽고 마지막 단어 뒤에 고요한 침묵의 여백을 남겨 두게 됩니다. 부활의 소망을 결코 지우지 않으면서도, 아직 눈물이 마르지 않은 이들에게 예수처럼 너희도 고난을 감수하라는 도덕적 과제를 지우지 않고 그저 주님이 우리를 위해 이 쓴잔을 먼저 맛보셨다는 복음의 사실 하나를 조용히 건네는 것입니다.</p>
+<p>일상의 직장과 관계 속에서도 이 십 초의 머묾은 깊은 신뢰와 위로를 낳습니다. 막 가족을 잃은 의뢰인과 상속세 상담을 시작할 때, 첫마디부터 총재산이 얼마인지 서류와 신고 기한을 들이미는 대신 서류를 덮어 두고 고인이 어떤 분이셨는지 먼저 물으며 이제 잘 정리하시면 된다는 상투적인 요약을 서둘러 덧붙이지 않는 태도가 상실의 자리를 따뜻하게 지킵니다. 교회의 조문 문안이나 위로의 편지를 쓸 때에도 고인이 평안히 쉬시니 위로받으시라는 정형화된 문구로 상황을 종료시키지 않고, 그분이 먼저 맛보신 이 눈물의 자리에 우리도 끝까지 함께 서 있겠다는 동행의 문장으로 끝을 맺을 수 있습니다. 나아가 나 자신이 쓰라린 실패와 아픔을 겪는 밤에도 이것도 다 잘될 과정이라며 내 슬픔을 다그쳐 묻어 버리는 대신, 일기장 마지막 줄에 오늘 이 맛은 참으로 썼노라고 정직하게 적고 그 아래 주님이 이 쓴맛을 먼저 아셨다는 한 줄을 덧붙이며 주님 곁에 조용히 머무는 진실한 인격으로 깊어질 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 04편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

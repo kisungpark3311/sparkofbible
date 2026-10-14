@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>이미 놓여 있는 의자 앞으로 걸어가는 힘</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      margin: 40px 0 16px;
+      line-height: 1.4;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 히브리서 제 08편 &middot; 히브리서 4:1-13</span>
+      <h1>이미 놓여 있는 의자 앞으로 걸어가는 힘</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>하루의 일과를 계획할 때 우리는 늘 해야 할 일부터 빈칸에 채워 넣곤 합니다. 숨 가쁘게 돌아가는 일정표 속에서 쉼이란 언제나 모든 과업을 완벽히 끝마친 뒤에야 겨우 허락되는 부록처럼 취급됩니다. 혹여라도 남는 칸이 생기면 다행이지만, 대개의 날들은 남는 칸 하나 없이 저물고 맙니다. 일터에서도 마찬가지입니다. 쉬면 곧바로 매출이 끊긴다는 두려움에 사로잡힌 소상공인은 달력에서 휴무일을 지워 버리고, 교회 안에서도 밤낮없이 뛰어다니는 몇 사람의 지친 걸음을 헌신이라는 이름으로 칭찬하곤 합니다. 그렇게 우리는 쉼조차 내가 땀 흘려 만들어 내야 할 또 하나의 성과로 여기며, 쉬지 못하는 무거운 책임을 오롯이 개인의 자기 관리 실패로 돌리는 시대를 살아가고 있습니다.</p>
+<p>그러나 히브리서 4장의 말씀은 우리가 붙들고 있던 그 익숙한 순서를 밑바닥부터 조용히 뒤집어 놓습니다. 본문은 저 안식에 들어가기를 힘쓰라는 권유를 꺼내기 전에, 먼저 하나님의 백성에게 안식할 쉼이 남겨져 있다는 결론을 단단한 주춧돌처럼 내려놓습니다. 전제에 해당하는 6절과 결론에 해당하는 9절의 양 끝을 글자 하나 다르지 않은 똑같은 수동태 동사 아폴레이페타이가 물고 있습니다. 남아 있다기보다 남겨져 있다는 뜻에 가까운 이 낱말은, 전제에서는 들어갈 어떤 이들을 주어로 세우더니 결론에 이르러서는 쉼 자체를 문장의 당당한 주어로 세웁니다. 잔치가 끝난 듯 보이는 식탁 위에, 차려 둔 이의 손길은 보이지 않으나 한 집안의 이름표가 선명히 붙은 빈자리 하나가 고스란히 보존되어 있는 풍경입니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">만드는 수고가 아니라 남겨진 몫을 찾아가는 발걸음</h3>
+<p>앞선 세대가 다 쓰지 않은 몫이 뒤따라오는 이들에게 넘어오는 이 신비로운 구조는 우리의 일상 곳곳에서도 희미한 그림자를 드리웁니다. 세법에서 한 해의 결손이 그해에 소멸하지 않고 다음 과세기간으로 넘어와 공제 한도로 남는 이월결손금 제도가 그러합니다. 사업자가 새로 만들어 낸 이익이 아니라 제도가 남겨 둔 몫이지만, 사업자는 다음 신고 때 그 몫을 잊지 않고 찾아 적용해야 합니다. 악보 위에 작곡가가 미리 그려 넣은 쉼표 또한 연주자가 임의로 만든 것이 아닙니다. 다만 연주자는 서두르지 않고 박자를 세며 소리를 내고 싶은 조급한 충동을 멈추어 그 쉼표를 지켜 낼 뿐입니다. 집을 떠난 자녀를 위해 부모가 침대와 책상을 그대로 비워 둔 방처럼, 남겨진 쉼은 말로 초대하기 전에 이미 그 자리에 놓여 있음으로써 우리를 부릅니다.</p>
+<p>물론 세상의 제도나 비유는 어느 지점에서나 한계를 드러냅니다. 세법의 이월공제에는 엄격한 기한이 있어 때가 지나면 소멸하고, 악보의 쉼표는 잠시 스쳐 지나가는 한 박자에 불과하며, 비워 둔 방과 공제 혜택은 모두 한 개인에게만 귀속됩니다. 반면 히브리서가 증언하는 쉼에는 소멸 시효가 적혀 있지 않으며, 스쳐 가는 박자가 아니라 그 안으로 걸어 들어가 머무는 처소로 그려집니다. 무엇보다 놀라운 사실은 본문이 그 쉼을 남겨 둔 이의 이름을 문장 표면에 적지 않은 채 비워 두었다는 점입니다. 누구에 의하여 남겨졌는지를 캐묻기 전에, 독자의 시선이 오직 눈앞에 놓인 쉼 자체와 그 쉼을 받는 한 덩어리의 공동체, 곧 하나님의 백성에게 머물도록 문장이 설계되어 있습니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">등 뒤의 의자에 무릎을 맡기는 첫 몇 초의 긴장</h3>
+<p>이 문법의 비밀을 머리가 아니라 무릎과 등으로 통과해 보면 왜 이미 남겨진 쉼 앞에 여전히 힘씀이 필요한지가 선명해집니다. 내 눈으로 직접 위치를 확인하고 내 손으로 끌어다 놓은 의자에 앉을 때는 몸에 아무런 긴장도 일지 않지만, 동시에 누군가에게서 쉼을 선물로 받았다는 감각도 전혀 남지 않습니다. 반대로 눈을 감고 선 채 등 뒤에 의자가 놓여 있다는 말만 듣고 몸을 낮출 때는 처음 몇 초 동안 무릎이 주저하고 온몸에 팽팽한 긴장이 흐릅니다. 그러나 그 짧은 주저를 넘어 의자에 몸이 닿는 순간 비로소 온몸의 힘이 풀리며 내가 받아들여졌다는 깊은 안도가 찾아옵니다. 본문이 말하는 힘쓰자는 바로 내 손으로 의자를 짜 맞추려는 근육이 아니라, 이미 놓인 의자에 몸을 맡기기 위해 처음 몇 초의 두려움과 불안을 넘어서는 근육입니다.</p>
+<p>시대의 크기로 시야를 넓히면 이 쉼은 창조의 일곱째 날부터 광야와 가나안을 거쳐 어느 세대도 다 소진하지 못한 채 우리에게까지 넘어온 거대한 유산입니다. 동시에 오늘 하루의 크기로 시야를 좁히면 그것은 혼과 영, 관절과 골수를 찔러 쪼개기까지 하시는 말씀 앞에서 내 몸과 마음이 실제로 누려야 할 숨구멍입니다. 칼빈과 하이델베르크 요리문답이 제4계명의 안식을 해설하며 우리 자신의 악하고 조급한 일을 멈추어 주께서 성령으로 우리 안에서 일하시게 하는 자리라고 고백한 이유가 여기에 있습니다. 만약 쉼이 남겨져 있다는 9절의 결론을 지워 버린다면 11절의 힘쓰라는 권면은 또 하나의 숨 막히는 성취주의적 강박으로 전락하고 말겠지만, 결론이 바닥으로 든든히 서 있을 때 우리의 힘씀은 은혜가 차려 놓은 자리로 들어가는 가벼운 발걸음이 됩니다.</p>
+<h3 style="color: #173f35; border-bottom: 2px solid #b7863c; padding-bottom: 8px; margin-top: 40px;">개인의 결손이 아니라 한 백성의 장부에 적힌 안식</h3>
+<p>쉼이 일의 부록이 아니라 일보다 먼저 놓인 주어라는 이 전복적 진리는 우리의 일상과 직장의 풍경을 근본적으로 바꾸어 놓습니다. 당장 한 주의 계획표를 펼칠 때 해야 할 과업의 목록을 먼저 채우는 대신, 남겨진 쉼의 칸을 제일 먼저 그리고 그 곁에 남겨진 쉼이라 적어 두는 결단에서부터 인격의 변화가 시작됩니다. 쉴 틈이 없어 장부와 건강이 함께 무너져 가는 사업자를 마주할 때도 마찬가지입니다. 매출 계획을 세우기 전에 달력에 고정 휴무일부터 먼저 표시하게 하고, 그 휴무를 기회 손실이라는 비용이 아니라 사업 구조 안에 미리 남겨 둔 정당한 몫으로 여겨 현금흐름표를 다시 짜도록 돕는 것이 성경적 사고가 빚어내는 상담의 지혜입니다.</p>
+<p>나아가 본문이 쉼을 받는 대상을 개인이 아닌 하나님의 백성이라는 단수 집합명사로 묶어 두었다는 사실은 우리 공동체의 책임을 일깨웁니다. 신명기의 안식 계명이 집안의 자녀뿐 아니라 남종과 여종과 문안에 유하는 나그네까지 너와 같이 쉬게 하라고 명했듯, 공동체 안에서 가장 성실한 사람이 가장 먼저 쉼에서 밀려나는 구조는 개인의 시간 관리 실패가 아니라 공동체 전체의 장부 결손입니다. 누군가 홀로 쉼 없이 짐을 지고 있다면 그것을 헌신이라는 말로 방치하지 않고, 그 몫을 나눌 대근자와 고쳐야 할 규정을 함께 마련하는 것, 그리하여 마침내 한 백성이 함께 놓인 의자에 앉아 숨을 고르는 것이야말로 남겨진 쉼을 향해 힘쓰는 사람들의 아름다운 인격입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      히브리서 제 08편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
