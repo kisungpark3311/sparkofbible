@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>히브리서 해설서 질문과 답변정리 | 박기성</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        @font-face {
+            font-family: 'KoPubWorld Batang';
+            font-weight: 500;
+            src: local('KoPubWorldBatang Medium'),
+                 local('KoPubWorld Batang Medium'),
+                 url('https://cdn.jsdelivr.net/gh/fontbit/kopubworld-batang/KoPubWorldBatang-Medium.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'KoPubWorld Batang';
+            font-weight: 700;
+            src: local('KoPubWorldBatang Bold'),
+                 local('KoPubWorld Batang Bold'),
+                 url('https://cdn.jsdelivr.net/gh/fontbit/kopubworld-batang/KoPubWorldBatang-Bold.woff2') format('woff2');
+        }
+
+        @page {
+            size: A4;
+            margin: 25mm 20mm;
+        }
+
+        :root {
+            --bg-color: #f4f6f4;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --primary: #173f35;
+            --primary-soft: #e8f0eb;
+            --accent: #b7863c;
+            --accent-soft: #f7efdf;
+            --border: #d9dfda;
+            --highlight: #fef9c3;
+            --highlight-border: #fde047;
+            --font-size: 17.5px;
+            --line-height: 1.9;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0d1512;
+            --card-bg: #16221e;
+            --text-color: #e2e8f0;
+            --text-muted: #94a3b8;
+            --primary: #5eead4;
+            --primary-soft: #1e352f;
+            --accent: #fbbf24;
+            --accent-soft: #2a2415;
+            --border: #283a34;
+            --highlight: #713f12;
+            --highlight-border: #a16207;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'KoPubWorld Batang', 'Noto Serif KR', serif;
+            font-size: var(--font-size);
+            line-height: var(--line-height);
+            display: flex;
+            min-height: 100vh;
+            word-break: keep-all;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        /* ================= 좌측 사이드바 목차 ================= */
+        #sidebar {
+            width: 340px;
+            background: var(--card-bg);
+            border-right: 1px solid var(--border);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sidebar-header {
+            padding: 24px 20px 16px;
+            border-bottom: 1px solid var(--border);
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .sidebar-header {
+            background: #11221c;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-header h2 {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 1.18rem;
+            color: #ffffff;
+            margin-bottom: 4px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .sidebar-header p {
+            font-size: 0.84rem;
+            color: #d1fae5;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .search-box {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            background: var(--card-bg);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 9px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.9rem;
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+        }
+
+        .toc-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 8px;
+            scrollbar-width: thin;
+        }
+
+        .toc-item {
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 4px;
+            border-left: 3px solid transparent;
+            transition: all 0.15s;
+        }
+
+        .toc-item:hover {
+            background: var(--primary-soft);
+        }
+
+        .toc-item.active {
+            background: var(--primary-soft);
+            border-left: 3px solid var(--primary);
+        }
+
+        .toc-badge {
+            background: var(--primary);
+            color: #ffffff;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.72rem;
+            padding: 3px 7px;
+            border-radius: 4px;
+            font-weight: 600;
+            white-space: nowrap;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        [data-theme="dark"] .toc-badge {
+            background: #0f766e;
+            color: #ffffff;
+        }
+
+        .toc-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .toc-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-color);
+            line-height: 1.35;
+            margin-bottom: 3px;
+        }
+
+        .toc-sub {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ================= 메인 본문 영역 ================= */
+        #main-container {
+            margin-left: 340px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            width: calc(100% - 340px);
+        }
+
+        #top-toolbar {
+            position: sticky;
+            top: 0;
+            height: 60px;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            z-index: 50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            overflow: hidden;
+        }
+
+        .menu-btn {
+            display: none;
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .current-section-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .tool-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+
+        .tool-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 36px 28px 80px;
+            max-width: 920px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .book-page {
+            display: none;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 48px 52px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .book-page.active {
+            display: block;
+            animation: fadeIn 0.22s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chapter-running-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid var(--border);
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            gap: 12px;
+        }
+
+        /* ================= 질문과 모범답안 타이포그래피 (시인성 특화) ================= */
+        .page-content h1 {
+            font-family: 'KoPubWorld Batang', serif;
+            font-weight: 700;
+            font-size: 1.8em;
+            color: var(--primary);
+            border-bottom: 2.5px solid var(--accent);
+            padding-bottom: 14px;
+            margin-top: 4px;
+            margin-bottom: 18px;
+            line-height: 1.35;
+            letter-spacing: -0.5px;
+        }
+
+        .page-content h2 {
+            font-family: 'KoPubWorld Batang', serif;
+            font-weight: 700;
+            font-size: 1.18em;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border-left: 4px solid var(--accent);
+            padding: 12px 18px;
+            margin-top: 0;
+            margin-bottom: 34px;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.5;
+        }
+
+        /* 질문 박스 (h3) */
+        .page-content h3 {
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 700;
+            font-size: 1.08em;
+            color: var(--primary);
+            background-color: var(--primary-soft);
+            border-left: 5px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 36px;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        /* 답변 본문 (p) */
+        .page-content p {
+            margin-bottom: 28px;
+            padding: 2px 10px 24px 10px;
+            border-bottom: 1px dashed var(--border);
+            text-align: justify;
+            word-break: keep-all;
+        }
+
+        .page-content p:last-child {
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
+
+        .page-content strong, .page-content b {
+            font-weight: 700;
+            background-color: var(--highlight);
+            padding: 1px 4px;
+            border-radius: 3px;
+            color: inherit;
+        }
+
+        [data-theme="dark"] .page-content strong,
+        [data-theme="dark"] .page-content b {
+            color: #fef08a;
+        }
+
+        /* ================= 표지 (Cover) ================= */
+        .cover {
+            text-align: center;
+            padding: 70px 24px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 68vh;
+        }
+
+        .cover-badge {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2.2px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        .cover h1 {
+            border: none !important;
+            font-size: 3.1rem !important;
+            color: var(--primary) !important;
+            margin-bottom: 14px !important;
+            padding-bottom: 0 !important;
+            letter-spacing: -1px;
+        }
+
+        .cover h1 span {
+            display: block;
+            font-size: 0.56em;
+            color: var(--text-color);
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        .cover h2 {
+            border: none !important;
+            background: none !important;
+            color: var(--text-muted) !important;
+            font-weight: 500 !important;
+            margin-top: 0 !important;
+            margin-bottom: 28px !important;
+            padding: 0 !important;
+            font-size: 1.25rem !important;
+        }
+
+        .cover-divider {
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            margin: 8px 0 32px;
+            border-radius: 2px;
+        }
+
+        .cover-desc {
+            font-size: 1.02rem;
+            color: var(--text-color);
+            line-height: 1.9;
+            max-width: 620px;
+            text-align: center !important;
+            border-bottom: none !important;
+            padding: 0 !important;
+            margin-bottom: 36px !important;
+        }
+
+        .cover-meta {
+            margin-bottom: 40px;
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .cover-meta .author {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: center !important;
+            border-bottom: none !important;
+            padding: 0 !important;
+            margin-bottom: 6px !important;
+        }
+
+        .cover-meta .stats {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-align: center !important;
+            border-bottom: none !important;
+            padding: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .cover-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .start-btn {
+            background: var(--primary);
+            color: #ffffff;
+            border: 1px solid var(--primary);
+            padding: 12px 28px;
+            border-radius: 999px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.98rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 6px 18px rgba(23, 63, 53, 0.2);
+        }
+
+        .start-btn:hover {
+            opacity: 0.92;
+            transform: translateY(-2px);
+        }
+
+        /* ================= 하단 내비게이션 ================= */
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(23, 63, 53, 0.95);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        #sidebar-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 95;
+        }
+
+        /* ================= 모바일 반응형 ================= */
+        @media (max-width: 960px) {
+            #sidebar {
+                transform: translateX(-100%);
+            }
+
+            #sidebar.open {
+                transform: translateX(0);
+                box-shadow: 4px 0 25px rgba(0,0,0,0.25);
+            }
+
+            #sidebar-backdrop.open {
+                display: block;
+            }
+
+            #main-container {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .menu-btn {
+                display: inline-flex;
+                align-items: center;
+            }
+
+            .content-area {
+                padding: 18px 12px 60px;
+            }
+
+            .book-page {
+                padding: 26px 20px;
+                border-radius: 10px;
+            }
+
+            #top-toolbar {
+                padding: 0 14px;
+            }
+
+            .cover h1 {
+                font-size: 2.2rem !important;
+            }
+
+            .cover h2 {
+                font-size: 1.08rem !important;
+            }
+        }
+
+        /* ================= 인쇄 및 A4 규격 최적화 (@media print) ================= */
+        @media print {
+            #sidebar, #sidebar-backdrop, #top-toolbar, .page-nav, #toast, .cover-actions {
+                display: none !important;
+            }
+
+            #main-container {
+                margin: 0 !important;
+                width: 100% !important;
+            }
+
+            .content-area {
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+
+            .book-page {
+                display: block !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                page-break-before: always;
+            }
+
+            .book-page:first-of-type {
+                page-break-before: avoid;
+            }
+
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 11pt !important;
+                line-height: 1.75 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar-backdrop" onclick="closeSidebar()"></div>
+
+    <!-- 좌측 사이드바 목차 -->
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <h2>히브리서 질문과 답변정리</h2>
+            <p>34개 본문 단위 · 170개 질문 모범답안</p>
+        </div>
+        <div class="search-box">
+            <input type="text" id="sidebarSearch" placeholder="장절, 제목, 핵심어 검색..." autocomplete="off">
+        </div>
+        <div class="toc-list" id="tocList">
+            
+        <div class="toc-item active" data-index="0" onclick="goToPage(0)">
+            <div class="toc-badge">표지</div>
+            <div class="toc-text">
+                <div class="toc-title">히브리서 질문과 답변 표지</div>
+                <div class="toc-sub">34개 본문 단위 · 170개 질문과 모범답안</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="1" onclick="goToPage(1)">
+            <div class="toc-badge">01편 · 1:1-4</div>
+            <div class="toc-text">
+                <div class="toc-title">제01편 히브리서 1:1-4</div>
+                <div class="toc-sub">말씀하신 이는 그대로다 — 하나님이 아들에게서 우리에게 말씀하셨습니다</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="2" onclick="goToPage(2)">
+            <div class="toc-badge">02편 · 1:5-14</div>
+            <div class="toc-text">
+                <div class="toc-title">제02편 히브리서 1:5-14</div>
+                <div class="toc-sub">섬김은 직함이 아니다 — 일곱 번의 인용이 아들 쪽과 천사 쪽으로 갈라진다</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="3" onclick="goToPage(3)">
+            <div class="toc-badge">03편 · 2:1-4</div>
+            <div class="toc-text">
+                <div class="toc-title">제03편 히브리서 2:1-4</div>
+                <div class="toc-sub">더 주의해야 한다 — 요구가 앞에 서고, 걱정은 문장 끝에 앉는다</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="4" onclick="goToPage(4)">
+            <div class="toc-badge">04편 · 2:5-9</div>
+            <div class="toc-text">
+                <div class="toc-title">제04편 히브리서 2:5-9</div>
+                <div class="toc-sub">문장이 죽음에서 끝납니다 — 아직 보지 못하는데 한 사람을 보는 자리</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="5" onclick="goToPage(5)">
+            <div class="toc-badge">05편 · 2:10-18</div>
+            <div class="toc-text">
+                <div class="toc-title">제05편 히브리서 2:10-18</div>
+                <div class="toc-sub">붙드신 손 뒤에 선 이름 — 형제라 부르심과 처음 나오는 「대제사장」</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="6" onclick="goToPage(6)">
+            <div class="toc-badge">06편 · 3:1-6</div>
+            <div class="toc-text">
+                <div class="toc-title">제06편 히브리서 3:1-6</div>
+                <div class="toc-sub">깊이 보라, 집보다 집 지은 이를 — 견줌이 사람에서 짓는 일로 옮겨 가는 한 절</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="7" onclick="goToPage(7)">
+            <div class="toc-badge">07편 · 3:7-19</div>
+            <div class="toc-text">
+                <div class="toc-title">제07편 히브리서 3:7-19</div>
+                <div class="toc-sub">오늘이라 불리는 동안 — 요구는 둘이고, 그 둘은 서로에게 갑니다</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="8" onclick="goToPage(8)">
+            <div class="toc-badge">08편 · 4:1-13</div>
+            <div class="toc-text">
+                <div class="toc-title">제08편 히브리서 4:1-13</div>
+                <div class="toc-sub">쉼은 남겨져 있습니다 — 두 번 권하는 문장과 그 사이에 놓인 한 결론</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="9" onclick="goToPage(9)">
+            <div class="toc-badge">09편 · 4:14-5:10</div>
+            <div class="toc-text">
+                <div class="toc-title">제09편 히브리서 4:14-5:10</div>
+                <div class="toc-sub">연약에는 조건이 달리지 않습니다 — 담대히 나아가자는 권함과, 스스로 취하지 않은 대제사장</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="10" onclick="goToPage(10)">
+            <div class="toc-badge">10편 · 5:11-6:8</div>
+            <div class="toc-text">
+                <div class="toc-title">제10편 히브리서 5:11-6:8</div>
+                <div class="toc-sub">하나뿐인 요구 — 받는 꼴로 적힌 한 마디, 그 뒤에 자립해 선 세 절</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="11" onclick="goToPage(11)">
+            <div class="toc-badge">11편 · 6:9-20</div>
+            <div class="toc-text">
+                <div class="toc-title">제11편 히브리서 6:9-20</div>
+                <div class="toc-sub">맹세로 보증하셨다 — 이 단락의 맨 윗자리에 우리의 동사가 없다</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="12" onclick="goToPage(12)">
+            <div class="toc-badge">12편 · 7:1-10</div>
+            <div class="toc-text">
+                <div class="toc-title">제12편 히브리서 7:1-10</div>
+                <div class="toc-sub">멜기세덱이 누구인가 — 열 절에 걸린 명령은 하나, 함께 보라</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="13" onclick="goToPage(13)">
+            <div class="toc-badge">13편 · 7:11-19</div>
+            <div class="toc-text">
+                <div class="toc-title">제13편 히브리서 7:11-19</div>
+                <div class="toc-sub">폐함과 들어옴이 한 동사에 걸립니다 — 계명 하나에 붙은 말과, 그 문장 끝에 선 하나님</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="14" onclick="goToPage(14)">
+            <div class="toc-badge">14편 · 7:20-28</div>
+            <div class="toc-text">
+                <div class="toc-title">제14편 히브리서 7:20-28</div>
+                <div class="toc-sub">맹세로 세워진 제사장과 영원히 사심 — 많음으로는 머무르지 못합니다</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="15" onclick="goToPage(15)">
+            <div class="toc-badge">15편 · 8:1-13</div>
+            <div class="toc-text">
+                <div class="toc-title">제15편 히브리서 8:1-13</div>
+                <div class="toc-sub">요점 자리에 적힌 한 줄 — 「이러한 대제사장이 우리에게 있습니다」</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="16" onclick="goToPage(16)">
+            <div class="toc-badge">16편 · 9:1-10</div>
+            <div class="toc-text">
+                <div class="toc-title">제16편 히브리서 9:1-10</div>
+                <div class="toc-sub">길은 아직 드러나지 않았다 — 첫 장막의 기구와 그 제도가 가리킨 것</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="17" onclick="goToPage(17)">
+            <div class="toc-badge">17편 · 9:11-22</div>
+            <div class="toc-text">
+                <div class="toc-title">제17편 히브리서 9:11-22</div>
+                <div class="toc-sub">깨끗하게 하는 것은 그 피다 — 자기 피로 들어가신 분과, 피가 따라 적히는 언약</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="18" onclick="goToPage(18)">
+            <div class="toc-badge">18편 · 9:23-28</div>
+            <div class="toc-text">
+                <div class="toc-title">제18편 히브리서 9:23-28</div>
+                <div class="toc-sub">나타나심은 세 낱말입니다 — 한 번은 드려지심 쪽에, 두 번째는 나타나심 쪽에</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="19" onclick="goToPage(19)">
+            <div class="toc-badge">19편 · 10:1-18</div>
+            <div class="toc-text">
+                <div class="toc-title">제19편 히브리서 10:1-18</div>
+                <div class="toc-sub">이미 말해진 말이 서 있습니다 — 되풀이하는 드림과 한 번의 드림</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="20" onclick="goToPage(20)">
+            <div class="toc-badge">20편 · 10:19-25</div>
+            <div class="toc-text">
+                <div class="toc-title">제20편 히브리서 10:19-25</div>
+                <div class="toc-sub">숨은 두 권유 — 「그러므로」에서 꺾여 나온 세 가지</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="21" onclick="goToPage(21)">
+            <div class="toc-badge">21편 · 10:26-31</div>
+            <div class="toc-text">
+                <div class="toc-title">제21편 히브리서 10:26-31</div>
+                <div class="toc-sub">눈금이 없는 저울 — 무게를 지는 것은 크기가 아니라 이름 하나다</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="22" onclick="goToPage(22)">
+            <div class="toc-badge">22편 · 10:32-39</div>
+            <div class="toc-text">
+                <div class="toc-title">제22편 히브리서 10:32-39</div>
+                <div class="toc-sub">전날을 생각하라 — 당한 일과 함께한 일이 같은 칸에 적혀 있습니다</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="23" onclick="goToPage(23)">
+            <div class="toc-badge">23편 · 11:1-7</div>
+            <div class="toc-text">
+                <div class="toc-title">제23편 히브리서 11:1-7</div>
+                <div class="toc-sub">「아직」이 붙은 보지 못함 — 열린 안개와 때가 매겨진 안개</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="24" onclick="goToPage(24)">
+            <div class="toc-badge">24편 · 11:8-22</div>
+            <div class="toc-text">
+                <div class="toc-title">제24편 히브리서 11:8-22</div>
+                <div class="toc-sub">동사를 거느린 한 절 — 받지 못한 채 죽은 사람들 다음에 적힌 두 동사</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="25" onclick="goToPage(25)">
+            <div class="toc-badge">25편 · 11:23-31</div>
+            <div class="toc-text">
+                <div class="toc-title">제25편 히브리서 11:23-31</div>
+                <div class="toc-sub">밝힌 자리는 밝힌 대로, 비운 자리는 비운 대로 — 본문이 손을 적은 자리와 적지 않은 자리</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="26" onclick="goToPage(26)">
+            <div class="toc-badge">26편 · 11:32-40</div>
+            <div class="toc-text">
+                <div class="toc-title">제26편 히브리서 11:32-40</div>
+                <div class="toc-sub">다 받지 못하였습니다 — 이긴 사람과 당한 사람이 한 주어 아래 섭니다</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="27" onclick="goToPage(27)">
+            <div class="toc-badge">27편 · 12:1-3</div>
+            <div class="toc-text">
+                <div class="toc-title">제27편 히브리서 12:1-3</div>
+                <div class="toc-sub">인내와 참으심은 한 뿌리입니다 — 먼저 참으신 분을 보라는 세 절</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="28" onclick="goToPage(28)">
+            <div class="toc-badge">28편 · 12:4-11</div>
+            <div class="toc-text">
+                <div class="toc-title">제28편 히브리서 12:4-11</div>
+                <div class="toc-sub">지금은 슬픔이라 부른다 — 열매의 때를 뒤에 둔 한 절</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="29" onclick="goToPage(29)">
+            <div class="toc-badge">29편 · 12:12-17</div>
+            <div class="toc-text">
+                <div class="toc-title">제29편 히브리서 12:12-17</div>
+                <div class="toc-sub">아직 일어서지 못한 손과 무릎에 — 부름은 판정 뒤에 오지 않습니다</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="30" onclick="goToPage(30)">
+            <div class="toc-badge">30편 · 12:18-24</div>
+            <div class="toc-text">
+                <div class="toc-title">제30편 히브리서 12:18-24</div>
+                <div class="toc-sub">너희는 이미 이르렀다 — 두 번 선 같은 동사, 그리고 여덟 항의 명단</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="31" onclick="goToPage(31)">
+            <div class="toc-badge">31편 · 12:25-29</div>
+            <div class="toc-text">
+                <div class="toc-title">제31편 히브리서 12:25-29</div>
+                <div class="toc-sub">받은 것과 만든 것 — 「그러므로」가 받아 세운 한 가지 청함과 그 까닭</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="32" onclick="goToPage(32)">
+            <div class="toc-badge">32편 · 13:1-6</div>
+            <div class="toc-text">
+                <div class="toc-title">제32편 히브리서 13:1-6</div>
+                <div class="toc-sub">문을 열 때는 모른다 — 잊지 말라는 명령과 모르는 사이에 된 일</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="33" onclick="goToPage(33)">
+            <div class="toc-badge">33편 · 13:7-19</div>
+            <div class="toc-text">
+                <div class="toc-title">제33편 히브리서 13:7-19</div>
+                <div class="toc-sub">밖으로, 그에게 — 그리고 너희에게</div>
+            </div>
+        </div>
+    
+        <div class="toc-item " data-index="34" onclick="goToPage(34)">
+            <div class="toc-badge">34편 · 13:20-25</div>
+            <div class="toc-text">
+                <div class="toc-title">제34편 히브리서 13:20-25</div>
+                <div class="toc-sub">비는 말의 임자 — 하시는 분이 문장의 끝에 서 있습니다</div>
+            </div>
+        </div>
+    
+        </div>
+    </aside>
+
+    <!-- 메인 본문 컨테이너 -->
+    <main id="main-container">
+        <!-- 상단 고정 툴바 -->
+        <header id="top-toolbar">
+            <div class="toolbar-left">
+                <button type="button" class="menu-btn" id="menu-toggle" aria-label="목차 열기">목차</button>
+                <span class="current-section-title" id="currentSectionTitle">히브리서 질문과 답변 표지</span>
+            </div>
+            <div class="toolbar-right">
+                <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+                <span id="fontScaleDisplay" style="font-size:0.84rem; font-family:'Pretendard'; min-width:42px; text-align:center; font-weight:600;">100%</span>
+                <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+                <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 테마 전환">테마</button>
+                <button type="button" class="tool-btn" onclick="copyCurrentPage()" title="현재 본문 복사">본문 복사</button>
+            </div>
+        </header>
+
+        <!-- 본문 뷰어 영역 -->
+        <div class="content-area">
+            
+        <section class="book-page active" id="sec-0" data-index="0">
+            
+            <div class="page-content">
+                
+<div class="cover">
+    <div class="cover-badge">HEBREWS STUDY QUESTIONS & MODEL ANSWERS</div>
+    <h1>히브리서 해설서<span>질문과 답변정리</span></h1>
+    <h2>34개 본문 단위 · 170개 함께 생각할 질문과 모범답안 완본</h2>
+    <div class="cover-divider"></div>
+    <p class="cover-desc">
+        히브리서 1장부터 13장까지 34개 단락마다 수록된 다섯 개의 핵심 질문을 따라<br>
+        원문의 문법적 결과 신학적·목회적 통찰, 그리고 일상의 적용까지<br>
+        깊이 있게 묵상하고 나눌 수 있도록 엮은 모범답안 합본입니다.
+    </p>
+    <div class="cover-meta">
+        <p class="author">박기성, Th. D. in Min.</p>
+        <p class="stats">전체 34개 단락 · 170문항 모범답안 수록</p>
+    </div>
+    <div class="cover-actions">
+        <button type="button" class="start-btn" onclick="goToPage(1)">첫 단락 질문부터 읽기 →</button>
+    </div>
+</div>
+
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(0)" disabled>
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(1)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-1" data-index="1">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 01 편 (히브리서 1:1-4)</span>
+                <span>말씀하신 이는 그대로다 — 하나님이 아들에게서 우리에게 말씀하셨습니다</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[1:1-4] 함께 생각할 질문 모범답안</h1>
+<h2>말씀하신 이는 그대로다 — 하나님이 아들에게서 우리에게 말씀하셨습니다</h2>
+<h3>질문 1: 1:1을 혼자 읽고 멈춰 보십시오. 문장이 닫히지 않는다는 느낌이 드십니까? 그 닫히지 않음이 1:2의 「말씀하셨으니」를 들을 때 무엇을 다르게 만듭니까?</h3>
+<p><strong>모범답안:</strong> 1:1의 「말씀하신」(<code>λαλήσας</code>, 랄레사스)은 주어인 하나님께 매달려 <strong>문장을 닫지 못하는 분사 꼴</strong>이기에, 1:1만 읽고 멈추면 주어는 손에 들어왔으나 정작 무엇을 하셨다는 본동사가 오지 않아 숨이 멈춘 채 기다리게 됩니다. 그 닫히지 않은 호흡이 1:2의 <strong>유일한 본동사 「말씀하셨으니」(<code>ἐλάλησεν</code>, 엘랄레센)</strong>를 만날 때에야 비로소 한 문장으로 풀리며, 옛적의 말씀과 이 모든 날 마지막의 말씀이 끊어진 두 이야기가 아니라 <strong>한 주어를 공유하는 하나의 문장</strong>임이 드러납니다. 따라서 「마지막에」라는 말은 이전 말씀을 폐기하고 지우는 선언이 아니라, 오랫동안 여러 부분과 여러 모양으로 이어져 온 <strong>하나님의 앞선 말씀을 비로소 한 문장으로 완성하여 세우는 자리</strong>로 따뜻하게 다가옵니다.</p>
+<h3>질문 2: 이 네 절에서 바뀐 칸은 때와 받는 이와 말씀이 놓인 자리이고, 주어 칸은 바뀌지 않았습니다. 내가 이 본문에서 대조하려 했던 것은 본문이 표시한 대조였습니까, 내가 넣은 등수였습니까?</h3>
+<p><strong>모범답안:</strong> 본문이 실제로 맞세운 것은 「옛적에」와 「이 모든 날 마지막에」라는 <strong>때와 때의 대조</strong>일 뿐, 말씀하시는 주어인 <strong>「하나님이」는 단 한 번만 적힌 채</strong> 두 절을 끝까지 끌고 갑니다. 심지어 「선지자들로」와 「아들로」를 잇는 말조차 <strong>똑같은 전치사 <code>ἐν</code>(엔)</strong>으로 서 있어서, 본문의 문법은 옛 통로와 새 통로의 우열이나 등급을 매기지 않습니다. 그동안 선지자와 아들의 등수를 매기거나 옛 말씀을 지나간 단계로 밀어내려 했던 시도는 본문이 표시한 대조가 아니라 내가 임의로 끼워 넣은 서열이었음을 깨닫고, <strong>어제나 오늘이나 변함없이 말씀하시는 한 분 하나님</strong>의 신실하심 앞에 마음을 놓게 됩니다.</p>
+<h3>질문 3: 「말씀하셨으니」(1:2)에 목적어가 없다는 사실을 확인해 보십시오. 나는 그 빈자리에 무엇을 넣어 읽고 있었습니까?</h3>
+<p><strong>모범답안:</strong> 1:2에서 문장을 닫는 동사 <code>ἐλάλησεν</code>(엘랄레센, 말씀하셨으니)에는 <strong>무엇을 말씀하셨는지를 가리키는 목적어가 아예 비어 있습니다.</strong> 우리는 흔히 그 빈자리에 내가 당장 듣고 싶은 해답이나 새로운 교리 목록, 혹은「이제 하실 말씀이 다 끝났다」는 섣부른 단정을 채워 넣어 읽곤 합니다. 그러나 본문은 말씀의 내용 대신 <strong>누구에게(「우리에게」), 어디서(「아들 안에서」) 말씀하셨는지</strong>만 적어 두고 곧바로 그 아들의 자리를 서술함으로써, 우리가 받아 안은 말씀이 조각난 정보가 아니라 <strong>아들 그분 자신이라는 묵직한 위로</strong>를 건넵니다.</p>
+<h3>질문 4: 1:2에서 두시고 지으신 분과 1:3에서 씻고 앉으신 분이 본문에 나뉘어 적혀 있습니다. 내가 이 네 절을 요약할 때 그 둘을 한 주어로 합쳐 매끄럽게 만들고 있지 않습니까?</h3>
+<p><strong>모범답안:</strong> 본문은 1:2에서 아들을 만유의 후사로 세우시고 세계를 지으신 <strong>주어를 하나님으로</strong>, 1:3에서 만물을 붙드시고 죄를 정결하게 하는 일을 하신 뒤 높은 곳의 우편에 앉으신(<code>ἐκάθισεν</code>, 에카티센) <strong>주어를 아들로 나누어</strong> 적습니다. 우리는 네 절을 매끄럽게 요약하려는 마음에 두 주어를 하나로 합쳐 읽곤 하지만, 그러면 아들의 자리가 <strong>하나님이 두신 일</strong>로 서 있다는 사실과 정결하게 하시고 앉으신 일이 <strong>아들의 고유한 몫</strong>이라는 사실이 함께 지워집니다. 오늘 아무 일도 끝내지 못한 채 지쳐 누운 자리에서도, 이미 씻는 일을 하시고 <strong>높은 곳 우편에 앉아 계신 아들의 분명한 자리</strong>가 우리를 버티게 하는 안식이 됩니다.</p>
+<h3>질문 5: 1:4에서 견줌의 상대로 적힌 것이 무엇인지 본문에서 직접 찾아보십시오. 그 자리에 본문이 적지 않은 다른 상대를 넣어 읽어 본 적이 있습니까?</h3>
+<p><strong>모범답안:</strong> 1:4에서 「뛰어남」(<code>κρείττων</code>, 크레잇톤)과 「더욱 아름다운」이라는 두 비교 표현이 맞세운 견줌의 상대는 사람도 민족도 아닌 <strong>오직 「천사들」(<code>τῶν ἀγγέλων</code>, 톤 앙겔론)</strong>입니다. 히브리서 전체를 통틀어 「유대인」이나 「이방인」 같은 낱말은 단 한 번도 나오지 않으며, 열세 번 나오는 <code>κρείττων</code>의 비교 상대 가운데 <strong>민족이 놓인 자리는 한 곳도 없습니다.</strong> 본문이 천사들을 상대로 적어 둔 자리에 한 민족이나 이전 시대의 신앙인들을 임의로 끼워 넣어 폐기된 존재로 읽었던 습관을 내려놓고, <strong>본문이 적어 둔 만큼만 정직하게 따라가는 겸손</strong>을 배웁니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(0)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(2)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-2" data-index="2">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 02 편 (히브리서 1:5-14)</span>
+                <span>섬김은 직함이 아니다 — 일곱 번의 인용이 아들 쪽과 천사 쪽으로 갈...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[1:5-14] 함께 생각할 질문 모범답안</h1>
+<h2>섬김은 직함이 아니다 — 일곱 번의 인용이 아들 쪽과 천사 쪽으로 갈라진다</h2>
+<h3>질문 1: 이 단락에서 저자가 독자에게 직접 명령한 자리는 한 곳도 없고, 명령의 꼴로 선 두 말은 모두 인용 안에 있습니다. 명령하지 않고 배치하는 이 방식이 1:7과 1:8에서 어떻게 드러납니까?</h3>
+<p><strong>모범답안:</strong> 이 열 절에서 명령의 꼴로 선 두 마디(1:6의 「경배할지어다」, 1:13의 「앉았으라」)는 <strong>모두 구약 인용문 안에만</strong> 들어 있고, 저자가 독자에게 직접 무엇을 하라고 다그치는 명령은 단 한 곳도 없습니다. 특히 1:7의 「또 천사들에 관하여는」과 1:8의 「아들에 관하여는」은 <strong>한 쌍의 대조 표지(<code>μέν ... δέ</code>)로 묶인 채</strong> 1:7의 「말한다」는 동사 하나가 두 인용을 함께 거느리는 방식으로 놓여 있습니다. 저자는 아들의 속성을 자기 말로 길게 설득하거나 독자를 몰아세우는 대신, <strong>이미 말해진 성경의 말씀들을 수신자에 따라 제자리에 배치</strong>하여 듣는 이가 스스로 그 말씀의 무게와 방향을 확인하게 합니다.</p>
+<h3>질문 2: 본문이 맞세운 두 항은 무엇입니까. 1:7과 1:8의 두 도입구를 읽고, 본문이 그 자리에 적어 둔 낱말로 답해 보십시오.</h3>
+<p><strong>모범답안:</strong> 1:7과 1:8의 두 도입구가 맞세운 두 항은 집단이나 종교가 아니라 <strong>「천사들」(<code>τοὺς ἀγγέλους</code>)과 「그 아들」(<code>τὸν υἱόν</code>)</strong>입니다. 특히 1:8의 「아들」은 1:5의 서술 자리와 달리 <strong>앞에 정관사 「그」(<code>τόν</code>)가 붙어 명확히 지목된 한 분</strong>으로 서 있기 때문에, 그 자리에 다른 사람이나 집단의 이름을 끼워 넣을 여지가 없습니다. 본문이 적어 둔 이 정확한 두 비교항 앞에 서면, 남과 나를 견주어 우열을 가리려는 조급함을 멈추고 <strong>영원한 보좌와 공평한 홀을 받으신 그 아들</strong>께로만 시선을 모으게 됩니다.</p>
+<h3>질문 3: 1:14는 보내지는 쪽과 그 일을 받는 쪽을 적고, 보내는 쪽은 적지 않았습니다. 이 단락의 앞 아홉 절을 읽은 사람에게 그 비어 있는 자리는 어디를 가리킵니까?</h3>
+<p><strong>모범답안:</strong> 1:14에서 「보내심」으로 옮겨진 <code>ἀποστελλόμενα</code>(아포스텔로메나)는 <strong>보내지는 쪽의 상태만 가리키는 꼴</strong>이어서, 문장 안에는 보내지는 영들과 섬김을 받는 「구원 얻을 후사들」만 적혀 있을 뿐 <strong>정작 누가 보냈는지는 비어 있습니다.</strong> 그러나 앞선 아홉 절 내내 누가 아들과 천사들에게 말씀하셨고 누가 천사들을 바람과 불꽃으로 삼으셨는지를 읽어 온 사람에게, 그 비어 있는 첫 자리는 자연스레 <strong>말씀하시고 보좌에 앉히시는 하나님</strong>을 가리킵니다. 교회와 일상에서 섬기는 자리에 설 때도 내 직함을 앞세우기보다, <strong>보이지 않는 자리에서 나를 보내신 분과 그 섬김이 닿아야 할 사람들</strong>을 먼저 기억하게 됩니다.</p>
+<h3>질문 4: 1:11-12에서 낡는다고 적힌 것은 무엇입니까. 「낡아지리니」와 「변할 것이나」가 받는 그 여럿을 본문에서 찾아보십시오.</h3>
+<p><strong>모범답안:</strong> 1:11의 「낡아지리니」(<code>παλαιωθήσονται</code>, 팔라이오테손타이)와 1:12의 「변할 것이나」는 모두 <strong>여럿을 받는 수동태 꼴</strong>이며, 그 여럿이 가리키는 대상은 바로 앞 절(1:10)에 적힌 <strong>「땅」과 「하늘들」</strong>입니다. 가장 단단하고 영원해 보이는 하늘과 땅조차 <strong>주의 손으로 지어진 것</strong>이기에 옷처럼 낡아지고 갈아입게 된다는 것이 본문이 이 낱말을 걸어 둔 정확한 자리입니다. 우리 몸의 무릎과 살림살이가 옷처럼 낡아 가는 속도를 정직하게 인정하면서도, <strong>옷이 낡는 속도와는 다른 「연대가 다함이 없는 주님」</strong>의 시간 안에 우리가 붙들려 있음을 알고 안도하게 됩니다.</p>
+<h3>질문 5: 1:5과 1:13의 되물음에 본문은 답을 문장으로 적지 않았습니다. 그 비어 있는 자리에 내가 서둘러 채워 넣고 있는 말이 있습니까.</h3>
+<p><strong>모범답안:</strong> 단락의 처음과 끝을 감싸는 1:5과 1:13은 「어느 때에 천사 중 누구에게 … 하셨느냐」는 <strong>되물음의 꼴로만 서 있을 뿐</strong>, 본문 어디에도 「아무에게도 하지 않으셨다」는 답 문장을 직접 적어 넣지 않습니다. 저자는 결론을 자기 문장으로 닫아 버리는 대신 <strong>1:6의 경배 명령과 1:13의 우편 지정이라는 인용 배치</strong>로 그 여백을 채우며 독자가 스스로 그 질문 앞에 서게 만듭니다. 우리는 본문이 비워 둔 자리에 내 성취나 타인을 향한 판정을 서둘러 채워 넣으려 하지만,「되게 하기까지」의 기한을 내가 떠맡지 않고 <strong>말씀하신 이의 순서와 여백 앞에 잠잠히 앉아 있는 법</strong>을 배웁니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(1)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(3)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-3" data-index="3">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 03 편 (히브리서 2:1-4)</span>
+                <span>더 주의해야 한다 — 요구가 앞에 서고, 걱정은 문장 끝에 앉는다</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[2:1-4] 함께 생각할 질문 모범답안</h1>
+<h2>더 주의해야 한다 — 요구가 앞에 서고, 걱정은 문장 끝에 앉는다</h2>
+<h3>질문 1: 2:1에서 혼자 서는 동사는 「해야 한다」 하나이고 「떠내려가지 않도록」은 맨 끝에 딸려 있습니다. 내가 이 구절을 기억하고 있던 모양은 둘 가운데 어느 것이 앞에 서 있었습니까.</h3>
+<p><strong>모범답안:</strong> 2:1의 원문 열 낱말 가운데 <strong>스스로 문장을 세우는 본동사는 <code>δεῖ</code>(데이, 해야 한다) 하나뿐</strong>이고, 「혹 떠내려가지 않도록」(<code>μήποτε παραρυῶμεν</code>, 메포테 파라뤼오멘)은 문장 맨 끝에 매달려 혼자서는 설 수 없는 종속절입니다. 그런데도 우리는 흔히 <strong>뒤에 딸린 걱정과 경고를 문장 앞자리로 끌어올려</strong> 「떠내려가면 큰일 난다」는 두려움으로 이 구절을 기억하곤 했습니다. 본문이 정해 준 순서대로 <strong>요구(「들려진 것들에 더 주의해야 한다」)를 앞에 두고 걱정을 그 아래 딸린 자리에 둘 때</strong>, 우리의 시선은 놓칠까 봐서 떨던 두려움에서 내가 붙들어야 할 말씀 자체로 평안히 옮겨 갑니다.</p>
+<h3>질문 2: 2:1은 주의할 대상을 「들려진 것들」로 적습니다. 지난 한 주에 내가 붙어 있어야 했던 「들려진 것」은 구체적으로 무엇이었습니까.</h3>
+<p><strong>모범답안:</strong> 「주의하기」로 옮겨진 <code>προσέχειν</code>(프로세케인)은 내 안에서 새로운 열심을 짜내라는 말이 아니라 <strong>이미 주어진 대상에 가까이 붙어 있으라는 동작</strong>을 가리킵니다. 그리고 그 붙어 있어야 할 대상은 내가 새로 만들어 낸 결심이 아니라 <strong>받는 쪽(수동태 분사)으로 적힌 「들려진 것들」(<code>τοῖς ἀκουσθεῖσιν</code>, 토이스 아쿠스테이신)</strong>입니다. 분주한 한 주의 일정과 피로 속에서 결심이 무너진다고 자책하기보다, 이미 내게 들려진 말씀을 적어 둔 종이 한 장과 그것을 다시 들여다볼 <strong>작은 시간의 자리를 일상 속에 마련하는 것</strong>이 본문이 부르는 걸음입니다.</p>
+<h3>질문 3: 2:2의 앞머리에서 가리킴말은 천사들이 아니라 말씀에 붙어 있습니다. 내가 들은 말의 무게를 전해 준 사람 쪽에 두었던 자리는 어디였습니까.</h3>
+<p><strong>모범답안:</strong> 2:2 앞머리의 정관사 <code>ὁ</code>(호, 그)는 단수 주격이어서 복수인 「천사들」(<code>ἀγγέλων</code>)과 짝이 될 수 없고, 그 뒤에 오는 <strong>단수 명사 「말씀」(<code>λόγος</code>, 로고스)과 한 쌍</strong>을 이룹니다. 즉 관사의 무게를 받은 주인공은 <strong>「그 말씀」(<code>ὁ … λόγος</code>)</strong>이고, 천사들은 그 말씀이 지나온 경로로만 적혀 있습니다. 우리는 흔히 말을 전해 준 사람의 명성이나 태도가 흔들릴 때 들은 말씀까지 함께 놓쳐 버리곤 하지만, 본문은 <strong>전달자의 자리가 아니라 이미 말하여진 그 말씀 자체의 견고함</strong>에 우리 삶의 무게중심을 두라고 일깨워 줍니다.</p>
+<h3>질문 4: 2:3의 물음에 본문은 답하는 동사를 두지 않았습니다. 나는 그 물음에 어떤 답을 미리 채워 넣고 있었습니까.</h3>
+<p><strong>모범답안:</strong> 2:3의 「우리가 이같이 큰 구원을 등한히 여기면 어찌 피하리요」라는 문장은 <strong>앞일을 묻는 물음으로만 서 있을 뿐</strong>, 이 네 절 어디에도 그 물음에 답하는 단정의 동사가 없습니다. 본문은「그러므로 절대 피할 수 없다」는 파멸의 선고도, 「그래도 결국은 안전하다」는 값싼 안심도 적어 넣지 않고, 곧바로 <strong>「이같이 큰 구원」이 주로 말미암아 시작되어 우리에게 확증되기까지의 경로</strong>를 설명합니다. 본문이 두려움에 단정의 동사를 주지 않고 비워 둔 자리를 내가 먼저 심판이나 안심으로 닫으려던 손을 멈출 때, 비로소 <strong>우리를 대열에서 빼지 않고 「우리」로 함께 묶어 부르시는 하나님의 은혜</strong>가 보입니다.</p>
+<h3>질문 5: 2:4은 받침이 되는 넷을 하나로 묶지 않고 각각 세어 늘어놓고도 문장을 끝맺지 않습니다. 셈은 분명한데 문장이 닫히지 않는 자리에 서 보는 일은 나에게 어떤 일입니까.</h3>
+<p><strong>모범답안:</strong> 2:4은 <strong>문장을 끝맺는 정동사 없이</strong> 분사 <code>συνεπιμαρτυροῦντος</code>(쉰에피마르튀룬토스, 함께 증거하시며)와 그 주인인 「하나님」(<code>τοῦ θεοῦ</code>)이 나란히 앞 문장에 매달리는 구조로 닫힙니다. 그러면서도 그 증거의 받침이 되는 <strong>표적들과 기사들과 여러 가지 능력과 성령의 나눠 주심이라는 네 가지</strong>는 하나로 뭉뚱그리지 않고 접속 표지 넷을 써서 또박또박 세어 늘어놓았습니다. 받침은 손에 잡힐 듯 분명한데 문장은 단정으로 닫히지 않는 이 자리에 선다는 것은, 섣부른 결론으로 남을 재단하는 대신 <strong>하나님이 우리 삶에 낱낱이 베푸신 확증들을 하나씩 헤아리며 오늘의 응답을 살아내는 일</strong>입니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(2)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(4)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-4" data-index="4">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 04 편 (히브리서 2:5-9)</span>
+                <span>문장이 죽음에서 끝납니다 — 아직 보지 못하는데 한 사람을 보는 자리</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[2:5-9] 함께 생각할 질문 모범답안</h1>
+<h2>문장이 죽음에서 끝납니다 — 아직 보지 못하는데 한 사람을 보는 자리</h2>
+<h3>질문 1: 2:5는 복종의 대상을 「만물」이라는 추상이 아니라 「사람이 사는 땅」으로 적고, 그 땅에만 가리키는 말을 두 번 붙여 좁혀 둡니다. 하나님의 다스림이 겨누는 곳을 땅으로 적은 이 첫 문장은, 소망을 「여기를 떠나는 일」로 배워 온 자리에 무엇을 묻습니까?</h3>
+<p><strong>모범답안:</strong> 2:5에서 「장차 오는 세상」으로 옮겨진 낱말은 추상적인 우주나 영계가 아니라 <strong>사람이 발을 딛고 사는 땅을 뜻하는 <code>οἰκουμένη</code>(오이쿠메네)</strong>이며, 원문은 이 낱말에만 정관사 <code>τὴν</code>(그)을 <strong>두 번 거듭 붙여(<code>τὴν οἰκουμένην τὴν μέλλουσαν</code>)</strong> 그 대상을 또렷이 좁혀 둡니다. 뒤에 이어지는 「그 발 아래」(2:8)라는 표현과 함께 보면, 하나님의 다스림이 겨누는 자리는 현실을 벗어난 관념의 영역이 아니라 <strong>우리의 몸이 서 있는 구체적인 땅</strong>입니다. 이는 소망을 고단한 현실에서 도피하는 일로만 배워 온 우리에게, 지금 우리가 숨 쉬고 일하며 아파하는 <strong>바로 이 삶의 자리를 주님의 발이 닿는 통치의 현장으로 다시 보라</strong>고 묻습니다.</p>
+<h3>질문 2: 인용 안에는 하나님의 이름이 하나도 없는데, 그 안의 다섯 동사가 모두 상대를 향해 「당신」이라고 하는 꼴입니다. 이름이 없는 것과 상대가 없는 것이 다르다면, 무슨 이름으로 불러야 할지 모르겠는 상태에서 하는 말은 기도입니까?</h3>
+<p><strong>모범답안:</strong> 2:6-8a의 인용문 안에는 하나님이나 주를 가리키는 명사가 단 한 번도 나오지 않지만, 문장을 세우는 다섯 동사(<code>μιμνῄσκῃ</code> 기억하신다, <code>ἐπισκέπτῃ</code> 돌보신다, <code>ἠλάττωσας</code> 못하게 하셨다, <code>ἐστεφάνωσας</code> 관 씌우셨다, <code>ὑπέταξας</code> 복종케 하셨다)가 <strong>모두 한 상대를 향해 「당신이 ~하셨다」고 부르는 2인칭 단수 꼴</strong>입니다. 즉 이 인용은 하나님에 관해 제삼자에게 보고하는 설명이 아니라, <strong>기억하시고 돌보시는 분을 바로 앞에 두고 건네는 말</strong>입니다. 고통과 혼란 속에서 하나님을 어떤 거창한 호칭으로 불러야 할지조차 막막한 날에도, <strong>나를 기억하시고 돌보시는 「당신」을 향해 건네는 신음은 이미 온전한 기도</strong>입니다.</p>
+<h3>질문 3: 2:8은 「복종치 않은 것이 하나도 없다」와 「지금 우리가 아직 보지 못한다」를 같은 절 안에 두고 그 사이를 메우지 않았습니다. 그 둘 사이를 우리가 메울 때 보통 어떤 문장을 넣습니까? 그 문장이 본문에 있습니까?</h3>
+<p><strong>모범답안:</strong> 2:8은 한 절 안에서 <code>ὑποτάσσω</code>(휘포타쏘, 복종케 하다)를 세 꼴로 세 번 거듭 쓰며 <strong>「복종치 않은 것이 하나도 없다」</strong>고 끝까지 밀어붙인 뒤, 곧바로 같은 절 끝에서 <strong>「지금 우리가 … 아직 보지 못하고」(<code>νῦν δὲ οὔπω ὁρῶμεν</code>)</strong>로 꺾어 놓습니다. 우리는 이 어긋남이 불안하여 「믿음이 부족해서 안 보이는 것이다」거나 「결국 앞으로 다 복종할 것이다」라는 다리를 임의로 놓곤 하지만, <strong>이 다섯 절에는 미래 시제 동사도, 둘 사이를 해명하는 문장도 없습니다.</strong> 성도가 삶의 무너진 자리에서 「아직 안 보입니다」라고 탄식할 때, 그 말은 믿음이 모자라서가 아니라 <strong>성경 본문이 먼저 정직하게 적어 놓은 현실의 자리</strong>임을 알고 위로를 얻습니다.</p>
+<h3>질문 4: 2:9에서 「영광과 존귀로 관 쓰신」은 두 번 적힌 죽음 사이에 놓이고, 문장의 마지막 낱말은 「죽음」입니다. 이 절을 「낮아졌다가 높아지셨다」로 요약하면 무엇이 빠집니까? 그 빠진 것이 지금 고난 가운데 있는 사람에게는 무엇이었습니까?</h3>
+<p><strong>모범답안:</strong> 2:9에서 「영광과 존귀로 관 쓰신」(<code>ἐστεφανωμένον</code>, 에스테파노메논)이라는 구절은 앞의 <strong>「죽음의 고난」과 뒤의 「죽음을 맛보려 하심」이라는 두 번의 죽음 사이에</strong> 끼어 있으며, 원문 문장의 맨 마지막 낱말 역시 <strong>「죽음」(<code>θανάτου</code>, 타나투)</strong>입니다. 이 절을 「낮아졌다가 마침내 높아지셨다」는 시간순 성공담으로 매끄럽게 요약해 버리면, 영광의 관이 고난이 다 끝난 뒤의 보상이 아니라 <strong>두 죽음 한가운데 놓여 있다는 본문의 배치</strong>가 사라집니다. 지금 끝나지 않는 고난과 아픔 한복판에 있는 성도에게 가장 절실한 위로는 고난이 곧 끝난다는 빈말이 아니라, <strong>영광의 주님이 바로 그 죽음의 자리 한가운데 함께 서 계신다는 사실</strong>입니다.</p>
+<h3>질문 5: 본문이 적은 목적은 「우리가 죽음을 맛보지 않도록」이 아니라 「그분이 모두를 위하여 죽음을 맛보도록」입니다. 둘 사이의 차이는 내가 지금 겪는 고난을 이해하는 방식을 어떻게 바꿉니까? 그리고 그 「모두」 안에 내가 들어 있다는 것은 어디까지 말할 수 있습니까?</h3>
+<p><strong>모범답안:</strong> 이 다섯 절에서 「무엇을 위하여」라고 목적을 밝히는 유일한 동사는 <strong>「맛보다」(<code>γεύσηται</code>, 게우세타이)</strong> 하나뿐인데, 거기에는 부정어가 붙어 있지 않고 주어도 우리가 아닌 <strong>그분 한 사람</strong>입니다. 그러므로 복음의 목적은 우리를 고통과 죽음에서 면제시켜 비켜 가게 하는 것이 아니라, <strong>우리가 겪는 그 죽음의 쓴맛 안으로 예수께서 먼저 들어와 친히 혀에 대고 맛보시는 것</strong>입니다. 더욱이 원문의 <strong>「모두를 위하여」(<code>ὑπὲρ παντός</code>, 휘페르 판토스)</strong>에는 아무런 자격 제한이나 조건이 붙어 있지 않기에, 오늘 눈물과 상실을 지나는 나 자신도 예외 없이 <strong>그분이 대신 맛보신 은혜의 범위 안에 온전히 들어 있음</strong>을 확신할 수 있습니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(3)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(5)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-5" data-index="5">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 05 편 (히브리서 2:10-18)</span>
+                <span>붙드신 손 뒤에 선 이름 — 형제라 부르심과 처음 나오는 「대제사장」</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[2:10-18] 함께 생각할 질문 모범답안</h1>
+<h2>붙드신 손 뒤에 선 이름 — 형제라 부르심과 처음 나오는 「대제사장」</h2>
+<h3>질문 1: 2:10의 「합당하도다」와 2:17의 「마땅하도다」가 서로 다른 낱말이라면, 이 단락은 어울림과 빚짐 가운데 어느 것을 먼저 말하고 어느 것을 나중에 말합니까? 그리고 앞에서는 그분이 온전하게 하시는 쪽인데 뒤에서는 되시는 쪽입니다. 그 넘어감을 내 입으로 다시 말해 보면 어떤 문장이 됩니까?</h3>
+<p><strong>모범답안:</strong> 단락의 앞뒤를 묶는 두 동사 가운데 2:10의 <code>Ἔπρεπεν</code>(에프레펜, 합당하도다)은 <strong>그분께 「어울렸다」는 말</strong>이고, 2:17의 <code>ὤφειλεν</code>(오페일렌, 마땅하도다)은 <strong>「빚진 것처럼 마땅했다」는 의무의 말</strong>이어서, 본문은 어울림을 먼저 말하고 빚짐을 나중에 말합니다. 또한 앞(2:10)에서는 만물이 인하고 말미암은 분이 구원의 주를 고난을 통해 <strong>「온전하게 하시는」(<code>τελειῶσαι</code>) 하는 쪽</strong>으로 서지만, 뒤(2:17)에서는 아들이 범사에 형제들과 <strong>「같아지시는」(<code>ὁμοιωθῆναι</code>) 되시는 쪽</strong>으로 넘어갑니다. 이를 내 입으로 다시 고백한다면, <strong>「하나님께 가장 어울리는 일은 아들을 고난으로 온전하게 하시는 것이었고, 우리를 붙드신 아들이 스스로 지신 빚은 모든 일에 우리와 똑같이 되시는 것이었습니다」</strong>라고 말할 수 있습니다.</p>
+<h3>질문 2: 이 단락에서 「나」와 「너」가 모두 인용 안에만 있고 듣는 사람을 부르는 말이 하나도 없습니다. 그렇다면 이 아홉 절을 읽는 내 자리는 어디입니까? 본문이 나를 부르지 않는다는 것이 섭섭한 일입니까, 아니면 다른 것입니까?</h3>
+<p><strong>모범답안:</strong> 이 아홉 절에는 「~하라」는 명령이나 「우리가 ~하자」는 권유가 단 한 번도 없고, 1인칭 「나」와 2인칭 「너」조차 <strong>전부 구약 인용문(2:12-13) 안에서 그분이 하나님께 아뢰는 말</strong>로만 등장합니다. 본문이 읽는 나를 직접 불러 세워 다그치지 않는 까닭은 나를 소외시키려는 것이 아니라, <strong>아무것도 할 수 없는 내게 분발의 과제를 지우지 않고 그분이 우리를 위해 겪으시고 행하신 일만 조용히 들려주려는 배려</strong>입니다. 따라서 이 아홉 절을 읽는 내 자리는 무엇을 해내야 하는 행위자의 자리가 아니라, <strong>그분이 내 이름을 「형제」라 부르시며 하나님 앞에 서 주시는 장면을 목격하고 받아 안는 자리</strong>입니다.</p>
+<h3>질문 3: 2:16에서 동사는 그대로이고 붙들리는 쪽만 갈립니다. 만약 그 두 쪽을 뒤바꿔 읽으면 뒤따르는 2:14와 2:17과 2:18의 무엇이 설 수 없게 됩니까? 그 한 낱말이 이 단락에서 지고 있는 무게를 말로 설명해 보십시오.</h3>
+<p><strong>모범답안:</strong> 2:16에는 <strong>「붙드신다」(<code>ἐπιλαμβάνεται</code>, 에필람바네타이)는 현재형 동사</strong>가 글자 하나 다르지 않게 두 번 서고, 오직 붙들리는 대상만 「천사들」이 아니라 <strong>「아브라함의 자손」</strong>으로 갈립니다. 만약 이 대상을 뒤바꿔 천사들을 붙드신다고 읽으면, 2:14에서 <strong>피와 살(<code>αἵματος καὶ σαρκός</code>)을 함께 나누신 일</strong>도, 2:17에서 <strong>범사에 형제들과 같아지신 일</strong>도, 2:18에서 <strong>고난과 시험 받는 자들을 도우시는 일</strong>도 모두 설 자리를 잃고 무너집니다. 결국 <code>ἐπιλαμβάνεται</code> 한 낱말은 하시는 분 자신도 그 일에 깊이 걸려든 채 <strong>피와 살을 가진 연약한 우리를 지금 붙들고 계신다는 단락 전체의 주춧돌</strong>입니다.</p>
+<h3>질문 4: 「대제사장」이 이 책에서 처음 서는 자리가 붙드심 다음 절이라는 것은, 그 이름을 부를 때 내가 무엇을 함께 기억해야 한다는 뜻입니까? 그 이름을 높은 자리의 이름으로만 기억해 온 자리가 내게 있습니까?</h3>
+<p><strong>모범답안:</strong> 히브리서 전체에 열일곱 번 나오는 중심 칭호 <strong>「대제사장」(<code>ἀρχιερεύς</code>, 아르키에류스)</strong>이 처음 등장하는 2:17은 「대제사장이시니 우리를 붙드신다」는 직위 소개로 시작하지 않습니다. 오히려 <strong>「지금 붙드신다(2:16) → 그러므로 범사에 형제들과 같아지심이 마땅했다(2:17a) → 그리하여 자비하고 충성된 대제사장이 되도록(2:17b)」</strong>이라는 순서로, 붙드신 손과 같아지심의 이력 맨 끝에 그 이름이 섭니다. 그러므로 우리가 주님을 「대제사장」이라 부를 때마다 거룩하고 높은 직위의 거리감을 먼저 떠올릴 것이 아니라, <strong>죽기를 무서워하며 매여 있던 우리의 피와 살을 먼저 붙잡으신 그 낮은 손길</strong>을 함께 기억해야 합니다.</p>
+<h3>질문 5: 2:18이 도우실 수 있다는 근거로 든 것은 「자기가 겪으셨다」 하나뿐입니다. 이 근거를 사람에게 옮기면 무엇이 무너집니까? 그리고 지금 내가 겪고 있는 일 하나를 이 절의 「시험 받는 자들」 자리에 놓아 보면, 무엇이 달라집니까?</h3>
+<p><strong>모범답안:</strong> 2:18의 원문 어순은 <strong>이미 끝난 일을 가리키는 「고난을 당하셨다」(<code>πέπονθεν</code>, 페폰텐)가 맨 앞에</strong> 서고 「시험을 받아」(<code>πειρασθείς</code>)가 그 뒤에 붙으며, 이것 하나만이 <strong>지금 시험을 겪고 있는 여럿(<code>πειραζομένοις</code>)</strong>을 능히 도우실 수 있는 유일한 근거로 제시됩니다. 만약 이 근거를 사람에게 옮겨 「우리도 겪어 보았으니 서로 돕자」는 도덕적 권면으로 바꾸면, <strong>죽음의 고난을 끝까지 통과하신 유일한 주님의 자리가 지워지고</strong> 도울 힘 없는 사람끼리의 짐만 남게 됩니다. 지금 내가 지나고 있는 병상이나 빚이나 관계의 아픔을 이 절의 「지금 시험 받는 자들」 자리에 그대로 올려놓으면, 내 자격을 따지던 불안이 멈추고 <strong>이미 그 고난을 다 겪어 내신 주님의 손이 정확히 내 자리를 향해 있음</strong>을 보게 됩니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(4)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(6)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-6" data-index="6">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 06 편 (히브리서 3:1-6)</span>
+                <span>깊이 보라, 집보다 집 지은 이를 — 견줌이 사람에서 짓는 일로 옮겨...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[3:1-6] 함께 생각할 질문 모범답안</h1>
+<h2>깊이 보라, 집보다 집 지은 이를 — 견줌이 사람에서 짓는 일로 옮겨 가는 한 절</h2>
+<h3>질문 1: 3장 1절은 부르는 말 셋을 겹쳐 쌓은 뒤에 시키는 말 하나를 둡니다. 그 하나가 "하라"가 아니라 "보라"인 것은 이 단락 전체의 모양을 어떻게 정합니까?</h3>
+<p><strong>모범답안:</strong> 3장 1절은 「형제들」, 「거룩한」, 「하늘의 부르심을 함께 받은 자들」(<code>μέτοχοι</code>, 메토코이)이라는 <strong>세 겹의 부름을 여럿에게 포개어 놓은 뒤</strong>, 이 여섯 절 전체에서 유일한 명령형 동사인 <strong>「깊이 생각하라」(<code>κατανοήσατε</code>, 카타노에사테)</strong> 하나를 세웁니다. 이 명령이 요구하는 목적어 자리에는 우리가 해내야 할 행위가 하나도 없고, 오직 우리가 고백하는 바(<code>ὁμολογία</code>, 호몰로기아)의 <strong>사도이시며 대제사장이신 「예수」라는 대상</strong>만 놓여 있습니다. 따라서 이 단락 전체는 내 힘으로 무언가를 더 굳게 쥐어짜라는 다그침의 글이 아니라, <strong>함께 부름받은 공동체가 한 분 예수를 오래도록 깊이 바라보게 하는 초대의 글</strong>이 됩니다.</p>
+<h3>질문 2: 3장 3절에서 견주는 상대가 모세에서 집으로 바뀌고 표시 방식까지 바뀝니다. 이 바뀜 뒤에도 "더욱 영광"이라는 말이 그대로 유효하다면, 그 영광은 누구를 눌러서 생긴 영광입니까?</h3>
+<p><strong>모범답안:</strong> 3장 3절은 「더욱」(<code>πλείονος</code> · <code>πλείονα</code>)이라는 같은 비교급을 두 번 쓰면서도, 앞에서는 전치사구를 써서 <strong>「모세를 옆에 두고」(<code>παρὰ Μωϋσῆν</code>)</strong>라고 하다가 뒤에서는 격 하나로 <strong>「그 집보다」(<code>τοῦ οἴκου</code>)</strong>라고 하여 견주는 상대를 사람에서 지어진 집으로 바꾸어 버립니다. 사람과 사람을 맞세우는 저울에서는 한쪽이 올라가면 다른 쪽이 패배하여 내려가지만, <strong>집을 지은 이(<code>ὁ κατασκευάσας</code>)와 지어진 집의 관계</strong>에서는 지은 이가 존귀해진다 해서 집이 패배하거나 깎아내려지지 않습니다. 그러므로 예수께서 받으시는 「더욱 영광」은 모세나 이전 시대의 누군가를 짓눌러서 얻은 승리가 아니라, <strong>집을 지으신 분의 고유한 자리에서 저절로 빛나는 영광</strong>입니다.</p>
+<h3>질문 3: 3장 5절의 "충성하였고"를 빼고 3장 3절에서 3장 6절로 곧장 건너뛰면 이 단락은 무엇이 됩니까? 그 한 절이 본문에서 하는 일은 무엇입니까?</h3>
+<p><strong>모범답안:</strong> 만약 3장 5절을 빼고 3장 3절의 비교에서 곧장 3장 6절의 아들로 건너뛰어 버리면, 모세는 비교의 아래쪽에 놓인 채 버려지고 <strong>이 단락은 이전 사람을 탈락시키고 새 사람을 세우는 냉정한 교체극</strong>이 되고 맙니다. 그러나 본문은 3장 5절에서 모세의 이름과 문법적 꼴이 똑같이 맞물린 <strong>「충성하였고」(<code>πιστός</code>, 피스토스)</strong>를 붙여 주며, 히브리서 전체에서 유일하게 <code>ὅλος</code>(홀로스, 온)를 써서 <strong>「그의 온 집에서 사환(<code>θεράπων</code>, 테라폰)으로 충성하였다」</strong>고 모세의 자리를 지켜 줍니다. 이 한 절이 버티고 있기에 본문의 비교는 누군가를 폐기하는 칼날이 되지 않고, <strong>앞선 이의 충실을 온전히 인정하면서 아들의 자리를 세우는 품격 있는 자리 배정</strong>이 됩니다.</p>
+<h3>질문 4: 3장 4절은 짓는 쪽을 "어떤 이"라고만 적어 두었다가 같은 절 안에서 이름을 붙입니다. 이름이 붙기 전과 붙은 뒤에, 짓는 일이라는 것은 어떻게 달리 보입니까?</h3>
+<p><strong>모범답안:</strong> 3장 4절 전반부는 「집마다 어떤 이(<code>ὑπό τινος</code>, 휘포 티노스)에 의하여 지어진다」고 하여 <strong>짓는 이의 이름을 비워 둔 수동태(<code>κατασκευάζεται</code>)</strong>로 시작합니다. 이름이 붙기 전에는 세상의 집과 공동체가 그저 이름 모를 사람들의 손기술과 수고로 세워지고 또 허물어지는 끝없는 건축의 사슬처럼 보입니다. 그러나 같은 절 후반부가 범위를 「만물」로 넓히며 그 끝에 <strong>「하나님」(<code>θεός</code>)이라는 이름 하나를 세우는 순간</strong>, 내가 손으로 고치고 일구는 작은 살림과 공동체의 모든 짓는 일이 실은 <strong>만물을 지으신 하나님 한 분의 손에 마지막으로 걸려 있는 거룩한 일</strong>로 다시 보이기 시작합니다.</p>
+<h3>질문 5: 3장 3절에서 견줌의 아래쪽에 놓인 것은 집이었고, 3장 6절에서 "집"이라는 낱말이 우리에게 붙습니다. 비교를 구경하던 자리에서 지어지는 쪽으로 옮겨 앉을 때 가장 먼저 내려놓게 되는 것은 무엇입니까?</h3>
+<p><strong>모범답안:</strong> 3장 3절에서 지은 이보다 덜 존귀한 비교의 아래쪽에 놓였던 낱말은 <strong>「집」(<code>οἶκος</code>, 오이코스)</strong>이었는데, 단락을 닫는 3장 6절은 원문 어순상 조건절보다 먼저 <strong>「우리가 그의 집이다」(<code>οἶκός ἐσμεν ἡμεῖς</code>)라는 선언</strong>을 우리에게 붙입니다. 우리는 흔히 모세와 예수를 견주는 저울 바깥에 서서 누가 더 높은지 구경하고 평가하는 심판관 자리에 앉기 쉽습니다. 그러나 본문이 우리를 가리켜 <strong>지으신 이의 손에 의해 지어진 「그의 집」</strong>이라고 부르는 자리로 옮겨 앉으면, 남과 나를 견주어 등급을 매기던 저울을 가장 먼저 내려놓고 <strong>우리를 지으시고 맡아 다스리시는 분의 은혜 아래 안기게 됩니다.</strong></p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(5)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(7)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-7" data-index="7">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 07 편 (히브리서 3:7-19)</span>
+                <span>오늘이라 불리는 동안 — 요구는 둘이고, 그 둘은 서로에게 갑니다</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[3:7-19] 함께 생각할 질문 모범답안</h1>
+<h2>오늘이라 불리는 동안 — 요구는 둘이고, 그 둘은 서로에게 갑니다</h2>
+<h3>질문 1: 이 단락이 시킨 일은 둘입니다. 그 둘을 각각 자기 말로 적어 보십시오. 그리고 우리말 성경에서 명령하는 말투로 보이는 자리와 그 둘이 어떻게 어긋나 있는지 짚어 보십시오.</h3>
+<p><strong>모범답안:</strong> 이 단락에서 저자가 자기 문장으로 직접 시킨 명령형 동사는 3:12의 <strong>「삼가라(살피라)」(<code>βλέπετε</code>, 블레페테)</strong>와 3:13의 <strong>「서로 권면하라」(<code>παρακαλεῖτε ἑαυτούς</code>, 파라칼레이테 헤아우투스)</strong> 딱 두 가지뿐입니다. 우리말 성경을 읽으면 인용문 안의 「마음을 강퍅케 하지 말라」(3:8, 15)와 목적절 안의 「강퍅케 됨을 면하라」(3:13)가 명령처럼 보이지만, 원어에서 그 세 자리는 <strong>하나는 가정법 금지이고 하나는 목적절(<code>ἵνα μή</code>) 안의 수동태</strong>여서 직접 시키는 꼴이 아닙니다. 이 어긋남을 바로잡으면 우리가 해야 할 일은 내 마음속에서 혼자 결심을 다잡는 일이 아니라, <strong>공동체 안에서 서로의 형편을 살피고 날마다 말을 건네며 주고받는 일</strong>임이 선명해집니다.</p>
+<h3>질문 2: 「오늘」이 세 번 나오는데 3:13의 것만 다릅니다. 그 차이가 이 단락의 기한을 어떻게 바꾸어 놓습니까.</h3>
+<p><strong>모범답안:</strong> 이 단락에 세 번 나오는 「오늘」(<code>Σήμερον</code>, 세메론) 가운데 3:7과 3:15는 구약 인용문을 여는 부사지만, 오직 3:13의 <strong>「그 오늘」(<code>τὸ Σήμερον</code>, 토 세메론)만 앞에 정관사 <code>τό</code>를 달고 이름씨(명사)가 되어</strong> 「일컬어진다」(<code>καλεῖται</code>)라는 수동태 동사의 주어 자리에 섭니다. 이 작은 관사 하나가 옛 시편의 첫 낱말을 지나간 광야 세대의 날에 가두어 두지 않고, <strong>이 글을 읽는 우리의 현재 진행형 시간</strong>으로 건너오게 만듭니다. 또한 누가 부르는지 주어를 비워 둔 채 <strong>「오늘이라 일컬어지는 동안」</strong>을 기한으로 삼았기에, 이 기한은 우리가 마음대로 줄이거나 마감할 수 없는 <strong>하나님이 열어 두신 은혜의 현재</strong>가 됩니다.</p>
+<h3>질문 3: 본문은 기한이 언제 끝나는지 적지 않았습니다. 끝이 적히지 않은 기한 안에서 사는 일은 느슨해지는 일입니까, 날마다 반복하는 일입니까. 본문이 그 주기를 무엇으로 적었는지 찾아 답해 보십시오.</h3>
+<p><strong>모범답안:</strong> 본문은 「오늘이라 일컬어지는 동안」이 언제 끝나는지 마감 날짜를 적지 않았고, 남은 날을 세어 사람을 공포로 몰아붙이는 낱말도 두지 않았습니다. 그러나 모래시계를 치웠다고 해서 삶이 느슨해지는 것이 아닌 까닭은, 본문이 서로 권면하는 일의 주기를 <strong>「날마다(매일)」(<code>καθ' ἑκάστην ἡμέραν</code>)</strong>라고 분명히 못 박아 두었기 때문입니다. 종말의 시한을 계산하며 일회성 긴장감을 부추기는 대신, <strong>오늘이라는 이름이 불리는 하루하루마다 거르지 않고 서로에게 안부와 권면의 한마디를 건네는 일상의 성실함</strong>이 본문이 가르치는 경건입니다.</p>
+<h3>질문 4: 굳어지는 일이 당하는 쪽으로 적혀 있고 그 수단이 속임으로 적혀 있습니다. 그렇다면 「너희 중에 누구든지」라 불린 그 한 사람에게 필요한 것은 무엇입니까. 그것이 요구가 「서로」로 적힌 일과 어떻게 이어집니까.</h3>
+<p><strong>모범답안:</strong> 인용문 안에서는 「너희가 마음을 굳히지 말라」(<code>σκληρύνητε</code>)고 능동태로 적혔던 낱말이, 저자의 문장인 3:13에서는 <strong>「죄의 속임(유혹)으로 말미암아 굳어지지 않도록」(<code>σκληρυνθῇ</code>, 스클레뤼앤테)이라는 수동태(당하는 꼴)</strong>로 바뀝니다. 마음이 굳어지는 일은 속임을 당해 자기도 모르게 조금씩 감각을 잃어 가는 일이기에, 속고 있는 <strong>「너희 중에 누구든지」(<code>τις ἐξ ὑμῶν</code>)라는 그 한 사람</strong>에게는 「스스로 마음을 다잡으라」는 다그침이 닿지 않습니다. 바로 그렇기 때문에 그 한 사람에게 필요한 것은 혼자의 결심이 아니라 <strong>바깥에서 잠과 끼니와 안부를 물어 주며 깨워 주는 타인의 목소리</strong>이며, 본문이 요구를 여러 사람에게 걸어 <strong>「서로」(<code>ἑαυτούς</code>)</strong>라고 적은 이유가 여기에 있습니다.</p>
+<h3>질문 5: 3:19은 지나간 일로 닫히고 본문은 그 뒤에 결론을 적지 않았습니다. 그 빈자리를 자기가 무엇으로 채우고 싶어 하는지 적어 보고, 그것이 본문에 있는 말인지 확인해 보십시오.</h3>
+<p><strong>모범답안:</strong> 3:19은 3:12의 「삼가라」(<code>βλέπετε</code>)와 같은 동사를 <strong>1인칭 복수 「우리가 본다」(<code>βλέπομεν</code>, 블레포멘)</strong>로 바꾸어 저자 자신을 독자들과 같은 자리에 세운 뒤, 「저희가 믿지 아니하므로 능히 들어가지 못하였다」는 <strong>과거의 사실 서술로 조용히 닫힙니다.</strong> 본문은 그 뒤에 「그러므로 너희도 탈락할 것이다」라는 저주의 선고나 특정 집단을 가려내는 판결문을 한 줄도 덧붙이지 않았습니다. 우리가 그 빈자리에 누군가를 정죄하거나 내 안전을 확인하려는 결론을 서둘러 채워 넣으려 할 때마다, 본문은 그 결론 대신 <strong>오늘 내 곁의 한 사람을 살피고 서로 권면하라는 3:12-13의 현재형 자리</strong>로 우리를 되돌려 보냅니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(6)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(8)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-8" data-index="8">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 08 편 (히브리서 4:1-13)</span>
+                <span>쉼은 남겨져 있습니다 — 두 번 권하는 문장과 그 사이에 놓인 한 결...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[4:1-13] 함께 생각할 질문 모범답안</h1>
+<h2>쉼은 남겨져 있습니다 — 두 번 권하는 문장과 그 사이에 놓인 한 결론</h2>
+<h3>질문 1: 이 단락의 뼈대는 권함 — 근거 — 결론 — 권함입니다. 결론(4:9)이 두 번째 권함(4:11) <strong>앞</strong>에 놓인 것이 「힘쓰자」의 뜻을 어떻게 바꿉니까. 4:9를 지우고 4:8에서 4:11로 곧장 건너뛰면 「힘쓰자」는 무엇이 됩니까.</h3>
+<p><strong>모범답안:</strong> 이 단락은 첫 번째 권함(4:1 「우리가 두려워하자」) 뒤에 여섯 번의 근거를 쌓아 <strong>4:9의 결론(「그런즉 안식할 쉼이 하나님의 백성에게 남겨져 있도다」)을 먼저 세운 다음</strong>, 그 결론을 「그러므로」로 받아 4:11의 <strong>두 번째 권함(「우리가 저 안식에 들어가기를 힘쓰자」, <code>σπουδάσωμεν</code>)</strong>을 둡니다. 만약 4:9의 결론을 지우고 4:8에서 4:11로 곧장 건너뛰면, 「힘쓰자」는 아직 없는 쉼을 <strong>우리의 노력과 분발로 새로 만들어 내야 하는 고단한 숙제</strong>가 되고 맙니다. 그러나 쉼이 이미 남겨져 있다는 결론이 권함 바로 앞에 놓여 있기에, 우리의 힘씀은 성과를 짜내는 노동이 아니라 <strong>누군가 이미 마련하여 남겨 두신 쉼의 자리로 들어가는 걸음</strong>이 됩니다.</p>
+<h3>질문 2: 4:6과 4:9에 같은 말이 서지만 남겨져 있는 것이 다릅니다. 전제에서는 <strong>사람들</strong>이고 결론에서는 <strong>쉼</strong>입니다. 그 사이의 4:7-8이 이 이동에 무엇을 보탰습니까.</h3>
+<p><strong>모범답안:</strong> 4:6과 4:9에는 <strong>「남겨져 있다」(<code>ἀπολείπεται</code>, 아폴레이페타이)는 수동태 동사</strong>가 글자 하나 다르지 않게 두 번 서는데, 전제 자리인 4:6에서는 <strong>들어갈 사람들(<code>τινας</code>)</strong>이 남겨져 있다고 하다가 결론 자리인 4:9에서는 <strong>안식의 쉼(<code>σαββατισμός</code>, 삽바티스모스) 자체</strong>가 주어 자리에서 남겨져 있다고 말합니다. 그 사이에 놓인 4:7-8은 시편을 세 번째로 끌어와 <strong>「오늘날」이라는 다른 날이 다시 정해졌다</strong>는 사실과, 여호수아가 그때 안식을 다 주었더라면 그 후에 다른 날을 말씀하지 않으셨으리라는 반대 사실 가정을 보탭니다. 이「그때」와 「오늘」의 대조를 지나오면서, 본문은 누가 들어갈 자격이 있는가 하는 사람 쪽의 초점을 <strong>오늘 우리 앞에 주어 자리로 놓여 있는 「남겨진 쉼 자체」</strong>로 넉넉하게 옮겨 놓습니다.</p>
+<h3>질문 3: 본문은 같은 구절을 4:3과 4:5에서 두 번 끌어오고, 두 번째에는 인용을 여는 말조차 두지 않습니다. 같은 문장을 두 번째로 읽을 때 본문이 보는 것은 첫 번째와 어떻게 다릅니까.</h3>
+<p><strong>모범답안:</strong> 본문은 시편 95편 11절(「저희가 내 안식에 들어오지 못하리라」)을 4:3에서 한 번 인용한 뒤, 4:4에 창세기 2장 2절(하나님이 제칠일에 모든 일을 쉬셨다)을 끼워 넣고 4:5에서 <strong>인용을 여는 동사조차 생략한 채 「또 다시 거기」라고만 하여 글자 그대로 다시 끌어옵니다.</strong> 첫 번째 인용(4:3)에서 눈에 들어왔던 것이 <strong>「들어오지 못하리라」는 사람들의 실패</strong>였다면, 창조 때부터 이미 있었던 하나님의 쉼(4:4)을 거친 뒤 두 번째 인용(4:5)에서 보게 되는 것은 <strong>그럼에도 불구하고 거기 그대로 있는 「내 안식」(<code>τὴν κατάπαυσίν μου</code>)</strong>입니다. 본문은 새로운 외부 논리를 가져오는 대신 이미 적힌 말씀을 다시 읽는 각도를 바꿈으로써, 실패의 기록 한복판에서 <strong>하나님이 태초부터 예비하신 비어 있는 쉼의 자리</strong>를 읽어 냅니다.</p>
+<h3>질문 4: 두 권함은 「우리」에 걸리고 두 염려는 「누구 하나」에 걸립니다. 내가 이 둘 가운데 한쪽으로 모아서 읽고 있던 자리는 어디입니까 — 「나 혼자」 쪽입니까, 「우리 모두니까 괜찮다」 쪽입니까.</h3>
+<p><strong>모범답안:</strong> 이 단락에는 명령형 동사가 하나도 없는 대신 문장 머리를 차지하는 두 번의 권함(<code>Φοβηθῶμεν</code> 우리가 두려워하자, <code>σπουδάσωμεν</code> 우리가 힘쓰자)이 <strong>모두 1인칭 복수 「우리」</strong>에 걸려 있고, 그 뒤에 붙은 두 염려는 글쓴이가 수신자를 부른 유일한 자리인 <strong>「너희 중에 혹 누구 하나」(<code>τις ἐξ ὑμῶν</code>)라는 단수</strong>에 걸려 있습니다. 우리는 흔히 이를 「나 혼자 알아서 버텨야 한다」는 각자도생으로 읽거나, 반대로 「우리 모두 함께 가니 아무도 안 처질 것이다」라는 무관심으로 뭉뚱그려 읽곤 합니다. 그러나 본문이 <strong>권함은 「우리」로, 염려는 「누구 하나」로 나란히 세워 둔 까닭</strong>은, 쉬지 못하는 짐을 개인의 책임으로 떠넘기지 말고 공동체의 순번표와 일상 속에서 <strong>가장 늦게 쉬는 그 한 사람의 몫을 우리가 함께 나누어지라</strong>는 뜻입니다.</p>
+<h3>질문 5: 4:12에는 문장을 세우는 동사가 하나도 없고, 다섯 마디가 한 주어에 맞춰 서 있을 뿐입니다. 이 절을 「말씀이 무엇을 한다」로 바꿔 읽을 때 늘어나는 것과 사라지는 것은 각각 무엇입니까.</h3>
+<p><strong>모범답안:</strong> 4:12은 앞의 두 권함을 뒤에서 받치는 <strong>근거(<code>γάρ</code>, ~이기 때문에)</strong>로 열리며, 원문에는 문장을 끝맺는 정동사가 하나도 없이 오직 <strong>주어 「하나님의 말씀」(<code>ὁ λόγος τοῦ θεοῦ</code>)에 성·수·격을 맞춘 다섯 마디(살아 있는, 활력 있는, 더 날카로운, 꿰뚫는, 가르는)</strong>가 나란히 서서 「~이다」를 대신합니다. 이 절을 「말씀이 예리한 칼이 되어 남을 찔러 쪼갠다」는 동작의 연쇄로 바꿔 읽으면, 말씀을 들고 <strong>다른 사람의 속내를 가려내어 재단하려는 날 선 말들</strong>이 늘어납니다. 반대로 본문의 꼴을 그대로 지키면, 이 말씀은 남을 베는 무기가 아니라 4:13의 마지막 어구 <strong>「우리에게」(<code>πρὸς ὃν ἡμῖν ὁ λόγος</code>)가 보여 주듯 그분 눈앞에 벌거벗은 채 드러난 우리 자신을 안식과 은혜의 보좌로 이끄는 든든한 바닥</strong>으로 남습니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(7)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(9)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-9" data-index="9">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 09 편 (히브리서 4:14-5:10)</span>
+                <span>연약에는 조건이 달리지 않습니다 — 담대히 나아가자는 권함과, 스스로...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[4:14-5:10] 함께 생각할 질문 모범답안</h1>
+<h2>연약에는 조건이 달리지 않습니다 — 담대히 나아가자는 권함과, 스스로 취하지 않은 대제사장</h2>
+<h3>질문 1: 4:15에서 「우리 연약함」 앞뒤에는 어떤 말이 붙어 있고, 대제사장 쪽에는 어떤 말이 붙어 있습니까? 두 쪽을 따로 적어 보면 무엇이 보입니까?</h3>
+<p><strong>모범답안:</strong> 4:15에서 받는 쪽인 <strong>「우리 연약함」(<code>ταῖς ἀσθενείαις ἡμῶν</code>, 복수형)</strong> 앞뒤에는 정관사 「그」와 「우리의」만 있을 뿐, 「작은 연약함」이나 「이미 회개한 연약함」처럼 <strong>연약을 가려내는 수식어나 조건절이 단 한 글자도 붙어 있지 않습니다.</strong> 반면 받아 주시는 대제사장 쪽에는 <strong>「체휼하지 못하는 분이 아니요(이중 부정), 모든 일에 우리와 한결같이 시험을 받으셨으되(완료 분사 <code>πεπειρασμένον</code>), 죄는 없으시다」</strong>는 네 겹의 빽빽한 자격과 기준이 몰려 있습니다. 이를 나란히 적어 보면, 하나님 앞에 나아가는 기준이 낮아진 것이 아니라 <strong>통과해야 할 모든 조건이 연약한 우리 쪽에서 받아 주시는 대제사장 쪽으로 완전히 옮겨 적혔음</strong>이 보여 큰 위로를 얻게 됩니다.</p>
+<h3>질문 2: 4:14의 「굳게 잡을지어다」와 4:16의 「나아갈 것이니라」가 원문에서 같은 꼴이라면, 이 두 절을 읽는 내 태도는 어떻게 달라집니까?</h3>
+<p><strong>모범답안:</strong> 우리말 번역은 4:14을 「굳게 잡을지어다」라는 명령처럼, 4:16을 「나아갈 것이니라」라는 예고처럼 다르게 옮겼으나, 원문에서는 두 동사(<code>κρατῶμεν</code> 크라토멘, <code>προσερχώμεθα</code> 프로세르코메타)가 <strong>모두 명령형이 아닌 1인칭 복수 청유형(「우리가 함께 ~하자」)이라는 똑같은 한 꼴</strong>입니다. 더욱이 두 권함 모두 맨 앞에 서지 않고, <strong>「우리에게 큰 대제사장이 있으니」(4:14)라는 가진 것과 4:15의 근거 뒤에</strong> 놓여 있습니다. 그러므로 이 두 절을 읽을 때 우리는 혼자 자격을 갖추어 명령을 수행해야 하는 긴장감을 내려놓고, <strong>나를 「우리」 안에 함께 넣어 부르시는 손길을 따라 이미 건네받은 고백(<code>ὁμολογία</code>)을 붙잡고 은혜의 보좌로 함께 걸어 나가면</strong> 됩니다.</p>
+<h3>질문 3: 4:16에서 본문이 권한 것 하나와 목적으로 묶어 둔 것 둘을 각각 짚어 보십시오. 셋을 다 요구로 읽을 때와 무엇이 달라집니까?</h3>
+<p><strong>모범답안:</strong> 4:16에서 문장의 중심에 서서 본문이 실제로 권한 것은 <strong>「우리가 담대히 나아가자」(<code>προσερχώμεθα</code>) 하나뿐</strong>이고, 「긍휼하심을 받는 일」과 「때를 따라 돕는 은혜를 얻는 일」이라는 두 가지는 <strong>「~하기 위하여」(<code>ἵνα</code>)라는 목적절 아래</strong> 묶여 있습니다. 만약 이 셋을 모두 우리가 해내야 할 요구로 읽으면 긍휼과 은혜조차 내가 자격과 정돈된 마음을 갖추어 따내야 하는 숙제가 되고 맙니다. 그러나 받음과 얻음을 나아감의 목적으로 묶어 둔 본문의 짜임을 따르면, <strong>아직 정돈되지 않은 연약한 모습 그대로 나아가는 바로 그 걸음 자체가 긍휼과 은혜를 받는 자리</strong>가 됩니다.</p>
+<h3>질문 4: 5:2가 적은 받아 줌의 근거와 4:15가 적은 받아 줌의 근거는 어떻게 다릅니까? 그 차이 때문에 5:3에 무엇이 더 붙었습니까?</h3>
+<p><strong>모범답안:</strong> 5:2에서 사람 가운데서 취해진 대제사장이 무식하고 미혹된 자들을 용납(<code>μετριοπαθεῖν</code>)할 수 있는 근거는 <strong>「자기도 연약(단수)에 싸여 있음」</strong>인 반면, 4:15에서 우리의 대제사장이신 예수가 우리 연약함(복수)을 체휼(<code>συμπαθῆσαι</code>)하시는 근거는 <strong>「모든 일에 시험을 받으셨으나 죄는 없으심」</strong>입니다. 자기도 약하다는 것을 근거로 남을 받아 주는 5:2의 사람 대제사장에게는, 그 차이 때문에 5:3에서 <strong>「백성을 위하여 속죄제를 드림과 같이 또한 자기를 위하여서도 드려야 한다」는 의무와 빚</strong>이 더 붙습니다. 그러나 시험을 끝까지 겪으셨으되 넘어지지 않으신 4:15의 주님이 우리를 받아 주시는 자리에는 <strong>받는 우리 쪽에 아무런 빚도 남지 않기에</strong>, 우리는 두 구절을 뭉뚱그리지 않고 주님의 온전하신 도우심에 안식할 수 있습니다.</p>
+<h3>질문 5: 5:7이 「심한 통곡과 눈물」을 무엇이라고 부릅니까? 그 절 다음에 본문이 곧바로 적은 것은 무엇이고, 그 사이에 본문이 적지 않은 것은 무엇입니까?</h3>
+<p><strong>모범답안:</strong> 5:7은 육체에 계실 때에 올리신 <strong>「심한 통곡과 눈물」(<code>κραυγῆς ἰσχυρᾶς καὶ δακρύων</code>)을 가리켜 곧바로 「간구와 소원」</strong>이라 부름으로써, 채 문장이 되지 못한 울음소리와 젖은 얼굴 자체가 하나님께 들으심을 얻은 온전한 기도였음을 보여 줍니다. 그리고 원문에서 분사로 열린 5:7은 거기서 닫히지 않고 곧바로 5:8의 본동사로 이어져, 들으심을 얻은 직후에 <strong>「받으신 고난(<code>ἔπαθεν</code>)으로 순종함을 배우셨다(<code>ἔμαθεν</code>)」</strong>는 사실을 잇따라 적습니다. 본문은 들으심을 얻었다는 말과 고난으로 배웠다는 말 사이에 <strong>그 죽음의 잔이 비켜 갔는지 어떤 방식으로 응답되었는지를 전혀 적지 않음</strong>으로써, 오늘 말 못 할 한숨으로 기도하며 고난을 지나는 이의 눈물도 이미 들으심 안에 있음을 조용히 증언합니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(8)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(10)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-10" data-index="10">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 10 편 (히브리서 5:11-6:8)</span>
+                <span>하나뿐인 요구 — 받는 꼴로 적힌 한 마디, 그 뒤에 자립해 선 세 ...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[5:11-6:8] 함께 생각할 질문 모범답안</h1>
+<h2>하나뿐인 요구 — 받는 꼴로 적힌 한 마디, 그 뒤에 자립해 선 세 절</h2>
+<h3>질문 1: 이 열두 절에 명령의 꼴이 하나도 없고 요구가 「우리가」로 적혀 있다는 사실은, 성장을 요구받는 자리에 선 나에게 무엇을 바꿉니까?</h3>
+<p><strong>모범답안:</strong> 이 열두 절에는 상대를 다그치는 <strong>명령형 동사가 단 하나도 없으며</strong>, 유일한 권면인 6장 1절의 <strong>「완전한 데 나아갈지니라」(φερώμεθα, 페로메타)</strong>조차 말하는 이가 자신을 포함해 부르는 <strong>「우리가」라는 청유형</strong>으로 적혀 있습니다. 게다가 그 동사의 꼴은 내 힘으로 기어오르는 능동태가 아니라 <strong>「함께 옮겨지자」는 수동의 결</strong>을 품고 있어서, 성장이란 홀로 이를 악물고 달성해야 할 외로운 숙제가 아님을 일깨워 줍니다. 성장을 요구받는 자리에서 늘 자책하던 내 시선은 이제 나를 홀로 내버려 두지 않고 <strong>함께 손잡아 옮겨 주시는 공동체와 은혜의 손길</strong>로 따뜻하게 옮겨집니다.</p>
+<h3>질문 2: 본문은 「터」를 버리라고 하지 않고 다시 놓지 말라고 했습니다. 내가 불안해서 자꾸 다시 파 보는 기초는 무엇입니까?</h3>
+<p><strong>모범답안:</strong> 원문에서 지나가야 할 대상은 「그리스도 도의 초보」이고, <strong>「교훈의 터」(θεμέλιον, 테멜리온)</strong>는 버리는 대상이 아니라 <strong>「다시 놓지 말라」는 동작의 대상</strong>으로 분명히 구별되어 있습니다. 이미 주님께서 단단히 놓아 주신 구원과 회개의 기초가 흔들릴까 봐, 우리는 조금만 삶이 흔들려도 <strong>내가 정말 구원받았는지 자꾸만 바닥을 다시 파헤치며</strong> 처음 자리로 되돌아가곤 합니다. 이제는 기초가 무너졌다는 불안에 속아 삽질을 반복하는 일을 멈추고, <strong>이미 놓인 견고한 터 위에서 안심하고 다음 걸음을 내딛는 믿음</strong>을 배워야 합니다.</p>
+<h3>질문 3: 6:1의 요구와 6:3의 허락 사이에 아무것도 끼어 있지 않습니다. 내 기도에서 그 허락은 어떤 자리에 놓여 있습니까?</h3>
+<p><strong>모범답안:</strong> 본문은 6장 1절에서 완전한 데로 옮겨지자고 권면한 뒤, 우리가 갖추어야 할 까다로운 중간 조건을 끼워 넣지 않고 곧바로 6장 3절의 <strong>「하나님께서 허락하시면」이라는 절대적인 주권의 자리</strong>에 그 요구를 맡겨 버립니다. 우리는 흔히 기도할 때에도 내가 먼저 자격을 갖추어야만 하나님이 허락하실 것처럼 여겨 <strong>요구와 허락 사이에 수많은 자기 검열의 벽</strong>을 세워 두곤 합니다. 그러나 본문이 보여 주는 기도의 자리는 내 결심의 크기를 증명하는 곳이 아니라, <strong>우리를 자라게 하시는 하나님의 선하신 허락에 내 연약한 걸음을 온전히 의탁하는 자리</strong>입니다.</p>
+<h3>질문 4: 6:4-6에는 「만일」이 없고, 「다시 새롭게」의 주어도 적혀 있지 않습니다. 본문이 적지 않은 것을 내가 대신 채워 누군가를 재단한 일이 있습니까?</h3>
+<p><strong>모범답안:</strong> 가장 무거운 경고로 읽히는 6장 4~6절에는 원문상 <strong>가정법을 세우는 「만일」도, 「~이다」라는 정동사도 없으며</strong>, 무엇보다 <strong>「다시 새롭게 하는 것」(ἀνακαινίζειν, 아나카이니제인)의 주어 자리</strong>가 비워져 있습니다. 본문이 문법적으로 확정하지 않고 여백으로 남겨 둔 이 자리에, 우리는 너무 쉽게 <strong>누가 구원을 잃어버렸는지 판결하는 조건문과 주어</strong>를 임의로 채워 넣어 타인과 자신을 재단해 왔습니다. 성경이 끝내 적지 않은 주어를 내 두려움이나 정죄의 언어로 대신 채우지 않고, <strong>문법이 멈춘 자리에서 겸손히 멈추어 서서 은혜를 경외하는 것</strong>이 성숙한 묵상의 태도입니다.</p>
+<h3>질문 5: 한 땅이 같은 비를 받고 두 산출이 갈리는데 본문은 그 까닭을 적지 않았습니다. 내가 그 빈자리에 넣어 온 설명은 무엇이었습니까?</h3>
+<p><strong>모범답안:</strong> 6장 7절과 8절은 좋은 땅과 나쁜 땅이라는 두 종류의 토양을 나누는 이야기가 아니라, <strong>하나의 「땅」(γῆ, 게)이 자주 내리는 같은 비를 흡수하고도</strong> 채소와 가시덤불이라는 두 산출을 내는 모습을 그립니다. 본문은 왜 한 땅에서 이처럼 다른 결과가 나오는지에 대해 <strong>토질의 성분이나 원인을 분석하는 설명을 일절 적지 않은 채</strong> 비워 두었습니다. 그동안 우리는 그 빈자리에 <strong>사람의 타고난 기질이나 도덕적 우열이라는 설명</strong>을 채워 넣어 왔지만, 본문은 원인을 따지는 대신 지금 내 삶이 <strong>하늘의 비를 받아 어떤 열매를 맺어 가고 있는지 조용히 돌아보게</strong> 합니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(9)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(11)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-11" data-index="11">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 11 편 (히브리서 6:9-20)</span>
+                <span>맹세로 보증하셨다 — 이 단락의 맨 윗자리에 우리의 동사가 없다</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[6:9-20] 함께 생각할 질문 모범답안</h1>
+<h2>맹세로 보증하셨다 — 이 단락의 맨 윗자리에 우리의 동사가 없다</h2>
+<h3>질문 1: 6장 9절의 부름 "사랑하는 자들아"가 앞 단락의 경고 바로 다음에 놓였습니다. 그 자리에 그 말이 놓인 것이 이 단락을 읽는 방식을 어떻게 바꿉니까?</h3>
+<p><strong>모범답안:</strong> 히브리서 전체에서 단 한 번 등장하는 부름인 <strong>「사랑하는 자들아」(ἀγαπητοί, 아가페토이)</strong>가 가시덤불과 불사름을 말하던 서늘한 경고 바로 다음 줄에 놓여 있다는 사실은 목회적 시선의 놀라운 반전을 보여 줍니다. 게다가 이 부름은 한 개인을 지목해 추궁하는 단수가 아니라 <strong>공동체 전체를 따뜻하게 감싸 안는 복수형</strong>으로 적혀 있으며, 곧바로 10절의 「사랑」이라는 낱말과 메아리치듯 이어집니다. 이로써 앞 단락의 무거운 경고는 우리를 버리려는 선고가 아니라, <strong>구원에 속한 더 좋은 것들을 확신하며 끝까지 붙들게 하려는 사랑의 음성</strong>으로 새롭게 읽히게 됩니다.</p>
+<h3>질문 2: 6장 10절에서 하나님 쪽에는 문장을 세우는 동사가 없고 받는 사람들 쪽에는 있습니다. 이 모양이 6장 16절 뒷문장에서 한 번 더 나타납니다. 두 자리에서 비어 있는 것은 각각 무엇입니까?</h3>
+<p><strong>모범답안:</strong> 6장 10절 원문에서 <strong>「하나님이 불의치 아니하사」 쪽에는 「~이다」라는 정동사가 비어 있고</strong>, 오히려 성도를 섬긴 사람들의 행위와 사랑 쪽에만 정동사가 세워져 있습니다. 이와 똑같은 문장 구조가 6장 16절 뒷문장인 <strong>「그 모든 다투는 일에 최후 확정이니라」에서도 정동사가 생략된 채</strong> 한 번 더 반복됩니다. 두 자리에서 동사가 비어 있다는 것은 <strong>하나님의 의로우심과 맹세의 확정성이 굳이 동사로 입증할 필요조차 없는 자명한 토대</strong>임을 보여 주며, 그 흔들리지 않는 바탕 위에서 성도들의 작은 수고와 사랑이 하나도 잊히지 않고 기억된다는 위로를 전해 줍니다.</p>
+<h3>질문 3: 6장 13절은 하나님이 "자기보다 더 큰 이가 없으므로 자기를 가리켜" 맹세하셨다고 적고, 6장 16절은 사람들이 "자기보다 더 큰 자를 가리켜" 맹세한다고 적습니다. 같은 말이 반대 방향을 가리키는 이 대비가 보증이라는 일에 대해 무엇을 말합니까?</h3>
+<p><strong>모범답안:</strong> 사람들의 <strong>「맹세」(ὅρκος, 호르코스)</strong>는 자기 말에 무게가 모자라기에 <strong>자기보다 더 큰 권위를 빌려와 다툼을 끝내는 선</strong>에서 멈추고 맙니다. 그러나 세상 그 어디에도 자기보다 더 큰 이가 없으신 하나님께서는 <strong>친히 자기를 가리켜 맹세로 「보증」(ἐμεσίτευσεν, 에메시테우센)</strong>하심으로, 다툼을 끝내는 정도가 아니라 <strong>피하여 가는 우리의 연약한 마음 깊은 곳까지 내려오셔서 안위</strong>를 주십니다. 이 반대 방향의 대비는 하나님의 보증이 우리의 의심을 책망하는 법정 절차가 아니라, <strong>우리를 안심시키기 위해 하나님께서 자기 자신을 걸어 주신 가장 낮은 사랑의 배려</strong>임을 말해 줍니다.</p>
+<h3>질문 4: 6장 18절의 "받게"와 6장 19절의 "있는 것은"이 한 글자 차이로 나란히 서 있습니다. 둘을 뒤집어 읽으면 이 단락이 요구하지 않은 무엇이 생겨납니까?</h3>
+<p><strong>모범답안:</strong> 원문 6장 18절의 <strong>「받게 하려」(ἔχωμεν, 에코멘)</strong>와 6장 19절의 <strong>「우리가 있는 것은」(ἔχομεν, 에코멘)</strong>은 모음 한 글자(ω와 ο) 차이로 나란히 서서, <strong>목적을 나타내는 가정법과 이미 이루어진 사실을 선포하는 직설법</strong>을 정교하게 가릅니다. 하나님께서 거짓말하실 수 없는 보증을 주신 목적은 우리가 큰 안위를 받게 하려는 것이고, 그 결과로 <strong>우리에게는 이미 영혼의 닻 같은 소망이 현재의 사실로 들려 있습니다</strong>. 만약 이 두 시상을 뒤집어 이미 있는 소망을 내가 애써 도달해야 할 조건으로 읽는다면, 본문이 전혀 요구하지 않은 <strong>자력 구원의 불안과 영혼의 표류</strong>가 생겨나고 맙니다.</p>
+<h3>질문 5: 6장 18절은 "두 가지"를 세고 그 둘에 이름을 붙이지 않았습니다. 그 자리를 비워 둔 채 읽는 것이 왜 신앙의 손해가 아닙니까?</h3>
+<p><strong>모범답안:</strong> 6장 18절은 <strong>「두 가지 변치 못할 사실」(ἀμετάθετος, 아메타테토스)</strong>이라고만 적을 뿐, 그 두 가지가 각각 무엇인지 본문 안에 <strong>명시적인 이름표를 붙여 두지 않았습니다</strong>. 앞 문맥을 따라 하나님의 약속과 맹세로 헤아려 볼 수는 있지만, 본문이 굳이 이름을 못 박지 않은 것은 독자가 <strong>개념을 분류하고 교리적 정답을 맞히는 일에 머물지 않게 하려는 배려</strong>입니다. 그 자리를 비워 둔 채 읽더라도 <strong>변치 않는 하나님의 뜻이 겹겹이 나를 호위하고 있다는 사실 자체로 이미 충분한 안위</strong>를 얻기에, 이는 신앙의 손해가 아니라 오히려 은혜의 품을 넓혀 주는 유익이 됩니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(10)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(12)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-12" data-index="12">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 12 편 (히브리서 7:1-10)</span>
+                <span>멜기세덱이 누구인가 — 열 절에 걸린 명령은 하나, 함께 보라</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[7:1-10] 함께 생각할 질문 모범답안</h1>
+<h2>멜기세덱이 누구인가 — 열 절에 걸린 명령은 하나, 함께 보라</h2>
+<h3>질문 1: 1절에는 문장을 세우는 동사가 하나도 없고, 본문은 주장 없이 열립니다. 선언으로 시작하지 않고 볼 것을 먼저 쌓아 두는 방식은 읽는 사람을 어떤 자리에 세웁니까?</h3>
+<p><strong>모범답안:</strong> 히브리서 7장 1절부터 3절 중반까지는 <strong>문장을 완결하는 정동사가 단 하나도 없이</strong>, 살렘 왕이자 지극히 높으신 하나님의 제사장인 멜기세덱의 모습과 사건들이 분사구와 명사구로만 차곡차곡 쌓여 갑니다. 시작부터 성급한 결론이나 교리적 주장을 들이밀지 않고 <strong>먼저 바라볼 풍경을 조용히 펼쳐 놓는 이 문법의 호흡</strong>은, 독자의 조급한 판단을 잠시 멈추게 만듭니다. 그 결과 우리는 논쟁의 승패를 가리는 재판관이 아니라, <strong>하나님께서 역사 속에 예비하신 인물의 신비를 잠잠히 응시하는 경외의 목격자 자리</strong>에 서게 됩니다.</p>
+<h3>질문 2: 4절의 명령이 받은 것은 「이 사람은 크다」는 선언이 아니라 「얼마나 큰가」라는 물음입니다. 그 답을 본문이 형용사가 아니라 조상의 건넴이라는 사건으로 주는 것은 보는 사람에게 무엇을 요구합니까?</h3>
+<p><strong>모범답안:</strong> 7장 4절의 <strong>「생각하라」(Θεωρεῖτε, 테오레이테)</strong>는 동사가 거느리는 목적어는 「이 사람이 크다」는 닫힌 명제가 아니라, <strong>「이 사람이 얼마나 큰가를 보라」는 열린 감탄의 물음</strong>입니다. 그리고 본문은 그 크심을 화려한 형용사로 설명하는 대신, 믿음의 조상 아브라함이 <strong>노략물 중 가장 좋은 십분의 일을 그에게 건넨 구체적인 사건</strong>으로 보여 줍니다. 이는 우리에게 머리로 등급을 매기는 추상적 지식이 아니라, <strong>내가 가장 귀하게 여기는 삶의 전리품을 기꺼이 내어놓는 실제적인 관계와 경배의 태도</strong>로 주님의 크심을 마주하라고 요구합니다.</p>
+<h3>질문 3: 이 열 절에서 우리에게 걸린 말은 하나이고 그것이 여럿에게 걸리는 꼴입니다. 그 하나를 「내가 혼자 해낼 과제」로 좁혀 읽었을 때 지워지는 것은 무엇입니까?</h3>
+<p><strong>모범답안:</strong> 이 열 절 전체에서 읽는 이에게 주어진 유일한 명령인 <strong>「생각하라·보라」(Θεωρεῖτε, 테오레이테)</strong>는 단수인 「너」가 아니라 <strong>여럿을 부르는 2인칭 복수 「너희는 보라」의 꼴</strong>로 적혀 있습니다. 이 말씀을 골방에서 나 혼자 풀어야 할 지적 탐구나 개인의 경건 과제로만 좁혀 읽으면, <strong>함께 한 방향을 바라보며 서로의 시선을 일깨워 주는 예배 공동체의 자리</strong>가 지워지고 맙니다. 주님의 크심은 혼자 외롭게 증명해 내는 숙제가 아니라, <strong>지체들과 함께 바라보며 탄성을 나누는 공동의 목격 속에서 더욱 선명히 드러납니다</strong>.</p>
+<h3>질문 4: 7절은 더 높은 쪽이 아니라 덜한 쪽에 문장의 주인 자리를 줍니다. 복을 받는 자리에 선다는 것이 이 본문에서 낮아짐이 아니라 복의 조건이라면, 내가 서고 싶어 하는 자리는 어느 쪽입니까?</h3>
+<p><strong>모범답안:</strong> 7장 7절에서 <strong>「복을 받느니라」(εὐλογεῖται, 유로게이타이)</strong>는 히브리서 전체에 일곱 번 나오는 축복 동사 가운데 <strong>유일하게 받는 꼴(수동태)</strong>로 쓰였으며, 그 문장의 주어 자리를 더 큰 이가 아닌 <strong>「작은 자」(덜한 쪽)</strong>에게 내어 줍니다. 세상에서는 남보다 더 크고 높은 자리에 서야만 주인공이 된다고 믿지만, 하나님 나라의 문법에서는 <strong>작은 자의 자리에 서는 것이야말로 큰 이의 복을 온전히 받아 누리는 주인 자리</strong>가 됩니다. 내가 여전히 스스로 큰 자가 되어 누군가를 평가하려 애쓰고 있는지, 아니면 <strong>기꺼이 작은 자의 자리에 서서 주님이 빌어 주시는 복을 받는 은혜의 사람</strong>으로 살고 있는지 돌아보게 됩니다.</p>
+<h3>질문 5: 본문이 비워 둔 자리가 넷입니다. 복의 내용, 닮게 한 이, 증거를 준 이, 5절 명령의 출처입니다. 그 가운데 내가 이미 채워서 읽고 있던 것은 무엇입니까?</h3>
+<p><strong>모범답안:</strong> 이 단락은 멜기세덱이 아브라함에게 빌어 준 <strong>복의 구체적 내용</strong>, 그를 하나님의 아들과 <strong>닮게 하신 주체</strong>, 그가 살았다고 <strong>증거를 주신 이</strong>, 그리고 5절 <strong>명령의 출처</strong>까지 네 자리를 의도적으로 비워 두었습니다. 우리는 흔히 복이라는 말을 들으면 내가 원하는 <strong>물질적·현세적 목록으로 그 빈칸을 재빨리 채워 읽느라</strong>, 정작 복을 주시는 분의 높으심과 영원한 생명의 증거를 놓치곤 합니다. 본문이 주변의 설명들을 과감히 생략하고 남겨 둔 여백은, 내 욕망의 목록을 내려놓고 <strong>오직 영원히 살아 계신 대제사장 예수 그리스도 한 분께만 시선을 모으게 하는 거룩한 장치</strong>입니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(11)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(13)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-13" data-index="13">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 13 편 (히브리서 7:11-19)</span>
+                <span>폐함과 들어옴이 한 동사에 걸립니다 — 계명 하나에 붙은 말과, 그 ...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[7:11-19] 함께 생각할 질문 모범답안</h1>
+<h2>폐함과 들어옴이 한 동사에 걸립니다 — 계명 하나에 붙은 말과, 그 문장 끝에 선 하나님</h2>
+<h3>질문 1: 7:18에서 폐함이 붙은 대상이 「계명 하나」라는 사실을 보고도, 내가 그 말을 더 넓은 것에 옮겨 붙여 읽은 적은 없습니까?</h3>
+<p><strong>모범답안:</strong> 7장 18절에서 <strong>「폐함」(ἀθέτησις, 아테테시스)</strong>이라는 명사가 걸리는 대상은 율법 전체나 구약 성경 전체가 아니라, 혈통을 따라 제사장을 세우던 <strong>「앞서 가던 계명」 단 하나(단수)</strong>로 엄격히 한정되어 있습니다. 그럼에도 우리는 이 구절을 읽을 때마다 본문이 좁혀 둔 경계를 훌쩍 넘어서, <strong>마치 이전의 모든 말씀과 신앙의 유산이 무가치하게 폐기된 것처럼</strong> 넓혀 읽는 실수를 범하곤 합니다. 본문이 정밀하게 짚어 낸 <strong>「계명 하나」의 자리를 존중할 때</strong>, 우리는 구약의 약속을 폄하하지 않으면서도 그리스도를 통해 열린 새 길의 고유한 영광을 바르게 볼 수 있습니다.</p>
+<h3>질문 2: 뒤항에 동사가 없어서 폐함과 들어옴이 한 동사를 함께 쓴다면, 7:18만 떼어 인용하는 일은 무엇을 잘라 내는 일입니까?</h3>
+<p><strong>모범답안:</strong> 원문 7장 18절과 19절은 앞항의 <strong>「폐함」(ἀθέτησις, 아테테시스)</strong>과 뒤항의 <strong>「더 좋은 소망이 들어옴」(ἐπεισαγωγή, 에피사고게)</strong>이 뒤항에 별도의 동사를 두지 않고 <strong>앞항의 한 동사(γίνεται, 일어난다)를 함께 나눠 쓰는 한 문장</strong>으로 묶여 있습니다. 따라서 7장 18절만 따로 떼어 내어 무언가 무너지고 폐해진 일만 강조하는 것은, <strong>한 동사에 걸려 있는 사건의 절반이자 진짜 목적인 「더 좋은 소망의 들어옴」을 잘라 내는 일</strong>이 됩니다. 하나님 나라에서 옛 규례가 물러나는 일은 결코 허무한 파괴로 끝나지 않으며, 언제나 <strong>더 좋은 소망이 우리 삶으로 들어오는 충만한 사건과 한 몸</strong>을 이룹니다.</p>
+<h3>질문 3: 7:19에서 율법이 「당한 쪽」이 아니라 「못 한 쪽」에 주인 자리로 남은 것은, 이 단락에서 율법을 어떤 자리에 두는 일입니까?</h3>
+<p><strong>모범답안:</strong> 7장 19절의 삽입 구절인 <strong>「율법은 아무것도 온전케 못할지라」</strong>에서 율법은 누군가에게 짓밟히거나 파괴당한 수동태의 객체가 아니라, <strong>스스로 문장의 능동 주어 자리에 서서 자신의 한계를 진술</strong>하고 있습니다. 이는 율법을 악한 적대자나 실패작으로 몰아세우는 것이 아니라, <strong>온전함에 이르게 하는 일은 오직 멜기세덱의 반차를 따르는 새 제사장만이 하실 수 있음을 정직하게 가리키는 증인의 자리</strong>에 두는 것입니다. 내 삶의 도덕적 노력과 규례들 또한 정죄의 대상이 아니라, <strong>나를 참된 온전함으로 이끄시는 그리스도께로 내 손을 넘겨주는 겸손한 안내자</strong>로 제자리를 찾게 됩니다.</p>
+<h3>질문 4: 이 단락의 마지막 낱말이 하나님이고 그 앞 동사가 유일한 「우리」의 동사라면, 나는 이 본문을 어느 끝에서부터 기억하고 있습니까?</h3>
+<p><strong>모범답안:</strong> 반차와 율법의 <strong>「변경」(μετάθεσις, 메타테시스)</strong>을 치밀하게 논증해 온 이 아홉 절의 맨 마지막 낱말은 <strong>「하나님」(τῷ θεῷ)</strong>이고, 그 바로 앞에 이 단락 유일의 1인칭 복수 동사인 <strong>「우리가 가까이 가느니라」(ἐγγίζομεν)</strong>가 놓여 있습니다. 우리는 흔히 이 본문을 제도의 바뀜이나 계명의 연약함이라는 논쟁의 앞머리에서부터 기억하곤 하지만, 본문이 모든 문장을 데려다 놓은 <strong>최종 종착지는 하나님께 가까이 나아가는 우리의 걸음과 그 끝에서 우리를 맞이하시는 하나님 자신</strong>입니다. 이제 이 본문을 기억할 때마다 무엇이 폐해졌는가 하는 메마른 변증 대신, <strong>오늘도 하나님께 가까이 나아갈 수 있게 된 그 살아 있는 친밀함의 끝자리</strong>에서부터 말씀을 품어야 합니다.</p>
+<h3>질문 5: 본문이 그 일을 한 이를 적지 않았습니다. 그 빈 자리를 내 설명으로 메우지 않는 일은 구체적으로 무엇을 하지 않는 일입니까?</h3>
+<p><strong>모범답안:</strong> 7장 12절의 <strong>「변경」(μετάθεσις)</strong>이나 7장 18절의 <strong>「폐함」(ἀθέτησις)</strong>, 7장 19절의 <strong>「들어옴」(ἐπεισαγωγή)</strong>은 모두 동사가 아닌 추상 명사로만 서 있을 뿐, <strong>누가 그 일을 집행했는지 행위자를 명시하는 구절이 비어 있습니다</strong>. 그 빈자리를 내 설명으로 억지로 메우지 않는다는 것은, <strong>누가 옛것을 무너뜨렸는가 하는 공방이나 신학적 우월감을 과시하는 말싸움</strong>에 에너지를 쏟지 않는 일입니다. 본문이 행위자를 감추고 사건의 열매만 남겨 둔 뜻에 순종하여, 우리는 남을 설득하려는 날 선 설명 대신 <strong>우리에게 들어온 더 좋은 소망으로 하나님께 조용히 다가서는 일</strong>에 마음을 모아야 합니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(12)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(14)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-14" data-index="14">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 14 편 (히브리서 7:20-28)</span>
+                <span>맹세로 세워진 제사장과 영원히 사심 — 많음으로는 머무르지 못합니다</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[7:20-28] 함께 생각할 질문 모범답안</h1>
+<h2>맹세로 세워진 제사장과 영원히 사심 — 많음으로는 머무르지 못합니다</h2>
+<h3>질문 1: 7:20은 「맹세 없이 된 것이 아니니」라고 두 번 꺾어 적습니다. 이 꺾임을 「맹세로 되었다」로 펴서 읽으면 본문이 재던 저울에서 무엇이 사라집니까.</h3>
+<p><strong>모범답안:</strong> 7장 20절은 예수께서 제사장이 되신 일을 단순한 긍정문으로 적지 않고, <strong>「맹세 없이 된 것이 아니니」(οὐ χωρὶς ὁρκωμοσίας)</strong>라는 <strong>이중 부정의 꺾임</strong>으로 무겁게 문을 엽니다. 만약 이 꺾임을 「맹세로 되었다」고 매끈하게 펴서 읽으면, 21절에서 <strong>「맹세 없이 제사장이 된 그들」과 맞물려 돌아가는 저울의 대조와 긴장감</strong>이 단번에 사라지고 맙니다. 두 번 꺾어 적은 그 자리에 머물 때에야 비로소, 우리 구원을 위해 <strong>보통의 절차를 넘어 친히 맹세라는 무거운 추를 올려놓으신 하나님의 비상한 결단</strong>이 우리 마음에 묵직하게 와닿습니다.</p>
+<h3>질문 2: 7:23은 「수효」에 해당하는 낱말 없이 「많은」이라는 비교의 말 하나를 주어로 세우고, 그 뒤에 죽음을 적습니다. 많음을 결과로 읽는 것과 자랑이나 실패로 읽는 것은 이 절에서 각각 어디를 근거로 삼습니까.</h3>
+<p><strong>모범답안:</strong> 7장 23절 원문에는 「수효」라는 명사가 따로 없고 <strong>「더 많은 자들」(οἱ πλείονες)</strong>이라는 비교급 하나가 주어로 서며, 그 바로 뒤에 <strong>죽음으로 인하여 「항상 있지 못함」(παραμένω, 파라메노)</strong>이 까닭으로 이어집니다. 이 많음을 조직의 번창이라는 자랑으로 읽거나 도덕적 무능이라는 실패로 읽는 것은 본문 밖의 편견에 근거한 것이지만, 본문 안에서 <strong>그 많음은 오직 죽음이라는 인간의 한계 때문에 자리를 물려주어야 했던 필연적 결과</strong>일 뿐입니다. 세상이 숫자의 많음을 힘의 증거로 삼을 때, 성경은 <strong>많음으로는 결코 영원히 머무를 수 없으며 오직 죽음을 이기신 한 분의 머무름만이 우리의 구원이 됨</strong>을 조용히 일깨웁니다.</p>
+<h3>질문 3: 7:25는 「그러므로」로 구원의 능력을 앞 절의 머무름에서 끌어냅니다. 구원의 근거를 힘의 크기에 두는 읽기와 머무름에 두는 읽기는, 내 기도를 어떻게 다르게 만듭니까.</h3>
+<p><strong>모범답안:</strong> 7장 25절이 선언하는 <strong>「온전히 구원하실 수 있음」(εἰς τὸ παντελές)</strong>은 갑자기 하늘에서 떨어진 위력이 아니라, 24절의 <strong>「영원히 계시므로」(μένω, 메노)에서 「그러므로」라는 접속사로 곧장 길어 올린 귀결</strong>입니다. 구원의 근거를 일시적인 힘의 크기에 두면 내 기도는 더 센 기적을 일으켜 달라고 조르는 불안한 외침이 되지만, <strong>주님의 영원한 머무름에 근거를 두면 기도는 언제나 그 자리에 살아 계셔 나를 위해 간구하시는 분께 기대는 깊은 호흡</strong>이 됩니다. 나를 끝까지 구원하시는 힘은 단번에 문제를 부수는 폭력이 아니라, <strong>내가 넘어지고 흔들리는 모든 시간 속에서도 결코 자리를 뜨지 않으시는 주님의 영원한 계심</strong>에서 나옵니다.</p>
+<h3>질문 4: 7:28에서 세운다는 동사를 거느린 쪽은 율법이고, 뒤 마디에는 그 동사가 없습니다. 이 사실을 알고 읽으면 「약점을 가진 사람들」이라는 말이 나를 재는 눈금에서 어떻게 비켜납니까.</h3>
+<p><strong>모범답안:</strong> 7장 28절에서 「세운다」는 정동사를 직접 거느리는 주어는 앞 마디의 <strong>「율법」</strong>이고, 뒤 마디인 <strong>「율법 후에 하신 그 맹세의 말씀은 영원히 온전케 되신 아들을」</strong>에는 동사가 생략되어 앞 동사를 빌려 쓰고 있습니다. 여기서 「약점을 가진 사람들」이라는 표현은 오늘 나의 부족함을 들추어 자격을 박탈하려는 심판의 눈금이 아니라, <strong>연약한 인간 제사장들을 세울 수밖에 없었던 율법 시대의 한계를 묘사하는 말</strong>일 뿐입니다. 이제 우리의 눈금은 나의 약점이 얼마나 남았는가에 있지 않고, <strong>그 맹세의 말씀이 이미 세워 놓으신 「영원히 온전케 되신 아들」(τετελειωμένον)</strong>의 완전함에 맞춰져 있습니다.</p>
+<h3>질문 5: 이 아홉 절에 「~하라」 꼴이 하나도 없고, 수신자는 「우리에게」와 「나아가는 자들」로만 들어옵니다. 명령이 없는 단락에서 받을 것을 찾는 일은 명령이 있는 단락에서와 어떻게 달라야 합니까.</h3>
+<p><strong>모범답안:</strong> 7장 20~28절의 아홉 절에는 독자에게 무언가를 해내라고 요구하는 <strong>명령형 동사가 단 하나도 없으며</strong>, 수신자인 우리는 오직 <strong>「그로 말미암아 하나님께 나아가는 자들」(7:25)과 「우리에게 합당한 대제사장」(7:26)</strong>이라는 수혜자의 자리로만 등장합니다. 명령이 있는 단락에서는 순종할 과제를 찾는 것이 마땅하지만, 이처럼 명령을 비워 둔 단락에서조차 <strong>「내가 무엇을 더 해야 하나」를 억지로 쥐어짜는 것은 본문의 은혜를 거스르는 일</strong>입니다. 명령이 없는 자리에서 우리가 마땅히 받아야 할 것은 행동 지침이 아니라, <strong>이미 더 좋은 언약의 「보증」(ἔγγυος, 엥귀오스)이 되어 우리에게 딱 맞는 분으로 서 계신 주님을 있는 그대로 누리는 안식</strong>입니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(13)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(15)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-15" data-index="15">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 15 편 (히브리서 8:1-13)</span>
+                <span>요점 자리에 적힌 한 줄 — 「이러한 대제사장이 우리에게 있습니다」</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[8:1-13] 함께 생각할 질문 모범답안</h1>
+<h2>요점 자리에 적힌 한 줄 — 「이러한 대제사장이 우리에게 있습니다」</h2>
+<h3>질문 1: 8:1은 「요점」이라고 표시한 자리에 명령을 두지 않고 「우리에게 있다」를 두었습니다. 이 열세 절에 우리를 향한 명령이 하나도 없다는 사실이 이 단락을 읽는 방식을 어떻게 바꿉니까?</h3>
+<p><strong>모범답안:</strong> 히브리서 전체에서 단 한 번 쓰인 <strong>「요점」(Κεφάλαιον, 케팔라이온)</strong>이라는 낱말 뒤에, 글쓴이는 우리가 지켜야 할 행동 강령을 두지 않고 <strong>「우리에게 이러한 대제사장이 있다」(ἔχομεν, 에코멘)는 1인칭 복수 현재형 선언</strong>을 두었습니다. 더욱이 8장 전체 열세 절이 끝날 때까지 <strong>우리를 향한 명령이 단 하나도 등장하지 않는다는 사실</strong>은, 신앙의 가장 중요한 핵심이 우리의 성취가 아닌 <strong>주님과의 관계적 소유</strong>에 있음을 못 박아 줍니다. 이 단락을 읽을 때 우리는 부족한 나를 채찍질하는 긴장을 내려놓고, <strong>하늘 보좌 우편에 앉으신 대제사장이 지금 우리에게 계신다는 든든한 사실</strong>을 먼저 호흡하게 됩니다.</p>
+<h3>질문 2: 「드리다」에 해당하는 동사 셋이 모두 중심 문장을 비켜섰습니다. 그런데 드림이 사라진 것은 아닙니다. 그 둘—드림이 있다는 것과 드림이 우리에게서 출발하지 않는다는 것—을 함께 말하려면 어떻게 말해야 합니까?</h3>
+<p><strong>모범답안:</strong> 8장 3~4절에 나오는 세 번의 「드리다」는 모두 부정사나 가정법 종속절에 놓여 중심 문장을 비켜서 있고, 중심 문장의 동사는 <strong>「우리에게 대제사장이 있다」와 「이분에게도 드릴 것이 있어야 한다」</strong>는 두 축으로 서 있습니다. 이는 예배와 헌신의 드림이 사라진 것이 아니라, <strong>참된 드림의 출발점이 우리의 손이 아닌 하늘 성소에서 친히 자기를 드리신 대제사장께 있음</strong>을 문법의 자리로 보여 주는 것입니다. 그러므로 우리는 <strong>「주님께서 먼저 우리를 위해 드릴 것을 가지셨기에, 우리도 그분의 드림에 기대어 삶을 드립니다」</strong>라고 고백할 수 있습니다.</p>
+<h3>질문 3: 8:6은 「더 좋다」를 세 번 말하면서 무엇보다 더인지를 적지 않았습니다. 그 비워진 칸에 우리가 무엇을 끼워 넣고 싶어지는지, 그리고 본문이 그 칸을 비워 둔 것이 무엇을 막아 주는지 이야기해 보십시오.</h3>
+<p><strong>모범답안:</strong> 8장 6절은 한 절 안에서 <strong>「더 아름다운 직분」(διάφορος)과 「더 좋은 언약」, 「더 좋은 약속」(κρείττων)</strong>을 세 번이나 겹쳐 말하면서도, 정작 <strong>「무엇보다」 더 좋은지 비교 대상을 적는 칸을 완전히 비워 두었습니다</strong>. 우리의 습관은 「더 좋다」는 말을 듣자마자 반사적으로 <strong>이전 제도나 남의 신앙을 끌어와 깎아내릴 비교 대상</strong>을 그 빈칸에 끼워 넣으려 합니다. 그러나 본문이 비교 대상을 생략하고 <strong>「중보」(μεσίτης, 메시테스)이신 그리스도의 직분과 새 언약만 단독으로 빛나게 한 것</strong>은, 우리가 상대적 우월감이나 폄하에 빠지지 않고 오직 새 언약 자체의 부요함에 감탄하도록 막아 줍니다.</p>
+<h3>질문 4: 8:8-12에서 「나」로 서서 문장을 세우는 동사가 여덟 번입니다. 세우고 두고 기록하고 긍휼히 여기는 일이 모두 그분의 동사라면, 그 다섯 절에서 사람의 자리는 어디입니까?</h3>
+<p><strong>모범답안:</strong> 8장 8~12절의 새 언약 인용문에서 문장을 세우는 주동사 여덟 번—<strong>내가 세우리라, 내가 두며, 내가 기록하리라, 내가 긍휼히 여기고, 다시 기억지 아니하리라</strong>—은 전부가 <strong>하나님의 1인칭 주어 「나」</strong>에 걸려 있습니다. 언약을 맺고 법을 마음에 새기며 죄를 사하는 모든 결정적인 동작이 <strong>전적으로 하나님의 동사로만 채워져 있기에</strong>, 여기서 사람은 언약을 성사시키려 발버둥 치는 주동자가 아닙니다. 그 다섯 절에서 사람의 자리는 내 의지로 돌판의 법을 지켜 내는 고달픈 자리가 아니라, <strong>내 생각과 마음에 친히 법을 새겨 주시고 불의를 기억지 않으시는 하나님의 일방적인 은혜를 받아들이는 복된 수혜자의 자리</strong>입니다.</p>
+<h3>질문 5: 8:13에는 「낡아지게 되었다」까지만 적혀 있고, 치웠다는 동사가 없습니다. 우리가 본문보다 한 걸음 더 나가서 「끝났다」고 선언했던 자리가 있었는지, 그리고 본문이 멈춘 자리에서 멈추는 것이 왜 읽기의 일부인지 이야기해 보십시오.</h3>
+<p><strong>모범답안:</strong> 8장 13절은 첫 언약을 두고 <strong>「낡아지게 하신 것」(παλαιόω, 팔라이오오)</strong>이며 <strong>「없어짐에 가깝다」(ἐγγὺς ἀφανισμοῦ)</strong>는 명사구까지만 적었을 뿐, 하나님께서 그것을 당장 부수거나 쓰레기처럼 치워 버렸다는 동사를 쓰지 않았습니다. 우리는 흔히 새 은혜를 경험했다고 해서 본문보다 한 걸음 더 앞서 나가, <strong>내가 거쳐 온 지난 시간이나 아직 연약함 속에 머문 이들을 향해 성급하게 「이미 끝났다」고 단절을 선언</strong>하곤 합니다. 본문이 「없어짐에 가깝다」고 멈춘 바로 그 자리에서 우리도 함께 말을 멈추는 것은, <strong>하나님의 점진적인 섭리와 기다림의 시간을 앞지르지 않는 말씀 앞의 경건한 절제</strong>입니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(14)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(16)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-16" data-index="16">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 16 편 (히브리서 9:1-10)</span>
+                <span>길은 아직 드러나지 않았다 — 첫 장막의 기구와 그 제도가 가리킨 것</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[9:1-10] 함께 생각할 질문 모범답안</h1>
+<h2>길은 아직 드러나지 않았다 — 첫 장막의 기구와 그 제도가 가리킨 것</h2>
+<h3>질문 1: 9:1은 「첫」 것이 둘을 지녔다고 적으면서 그 「첫」 것의 이름을 적지 않았습니다. 나는 그 빈자리를 평소 무엇으로 메워 읽고 있었습니까?</h3>
+<p><strong>모범답안:</strong> 9장 1절의 축을 이루는 동사 <strong>「있더라」(Εἶχε, 에이케)</strong>의 주어 자리에는 <strong>「첫째」(ἡ πρώτη)라는 여성 형용사 하나만 홀로 서 있을 뿐</strong>, 그것이 「언약」인지 「장막」인지 명사가 적혀 있지 않습니다. 우리말 성경과 우리의 평소 읽기는 이 빈자리를 재빨리 「첫 언약」이라는 단어로 메워 확정해 버리지만, 원문의 여백은 <strong>8장 끝의 「첫 언약」과 9장 앞의 「첫 장막」을 동시에 품으며 자연스럽게 다리를 놓아 줍니다</strong>. 성경이 열어 둔 여백을 내 익숙한 정답으로 성급히 닫지 않을 때, <strong>언약의 말씀이 구체적인 예배의 공간과 기구들로 어떻게 이어지는지</strong> 더 넓고 깊게 바라볼 수 있습니다.</p>
+<h3>질문 2: 글쓴이는 기구 아홉을 동사 없이 쌓고 「낱낱이 말할 수 없노라」(히 9:5)에서야 동사를 씁니다. 나는 내 말과 글에서 어느 쪽에 더 힘을 쓰고 있습니까 — 늘리는 쪽인가, 닫는 쪽인가?</h3>
+<p><strong>모범답안:</strong> 히브리서 기자는 성막의 기구 아홉 가지를 예순 낱말에 걸쳐 정교하게 나열하는 동안 <strong>문장을 세우는 정동사를 단 한 번도 쓰지 않다가</strong>, 9장 5절 끝에서 <strong>「이것들에 관하여는 이제 낱낱이 말할 수 없노라」고 선언할 때에야 비로소 정동사를 세웁니다</strong>. 자기가 아는 성막 지식을 끝없이 늘어놓을 수 있었음에도, <strong>더 중요한 그리스도의 속죄 사역으로 나아가기 위해 말을 과감히 닫는 데에 문장의 힘</strong>을 실은 것입니다. 우리의 말과 글, 그리고 신앙의 대화 또한 화려한 지식을 늘리는 데 힘을 쏟기보다, <strong>오직 예수 그리스도라는 본질을 드러내기 위해 내 말을 절제하며 닫을 줄 아는 성숙함</strong>을 배워야 합니다.</p>
+<h3>질문 3: 9:7의 「일 년 일 차씩」은 되풀이되는 한 번입니다. 되풀이되는 일을 본문은 깎아내리지 않는데, 나는 내 반복되는 일들을 어떻게 보고 있습니까?</h3>
+<p><strong>모범답안:</strong> 9장 7절의 <strong>「일 년 일 차씩」(ἅπαξ τοῦ ἐνιαυτοῦ)</strong>은 영원한 단번이 아니라 <strong>해가 돌아올 때마다 되풀이되는 주기적인 한 번</strong>으로서, 6절의 「항상」과 짝을 이루어 첫 장막의 예배 질서를 담담히 보여 줍니다. 본문은 이 반복되는 제사를 무가치한 헛수고라고 조롱하거나 깎아내리지 않고, <strong>하나님이 정하신 규례 안에서 자기 백성의 허물을 위해 성실히 피를 가지고 들어갔던 제사장의 걸음</strong>을 있는 그대로 존중합니다. 오늘 내 삶에서 매일 되풀이되는 기도와 일상의 수고 역시 비록 그 자체로 나를 완전케 하지는 못할지라도, <strong>단번에 영원한 속죄를 이루신 주님의 은혜를 날마다 가리키고 담아내는 거룩한 그릇</strong>임을 기억하며 소중히 여겨야 합니다.</p>
+<h3>질문 4: 9:8은 「길이 아직 나타나지 아니한 것」까지만 적고, 누가 언제 그것을 끝낼지 적지 않았습니다. 내가 그 빈자리를 채워 말하고 싶어지는 순간은 언제입니까?</h3>
+<p><strong>모범답안:</strong> 9장 8절에서 성령께서 <strong>「밝히신」(δηλόω, 델로오)</strong> 내용은 성소에 들어가는 길이 영영 막혔다는 절망이 아니라, 첫 장막이 <strong>「아직」(ἔτι)</strong> 서 있는 동안에는 그 길이 <strong>「아직」(μήπω) 드러나지(φανερόω, 파네로오) 않았다</strong>는 기다림의 진실입니다. 본문은 이 짧은 <strong>「아직」(μήπω)이라는 한 낱말로 절망과 소망의 경계</strong>를 그어 놓았을 뿐, 누가 언제 이 기다림을 끝낼지 성급하게 날짜와 이름을 못 박지 않았습니다. 내 삶의 기도가 더디 응답되어 답답할 때마다 우리는 그 빈자리에 내 시한과 조건을 채워 넣고 싶어지지만, 본문의 <strong>「아직」은 닫힌 문 앞에서도 하나님의 때를 신뢰하며 숨을 고르게 하는 은혜의 여백</strong>입니다.</p>
+<h3>질문 5: 9:9는 드려지는 예물과 제사가 섬기는 자를 온전케 하지 못한다고 적습니다. 지금 내 종교 생활에서 이 말이 가장 아프게 닿는 자리는 어디입니까?</h3>
+<p><strong>모범답안:</strong> 9장 9절은 첫 장막의 제도를 현재까지의 <strong>「비유」(παραβολή, 파라볼레)</strong>라고 부르며, 거기서 드려지는 외적인 예물과 제사가 <strong>섬기는 자를 그 양심상 온전하게 할 수 없다</strong>고 정직하게 짚어 냅니다. 이 말씀이 오늘 내 종교 생활에서 가장 아프게 닿는 자리는, <strong>예배 참석 횟수나 봉사와 헌금이라는 외적 실적으로 내면의 불안과 죄책감을 가려 보려 애쓰던 자리</strong>입니다. 그러나 내 종교적 열심이 양심을 온전케 하지 못한다는 이 아픈 진단은 나를 절망시키려는 것이 아니라, <strong>헛된 자기 의의 수고를 내려놓고 오직 양심을 깨끗하게 하시는 그리스도의 피 앞으로 나아가게 하는 복된 초대</strong>입니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(15)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(17)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-17" data-index="17">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 17 편 (히브리서 9:11-22)</span>
+                <span>깨끗하게 하는 것은 그 피다 — 자기 피로 들어가신 분과, 피가 따라...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[9:11-22] 함께 생각할 질문 모범답안</h1>
+<h2>깨끗하게 하는 것은 그 피다 — 자기 피로 들어가신 분과, 피가 따라 적히는 언약</h2>
+<h3>질문 1: 9:13과 9:14가 둘 다 피를 주어로 세웠다면, 「하물며」가 바꾼 것은 무엇입니까? 그리고 그 두 문장 어디에서도 깨끗해지는 사람이 주어가 되지 않는다는 것은 무엇을 뜻합니까?</h3>
+<p><strong>모범답안:</strong> 9장 13절과 14절은 둘 다 사람이 아니라 <strong>「피」를 문장의 주어로 세우며</strong>, 14절의 「하물며」가 바꾼 것은 짐승의 피에서 <strong>영원하신 성령으로 말미암아 흠 없는 자기를 드리신 「그리스도의 피」로 깊어진 주체의 영광</strong>과, 정결함이 닿는 목적어가 육체에서 <strong>「양심」(συνείδησιν, 쉬네이데신)</strong>으로 옮겨진 사실입니다. 무엇보다 이 두 문장 어디에서도 <strong>깨끗해지는 사람이 문장의 주어가 되지 않고 오직 정결케 하시는 동작을 받는 목적어로만 서 있다는 점</strong>이 중요합니다. 이는 내면의 죄책감을 씻고 양심을 회복하는 일이 나의 반성이나 도덕적 수양의 성취가 아니라, <strong>오직 그리스도의 피가 내 안에서 행하시는 주권적인 은혜의 사건(καθαριεῖ, 카타리에이)</strong>임을 뜻합니다.</p>
+<h3>질문 2: 9:13은 그 제사가 「그 육체를」 정결하게 했다고 적습니다. 본문이 그 제도에 붙여 둔 이 말을 지우면, 9:14의 「하물며」는 어디에 발을 디딥니까?</h3>
+<p><strong>모범답안:</strong> 9장 13절은 옛 언약의 염소와 황소의 피와 암송아지의 재를 아무 효력도 없던 껍데기로 취급하지 않고, 부정한 자들에게 뿌려져 <strong>「그 육체를 정결케 하여 거룩하게 하거든」이라며 그 제도가 실제로 감당했던 효력을 분명히 인정</strong>합니다. 만약 우리가 옛 제도를 깎아내리려고 본문이 붙여 둔 이 실제적인 정결의 발판을 지워 버린다면, <strong>작은 것의 확실한 효력 위에서 더 큰 은혜의 확실성을 끌어내는 9장 14절의 「하물며」는 발을 디딜 땅을 잃고 공중에 뜨게 됩니다</strong>. 이전 시대에 주셨던 하나님의 은혜와 제도를 정당하게 존중할 때, <strong>그리스도의 피가 이루신 새 언약의 정결함 또한 더욱 든든한 확신</strong>으로 다가옵니다.</p>
+<h3>질문 3: 9:14의 끝에 「섬기게」가 놓여 있습니다. 그 끝을 지우고 읽으면 이 절은 9:13과 무엇이 달라집니까?</h3>
+<p><strong>모범답안:</strong> 9장 14절은 그리스도의 피가 죽은 행실에서 우리의 양심을 깨끗하게 한다는 선언에서 멈추지 않고, 문장 맨 끝에 <strong>「살아 계신 하나님을 섬기게」(λατρεύειν, 라트류에인)라는 목적 부정사</strong>를 뚜렷이 세워 둡니다. 만약 이 끝자리의 「섬기게」를 지우고 읽는다면, 양심의 정결함은 그저 <strong>개인의 내면적 평안이나 죄책감 해소에 머물러</strong> 옛 제사의 외적 정결과 본질적인 방향의 차이를 잃어버리게 됩니다. 주님의 보혈이 우리 양심을 씻으신 최종 목적은 나 혼자 깨끗해졌다는 자기만족이 아니라, <strong>죽은 행실에서 벗어나 살아 계신 하나님과 인격적으로 교제하며 예배하는 생동하는 삶</strong>으로 우리를 이끄는 데 있습니다.</p>
+<h3>질문 4: 9:18의 동사는 첫 것이 없어졌다고 적지 않고 첫 것도 피 없이 되지 않았다고 적습니다. 이 차이는 이 단락을 요약하는 내 한 문장을 어떻게 바꿉니까?</h3>
+<p><strong>모범답안:</strong> 9장 18절은 첫 언약이 쓸모없어져 폐기되었다고 적는 대신, <strong>「첫 언약도 피 없이 세운 것이 아니니」</strong>라고 적음으로써 두 언약을 가르는 단절이 아니라 <strong>두 언약을 모두 세우고 거룩하게 하는 「피」의 일관된 원리</strong>를 드러냅니다. 이 문법적 사실을 마주하면, 이 단락을 요약하는 내 한 문장은 「옛 언약은 버려지고 새 언약이 왔다」는 투박한 대립 구도에서 벗어나야 합니다. 대신 <strong>「첫 언약이 피로 세워졌듯이, 그리스도께서 자기 피로 단번에 성소에 들어가심으로 영원한 속죄와 새 언약을 완성하셨다」(εἰσῆλθεν, 에이셀텐)</strong>는 풍성한 구속사의 고백으로 바뀌게 됩니다.</p>
+<h3>질문 5: 9:22의 뒤 절반에서 문장의 주어는 「사함」입니다. 그 주어를 「피」로 바꿔 읽으면 이 문장은 무엇을 더 말하게 됩니까? 그리고 본문이 그것을 적지 않았다는 사실은 내 말에 무엇을 요구합니까?</h3>
+<p><strong>모범답안:</strong> 9장 22절은 앞 절반에서 히브리서 전체에 한 번뿐인 <strong>「거의」(σχεδόν, 스케돈)</strong>라는 단서를 달아 율법을 따라 거의 모든 물건이 피로 정결케 된다고 신중히 적고, 뒤 절반에서는 <strong>「피흘림」(αἱματεκχυσίας)이 없은즉 「사함」이 없느니라</strong>고 하여 문장의 주어를 「사함」에 둡니다. 만약 우리가 주어를 「피」로 바꾸어 「피가 모든 것을 다 사한다」고 읽으면 본문이 남겨 둔 신중한 여백을 넘어 <strong>피를 만능의 기계적 공식처럼 소비하게 되지만</strong>, 본문은 <strong>「피흘림 없이는 사함이 일어나지 않는다」는 엄숙한 경계선</strong>까지만 적었습니다. 성경이 「거의」라는 한 단어로 예외를 존중하고 주어의 자리를 절제했듯이, 우리의 신앙 언어 또한 <strong>과장과 단정을 내려놓고 말씀이 서 있는 자리까지만 정직하게 말하는 겸손</strong>을 갖추어야 합니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(16)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(18)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-18" data-index="18">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 18 편 (히브리서 9:23-28)</span>
+                <span>나타나심은 세 낱말입니다 — 한 번은 드려지심 쪽에, 두 번째는 나타...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[9:23-28] 함께 생각할 질문 모범답안</h1>
+<h2>나타나심은 세 낱말입니다 — 한 번은 드려지심 쪽에, 두 번째는 나타나심 쪽에</h2>
+<h3>질문 1: 번역에서 「나타나」가 세 번 되풀이되는 것처럼 보이는 자리가 원문에서는 세 낱말이고, 때와 보는 쪽이 셋 다 다릅니다. 나는 그 셋 가운데 어느 하나를 다른 둘에 포개어 읽고 있지 않습니까? 포개면 무엇이 지워집니까?</h3>
+<p><strong>모범답안:</strong> 우리말 성경이 똑같이 「나타나」로 옮긴 세 자리는 원문에서 <strong>9장 24절의 「지금 하나님 앞에 나타나심」(ἐμφανισθῆναι)</strong>, <strong>26절의 「세상 끝에 자기를 단번에 제사로 드려 이미 나타나 계심」(πεφανέρωται)</strong>, <strong>28절의 「장차 두 번째 나타나 보이시리라」(ὀφθήσεται)</strong>는 서로 다른 세 낱말과 세 시상(과거·완료·미래)으로 구별되어 있습니다. 만약 이 셋을 구분하지 않고 하나로 포개어 읽으면, <strong>십자가에서 이미 완료된 속죄와 지금 하늘 성소에서 행하시는 중보, 그리고 장차 오실 재림이라는 구원의 입체적인 시간표</strong>가 지워지고 맙니다. 이미 이루어진 일을 아직 안 된 일로 밀면 구원의 확신이 흔들리고, 장차 오실 일을 이미 다 끝난 일로 당기면 <strong>오늘을 지탱하는 거룩한 기다림이 사라지기에</strong>, 세 시상의 자리를 각각 제자리에 두고 읽어야 합니다.</p>
+<h3>질문 2: 9:24의 나타나심은 우리가 보지 못하는 자리에서 일어나는데, 본문은 거기에 「우리를 위하여」를 붙여 두었습니다. 보이지 않는 자리에서 일어나는 일을 근거로 삼는다는 것은, 눈에 보이는 결과가 하나도 없는 지금에 무엇을 묻습니까?</h3>
+<p><strong>모범답안:</strong> 9장 24절에서 그리스도께서 참 하늘에 들어가 <strong>「나타나심」(ἐμφανισθῆναι, 엠파니스테나이)</strong>은 우리 눈앞의 무대가 아니라 우리가 볼 수 없는 <strong>「하나님의 얼굴 앞」에서 일어나는 사건</strong>인데, 본문은 바로 거기에 <strong>「이제 우리를 위하여」</strong>라는 따뜻한 목적을 붙여 두었습니다. 내 눈앞의 현실에 당장 손에 잡히는 응답이나 가시적인 변화가 하나도 보이지 않을 때, 우리는 쉽게 주님이 아무 일도 하지 않으신다고 낙심하곤 합니다. 그러나 이 구절은 내 눈에 보이는 결과가 없는 지금 이 순간에도, <strong>보이지 않는 하나님 보좌 앞에서 나를 위해 친히 얼굴을 드러내어 서 계신 주님의「지금(νῦν)」을 신뢰하느냐</strong>고 우리 믿음의 중심을 묻습니다.</p>
+<h3>질문 3: 「한 번」이라는 말이 이 단락에 세 번 서는데 붙은 대상이 셋 다 다릅니다. 나는 그 말을 드려지심 쪽에 두고 있습니까, 나타나심 쪽으로 옮겨 붙이고 있습니까? 옮겨 붙이면 「두 번째」는 어디로 갑니까?</h3>
+<p><strong>모범답안:</strong> 이 단락에서 <strong>「한 번·단번에」(ἅπαξ, 하팍스)</strong>라는 낱말은 세 번 등장하며, 26절에서는 제사로 나타나심에, 27절에서는 사람이 죽는 것에, 그리고 28절에서는 많은 사람의 죄를 담당하시려고 <strong>「드리신 바 되셨고」(προσενεχθεὶς, 프로세넥테이스)</strong>라는 수동태 분사에 각각 정확히 붙어 있습니다. 만약 28절의 「한 번」을 드려지심에 두지 않고 나타나심 쪽으로 잘못 옮겨 붙이면, 주님의 사역은 과거 한 번의 방문으로 영영 닫혀 버리고 <strong>죄와 상관없이 구원에 이르게 하기 위해 오실 「두 번째」(ἐκ δευτέρου) 나타나심의 소망</strong>은 설 자리를 잃게 됩니다. <strong>속죄의 드려지심은 「단번에」 영원히 끝났고, 우리를 구원의 완성으로 맞이하실 나타나심은 「두 번째」로 남아 있다는 이 정교한 짝</strong>이 우리 신앙의 안식과 설렘을 동시에 지켜 줍니다.</p>
+<h3>질문 4: 본문은 심판이라는 낱말 뒤에 아무 말도 두지 않았습니다. 나는 그 자리를 그동안 무엇으로 메워 왔습니까? 그 메움을 남에게 쓴 적은 없습니까?</h3>
+<p><strong>모범답안:</strong> 9장 27절의 <strong>「그 후에는 심판이 있으리니」</strong>에서 「심판」(κρίσις, 크리시스)이라는 낱말 앞뒤에는 <strong>관사도, 공포스러운 형용사도, 구체적인 형벌의 묘사도 전혀 없이</strong> 단 한 낱말만 담백하게 놓여 있고, 문장은 곧바로 28절 그리스도의 드려지심으로 이어집니다. 본문이 이토록 절제하며 비워 둔 자리를, 우리는 그동안 <strong>내 두려움이 만들어 낸 상상의 그림이나 타인을 겁주어 통제하려는 정죄의 시나리오</strong>로 가득 메워 왔습니다. 성경이 심판이라는 낱말 뒤에 긴 설명을 달지 않고 곧장 <strong>많은 사람의 죄를 담당하시려고 단번에 드리신 바 되신 그리스도</strong>를 보여 준 까닭은, 우리가 남을 심판하는 자리에 서지 않고 오직 주님의 은혜 아래로 피하게 하려는 것입니다.</p>
+<h3>질문 5: 9:28이 적은 기다림의 대상은 때가 아니라 「그분」입니다. 날짜를 기다리는 사람의 하루와 한 분을 기다리는 사람의 하루는 구체적으로 무엇이 다릅니까? 오늘 내 하루는 어느 쪽에 가깝습니까?</h3>
+<p><strong>모범답안:</strong> 9장 28절이 두 번째 나타나심을 약속하며 적은 표현은 종말의 시간표를 계산하는 자들이 아니라 <strong>「자기를(그분을) 간절히 바라는 자들에게」(τοῖς αὐτὸν ἀπεκδεχομένοις)</strong>라고 하여, 기다림의 목적어를 날짜나 사건이 아닌 <strong>인격이신 「그분」</strong>으로 분명히 적었습니다. 날짜를 기다리는 사람의 하루는 세상의 징조를 따지며 조바심을 내거나 아직 때가 멀었다며 해이해지기 쉽지만, <strong>나를 위해 단번에 드리신 바 되신 「그분」을 기다리는 사람의 하루는 사랑하는 이를 맞이할 준비로 오늘을 정결하고 따뜻하게 가꾸는 시간</strong>이 됩니다. 오늘 내 하루가 막연한 종말의 사건을 두려워하는 날이 아니라, <strong>죄와 상관없이 나를 온전한 구원으로 안아 주실 주님 한 분을 사모하며 걷는 설렘의 하루</strong>가 되기를 소망합니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(17)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(19)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-19" data-index="19">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 19 편 (히브리서 10:1-18)</span>
+                <span>이미 말해진 말이 서 있습니다 — 되풀이하는 드림과 한 번의 드림</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[10:1-18] 함께 생각할 질문 모범답안</h1>
+<h2>이미 말해진 말이 서 있습니다 — 되풀이하는 드림과 한 번의 드림</h2>
+<h3>질문 1: 10:9에서 저자는 인용의 <strong>뒷부분만</strong> 다시 끌어옵니다. 두루마리 어구와 그 이름을 빼고 「내가 당신의 뜻을 행하러 왔나이다」만 남겼습니다. 그것은 「서 있는 말」의 내용을 무엇으로 좁히는 것입니까.</h3>
+<p><strong>모범답안:</strong> 10:9에서 인용을 다시 불러오는 동사 「말씀하시기를」(<strong>εἴρηκεν, 에이레켄</strong>)은 과거에 끝난 사건이 아니라 <strong>이미 말해져 지금도 효력을 가지고 서 있는 완료형</strong>입니다. 저자가 앞선 인용(10:7)에서 두루마리 어구와 호칭을 덜어 내고 오직 <strong>「내가 당신의 뜻을 행하러 왔나이다」</strong>라는 고백만 남긴 것은, 지금 우리 앞에 우뚝 서 있는 말씀의 알맹이를 외적인 기록이나 제사 제도가 아니라 <strong>아버지의 뜻을 몸소 이루시려는 아들의 인격적 순종 하나</strong>로 좁혀 주는 것입니다. 이로써 우리의 구원을 떠받치는 근거는 우리가 반복해서 지켜야 할 규례의 목록이 아니라, 그때에 말씀하시고 오늘도 살아 서 있는 <strong>그리스도의 단 한 번의 자원하는 헌신</strong>으로 또렷이 모아집니다.</p>
+<h3>질문 2: 10:5-7의 인용에서 하나님은 <strong>들으시는 편</strong>입니다. 말하는 이는 1인칭으로 서서 하나님께 말합니다. 나를 향하지 않은 말이 나의 근거가 된다는 것은, 내 믿음에 어떤 모양을 요구합니까.</h3>
+<p><strong>모범답안:</strong> 10:5-7의 말씀은 사람을 설득하거나 다그치기 위해 우리에게 건네진 말이 아니라, 세상에 들어오시는 아들이 <strong>1인칭 주어로 서서 아버지 하나님께 직접 아뢰는 대화</strong>이며 하나님은 그 고백을 <strong>들으시는 자리</strong>에 계십니다. 나를 직접 향하지 않은 <strong>성부와 성자 사이의 내밀한 약속과 순종의 대화</strong>가 내 구원의 기초가 된다는 사실은, 믿음의 중심을 내 안의 감정이나 자격에서 완전히 옮겨 놓을 것을 요구합니다. 그러므로 우리의 믿음은 내 마음의 흔들리는 확신을 끊임없이 점검하는 조급함을 내려놓고, 내 밖에서 이미 주고받으신 <strong>아버지와 아들의 신실한 언약의 대화를 잠잠히 우러러보며 그 안에 기대어 쉬는 모양</strong>이어야 합니다.</p>
+<h3>질문 3: 10:9의 「그 첫 것」에는 명사가 없습니다. 그 빈자리에 내가 어떤 말을 넣고 싶어 했는지, 그리고 그 말을 넣으면 이 절이 어떤 설교가 되는지 적어 보십시오.</h3>
+<p><strong>모범답안:</strong> 원문에서 10:9의 <strong>「그 첫 것」(τὸ πρῶτον)</strong>과 「그 둘째 것」은 꾸밈을 받는 명사 없이 관사와 형용사만으로 이루어진 열린 자리입니다. 우리는 흔히 그 빈칸에 '옛 율법'이나 '유대인의 종교 의식', 혹은 '나의 부족했던 정성과 옛 습관' 같은 구체적인 명사를 채워 넣어, 이 본문을 <strong>더 나은 종교적 열심이나 도덕적 결단을 촉구하는 설교</strong>로 축소하곤 했습니다. 그러나 본문이 명사를 비워 둔 그대로 읽을 때, 우리는 내가 하나님 앞에 내어놓으려던 모든 선행하는 조건과 첫 번째 시도들이 다 물러나고 오직 <strong>그리스도께서 세우신 하나님의 뜻과 단번의 드리심만이 유일한 자리로 세워지는 복음</strong>을 만나게 됩니다.</p>
+<h3>질문 4: 10:10과 10:14는 둘 다 <strong>수동</strong>입니다. 거룩하게 되는 일에서 내가 주어로 선 자리가 본문에 한 번뿐이고 그것도 받는 편이라면, 지난주에 내가 그 일을 어디서 떠맡으려 했습니까.</h3>
+<p><strong>모범답안:</strong> 10:10의 「우리가 거룩함을 얻었노라」와 10:14의 「거룩하게 된 자들」은 모두 <strong>수동태(받는 꼴)</strong>로 적혀 있으며, 우리가 주어로 등장하는 유일한 자리조차 <strong>예수 그리스도의 몸을 단번에(ἐφάπαξ, 에파팍스) 드리심으로 거룩함을 입는 수혜자의 자리</strong>입니다. 그럼에도 우리는 지난 한 주간 기도의 분량이나 영적 성취, 혹은 실패 뒤의 깊은 자책을 통해 <strong>스스로를 거룩하게 만들어 보려고 그 문장의 주어 자리를 내가 떠맡으려</strong> 애썼습니다. 본문이 단락 끝에서 선언하는 <strong>「영원히 온전케 하셨느니라」(τετελείωκεν, 테텔레이오켄)</strong>라는 완료형 동사 앞에 멈추어 설 때, 우리는 내가 내 성화의 주인이 되려는 무거운 짐을 벗고 <strong>은혜를 받는 자의 평안한 자리</strong>로 돌아오게 됩니다.</p>
+<h3>질문 5: 10:18에는 동사가 한 토막도 없습니다. 「다시 제사 드릴 것이 없다」는 말이 이번 주에 내가 또 드리려 했던 것 하나를 가리킨다면, 그것은 무엇입니까.</h3>
+<p><strong>모범답안:</strong> 열여덟 절을 맺는 10:18의 마지막 문장은 원문에서 <strong>동사 한 토막 없이 명사구만 우뚝 서 있는 단호한 결말</strong>로, 죄 사함이 있는 곳에는 더 이상 <strong>「제물」(προσφορά, 프로스포라)</strong>이 남아 있지 않음을 못 박아 둡니다. 그러나 우리는 주님의 완전한 용서를 고백하면서도, 마음 한구석의 미안함과 불안 때문에 <strong>나의 상한 감정이나 만회하려는 다짐, 혹은 스스로를 향한 정죄라는 또 다른 제물</strong>을 끊임없이 제단 위에 올려놓으려 합니다. 동사조차 생략한 채 마침표를 찍은 이 말씀은, 우리가 하나님께 받아들여지기 위해 이번 주에도 또다시 바치려 했던 <strong>모든 자기 속죄의 되풀이를 이제 그만 멈추어도 좋다</strong>고 따뜻하게 선언합니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(18)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(20)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-20" data-index="20">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 20 편 (히브리서 10:19-25)</span>
+                <span>숨은 두 권유 — 「그러므로」에서 꺾여 나온 세 가지</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[10:19-25] 함께 생각할 질문 모범답안</h1>
+<h2>숨은 두 권유 — 「그러므로」에서 꺾여 나온 세 가지</h2>
+<h3>질문 1: 10:19부터 10:22까지가 원문에서 한 문장입니다. 근거 셋이 청함 하나로 쏟아져 들어가는 이 꼴은, 권면을 근거 없이 떼어 내 전하는 습관에 무엇을 묻습니까.</h3>
+<p><strong>모범답안:</strong> 10:19부터 10:22까지는 원문에서 <strong>단 하나의 호흡으로 이어진 한 문장</strong>이며, 예수의 피로 얻은 담대함과 휘장 가운데로 열어 놓으신 새롭고 산 길, 그리고 하나님의 집 다스리는 큰 제사장이 계시다는 <strong>무거운 근거 셋이 「나아가자」는 청함 하나로</strong> 쏟아져 들어갑니다. 우리가 앞선 은혜의 근거들을 잘라 낸 채 「참 마음과 온전한 믿음으로 나아가자」는 권면만 떼어 내어 전할 때, 복음의 초대는 <strong>사람의 진정성과 내적 자격을 다그치는 무거운 당위</strong>로 변질되고 맙니다. 세 겹의 근거가 한 마디의 청유를 떠받치고 있는 본문의 문법은, 우리의 나아감이 내 마음의 준비 상태가 아니라 <strong>그리스도께서 이미 열어 놓으신 길과 대제사장의 계심이라는 흔들리지 않는 사실</strong> 위에서만 시작됨을 일깨워 줍니다.</p>
+<h3>질문 2: 이 단락의 할 일은 셋이고 셋이 같은 꼴입니다. 내 신앙생활에서 「돌아봄」은 「나아감」과 같은 무게였습니까, 시간이 남을 때의 일이었습니까.</h3>
+<p><strong>모범답안:</strong> 우리말 번역에서는 10:23의 「굳게 잡아」와 10:24의 「돌아보아」가 앞뒤를 잇는 연결형으로 내려가 있지만, 원문에서는 10:22의 「나아가자」와 똑같이 본줄기에 나란히 선 <strong>세 개의 청유형 동사(나아가자 · 붙잡자[κατέχωμεν] · 돌아보자[κατανοῶμεν])</strong>입니다. 우리는 그동안 하나님께 나아가는 개인의 경건은 신앙의 본질로 여기면서도, <strong>지체를 살피고 돌아보는 일은 내 영적 여력과 시간이 남을 때나 하는 부차적인 일</strong>로 미루어 두곤 했습니다. 그러나 세 동사를 <strong>완전히 똑같은 높이와 무게로 「우리」에게 걸어 둔 본문의 꼴</strong>은, 곁에 있는 한 사람을 깊이 헤아려 돌아보는 일이 하나님 보좌 앞으로 나아가는 일과 조금도 다르지 않은 <strong>신앙의 중심 기둥</strong>임을 분명히 보여 줍니다.</p>
+<h3>질문 3: 10:22의 청함에는 나아갈 곳이 적혀 있지 않습니다. 나는 그 빈자리를 무엇으로 채워 읽고 있었습니까.</h3>
+<p><strong>모범답안:</strong> 10:22의 「우리가 나아가자」는 동사 주변에는 <strong>어디로 나아가는지 도착지를 가리키는 장소 명사가 하나도 적혀 있지 않습니다</strong>. 우리는 습관적으로 그 비어 있는 자리에 '예배당'이나 '새벽기도의 자리', 혹은 '고양된 영적 감정' 같은 말을 채워 넣어, 하나님께 나아가는 일을 <strong>특정한 공간이나 종교적 행위 안으로만 가두어</strong> 읽고는 했습니다. 본문이 목적지를 규정하지 않고 열어 둔 것은, 앞 절에서 이미 밝혀 둔 <strong>새롭고 산 길이신 그리스도와 우리를 위해 계신 큰 제사장 그분 자신</strong>이 우리가 일상의 모든 자리에서 매 순간 나아갈 유일한 방향이자 처소이기 때문입니다.</p>
+<h3>질문 4: 10:24가 받는 것은 「서로」입니다. 그 한 낱말을 지우고 이 절을 읽으면 돌아봄이 무엇으로 줄어듭니까.</h3>
+<p><strong>모범답안:</strong> 10:24의 청함 동사 「돌아보아」(<strong>κατανοῶμεν, 카타노오멘</strong>)가 직접 목적어로 받는 낱말은 히브리서 전체에서 이 자리에 단 한 번 등장하는 <strong>「서로」(ἀλλήλους, 알렐루스)</strong>입니다. 만일 이 한 단어를 지운 채 문장을 읽는다면, 돌아봄은 <strong>자기 자신의 내면과 영적 상태만을 끝없이 검열하고 들여다보는 고립된 자기 성찰</strong>로 쪼그라들고, 뒤따르는 10:25의 모임과 권면도 매달릴 곳을 잃어버립니다. 세 가지 권유 가운데 유일하게 이웃을 직접 목적어로 삼은 이 <strong>「서로」라는 한 낱말</strong>이, 우리의 신앙을 자기 몰두의 골방에서 건져내어 <strong>사랑과 선행을 격려하는 공동체의 따뜻한 숨결</strong>로 넓혀 줍니다.</p>
+<h3>질문 5: 「더욱」이 붙은 자리는 「권하여」입니다. 날이 가깝다고 느낄 때 내가 실제로 늘린 것은 홀로의 열심입니까, 서로 권하는 일입니까.</h3>
+<p><strong>모범답안:</strong> 10:25에서 우리말의 「더욱 그리하자」로 옮겨진 부분은 원문에서 새로운 청유형 동사가 아니라 셋째 권유에서 뻗어 나온 분사 <strong>「권하여」(παρακαλοῦντες, 파라칼룬테스)</strong>이며, <strong>「더욱」(μᾶλλον)</strong>이라는 부사가 바로 이 자리에 붙어 있습니다. 시대가 어둡고 마지막 날이 가까워졌다고 느낄수록 우리는 두려움에 쫓겨 <strong>나 홀로 쌓는 종교적 열심이나 세상을 향한 날 선 경계심</strong>을 늘리기 쉽습니다. 하지만 본문의 가지 끝이 가리키는 바는, 그날이 가까움을 볼수록 우리가 정작 더해야 할 일이 모임의 형식적인 규칙 강화가 아니라 <strong>지친 지체들의 곁에 다가앉아 건네는 다정한 위로와 일으켜 세우는 권면의 말</strong>임을 따뜻하게 일깨웁니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(19)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(21)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-21" data-index="21">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 21 편 (히브리서 10:26-31)</span>
+                <span>눈금이 없는 저울 — 무게를 지는 것은 크기가 아니라 이름 하나다</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[10:26-31] 함께 생각할 질문 모범답안</h1>
+<h2>눈금이 없는 저울 — 무게를 지는 것은 크기가 아니라 이름 하나다</h2>
+<h3>질문 1: 이 단락은 가정으로 열리지 않고, 조건을 지는 자리에 붙은 대명사가 「우리」입니다. 제가 이 본문을 기억하고 있던 모양에서 그 자리에 서 있던 사람은 누구였습니까.</h3>
+<p><strong>모범답안:</strong> 10:26은 막연한 제삼자를 향한 가정법으로 시작하지 않고, 조건을 담는 분사 구문 위에 <strong>「우리가」(ἡμῶν)라는 1인칭 복수 대명사</strong>를 올려놓아 글을 쓰는 이와 읽는 이를 모두 그 한가운데 함께 세웁니다. 우리는 흔히 이 무서운 경고의 단락을 떠올릴 때, 그 자리에 <strong>나와는 상관없는 배교자나 믿음이 연약해 떠난 타인들</strong>을 세워 두고 나 자신은 안전한 관찰자의 자리에 머물곤 했습니다. 그러나 저자가 끝까지 내려놓지 않은 <strong>「우리」라는 대명사</strong>는, 진리를 아는 지식을 먼저 받은 바로 내가 이 말씀을 <strong>남을 정죄하는 잣대가 아니라 내 걸음을 살피는 경외의 거울</strong>로 받아야 함을 정직하게 묻습니다.</p>
+<h3>질문 2: 10:29에는 형벌의 크기를 적은 수가 하나도 없습니다. 저는 이 절을 읽으며 그 빈칸에 무엇을 채워 넣고 있었습니까.</h3>
+<p><strong>모범답안:</strong> 10:29은 저울을 들어 올리는 낱말인 <strong>「얼마나 더」(πόσῳ, 포소)</strong>로 물음을 세울 뿐, 그 형벌의 등급이나 기간, 구체적인 형태를 나타내는 <strong>어떠한 수치나 눈금도 본문에 적어 두지 않았습니다</strong>. 우리는 그 비어 있는 자리를 견디지 못해 내가 상상하는 <strong>가혹한 재앙이나 보복의 시나리오</strong>를 채워 넣어, 하나님의 경고를 공포로 사람을 움직이는 도구로 오해하곤 했습니다. 본문이 형벌의 크기를 숫자로 매기지 않고 비워 둔 이유는, 우리가 헤아려야 할 것이 벌의 양이 아니라 <strong>우리가 가볍게 여긴 은혜의 무게와 그 중심에 서 있는 이름 하나</strong>이기 때문입니다.</p>
+<h3>질문 3: 이 단락에서 그리스도를 이름으로 가리키는 자리는 하나이고, 그분은 주어가 아니라 밟히는 목적격에 놓입니다. 그 격이 이 경고를 읽는 제 자리를 어떻게 바꿉니까.</h3>
+<p><strong>모범답안:</strong> 이 단락에서 그리스도를 부르는 유일한 자리인 <strong>「하나님의 아들」(τὸν υἱὸν τοῦ θεοῦ, 톤 휘온 투 테우)</strong>은 심판의 칼을 휘두르는 주어가 아니라, 사람의 발에 <strong>짓밟히는 목적격 자리</strong>에 놓여 있습니다. 우리는 경고 본문을 읽을 때 흔히 위에서 진노를 쏟아붓는 심판주를 떠올리며 방어적인 두려움에 숨지만, 본문이 보여 주는 풍경은 <strong>우리를 거룩하게 하시려 흘리신 언약의 피와 아들의 인격이 우리 발아래 밟히고 있는 자리</strong>입니다. 그분이 <strong>밟히는 목적격</strong>에 서 계신다는 문법적 사실은, 이 단락의 경고가 냉혹한 법적 처벌의 통보가 아니라 <strong>짓밟힌 사랑의 아픔에서 터져 나오는 가장 무겁고도 애통한 호소</strong>임을 깨닫게 하여 우리의 마음을 돌이키게 합니다.</p>
+<h3>질문 4: 10:27의 「무서운」과 10:31의 「무서울진저」는 같은 낱말인데 꾸미는 대상이 다릅니다. 제가 「두렵다」는 한 낱말로 덮어 둔 서로 다른 자리에는 무엇이 있습니까.</h3>
+<p><strong>모범답안:</strong> 단락의 처음과 끝을 여닫는 <strong>「무서운」(φοβερά ↔ φοβερόν, 포베라/포베론)</strong>은 같은 낱말의 두 꼴이지만, 10:27에서는 심판을 향한 <strong>「기다림」</strong>을 꾸미고 10:31에서는 살아 계신 하나님의 손에 <strong>「빠져 들어가는 것」</strong>을 꾸밉니다. 우리는 이 두 자리를 막연한 '두려움'이라는 한 가지 감정으로 덮어 두기 쉬우나, 앞의 것이 <strong>속죄 제사를 저버린 채 홀로 마주해야 하는 막막한 기다림의 상태</strong>라면 뒤의 것은 <strong>살아 계신 인격적 하나님의 손과 정면으로 마주하는 엄위함</strong>입니다. 본문이 나누어 둔 두 자리를 구분해 읽을 때, 우리는 막연한 공포에서 벗어나 <strong>우리를 끝까지 인격적으로 상대하시는 살아 계신 하나님 앞의 거룩한 경외</strong>를 회복하게 됩니다.</p>
+<h3>질문 5: 마지막 절에는 문장을 세우는 동사가 없습니다. 본문이 동작을 완결하지 않고 멈춘 자리에서, 저는 무엇을 완결해 적고 싶어 했습니까.</h3>
+<p><strong>모범답안:</strong> 10:31의 「살아 계신 하나님의 손에 빠져 들어가는 것이 무서울진저」라는 문장에는 <strong>「~이다」라고 서술을 닫아 주는 정동사가 하나도 없이</strong> 형용사와 부정사구만 허공에 멈추어 서 있습니다. 우리는 이렇게 동작을 완결하지 않은 채 열린 문장을 마주할 때, 그 뒤에 <strong>'그러므로 반드시 멸망할 것이다'라는 판결문이나 '이렇게 행하면 피할 수 있다'는 처방전</strong>을 서둘러 덧붙여 문장을 닫고 싶어 합니다. 그러나 동사를 생략한 채 여백 속에 멈추어 선 본문은, 성급한 계산이나 자기 합리화를 멈추고 <strong>살아 계신 하나님의 손 앞에서 우리의 완고한 걸음을 조용히 멈추어 서라</strong>고 우리를 부르고 있습니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(20)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(22)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-22" data-index="22">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 22 편 (히브리서 10:32-39)</span>
+                <span>전날을 생각하라 — 당한 일과 함께한 일이 같은 칸에 적혀 있습니다</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[10:32-39] 함께 생각할 질문 모범답안</h1>
+<h2>전날을 생각하라 — 당한 일과 함께한 일이 같은 칸에 적혀 있습니다</h2>
+<h3>질문 1: 이 단락에서 시키는 꼴은 하나이고 그것은 회상입니다. 그 명령이 받는 것이 「고난」이 아니라 「그 날들」이라는 사실은, 내가 지난 날을 꺼내는 방식에서 무엇을 바꿉니까?</h3>
+<p><strong>모범답안:</strong> 10:32-39의 여덟 절 전체에서 유일한 명령형 동사인 <strong>「생각하라」(Ἀναμιμνῄσκεσθε, 아나밈네스케스테)</strong>가 직접 목적어로 받는 것은 '고난'이나 '상처'라는 단어가 아니라 <strong>「그 전날들」(τὰς πρότερον ἡμέρας)</strong>이라는 복수 명사입니다. 우리가 지난 세월을 돌아볼 때 겪었던 고통 자체만 목적어로 삼아 꺼내면, 회상은 쉽게 <strong>자기연민이나 아물지 않는 상처의 되새김질</strong>에 갇히고 맙니다. 그러나 빛을 받은 뒤 고난 한복판에서도 믿음으로 버텨 내고 지체들과 함께 울고 웃었던 <strong>「그 날들」 전체의 시간을 기억의 목적어</strong>로 삼을 때, 지난날은 아픔의 목록이 아니라 <strong>오늘의 흔들리는 걸음을 다시 붙들어 주는 은혜의 역사</strong>로 살아납니다.</p>
+<h3>질문 2: 10:33의 「환난」과 10:34의 「갇힌 자」가 같은 자리에 섭니다. 당한 일과 남을 돌본 일이 한 칸에 적혔다는 것은, 고난을 겪은 사람을 우리가 어떻게 기억해 왔는지에 대해 무엇을 묻습니까?</h3>
+<p><strong>모범답안:</strong> 원문에서 10:33의 <strong>「환난」(θλίψεσιν, 틀립세신)</strong>과 10:34의 <strong>「갇힌 자」(τοῖς δεσμίοις, 토이스 데스미오이스)</strong>는 똑같은 격과 복수 형태로 나란히 서되, 앞의 것은 <strong>당하는 꼴(수동 분사, θεατριζόμενοι)</strong>이 받고 뒤의 것은 <strong>「너희가 동정하였다」(συνεπαθήσατε)는 하는 꼴(능동 동사)</strong>이 받습니다. 우리는 고난을 통과한 이들을 기억할 때 흔히 그들을 <strong>무력하게 당하기만 한 피해자로만 가두거나, 반대로 아픔을 모르는 강한 구원자로만 미화</strong>하는 한쪽 시선에 머물곤 했습니다. 그러나 본문이 <strong>자신이 겪은 모욕과 갇힌 이웃을 향한 연대를 같은 자리에 나란히</strong> 적어 둔 것은, 자신도 환난을 당하면서 동시에 다른 이의 사슬에 함께 아파했던 <strong>성도들의 입체적인 품격과 따뜻한 온기</strong>를 있는 그대로 기억하라고 일깨웁니다.</p>
+<h3>질문 3: 본문은 그들을 그렇게 만든 이의 자리를 비워 두고, 그 이유도 적지 않았습니다. 그 빈칸을 채우지 않으면서 당한 일을 덮지도 않는 기억은 어떤 모습이겠습니까?</h3>
+<p><strong>모범답안:</strong> 10:33에서 비방과 환난으로 구경거리가 되게 한 일은 <strong>당하는 꼴(수동형 분사)</strong>로만 적혀 있을 뿐, <strong>누가 그들을 그렇게 만들었는지 가해자의 자리는 완전히 비어</strong> 있고 그 박해의 이유조차 적혀 있지 않습니다. 우리가 아픈 과거를 기억할 때 가해자의 이름과 원망의 이유를 끝없이 불러내면 분노에 삼켜지고, 반대로 아무 일도 없었던 듯 덮어 버리면 <strong>실제로 견뎌 낸 삶의 무게와 눈물</strong>까지 지워지고 맙니다. 본문처럼 <strong>가해자의 주어는 비워 둔 채 성도들이 견뎌 낸 인내와 서로를 향한 동정만을 또렷이 남기는 기억</strong>이야말로, 증오에 매이지 않으면서도 고난당한 이들의 존엄을 가장 귀하게 지키는 기억입니다.</p>
+<h3>질문 4: 10:34는 빼앗긴 것에 「그」를 둘 붙이고 남는 것에는 붙이지 않았습니다. 잃은 것이 또렷하고 남은 것이 흐린 자리에서, 본문이 그 기쁨에 붙여 둔 「있는 줄 앎」은 무엇을 하고 있습니까?</h3>
+<p><strong>모범답안:</strong> 10:34의 원문은 한 어근의 두 낱말을 쓰면서, 땅에서 빼앗긴 재산(<strong>ὑπαρχόντων, 휴파르콘톤</strong>) 앞에는 <strong>정관사(「그」)를 두 번이나 붙여</strong> 손에 잡히듯 구체적으로 가리키는 반면, 더 낫고 영구한 산업(<strong>ὕπαρξιν, 휴파르크신</strong>) 앞에는 <strong>관사를 붙이지 않은 채</strong> 열어 두었습니다. 우리의 일상도 이와 같아서, 당장 눈앞에서 잃어버린 손실은 <strong>「그것」이라 부를 만큼 선명하고 쓰라린데</strong>, 하나님 안에서 남을 소망은 아직 손에 잡히지 않아 막연해 보일 때가 많습니다. 바로 그 비대칭의 자리에서 본문이 세워 둔 <strong>「있는 줄을 앎이라」는 조용한 앎</strong>은, 눈에 보이는 상실의 또렷함에 압도되지 않고 <strong>아직 관사로 가둘 수 없는 더 크고 영원한 산업을 기쁨으로 버텨 내게 하는 믿음의 닻</strong>이 되어 줍니다.</p>
+<h3>질문 5: 조건은 인용 안에서 한 번 섰고, 누가 그에 해당하는가는 본문이 정해 주지 않았습니다. 그 바로 뒤에 「우리는 그쪽이 아니라」가 놓인 것은 그 조건을 어떻게 읽으라는 것입니까?</h3>
+<p><strong>모범답안:</strong> 10:38의 <strong>「만일 뒤로 물러가면」(ὑποστείληται, 휘포스테일레타이)</strong>이라는 조건절은 구약 인용문 안쪽에 한 번 등장하며, 본문은 그 자리에 특정 사람의 이름을 채워 넣지 않았습니다. 그리고 저자는 곧바로 마지막 절(10:39)에서 같은 어근의 명사(<strong>ὑποστολῆς, 휘포스톨레스</strong>)를 받아 <strong>「우리는 뒤로 물러가 멸망할 자가 아니요」</strong>라고 선언함으로, 흔들리던 공동체 전체를 구원의 편으로 끌어안습니다. 이는 인용문 속의 조건을 <strong>누가 탈락할지 색출하고 불안을 부추기는 판결문으로 읽지 말고</strong>, 오히려 우리가 서 있는 자리가 <strong>영혼을 구원함에 이르는 믿음의 자리임을 확인하고 다시 담대함을 입는 목회적 초대</strong>로 읽으라는 뜻입니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(21)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(23)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-23" data-index="23">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 23 편 (히브리서 11:1-7)</span>
+                <span>「아직」이 붙은 보지 못함 — 열린 안개와 때가 매겨진 안개</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[11:1-7] 함께 생각할 질문 모범답안</h1>
+<h2>「아직」이 붙은 보지 못함 — 열린 안개와 때가 매겨진 안개</h2>
+<h3>질문 1: 11:1과 11:7의 「보지 못하는」은 꼴이 같고, 11:7에 더해진 것은 「그」 하나와 「아직」 하나뿐입니다. 안개를 걷지 않으면서 앞과 뒤를 긋는 그 두 낱말은, 내가 지금 보지 못하는 일 하나에 무엇을 더해 주고 무엇을 끝까지 더해 주지 않습니까.</h3>
+<p><strong>모범답안:</strong> 11:1의 <strong>「보지 못하는 것들」(οὐ βλεπομένων)</strong>과 11:7의 <strong>「아직 보지 못하는 일들」(τῶν μηδέπω βλεπομένων)</strong>은 똑같은 수동 분사 꼴인데, 11:7에는 <strong>정관사 「그」와 부사 「아직」(μηδέπω, 메데포)</strong> 두 낱말만 더해져 있습니다. 이 두 낱말은 우리 눈앞의 안개를 당장 걷어 주거나, <strong>그 일이 이루어질 구체적인 날짜와 시점을 끝까지 더해 주지는 않습니다</strong>. 그러나 막연하게 열려 있던 보이지 않음을 하나님께서 말씀하신 <strong>지정된 「그」 일</strong>로 묶어 주고, 영원히 보이지 않을 것 같은 막막함을 <strong>언젠가 보게 될 날의 「전(아직)」이라는 시간의 자리</strong>로 바꾸어 오늘을 견디게 해 줍니다.</p>
+<h3>질문 2: 11:7에서 손이 움직이기 전에 받는 꼴이 둘 서 있습니다. 내가 이번 달에 서둘러 시작한 일 하나를 떠올려 보십시오. 그 일을 시작하게 한 「아직」은 받은 것입니까, 내가 매긴 것입니까. 날짜를 적고 싶었던 자리는 어디였습니까.</h3>
+<p><strong>모범답안:</strong> 11:7에서 노아가 방주를 <strong>「예비하여」</strong>라고 손을 움직이기 전에, 원문 앞머리에는 <strong>「경고하심을 받아」(χρηματισθείς, 크레마티스테이스)와 「경외함으로」(εὐλαβηθείς, 에울라베테이스)라는 두 개의 받는 꼴(수동형 분사)</strong>이 먼저 나란히 서 있습니다. 우리가 일상에서 조급하게 무언가를 벌일 때는 말씀의 경고를 받고 경외함에 붙들린 결과라기보다, <strong>내가 임의로 정해 놓은 마감 시한과 불안이 만들어 낸 「아직」</strong>에 쫓겨 서두를 때가 많습니다. 본문의 어순은 내 손으로 방주를 짓기 전에 먼저 <strong>주님의 말씀에 붙들리고 경외함으로 적셔지는 '받는 시간'</strong>이 선행되어야, 내가 날짜를 적고 싶었던 조급함의 자리를 비워 두고도 끝까지 순종할 수 있음을 보여 줍니다.</p>
+<h3>질문 3: 11:2는 여섯 낱말이고, 그 동사는 받는 꼴이며, 무엇이라 증거받았는지 담을 자리가 없습니다. 내가 그 빈자리에 무엇을 넣어 두고 살았는지 적어 보십시오.</h3>
+<p><strong>모범답안:</strong> 11:2는 원문으로 단 여섯 낱말뿐인 짧은 문장이며, 그 중심 동사인 <strong>「증거를 얻었느니라」(ἐμαρτυρήθησαν)는 받는 꼴(수동태)</strong>로만 적혀 있을 뿐, 선진들이 구체적으로 어떤 업적이나 칭호로 인정받았는지 담을 자리조차 없습니다. 우리는 흔히 믿음의 사람들을 떠올릴 때 그 비어 있는 자리에 <strong>눈부신 성공, 흠 없는 인격, 혹은 세상이 부러워할 만한 성취의 목록</strong>을 채워 넣고, 나 자신에게도 그런 성적표를 요구하며 지쳐 가곤 합니다. 그러나 본문이 무엇이라 증거받았는지 그 내용을 비워 둔 것은, 그들이 해낸 일의 크기가 아니라 <strong>그들이 믿음 안에 서 있었다는 그 한 가지 사실만으로 하나님께서 기꺼이 그들의 증인이 되어 주셨음</strong>을 드러내기 위함입니다.</p>
+<h3>질문 4: 11:5에서 그 이름이 임자로 선 동사는 셋 가운데 하나뿐이고 나머지 둘은 받는 꼴입니다. 지난주에 내가 임자 자리를 차지하려 한 일은 어느 것이었습니까.</h3>
+<p><strong>모범답안:</strong> 11:5에서 에녹의 삶을 적는 세 동사 가운데 에녹이 주어로 선 두 동사는 <strong>「옮겨졌다」와 「보이지 아니하였다」는 받는 꼴(수동태)</strong>이고, 능동형으로 일을 행한 유일한 동사 <strong>「옮기셨으니」의 임자(주어)는 오직 하나님</strong>이십니다. 삶이 죽음을 보지 않고 새로운 자리로 옮겨지는 일에서 사람의 자리는 처음부터 끝까지 <strong>하나님의 손길에 의해 들려 옮겨지는 받는 편</strong>이었으며, 에녹에게 남은 것은 옮겨지기 전에 하나님을 기쁘시게 하는 자라 <strong>증거를 받은 상태(완료 수동태)</strong>뿐이었습니다. 지난 한 주간 내 힘으로 막힌 상황과 사람을 바꾸어 보려고 <strong>하나님의 임자 자리를 대신 차지하려 했던 무거운 수고</strong>를 내려놓고, 나를 옮기시는 주님의 손에 내 삶의 주도권을 온전히 맡겨 드려야 합니다.</p>
+<h3>질문 5: 본문이 묶어 둔 것은 지은 물건이 아니라 그 지음이 덮은 집안이었습니다. 내 손이 움직이는 일 가운데, 그 움직임이 덮는 사람의 범위를 내가 한 번도 세어 보지 않은 일은 무엇입니까.</h3>
+<p><strong>모범답안:</strong> 11:7에서 노아가 방주를 예비한 동작이 향하는 목적은 거대한 구조물 자체를 완성하는 데 머물지 않고, <strong>「자기 집을 구원하기 위하여」</strong>라는 구절로 따뜻하게 묶여 있습니다. 우리는 매일 일터와 가정에서 손이 닳도록 무언가를 만들고 성취하려 애쓰지만, 정작 <strong>내 손의 움직임이 누구의 삶을 살리고 덮어 주는지 그 사람들의 얼굴과 범위</strong>를 세어 보지 못한 채 일의 결과물에만 매몰되곤 합니다. 본문은 믿음으로 움직이는 손길이 <strong>지은 물건의 크기를 자랑하는 데서 멈추지 않고, 내 곁에 맡겨진 한 집안과 생명을 살리고 품어 안는 자리</strong>로 이어져야 함을 조용히 일깨웁니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(22)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(24)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-24" data-index="24">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 24 편 (히브리서 11:8-22)</span>
+                <span>동사를 거느린 한 절 — 받지 못한 채 죽은 사람들 다음에 적힌 두 ...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[11:8-22] 함께 생각할 질문 모범답안</h1>
+<h2>동사를 거느린 한 절 — 받지 못한 채 죽은 사람들 다음에 적힌 두 동사</h2>
+<h3>질문 1: 이 단락에서 하나님의 이름은 네 번 주어 자리에 서지만 동사를 거느리는 것은 11:16 하나입니다. 지난주에 내가 「하나님이 하셨다」고 말한 문장 하나를 떠올려 보십시오. 그것은 하나님이 하신 일로 적힌 것이었습니까, 내가 생각한 것이었습니까.</h3>
+<p><strong>모범답안:</strong> 11:8-22에서 하나님의 이름이 주어 자리에 놓인 곳은 네 번이지만, 11:10과 11:19은 사람의 기다림과 헤아림 안쪽에 <strong>동사 없이 놓인 토막</strong>이고, 본문이 직접 하나님을 주어로 세워 정동사를 거느리게 한 곳은 <strong>11:16의 「부끄러워 아니하시고」(οὐκ ἐπαισχύνεται)와 「예비하셨느니라」(ἡτοίμασεν)</strong> 단 한 자리뿐입니다. 우리는 일상에서 내 기대대로 일이 풀리거나 내 판단이 맞았을 때 습관처럼 '하나님이 하셨다'고 말하지만, 실은 <strong>내가 바라고 생각한 바를 하나님의 일로 섣불리 단정한 것</strong>일 때가 적지 않습니다. 본문이 아껴 두었다가 마침내 꺼내 놓은 하나님의 유일한 직접 동사는, 땅에서 약속을 다 받지 못한 채 빈손으로 걸어가는 우리를 향해 <strong>「그들의 하나님이라 일컬음 받으심을 부끄러워하지 않으시고 한 성을 예비하셨다」</strong>는 은혜의 선언입니다.</p>
+<h3>질문 2: 11:19에서 하나님에 관한 가장 큰 말이 한 사람의 생각 안에 놓여 있습니다. 그 말을 「그는 그렇게 생각했다」로 말머리를 바꾸어 읽으면, 그 말의 무게는 줄어듭니까 다른 곳으로 옮겨집니까.</h3>
+<p><strong>모범답안:</strong> 11:19의 <strong>「하나님이 능히 죽은 자 가운데서 다시 살리실 줄로」(δυνατὸς ὁ θεός, 뒤나토스 호 테오스)</strong>라는 구절은 하늘에서 떨어진 해설이 아니라, 아브라함이 <strong>「생각한지라」(λογισάμενος)는 한 사람의 치열한 헤아림 안쪽</strong>에 동사도 없이 나란히 놓인 두 낱말입니다. 이 고백을 '그는 그렇게 생각했다'는 말머리에 실어 읽으면, 그 말씀의 무게가 가벼워지는 것이 아니라 오히려 <strong>하나님의 약속과 눈앞의 죽음 사이를 건너기 위해 한 사람이 감당해야 했던 고투의 자리</strong>로 그 무게가 고스란히 옮겨집니다. 교리적인 정답을 쉽게 외우는 것을 넘어, 도무지 길이 보이지 않는 현실 한복판에서 <strong>「능하신 하나님」이라는 두 낱말을 자기 생각의 결론으로 삼아 발을 내딛는 믿음</strong>이 얼마나 무겁고 귀한지를 보게 됩니다.</p>
+<h3>질문 3: 본문이 이 사람들을 한 번에 묶은 자리의 술어는 죽음과 받지 못함입니다. 내가 이 단락을 읽으며 묶고 싶었던 다른 끈이 있었다면 그것은 무엇이고, 그 끈으로 묶으면 11:13이 어디로 가게 됩니까.</h3>
+<p><strong>모범답안:</strong> 이 단락에서 족장들을 「이 사람들은 다」라고 한 번에 묶어 주는 유일한 자리인 11:13의 술어는, 놀랍게도 <strong>「믿음을 따라 죽었으며 약속을 받지 못하였으되」(τὰς ἐπαγγελίας, 타스 에팡겔리아스)</strong>라는 죽음과 미수령입니다. 우리는 믿음의 사람들을 한데 묶을 때 흔히 <strong>'결국에는 이 땅에서 복을 누리고 승리를 맛보았다'는 성취의 끈</strong>으로 묶고 싶어 하지만, 만약 그 끈으로 단락을 묶어 버리면 <strong>약속을 받지 못한 채 외국인과 나그네로 죽었다는 11:13의 증언은 설 자리</strong>를 잃고 지워집니다. 본문이 그들을 <strong>죽음과 받지 못함이라는 술어</strong>로 묶어 둔 덕분에, 오늘 아직 응답을 손에 쥐지 못한 채 걸어가는 우리의 미완의 삶도 <strong>믿음의 본류에서 조금도 밀려나지 않고 존귀한 자리</strong>를 얻습니다.</p>
+<h3>질문 4: 11:16에서 문장 맨 끝에 적힌 예비가 꼴로는 가장 먼저 끝나 있었습니다. 내가 지금 기다리고 있는 것 하나에 이 순서를 대어 보면, 무엇이 달라집니까.</h3>
+<p><strong>모범답안:</strong> 11:16의 문장 맨 끝에 놓인 <strong>「한 성을 예비하셨느니라」(ἡτοίμασεν, 헤토이마센)</strong>는 문장 어순으로는 가장 마지막에 나오지만, 동사의 꼴로는 <strong>이미 앞서 끝난 일(부정과거)</strong>을 적으며 앞선 현재형 동사(「부끄러워 아니하시고」)를 떠받치는 <strong>「왜냐하면」의 근거</strong>가 됩니다. 우리는 내가 먼저 나그네 길을 흔들림 없이 완주하고 사모함을 증명해야 비로소 하나님이 나중에 성을 지어 주실 것처럼 <strong>선후 관계를 거꾸로 생각하며 불안해</strong>하곤 합니다. 그러나 내가 지금 간절히 기다리며 버티고 있는 그 일에 본문의 시상을 대어 보면, 우리의 서툰 걸음이 시작되기도 전에 <strong>하나님의 예비하심이 이미 먼저 완결되어 서 있다는 사실</strong>이 오늘을 걸어가게 하는 가장 든든한 안식이 됩니다.</p>
+<h3>질문 5: 이 단락이 믿음을 적은 마지막 자리는 지팡이 머리와 해골입니다. 내 믿음이 지금 닿아 있는 몸이나 물건 하나를 이름으로 적을 수 있습니까.</h3>
+<p><strong>모범답안:</strong> 11:21-22에서 족장들의 믿음이 마지막으로 닿은 자리는 화려한 성전이나 기적의 현장이 아니라, 늙은 야곱이 몸을 의지해 경배한 <strong>「지팡이 머리」</strong>와 요셉이 떠나며 유언으로 남긴 자기 <strong>「해골(뼈)」</strong>이었습니다. 믿음은 허공을 떠다니는 추상적인 관념이 아니라, <strong>힘 빠진 노년의 몸을 지탱하는 낡은 지팡이 끝과 죽음 너머의 약속을 가리키는 뼈 조각</strong>처럼 가장 구체적이고 남루한 몸과 물건 위에 내려앉습니다. 오늘 내 믿음 역시 거창한 구호가 아니라, <strong>기도하며 짚고 일어난 책상 모서리, 지친 몸을 누이는 자리, 혹은 돌보아야 할 가족의 거친 손</strong>처럼 내가 지금 만지고 있는 가장 구체적인 삶의 자리에 닿아 있어야 합니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(23)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(25)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-25" data-index="25">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 25 편 (히브리서 11:23-31)</span>
+                <span>밝힌 자리는 밝힌 대로, 비운 자리는 비운 대로 — 본문이 손을 적은...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[11:23-31] 함께 생각할 질문 모범답안</h1>
+<h2>밝힌 자리는 밝힌 대로, 비운 자리는 비운 대로 — 본문이 손을 적은 자리와 적지 않은 자리</h2>
+<h3>질문 1: 첫 절은 숨긴 손을 밝혔고 11:30은 둘러싼 손을 적지 않았습니다. 같은 아홉 절 안에 그 두 자리가 나란히 있다는 사실은 읽는 사람에게 무엇을 요구합니까?</h3>
+<p><strong>모범답안:</strong> 11:23에서는 아기 모세가 <strong>「그 부모에 의하여」(ὑπὸ τῶν πατέρων αὐτοῦ) 숨겨졌다(ἐκρύβη)</strong>고 행한 손을 분명히 밝힌 반면, 11:30에서는 여리고 성이 <strong>「둘러싸인 뒤」(κυκλωθέντα) 무너졌다</strong>고만 적을 뿐 둘러싼 이의 손을 전혀 적지 않았습니다. 같은 아홉 절 안에서 한 곳은 받는 꼴 동사 뒤에 행위자를 밝히고 다른 곳은 그 자리를 비워 둔 것은, <strong>본문이 손을 적은 자리와 적지 않은 자리의 차이 자체로 말씀</strong>하고 있기 때문입니다. 이는 읽는 우리에게, 본문이 사람의 용기와 수고를 밝혀 둔 자리는 그 이름대로 귀히 여기고, <strong>본문이 행위자를 비워 둔 자리는 억지로 메우지 않은 채 그 여백 앞에 멈추어 서는 정직한 태도</strong>를 요구합니다.</p>
+<h3>질문 2: 11:30의 비어 있는 줄을 나는 그동안 무엇으로 메워 왔습니까 — 사람으로였습니까, 거룩한 이름으로였습니까?</h3>
+<p><strong>모범답안:</strong> 11:30의 원문은 여리고 성이 칠 일 동안 <strong>「둘러싸인 뒤」(κυκλωθέντα, 퀴클로텐타)</strong> 무너졌다고 받는 꼴(수동 분사)로만 적으며, 그 성을 돈 사람의 이름도, 성을 무너뜨린 거룩한 이름도 적지 않은 채 <strong>행위자의 줄을 비워 두었습니다</strong>. 우리는 이 가장 비어 있는 자리를 견디지 못해 <strong>'우리가 일곱 바퀴를 돌았기 때문에 무너졌다'며 사람의 행위와 공로를 집어넣거나</strong>, 반대로 본문이 아껴 둔 자리에 <strong>성급하게 하나님의 이름을 끌어다 붙여 우리의 종교적 공식을 정당화</strong>하곤 했습니다. 본문이 비워 둔 줄을 임의로 메우지 않고 그대로 마주할 때, 우리는 성을 무너뜨리는 비결을 소유하려는 욕심을 내려놓고 <strong>오직 믿음으로 일어난 사건 앞에 겸손히 서게</strong> 됩니다.</p>
+<h3>질문 3: 이 단락이 가장 길게 다룬 동사는 「거절하고」이고, 거절한 것은 그렇게 불리는 일을 받는 것이었습니다. 지금 내가 받고 있는 이름 가운데 본문이 말하는 그 거절이 닿는 자리가 있습니까?</h3>
+<p><strong>모범답안:</strong> 이 단락에서 세 절에 걸쳐 가장 멀리 뻗어 나가는 동사는 모세가 <strong>「거절하고」(ἠρνήσατο, 에르네사토)</strong>이며, 그가 거절한 대상은 어떤 대단한 과업이 아니라 바로 공주의 아들이라 <strong>「칭함을 받는 것」(λέγεσθαι, 레게스타이)</strong>이라는 수동형 부정사였습니다. 본문이 가장 길게 다룬 믿음의 동작이 무언가를 성취한 일이 아니라, <strong>세상이 부여하는 화려한 호칭과 특권의 자리를 사양한 일</strong>에 걸려 있다는 사실은 우리를 깊이 돌아보게 합니다. 오늘 내가 세상에서 안전과 인정을 보장받기 위해 달갑게 받아 쥐고 있는 호칭이나 지위 가운데, <strong>그리스도의 수모를 더 큰 재물로 여기기 위해 조용히 거절해야 할 이름</strong>은 무엇인지 묻게 됩니다.</p>
+<h3>질문 4: 11:26은 셈을 한 번의 판단으로 적고 바라봄을 이어지는 일로 적었습니다. 내가 한 번 바꾼 평가와 그 평가를 유지하는 일은 지금 어떻게 갈려 있습니까?</h3>
+<p><strong>모범답안:</strong> 11:26에서 그리스도를 위하여 받는 수모를 애굽의 모든 보화보다 더 큰 재물로 <strong>「여겼으니」(ἡγησάμενος, 헤게사메노스)는 한 번의 판단을 적는 매달린 꼴(부정과거 분사)</strong>인 반면, 상 주심을 <strong>「바라봄이라」(ἀπέβλεπεν, 아페블레펜)는 한 번으로 끝나지 않고 이어지는 상태를 가리키는 정동사(미완료 과거)</strong>로 적혀 있습니다. 우리는 은혜를 깨달은 어느 날 가치관의 저울을 한 번 바꾸어 셈을 마쳤다고 안심하지만, <strong>그 한 번의 판단이 날마다 시선을 고정하는 이어지는 바라봄</strong>으로 지탱되지 않으면 금세 눈앞의 보화 앞에 흔들리고 맙니다. 한 번 내린 믿음의 평가를 끝까지 유지하는 힘은 내 결심의 반복에 있지 않고, 오늘도 눈을 들어 <strong>상 주시는 이를 끊임없이 응시하는 지속적인 바라봄(ἀπέβλεπεν)</strong>에 있습니다.</p>
+<h3>질문 5: 라합에게 본문이 걸어 둔 동사는 부정형 하나였고, 두 무리를 가른 인과는 적히지 않았습니다. 그 비어 있는 자리를 비워 둔 채로 이 절을 다른 사람에게 전할 수 있습니까?</h3>
+<p><strong>모범답안:</strong> 11:31이 기생 라합에게 걸어 둔 중심 동사는 그가 무엇을 성취했다는 말이 아니라, 순종하지 아니한 자들과 <strong>「함께 멸망하지 아니하였도다」(οὐ συναπώλετο, 우 쉬나폴레토)라는 부정이 걸린 동사 하나</strong>이며, 두 무리를 가른 내밀한 인과나 도덕적 비교는 적혀 있지 않습니다. 우리는 이 절을 전할 때 흔히 라합의 남다른 통찰력이나 공로를 부풀려 <strong>'이렇게 행하면 살아남고 저렇게 행하면 망한다'는 인과응보의 설명</strong>으로 빈자리를 채우려 합니다. 그러나 본문이 남긴 여백 그대로, 정탐꾼을 평안히 영접한 작은 몸짓(<strong>δεξαμένη</strong>) 하나를 보시고 <strong>멸망의 자리에서 건져 주신 그 '면함'의 사실</strong>까지만 담백하게 전할 때, 이 말씀은 자격을 묻지 않고 살리시는 은혜의 소식이 됩니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(24)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(26)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-26" data-index="26">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 26 편 (히브리서 11:32-40)</span>
+                <span>다 받지 못하였습니다 — 이긴 사람과 당한 사람이 한 주어 아래 섭니...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[11:32-40] 함께 생각할 질문 모범답안</h1>
+<h2>다 받지 못하였습니다 — 이긴 사람과 당한 사람이 한 주어 아래 섭니다</h2>
+<h3>질문 1: 11:33부터 11:38까지가 받침말 하나에 걸린 한 호흡이고 주장은 11:39에서야 선다면, 이 장을 읽을 때 우리가 결론을 어디서 내려 왔는지 돌아보십시오. 열거에서 교훈을 뽑던 자리가 있었습니까.</h3>
+<p><strong>모범답안:</strong> 원문에서 11:33부터 11:38까지 이어지는 여섯 절의 동사 열여덟 개는 모두 11:33 첫머리의 받침말 <strong>「저희가」(οἳ, 호이) 하나에 매달린 긴 호흡</strong>일 뿐이며, 중심 문장에 홀로 서서 주장을 맺는 동사는 <strong>11:39의 「받지 못하였으니」(οὐκ ἐκομίσαντο)</strong>에 가서야 비로소 등장합니다. 그럼에도 우리는 원문에서 아직 문장이 닫히지 않은 승리와 고난의 열거 중간에서 서둘러 마침표를 찍고, <strong>'믿음이 있으면 사자의 입을 막는다'거나 '이렇게 고난을 견뎌야 한다'는 단편적인 교훈</strong>을 결론으로 뽑아내곤 했습니다. 앞의 긴 열거가 결론이 아니라 11:39의 한 문장을 향해 달려가는 수식절임을 보아 둘 때, 우리는 부분적인 성취나 고난의 일화에 머물지 않고 <strong>모두를 하나로 묶는 하나님의 더 큰 예비하심</strong> 앞에 서게 됩니다.</p>
+<h3>질문 2: 11:33의 「약속을 받기도 하며」와 11:39의 「약속을 받지 못하였으니」가 서로 다른 동사라면, 두 절을 함께 읽을 때 무엇이 달라집니까.</h3>
+<p><strong>모범답안:</strong> 우리말 번역에서는 두 자리가 똑같이 '약속을 받다'로 옮겨져 서로 부딪히는 것처럼 보이지만, 원문에서는 11:33의 <strong>「약속을 받기도 하며」(ἐπέτυχον)</strong>와 11:39의 <strong>「약속을 받지 못하였으니」(οὐκ ἐκομίσαντο, 우크 에코미산토)</strong>가 서로 다른 동사로 적혀 있습니다. 앞의 동사가 삶의 고비마다 하나님이 주시는 개별적인 응답과 도우심을 마주한 것을 가리킨다면, 중심 문장에 홀로 선 뒤의 동사는 <strong>하나님이 약속하신 궁극적인 완성의 실체를 아직 자기 품에 다 거두어들이지 못했음</strong>을 뜻합니다. 이 두 동사의 차이를 살려 함께 읽으면, 땅에서 놀라운 기도 응답을 경험한 사람이라 할지라도 <strong>최종적인 약속 앞에서는 고난당한 이들과 똑같이 아직 다 받지 못한 기다림의 자리</strong>에 서 있다는 사실이 선명해집니다.</p>
+<h3>질문 3: 본문이 두 묶음을 맞세우는 말을 쓰지 않았고 11:39의 「다」로 둘을 다시 묶었다는 사실은, 교회 안에서 「이긴 쪽」과 「당한 쪽」을 가르는 우리의 시선을 어떻게 바꿉니까.</h3>
+<p><strong>모범답안:</strong> 나라들을 이기고 죽은 자를 살려 받은 사람들의 묶음과 조롱과 채찍과 옥에 갇힘을 당한 사람들의 묶음 사이에는 서로를 맞세우는 대조어가 없으며, 11:35와 11:36에서 두 번 갈라졌던 무리는 11:39의 <strong>「이 사람들이 다」(πάντες, 판테스)라는 한 주어 아래</strong> 다시 하나로 묶입니다. 우리는 교회 안에서 문제가 해결되고 병이 나은 이들을 '믿음으로 이긴 쪽'이라 높이고, 오랜 고난과 결핍 속에 머문 이들을 '믿음이 부족해 당한 쪽'으로 은연중에 나누어 보곤 합니다. 그러나 본문이 두 묶음을 맞세우지 않고 <strong>정관사가 붙은 「그 믿음으로」(διὰ τῆς πίστεως) 증거를 받은 「다(πάντες)」라는 한 이름 아래 나란히 세운 것</strong>은, 기적을 맛본 삶이나 눈물로 버텨 낸 삶이나 하나님 앞에서는 <strong>조금도 차등이 없는 똑같은 믿음의 증인</strong>임을 선언합니다.</p>
+<h3>질문 4: 본문이 사람이 당한 일을 열한 번 적으면서 가한 자를 한 번도 적지 않았습니다. 당한 일을 들어야 하는 자리에서 이 침묵은 우리에게 무엇을 가르칩니까.</h3>
+<p><strong>모범답안:</strong> 11:35 하반절부터 11:38까지 성도들이 겪은 고문과 투옥, 돌로 침과 톱으로 켜임 등 <strong>열한 번에 걸쳐 사람이 당한 일이 적히지만, 본문은 그 폭력을 가한 자를 단 한 번도 문장에 올리지 않았습니다</strong>. 누군가의 억울한 고난과 상처를 듣는 자리에서 우리는 흔히 <strong>누가 그렇게 했는지 가해자를 추적하거나 왜 그런 일을 당했는지 원인을 분석하는 말</strong>로 고통받는 이의 자리를 어지럽히곤 합니다. 가해자에게는 단 한 줄의 자리도 내어 주지 않고 오직 <strong>고난을 견뎌 낸 성도들의 걸음과 세상이 감당하지 못했다는 평가만 남긴 본문의 침묵</strong>은, 아파하는 지체 곁에서 우리가 해야 할 일이 섣부른 원인 규명이 아니라 <strong>그들이 견뎌 낸 삶의 무게를 고스란히 들어 주고 존중하는 것</strong>임을 가르쳐 줍니다.</p>
+<h3>질문 5: 11:40은 11:39의 못 받음을 메우지 않고 그 옆에 놓입니다. 아직 받지 못한 사람 옆에 앉아야 할 때, 본문이 적은 세 가지(예비하신 분이 계시다 · 그 예비가 우리를 위한 것이다 · 온전해지는 일이 받는 꼴이다)까지만 말하고 멈추는 연습을 어떻게 할 수 있겠습니까.</h3>
+<p><strong>모범답안:</strong> 11:40은 앞 절의 <strong>「받지 못하였으니」(οὐκ ἐκομίσαντο)라는 결핍을 당장 지워 버리는 손쉬운 해답으로 덮지 않고</strong>, 그 못 받음 바로 옆에 조용히 나란히 놓입니다. 오랜 기도에도 응답을 손에 쥐지 못해 아파하는 사람 옆에 앉아야 할 때, 우리는 '곧 다 해결될 것이다'라는 성급한 장담으로 그 빈자리를 메우려 하지 말고, 본문이 적은 세 가지 사실, 곧 <strong>더 좋은 것을 내다보시고 예비하신 하나님이 계시다는 것</strong>, <strong>그 예비하심이 우리를 위한 것이라는 사실</strong>, 그리고 <strong>우리와 함께 온전함을 입는 일(τελειωθῶσιν)이 우리의 성취가 아니라 은혜로 받는 꼴(수동태)이라는 소망</strong>까지만 건네고 멈출 줄 알아야 합니다. 우리가 섣부른 설명을 멈추고 본문이 선 자리에서 함께 멈추어 설 때, 아직 받지 못한 아픔과 이미 예비하신 하나님의 은혜가 <strong>서로 없이는 온전해지지 않는 공동체의 기다림</strong> 안에서 하나로 만납니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(25)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(27)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-27" data-index="27">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 27 편 (히브리서 12:1-3)</span>
+                <span>인내와 참으심은 한 뿌리입니다 — 먼저 참으신 분을 보라는 세 절</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[12:1-3] 함께 생각할 질문 모범답안</h1>
+<h2>인내와 참으심은 한 뿌리입니다 — 먼저 참으신 분을 보라는 세 절</h2>
+<h3>질문 1: 이 세 절에서 우리에게 권하는 동작은 하나이고 명령도 하나입니다. 달리는 일과 생각하는 일입니다. 내가 이 단락에서 받아 온 요구는 그 둘보다 많았습니까, 적었습니까.</h3>
+<p><strong>모범답안:</strong> 우리는 흔히 이 본문을 읽으며 무거운 것도 벗어야 하고, 죄도 끊어야 하고, 믿음도 키워야 하고, 절대 지치지도 말아야 한다는 <strong>수많은 당위의 목록</strong>으로 스스로를 몰아세우곤 합니다. 그러나 원문의 문법이 우리에게 건네는 본줄기의 요구는 오직 <strong>‘달리자’는 청유 하나</strong>와 <strong>‘생각하라(헤아려 보라)’는 명령 하나</strong>뿐이며, 나머지 동작들은 모두 달리는 걸음에 딸린 분사로 놓여 있습니다. 본문이 부과하지도 않은 무거운 짐들을 내려놓고, 오늘 우리 앞에 놓인 경주를 걸어가며 <strong>먼저 그 길을 달려가신 예수님을 깊이 생각하는 일</strong>에만 마음을 모을 때 비로소 신앙의 호흡이 가벼워집니다.</p>
+<h3>질문 2: 12:1의 「인내」와 12:2의 「참으사」와 12:3의 「참으신」이 한 뿌리의 낱말이라는 것을 알고 다시 읽으면, 「인내로써 달리자」는 말이 전과 다르게 들립니까. 무엇이 달라집니까.</h3>
+<p><strong>모범답안:</strong> 우리말 성경에서는 ‘인내’와 ‘참으심’으로 글자가 갈라져 있지만, 원문에서는 12:1의 <strong>‘인내(휘포모네스, 명사)’</strong>와 12:2의 <strong>‘참으사(휘페메이넨, 부정과거 동사)’</strong>, 그리고 12:3의 <strong>‘참으신(휘포메메네코타, 완료 분사)’</strong>이 모두 한 뿌리에서 나온 한 줄기의 낱말입니다. 이 사실을 알고 다시 읽으면 ‘인내로써 달리자’는 권면은 내 바닥난 의지력을 쥐어짜서 홀로 버티라는 다그침으로 들리지 않습니다. 그 말은 <strong>이미 십자가를 참으사(과거 사건) 지금도 끝까지 참으신 분으로 서 계신(완료 상태) 예수님의 그 인내</strong>에 내 발걸음을 포개어 달리라는 따뜻한 초대로 새롭게 들립니다.</p>
+<h3>질문 3: 본문은 십자가를 한 마디로 적고 지나가면서, 그 자리에 묘사 대신 세 가지를 적었습니다. 앞에 있는 즐거움, 부끄러움을 개의치 않으심, 그리고 보좌 우편입니다. 이 셋 가운데 내가 가장 적게 생각해 본 것은 무엇입니까.</h3>
+<p><strong>모범답안:</strong> 본문은 십자가의 처절한 고통을 길게 묘사하는 대신, 주님께서 <strong>그 앞에 있는 즐거움(프로케이메네스 카라스)</strong>을 보셨다는 것과 부끄러움을 개의치 않으셨다는 것, 그리고 <strong>하나님 보좌 우편에 앉으셨다(케카티켄, 완료형)</strong>는 세 가지 사실을 또렷이 적습니다. 우리는 고난의 한복판을 지날 때 아픔의 크기와 억울함은 수도 없이 곱씹으면서도, 정작 주님 앞에 놓여 있던 구원의 즐거움과 <strong>이미 이루어져 지금도 흔들리지 않는 보좌 우편의 완료된 자리</strong>는 가장 적게 생각하곤 합니다. 고통의 세부 묘사 대신 주님이 지금 앉아 계신 보좌 우편의 자리를 바라볼 때, 오늘 내가 겪는 수치는 더 이상 내 삶을 규정하는 마지막 문장이 되지 못합니다.</p>
+<h3>질문 4: 이 세 절에는 앞으로 될 일을 가리키는 꼴이 하나도 없고, 앞을 내다보는 한 자리에 적힌 것은 피할 일입니다. 나는 무엇을 근거로 버티고 있습니까. 앞에 걸어 둔 무엇입니까, 이미 끝난 한 자리입니까.</h3>
+<p><strong>모범답안:</strong> 놀랍게도 이 세 절에는 <strong>미래 시제 동사가 단 하나도 없으며</strong>, 앞을 내다보는 유일한 구절조차 ‘피곤하여 낙심하지 않기 위하여’라는 피할 일로만 적혀 있습니다. 우리는 흔히 ‘조금만 더 참으면 앞으로 좋은 날이 오겠지’라는 <strong>불확실한 미래의 기대</strong>를 걸어 두고 위태롭게 버티지만, 그 기대가 어긋날 때마다 쉽게 무너지고 맙니다. 히브리서가 우리에게 건네는 버팀의 근거는 아직 오지 않은 내일의 보상이 아니라, 주님께서 <strong>이미 십자가를 참으시고 보좌 우편에 앉아 계신 ‘이미 끝난 한 자리(완료형)’</strong>입니다.</p>
+<h3>질문 5: 12:3은 영혼이 피곤해서 힘이 빠지는 사람을 마주 보고 「생각하라」고 합니다. 내 주변에 지금 그 자리에 있는 한 사람이 떠오릅니까. 그 사람에게 내가 하려던 말은 「더 버티라」였습니까, 「이 이름이 누구의 것인지 보라」였습니까.</h3>
+<p><strong>모범답안:</strong> 12:3은 우리말 번역에서 생략된 <strong>‘너희 영혼에(타이스 프쉬카이스 휘몬)’</strong>라는 말을 덧붙여, 지금 마음이 지치고 풀이 죽어 주저앉기 직전인 사람을 정면으로 마주 봅니다. 그렇게 기력이 다한 사람에게 본문은 ‘조금만 더 참고 버텨라’라고 채찍질하지 않고, 오직 <strong>‘생각하라(헤아려 보라)’는 한 가지 명령</strong>으로 그의 시선을 돌려줍니다. 내 곁의 지친 이에게 필요한 위로 또한 ‘더 인내하라’는 무거운 요구가 아니라, <strong>‘인내’라는 이름이 우리에게 요구되기 전에 먼저 ‘참으신 분(휘포메메네코타)’이 되신 예수님의 것</strong>임을 조용히 가리켜 보여 주는 일입니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(26)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(28)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-28" data-index="28">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 28 편 (히브리서 12:4-11)</span>
+                <span>지금은 슬픔이라 부른다 — 열매의 때를 뒤에 둔 한 절</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[12:4-11] 함께 생각할 질문 모범답안</h1>
+<h2>지금은 슬픔이라 부른다 — 열매의 때를 뒤에 둔 한 절</h2>
+<h3>질문 1: 12:7 한 절에 문장을 세우는 동사가 셋이고 주어가 셋입니다. 그 셋을 하나로 합쳐 읽으면 본문에 없는 문장이 생깁니다. 나는 그동안 이 절을 어떻게 읽어 왔습니까?</h3>
+<p><strong>모범답안:</strong> 12:7 원문에는 ‘너희가 인내를 위하여 견딘다’, <strong>‘하나님이 아들과 같이 너희에게 대우하신다(프로스페레타이, 받는 꼴)’</strong>, ‘어찌 아비가 징계하지 않는 아들이 있으리요’라는 <strong>세 개의 독립된 주어와 동사</strong>가 나란히 서 있습니다. 우리는 그동안 이 세 문장을 하나로 뭉뚱그려 ‘하나님이 나를 교육하시려고 이 고통과 불행을 직접 만들어 보내셨다’는 <strong>본문에 없는 가혹한 인과율</strong>로 읽어 오곤 했습니다. 세 문장을 합치지 않고 본문의 결대로 분리해 읽으면, 내가 지금 눈물로 견디는 자리 한가운데서도 <strong>하나님은 나를 버린 자가 아니라 친아들과 같이 대우하고 계신다</strong>는 따뜻한 동행의 선언만 선명히 남습니다.</p>
+<h3>질문 2: 12:11은 열매를 말하기 전에 「즐거워 보이지 않고 슬퍼 보이나」를 먼저 적습니다. 이 순서가 지금 아픈 사람에게 무엇을 줍니까? 순서를 뒤집으면 그 사람의 자리는 어떻게 됩니까?</h3>
+<p><strong>모범답안:</strong> 12:11은 열매를 말하기 전에 먼저 <strong>‘즐거움의 것(카라스)’을 강하게 부정하고 ‘오히려 슬픔의 것(뤼페스)’을 그대로 인정</strong>한 뒤에야, 때를 하나 뒤로 물리는 <strong>‘후에(휘스테론)’</strong>라는 낱말을 세워 둡니다. 이 순서는 지금 아픈 사람에게 자신의 고통을 억지로 미화하거나 감추지 않고 <strong>‘지금은 참으로 슬프다’고 정직하게 울 수 있는 안전한 자리</strong>를 허락해 줍니다. 만약 이 순서를 뒤집어 아픔의 한복판에 있는 이에게 열매와 감사부터 다그친다면, 슬픔을 겪는 사람은 아픔에 더해 믿음이 부족하다는 자책까지 떠안는 잔인한 자리에 내몰리게 됩니다.</p>
+<h3>질문 3: 12:11에 「만일」이라는 말이 없고, 열매를 받는 쪽은 「그것을 지나온 이들」로 적혀 있습니다. 이것은 「잘 견디면 열매를 받는다」는 가르침과 어디서 부딪힙니까?</h3>
+<p><strong>모범답안:</strong> 흔히 듣는 ‘고난을 훌륭하게 잘 견뎌야만 열매를 받는다’는 가르침은 고통의 시간을 시험장으로 만들고 열매를 내 수행 능력의 대가로 바꿉니다. 그러나 12:11에는 <strong>‘만일’이라는 조건문이 전혀 없으며</strong>, 열매를 받는 이들을 가리키는 <strong>‘연단한 자(게귐나스메노이스)’</strong> 역시 원문에서는 무엇을 능동적으로 해낸 우등생이 아니라 <strong>‘이미 그 시간을 통과하여 지나온 이들(완료 수동 분사)’</strong>로 적혀 있습니다. 의와 평강의 열매는 고난 중에도 흔들리지 않은 완벽한 성취자에게 주어지는 상장이 아니라, <strong>슬픔의 터널을 온몸으로 지나온 이들에게 ‘후에’ 찾아오는 하나님의 선물</strong>입니다.</p>
+<h3>질문 4: 12:10은 사람 아비 쪽에 「잠시」와 「자기의 뜻대로」를 붙입니다. 내가 누군가를 기르는 자리에서 그 두 한정이 붙는 일 하나를 꼽을 수 있습니까?</h3>
+<p><strong>모범답안:</strong> 본문은 육신의 아버지나 스승이 베푸는 가르침에 <strong>‘잠시(며칠 동안)’</strong>라는 시간의 한계와 <strong>‘자기의 뜻대로(자기 눈에 좋아 보이는 대로)’</strong>라는 시야의 한계를 분명하게 못 박아 둡니다. 가정에서 자녀를 기르거나 공동체에서 누군가를 돌볼 때, 우리는 내 불안이나 내 좁은 기준을 마치 절대적인 진리인 양 상대에게 강요하며 상처를 주곤 합니다. 내가 할 수 있는 훈육과 조언은 언제나 <strong>잠시뿐이고 내 불완전한 소견에 갇혀 있음</strong>을 겸손히 인정할 때, 비로소 오직 <strong>우리의 유익을 위하여 그의 거룩하심에 참여하게 하시는 하나님</strong>께 사람을 맡겨 드릴 수 있습니다.</p>
+<h3>질문 5: 12:8은 아들의 자리를 동작이 아니라 「…이다」로 서술합니다. 내가 내 자리를 내가 해낸 일로 적으려 했던 자리는 어디였습니까?</h3>
+<p><strong>모범답안:</strong> 12:8은 아들의 신분을 어떤 성취 동사로 증명하지 않고, 오직 <strong>‘…이다(에스테, 현재 직설법)’라는 존재의 동사</strong>로만 담담하게 서술합니다. 우리는 일터와 가정, 심지어 신앙의 자리에서조차 내가 이뤄낸 성과나 흔들리지 않는 경건의 실적으로 <strong>내 아들의 자리를 스스로 입증하려 애쓰며</strong> 늘 불안해하곤 합니다. 그러나 하나님 앞에서 우리의 자리는 내가 해낸 일의 목록으로 쓰이는 것이 아니라, 고난 속에서도 나를 아들로 대우하시는 <strong>하나님의 부르심 안에서 이미 ‘아들이다’라고 선언된 존재의 자리</strong>입니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(27)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(29)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-29" data-index="29">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 29 편 (히브리서 12:12-17)</span>
+                <span>아직 일어서지 못한 손과 무릎에 — 부름은 판정 뒤에 오지 않습니다</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[12:12-17] 함께 생각할 질문 모범답안</h1>
+<h2>아직 일어서지 못한 손과 무릎에 — 부름은 판정 뒤에 오지 않습니다</h2>
+<h3>질문 1: 12:12은 손과 무릎에 주인을 적지 않았고 12:13은 「너희 발」이라고 주인을 적었습니다. 이 차이는 명령이 겨누는 대상을 어떻게 바꿉니까?</h3>
+<p><strong>모범답안:</strong> 12:12은 <strong>‘이미 늘어져 버린 손(파레이메나스)’과 ‘이미 풀려 버린 무릎(파랄렐뤼메나)’</strong>에 누구의 것이라는 소유격을 전혀 붙이지 않은 채 2인칭 복수 명령인 <strong>‘일으켜 세우라(아노르토사테)’</strong>를 던지고, 이어지는 12:13에 와서야 <strong>‘너희 발(토이스 포신 휘몬)’</strong>이라고 주인을 명시합니다. 만약 손과 무릎에 ‘너희 각자의’라는 주인이 적혀 있었다면 이는 지친 사람더러 알아서 자력으로 일어서라는 각자도생의 다그침이 되었을 것입니다. 본문이 손과 무릎의 주인을 비워 둔 것은, 아직 걸을 힘이 남아 있는 <strong>‘너희 발’을 가진 공동체 전체가 주저앉아 있는 지체의 늘어진 손과 무릎을 함께 붙들어 일으키고 곧은 길을 내어 주라</strong>는 연대의 부름이기 때문입니다.</p>
+<h3>질문 2: 본문은 손이 왜 그렇게 되었는지 적지 않았습니다. 내가 누군가를 도우려 할 때 원인을 먼저 알고 싶어지는 마음은 어디서 옵니까?</h3>
+<p><strong>모범답안:</strong> 손과 무릎을 수식하는 두 완료 수동 분사는 <strong>이미 그렇게 주저앉아 그대로 남아 있는 상태</strong>만 보여 줄 뿐, 도대체 무슨 잘못이나 나태함 때문에 그렇게 되었는지 <strong>원인을 적는 칸을 완전히 비워 두었습니다</strong>. 우리가 지친 사람을 도우려 할 때 자꾸만 원인부터 따지고 싶어지는 마음은, 실상 상대가 내 도움을 받을 만한 자격이 있는지 심판하고 내 책임을 덜어내려는 <strong>방어적인 계산</strong>에서 비롯되곤 합니다. 본문의 부름은 <strong>판정 뒤에 오지 않고 이미 주저앉아 있는 그 아픈 상태 자체로 곧장 다가가는 은혜의 시선</strong>을 우리에게 가르쳐 줍니다.</p>
+<h3>질문 3: 사람에게 걸린 동작은 일으키는 일과 길을 곧게 하는 일 둘이고, 고침을 쓰는 칸은 비어 있습니다. 내가 그 빈칸에 나도 모르게 적어 넣은 말이 있습니까?</h3>
+<p><strong>모범답안:</strong> 12:12-13에서 공동체에게 맡겨진 동작은 <strong>‘일으켜 세우는 일’과 ‘곧은 길을 만드는 일’</strong> 두 가지뿐이며, 마지막 목적절의 <strong>‘고침을 받게 하라(이아테, 수동태)’</strong>에는 누가 고치는지 주어가 비어 있습니다. 우리는 누군가를 돕는다고 하면서 나도 모르게 그 빈칸에 ‘내 명쾌한 조언’, ‘내 열심’, 혹은 ‘내가 저 사람을 고쳐 놓겠다’는 <strong>교만한 주어</strong>를 적어 넣어 상대를 더 어그러뜨리곤 합니다. 우리가 할 일은 다리를 저는 지체가 걸려 넘어지지 않도록 <strong>묵묵히 곁을 지키며 평탄한 길을 내어 주는 것</strong>까지이고, <strong>고치시는 일의 빈칸은 오직 하나님께 남겨 두어야</strong> 합니다.</p>
+<h3>질문 4: 「이것이 없이는」의 「이것」이 거룩함이라면, 같은 명령의 목적어인 화평과 그 거룩함은 이 절에서 어떤 관계로 놓여 있습니까?</h3>
+<p><strong>모범답안:</strong> 12:14의 원문에서 <strong>‘이것이 없이는(후)’</strong>이라는 남성 관계대명사는 문법적 성이 같은 남성 명사 <strong>‘그 거룩함(톤 하기아스몬)’</strong>을 가리키며, 이 거룩함은 여성 명사인 ‘화평’과 함께 <strong>‘따르라(디오케테)’는 단 하나의 명령</strong>에 나란히 묶여 있습니다. 우리는 종종 거룩함을 지키겠다며 타인을 정죄하고 불화하거나, 반대로 화평을 핑계로 거룩함을 타협하며 두 낱말을 갈라놓곤 합니다. 그러나 본문이 두 목적어를 한 동사에 묶어 둔 까닭은, 주님을 뵙게 하는 참된 <strong>거룩함이란 골방에서 홀로 닦는 독선이 아니라 ‘모든 사람과 더불어 화평함을 따르는’ 바로 그 관계의 자리 한복판에서 빚어지는 삶</strong>이기 때문입니다.</p>
+<h3>질문 5: 12:17은 그가 받으려 한 축복과 찾지 못한 자리까지 적고 멈춥니다. 본문이 적지 않은 것을 내가 적어 넣고 싶어지는 자리는 어디입니까?</h3>
+<p><strong>모범답안:</strong> 12:17은 에서가 눈물을 흘리며 구했으나 <strong>‘회개의 자리(토폰, 곳·기회)를 찾지 못하였다’</strong>는 사실까지만 정확히 기록하고, 그의 영원한 운명에 대한 추측이나 저주의 말을 덧붙이지 않은 채 문장을 멈춥니다. 우리는 이런 엄숙한 본문을 마주할 때 본문이 멈춘 경계선을 넘어, 실패한 누군가를 향해 <strong>‘더 이상 가망이 없다’는 최종 판결문</strong>을 적어 넣거나 반대로 막연한 공포에 사로잡히고 싶어집니다. 본문이 적지 않은 여백을 억지로 채우는 대신, <strong>돌이킬 수 있는 ‘오늘’이라는 은혜의 자리가 아직 우리 앞에 열려 있음</strong>을 감사하며 서로를 돌아보는 일에 머물러야 합니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(28)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(30)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-30" data-index="30">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 30 편 (히브리서 12:18-24)</span>
+                <span>너희는 이미 이르렀다 — 두 번 선 같은 동사, 그리고 여덟 항의 명...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[12:18-24] 함께 생각할 질문 모범답안</h1>
+<h2>너희는 이미 이르렀다 — 두 번 선 같은 동사, 그리고 여덟 항의 명단</h2>
+<h3>질문 1: 12:18과 12:22의 동사는 꼴이 하나도 다르지 않습니다. 나는 그 둘을 「전과 후」로만 읽어 왔습니까, 아니면 「아니다」와 「그러나」로 읽어 왔습니까.</h3>
+<p><strong>모범답안:</strong> 12:18과 12:22의 기둥을 이루는 동사는 둘 다 <strong>‘프로셀렐뤼타테(너희가 이미 이르러 서 있다)’</strong>라는 <strong>완전히 동일한 완료 능동 직설법</strong>이며, 두 절을 가르는 것은 시제의 변화가 아니라 <strong>‘아니다(우)’와 ‘그러나(알라)’</strong>라는 대조의 접속사입니다. 우리는 이 본문을 흔히 ‘구약 백성은 시내산에 갔고 신약의 우리는 앞으로 시온산에 갈 것이다’라는 막연한 전후 이야기로 읽으며 현재의 감격을 놓치곤 합니다. 본문은 우리에게 시온산을 향해 열심히 기어 올라가라고 명하는 것이 아니라, <strong>‘너희는 두려움의 자리에 이른 것이 아니다, 그러나 이미 시온산과 살아 계신 하나님의 도성에 이르러 서 있다’</strong>고 우리의 현재 위치를 선포합니다.</p>
+<h3>질문 2: 이 일곱 절에 명하는 꼴이 하나도 없습니다. 그런데도 내가 이 본문에서 가장 먼저 찾던 것은 무엇이었습니까.</h3>
+<p><strong>모범답안:</strong> 12:18부터 12:24에 이르는 일곱 절 전체에는 <strong>명령형 동사가 단 하나도 없으며</strong>, 오직 우리가 이미 도착해 서 있는 은혜의 자리를 나열하는 <strong>서술문</strong>만 펼쳐져 있습니다. 그럼에도 우리의 오랜 종교적 습관은 이 찬란한 본문 앞에서조차 ‘그래서 내가 무엇을 더 지켜야 이 도성에 들어갈 자격이 생기는가’라는 <strong>수행 과제와 조건</strong>을 가장 먼저 찾으려 합니다. 아무것도 명하지 않는 이 일곱 절 앞에서 우리가 먼저 해야 할 일은 분주한 결심이 아니라, <strong>하나님께서 내 공로 없이 이미 나를 데려다 놓으신 완료형의 자리</strong>를 있는 그대로 누리고 안식하는 것입니다.</p>
+<h3>질문 3: 「곳」이라는 말을 빼고 여덟 항을 읽으면 대부분이 만나는 이들입니다. 내가 이미 이른 자리를 나는 주소로 말해 왔습니까, 곁에 있는 이들로 말해 왔습니까.</h3>
+<p><strong>모범답안:</strong> 우리말 성경은 12:22-24에 ‘곳’이라는 말을 거듭 보태어 마치 공간적 배경처럼 읽히게 하지만, 원문에서 그 말들을 걷어내고 여덟 항목을 읽으면 <strong>천만 천사, 장자들의 모임, 심판자이신 하나님, 온전하게 된 의인의 영들, 그리고 새 언약의 중보자이신 예수</strong>까지 대부분이 <strong>우리가 이르러 만나는 인격들</strong>입니다. 우리는 구원과 교회를 흔히 내가 속한 교리적 <strong>‘주소’나 제도적 공간</strong>으로만 말하곤 하지만, 본문이 그려 보이는 시온산은 차가운 건물이 아니라 <strong>살아 있는 만남의 명단</strong>입니다. 내가 이미 이른 복음의 자리는 홀로 버티는 외딴섬이 아니라, <strong>나를 먼저 맞아 주시는 중보자 예수님과 수많은 하늘의 증인들, 그리고 곁에 있는 지체들과 함께 숨 쉬는 자리</strong>입니다.</p>
+<h3>질문 4: 그 명단 안에 모두를 심판하시는 자리가 들어 있습니다. 그것이 겁이 아니라 이미 이른 자리의 한 칸으로 적혀 있다는 것은 나에게 무엇을 바꿉니까.</h3>
+<p><strong>모범답안:</strong> 12:23은 천사들의 축제 모임과 새 언약의 중보자 예수님 사이에 <strong>‘모든 사람의 심판자이신 하나님’</strong>을 나란히 배치하며, 그 자리 역시 <strong>‘너희가 이미 이르렀다’는 동일한 완료형 동사</strong> 아래 묶어 둡니다. 만약 심판자 하나님이 12:18의 두려운 산에 남겨져 있었다면 그 이름은 우리를 떨게 하는 공포였겠지만, 시온산의 은혜 목록 한복판에 놓여 있기에 그 의미가 완전히 달라집니다. <strong>중보자 예수님의 피가 뿌려진 자리에서 만나는 심판자 하나님</strong>은 나를 탈락시키려는 무서운 감시자가 아니라, <strong>세상의 모든 불의와 내 삶의 억울함을 가장 공의롭게 풀어 주시고 나를 최종적으로 변호해 주시는 가장 든든한 피난처</strong>입니다.</p>
+<h3>질문 5: 떨림을 적은 낱말 둘이 전하던 사람에게 걸렸습니다. 나는 그 떨림을 벗어야 할 단계로 숨겨 왔습니까, 그대로 들고 왔습니까.</h3>
+<p><strong>모범답안:</strong> 12:21에 나오는 두려움의 세 낱말 가운데 중성 분사 하나는 ‘그 보이는 바’에 걸리지만, 남성 형용사 둘인 <strong>‘에크포보스(심히 두렵고)’와 ‘엔트로모스(떨린다)’</strong>는 말씀을 전하던 사람인 <strong>모세 자신</strong>에게 직접 걸려 있습니다. 말씀을 대언하던 모세조차 자신의 두려움과 떨림을 감추지 않고 그대로 고백했다는 사실은, 직분자나 오래 믿은 성도라는 이유로 <strong>내면의 떨림을 미성숙한 단계로 여겨 숨겨 온 우리의 가면</strong>을 내려놓게 합니다. 본문은 우리의 떨림을 다그쳐 지우는 대신, <strong>두렵고 떨린다 고백할 수밖에 없는 우리의 연약한 자리 한복판에 ‘새 언약의 중보자이신 예수(메시테 이에수)’를 세워 주심</strong>으로 참된 평안을 허락합니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(29)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(31)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-31" data-index="31">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 31 편 (히브리서 12:25-29)</span>
+                <span>받은 것과 만든 것 — 「그러므로」가 받아 세운 한 가지 청함과 그 ...</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[12:25-29] 함께 생각할 질문 모범답안</h1>
+<h2>받은 것과 만든 것 — 「그러므로」가 받아 세운 한 가지 청함과 그 까닭</h2>
+<h3>질문 1: 이 단락의 명령은 「보라」이고, 「거역하지 말라」는 그 명령에 딸린 절에 있습니다. 나는 이 구절을 금지로 먼저 기억했습니까, 보라는 명령으로 기억했습니까. 그 차이가 읽기를 어떻게 바꿉니까.</h3>
+<p><strong>모범답안:</strong> 12:25의 본줄기를 세우는 주동사는 <strong>‘보라(블레페테, 살피라)’는 명령</strong>이고, 우리가 흔히 두려움으로 기억하는 ‘거역하지 말라(물리치지 말라)’는 그 명령에 매달린 종속절입니다. 이 구절을 ‘거역하지 말라’는 <strong>금지 명령으로만 먼저 기억</strong>하면, 말씀 앞에 설 때마다 혹시 내가 잘못해서 벌을 받지는 않을까 하는 위축과 불안에 갇히게 됩니다. 그러나 원문의 첫머리대로 <strong>‘보라’는 시선의 명령을 앞세워 읽으면</strong>, 두려운 금지에 눌리는 대신 <strong>지금도 하늘로부터 우리에게 다정하고도 엄위하게 말씀하시는 분의 얼굴을 똑바로 마주 보는 경청의 자리</strong>로 나아가게 됩니다.</p>
+<h3>질문 2: 12:25에서 비교의 무게가 걸리는 쪽은 「저희」가 아니라 「우리」이고, 우리 쪽 결말은 문장으로 적혀 있지 않습니다. 이 구절을 들을 때 내 시선은 어느 쪽을 향하고 있었습니까.</h3>
+<p><strong>모범답안:</strong> 12:25의 비교 구문에서 ‘더욱(폴로 말론)’이라는 무게중심은 땅에서 거역하던 ‘저희’가 아니라 <strong>‘하물며 우리일까보냐(헤메이스)’</strong>라는 <strong>‘우리’</strong> 쪽에 걸려 있으며, 정작 우리 쪽의 결말 동사는 원문에 적혀 있지 않은 채 열린 질문으로 멈춰 섭니다. 우리는 경고의 말씀을 들을 때 습관적으로 시선을 바깥으로 돌려 <strong>‘말씀을 거역한 남들이 받을 심판’</strong>을 구경하거나 계산하려 들곤 합니다. 본문이 우리 쪽의 결말 문장을 굳이 닫지 않고 비워 둔 까닭은, 타인의 결말을 판정하는 구경꾼의 자리에서 내려와 <strong>지금 말씀하시는 분 앞에서 ‘나와 우리’가 어디로 걸어가고 있는지를 깨어 살피게 하려는 목회적 배려</strong>입니다.</p>
+<h3>질문 3: 12:27은 진동의 목적을 「남도록」이라고 적습니다. 내 삶의 흔들림을 무너뜨림으로 읽어 왔습니까, 가려냄으로 읽어 왔습니까. 읽기를 바꾸면 무엇이 달라집니까.</h3>
+<p><strong>모범답안:</strong> 12:27은 하나님께서 한 번 더 흔드시는 진동의 목적을 파괴가 아니라 <strong>‘진동하지 아니하는 것들이 남도록(메이네, 그대로 머물러 남게 하려고)’</strong>이라고 분명한 목적절로 적어 둡니다. 내 일상의 기반이나 계획이 흔들릴 때 그것을 <strong>나를 무너뜨리려는 재앙</strong>으로만 읽으면, 사라져 가는 것들을 붙잡고 원망과 절망에 빠질 수밖에 없습니다. 그러나 그 흔들림을 <strong>영원히 흔들리지 않는 진짜만을 내 삶에 또렷이 남겨 두시려는 하나님의 ‘가려냄’</strong>으로 고쳐 읽으면, 부서지는 껍데기 앞에서도 슬퍼하지 않고 <strong>끝내 내 손에 남을 은혜의 나라</strong>를 신뢰하게 됩니다.</p>
+<h3>질문 4: 본문은 「이미 만들어져 있는 것」과 「지금 받고 있는 것」을 다른 꼴에 두고 청함을 받는 쪽에 걸었습니다. 내 확신의 목록에서 그 두 칸은 각각 몇 줄씩입니까.</h3>
+<p><strong>모범답안:</strong> 본문은 진동할 쪽에 묶인 <strong>‘이미 만들어져 있는 것들(페포이에메논, 완료 수동 분사)’</strong>과 진동하지 않는 <strong>‘지금 받고 있는 나라(파랄람바논테스, 현재 능동 분사)’</strong>를 나란히 대조하면서, <strong>‘은혜를 가지자(에코멘 카린)’는 유일한 청유</strong>를 지금 받고 있는 쪽에 걸어 둡니다. 본문이 그은 선은 도덕적 선악의 구분이 아니라, 내가 의지하는 것이 <strong>내 손으로 쌓아 이미 만들어 둔 업적과 소유</strong>인가 아니면 <strong>위로부터 지금 거저 받고 있는 하나님의 나라</strong>인가를 가르는 선입니다. 내 확신의 목록이 ‘이미 만들어 둔 것’에 길게 적혀 있을수록 작은 진동에도 삶 전체가 흔들리지만, <strong>‘지금 거저 받고 있는 나라’에 내 마음을 걸어 둘 때</strong> 어떤 흔들림 속에서도 감사의 예배가 무너지지 않습니다.</p>
+<h3>질문 5: 12:29는 까닭을 대는 말로 열려 앞의 청함을 받칩니다. 나는 이 문장을 누구에게 돌려 두었습니까. 그 문장이 「우리 하나님」이라고 적혀 있다는 사실은 그 돌림에 무엇을 묻습니까.</h3>
+<p><strong>모범답안:</strong> 12:29는 앞절의 ‘은혜를 가지자, 경건함과 두려움으로 하나님을 기쁘시게 섬기자’는 청유를 뒷받침하는 <strong>이유 접속사(카이 가르, 왜냐하면)</strong>로 열리며, 그 주어 자리에 낯선 심판자가 아니라 <strong>‘우리 하나님(호 테오스 헤몬)’</strong>을 세워 둡니다. 우리는 흔히 ‘소멸하는 불’이라는 말을 앞 문맥의 은혜에서 떼어 내어, 믿지 않는 세상이나 미운 누군가를 태워 버릴 무서운 저주의 말로 남에게 돌려 두곤 합니다. 그러나 본문이 분명히 <strong>‘우리 하나님’</strong>이라고 부르며 은혜의 청유를 받치는 까닭으로 이 말을 두었다는 사실은, 그 불이 우리를 해치는 불이 아니라 <strong>우리 삶에서 흔들릴 헛된 불순물들을 태워 없애고 영원한 것만 남기시는 ‘우리 아버지’의 거룩한 사랑</strong>임을 일깨워 줍니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(30)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(32)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-32" data-index="32">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 32 편 (히브리서 13:1-6)</span>
+                <span>문을 열 때는 모른다 — 잊지 말라는 명령과 모르는 사이에 된 일</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[13:1-6] 함께 생각할 질문 모범답안</h1>
+<h2>문을 열 때는 모른다 — 잊지 말라는 명령과 모르는 사이에 된 일</h2>
+<h3>질문 1: 13:2에서 「잊지 말라」가 받는 말은 「대접」입니다. 나는 이 절을 읽을 때 어느 낱말을 기억해 왔습니까 — 이유의 끝에 놓인 「천사」입니까, 명령이 받는 「대접」입니까?</h3>
+<p><strong>모범답안:</strong> 13:2의 원문은 같은 뿌리의 두 동사인 <strong>‘잊지 말라(메 에필란타네스테)’와 ‘부지중에(엘라톤, 모르는 사이에)’</strong>를 거울처럼 마주 세우고, 명령이 직접 받는 목적어 자리에 <strong>‘손님 대접하기(필록세니아, 낯선 이를 사랑함)’</strong>를 놓았습니다. 우리는 이 구절을 읽을 때 정작 명령의 목적어인 ‘대접’보다 이유절 끝에 있는 ‘천사’라는 낱말에 시선을 빼앗겨, 선행을 마치 뜻밖의 보상을 얻는 복권처럼 오해하곤 합니다. 그러나 두 동사의 짝이 보여 주듯 <strong>문을 열 때 상대가 천사인지 아닌지는 ‘몰라도 괜찮은 일(란타노)’</strong>이고, 우리가 결코 <strong>‘잊지 말고(에필란타노마이)’ 붙들어야 할 유일한 몫은 눈앞의 낯선 이를 따뜻하게 맞이하는 대접 그 자체</strong>입니다.</p>
+<h3>질문 2: 명령 셋 가운데 둘에는 이유가 적혀 있지 않습니다. 내가 하기 싫은 선한 일 하나에 내가 붙여 둔 이유는 무엇이고, 그 이유를 떼어 내면 그 일이 남아 있습니까?</h3>
+<p><strong>모범답안:</strong> 13:1-3에 나란히 선 세 가지 명령 가운데 13:2의 대접에만 이유 접속사가 붙어 있을 뿐, 13:1의 <strong>‘형제 사랑함이 머물게 하라(필라델피아 메네토)’</strong>와 13:3의 <strong>‘갇힌 자를 생각하라’</strong>는 명령에는 왜 그래야 하는지 <strong>보상이나 이유가 적혀 있지 않습니다</strong>. 우리는 내키지 않는 선한 일 앞에서는 하지 말아야 할 온갖 그럴듯한 이유를 가져다 붙이고, 반대로 사랑을 베풀 때는 내게 돌아올 유익이라는 이유가 있어야만 움직이려 합니다. 그러나 본문이 두 명령에 이유를 적지 않은 까닭은, 형제를 사랑하고 아픈 지체를 기억하는 일은 <strong>계산서가 필요한 선택 과목이 아니라 은혜의 나라를 지금 받고 있는 성도의 가장 당연한 숨결</strong>이기 때문입니다.</p>
+<h3>질문 3: 13:3은 기억의 자리로 심정이 아니라 몸을 겹쳐 주었습니다. 내 사랑이 지금 몸에 닿고 있습니까, 마음에서 멈춰 있습니까?</h3>
+<p><strong>모범답안:</strong> 13:3은 학대받는 지체들을 기억하라고 명하면서, 그 기억의 방식으로 막연한 감정 이입이 아니라 <strong>‘너희도 몸 안에 있는 자인 줄 알고(호스 카이 아우토이 온테스 엔 소마티)’</strong>라는 <strong>‘몸(소마티)’의 겹침</strong>을 제시합니다. 머릿속의 애틋한 심정이나 말뿐인 위로는 내 안전한 자리를 조금도 흔들지 않은 채 얼마든지 우아하게 멈춰 설 수 있습니다. 본문이 부르는 기억은 <strong>나 역시 똑같이 배고프고 시리고 상처 입을 수 있는 연약한 ‘몸’을 입고 살아가는 사람</strong>임을 자각하며, 아파하는 이의 자리로 내 시간과 손발과 삶의 무게를 구체적으로 포개어 놓는 체온 있는 사랑입니다.</p>
+<h3>질문 4: 이 여섯 절에서 하나님의 이름이 적힌 자리는 13:4 하나이고 그 동사는 심판입니다. 아무도 보지 않는다고 내가 여기는 자리는 어디입니까?</h3>
+<p><strong>모범답안:</strong> 13:1-6의 여섯 절 전체에서 <strong>‘그 하나님(호 테오스)’</strong>이라는 명사가 문장의 주어로 직접 등장하는 자리는 13:4 단 한 곳뿐이며, 거기 걸린 유일한 동사는 <strong>‘심판하시리라(크리네이, 미래 능동 직설법)’</strong>입니다. 본문은 이 엄중한 주어와 동사를 광장의 공적인 영역이 아니라, 혼인과 침소라는 <strong>인간관계에서 가장 은밀하고 사적인 방 한복판</strong>에 세워 두었습니다. 사람들의 시선이 닿지 않아 ‘아무도 모른다’고 여기는 은밀한 관계와 욕망과 돈의 자리야말로, 실상은 <strong>유일한 주어이신 하나님께서 가장 또렷이 지켜보시며 귀히 여기라고 물으시는 거룩한 자리</strong>입니다.</p>
+<h3>질문 5: 13:5의 말은 무엇을 주겠다는 말이 아니라 떠나지 않겠다는 말입니다. 나는 이 말을 듣기 전에 먼저 입을 열고 있지 않습니까?</h3>
+<p><strong>모범답안:</strong> 13:5에서 <strong>‘돈을 사랑하지 않는 처신(아필라르귀로스)’과 ‘있는 바를 족한 줄로 여김(아르쿠메노이)’</strong>을 떠받치는 하나님의 말씀은, 무엇을 더 채워 주겠다는 목록이 아니라 <strong>‘내가 결코 너희를 버리지 아니하고 결코 너희를 떠나지 아니하리라’는 임재의 약속</strong>입니다. 그리고 13:5에서 그분이 친히 말씀하신 뒤에야 비로소 13:6에서 <strong>‘그러므로 우리가 담대히 말하되’</strong>라며 사람의 입이 열립니다. 우리는 늘 주님의 이 말씀을 귀 기울여 듣기도 전에 먼저 입을 열어 내 결핍과 필요한 목록부터 조급하게 외치곤 하지만, 참된 담대함과 자족은 <strong>무엇을 더 주시는가보다 ‘나를 결코 떠나지 않으신다’는 주님의 음성을 먼저 듣고 그 품에 안길 때</strong> 비로소 우리 입술에서 터져 나옵니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(31)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(33)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-33" data-index="33">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 33 편 (히브리서 13:7-19)</span>
+                <span>밖으로, 그에게 — 그리고 너희에게</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[13:7-19] 함께 생각할 질문 모범답안</h1>
+<h2>밖으로, 그에게 — 그리고 너희에게</h2>
+<h3>질문 1: 13:13의 권유는 방향을 둘 거느립니다 — 「영문 밖으로」와 「그에게」. 이 둘 가운데 하나를 빼고 이 구절을 기억해 온 적이 있는지, 어느 쪽을 빼 왔는지 돌아봅시다.</h3>
+<p><strong>모범답안:</strong> 13:13의 중심 권유인 ‘우리가 나아가자’는 <strong>‘영문 밖으로(엑소 테스 파렘볼레스)’</strong>라는 이탈의 방향과 <strong>‘그에게로(프로스 아우톤)’</strong>라는 인격적 방향을 한 문장 안에 나란히 거느립니다. 만약 우리가 ‘그에게로’를 빼고 ‘영문 밖으로’만 기억한다면 신앙은 날 선 저항이나 외로운 고행이 되고 말고, 반대로 ‘영문 밖으로’를 빼고 ‘그에게로’만 기억한다면 내가 누리는 안전한 기득권 안으로 예수님을 불러들이려는 안일한 종교가 됩니다. 본문이 두 방향을 하나로 묶어 둔 까닭은, 우리가 익숙한 안식처 밖으로 기꺼이 걸어 나가는 이유가 <strong>세상을 등지기 위해서가 아니라 성문 밖 고난의 자리에 먼저 나가 서 계신 ‘그분(예수)’의 품에 안기기 위해서</strong>이기 때문입니다.</p>
+<h3>질문 2: 13:8은 동사가 하나도 없이, 아무것도 명하지 않고 명령들 사이에 서 있습니다. 요구하지 않는 한 절이 요구들 사이에 놓인 까닭을 본문의 자리에서 생각해 봅시다.</h3>
+<p><strong>모범답안:</strong> 13:8은 13:7의 ‘인도하던 자들을 기억하라’는 명령과 13:9의 ‘여러 다른 교훈에 끌리지 말라’는 명령 사이에 서 있으면서도, 원문에는 <strong>문장을 세우는 동사도 명령도 하나 없이 ‘예수 그리스도는 어제와 오늘과 영원토록 바로 그 동일하신 분(호 아우토스)’</strong>이라는 명사구만 우뚝 서 있습니다. 말씀을 전하던 앞선 세대는 세상을 떠나고(13:7) 시대의 낯선 풍조는 끊임없이 흔들릴 때(13:9), 우리에게 ‘흔들리지 말라’는 요구만 계속 주어진다면 우리는 금세 지쳐 쓰러질 것입니다. 본문이 숨 가쁜 명령들 한가운데 <strong>아무것도 요구하지 않는 이 한 절</strong>을 박아 둔 까닭은, 우리의 순종을 지탱하는 힘이 우리의 결심이 아니라 <strong>시간과 세대가 바뀌어도 변함없이 그 자리에 서 계신 ‘바로 그 동일하신 분’</strong>에게서 나오기 때문입니다.</p>
+<h3>질문 3: 13:17에서 명령은 공동체 쪽에 걸리고 인도하는 이들 쪽에는 명령이 걸리지 않습니다. 본문이 그 사람들에게 붙여 둔 두 가지(지금 깨어 있다는 것, 앞으로 셈을 치른다는 것)를 명령과 함께 읽으면 이 절의 요구가 어떻게 달라집니까.</h3>
+<p><strong>모범답안:</strong> 13:17은 성도들에게 인도자들을 따르라고 명하면서, 정작 <strong>‘인도하고 있는 자들(헤구메노이스, 동사 분사)’</strong> 쪽에는 권위를 휘두르라는 명령 대신 <strong>‘너희 영혼을 위하여 지금 잠 못 이루며 깨어 있다’는 현재 분사</strong>와 <strong>‘장차 하나님께 셈(회계)을 치를 자(아포도손테스, 미래 분사)’</strong>라는 무거운 책임 두 가지를 붙여 둡니다. 앞서 13:7에서 그들이 전한 <strong>‘말씀(로곤)’</strong>과 13:17에서 그들이 하나님 앞에 바쳐야 할 <strong>‘회계(로곤, 셈)’</strong>가 원문에서 같은 한 낱말이라는 사실은 인도자의 자리가 얼마나 두려운 무게인지를 보여 줍니다. 이 두 가지를 함께 읽으면 13:17의 명령은 권력 앞에 맹종하라는 요구가 아니라, <strong>내 영혼을 위해 밤잠을 설치며 하나님 앞에 무거운 계산서를 내놓아야 하는 짐 진 일꾼들이 탄식 대신 기쁨으로 그 길을 가도록 짐을 나누어 지라는 따뜻한 돌봄의 권면</strong>이 됩니다.</p>
+<h3>질문 4: 13:12에서 본문은 고난을 한 마디로 적고 지나가면서, 그 자리에 장소와 수단과 목적을 적었습니다. 본문이 묘사를 아낀 자리에서 우리가 보태 온 것은 없는지 생각해 봅시다.</h3>
+<p><strong>모범답안:</strong> 12:2에서 십자가를 한 마디로 적었듯, 13:12 역시 예수님의 아픔을 <strong>‘고난을 받으셨느니라(에파텐)’</strong>라는 단 한 단어로 적고 지나가면서 그 자리에 <strong>장소(성문 밖에서), 수단(자기 피로써), 목적(백성을 거룩하게 하려고)</strong> 세 가지를 또렷이 새겨 넣습니다. 우리는 흔히 고난의 감정적 비장미를 부풀리거나 내가 겪는 아픔의 크기에 시선을 빼앗겨, 정작 그 고난이 이룬 구속의 열매를 흐리게 만들곤 합니다. 본문이 고통의 자극적인 묘사를 아낀 까닭은, 우리의 눈물이 연민이나 비탄에 머물지 않고 <strong>오직 ‘자기 피로 백성을 거룩하게 하신’ 주님의 확실한 목적과 은혜의 효력</strong> 위에 굳게 서게 하려는 것입니다.</p>
+<h3>질문 5: 가운데 선 권유는 밖을 가리키고 뒤의 지시 넷은 안을 가리키며, 마지막 절은 「너희에게 돌아가기를」로 닫힙니다. 둘 가운데 하나만 남으면 이 단락은 무엇이 됩니까.</h3>
+<p><strong>모범답안:</strong> 이 단락의 한가운데(13:13)에는 <strong>‘영문 밖 그에게로 나아가자’는 바깥을 향한 권유</strong>가 서 있고, 그 뒤(13:15-18)에는 <strong>찬미의 제사(튀시안 아이네세오스)와 한 관사로 묶인 ‘선을 행함과 나눔’</strong>, 그리고 공동체 질서와 기도를 당부하는 안쪽의 지시 넷이 이어진 뒤, 마침내 <strong>‘너희에게 속히 돌아가기를(13:19)’</strong>이라는 사귐의 소망으로 닫힙니다. 만약 ‘밖으로’만 남고 ‘안으로’가 사라지면 신앙은 공동체를 잃어버린 고립된 독불장군이 되고, 반대로 ‘안으로’만 남고 ‘밖으로’가 사라지면 교회는 십자가의 야성을 잃은 채 자기들끼리만 안주하는 닫힌 울타리가 됩니다. <strong>영문 밖 예수님께 나아가는 거룩한 결단은 반드시 공동체 안의 구체적인 찬미와 나눔, 그리고 다시 서로의 품으로 돌아가는 따뜻한 사귐으로 열매 맺어야</strong> 합니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(32)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(34)" >
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        <section class="book-page " id="sec-34" data-index="34">
+            
+            <div class="chapter-running-header">
+                <span>히브리서 질문과 답변 · 제 34 편 (히브리서 13:20-25)</span>
+                <span>비는 말의 임자 — 하시는 분이 문장의 끝에 서 있습니다</span>
+            </div>
+        
+            <div class="page-content">
+                <h1>[13:20-25] 함께 생각할 질문 모범답안</h1>
+<h2>비는 말의 임자 — 하시는 분이 문장의 끝에 서 있습니다</h2>
+<h3>질문 1: 13:20은 문장을 세우는 동사 없이 임자만 길게 세워 두고 다음 절로 넘어갑니다. 그 긴 소개가 다 끝난 뒤에야 비는 동사가 오는 짜임은, 이 비는 말의 근거를 어디에 두고 있습니까.</h3>
+<p><strong>모범답안:</strong> 13:20 한 절 전체에는 문장을 끝맺는 본동사가 하나도 없으며, <strong>‘평강의 하나님’이라는 유일한 주어(임자)</strong>를 세운 뒤 그분이 <strong>영원한 언약(아이오니우 디아테케스)의 피로 큰 목자 예수를 죽은 자 가운데서 이끌어 내셨다는 이미 이루어진 사건</strong>을 길게 소개하는 데 온 절을 다 씁니다. 그리고 그 숨 막히는 소개가 다 끝난 13:21 첫머리에 와서야 비로소 이 책 유일의 기원법 동사인 <strong>‘온전하게 하시기를(카타르티사이)’</strong>이 등장합니다. 이 문장의 짜임은 축복과 기도의 근거가 비는 사람의 간절함이나 받는 우리의 자격에 있지 않고, <strong>오직 죽음에서 목자를 이끌어 내신 ‘평강의 하나님이 이미 행하신 부활과 언약의 일’</strong>에 전적으로 놓여 있음을 보여 줍니다.</p>
+<h3>질문 2: 우리말 성경의 「원하노라」는 원문에 대응이 없는 1인칭입니다. 내가 지금 드리는 기도의 끝 낱말은 누구를 가리키고 있습니까.</h3>
+<p><strong>모범답안:</strong> 우리말 성경 13:21 끝에는 ‘원하노라’라는 말이 붙어 있어 마치 기도하는 사람의 간절한 소원으로 문장이 닫히는 것처럼 보이지만, <strong>원문에는 이에 해당하는 1인칭 동사가 아예 없습니다</strong>. 원문의 기도는 3인칭 기원법 동사(‘그분이 온전케 하시기를’)와 <strong>‘우리 안에서 자기의 기뻐하시는 바를 행하시는 분(포이온)’</strong>이라는 분사로 이어지며, 처음부터 끝까지 <strong>하나님 한 분만을 주어와 행위자로 가리킨 채</strong> 영광의 송영으로 닫힙니다. 내 기도의 끝자락이 늘 ‘내가 이렇게 원합니다’라는 내 소원의 크기를 가리키고 있었다면, 이제는 비는 나의 얼굴을 지우고 <strong>지금도 내 안에서 친히 선한 일을 행하고 계신 평강의 하나님</strong>께 시선을 돌려 맡겨 드려야 합니다.</p>
+<h3>질문 3: 13:22은 이 책을 「권면의 말」이라 부르고, 그 말에 대해 받아 들이라고만 요구합니다. 내가 지금 받아 들이기 어려워하는 말은 무엇이고, 그것을 내가 고른 것입니까 맡겨진 것입니까.</h3>
+<p><strong>모범답안:</strong> 저자는 열세 장에 걸친 이 깊고도 엄중한 편지 전체를 가리켜 꾸짖음이나 법전이 아니라 <strong>‘권면의 말(투 로구 테스 파라클레세오스, 곁에서 부르는 위로와 격려의 말)’</strong>이라고 부르며, 오직 <strong>‘용납하라(아네케스테, 받는 꼴의 명령 — 그대로 받아 안으라)’</strong>고만 청합니다. 우리가 하나님의 말씀 앞에서 유독 받아들이기 버거워하는 대목이 생기는 까닭은, 말씀을 내가 입맛대로 취사선택할 수 있는 <strong>‘내가 고른 말’</strong>로 대하기 때문입니다. 그러나 이 책 전체가 우리를 살리기 위해 위로부터 들려와 <strong>우리에게 맡겨진 ‘권면과 위로의 말’</strong>임을 기억할 때, 내 마음을 찌르는 말씀까지도 나를 온전케 하시는 아버지의 음성으로 따뜻하게 받아 안을 수 있습니다.</p>
+<h3>질문 4: 13:24의 문안은 인도하는 사람들과 모든 성도에게 함께 걸립니다. 그 문안에서 내가 빼 두고 있는 한 사람이 있습니까.</h3>
+<p><strong>모범답안:</strong> 13:24은 <strong>‘문안하라(안부를 물으라)’</strong>는 한 동사 아래 <strong>‘너희를 인도하는 모든 자들(판타스 투스 헤구메누스)’과 ‘모든 성도들(판타스 투스 하기우스)’</strong>을 나란히 세우며, 양쪽 모두에 <strong>‘모든(판타스)’</strong>이라는 낱말을 빠짐없이 붙였습니다. 히브리서 전체에서 ‘인도하는 자들’은 단 한 번도 문장의 지배적인 주어 자리에 서지 않으며, 마지막 인사의 자리에서도 모든 성도와 똑같이 <strong>서로 안부를 묻고 문안을 받아야 할 한 가족</strong>으로 나란히 놓입니다. 신앙의 깊은 진리를 다 들은 끝에 우리에게 남겨진 실천은 멀리 있지 않으며, 내가 불편하다는 이유로 인사조차 건네지 않고 <strong>내 마음의 명단에서 슬그머니 빼 두었던 그 한 사람에게 다가가 다시 안부를 묻는 일</strong>에서 시작됩니다.</p>
+<h3>질문 5: 이 책의 마지막 문장에는 동사가 하나도 없습니다. 그 빈자리를 나는 어떤 말로, 어떤 결심으로 메워 왔습니까.</h3>
+<p><strong>모범답안:</strong> 히브리서 대단원의 마지막 문장인 13:25(‘은혜가 너희 모든 사람과 함께’)에는 <strong>원문에 동사가 단 하나도 없으며(‘있을지어다’는 번역이 보탠 말)</strong>, 이 책에서 일곱 번 쓰인 <strong>‘은혜(헤 카리스)’가 유일하게 문장의 주격 임자 자리</strong>에 홀로 서서 책을 닫습니다. 우리는 말씀을 읽고 난 끝자리에 늘 ‘내가 이제부터 반드시 해내리라’, ‘결코 넘어지지 않으리라’는 <strong>내 비장한 결심의 동사들</strong>을 빼곡히 적어 넣어야만 안심하곤 합니다. 그러나 성경이 마지막 문장의 동사 칸을 고요히 비워 둔 채 <strong>오직 ‘그 은혜(헤 카리스)’만을 유일한 주어로 우리 모두의 곁에 남겨 두었음</strong>을 바라볼 때, 우리는 내 결심의 무게를 내려놓고 모든 사람과 함께하시는 그 은혜 안에 평안히 걸어 들어갈 수 있습니다.</p>
+            </div>
+            <div class="page-nav">
+                <button type="button" class="nav-btn prev-btn" onclick="goToPage(33)" >
+                    ← 이전 편
+                </button>
+                <button type="button" class="nav-btn toc-btn" onclick="goToPage(0)">
+                    표지로
+                </button>
+                <button type="button" class="nav-btn next-btn" onclick="goToPage(34)" disabled>
+                    다음 편 →
+                </button>
+            </div>
+        </section>
+    
+        </div>
+    </main>
+
+    <div id="toast"></div>
+
+    <script>
+        const totalPages = 35;
+        let currentPage = 0;
+        const fontSizes = [15, 16, 17.5, 19, 21, 23];
+        const defaultFontSize = 17.5;
+        let currentFontSize = 17.5;
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2200);
+        }
+
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('sidebar-backdrop').classList.remove('open');
+        }
+
+        function goToPage(idx) {
+            if (idx < 0 || idx >= totalPages) return;
+
+            document.querySelectorAll('.book-page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.toc-item').forEach(t => t.classList.remove('active'));
+
+            currentPage = idx;
+            const targetPage = document.getElementById('sec-' + idx);
+            if (targetPage) targetPage.classList.add('active');
+
+            const targetToc = document.querySelector(`.toc-item[data-index="${idx}"]`);
+            if (targetToc) {
+                targetToc.classList.add('active');
+                targetToc.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+
+                const titleText = targetToc.querySelector('.toc-title').textContent;
+                document.getElementById('currentSectionTitle').textContent = titleText;
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.location.hash = 'sec-' + idx;
+
+            if (window.innerWidth <= 960) {
+                closeSidebar();
+            }
+        }
+
+        function applyFontSize(size) {
+            currentFontSize = size;
+            document.documentElement.style.setProperty('--font-size', size + 'px');
+            const percent = Math.round((size / defaultFontSize) * 100) + '%';
+            document.getElementById('fontScaleDisplay').textContent = percent;
+            localStorage.setItem('hebrews_answers_font_size', String(size));
+        }
+
+        function changeFontSize(delta) {
+            let idx = fontSizes.indexOf(currentFontSize);
+            if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+            let nextIdx = idx + delta;
+            if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+                applyFontSize(fontSizes[nextIdx]);
+                showToast(`글자 크기 ${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%`);
+            }
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('hebrews_answers_theme', next);
+            showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+        }
+
+        function copyCurrentPage() {
+            const activePage = document.querySelector('.book-page.active .page-content');
+            if (!activePage) return;
+            navigator.clipboard.writeText(activePage.innerText).then(() => {
+                showToast('현재 단락 질문과 답변이 클립보드에 복사되었습니다.');
+            });
+        }
+
+        document.getElementById('sidebarSearch').addEventListener('input', function(e) {
+            const query = e.target.value.trim().toLowerCase();
+            document.querySelectorAll('.toc-item').forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(query) ? 'flex' : 'none';
+            });
+        });
+
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('sidebar-backdrop').classList.toggle('open');
+        });
+
+        window.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.key === 'ArrowLeft') {
+                if (currentPage > 0) goToPage(currentPage - 1);
+            } else if (e.key === 'ArrowRight') {
+                if (currentPage < totalPages - 1) goToPage(currentPage + 1);
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('hebrews_answers_theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+            const savedSize = Number(localStorage.getItem('hebrews_answers_font_size'));
+            if (savedSize && fontSizes.includes(savedSize)) {
+                applyFontSize(savedSize);
+            }
+
+            if (window.location.hash) {
+                const m = window.location.hash.match(/sec-(\d+)/);
+                if (m) {
+                    const idx = Number(m[1]);
+                    if (idx >= 0 && idx < totalPages) {
+                        goToPage(idx);
+                        return;
+                    }
+                }
+            }
+            goToPage(0);
+        });
+    </script>
+</body>
+</html>
