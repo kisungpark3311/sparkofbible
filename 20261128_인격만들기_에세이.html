@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>죽을 육체에 적어 넣으신 생명의 주소: 지고 다니는 손과 드러나는 맥박이 한 몸에 머물 때</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 28일 &middot; 고린도후서 4:7-15</span>
+      <h1>죽을 육체에 적어 넣으신 생명의 주소: 지고 다니는 손과 드러나는 맥박이 한 몸에 머물 때</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h2>주어와 동사는 고정되고 처소만 깊어지는 두 번의 반복</h2>
+<p>고린도후서 4장 10절과 11절의 원문을 위아래로 나란히 포개어 놓으면, 한 치의 오차도 없이 맞물리는 정교한 반복 구조가 눈에 들어온다. 두 절의 후반부를 여는 목적절(ἵνα καὶ)은 주어인 <strong>"예수의 생명(ἡ ζωὴ τοῦ Ἰησοῦ)"</strong>과 부정과거 수동태 접속법 동사인 <strong>"나타나게 하려 함이라(φανερωθῇ)"</strong>를 글자 하나 바꾸지 않고 똑같이 되풀이한다. 개역개정과 개역한글 두 역본 모두 이 수동태 동사에 "나타나게 하려 함이라"는 사역의 어감을 입혀 옮겼으나, 문장의 주어가 '우리'가 아니라 '예수의 생명'이며 그 동사가 능동이 아닌 받는 꼴(수동태)이라는 문법적 사실만은 조금도 흔들리지 않는다. "우리가 예수의 생명을 드러낸다"는 익숙한 구호는 애당초 이 본문의 어형 차원에서 설 자리가 없다.</p>
+<p>그런데 두 목적절이 주어와 동사를 못 박은 듯 고정해 두는 동안, 유일하게 단어들을 바꾸며 이동하는 칸이 하나 있다. 바로 그 생명이 드러나는 '처소'의 칸이다. 10절에서 <strong>"우리 몸에(ἐν τῷ σώματι ἡμῶν)"</strong>라고 적혔던 자리가, 11절에 이르러서는 신약 스물일곱 권 전체에서 오직 이곳에만 등장하는 유일 어형 '죽을(θνητῇ)'이라는 형용사를 달고 <strong>"우리 죽을 육체에(ἐν τῇ θνητῇ σαρκὶ ἡμῶν)"</strong>로 한 걸음 더 깊고 연약한 자리로 내려앉는다. 그렇다고 해서 이 본문이 갈라디아서 2장 20절처럼 '나는 주어가 아니다'라는 방식으로 우리의 존재를 지우는 것은 결코 아니다. 같은 두 절의 앞쪽 주절을 보면, 10절에서 예수의 죽음을 몸에 지고 다니는 현재 능동 분사(περιφέροντες)의 주체도 우리이고, 11절에서 예수를 위하여 죽음에 넘겨지는 현재 수동 정동사(παραδιδόμεθα) 앞에 명시된 주격 대명사(ἡμεῖς)도 우리다. 본문은 우리를 지우는 대신 <strong>지고 다니는 일에서는 능동으로, 넘겨지는 일에서는 수동으로, 생명이 나타나는 문장에서는 처소로</strong> 우리의 자리를 정확하게 갈라 적는다.</p>
+<p>처음 이 구절을 대할 때 우리는 흔히 '몸이 생명이 드러나는 자리'라는 말을 일종의 강등이나 낮아짐으로 읽기 쉽다. 주어가 되지 못하고 고작 장소로만 쓰인다고 여기는 것이다. 그러나 두 목적절의 반복을 가만히 응시하면, '자리'는 깎여 나간 몫이 아니라 <strong>하나님이 생명이 나타날 주소를 막연한 영혼이나 허공이 아닌 우리의 구체적인 몸으로 지정하셨다는 선언</strong>임을 깨닫게 된다. 만약 문장에서 이 처소구를 지워 버린다면 예수의 생명은 내려앉을 땅을 잃고 추상적인 관념이나 마음속 체험으로 증발해 버릴 것이다. 몸이 생명의 출처가 아니라는 겸손한 진실과, 생명이 결코 우리의 죽을 몸을 비켜 가지 않는다는 존귀한 진실이 이 처소구 하나에 함께 묶여 있다.</p>
+<h2>가방을 든 오른손의 무게와 왼손 끝에 잡히는 맥박</h2>
+<p>한 사람의 몸 안에서 '지고 다니는 능동'과 '스스로 드러나는 수동'이 어떻게 다투지 않고 공존하는지 몸으로 직접 겪어 보자. 오른손에 묵직한 가방 하나를 들고 자리에서 일어나 두 눈을 감은 뒤, 왼손의 두 손가락을 오른손 손목 안쪽 맥박이 뛰는 자리에 가만히 얹어 보라. 그 상태로 방 안을 천천히 한 바퀴 걸어 본다. 걸음을 옮기는 동안 우리의 몸은 두 가지 일을 동시에 겪는다. 오른팔 근육과 어깨를 타고 올라오는 가방의 묵직한 하중은 분명 내가 손으로 붙들고 지고 가는 능동의 무게다. 그러나 왼손가락 끝에 일정하게 툭, 툭 와닿는 맥박은 내가 의지로 뛰게 만드는 것이 아니다. 오히려 맥을 더 또렷이 잡아 보겠다고 손가락에 힘을 주면 맥박은 이내 사라져 버리고, 힘을 빼고 가만히 손목을 대고 있을 때 비로소 생명의 박동이 손끝에 스스로 드러난다. <strong>가방을 지는 오른팔의 수고와 내가 만들지 않은 손목의 맥박이 한 몸 안에서 동시에 일어나는 것</strong>, 그것이 바로 4장 10절 한 절 안에 '몸에(ἐν τῷ σώματι)'가 두 번 놓인 문법의 체온이다.</p>
+<p>이 처소의 법칙을 세무와 음악과 법학의 유추에 비추어 보면 그 빛과 한계가 나란히 드러난다. 외국 법인이 국내에 둔 '고정사업장'은 본점의 사업이 이 땅에서 실제로 드러나고 과세가 셈해지는 구체적 장소이지만 사업장 자체가 별도의 본점 법인이 아니듯, 기타의 나무 '울림통'이 현의 떨림을 들리게 하는 필수 공간이지만 스스로 음을 내는 주체가 아니듯, 우리의 죽을 육체는 예수의 생명이 실제로 셈해지고 울려 퍼지는 자리다. 그러나 고정사업장의 이익이 본점으로 귀속되고 울림통의 나뭇결이 음색을 바꾸며 부동산 등기부가 물권 변동의 효력 요건이 되는 지점에서 세 유추는 일제히 부러진다. <strong>본문의 처소는 생명에 자기만의 음색이나 성립 조건을 단 하나도 보태지 않기 때문</strong>이다. 더욱이 4장 12절이 정동사 하나(ἐνεργεῖται)를 사망 쪽에만 두고 생명 쪽 동사는 비워 둔 채 "사망은 우리 안에서 역사하고 생명은 너희 안에서"라고 적듯, 생명은 우리 몸이라는 창고에 쌓이지 않고 '너희 안'으로 흘러간다.</p>
+<p>구속사의 시간 축을 4장 14절까지 넓혀 보면 이 처소는 고정된 지위가 아니라 <strong>점점 넓어지며 옮겨 가는 생명의 주소</strong>임이 밝혀진다. 질그릇(4:7)과 우리 몸(4:10), 우리 죽을 육체(4:11)에서 시작된 주소는 너희 안(4:12)으로 건너가더니, 마침내 주 예수를 다시 살리신 이가 예수와 함께 우리도 다시 살리사 너희와 함께 세우실 '그 앞(4:14)'에 도달한다. 빌립보서 1장 20절이 내 몸에서 그리스도가 존귀히 되기를 소망하고 로마서 8장 11절이 죽을 몸을 살리실 것을 약속하며 고린도전서 6장 19-20절이 몸의 소속을 일깨우듯, 칼뱅이 『기독교강요』 3권에서 말한 그리스도와의 연합과 하이델베르크 요리문답 제1문의 위로 역시 그리스도의 생명이 우리 바깥에 머물지 않고 이 연약한 몸을 처소로 삼으신다는 데 서 있다. 그러므로 우리는 수동태를 능동으로 뒤집는 도덕주의적 영웅담이나, 본문에 없는 비례식을 만들어 "몸이 상할수록 생명이 빛난다"고 부추기는 고난 미화나, 몸을 경시하는 영성화나, 4장 12절의 빈 동사에 '우리가 생명을 나눠 준다'는 말을 채워 넣는 진영 논리를 모두 내려놓아야 한다.</p>
+<h2>소진을 헌신으로 포장하지 않고 생명의 주소를 돌보는 인격</h2>
+<p>우리 몸을 생명의 제작소로 높이지도 않고 쓰고 버릴 허물로 낮추지도 않으며 오직 <strong>예수의 생명이 드러날 지정된 주소</strong>로 존중할 때, 목회와 일터의 언어는 놀랍도록 따뜻하고 정직해진다. 병상에서 오랜 투병으로 지쳐 있는 성도를 심방할 때, 우리는 습관처럼 "이 고난 중에도 주님의 생명을 나타내게 하소서"라고 기도하며 몸을 가누기도 버거운 이에게 또 하나의 신앙적 과제를 얹어 주곤 했다. 이제는 본문의 문법대로 기도문의 동사를 한 칸 바꾸어 보자. "더 잘 견디면" 같은 조건어를 덜어 내고, 아픈 손과 무릎을 구체적으로 부르며 <strong>"주님, 이 연약한 몸에 주님의 생명이 친히 나타나게 하소서"</strong>라고 기도할 때, 병상의 기도는 무거운 요구에서 평안한 소속의 고백으로 바뀐다. 폐업이나 간병으로 삶이 깎여 나간 고객과 마주 앉는 세무 상담실에서도 매출과 부채 숫자만 재촉할 것이 아니라, 상담 메모 첫 칸에 '건강과 돌봄 상황'을 두고 의료비 공제나 납부 유예처럼 몸이 실제로 셈해지는 항목을 먼저 챙길 때 고객의 삶은 차가운 숫자 바깥으로 내몰리지 않는다.</p>
+<p>결산과 연말정산으로 밤을 새우는 사무소나 절기 행사 준비로 분주한 교회의 행정 문화 속에서도 이 문법은 깊은 성찰을 요구한다. 우리는 얼마나 자주 과로와 소진을 '몸을 아끼지 않는 헌신'이라는 미명으로 칭찬하며 죽을 육체를 소모품처럼 다뤄 왔던가. 본문에는 고난과 소진을 값으로 매기는 어휘가 단 한 토막도 없다. 이제는 조직의 일정표에 업무 칸과 똑같은 크기로 휴식 칸을 마련하고, 내 몸이 보내오는 이상 신호를 신앙으로 찍어 누를 대상이 아니라 <strong>생명의 주소지가 보내는 정직한 돌봄 요청</strong>으로 받아들여 제때 진료를 예약하자. 오늘 내게 맡겨진 일상의 가방을 성실히 지고 걷는 능동의 걸음 한복판에서, 내 애씀이 아닌 예수의 생명이 이 죽을 육체 위에 조용히 드러나고 있음을 믿는 사람, 그 사람이 바로 몸과 영혼을 한 분께 의탁한 성숙한 그리스도인의 인격이다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 28일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

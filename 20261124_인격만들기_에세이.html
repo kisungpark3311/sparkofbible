@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>제물의 꼬리표를 벗고 우리에게 얹힌 이름, 그리스도의 향기라 불린 사람들</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 24일 &middot; 고린도후서 2:12-17</span>
+      <h1>제물의 꼬리표를 벗고 우리에게 얹힌 이름, 그리스도의 향기라 불린 사람들</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>교회 마당이나 신앙 모임에서 우리는 "그리스도의 향기를 널리 날리는 사람이 됩시다"라거나 "향기로운 섬김을 드립시다"라는 다짐을 참 자주 주고받습니다. 아름다운 표현이지만, 어느새 그 말은 내 선행과 봉사로 주변 사람들에게 좋은 인상을 남기고 칭찬을 얻어내야 한다는 또 하나의 무거운 성적표가 되곤 합니다. 그러나 고린도후서 2장 14절부터 16절까지의 헬라어 원문을 자세히 들여다보면, 바울이 말하는 '향기'는 우리가 땀 흘려 만들어 내거나 사방으로 뿜어내는 성취가 아님을 알게 됩니다. 본문은 <strong>향기를 우리가 바치는 물건의 꾸밈말로 쓰지 않고, 오직 우리라는 존재 자체를 부르는 주격의 이름으로 올려 세우기 때문</strong>입니다.</p>
+<p>신약 성경에서 '냄새'를 뜻하는 <code>ὀσμή</code>(오스메)와 '향기'를 뜻하는 <code>εὐωδία</code>(유오디아)가 한 절 안에서 나란히 만나는 곳은 에베소서 5장 2절과 빌립보서 4장 18절 두 곳뿐입니다. 그 두 곳에서 이 단어들은 어김없이 <code>ὀσμὴν εὐωδίας</code>(향기로운 냄새)라는 하나의 관용구로 굳게 묶여 있고, 거기서 '향기'(<code>εὐωδίας</code>)는 속격 어미(<code>-ς</code>)를 달고 앞에 있는 '냄새'를 꾸며 주는 수식어로만 복무합니다. 그리고 그 구절 곁에는 언제나 우리가 하나님께 바치는 제물과 헌물이 놓여 있습니다. 그런데 고린도후서 2장 14절부터 16절은 이 익숙한 관용구를 단 한 번도 사용하지 않습니다. 대신 두 낱말을 세 절에 걸쳐 갈라 놓더니, 마침내 2장 15절에서 속격 어미 한 글자를 떼어 낸 <strong>주격 단수 <code>εὐωδία</code>를 신약 전권에서 유일하게 문장의 주격 서술어로 우뚝 세웁니다</strong>. <code>Χριστοῦ εὐωδία ἐσμὲν τῷ θεῷ</code>, 곧 <strong>"우리는 하나님 앞에서 그리스도의 향기입니다"</strong>라는 선언입니다.</p>
+<h2>바치는 물건의 꾸밈말에서 떨어져 나와 우리의 이름이 된 향기</h2>
+<p>이 문법적 자리 이동이 뜻하는 바는 실로 깊고도 선명합니다. 다른 서신에서 우리가 바치는 예물 상자에 붙어 그 물건의 성질을 꾸며 주던 '향기로운'이라는 꼬리표가, 고린도후서 2장 15절에서는 상자에서 툭 떨어져 나와 아예 <strong>말하는 사람들('우리')의 가슴에 이름표로 꽂힌 것</strong>입니다. 게다가 2장 14절부터 16절 사이에 놓인 네 번의 냄새와 향기 토막 가운데, 정동사를 거느리고 서 있는 곳은 2장 15절의 <code>ἐσμέν</code>(에스멘, 우리는 ~이다) 단 하나뿐입니다. 우리가 무엇을 행한다거나 향기를 뿜어낸다는 동작 동사는 어디에도 없습니다. 냄새를 각처에서 드러내시는 분은 2장 14절의 여격 분사 <code>φανεροῦντι</code>가 걸려 있는 하나님이시며, 그 문장에서 우리는 오직 <code>δι’ ἡμῶν</code>(우리를 통하여)이라는 통로로만 적혀 있을 뿐입니다.</p>
+<p>세금계산서를 작성할 때 '품목란'의 적요에 적히는 낱말과 '공급받는 자'의 명의란에 적히는 낱말은 그 기능이 전혀 다릅니다. 품목란에 적힌 '고급'이나 '순수' 같은 꾸밈말은 물건을 따라다니며 설명할 뿐이어서 따로 주인을 물을 필요가 없습니다. 그러나 어떤 낱말이 꾸밈의 자리를 벗어나 당사자의 '명의란'에 이름으로 오르는 순간, 그 이름 옆에는 반드시 누구에게 속한 것인지를 밝히는 등록번호가 함께 기재되어야 합니다. 2장 15절에서 수식어였던 향기가 우리를 부르는 호칭으로 올라서자, 그 이름 바로 앞에는 지체 없이 관사 없는 속격 <code>Χριστοῦ</code>(그리스도의) 한 낱말이 등록 표시처럼 달라붙었습니다. <strong>향기는 우리의 훌륭한 인격이나 사역의 실적을 꾸미는 형용사가 아니라 우리가 거저 받은 이름이며, 그 이름의 진짜 주인은 우리가 아니라 그리스도</strong>라는 사실을 문법이 못 박아 두는 것입니다.</p>
+<h2>털어 낸 빈손에 밴 냄새, 주인의 이름을 붙들고 동사 없는 자리에서 멈추다</h2>
+<p>만일 우리가 2장 15절에서 '그리스도의'(<code>Χριστοῦ</code>)라는 속격 한 단어를 슬그머니 지운 채 "우리는 하나님 앞에서 향기다"라고만 읽는다면 어떤 일이 벌어질까요. 향기의 주인이 우리 자신이 되어 버리는 순간, 바로 다음 절인 2장 16절의 무거운 결과까지 전부 우리의 책임으로 쏟아져 내려옵니다. 원문 2장 16절은 "이 사람들에게는 사망에서 사망에 이르는 냄새요, 저 사람들에게는 생명에서 생명에 이르는 냄새라"고 적으면서 <strong>열아홉 낱말 내내 동사를 단 한 개도 쓰지 않았습니다</strong>. 냄새가 두 갈래의 끝에 닿는 이 엄숙한 현상 앞에서, 본문은 누가 그 냄새를 바꾸거나 결과를 갈라놓는지를 동작 동사로 적지 않고 그저 빈자리로 남겨 둡니다. 앞 절의 '그리스도의'라는 임자 표시 하나가, 뒷절의 텅 빈 동사 자리에 우리가 주제넘게 들어가 "우리가 생명에 이르게 하고 우리가 사람을 가려낸다"고 외치지 못하도록 굳게 파수하고 있는 셈입니다.</p>
+<p>마른 허브 한 꼬집이나 볶은 원두 몇 알을 손바닥에 올려놓고 주먹을 꼭 쥐어 보십시오. 내 손안에 향기를 가두어 소유하려 할 때 냄새는 오히려 손아귀 안에 갇혀 퍼지지 않습니다. 이제 쥔 손을 코앞에서 천천히 펴고, 손바닥에 있던 허브를 접시 위에 남김없이 털어 내 보십시오. 그리고 아무것도 쥐지 않은 그 빈손을 내 가슴 위에 가만히 얹어 보십시오. 놀랍게도 알맹이는 다 털어 낸 빈손인데, 손바닥의 살결에서는 여전히 은은한 향기가 피어오릅니다. <strong>몸은 향기를 '소유한 물건'이 아니라 내 살결에 '배어 있는 흔적'으로 기억합니다</strong>. 내 손의 것이 아니면서 내 손에서 나는 냄새, 그것이 바로 우리를 통하여 그리스도를 아는 냄새를 각처에 나타내시는(2:14) 하나님의 일하심이자, 우리가 '그리스도의 향기'라 불리는 이유입니다.</p>
+<h2>향기가 되라는 성적표를 내려놓고, 은혜로 불린 이름의 자리를 지키다</h2>
+<p>이 성경적 사고 앞에 서면, 칼뱅을 비롯한 개혁신학의 전통이 복음 전파의 이중적 결과를 사람의 설득력이나 공로에 돌리지 않고 하나님의 주권 앞에 겸허히 멈추어 섰던 이유를 깊이 수긍하게 됩니다. 본문은 우리를 세 가지 낭떠러지에서 건져 냅니다. 첫째는 명령법이 전혀 없고 오직 <code>ἐσμέν</code>(~이다)이라는 존재 선언만 있는 구절을 "향기가 되라"는 도덕주의적 숙제로 바꾸는 일이고, 둘째는 우리의 헌신을 향기로운 제물로 삼아 공로를 쌓으려는 시도이며, 셋째는 동사도 없고 사람 명사도 없이 오직 분사(<code>σῳζομένοις</code>, <code>ἀπολλυμένοις</code>)로만 적힌 2장 15절과 16절을 가지고 "우리 교회는 생명의 편, 저들은 사망의 편"이라며 타인을 재단하고 선별하는 오만입니다. 우리는 향기를 제조하는 공장장도 아니고, 누가 그 향기를 맡고 살지 죽을지를 판정하는 심판관도 아닙니다. 그러기에 사도는 2장 16절 끝에서 <strong>"누가 이 일을 감당하리요"(<code>καὶ πρὸς ταῦτα τίς ἱκανός;</code>)라는 탄식 섞인 물음</strong>만을 던진 채 대답 없이 멈추어 섭니다.</p>
+<p>오늘 우리의 일상과 직장에서 이 말씀을 인격의 열매로 살아내는 길은 분명합니다. 교회의 표어나 모임의 다짐을 적을 때, 사역의 성패를 모호한 '향기 지수'로 평가하며 서로를 지치게 하는 대신 <strong>"우리는 이미 그리스도의 향기입니다"라는 은혜의 신분을 먼저 확인하십시오</strong>. 세무 장부를 정리할 때 적요란의 화려한 수식어가 거래 당사자의 실체 확인을 대신하지 못하게 하듯, 신앙생활에서도 그럴듯한 행사의 수식어가 그리스도라는 유일한 주인의 이름을 가리지 않게 하십시오. 누군가에게서 "당신은 참 향기로운 사람입니다"라는 과분한 칭찬을 들을 때에도, 그 말에 걸맞은 완벽한 사람이 되어야 한다는 부담에 눌리지 마십시오. 속으로 조용히 <strong>그 칭찬 앞에 '그리스도의'라는 속격 하나를 덧붙여 주님께 돌려 드릴 때</strong>, 칭찬은 교만이나 짐이 되지 않고 내일의 실수조차 우리의 불린 이름을 무너뜨리지 못할 것입니다. 오직 하나님 앞에서와 그리스도 안에서(2:17) 내게 배어든 주님의 이름을 진실하게 증언하며 살아가는 저와 여러분이 되기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 24일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

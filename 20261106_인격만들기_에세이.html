@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>도피가 빠른 자에게서 끊기는 날: 내가 설계한 출구가 닫힌 자리에서 마주하는 유일한 피난처</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 06일 &middot; 아모스 2:9-16</span>
+      <h1>도피가 빠른 자에게서 끊기는 날: 내가 설계한 출구가 닫힌 자리에서 마주하는 유일한 피난처</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>중요한 결정을 앞두거나 위기의 바람이 불어올 때, 능력이 많고 경험이 풍부한 사람일수록 본능적으로 먼저 설계하는 것이 있습니다. 바로 문제가 생겼을 때 빠져나갈 수 있는 안전한 출구, 곧 플랜 비(Plan B)와 우회 경로입니다. 세무 상담실에서도 자금력과 인맥이 넉넉한 고객일수록 절세를 넘어 유사시에 책임을 피할 수 있는 법인 분할이나 명의 이전 같은 출구 전략을 요청하곤 하고, 교회나 조직 역시 위기 앞에서는 하나님을 바라보기보다 비상 적립금과 후원자 명단이라는 퇴로부터 점검하곤 합니다. 우리는 내 다리가 충분히 빠르고 내 손의 자원이 넉넉하면 언제든 위험에서 몸을 빼낼 수 있다고 믿습니다. 그러나 아모스 2장 9절부터 16절까지의 말씀은, 하나님의 심판이 임하는 날 가장 먼저 일어나는 일이 사람의 능력을 꺾는 것이 아니라 <strong>사람이 믿고 의지하던 도피라는 통로 자체가 그 사람에게서 끊어지는 일</strong>임을 충격적인 문법으로 선언합니다.</p>
+<h2>사람이 실패하는 것이 아니라 도피라는 명사가 멸망한다</h2>
+<p>우리말 개역한글과 개역개정 성경으로 아모스 2장 14절 첫머리를 읽으면 빨리 달음박질하는 자도 도망할 수 없으며라고 되어 있어, 뒤이어 나오는 강한 자, 용사, 활을 가진 자, 발이 빠른 자, 말 타는 자와 똑같이 사람을 문장의 주어로 세우고 할 수 없다라는 말을 여섯 번 반복하는 것처럼 보입니다. 그러나 히브리어 원문에는 할 수 있다에 해당하는 능력 동사 야콜(יָכֹל)이 단 한 번도 쓰이지 않았고, 부정어 로(לֹא) 역시 가운데 다섯 구절에만 붙어 있을 뿐 양 끝인 14절 첫머리와 16절에는 부정어가 아예 없습니다. 무엇보다 14절 첫 문장인 베아바드 마노스 미칼(וְאָבַד מָנוֹס מִקָּל)에서 이 단락 유일의 순차 완료 동사 베아바드(멸망한다, 사라진다)를 거느리는 <strong>문법상 주어는 빠른 자가 아니라 마노스(מָנוֹס, 도피·피할 곳)</strong>입니다. 빠른 사람은 전치사 민(מִן, ~로부터) 뒤에 매달려 있을 뿐입니다.</p>
+<p>원문 그대로 직역하면 빠른 자가 도망에 실패하는 것이 아니라, <strong>도피 자체가 빠른 자에게서 멸망한다</strong>는 뜻입니다. 2장 9절에서 하나님이 아모리 사람의 백향목 같은 높이와 상수리나무 같은 굳셈을 조금도 부인하지 않으신 채 위로는 열매를, 아래로는 뿌리를 끊으셨던 것과 똑같은 문형입니다. 본문은 빠른 자의 다리 힘을 빼앗지도 않고, 용사의 무기를 부러뜨리지도 않으며, 기병의 말을 쓰러뜨리지도 않습니다. 그들의 탁월한 능력과 자원은 고스란히 남아 있는데, 그 빠른 다리와 준마가 달려가 몸을 숨길 <strong>피할 곳이라는 출구만 문장에서 완전히 지워 버리는 것</strong>입니다. 게다가 14절과 16절은 두 겹의 어근 고리로 단단히 묶여 있습니다. 도피를 뜻하는 어근 누스(נוּס)는 14절에서 피할 곳이라는 명사 마노스(מָנוֹס)로 서서 멸망하더니, 16절 끝에서는 도망한다라는 동사 야누스(יָנוּס)로 돌아옵니다. 굳셈을 뜻하는 어근 아마츠(אמץ) 역시 14절에서 힘을 굳게 하지 못한다(לֹא־יְאַמֵּץ)는 동사로 막히더니, 16절에서 용사 중에 마음이 굳센 자(אַמִּיץ לִבּוֹ)라는 형용사 호칭으로 돌아옵니다. 명사인 피난처는 죽고, 가장 굳센 이름표를 단 사람이 벌거벗은 상태(עָרוֹם)로 달아나는 동사만 남았으되 그가 어디에 가 닿는지는 끝내 적히지 않습니다.</p>
+<h2>은혜를 베푼 1인칭이 출구 앞에 서시는 체크메이트</h2>
+<p>이 서늘한 풍경은 세법의 실질과세 원칙이 작동하여 정교하게 설계해 둔 조세 회피 우회 경로들이 하루아침에 모두 무효가 되는 순간이나, 체스 판 위의 체크메이트, 혹은 비상구가 막힌 건물의 화재 대피와 깊이 닮아 있습니다. 체크메이트는 상대의 킹을 물리적으로 잡아 죽이는 수가 아닙니다. 킹은 여전히 자기 차례에 한 칸을 움직일 규칙상의 힘을 온전히 가지고 있지만, <strong>갈 수 있는 안전한 칸이 판 위에 단 한 칸도 남지 않은 상태</strong>가 바로 체크메이트입니다. 비상구가 닫힌 건물에서는 가장 발이 빠른 사람이 구원을 얻는 것이 아니라 가장 먼저 막다른 벽에 부딪힐 뿐입니다. 빠름은 출구가 열려 있을 때만 이점이 되며, 출구가 끊기면 막다른 곳에 남보다 먼저 닿게 하는 속도일 뿐입니다.</p>
+<p>그러나 세상의 모든 봉쇄 유추가 이 본문 앞에서 일제히 부러지는 지점이 하나 있습니다. 체스의 상대나 세무 당국과 달리, 아모스 2장 13절에서 곡식 단을 가득 실은 수레처럼 너희 자리에 너희를 누르리라며 출구 앞에 보라 내가(הִנֵּה אָנֹכִי)라고 서시는 분은 낯선 적군이 아니라는 사실입니다. 그 1인칭 아노키(אָנֹכִי)는 바로 앞선 9절부터 11절까지에서 이스라엘을 위해 아모리 사람을 멸하시고, 애굽 땅에서 올라오게 하시고, 사십 년 동안 광야에서 인도하시고, 아들들과 청년들 가운데서 선지자와 나실인을 일으키신 <strong>바로 그 은혜의 하나님</strong>이십니다. 칼빈이 기독교 강요에서 하나님의 선하심에 대한 지식이 받은 것이 많은 자를 변명할 길 없는 자리에 세운다고 말한 요지처럼, 언약의 은혜를 베푸신 분이 이제 그 백성이 하나님 대신 기댈 모든 변명과 도피의 출구를 직접 닫으시는 것입니다.</p>
+<p>이 끊김의 실상을 몸으로 통과하기 위해 선 자리에서 제자리 달리기를 시작해 봅니다. 14절 첫마디인 도피가 빠른 자에게서 멸망한다를 소리 내어 읽으며 눈을 감고, 다리는 계속 움직이되 <strong>머릿속에서 내가 달려가 닿을 목적지를 완전히 지운 상태</strong>로 삼십 초를 버텨 봅니다. 이어 다섯 번의 부정 어구를 읽으며 팔과 가슴과 손가락과 발과 허벅지에 차례로 힘을 주었다가 그 힘이 아무것도 밀어내지 못하는 허탈함을 느끼고, 16절에서 걸치고 있던 겉옷을 벗어 바닥에 내려놓은 채 다시 제자리에서 뛰어 봅니다. 다리 근육이 지치기 전에 향할 곳이 없다는 사실이 먼저 우리의 숨을 턱 막히게 합니다. 달리는 다리는 출구가 있을 때만 구원의 다리가 되며, 피할 곳이라는 명사가 사라진 채 달리는 동사만 남은 몸은 자유가 아니라 완전한 무방비 상태임을 숨통으로 깨닫게 됩니다. 그리고 그 가쁜 숨이 멈추는 16절 맨 끝에서 들려오는 마지막 한마디는 용사의 이름이 아니라 <strong>이는 여호와의 말씀이니라(נְאֻם־יְהוָה)라는 하나님의 이름</strong>입니다.</p>
+<h2>모두가 도망한 밤에 도망하지 않고 남으신 분</h2>
+<p>아모스 본문은 벌거벗은 채 달리는 용사가 결국 어디에 도착하는지 값싼 위로로 메워 주지 않고 그 자리에서 문장을 닫습니다. 그러나 정경 전체의 구속사적 지평을 열면, 신약의 복음서들이 아모스가 비워 둔 그 자리에 놀라운 반전의 문장을 더해 줍니다. 아모스 2장 14절과 15절에서 세 번이나 반복되던 자기 목숨을 건지지 못한다(לֹא יְמַלֵּט נַפְשׁוֹ)는 인간의 무능은, 마태복음 27장 42절 십자가 아래서 그가 남은 구원하였으되 자기는 구원할 수 없도다라는 조롱과 같은 문형으로 마주칩니다. 용사들은 힘이 모자라 자기를 건지지 못했지만, 예수님은 <strong>우리를 건지시려고 스스로 자기를 건지지 않으셨습니다</strong>. 무엇보다 마가복음 14장 50절이 기록하듯 제자들이 다 예수를 버리고 도망하였더라, 심지어 베드로와 한 청년이 벗은 몸으로 도망하던 그 어두운 밤에, <strong>유일하게 도망하지 않으시고 그 자리에 끝까지 남으신 한 분</strong>이 계셨습니다. 피할 길이 완전히 끊긴 죄인들에게 하나님이 주신 구원은 또 다른 도피 기술이나 새로운 비상구라는 명사가 아니라, 도망자들이 버리고 간 심판의 자리에 홀로 남아 스스로 우리의 피난처가 되어 주신 예수 그리스도 한 분이십니다.</p>
+<p>살아서나 죽어서나 나의 유일한 위로는 내가 내 것이 아니요 신실하신 구주 예수 그리스도의 것이라는 하이델베르크 요리문답 제1문의 고백은, 피할 곳이 길이 아니라 한 분이라는 이 진리와 깊이 맞닿아 있습니다. 그러므로 오늘 우리는 더 빠르고 강해져야 살아남는다는 도덕적 분발주의와, 자원이 많을수록 안전하다는 번영의 셈법을 함께 내려놓습니다. 세무 상담 현장에서 자금력을 믿고 편법적인 출구 설계를 요청하는 고객을 만날 때는, 실질과세 앞에서 형식적 우회로는 결국 다 닫힌다는 사실을 정직하게 알리고 <strong>빠져나갈 구멍 대신 실질에 맞는 성실한 신고와 소명</strong>으로 이끌어야 합니다. 교회의 재정 위기 앞에서도 비상 적립금이나 대출을 공동체의 피난처로 삼지 않고 맡겨진 청지기의 자리로 돌려놓으며, 개인의 중요한 결정을 앞두고 만약의 퇴로들을 노트에 적을 때마다 <strong>이 모든 출구가 끊기는 날에도 내게 남으시는 분은 누구신가</strong>를 그 옆에 함께 적어 넣는 사람, 그리하여 빠져나갈 길이 있어서가 아니라 끊겨도 남으시는 주님이 계시기에 오늘의 책임을 회피하지 않고 뚜벅뚜벅 걸어가는 성숙한 그리스도인이 되기를 간절히 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 06일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

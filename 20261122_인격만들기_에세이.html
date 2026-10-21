@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>내 계획표에서 내려놓은 예와 아니라, 하나님의 아들 안에 선 영원한 예</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 22일 &middot; 고린도후서 1:15-24</span>
+      <h1>내 계획표에서 내려놓은 예와 아니라, 하나님의 아들 안에 선 영원한 예</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살다 보면 피치 못할 사정으로 약속한 일정을 변경해야 할 때가 있습니다. 그런데 공동체나 직장 안에서 한 번 바뀐 일정은 종종 그 사람의 인격 전체를 재단하는 눈금으로 둔갑하곤 합니다. "저 사람은 원래 말을 쉽게 바꾸는 경솔한 사람이다." 이런 억울한 혐의가 쏟아질 때 우리의 본능은 즉각 방어 태세를 갖추고 긴 변명문부터 작성하려 합니다. 내가 얼마나 신중하게 계획했는지, 얼마나 어쩔 수 없는 사정이 있었는지를 입증해 내 이름을 지키려는 것입니다. 고린도 교회를 방문하려던 계획을 바꾸었다가 '경솔하다'는 비난에 직면한 사도 바울 역시 고린도후서 1장 17절에서 두 개의 물음표를 던지며 입을 엽니다. 그러나 이어지는 18절부터 20절까지에서 바울이 선택한 방식은 <strong>구구절절한 자기 변호가 아니라, 혐의의 낱말이 붙어 있는 주인을 통째로 바꾸어 버리는 놀라운 문법적 전환</strong>이었습니다.</p>
+<p>고린도후서 1장 17절부터 20절까지의 네 절을 원문으로 읽어 내려가면, <code>ναί</code>(나이, 예)와 <code>οὔ</code>(우, 아니라)라는 두 낱말이 단 한 절도 빠지지 않고 열 번이나 연달아 등장합니다. 흥미로운 것은 본문이 억울한 혐의의 낱말을 문장에서 지워 버리지 않는다는 점입니다. 대신 그 낱말들에 중성 단수 주격 관사(<code>τὸ</code>)가 붙었다가 떨어지고 다시 붙으면서 문장 안에서의 자리와 주인이 세 번 바뀝니다. 1장 17절에서 관사를 달고 명사구가 된 <code>τὸ Ναὶ ναὶ καὶ τὸ Οὒ οὔ</code>(예 예와 아니라 아니라)는 일인칭 동사(<code>βουλεύομαι</code>, 내가 계획하다) 뒤에 이어지며 <strong>"내게(<code>παρ' ἐμοί</code>) 그런 일이 있겠느냐"고 물어지는 물음의 주어</strong>로 섭니다. 그러나 곧바로 이어지는 18절과 19절에서 이 두 낱말은 관사를 벗어 던지고 삼인칭 동사의 술어 자리로 내려앉으며, 그 주인이 바울 개인에게서 <strong>'우리의 말'(<code>ὁ λόγος ἡμῶν</code>)과 '하나님의 아들 예수 그리스도'(<code>ὁ τοῦ θεοῦ υἱὸς Ἰησοῦς Χριστός</code>)에게로 옮겨 갑니다</strong>.</p>
+<h2>변명 대신 주인을 바꾸는 문장, 관사를 벗고 아들에게로 옮겨 간 낱말</h2>
+<p>더욱 눈여겨보아야 할 대목은 1장 18절의 문장 구조입니다. 바울은 "우리의 말이 예와 아니라 함이 없다"는 문장을 주절로 내세우지 않고, <code>ὅτι</code> 종속절 안으로 낮추어 넣었습니다. 정작 그 절의 머리를 지탱하는 주절은 동사조차 없이 형용사와 주어만 맞대어 놓은 <code>πιστὸς δὲ ὁ θεός</code>, 곧 <strong>"하나님은 미쁘시니라"라는 흔들리지 않는 선언</strong>입니다. 복음의 진실성과 말씀의 확실성이 설교자의 일관된 성품이나 완벽한 일정 관리에서 추론되는 것이 아니라, 먼저 선언된 하나님의 신실하심 위에 매달려 있다는 사실이 어순이 아닌 통사 구조 자체로 증명되는 것입니다. 이어지는 19절에서 바울과 실루아노와 디모데 세 사역자의 이름은 빠짐없이 기록되지만, 그들은 오직 전치사구 <code>δι' ἡμῶν</code>(우리를 통하여)이라는 경유처로만 등장할 뿐입니다. 정작 문장의 유일한 주격 기명으로 우뚝 서서 부정과거(<code>οὐκ ἐγένετο</code>, 예와 아니라가 되지 아니하셨고)와 완료형(<code>γέγονεν</code>, 그 안에 예가 되었느니라) 두 정동사를 이끄는 주어는 오직 <strong>너희 가운데 전파되신 분, 하나님의 아들 예수 그리스도 한 분뿐</strong>입니다.</p>
+<p>세무조사에서 차명 계좌에 입금된 금액의 실질 귀속자를 가려낼 때, 조사관은 장부에 적힌 숫자나 거래 일자를 고치지 않습니다. 금액은 원 단위까지 그대로 둔 채 오직 그 숫자가 속해야 할 장부의 주인 이름만 바로잡는 '귀속 경정'을 행합니다. 회계에서 대체 전표를 끊어 한 계정의 숫자를 원래 있어야 할 계정으로 옮기는 것이나, 어음 뒷면에 배서인이 바뀌면 책임의 주체가 달라지는 이치도 이와 닮았습니다. 고린도후서 1장 17절부터 20절까지가 행하는 일이 바로 이 귀속의 정정입니다. 내용물인 '예'와 '아니라'를 그대로 보존했기 때문에, 오히려 <strong>그 낱말의 소속이 사도의 사적인 계획표에서 하나님의 아들에게로 완전히 교체되었다는 사실</strong>이 선명하게 드러납니다. 게다가 세무의 경정에는 과세관청의 처분 동사가 필요하고 어음에는 사람의 배서 행위가 필요하지만, 1장 18절의 주절과 1장 20절 전체에는 <strong>귀속을 옮기는 사람의 동사가 단 한 개도 적혀 있지 않습니다</strong>.</p>
+<h2>가슴에 쥐었던 두 장의 카드를 내려놓을 때 비로소 펴지는 어깨</h2>
+<p>1장 20절에 이르면 부정을 통과하고 살아남은 '예' 하나에 다시 관사가 붙어 <code>τὸ Ναί</code>(그 예)가 되고, 그 곁에 똑같이 관사를 받은 <code>τὸ Ἀμήν</code>(그 아멘)이 나란히 섭니다. 놀랍게도 원문 1장 20절에는 <strong>동사가 단 한 개도 없습니다</strong>. 한글 역본들은 우리말 문장을 매끄럽게 맺기 위해 '되니', '하여', '돌리게 되느니라'라는 세 개의 동사를 보충하고 그 앞에 "우리가 아멘 하여"라며 '우리가'라는 주어까지 덧붙였습니다. 그러나 동사 없는 원문에 '우리가'를 주어로 보충하는 순간, 17절부터 19절까지에 걸쳐 사람에게서 떠나 아들에게로 옮겨 갔던 주어 자리가 다시 사람에게로 되돌아오는 아슬아슬한 역전이 일어납니다. 원문에서 '우리'는 주어가 아니라 마지막 전치사구 <code>δι' ἡμῶν</code>(우리를 통하여)에 머물 뿐입니다. 한 사람의 여행 일정을 두고 벌어졌던 작은 '예'(1:17)의 시비가, 관사 한 글자를 손잡이 삼아 <strong>"하나님의 약속은 얼마든지(<code>ὅσαι</code>) 그 안에서 예"(1:20)가 되는 구속사 전체의 규모로 확장된 것</strong>입니다.</p>
+<p>종이 두 장에 각각 '예'와 '아니라'를 적고 양손에 쥐어 내 가슴에 꼭 붙여 보십시오. "내게 있었겠느냐"를 읽으며 그 종이를 가슴에 품고 있는 동안, 우리의 두 팔은 안으로 굽고 어깨는 잔뜩 움츠러듭니다. 내 이름과 내 자존심을 지키려는 자기 변호의 자세는 언제나 이처럼 숨이 막히는 쥐기의 자세입니다. 그러나 18절과 19절을 읽으며 두 팔을 앞으로 뻗어 종이 두 장을 탁자 위에 내려놓고 손을 떼는 순간, 굽었던 팔이 펴지고 말렸던 어깨가 시원하게 열립니다. 그리고 탁자 위에 '아니라'는 남겨 둔 채 오직 '예' 한 장만 집어 눈높이 위로 높이 들어 올릴 때, 우리는 비로소 <strong>혐의를 지운 것이 아니라 그 낱말이 머물 자리를 그리스도께로 옮겨 드렸음</strong>을 몸으로 깨닫게 됩니다.</p>
+<h2>흔들리는 내 말의 흔적을 지우지 않고, 미쁘신 분의 경유처로 서다</h2>
+<p>이 문법의 진리는 우리를 세 가지 극단적인 유혹에서 지켜 줍니다. 마태복음 5장 37절이나 야고보서 5장 12절처럼 사람의 말에 신실함을 명하는 본문과 달리, 명령법이 단 하나도 없는 이 단락을 두고 "바울처럼 일관성 있는 사람이 되자"고 다그치는 도덕주의가 첫째 유혹입니다. 반대로 잘못을 저질러 놓고 자기 책임을 회피하려는 변명 수단으로 하나님의 이름을 끌어들이는 것이 둘째 유혹이며, 그리스도가 예이시니 내 약속쯤은 마음대로 어겨도 좋다고 여기는 무책임이 셋째 유혹입니다. 바울은 1장 23절과 24절에서 내 영혼을 걸고 하나님을 부르며 너희 믿음을 주관하려는 것이 아니라고 엄숙히 고백합니다. 복음은 <strong>사람의 말을 가볍게 만드는 것이 아니라, 사람의 계획이 피치 못하게 흔들릴 때에도 그 흔들림이 내가 전한 그리스도의 신실하심을 무너뜨리지 못하게 막아 주는 은혜의 울타리</strong>입니다.</p>
+<p>그러므로 성경적 사고로 성숙해지는 인격은 오해와 비난 앞에서 내 완전함을 입증하느라 에너지를 소진하지 않습니다. 교회 회의나 직장에서 일정이 변경되어 오해를 살 때, 변경된 사유에 대해서는 변명 없이 정직하고 투명하게 설명하되, 내 유한한 일정 관리 능력에 공동체의 신뢰 전체를 매달아 두지 마십시오. 약속을 지키지 못하게 되었을 때에도 과거에 내가 했던 '예'의 흔적을 슬그머니 지우거나 없던 일로 꾸미는 대신, <strong>"제가 분명히 예라고 약속드렸으나 지금 그것을 지키지 못하게 되었습니다"라고 말의 흔적을 그대로 인정하는 정직함</strong>을 택하십시오. 세무 소명서를 쓸 때 장황한 성실성 해명보다 금액의 정확한 귀속처 한 줄을 먼저 밝히듯, 내 말의 '예'가 흔들리는 순간에도 변명의 주어 자리에 나를 세우지 않고 <strong>오직 모든 약속의 유일한 '예'가 되신 그리스도를 가리키는 겸손한 경유처(<code>δι' ἡμῶν</code>)로 서는 사람</strong>, 그의 입술을 통과하여 동사 없는 가장 순전한 '아멘'이 하나님께 영광으로 올려질 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 22일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

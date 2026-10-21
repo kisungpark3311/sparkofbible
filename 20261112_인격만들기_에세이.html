@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>달력을 덮은 손바닥 위에 드러나는 그 날의 진짜 내용</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 12일 &middot; 아모스 5:18-27</span>
+      <h1>달력을 덮은 손바닥 위에 드러나는 그 날의 진짜 내용</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h2>시간을 지는 동사 없이 네 겹의 어둠으로 선언된 날</h2>
+<p>기다림이 길어지는 삶의 골짜기에서 사람이 가장 먼저 붙드는 질문은 언제나 날짜와 시각입니다. 힘든 치료의 과정이 언제 끝날지, 신청해 둔 환급금이나 간절히 바라는 인사 발표가 언제쯤 날아올지, 우리는 탁상 달력의 숫자 위에 동그라미를 쳐 두고 그 날이 오기만을 손꼽아 헤아립니다. 신앙의 언어 속에서도 이러한 셈법은 종종 여호와의 날을 대망한다는 이름으로 나타나곤 합니다. 주님께서 개입하시는 그 날만 오면 내 억울함이 풀리고 모든 문제가 단번에 밝아지리라는 장밋빛 기대입니다. 그러나 아모스 5장 18절과 20절은 그렇게 달력을 짚으며 그 날을 사모하던 사람들을 향해, <strong>너희가 어찌하여 여호와의 날을 사모하느뇨, 그 날은 어두움이요 빛이 아니라</strong>는 서늘한 질문으로 찬물을 끼얹습니다.</p>
+<p>이 선언이 담긴 히브리어 원문 5장 18절부터 20절까지의 통사 구조를 살펴보면, 우리의 시선을 사로잡는 특이한 문법적 공백이 나타납니다. 여호와의 날, 곧 욤 야웨라는 접두사 없는 남성 단수 연계형 사슬이 세 번 등장하는 이 구역에서, 정작 그 날을 정의하는 18절 하반절과 20절 전체에는 <strong>시간의 흐름이나 사건의 발생을 나르는 정동사가 단 한 개도 쓰이지 않았습니다</strong>. 유일하게 정동사 다섯 개가 몰려 있는 19절은 사자를 피하다가 곰을 만나고 집에 들어가 벽에 손을 짚었다가 뱀에게 물린다는 비유절 안에 갇혀 있을 뿐입니다. 다른 선지서들이 여호와의 날에 가까웠다라는 임박함의 시간 어휘를 달아 두는 것과 달리, 아모스의 이 열 절에는 끝이나 마지막 순서를 뜻하는 어휘조차 전무한 채 오직 <strong>어두움, 빛 아님, 구약 유일의 형용사인 캄캄함, 그리고 빛남 없음이라는 네 겹의 상태 어휘</strong>만 명사절로 박혀 있습니다.</p>
+<p>사도행전 1장 7절이나 마태복음 24장 36절에서 주님께서 때와 기한은 너희의 알 바 아니라고 말씀으로 시기의 질문을 거두셨다면, 아모스 5장은 아예 문장의 꼴에서 동사와 날짜 칸을 비워 버림으로써 우리의 질문을 근본적으로 교정합니다. 그렇다면 동사조차 없이 선언된 그 날의 어두움이란 도대체 무엇을 가리키는 것일까요. 그 해답은 축 구역 바깥인 21절부터 23절까지에 쏟아져 나오는 <strong>여섯 개의 일인칭 동사들</strong> 속에 담겨 있습니다. 내가 너희 절기들을 미워하여 멸시하며, 성회들을 기뻐하지 아니하며, 번제와 소제를 받지 아니하고, 살진 희생의 화목제를 돌아보지 않으며, 네 노래와 비파 소리를 듣지 않겠다는 선언입니다. 만약 이 구절들을 지워 버린다면 18절과 20절의 어둠은 단순한 일식이나 기상 현상으로 읽히겠지만, 바로 뒤따르는 이 일인칭 거부 동사들 때문에 그 날의 어둠은 <strong>받으시던 하나님께서 더 이상 받지 않으시는 관계의 단절과 거절</strong>이라는 구체적인 내용으로 채워집니다.</p>
+<h2>달력을 덮고 공중에 내민 두 손이 겪는 거절의 무게</h2>
+<p>날짜가 사라진 자리에 들어선 이 거절의 어둠을 몸의 감각으로 통과해 보려면, 책상 위의 달력을 펴고 한 손가락으로 날짜 칸을 짚은 채 5장 18절을 읽기 시작해 보면 됩니다. 그 날은 어두움이요에 이르는 순간 짚고 있던 달력을 덮고 눈을 감은 채 네 겹의 어둠 어휘를 천천히 읊조립니다. 이어서 눈을 뜨고 두 손바닥 위에 무거운 책 한 권을 올려 앞으로 내밀며 21절부터 23절까지의 거부 동사들을 하나씩 읽어 나갑니다. 미워하며, 받지 아니하며, 듣지 아니하리라를 읽을 때마다 팔을 조금씩 더 앞으로 뻗어 보지만, <strong>그 책을 받아 주는 손이 없어 공중에 머문 두 팔이 여섯 번째에 이르러 가늘게 떨리는 감각</strong>을 겪게 됩니다. 마침내 23절의 네 노랫소리를 내 앞에서 그칠지어다에서 책을 내려놓을 때, 우리는 눈을 감아 생기는 물리적 어둠보다 <strong>내가 정성껏 준비해 내민 예물이 받아들여지지 않은 채 허공에 멈추어 있는 관계의 어둠</strong>이 훨씬 더 짙고 무겁다는 사실을 온몸으로 깨닫게 됩니다.</p>
+<p>세무 실무에서 종합소득세 신고를 마치고 환급일만 손꼽아 기다리던 납세자의 상황은 이 본문의 반전을 생생하게 비추어 줍니다. 납세자는 달력에 표시해 둔 그 날을 당연히 돈이 입금되는 기쁨의 날로 사모하며 기다립니다. 그런데 기다리던 그 날에 도착한 것이 입금 알림이 아니라, 신고서에 적어 넣은 필요경비 항목들이 증빙 불비로 부인되었다는 검토 결과 통지서라면 어떻게 되겠습니까. 그 순간 납세자의 입에서는 왜 하필 오늘이냐는 날짜 질문이 사라지고, <strong>내가 올린 목록 가운데 무엇이 왜 인정되지 않았는가라는 내용의 질문</strong>만 남게 됩니다. 아모스 5장이 예배자들의 눈앞에 펼쳐 놓은 통지서가 바로 그러했습니다. 제단이나 율법이나 제사장 제도 자체가 폐지된 것이 아니라, 공법과 정의를 버린 채 그들이 자기 열심으로 준비해 올린 품목들이 <strong>주님의 감각과 인격 앞에서 전수 거부된 것</strong>입니다.</p>
+<p>그러나 아모스가 언제인지 시각을 적지 않은 채 남겨 둔 이 무서운 거절의 어둠은, 정경 전체의 시간 축을 따라 걸어갈 때 한 사람의 몸 위에서 마침내 정확한 시각을 얻게 됩니다. 누가복음 23장 44절과 마태복음 27장 45절 이하가 기록하듯, 제육시로부터 온 땅에 어두움이 임하여 제구시까지 해가 빛을 잃었던 골고다의 그 한낮에, 하나님의 아들이신 예수 그리스도께서 <strong>나의 하나님, 나의 하나님, 어찌하여 나를 버리셨나이까</strong>라고 부르짖으셨습니다. 칼빈이 기독교 강요 2권 16장에서 통찰했듯, 우리의 거짓된 예배와 죄악이 마땅히 받아야 할 그 날의 칠흑 같은 거절과 유기(버림받음)의 어둠을 그리스도께서 십자가 위에서 친히 다 받아 내신 것입니다. 그리고 히브리서 10장 5절과 10절의 증언처럼, 하나님께서 원치 않으신 인간의 제물 자리에 <strong>단번에 드려진 예수 그리스도의 예비된 한 몸</strong>이 놓임으로써, 우리의 빈손이 다시 주님께 받아들여지는 새롭고 산 길이 열렸습니다.</p>
+<h2>언제냐는 조급한 물음을 내려놓고 내용을 정돈하는 인격</h2>
+<p>이 복음의 진리를 통과한 사람은 일터에서 고객의 조급한 기다림을 대할 때부터 지혜롭고 정직한 태도를 취합니다. 경정청구나 세금 환급 신청을 맡긴 고객이 찾아와 언제 돈이 들어오느냐고 날짜부터 재촉할 때, 듣기 좋은 예정일만 덜컥 약속해 주면 나중에 검토 결과가 기대와 다르게 나왔을 때 고객은 그 날을 배신의 날로 겪게 됩니다. 성숙한 실무자는 달력의 일자를 말하기 전에 먼저 <strong>신청서 안에 담긴 쟁점 항목들의 내용 목록</strong>을 고객과 함께 펼쳐 봅니다. 인정받기 어려운 무리한 항목이 없는지 고객이 직접 눈으로 확인하고 정리하게 도울 때, 막연한 날짜를 향한 불안한 기다림이 <strong>현재의 내용을 정직하게 다듬는 책임 있는 준비</strong>로 바뀌며 서로의 신뢰도 깊어집니다.</p>
+<p>교회와 공동체의 예배와 행사를 준비하는 행정의 풍경도 이 말씀 앞에서 새롭게 조율되어야 합니다. 교회의 회의는 언제나 다가오는 절기와 행사의 달력을 맞추는 일로 분주하고, 정작 그 순서지 위에 우리가 무슨 마음과 어떤 내용의 예물을 올리고 있는지는 뒷전으로 밀리기 일쑤입니다. 주일 아침 예배가 끝나는 시각은 시계를 보면 알 수 있어도, 그 예배가 주님께 열납되었는지는 화려한 순서지 안에서는 결코 확인할 수 없습니다. 절기 준비 모임의 첫 안건을 일정 조율이 아니라 <strong>순서지 안에 사람의 과시와 관행으로 덧붙여진 항목을 덜어내는 내용 점검</strong>으로 바꾸어 보십시오. 내 앞에서 네 노랫소리를 치우라 하신 단 하나의 명령 앞에 귀를 기울이며, 우리의 준비량으로 하나님의 받으심을 사려는 헛된 셈법을 내려놓고 <strong>오직 그리스도의 공로에 의지하여 정결한 삶을 드리는 예배</strong>를 회복해야 합니다.</p>
+<p>오늘 밤, 내 삶을 짓누르는 불확실한 미래 앞에서 언제쯤 이 일이 해결될까라며 달력만 만지작거리던 조급한 손가락을 조용히 거두시기 바랍니다. 웨스트민스터 신앙고백이 일깨우듯 주님께서 그 날의 때를 우리에게 알리지 않으신 것은 우리로 하여금 육적인 안일을 떨치고 오늘 깨어 있게 하려는 사랑의 배려입니다. 노트를 펴고 내가 습관처럼 되뇌던 언제라는 질문을 지운 자리에, <strong>주님 앞에 서는 그 날은 과연 어떤 내용으로 채워질 날인가</strong>를 고쳐 적어 보십시오. 날짜를 계산하느라 마비되었던 마음의 에너지를 거두어, 오늘 내 삶과 관계 속에서 <strong>주님 보시기에 조용히 치우고 내려놓아야 할 불의와 허식 한 가지</strong>를 정돈하는 사람, 그 사람이 바로 어둠을 지나 부활의 빛 가운데를 걸어가는 깨어 있는 그리스도인입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 12일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

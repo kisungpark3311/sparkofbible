@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>두루마리를 쥔 손으로 자기 가슴을 재다: 받은 말씀이 고발장의 품목이 되는 자리에서</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 05일 &middot; 아모스 2:1-8</span>
+      <h1>두루마리를 쥔 손으로 자기 가슴을 재다: 받은 말씀이 고발장의 품목이 되는 자리에서</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>교회 안팎에서 누군가의 허물이 드러날 때 우리의 판단과 정죄는 놀라울 만큼 빠르고 날카롭습니다. 손가락은 지체 없이 바깥의 상대를 향하고, 목소리는 의분으로 높아집니다. 그러나 정작 우리가 그 잘못을 재단할 때 손에 쥐고 있는 자가 하나님의 말씀인지, 우리 집단의 오랜 관행인지, 아니면 내 알량한 체면인지는 좀처럼 묻지 않습니다. 더구나 그 자를 나 자신의 가슴에 먼저 대어 보는 일은 더욱 드뭅니다. 아모스 2장 1절부터 8절까지 이어지는 모압과 유다와 이스라엘을 향한 세 신탁은, 이방의 잔학한 죄를 향해 손가락질하며 동의하던 청중의 시선을 2장 4절 한복판에서 갑자기 멈춰 세웁니다. 그리고 고발장의 똑같은 칸에 전혀 다른 품목 하나를 조용히 올려놓음으로써, <strong>은혜로 받은 말씀이 면제부가 아니라 오히려 우리 자신을 재는 가장 엄중한 고발의 척도가 됨</strong>을 드러냅니다.</p>
+<h2>같은 고발의 칸에 올라온 다른 품목, 여호와의 율법</h2>
+<p>모압과 유다와 이스라엘의 죄를 고발하는 2장 1절과 4절과 6절은 모두 전치사 알(עַל) 뒤에 칼 부정사 연계형이 오는 완전히 똑같은 문법의 칸을 사용합니다. 2장 1절 모압의 칸에는 사르포(שָׂרְפוֹ, 그가 불사른 일)가 서서 에돔 왕의 뼈를 태워 회를 만든 잔혹한 행위의 대상을 거느리고, 2장 6절 이스라엘의 칸에는 미크람(מִכְרָם, 그들이 판 일)이 서서 은과 신 한 켤레에 팔려 간 의인과 궁핍한 사람들을 거느립니다. 둘 다 눈앞에 밖으로 드러난 폭력과 거래의 피해자들을 고발의 품목으로 적고 있습니다. 그런데 그 둘 사이에 끼어 있는 2장 4절 유다의 칸에는 마아삼(מָאֳסָם, 그들이 멸시한 일)이라는 부정사가 서고, 그 목적어 자리에 사람의 몸이 아니라 <strong>여호와의 율법(תּוֹרַת יְהוָה)과 그의 율례들(וְחֻקָּיו)</strong>이 올라옵니다.</p>
+<p>구약 전체에서 토라는 이백스물두 번, 호크는 백스물여덟 번이나 쓰이는 아주 친숙하고 흔한 단어들이지만, 아모스서 전체에서는 오직 이 2장 4절 한 자리에서만 나란히 등장합니다. 말라기 4장 4절에서 기억하라는 명령의 목적어로 주어졌던 그 거룩한 두 낱말이, 여기서는 <strong>백성이 멸시하고 지키지 않은 고발장의 증거 품목</strong>으로 법정 탁자 위에 올라온 것입니다. 게다가 이 짧은 유다 신탁 안에는 정동사들이 유독 빽빽하게 몰려 있어서, 척도를 멸시하는 태도(מָאֳסָם)에서 시작해 규례를 지키지 않는 불이행(לֹא שָׁמָרוּ)으로, 마침내 조상들이 따라가던 거짓것들이 주어가 되어 그들을 그릇된 길로 끌고 가는 내리막(וַיַּתְעוּם כִּזְבֵיהֶם)까지 단숨에 이어집니다. 척도 하나를 우습게 여겨 손에서 놓아 버린 사람은 단순히 기준 없이 멈추어 서 있는 것이 아니라, 필연적으로 다른 거짓된 척도에 끌려가는 포로가 되고 만다는 사실을 한 절의 문법이 적나라하게 보여 줍니다.</p>
+<h2>제정자와 판정자 사이에 틈이 없는 법정</h2>
+<p>이 구조는 세무 실무에서 과세관청의 사전답변이나 안내문을 이미 받아 둔 납세자의 경우, 혹은 원청으로부터 검수 기준서를 교부받은 하청 공장의 감사와 비견됩니다. 아무런 안내를 받지 못한 채 실수로 누락한 사람과, 명확한 서면 회신과 기준서를 손에 받아 두고도 그것을 무시한 채 다르게 처리한 사람의 결과서에는 똑같은 금액이 적히지 않습니다. 기준서를 받은 쪽의 고발장에는 반드시 기준서 제몇 조 위반이라는 근거 조항이 이름으로 따라붙기 마련입니다. 사도 바울이 로마서 2장 12절에서 율법 없이 범죄한 자는 율법 없이 망하고 율법이 있고 범죄한 자는 율법으로 말미암아 심판을 받으리라고 명시한 문장이 아모스 2장의 이 품목 교차와 정확히 맞물립니다.</p>
+<p>그러나 세상의 기준서 유추가 끝내 부러지는 결정적인 지점이 있습니다. 인간의 법정에서는 기준서를 만든 위원회와 나중에 감사를 나와 판정하는 감독관이 서로 다른 사람일 수 있고, 검수 보고서는 불량품이라는 결과만 적을 뿐 기준서를 마음으로 멸시했다는 내면의 태도까지는 적지 못합니다. 반면 아모스 2장 4절에서 유다가 멸시한 척도는 여호와의 율법이라는 연계형 연쇄로, 그리고 그의 율례들이라는 3인칭 남성 단수 접미사로 <strong>두 번 거듭해 신탁 첫머리의 심판주 여호와를 직접 가리킵니다</strong>. 척도를 은혜로 주신 제정자와 지금 법정에 서서 고발하시는 판정자 사이에 바늘 하나 들어갈 틈이 없는 것입니다. 더욱이 만약 본문에서 2장 4절과 5절을 지워 버린다면, 2장 6절부터 쏟아지는 이스라엘의 은과 신 한 켤레, 전당 잡은 옷과 벌금으로 얻은 포도주 목록은 모압이 왕의 뼈를 태운 일과 다를 바 없는 일반 범죄 목록으로 읽히겠지만, 2장 4절이 그 바로 앞에 여호와의 율법이라는 자를 먼저 올려 두었기에 신명기 24장 17절의 어구와 겹치는 그 모든 일상의 거래들은 이제 <strong>받은 말씀이라는 척도 곁에서 읽히는 언약 안의 고발</strong>이 됩니다.</p>
+<p>이 전환을 몸의 감각으로 새기기 위해 책상 위에 삼십 센티미터 자 하나를 올려 두고 본문을 읽는 훈련을 해 봅니다. 2장 1절 모압의 죄와 2장 6절 이스라엘의 죄를 읽을 때는 오른손 검지를 뻗어 책상 바깥쪽의 먼 허공을 가리킵니다. 고발의 대상이 내 바깥, 남의 자리에 있기 때문입니다. 그러다 2장 4절 여호와의 율법을 멸시하며를 읽는 순간, 바깥을 향하던 손가락을 거두어 <strong>책상 위의 자를 직접 손에 쥐고 그 자를 내 가슴 한복판에 그대로 갖다 댑니다</strong>. 그리고 저희가라는 3인칭 대명사를 우리가라는 1인칭으로 바꾸어, 이는 우리가 여호와의 율법을 멸시하며 그 율례를 지키지 아니하고라고 소리 내어 읽어 봅니다. 눈으로만 흘려보낼 때와 달리 우리가라는 발음에서 혀가 한 번 무겁게 걸리는 그 짧은 저항이야말로, 말씀을 가장 오래 다루고 가르치면서도 정작 그 자로 나 자신을 재는 일에는 익숙지 않았던 우리의 숨은 습관을 폭로합니다.</p>
+<h2>척도를 폐하지 않고 온전히 채우신 분의 옷자락 아래서</h2>
+<p>칼뱅이 통찰했듯 아모스가 이방의 신탁들을 먼저 배치한 것은 청중의 동의를 얻어 놓은 뒤 그들이 정죄에 사용했던 바로 그 자 위에 유다와 이스라엘 자신을 세우는 순서이며, 은혜언약 안에서 율법을 멸시한 일은 언약의 파기나 민족 교체가 아니라 언약 관계 안에서의 엄중한 처분입니다. 그렇다면 고발인이 직접 제정한 규범으로 고발당한 피고를 과연 누가 변호할 수 있겠습니까. 아모스 2장은 이 질문을 열린 채로 남겨 두지만, 신약 성경은 그 열린 자리에 복음의 가장 빛나는 두 문장을 더해 줍니다. 아모스 2장 4절이 3인칭 복수로 그들이 지키지 아니하였다(לֹא שָׁמָרוּ)고 적는 바로 그 자리에, 마태복음 5장 17절의 예수님은 <strong>내가 율법을 폐하러 온 것이 아니요 완전케 하려 함이로다(πληρῶσαι)</strong>라며 1인칭 단수로 걸어 들어오십니다. 그리고 갈라디아서 3장 13절의 증언처럼, 척도를 한 치의 어긋남도 없이 채우신 그리스도께서 고발장의 조항이 내리는 <strong>율법의 저주를 우리 대신 짊어지심으로</strong> 우리를 속량하셨습니다.</p>
+<p>이 복음의 빛 아래서 우리는 내 힘으로 율법을 더 잘 지켜 고발을 면하겠다는 율법주의도, 그리스도가 다 채우셨으니 이제 말씀의 자는 버려도 된다는 반율법주의도, 말씀을 모르는 세상만 향해 자를 휘두르는 위선도 모두 버립니다. 교회 안에서 누군가의 허물을 상담하거나 권징을 논의해야 할 때는, 성경을 들어 남을 겨누기 전에 우리가 판단의 근거로 삼는 말씀의 조항을 먼저 이름으로 부르고 <strong>그 자를 회의석에 앉은 우리 자신의 가슴에 먼저 대어 보는 겸손한 목회와 공동체</strong>가 되어야 합니다. 세무와 일상의 실무에서도 고객이 과거에 이미 받은 세무 안내문과 사전답변, 지적사항 목록을 파일 맨 첫 장에 철해 두고 숫자 계산에 앞서 이미 받은 기준과의 일치 여부를 먼저 살피는 성실함을 갖추어야 합니다. 날마다 내 손에 쥐여 주신 말씀의 두루마리를 남을 치는 막대기가 아니라 내 마음을 재는 은혜의 자로 가슴에 품고, 그 자를 온전히 채우신 그리스도를 바라보며 걷는 사람이 되기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 05일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>살아내는 일도 주님께로부터 받은 거룩한 분부입니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 10일 &middot; 아모스 5:1-6</span>
+      <h1>살아내는 일도 주님께로부터 받은 거룩한 분부입니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h2>그리하면이라는 거래의 칸을 걷어 낸 두 줄의 명령</h2>
+<p>우리는 무언가를 간절히 구할 때마다 마음속에 보이지 않는 거래의 장부를 펼치곤 합니다. 이만큼 새벽을 깨워 기도하면 막힌 길이 열리리라 기대하고, 이만큼 헌신하고 애쓰면 그 보상으로 평안한 삶이 주어지리라 셈하는 것입니다. 아모스 5장 4절과 6절을 우리말 성경으로 읽을 때에도 우리의 눈은 자연스레 그 익숙한 인과의 공식을 따라갑니다. 너희는 나를 찾으라 그리하면 살리라는 문장 속에서, 찾는 일은 우리가 치러야 할 값이고 사는 일은 그 값을 치른 뒤에야 비로소 건네받는 미래의 상급처럼 들립니다. 그러나 히브리어 원문의 문법 속으로 한 걸음만 깊이 들어가 보면, 우리가 의지하던 <strong>그리하면이라는 거래의 칸이 본래 그 자리에 없었다</strong>는 놀라운 사실과 마주하게 됩니다.</p>
+<p>원문 5장 4절의 디르슈니 위흐유와 6절의 디르슈 에트 야웨 위흐유는 구조가 칼날처럼 선명합니다. 찾으라에 해당하는 동사 다라시와 살라에 해당하는 동사 하야가 두 절 모두에서 똑같이 <strong>칼 명령형 이인칭 남성 복수</strong>로 나란히 서 있습니다. 구약 성경 전체에서 이 두 동사가 한 절 안에 함께 등장하는 일곱 자리 가운데, 두 낱말이 모두 명령형으로 선 곳은 오직 아모스 5장의 이 두 절뿐입니다. 더욱이 이 여섯 절 전체를 샅샅이 훑어보아도 조건이나 대가를 뜻하는 접속사는 단 한 토막도 없으며, 두 명령을 이어 주는 것은 <strong>그리고를 뜻하는 접속사 베 한 글자</strong>뿐입니다. 번역본이 접속사 한 글자를 그리하면이라는 부사로 늘리고 명령형을 살리라라는 미래의 약속으로 옮겨 놓은 자리를 원래대로 돌려놓으면, 주님의 말씀은 조건문이 아니라 <strong>나를 찾으라, 그리고 살라라는 같은 굵기의 두 명령</strong>으로 울려 퍼집니다.</p>
+<p>한 입에서 나온 두 명령이 그리고로 이어질 때, 둘째 명령은 결코 첫째 명령의 대가나 보수가 아닙니다. 진료실에서 의사가 환자에게 이 약을 드십시오, 그리고 푹 주무십시오라고 처방할 때 잠은 약을 먹은 상으로 받는 보상이 아니며, 식탁에서 부모가 아이에게 손 씻어라, 그리고 밥 먹어라라고 말할 때 밥은 손 씻은 값을 정산해 주는 거래가 아닙니다. 세무 실무에서 개업하는 이에게 사업자 등록을 하십시오, 그리고 영업하십시오라고 안내하거나, 재활 병동에서 보조기를 착용하십시오, 그리고 걸으십시오라고 지시할 때에도 마찬가지입니다. <strong>둘째 명령은 첫째 명령이 끝난 뒤에 기다려서 받는 상이 아니라 첫째 명령과 함께 지금 시작해야 할 삶의 과업</strong>입니다. 주님께서 건네신 살라라는 말씀 역시 우리가 값을 치러 획득해야 할 보수가 아니라, <strong>찾으라는 분부와 함께 오늘 우리 손에 쥐여 주신 두 번째 분부</strong>인 것입니다.</p>
+<h2>돌아서서 쉬는 숨과 장소를 넘어선 찾음의 목적어</h2>
+<p>이 두 줄의 분부를 머리의 계산이 아니라 몸의 호흡으로 익히기 위해, 방 한가운데 서서 아모스 5장 5절과 6절을 온몸으로 읽어 볼 수 있습니다. 오른쪽을 벧엘, 왼쪽을 길갈, 뒤쪽을 브엘세바라 정해 두고, 5절의 금지 명령을 읽으며 각 지명이 나올 때마다 그쪽으로 몸을 반쯤 기울여 발을 떼기 직전에 멈추어 섭니다. 이미 익숙한 성소와 화려한 종교적 공간을 향해 기울어지던 어깨와 발걸음을 거두어 정면으로 돌아선 뒤, 6절의 여호와를 찾으라에서 눈을 감고 고개를 들고, 이어지는 <strong>살라에서 깊고 긴 숨을 들이쉬었다가 내쉬는 연습</strong>입니다. 숨은 고개를 든 대가로 주어지는 상이 아닙니다. 늘 무심코 쉬던 호흡일지라도 살라라는 주님의 명령을 받아 의식하며 숨을 내쉴 때, 우리의 들숨과 날숨은 <strong>받은 분부를 수행하는 거룩한 생명의 동작</strong>으로 거듭납니다.</p>
+<p>여기서 본문은 우리의 발걸음이 미끄러지지 않도록 결정적인 안전장치 하나를 더 세워 둡니다. 만약 명령 둘이 나란히 선 문법 구조만 남기고 첫째 명령의 목적어를 바꾸어, 벧엘을 찾으라 그리고 살라라고 쓴다면 문법은 멀쩡할지 몰라도 본문이 가장 엄하게 금지한 문장이 되고 맙니다. 5절이 세 성소의 이름을 일일이 부르며 찾지 말라고 가로막는 까닭은, 사람들이 <strong>하나님 자신이 아니라 종교적 장소와 모임과 업적을 찾음의 목적어로</strong> 삼았기 때문입니다. 게다가 세상의 재활 처방전이나 영업 지시서에는 몇 걸음을 걸으라거나 어떻게 매출을 내라는 세부 조항이 적혀 있지만, 아모스 5장의 살라에는 무엇을 하며 살라는 세부 규정이 단 한 줄도 적혀 있지 않습니다. 그 비어 있는 세부의 칸 앞에서 우리가 스스로 새로운 율법의 장부를 지어내지 않으려면, 언제나 <strong>첫째 명령의 목적어이신 나를, 곧 여호와를 향한 자리</strong>로 돌아가야만 합니다.</p>
+<p>구속사의 시야를 넓히면, 조건문이 아니라 명령문으로 주어진 이 생명의 구조는 시간의 축을 미래의 도착지에서 오늘의 출발선으로 옮겨 놓습니다. 요한복음 5장 39절과 40절에서 예수님께서 성경을 부지런히 상고하되 생명을 얻기 위하여 내게 오기를 원하지 않는다고 탄식하신 말씀은, 찾음의 유일한 목적어가 장소나 문자가 아니라 인격이신 주님 자신임을 선명하게 보여 줍니다. 칼빈이 기독교 강요 3권에서 그리스도와의 연합으로 받는 칭의와 성화의 이중 은혜를 논하며, 두 은혜를 결코 떼어 놓을 수 없으되 하나를 다른 하나의 값이나 조건으로 삼을 수 없다고 말한 이치도 이와 같습니다. 처녀 이스라엘이 엎드러져 일으킬 자가 없다는 5장 2절의 깊은 애가 한복판에서, 사망을 이기고 세세토록 살아 계신 주님(계 1:18)께서 <strong>나를 찾으라, 그리고 살라</strong>고 명하실 때, 그 명령 자체가 <strong>쓰러진 자를 오늘 다시 숨 쉬며 걷게 하는 생명의 능력</strong>이 됩니다.</p>
+<h2>보상을 기다리는 삶에서 오늘을 살아내는 분부의 인격으로</h2>
+<p>이 말씀을 마음에 새긴 사람은 일터와 상담실에서 절망에 빠진 이웃에게 건네는 문장의 접속사부터 바꿉니다. 폐업의 위기 앞에서 지친 사업자가 찾아와 지금이라도 장부를 정리하면 다시 살아날 수 있겠느냐고 물을 때, 정리하면 길이 열릴 것이라는 섣부른 조건문으로 답하면 당장 매출이 오르지 않을 때 고객은 다시 무너지고 맙니다. 대신 우리는 아모스 5장 3절이 천 명이 나가 백 명만 남는 현실을 가감 없이 적듯 줄어든 숫자는 정직하게 마주하되, 조건 없는 두 줄의 지시로 답해야 합니다. <strong>오늘 장부를 정직하게 정리하십시오, 그리고 내일 아침 가게 문을 여십시오</strong>라고 건넬 때, 고객은 생존을 막연한 미래의 보상으로 기다리는 대신 <strong>오늘 손으로 수행해야 할 두 가지 분부</strong>로 받아들여 하루를 버텨 낼 힘을 얻습니다.</p>
+<p>교회의 행정과 목회 현장에서도 조건문의 유혹을 걷어 내는 작업이 절실합니다. 교회의 행사 공지나 안내문은 너무나 자주 이번 새벽기도회에 나오시면 은혜를 받습니다, 혹은 이 집회에 참석하면 회복이 일어납니다라는 조건문으로 작성되어, 모임과 프로그램 자체를 찾음의 목적어로 세우곤 합니다. 이제 우리의 공지 문안을 점검하여 모임을 목적어의 자리에서 내려놓고, <strong>주님을 찾읍시다, 그리고 이번 한 주간을 그분 앞에서 살아냅시다, 새벽기도회는 그 부르심의 자리입니다</strong>라고 고쳐 써 보십시오. 그때 비로소 참석자는 출석 횟수로 자격을 셈하는 도덕주의에서 벗어나고, 사정상 참석하지 못한 교우도 정죄감 없이 <strong>자신이 서 있는 삶의 자리에서 주님을 찾고 살아내는 분부</strong>를 수행하게 됩니다.</p>
+<p>오늘 아침, 하루의 일과를 시작하며 다이어리 맨 윗줄에 적던 보상의 계획표를 조용히 고쳐 써 보시기 바랍니다. 이 일을 다 끝내면 비로소 쉬고 기뻐하겠다는 조건부 삶의 방식을 내려놓고, 같은 높이의 두 줄로 오늘의 분부를 적어 넣는 것입니다. 첫째 줄에는 <strong>오늘도 장소가 아니라 주님 자신을 찾는다</strong>고 적고, 둘째 줄에는 <strong>그리고 주님께서 주신 오늘 하루를 숨 쉬며 살아낸다</strong>고 적으십시오. 살아가다 막막해져 어떻게 살아야 할지 세부 조항이 보이지 않는 순간이 찾아올 때마다, 스스로 답을 지어내려 애쓰는 대신 첫째 줄의 목적어이신 주님의 품으로 돌아가는 사람, 그 사람이 바로 <strong>생명을 보수가 아닌 은혜의 분부로 누리는 성숙한 그리스도인</strong>입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 10일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

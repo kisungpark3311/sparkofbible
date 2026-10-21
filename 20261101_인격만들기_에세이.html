@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>쇠는 손목에 감기고 이름은 가슴에 걸린다: 처지의 사슬에 자기 이름을 넘겨주지 않는 사람</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 01일 &middot; 빌레몬서 1:1-14</span>
+      <h1>쇠는 손목에 감기고 이름은 가슴에 걸린다: 처지의 사슬에 자기 이름을 넘겨주지 않는 사람</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살다 보면 예상치 못한 삶의 무게에 발목이 잡혀 옴짝달싹 못 하는 날이 찾아옵니다. 끝나지 않는 채무나 거듭된 실패, 혹은 원치 않는 질병과 관계의 단절 속에 놓일 때, 우리는 어느새 그 어두운 상황을 나의 이름처럼 부르기 시작합니다. 세무 상담실의 문을 열고 들어오는 이들이 자기 이름을 밝히기도 전에 스스로를 체납자나 조사 대상자라고 낮추어 부르고, 직분을 내려놓고 쉬는 교우가 자신을 휴직자라는 차가운 상태어로 소개할 때가 그렇습니다. 그러나 빌레몬서 1장 1절부터 14절까지를 흐르는 원문의 정교한 문법은, 사람이 놓인 곤고한 처지와 그 사람의 진짜 호칭을 결코 한 칸에 섞어 적지 않습니다. 개역한글 성경은 네 번 등장하는 단어를 모두 갇힌이라는 한 줄기 우리말로 옮겨 두었지만, 헬라어 원문은 <strong>사람을 부르는 명사 데스미오스(δέσμιος)와 매임이라는 상태를 가리키는 명사 데스모스(δεσμός)</strong>를 뚜렷이 갈라 세웁니다.</p>
+<h2>호칭의 칸과 상태의 칸을 섞지 않는 이중 장부</h2>
+<p>이 두 낱말이 문장 안에서 서는 자리와 거느리는 소유 표시를 들여다보면 놀라운 비대칭이 드러납니다. 1절과 9절에서 바울이라는 사람과 나란히 주격으로 서는 데스미오스는 두 번 모두 <strong>그리스도 예수의(Χριστοῦ Ἰησοῦ)라는 기명 속격</strong>을 가슴의 이름표처럼 달고 있습니다. 반면 10절과 13절에서 전치사 엔(ἐν) 뒤에 여격 복수로 놓여 감옥의 사슬과 억류 상태를 가리키는 데스모이스에는 그리스도 예수의 이름이 붙지 않습니다. 10절은 아무런 수식 없이 단지 매임 가운데서 오네시모를 낳았다고만 적고, 13절은 복음의 매임이라고만 적을 뿐입니다. 원문은 그리스도의 사슬이라는 말을 단 한 번도 만들지 않습니다. 귀속을 알리는 주인의 이름은 오직 살아 숨 쉬는 사람의 가슴에만 붙고, 차가운 쇠사슬에는 그가 맡은 복음의 일만 꼬리표처럼 붙어 있을 뿐입니다.</p>
+<p>이러한 문법적 분리는 우리가 일상에서 마주하는 등기부나 병원의 기록 관행과도 깊이 맞닿아 있습니다. 체납으로 인해 부동산에 압류가 걸리면 등기부의 갑구에 처분을 제한한다는 압류 상태가 기입되지만, 그렇다고 해서 <strong>압류가 원래 소유자의 명의를 다른 사람에게로 옮기지는 못합니다</strong>. 입원실 침대 끝에 걸린 차트에 폐렴이라는 진단명이 적힌다 해서 환자 팔찌에 적힌 고유한 이름이 병명으로 바뀌지 않는 것과 같습니다. 더욱이 도서관 장서에 찍힌 소장 도장처럼 바울은 서신의 첫머리와 간구의 한복판에 그리스도 예수의 이름을 두 번 선명하게 찍는데, 이 도장은 화자가 스스로 자기 가슴에 달되 결코 자기 자신의 이름일 수는 없습니다. 만약 갇힌 자라는 주격 명사 뒤에 자기 자신의 이름이나 자기 과거의 실수를 속격으로 넣어 버린다면, 문법상 <strong>자기가 자기 자신의 포로가 되는 닫힌 고리</strong>에 갇히고 말기 때문입니다.</p>
+<p>이 문법의 경계를 몸의 감각으로 옮겨 보면, 처지를 부인하지 않으면서도 정체성을 지키는 법이 손끝에서 만져집니다. 두 손목을 무릎 위에 나란히 모아 묶인 사람의 자세로 앉아 본문을 소리 내어 읽어 봅니다. 1절의 그리스도 예수의 갇힌 자를 읽을 때, 묶인 자세를 억지로 풀지 않은 채 <strong>오른손을 들어 내 가슴 위에 가만히 얹습니다</strong>. 이어 10절의 매임 가운데서를 읽을 때 오른손을 왼 손목으로 내려 그 차가운 자리만 짚고 아무런 이름도 덧붙이지 않습니다. 손목에 손을 대고 아무 수식어도 붙이지 않는 그 침묵의 순간이 가장 어색하게 느껴지는 까닭은, 우리가 늘 겪는 고통에 거창한 의미를 덧씌우거나 자기 연민의 이름을 붙이려 하기 때문입니다. 그러다 13절의 복음의 매임에서 왼손을 앞으로 펴서 맡겨진 일을 확인하고, 다시 9절을 읽으며 손을 가슴으로 올릴 때, 우리의 몸은 <strong>처지는 손목에 머물러도 호칭은 언제나 가슴에 걸린다</strong>는 사실을 배웁니다. 호칭을 바꾸기 위해 손목의 사슬을 먼저 풀 필요는 없습니다.</p>
+<h2>권한의 칸을 비우고 같은 이름의 다른 칸에 앉다</h2>
+<p>시선을 단락 전체로 넓혀 그리스도라는 이름이 서는 세 가지 격을 따라가면, 이 호칭이 어떻게 타인을 향한 온유한 인격으로 흘러가는지 보입니다. 6절에서 믿음의 교제가 향하는 종점(εἰς Χριστόν)이던 그 이름은, 8절에서 마땅한 일을 명할 수 있는 <strong>담대한 권한의 근거(ἐν Χριστῷ)</strong>로 서고, 바로 다음 절인 9절에서 갇힌 자를 한정하는 <strong>소속의 이름(Χριστοῦ Ἰησοῦ)</strong>으로 이어집니다. 흔히 우리는 강한 사도가 권위를 버리고 약한 죄수의 자리로 초라하게 내려갔다고 생각하기 쉽습니다. 그러나 원문의 배치는 강점과 약점을 서로 다른 주인에게 배정하지 않습니다. 바울이 쥔 명령의 권한도 그리스도 안에 있고, 그가 처한 갇힘도 그리스도 예수의 것으로 불립니다.</p>
+<p>바울은 8절에서 신약 서신 전체를 통틀어 유일하게 등장하는 명령 동사 에피타쏘(ἐπιτάσσω)를 부정사로만 한 번 언급해 두고 실제로는 그 칼을 뽑지 않습니다. 대신 사랑을 인하여(διὰ τὴν ἀγάπην) 도리어 간구한다는 파칼로(παρακαλῶ)로 걸음을 옮기며, 같은 그리스도의 이름 안에서 <strong>권한의 칸을 비우고 호칭의 칸에 조용히 고쳐 앉습니다</strong>. 디도서 2장 15절에서는 모든 권위로 책망하라고 지시했던 사도가, 한 인격을 온전히 맞아들이기를 청하는 이 편지에서는 억지가 아니라 자의를 기다리며 자기 가슴의 이름표만 내보이는 것입니다. 받는 빌레몬의 처지에서 보면, 사도가 명령 대신 그 이름을 달고 간구할 때 거절하기 어려운 더 깊은 무게가 생기지만, 본문은 끝내 승낙의 문을 상대의 자유 앞에 열어 둔 채 긴장을 봉합하지 않습니다.</p>
+<h2>처지를 지우지 않고 다른 이름을 불러 주는 인격</h2>
+<p>장 칼뱅이 기독교 강요에서 그리스도인의 삶의 첫 원리로 제시한 요지, 곧 <strong>우리는 우리 자신의 것이 아니요 하나님의 것</strong>이라는 고백과 하이델베르크 요리문답 제1문의 유일한 위로는, 감옥이라는 극한의 처지에서 자기 호칭의 속격 자리에 주인의 이름을 적어 넣은 바울의 문법과 정확히 같은 방향을 가리킵니다. 이 본문 앞에는 우리가 피해야 할 세 가지 낭떠러지가 있습니다. 모든 매임을 거룩한 고난으로 포장하려는 고난 미화는 10절이 매임을 아무 속격 없이 있는 그대로 적었다는 정직함을 지워 버리고, 바울의 겸손만 본받자는 도덕주의는 그가 권한을 내려놓으며 끝까지 붙든 <strong>화자 밖의 유일한 이름</strong>을 놓치게 하며, 나는 실패와 아픔에 갇힌 사람이라는 자기 연민은 스스로를 자기 포로로 가두는 닫힌 고리를 승인해 버립니다.</p>
+<p>복음은 우리의 곤고한 처지를 없던 일로 지우지 않고, 그 처지 한복판에 앉은 사람에게 다른 이름을 달아 줍니다. 그러므로 오늘 우리의 상담실과 일터, 그리고 가정과 교회의 문서 위에서 <strong>상태어로 사람을 부르던 낡은 습관</strong>을 거두어들이기로 다짐합니다. 세무 조사와 체납으로 어깨가 내려앉은 고객을 대할 때 장부의 상태란과 이름란을 분리하여 끝까지 그의 고유한 이름으로 불러 주고, 사임이나 질병으로 직분을 내려놓은 교우를 행정 문서에 적을 때 전직이나 휴직이라는 상태어 대신 교회의 사랑받는 교우라는 소속으로 먼저 불러 주어야 합니다. 무엇보다 밤마다 나를 찾아와 나는 이 빚과 이 실수에 묶인 사람이라고 속삭이는 내면의 문장을 마주할 때, 처지는 손목의 상태란에 정직하게 적어 두되 <strong>나의 호칭란에는 오직 나를 소유하신 그리스도 예수의 이름</strong>만을 또렷이 적어 넣는 성숙한 그리스도인이 되기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 01일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

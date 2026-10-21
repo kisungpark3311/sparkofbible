@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>무너진 초막을 일으키는 손, 그 위에서 포도원을 심는 삶</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 19일 &middot; 아모스 9:7-15</span>
+      <h1>무너진 초막을 일으키는 손, 그 위에서 포도원을 심는 삶</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>삶의 기반이 송두리째 흔들리는 실패나 오랜 관계의 파열을 겪고 난 뒤, 성도들이 가장 먼저 내뱉는 탄식은 대개 한결같습니다. "제가 하루빨리 마음을 추스르고 다시 일어서야 하는데요." 무너진 자리를 수습하고 옛적과 같이 회복하는 일까지 온전히 자기 어깨의 짐으로 짊어지려는 이 절박한 다짐 속에는, 스스로를 구원하고 재건해야 한다는 무거운 압박이 자리 잡고 있습니다. 그러나 아모스서의 마지막 단락인 아모스 9장 7절부터 15절까지를 원문의 결을 따라 천천히 읽어 내려가면, 우리의 조급한 손을 멈추게 하는 놀라운 문법적 사실과 마주하게 됩니다. <strong>회복을 여는 동사의 주어가 아홉 절 내내 단 한 번도 바뀌지 않는다</strong>는 사실입니다. 무너진 것을 일으키고, 벌어진 틈을 막고, 퇴락한 것을 다시 세우며, 사로잡힌 것을 돌이키고, 마침내 본토에 심으시는 분은 오직 한 분의 입에서 나오는 일인칭, 곧 하나님 자신이십니다.</p>
+<p>특히 아모스 9장 11절 한 절에만 <strong>일인칭 정동사 네 토막이 한꺼번에 몰려</strong> 있습니다. 히필 미완료형인 <code>אָקִים</code>(아킴, 내가 일으키리라) 두 번과 순차 완료형 <code>וְגָדַרְתִּי</code>(베가다르티, 내가 그 틈을 막으리라), 그리고 구약 전권에서 단 한 번 등장하는 <code>וּבְנִיתִיהָ</code>(우브니티하, 내가 그것을 세우리라)가 숨 돌릴 틈 없이 이어집니다. 이 네 개의 동사 사이에는 다른 어떤 주어도 끼어들지 못합니다. 우리가 흔히 회복의 주역이나 왕조 재건의 상징으로 떠올리는 '다윗'이라는 이름조차 이 아홉 절에서는 주어로 서지 못합니다. 다윗(<code>דָּוִיד</code>)은 오직 '무너진 초막'(<code>סֻכַּת דָּוִיד הַנֹּפֶלֶת</code>)에 딸린 소유격 자리에만 한 번 놓일 뿐, <strong>그 이름에 딸린 정동사는 단 한 개도 없습니다</strong>. 심지어 구속사의 시간이 흘러 누가복음 1장 69절이나 사도행전 15장 16절에서 다윗의 집에 다시 동사가 덧붙여질 때에도, 그 구원의 뿔을 일으키고 무너진 장막을 다시 짓는 주어는 끝내 다윗이 아니라 하나님이십니다.</p>
+<h2>다윗의 이름에는 동사가 없고, 일으키는 주어만 홀로 선다</h2>
+<p>그렇다면 회복의 마당에서 사람이 하는 일은 완전히 지워진 것일까요. 본문을 더 자세히 들여다보면, 사람의 동사가 결코 영(0)이 아니라는 점이 선명하게 드러납니다. 아모스 9장 14절에 이르면 사람이 주어로 서는 삼인칭 복수 동사가 무려 여섯 개나 쏟아져 나옵니다. 황무한 성읍을 건축하고, 거기에 거하며, 포도원들을 심고, 그 포도주를 마시며, 과원들을 만들고, 그 과실을 먹는 일입니다. 한 절 안에 이 꼴의 동사가 여섯 개나 나란히 놓인 곳은 구약 전권에서 이 절 하나뿐입니다. 그러나 결정적인 차이는 이 여섯 동사의 통사적 지위에 있습니다. 이 모든 삶의 동사들은 홀로 주절을 이루지 못하고, 절 머리에 우뚝 선 하나님의 일인칭 동사 <code>וְשַׁבְתִּי</code>(베샤브티, 내가 돌이키리라) <strong>하나에 매달린 결과절로만 이어집니다</strong>. '짓다'와 '심다'라는 동사는 하나님과 사람 두 주어를 건너가며 쓰이지만, '일으키다'(<code>אָקִים</code>)와 '틈을 막다', '돌이키다'라는 동사는 결코 사람에게로 건너가지 않습니다.</p>
+<p>만일 우리가 본문에서 사람이 짓고 심고 마시는 여섯 동사를 모두 지워 버린다면, 회복은 더 순수해지는 것이 아니라 텅 빈 공허가 되고 말 것입니다. 반대로 우리가 무너진 초막을 일으키는 주절의 자리에 사람의 이름을 밀어 넣는다면, 은혜의 복음은 숨 막히는 도덕주의와 행동주의의 숙제로 변질됩니다. 아모스 본문이 보여주는 진리는 <strong>주어의 독점이 아니라 주어의 순서</strong>입니다. 9장 14절에서 백성이 포도원을 심고(<code>וְנָטְעוּ</code>), 곧이어 15절에서 하나님이 그 백성을 본토에 심으신다(<code>וּנְטַעְתִּים</code>)는 연쇄는, <strong>포도원을 심는 정원사로 살아가는 사람이 실은 하나님께 먼저 심긴 묘목</strong>임을 일깨워 줍니다. 회복은 사람의 일상을 지우지 않고, 사람의 자리를 하나님의 일으키심 뒤로 정돈합니다.</p>
+<h2>힘을 빼고 끌려 올라오는 몸, 그제야 내디딜 수 있는 걸음</h2>
+<p>이 문법의 순서는 법정과 병실, 그리고 우리의 몸이 먼저 알고 있는 이치이기도 합니다. 폐업 위기에 몰린 채무자가 법원에 회생 신청서를 낼 수는 있어도, <strong>회생 절차의 개시 결정은 채무자 스스로 내리지 못합니다</strong>. 과세관청의 경정 결정이나 법원의 개시 결정이 내려진 뒤에야, 비로소 장부를 다시 쓰고 영업을 이어가며 변제해 나가는 일상의 동사들이 채무자의 몫으로 열립니다. 심정지로 쓰러진 환자를 소생시키는 첫 처치는 전적으로 의료진의 손에 달려 있고, 깨어난 뒤 숨을 쉬고 밥을 먹고 병실 복도를 걷는 일은 환자의 몫인 것과 같습니다. 더구나 인간의 회생 절차에는 신청서라는 조건이라도 필요하지만, 아모스 9장 11절부터 15절까지 쏟아지는 하나님의 일인칭 동사들 앞에는 <strong>사람의 조건절도, 회개의 명령형도 단 하나 붙어 있지 않습니다</strong>. 오직 심판을 통과한 무너진 자리 한복판에서 조건 없이 시작되는 은혜의 주권적 선언만이 있을 뿐입니다.</p>
+<p>바닥에 등을 대고 완전히 누운 사람이 다른 사람의 두 손을 잡고 끌려 올라올 때, 몸이 겪는 가장 어려운 일은 다름 아니라 <strong>내 배와 허벅지에 들어간 힘을 빼는 것</strong>입니다. 일으켜 주는 손을 돕겠다며 어설프게 몸에 힘을 주면 오히려 중심이 무너지고 몸이 천근만근 무거워집니다. 오직 힘을 빼고 상대의 팔에 내 무게를 온전히 맡길 때 등이 바닥에서 가볍게 떨어집니다. 그리고 두 발로 땅에 일어선 다음에는, 그 어떤 누구도 내 다리를 대신 움직여 주지 않습니다. 일어섬은 온전히 남의 팔에서 오고, 걸음은 내 다리에서 나오되, 내 걸음은 오직 그 일으켜 세우심 뒤에만 가능합니다. 아모스 9장 10절에서 "화가 우리에게 미치지 아니하리라"고 장담하며 헛된 자기 확신에 힘을 주던 교만한 근육이 무너져 내린 자리에서, 하나님의 손이 무너진 것을 목적어로 삼아 일으켜 세우십니다.</p>
+<h2>일으킴의 자리에서 손을 떼고, 오늘 허락된 삶을 짓고 심다</h2>
+<p>이 성경적 사고가 우리의 인격에 뿌리를 내릴 때, 우리는 비로소 내가 통제할 수 없는 결과의 영역과 오늘 내가 감당해야 할 삶의 영역을 정직하게 구분하는 겸손과 평안을 얻게 됩니다. 사업의 실패나 가정의 아픔으로 주저앉은 이웃 곁에 앉을 때, 우리는 더 이상 "빨리 다시 일어서야지요"라는 재촉으로 상대의 어깨를 짓누르지 않게 됩니다. 대신 <strong>일으키는 일과 사는 일을 가만히 나누어</strong> 건넵니다. 무너진 인생 전체를 다시 일으켜 세우는 거대한 주절은 하나님께 맡겨 두고, 오늘 따뜻한 밥 한 끼를 먹고 한 사람과 진실한 안부를 나누며 내게 맡겨진 작은 서류 한 장을 정리하는 <strong>결과절의 일상을 살아내도록</strong> 돕는 것입니다.</p>
+<p>교회 공동체의 재건 계획을 세울 때나 오래 틀어진 가족 및 직장의 관계 앞에 설 때에도 마찬가지입니다. 목표 칸에 "우리가 교회를 다시 일으킨다"거나 "내가 저 사람의 닫힌 마음을 기어코 고쳐 놓겠다"는 오만한 주어를 적어 넣지 마십시오. 상대의 마음을 돌이키고 무너진 관계를 일으켜 세우는 동사는 내 몫이 아닙니다. 내게 허락된 동사는 <strong>이미 일으켜진 자리에서 오늘의 성실한 말을 건네고 식탁을 차리며 예배와 돌봄을 지속하는 일</strong>입니다. 일으키는 동사가 온전히 다른 분의 몫이기에, 오늘을 짓고 심고 먹고 마시는 소박하고 거룩한 삶의 동사가 비로소 우리의 몫으로 남습니다. 우리가 삶의 포도원을 일구기 훨씬 전에, 뽑히지 않는 은혜의 땅에 우리를 먼저 심으신 하나님의 손길을 신뢰하며 오늘의 걸음을 내딛기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 19일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>있든지 떠나든지 문턱에서 고르지 않는 마음: 두 발은 조건에 나눠 딛고 얼굴은 한 분께 향하다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 30일 &middot; 고린도후서 5:6-15</span>
+      <h1>있든지 떠나든지 문턱에서 고르지 않는 마음: 두 발은 조건에 나눠 딛고 얼굴은 한 분께 향하다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h2>세 번 모습을 바꾸되 한 번도 문장의 주인이 되지 않는 쌍</h2>
+<p>신약 성경 스물일곱 권 전체를 통틀어 '몸 안에 머묾(ἐνδημέω)'과 '몸 밖으로 떠남(ἐκδημέω)'을 가리키는 두 동사는 각각 세 토막씩, 모두 합쳐 여섯 토막만 등장한다. 그리고 그 여섯 토막 전부가 고린도후서 5장 6절과 8절과 9절이라는 불과 네 절 안에 반대 쌍을 이루어 모여 있다. 이 열 절 바깥에는 비교할 만한 다른 신약 용례가 단 한 곳도 없기에 사전적 비교로 두 낱말의 뜻을 하나로 확정할 길은 없으나, 정작 이 세 쌍이 문장 안에서 어떤 자리에 앉는지를 따라가 보면 더없이 뚜렷한 문법의 질서가 모습을 드러낸다.</p>
+<p>세 번 등장하는 이 반대 쌍은 나타날 때마다 문법적 어형을 바꾼다. 6절에서는 분사와 정동사(ἐνδημοῦντες … ἐκδημοῦμεν)로, 8절에서는 두 개의 부정사(ἐκδημῆσαι … ἐνδημῆσαι)로, 9절에서는 두 개의 분사(ἐνδημοῦντες … ἐκδημοῦντες)로 옷을 갈아입는다. 그런데 놀랍게도 <strong>세 번 모두 이 쌍은 문장을 끝맺는 주절의 주인 자리에 서지 않는다</strong>. 6절에서는 우리가 알고 있는 내용절(εἰδότες ὅτι)의 일부로 들어가고, 8절에서는 우리가 차라리 더 좋게 여기는 선호(εὐδοκοῦμεν μᾶλλον)의 목적 부정사로 들어가며, 마침내 9절에서는 양자택일의 접속사 <strong>"있든지 떠나든지(εἴτε ἐνδημοῦντες εἴτε ἐκδημοῦντες)"</strong> 사이에 끼어 조건구가 된다. 그리고 그 두 조건을 가로질러 문장의 진짜 주장을 짊어지는 주동사는 쌍 바깥에 우뚝 선 한 단어, <strong>"우리는 힘쓰노라(φιλοτιμούμεθα)"</strong>와 그 내용인 <strong>"그에게 기쁨이 되는 것(εὐάρεστοι αὐτῷ εἶναι)"</strong>이다. (원문 5장 9절에는 두 역본이 보충한 '주를'이나 개역개정이 보충한 '몸으로'가 없고, 대명사 여격 αὐτῷ 하나만 조용히 놓여 있다.)</p>
+<p>만약 우리가 5장 8절의 "차라리 몸을 떠나 주와 함께 있는 그것이라"에서 문장을 마침표로 끊어 버리고 9절을 지운다면 어떤 일이 벌어질까. 이 본문은 순식간에 이 땅의 몸을 무거운 짐으로 여기고 떠남만을 해방으로 동경하는 이원론적 탄원서로 바뀌고 만다. 이 단락에는 '영혼(ψυχή)'이라는 낱말조차 단 한 토막도 없는데, 8절의 선호를 단락의 결론으로 오해하는 순간 몸을 낮추는 왜곡이 발생하는 것이다. 그 위험한 절벽을 본문 안에서 막아 서는 울타리가 바로 9절의 (εἴτε … εἴτε)('~이든지 ~이든지')라는 두 낱말이다. 이 불변화사 쌍은 뒤이어 10절의 형용사 쌍('선하든지 악하든지')과 13절의 정동사 쌍('미쳤든지 정신이 온전하든지')에서도 똑같이 반복되며, <strong>반대되는 두 조건이 열릴 때 문장의 결론과 무게는 언제나 쌍 바깥에 놓인다</strong>는 이 단락 고유의 사고방식을 확증해 준다.</p>
+<h2>문턱 위에서 두 발의 무게를 나누고 얼굴을 정면으로 들다</h2>
+<p>두 조건 가운데 하나를 고르지 않고 가로지르는 이 문법의 균형을 발바닥의 감각으로 직접 배워 보자. 방문의 문턱이나 바닥에 그어진 선 하나를 사이에 두고 서서, 왼발은 선 안쪽에, 오른발은 선 바깥쪽에 디뎌 본다. 5장 6절을 소리 내어 읽으며 몸의 중심과 무게를 온통 왼발에 실어 보라. 몸이 안쪽으로 기운다. 이어서 5장 8절의 "차라리 몸을 떠나"를 읽으며 무게를 오른발로 옮겨 보라. 이번에는 몸이 바깥쪽으로 기운다. 두 절을 하나씩 떼어 읽는 동안 우리의 몸은 한쪽으로 쏠려 흔들릴 수밖에 없다. 그러나 5장 9절의 "그런즉 우리는 거하든지 떠나든지"에 이르러 <strong>몸의 무게를 두 발에 똑같이 나누어 딛는 순간</strong>, 기우뚱거리던 몸이 비로소 중심을 잡고 멈추어 선다. 그리고 두 발은 두 조건 위에 그대로 나눠 디딘 채, 고개를 들어 <strong>얼굴만 정면의 한 곳을 향해 똑바로 바라본다</strong>. 조건은 발이 디딘 자리일 뿐이고, 삶의 주장은 얼굴이 향하는 자리임을 몸이 먼저 깨닫는 순간이다.</p>
+<p>세무 실무와 음악과 항해의 유추를 대어 보면 '두 조건, 한 동사'의 구조가 더욱 선명해진다. 세법은 납세자를 거주자와 비거주자로 엄격히 판정하고 그 판정 결과에 따라 과세 범위와 신고 절차를 달리하지만, 어느 신분이든 신고서가 향하는 수신처(과세관청)와 성실하게 신고해야 한다는 자리는 하나다. 악보의 조(調)가 장조에서 단조로 바뀌어도 선율의 윤곽이 유지되고, 배가 항구에 정박해 있든 거친 바다를 항해하든 나침반 바늘이 한 방향을 가리키는 이치와도 닮았다. 그러나 세법의 신고는 법적 의무 조항이고 나침반은 무생물의 자북을 가리키는 반면, 5장 9절의 '힘쓰노라(φιλοτιμούμεθα)'는 명령형이 단 하나도 없는 이 열 절(나아가 1장 1절부터 5장 15절 전체) 안에서 <strong>1인칭 복수가 인격적인 상대(αὐτῷ)를 향해 스스로 고백하는 직설법 진술</strong>이라는 점에서 모든 유추를 넘어선다.</p>
+<p>나아가 시야를 5장 14절과 15절까지 넓혀 보면, 이 1인칭 고백이 인간의 비장한 결심에서 나온 것이 아님이 밝혀진다. 5장 9절에서 여격(αὐτῷ)으로 적혔던 향함의 상대는 단락의 끝인 15절에서 다시 여격으로 호응한다. 산 자들로 하여금 <strong>"다시는 자기에게(ἑαυτοῖς) 살지 않고 오직 그들을 위하여 죽었다가 다시 살아나신 이에게(τῷ … ἀποθανόντι καὶ ἐγερθέντι)"</strong> 살게 하려 함이라는 선언이다. 장소의 쌍(몸에 있음 대 떠남)으로 열렸던 단락이 향함의 쌍(자기에게 대 그에게)으로 닫히면서, 이 단락이 맞세우는 진짜 반대는 '몸'이 아니라 '자기(ἑαυτοῖς)'였음이 드러난다. 그리고 그 사이인 14절에서 우리를 붙드는(혹은 강권하고 끄는) 주어는 우리의 의지가 아니라 <strong>그리스도의 사랑(ἡ γὰρ ἀγάπη τοῦ Χριστοῦ συνέχει ἡμᾶς)</strong>이다. 로마서 14장 7-8절과 빌립보서 1장 20-21절, 그리고 살아서나 죽어서나 유일한 위로를 그리스도께 속한 소속에서 찾는 하이델베르크 요리문답 제1문이 모두 이 자리에서 공명한다. 그러므로 우리는 1인칭 진술을 2인칭 도덕주의 명령으로 바꾸거나, 5장 8절만 잘라내어 몸을 비하하거나, 심판·정죄 어휘가 0토막인 5장 10절을 구원 상실의 협박 저울로 오용하는 세 가지 낭떠러지를 단호히 멀리해야 한다.</p>
+<h2>어디에 있을까의 조바심을 넘어 누구에게 살까를 먼저 적는 인격</h2>
+<p>반대되는 두 조건을 함께 열어 두고 주장을 조건 바깥의 한 분께 묶는 이 문법은, 일터의 상담과 교회의 행정, 그리고 갈림길 앞에서 서성이는 우리의 일상을 단단하게 일으켜 세운다. 해외 근무나 이민을 앞둔 고객이 찾아와 "제가 거주자인지 비거주자인지"부터 묻고, 그 신분 판정이 확정되기 전까지 몇 달 동안 아무 서류도 정리하지 못한 채 시간을 흘려보낼 때, 상담자는 메모지를 두 칸으로 나누어 건넬 수 있다. 신분 판정에 따라 달라지는 과세 범위 칸과, <strong>어느 신분으로 판정되든 지금 당장 할 수 있는 소득 증빙 정리 및 수신 기관 확인 칸</strong>을 구분하여 둘째 칸부터 차근히 실행하게 돕는 것이다. 세법상의 판정을 가벼이 여기지 않으면서도, '어느 쪽이냐'의 불안이 현재의 마비로 이어지지 않도록 수신처를 먼저 세워 주는 실무의 지혜다.</p>
+<p>교회 행정에서 출석 교인 명부와 장기 입원·요양·해외 체류 교인 명부를 따로 분리해 관리하다 보면, 둘째 명부의 성도들을 은연중에 '영적 침체'나 '교회 바깥'으로 분류하는 실수를 범하기 쉽다. 5장 9절의 (εἴτε … εἴτε)를 따라 두 명부를 하나의 중보 명부로 합치고 출석 여부를 단지 조건 표시로만 남긴 채 동일한 주보와 기도 제목을 보낼 때, 조건은 더 이상 성도의 소속을 가르는 벽이 되지 못한다. 이직과 잔류, 귀향과 체류 사이에서 오래 결정을 미루는 동안 지금 서 있는 자리를 '어차피 떠날 대기실'처럼 가볍게 대하고 있는 우리 자신의 일상에서도 마찬가지다. 마음속의 솔직한 선호(5:8)는 지우지 않고 일기장에 정직하게 적어 두되, 그것보다 앞서 <strong>"있든지 떠나든지 오늘 내가 그분께 기쁨이 되기 위해 할 한 가지(5:9)"</strong>를 먼저 실행하자. 우리의 질문이 '어디에 있을까'에서 '누구에게 살까'로 옮겨 가는 그 자리에서, 우리를 붙드시는 그리스도의 사랑이 오늘 우리의 삶을 흔들림 없는 품격으로 빚어 가신다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 30일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

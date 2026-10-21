@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>굳힌 손의 이름을 묻지 않는 자리: 열네 개의 빈칸 옆에서 자유의 길을 따라가다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 26일 &middot; 고린도후서 3:7-18</span>
+      <h1>굳힌 손의 이름을 묻지 않는 자리: 열네 개의 빈칸 옆에서 자유의 길을 따라가다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h2>열네 번 비워 둔 행위자 칸과 세 번 적어 둔 자리</h2>
+<p>고린도후서 3장 7절부터 18절까지 이어지는 열두 절의 원문을 찬찬히 따라가다 보면, 독자를 멈춰 세우는 거대한 문법적 침묵 하나와 마주치게 된다. 이 단락에 놓인 스물아홉 토막의 동사 가운데 절반에 가까운 <strong>열네 토막이 수동태, 곧 받음을 가리키는 꼴</strong>로 기록되어 있다. 돌에 새겨진 것(3:7)과 영광스럽게 된 것(3:10), 없어지는 것 네 번(3:7, 11, 13, 14)과 마음이 굳어진 것(ἐπωρώθη, 3:14), 수건이 벗겨지지 않는 것(3:14)과 읽히는 것(3:15), 벗겨지는 것(3:16)과 마침내 수건을 벗은 얼굴로 변화되는 것(3:18)에 이르기까지 단락의 뼈대를 이루는 사건들이 온통 수동의 그릇에 담겨 있다. 그런데 정작 '누구에게서' 그 일이 벌어졌는지를 밝히는 <strong>행위자 전치사(ὑπό+속격)는 이 열두 절의 전치사 스물한 토막 가운데 단 한 번도 등장하지 않는다</strong>.</p>
+<p>고린도후서 전체에 열두 번, 신약 스물세 권에 이백스무 번이나 쓰인 그 익숙한 전치사가 왜 하필 이 열두 절의 수동태 열네 자리에서는 일제히 자취를 감추었을까. 물론 수동 어미가 행위자 생략을 반드시 요구하는 것은 아니며 문체상의 기본값일 가능성도 열려 있으므로, 관찰의 사실을 넘어 저자의 숨은 의도를 섣불리 단정할 수는 없다. 다만 문면 위에 드러난 대조만은 더없이 선명하다. 사람이 능동으로 손을 움직여 덮개를 다루는 동작은 3장 13절에서 모세가 수건을 자기 얼굴에 놓았다(ἐτίθει)는 신약 유일 꼴 동사 하나뿐이고, 그마저도 "모세가 한 것 같이 아니하노라"는 부정된 비교 안에 들어 있다. 그 대신 본문이 빈 행위자 칸 옆에 또렷하게 적어 놓은 것은 사람의 이름이 아니라 세 곳의 전치사구 자리다. 굳어짐과 남은 수건 곁에는 그것이 멈추는 자리인 <strong>그리스도 안에서(ἐν Χριστῷ, 3:14)</strong>가, 수건이 벗겨지는 문장 앞에는 향하는 방향인 <strong>주께로(πρὸς κύριον, 3:16)</strong>가, 변화의 끝에는 그 출처인 <strong>주의 영으로부터(ἀπὸ κυρίου πνεύματος, 3:18)</strong>가 나란히 적혀 있다.</p>
+<p>우리는 일상 속에서 우편물의 소인에 도장을 찍은 직원의 이름이 없어도 거기에 찍힌 지명과 날짜를 믿고 편지를 받아 들며, 세무 전산 알림의 "처리되었습니다"라는 문장에 담당 조사관의 성명이 적혀 있지 않아도 처리 항목과 다음 기한을 따라 차분히 움직인다. 그러나 세금 고지서를 받자마자 발행 관서부터 확인하려는 처분 문서의 독법을 성경 본문, 특별히 개역개정이 "그들의 마음이 완고하여"로 옮기고 개역한글이 "저희 마음이 완고하여"로 옮긴 3장 14절의 <strong>부정과거 수동태 단수 동사(ἐπωρώθη)</strong> 앞에 그대로 가져가면 어떤 일이 벌어지는가. 우리는 본문이 비워 둔 행위자 칸을 견디지 못하고, 어떻게든 그 빈칸에 범인의 이름을 써넣어 원인을 규명하려는 충동에 사로잡히고 만다.</p>
+<h2>허공을 찌르던 검지를 펴서 길과 정체를 가리키다</h2>
+<p>이 열네 번의 빈칸이 우리 몸에 건네는 교훈을 깨닫기 위해, 자리에서 일어나 수동태 열네 어형을 소리 내어 읽으며 매번 오른손 검지를 앞으로 뻗어 "누가?" 하고 허공을 가리켜 보라. 가리킬 이름이 본문에 없으니 손가락은 열네 번 내내 허공에서 갈 곳을 잃고 멈춰 선다. 허공에 멈춘 검지가 피로해질수록 사람의 마음은 초조해지고, 결국 강단이나 대화석에서 "저들이 완고하여 그리된 것"이라며 특정한 누군가를 손가락질하고 싶어 근질거리게 된다. 그러나 바로 그 순간 <strong>곤두선 검지를 활짝 펴서 손바닥 전체로 세 전치사구의 자리를 가리키는 몸의 전환</strong>을 연습해 보자. '그리스도 안에서'를 읽을 때 손바닥으로 앞쪽의 공간을 부드럽게 가리키고, '주께로'를 읽을 때 몸을 그 방향으로 반 바퀴 돌리며, '주의 영으로부터'를 읽을 때 손바닥을 위로 뒤집어 선물을 받듯 펼쳐 보이는 것이다. 검지가 사람을 찍는 손가락이라면, <strong>펴진 손바닥은 본문이 열어 둔 길을 가리키는 손</strong>이다.</p>
+<p>그리고 3장 17절에 이르러서는 그 두 손마저 조용히 내리고 그대로 멈추어 선다. 이 열두 절 전체에서 신적 기명이 주격으로 정동사의 주어 자리에 서는 유일한 토막이 바로 3장 17절의 <strong>"주는 영이시니(ὁ δὲ κύριος τὸ πνεῦμά ἐστιν)"</strong>이기 때문이다. 본문은 열네 개의 빈 행위자 칸 한복판에 "누가 그렇게 하셨다"는 행위의 주어를 채워 넣는 대신, <strong>"주는 영이시다"라는 정체의 주어와 계사(ἐστιν)</strong>를 반석처럼 놓아두었다. 그리고 뒤이어 동사조차 생략한 채 "주의 영이 계신 곳에는 자유가 있느니라"고 선언한다. 빈칸을 메우려는 조급한 손가락을 거두고 이 정체 선언 앞에 멈추어 설 때, 비로소 우리는 원인 규명의 감옥에서 벗어나 주의 영이 열어 주시는 자유의 숨결을 마주하게 된다.</p>
+<p>만약 우리가 이 본문의 빈칸과 어형을 무시한 채 매끄러운 설명을 욕심낸다면 네 가지 위험한 낭떠러지 앞에 서게 된다. 첫째로 빈칸에 '그들'을 써넣고 3장 16절의 3인칭 단수 동사 '돌이키면(ἐπιστρέψῃ)'을 앞 절의 복수 대명사(αὐτῶν)에 맞추어 복수로 뜯어고치는 순간, 본문은 한 민족을 영구히 정죄하는 통로로 오용된다. 그러나 <strong>원문의 어긋난 단수 불일치(ἐπιστρέψῃ)가 오히려 집단 정죄의 독법을 막아 서며</strong>, 신약에서 동일한 어형이 쓰인 누가복음 17장 4절과 야고보서 5장 19절이 모두 형제의 회복을 다룬다는 정경의 문맥이 강단의 어조를 지켜 준다. 둘째로 로마서 11장 32절의 능동 구문을 이곳에 억지로 끌어와 빈칸에 '하나님'을 일괄 기입하면 본문이 적지 않은 무거운 작정론적 판결이 되고, 셋째로 명령법과 2인칭 동사가 전무한 3장 18절을 단계적 자기 변형 수련으로 읽거나, 넷째로 "수건을 벗으라"는 도덕주의적 다그침으로 바꾸면 복음의 선물은 증발하고 만다. 칼빈이 『고린도후서 주석』에서 문자와 영의 대비를 인간 집단의 대비로 치환하지 않는 방향으로 읽었다고 전해지듯, 개혁신학의 주권 고백은 한 본문의 빈칸을 다른 본문의 주어로 덮어쓰라는 면허증이 아니다. 디모데전서 4장 13절이 권면하듯 성경을 '읽는 일(ἀνάγνωσις)' 자체를 부정하지도 않으면서, 오늘까지(σήμερον) 남아 있는 수건이 오늘 현재 수동태로 없어지고(καταργεῖται) 벗겨지는(περιαιρεῖται) <strong>'오늘의 문장'으로 이 단락을 마주하는 것</strong>이 성경적 사고의 정직함이다.</p>
+<h2>원인 추궁의 꼬리표를 떼고 함께 설 자리를 남기는 인격</h2>
+<p>본문이 비워 둔 행위자 칸을 사람의 이름으로 채우지 않고 적힌 자리를 따라가는 이 훈련은, 우리의 일터와 목회 현장을 살리는 구체적인 인격의 열매로 이어진다. 세무조사 통지서를 받아 들고 찾아온 고객이 첫마디부터 "도대체 누가 나를 제보했느냐"며 배신감과 추측의 수렁에 빠져들 때, 상담자는 그 빈칸을 함께 추측하는 유혹에서 물러설 수 있다. 상담 메모에서 <strong>문서가 적지 않은 제보자나 내부 경위 칸은 과감히 비워 두고</strong>, 오직 통지서가 명시하고 있는 근거 법조항과 대상 기간, 제출 기한과 불복 경로라는 '적힌 자리'만 또렷이 채워 함께 읽어 내려가는 것이다. 그 순간 상담실의 공기는 과거의 범인을 색출하려는 소모적인 원망에서 벗어나, 오늘 마주한 기한과 경로를 따라 다음 걸음을 내딛는 생산적인 돌봄으로 전환된다.</p>
+<p>교회 공동체의 회의실과 우리 각자의 고독한 일기장 위에서도 이 변화는 똑같이 일어난다. 당회나 구역장 모임의 나눔 기록에서 누군가를 가리켜 "마음이 완고해서"라고 규정짓던 원인 칸을 없애고, 그 대신 <strong>그 사람이 지금 향하는 곳과 공동체가 함께 설 자리</strong>라는 두 칸만 남겨 둘 때, 회의록은 형제에게 낙인을 찍는 판결문이 아니라 회복을 기다리는 환대의 문서가 된다. 내 삶에서 오랫동안 풀리지 않고 굳어 있는 영역을 마주할 때도 마찬가지다. "내가 못나서"라는 자기 탓과 "그 사람 때문에"라는 남 탓 사이에서 행위자를 찾아 헤매느라 한 걸음도 떼지 못하던 마비를 이제는 멈추자. 일기장 첫 줄에 '누가' 대신 <strong>"오늘 나는 주께로 향한다"는 방향의 전치사구</strong>를 적고, 그 아래에 "주는 영이시니 주의 영이 계신 곳에는 자유가 있느니라"는 한 문장을 옮겨 적을 때, 우리의 인격은 굳힌 손을 추궁하던 차가운 검지를 접고 주의 영이 일하시는 따뜻한 자유의 자리로 걸어 들어간다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 26일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

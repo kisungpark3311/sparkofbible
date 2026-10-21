@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>문장은 그대로 둔 채 말 앞의 이름만 바꿀 때, 내 입술이 지켜야 할 출처의 자리</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 16일 &middot; 아모스 7:10-17</span>
+      <h1>문장은 그대로 둔 채 말 앞의 이름만 바꿀 때, 내 입술이 지켜야 할 출처의 자리</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 흔히 말을 왜곡한다는 것을 누군가가 했던 말의 내용을 교묘하게 비틀거나 없는 말을 지어내는 일로만 생각합니다. 그래서 토씨 하나 틀리지 않고 상대방의 문장을 그대로 옮겼다면 나는 사실을 정직하게 전달했다고 안심하곤 합니다. 그러나 아모스 7장 10절부터 17절에 펼쳐지는 벧엘의 제사장 아마샤와 예언자 아모스의 대결은, <strong>문장의 몸통을 단 한 글자도 고치지 않은 채 오직 그 문장 앞에 달린 이름표 하나만 바꾸는 것만으로도 말의 본질이 어떻게 완전히 뒤집힐 수 있는지</strong>를 날카롭게 보여 줍니다. 본문 11절과 17절의 끝에 놓인 다섯 낱말, 이스라엘은 정녕 사로잡혀 그 땅에서 떠나리라(베이스라엘 갈로 이글레 메알 아드마토)는 <strong>히브리어 원문에서 자모는 물론 모음과 악센트 부호까지 완벽하게 일치</strong>합니다. 구약 성경 전권을 통틀어 이 다섯 낱말이 이 순서와 형태로 나란히 놓인 곳은 오직 아모스 7장 11절과 17절 두 곳뿐입니다.</p>
+<p>몸통이 이토록 똑같은데 무엇이 달라졌을까요. 변화는 전적으로 말하다라는 동사 아마르 앞뒤의 머리칸에 몰려 있습니다. 11절에서 아마샤가 여로보암 왕에게 보고할 때 그 선고의 머리에는 <strong>키 코 아마르 아모스(아모스가 이와 같이 말하기를)</strong>가 붙어 있고, 17절에서 아모스가 다시 아마샤를 향해 선포할 때 그 머리에는 <strong>라켄 코 아마르 아도나이(그러므로 여호와께서 이와 같이 말씀하시기를)</strong>가 붙어 있습니다. 안타깝게도 개역한글은 11절과 17절의 지시 부사 코(이와 같이)를 모두 생략하고 15절의 두 번째 여호와마저 옮기지 않아 두 구절이 지닌 공식적인 사자 공식(메신저 공식)의 대칭이 우리말 문면에서는 반쯤 흐려져 있습니다. 그러나 <strong>원문의 문법을 마주 세워 보면 이 논쟁의 핵심은 예언의 내용이 맞느냐 틀리느냐가 아니라 그 말의 머리칸에 누구의 이름이 적혀 있느냐 하는 출처와 명의의 문제</strong>임이 선명하게 드러납니다.</p>
+<h2>왕들의 전갈 공식에 예언자의 이름을 끼워 넣어 모반의 죄목을 만들다</h2>
+<p>구약 성경 전체에서 코 아마르(이와 같이 말하였다) 바로 뒤에 고유명사가 붙는 구문은 총 삼백다섯 번 등장하는데, 그중 이백아흔세 번이 여호와를 비롯한 하나님의 이름이고 사람의 이름이 들어가는 경우는 열두 번뿐입니다. 더욱 놀라운 것은 사람의 이름이 그 자리에 들어간 열두 번 가운데 아홉 번이 제국의 왕들이 내리는 조서와 전갈이며, <strong>예언자의 이름이 그 칸에 들어간 사례는 구약 전체에서 아모스 7장 11절 단 한 곳뿐</strong>이라는 사실입니다. 즉 아마샤는 왕의 귀에 익숙한 공식 전갈의 머리칸에 여호와의 이름을 지우고 양 떼를 따르던 한 개인인 아모스의 이름을 끼워 넣은 것입니다. 본문은 아마샤가 아모스의 말을 정확히 인용했는지 아니면 고쳤는지를 섣불리 판정하지 않으며 그의 내면적 의도도 설명하지 않지만, <strong>그 머리칸의 이름이 여호와에서 아모스로 바뀌는 순간 하나님의 엄중한 선고가 한 사사로운 개인의 불온한 정치적 발언으로 격하된다는 구조적 사실</strong>을 또렷이 보여 줍니다.</p>
+<p>실제로 11절의 머리칸을 17절의 여호와께서 이와 같이 말씀하시기를로 맞바꾸어 읽어 보면, 바로 앞 절인 10절에서 아마샤가 제기한 <strong>아모스가 왕을 모반하나이다라는 고발은 설 자리를 완전히 잃어버립니다</strong>. 하나님의 말씀은 모반이 될 수 없기에, 모반이라는 죄목이 성립하려면 반드시 말 앞의 명의 칸에 사람의 이름이 적혀 있어야만 했던 것입니다. 이 차이를 몸으로 확인하기 위해 선 자세에서 이스라엘은 정녕 사로잡혀 그 땅에서 떠나리라라는 똑같은 꼬리 문장을 소리 내어 읽되, 첫 번째에는 아모스가 말하였다를 붙이며 오른손 검지로 옆 사람을 가리키고, 두 번째에는 여호와께서 말씀하신다를 붙이며 두 손바닥을 펴서 하늘을 향해 들어 보십시오. 꼬리 문장을 발음하는 혀와 입술의 움직임은 소름 끼치도록 똑같지만, <strong>말의 주인이 누구인지를 가리키는 손가락의 방향과 하늘을 향해 편 손을 들고 있는 팔의 무거운 긴장감이 출처의 무게를 온몸으로 일깨워 줍니다</strong>.</p>
+<h2>명의 칸을 스스로 비우고 보내신 아버지의 이름만 채우신 참된 말씀</h2>
+<p>이에 맞서 아모스는 15절에서 여호와께서 나를 데려다가 내게 이르시기를(바요메르 엘라이 아도나이)이라고 고백하며 자기 말의 출처를 분명히 밝히고, 17절에서 마침내 사자 공식의 머리칸에 여호와의 이름을 다시 채워 넣어 똑같은 다섯 낱말의 선고를 돌려줍니다. 정경의 넓은 시간 축 위에서 보면, 말의 명의 칸을 둘러싼 인간의 왜곡은 언제나 두 방향으로 나타났습니다. 하나는 신명기 18장 20절과 예레미야 23장 31절이 경고하듯 자기 마음에서 나온 사사로운 말 앞에 하나님의 이름을 방자하게 붙이는 오용이고, 다른 하나는 아모스 7장 11절이 보여 주듯 하나님께로부터 온 불편한 진리 앞에 한 사람의 이름을 달아 걸러 버리거나 쳐내려는 오용입니다. <strong>웨스트민스터 신앙고백 제1장 4절이 성경의 권위는 사람이나 교회의 증언에 달려 있지 않고 오직 저자이신 하나님께 전적으로 달려 있다고 고백하는 이유</strong>가 바로 여기에 있습니다.</p>
+<p>아모스 본문은 두 이름이 부딪치는 이 대결의 현장에서 멈추지만, 신약 정경은 이 명의 칸의 역사 끝에 마침내 자기 이름을 완전히 비우고 오직 보내신 분의 이름만으로 그 칸을 채우신 한 분의 입술을 더해 줍니다. 요한복음 12장 49절과 50절에서 예수님은 <strong>내가 내 자의로 말한 것이 아니요 나를 보내신 아버지께서 나의 말할 것과 이를 것을 친히 명령하여 주셨으니 내 아버지께서 내게 말씀하신 그대로 이르노라</strong>라고 말씀하십니다. 사람들은 끊임없이 내 말에 하나님의 권위를 도용하거나 하나님의 말씀을 사람의 의견으로 격하시켜 책임을 피하려 하지만, <strong>성자 예수 그리스도께서는 스스로 말의 주인이 되실 수 있는 분이시면서도 머리칸을 끝까지 아버지의 이름으로 채우심으로써 가장 온전한 순종과 진리의 전달자가 되셨습니다</strong>. 우리가 말의 출처를 정직하게 지키는 일은 설교자나 성도의 도덕적 공로를 쌓는 수양이 아니라, 우리를 위해 친히 말씀이 되어 오신 주님께 말의 주권을 온전히 내어 드리는 신앙의 고백입니다.</p>
+<h2>내 판단에 거룩한 명의를 씌우지 않고 전달의 출처를 투명하게 밝히다</h2>
+<p>말의 주인은 몸통이 아니라 머리칸에 적힌다는 이 원칙은 강단과 세무 실무, 교회 행정과 일상의 대화에서 우리의 인격을 정결하게 다듬는 구체적인 도구가 됩니다. 먼저 말씀을 전하고 나누는 자리에서 우리는 <strong>본문이 직접 적은 사실과 정경 전체가 더한 복음적 연결, 그리고 설교자 개인의 해석과 판단을 소리와 몸짓으로 엄격히 구분</strong>해야 합니다. 성경 본문을 가리킬 때의 손과 제 판단으로는이라고 말하며 내 가슴에 얹는 손을 구별할 때, 내 사견에 여호와의 말씀이라는 무거운 명의를 함부로 씌우는 교만에서 벗어날 수 있습니다. 또한 본문을 빌려 아마샤를 오늘날의 제도권 교회로 치환해 타인을 공격하는 구호로 삼지 않고, 정작 내 안에 불편한 말씀을 사람의 말로 치부해 걸러 버리는 완악함이 없는지 내 쪽을 먼저 살펴야 합니다.</p>
+<p>세무 자문과 조직 행정, 그리고 일상의 의사결정에서도 출처의 정직성은 신뢰의 핵심입니다. 세무 의견서를 작성할 때 <strong>국세청 질의회신과 대법원 판례, 업계의 실무 관행과 작성자의 주관적 판단을 한 문단에 모호하게 섞어 쓰지 않고 각 문장 머리에 근거의 출처를 명확히 달아 주어야</strong> 의뢰인이 반드시 따라야 할 법리와 선택할 수 있는 의견을 바르게 분별할 수 있습니다. 교회나 직장에서 공지 사항을 전달할 때도 여러 사람의 입을 거치며 누가 그러던데라거나 목사님이 그러셨다며 명의가 부풀려지거나 흐려지지 않도록, 최초의 발신 주체와 결정 일자를 첫 줄에 고정하고 전달자의 덧붙임은 별도의 의견으로 분리하는 습관이 필요합니다. 오늘 하루 중요한 결정을 내릴 때마다 내 마음을 움직인 그 말 앞에 실제로 누구의 이름을 적을 수 있는지 한 번만 멈추어 확인해 보십시오. <strong>출처 불명의 소문에서 힘을 빼고 내 생각에 거룩한 이름을 도용하지 않으며, 오직 아버지의 말씀만을 그대로 전하신 그리스도의 정직한 입술을 닮아 가는 것</strong>이 성경적 사고가 빚어내는 참된 인격입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 16일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

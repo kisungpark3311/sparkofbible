@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>탐스럽게 익은 결실의 바구니 앞에서, 끝과 추수의 이름을 붙이시는 주인을 기억하다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 17일 &middot; 아모스 8:1-10</span>
+      <h1>탐스럽게 익은 결실의 바구니 앞에서, 끝과 추수의 이름을 붙이시는 주인을 기억하다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>수확의 계절이 무르익어 바구니마다 탐스러운 열매가 가득 담길 때, 사람의 눈은 그것을 한 해 동안 흘린 땀의 성취이자 풍요로운 결실이라 부릅니다. 아모스 8장 1절과 2절에 등장하는 네 번째 환상 역시 여름 실과 한 광주리(클루브 카이츠)라는 풍성한 수확의 장면으로 문을 엽니다. 주 여호와께서 광주리를 보이시며 아모스야 네가 무엇을 보느냐고 물으실 때, 아모스는 조금의 망설임도 없이 본 그대로 여름 실과 한 광주리니이다(클루브 카이츠)라고 똑같은 자음의 어형으로 대답합니다. 그러나 바로 그 대답이 끝나자마자, <strong>8장 2절의 연속 동사(바이요메르) 사슬 안에서 처음으로 여호와라는 주어가 명시되는 세 번째 발화 토막</strong>에 이르러 전혀 다른 낱말 하나가 떨어집니다. <strong>내 백성 이스라엘의 끝(하케츠)이 이르렀은즉 내가 다시는 저를 지나가지 아니하리라</strong>.</p>
+<p>히브리어 원문에서 여름 과일을 뜻하는 카이츠와 끝을 뜻하는 하케츠는 첫 자음(코프)과 끝 자음(차데)이 정확히 같은 순서로 나란히 서고 가운데 모음 글자(요드) 하나만 빠진, 소리가 놀랍도록 맞닿아 있는 두 낱말입니다. <strong>구약 성경 서른아홉 권 전체에서 이 두 낱말이 한 절 안에서 나란히 공존하는 자리는 오직 아모스 8장 2절 단 한 곳뿐</strong>입니다. 개역한글은 본문에서 이 소리의 겹침이 사라진 채 각주조차 없고, 개역개정은 각주를 통해 히브리어로 두 말의 음이 같다는 사실을 알려 주지만, 정작 원문 층위가 간직한 가장 중요한 사실 하나는 각주에도 다 담기지 않았습니다. 그것은 <strong>이 두 낱말이 소리는 맞닿아 있으되 어근 자체가 서로 완전히 다르며 모음도 겹치지 않는 별개의 단어라는 사실</strong>입니다.</p>
+<h2>소리는 맞닿아 있으되 뿌리가 다르기에, 끝은 자연의 필연이 아니라 주권자의 판정이다</h2>
+<p>두 낱말의 어근이 서로 다르다는 이 문법적 제약은, 얼핏 보면 흥미로운 원어 말장난(워드플레이)의 신비를 반감시키는 것처럼 보이지만 실은 본문의 신학적 무게를 지탱하는 가장 단단한 기둥입니다. 만약 끝(케츠)이라는 낱말이 여름 과일(카이츠)과 같은 어근에서 파생된 말이었다면, 이스라엘의 종말은 마치 과일이 다 익으면 저절로 물러지고 썩어 떨어지는 것처럼 자연의 순환이나 역사 발전의 필연적인 결과로 읽혔을 것입니다. 그러나 두 단어는 뿌리가 다릅니다. 소리의 닮음은 듣는 이의 귀를 한자리에 묶어 두는 문턱 역할을 할 뿐, <strong>끝이라는 단어의 실제 내용은 발음에서 나오는 것이 아니라 내가 다시는 그를 그냥 지나가지(아보르) 않으리라는 여호와의 주권적 행동의 중단에서 나옵니다</strong>. <strong>익은 것을 보고 여름 과일이라 부르는 것은 사람의 눈이지만, 그 익음의 자리에서 끝을 선언하시는 분은 오직 환상을 보이신 여호와 한 분뿐이십니다</strong>.</p>
+<p>이 문답의 감각을 몸으로 겪어 보기 위해 손바닥 위에 묵직한 과일 하나를 올려놓고 카이츠라고 두 번 소리 내어 발음해 본 뒤, 이어서 하케츠라고 발음해 보십시오. 카이츠를 두 번 말할 때 우리의 입은 처음과 끝에서 혀가 닫히고 가운데 모음 이에서 입술이 옆으로 넓게 벌어지는 익숙하고 편안한 모양을 반복합니다. 그러나 하케츠를 발음하는 순간, <strong>처음과 끝의 혀 위치는 똑같은데 가운데 입이 옆으로 벌어지던 열림 하나가 툭 빠지면서 숨이 가쁘게 닫히는 낯선 감각</strong>을 입술이 귀보다 먼저 알아차립니다. 그러면서도 손바닥 위에 올려진 과일의 물리적 무게는 조금도 변하지 않습니다. <strong>대상의 무게는 그대로인데 입에 담기는 이름이 바뀐다는 이 몸의 감각은, 우리가 성취라고 부르며 들고 있는 바로 그 바구니 위에서 최종적인 이름을 붙이시는 판정의 주인이 누구인지를 서늘하게 일깨웁니다</strong>.</p>
+<h2>언약 안에서 선언된 끝, 그리고 때가 찬 세상 끝에 나타나신 그리스도</h2>
+<p>주목할 것은 여호와께서 이 엄중한 끝을 선고하실 때 그 수신자를 가리켜 여전히 <strong>내 백성 이스라엘(암미 이스라엘)이라고 부르시며 언약 안에서 판정을 내리신다는 사실</strong>입니다. 이 끝은 언약 밖의 타인에게 던지는 무관심한 파기가 아니며, 그렇기에 우리는 이 본문을 하나님이 이스라엘 민족을 영원히 버리셨다는 교체주의로 읽어서도 안 되고 아모스 9장 후반부의 회복 선언을 미리 끌어와 8장의 애통과 쓴 날(8:10)의 무게를 섣불리 봉합해서도 안 됩니다. 다만 시야를 정경 전체의 구속사적 종말론으로 넓힐 때, 우리는 익음과 때가 참과 끝이라는 사태가 신약 성경에서 어떻게 새로운 빛을 입는지 목격하게 됩니다. 마태복음 13장 39절과 요한계시록 14장 15절은 땅의 곡식이 다 익었을 때 추수 때는 세상 끝이요 거둘 때를 판정하시는 분이 오직 하나님이심을 다시금 확증합니다.</p>
+<p>아모스 본문 안에는 그리스도를 가리키는 직접적인 어휘 재료가 없으므로 아모스가 초림을 예고했다고 과장해서는 안 되지만, 신약 정경은 아모스가 기록한 이 끝의 자리 위에 놀라운 복음의 사건을 더합니다. 갈라디아서 4장 4절은 때가 차매 하나님이 그 아들을 보내셨다고 증언하고, 히브리서 9장 26절은 <strong>그리스도께서 자기를 단번에 제사로 드려 죄를 없게 하시려고 세상 끝에 나타나셨느니라</strong>라고 선포합니다. 아모스 8장 2절의 끝이 자기 백성의 죄악을 더 이상 그냥 지나가지 않으시는 심판의 마감이었다면, 히브리서가 증언하는 세상 끝은 바로 그 무서운 끝의 판정을 자기 몸으로 단번에 지신 하나님의 아들이 역사 한복판에 나타나신 자리입니다. <strong>익음의 끝에 심판의 이름을 붙이신 바로 그 주권자 하나님께서, 때가 찬 역사의 끝자락에 자기 아들을 보내시어 우리의 절망적인 끝을 구원의 추수(요 4:35)로 바꾸어 놓으셨습니다</strong>.</p>
+<h2>실적의 자만을 결산의 겸손으로 바꾸고 거두시는 주인 앞에 서는 삶</h2>
+<p>내가 이룬 성취에 마지막 이름을 붙이시는 분이 따로 계시다는 이 성경적 통찰은, 풍요와 실적을 자랑하기 쉬운 우리의 목회와 직업 현장에 깊은 성찰을 요구합니다. 추수감사절 강단에서 아모스 8장 1절의 여름 실과 한 광주리를 그저 풍성한 수확의 소품으로만 소비해서는 안 됩니다. <strong>우리가 결실이라 부르는 이름이 마지막 이름이 아님을 먼저 정직하게 직면하고</strong>, 번역본 본문 줄과 각주와 원문의 세 층위를 성실하게 대조하여 성도들에게 전달할 때, 우리의 감사는 내 업적을 확인하는 자기만족에서 벗어나 거두시는 주인을 경외하는 참된 예배로 바로 설 수 있습니다. 익기 전에 회개하라는 조건부 도덕주의나 끝은 없다는 값싼 위로를 모두 내려놓고, 오직 때와 기한을 정하시는 주권자의 선언 앞에 잠잠히 귀를 기울이는 자세가 필요합니다.</p>
+<p>세무 실무와 일상의 결산 앞에서도 이 지혜는 그대로 살아 움직입니다. 연말 결산기를 앞두고 한 해 동안 쌓인 매출에 도취되어 올해는 다 익었고 실적이 최고라며 들떠 있는 의뢰인에게, 실무자는 실적과 결산이라는 두 이름의 차이를 차분히 짚어 주어야 합니다. <strong>실적은 지금까지 쌓인 것을 부르는 사람의 이름이지만, 결산은 사업연도 종료일과 함께 장부가 닫혀 그 이후의 거래는 더 이상 이 장부에 들어오지 못한다는 법의 마감 이름</strong>입니다. 화려한 성과 보고서 옆에 미결 거래와 귀속 시기와 증빙 누락을 점검하는 마감 체크리스트를 나란히 펼칠 때 비로소 이듬해의 낭패를 막을 수 있습니다. 오늘 내 손바닥 위에 들려 있는 크고 작은 성취의 열매들을 바라보며, <strong>내가 붙인 성공이라는 이름에 안주하지 않고 장부를 닫으시며 마지막 이름을 부르시는 주님 앞에서 오늘을 정직하게 결산하는 겸손</strong>이 우리 인격의 깊은 뿌리가 되기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 17일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

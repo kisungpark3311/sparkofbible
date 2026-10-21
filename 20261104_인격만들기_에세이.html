@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>넷째 손가락 뒤에 내려놓아진 손: 비어 있는 목적어 앞에서 말한 이의 이름을 붙들다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 04일 &middot; 아모스 1:9-15</span>
+      <h1>넷째 손가락 뒤에 내려놓아진 손: 비어 있는 목적어 앞에서 말한 이의 이름을 붙들다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>세무서에서 날아온 두툼한 처분 통지서를 들고 상담실 문을 여는 이들은 대개 첫 줄의 과세기간과 세목, 그리고 자기 이름만 읽고도 손끝이 떨려 정작 문서의 맨 끝에 적힌 처분 주문과 불복 안내 문구를 제대로 읽지 못합니다. 반대로 오랜 실패 끝에 마음이 무너진 사람은 다짜고짜 다시는 안 하겠다는 거창한 맹세를 내뱉지만, 무엇을 안 하겠다는 것인지 목적어를 비워 둔 그 말은 며칠이 못 가 허공으로 흩어지고 맙니다. 문장의 성격을 결정짓는 진짜 무게는 언제나 화려한 첫머리가 아니라 문장이 닫히는 꼬리에 실려 있습니다. 아모스 1장 9절부터 15절까지 두로와 에돔과 암몬을 향해 세 번 반복되는 신탁 역시, 우리의 시선을 사로잡는 <strong>서너 가지 죄라는 숫자 수사가 아니라 그 뒤에 붙은 짧은 한 어구</strong>에서 본래의 엄중한 얼굴을 드러냅니다.</p>
+<h2>서른여섯 절의 공유된 머리와 여덟 절만의 고유한 꼬리</h2>
+<p>구약 성경 서른아홉 권 전체를 펼쳐 놓고 셋(שְׁלֹשָׁה)과 넷(אַרְבָּעָה)이라는 두 수사가 한 절 안에 나란히 동거하는 자리를 전수 조사해 보면 모두 서른여섯 절이 나옵니다. 그중 스물여덟 절은 날짜나 인구를 헤아리거나 잠언 30장처럼 세상을 놀라게 하는 기이한 일 서넛을 지혜의 목록으로 열거하기 위해 그 수사를 씁니다. 즉 서너 가지라는 머리 어구 자체는 아모스의 독점물이 아닙니다. 서른여섯 절 가운데 오직 아모스 1장과 2장에 놓인 여덟 절만을 나머지 스물여덟 절과 완전히 갈라놓는 표지는 수사 바로 뒤에 따라붙는 세 조각의 히브리어 꼬리, <strong>로 아쉬베누(לֹא אֲשִׁיבֶנּוּ, 내가 그것을 돌이키지 아니하리라)</strong>입니다. 지혜 문학은 손가락을 하나씩 펴며 놀라운 목록을 열거하려고 그 수사를 쓰지만, 아모스는 단호히 철회하지 않겠다고 판결을 확정하는 자리에 그 수사를 가져다 놓습니다.</p>
+<p>더욱 깊이 들여다보면 이 판결의 꼬리에는 독자를 멈춰 세우는 기이한 문법적 비대칭이 자리 잡고 있습니다. 아쉬베누라는 한 토막 안에는 돌이키지 않겠다고 선언하는 1인칭 주어(내가)와 부정어(로), 그리고 <strong>3인칭 남성 단수 목적 접미(-ֶנּוּ, 그것을) 한 음절</strong>이 함께 묶여 있습니다. 그런데 이 일곱 절 전체를 샅샅이 뒤져 보아도 그 단수 접미사가 가리키는 구체적인 목적어 명사가 본문에 적혀 있지 않습니다. 죄악이나 형벌이나 심판을 뜻하는 단수 명사가 단 한 번도 등장하지 않으며, 앞에 나온 범죄들(פִּשְׁעֵי)은 복수여서 단수인 접미사와 수가 맞지 않습니다. 우리말 개역한글 성경이 내가 그 벌을 돌이키지 아니하리니라고 옮긴 것에서 <strong>그 벌은 원문에 없는 말을 번역자들이 여러 주석 노선 가운데 하나를 택해 보충해 넣은 것</strong>입니다. 원문은 판결을 내리는 주체인 1인칭과 여호와께서 가라사대라는 발화의 주인은 가장 뚜렷한 이름으로 채워 두고, 정작 무엇을 거두지 않으시는지 그 대상은 짧은 한 음절의 빈칸으로 남겨 두었습니다.</p>
+<h2>대상을 적어야 서는 사람의 문서와 말한 이로 서는 신탁</h2>
+<p>이러한 구조는 인간 사회의 판정 문서들과 나란히 놓을 때 그 차이가 선명하게 부각됩니다. 법원의 판결문이나 과세관청의 처분 통지서, 혹은 계약서의 말미에 붙는 특약 조항은 모두 공통된 서식의 머리보다 꼬리의 주문이 문서의 성격을 가른다는 점에서는 아모스의 신탁과 닮았습니다. 그러나 불복 기간이 지나 불가쟁력이 생긴 과세처분서라 할지라도 만약 처분 대상과 세목, 금액란이 비어 있다면 그 문서는 아무런 법적 효력을 갖지 못합니다. 사람의 판정 문서는 반드시 <strong>무엇에 대한 판정인지 대상을 명시해야만 효력이 서기 때문</strong>입니다. 게다가 구약 전체에서 아쉬베누와 똑같은 형태가 쓰인 열두 토막의 지도를 펼쳐 보면, 창세기 42장 37절이나 사사기 17장 3절처럼 사람이 무언가를 되돌려 보낼 때는 누구에게로 돌려보내는지 목표 전치사(אֵלֶיךָ, לָךְ)가 분명히 따라붙습니다. 반면 아모스의 여덟 자리는 부정어가 붙은 채 목표 전치사조차 없이 그냥 멈춥니다.</p>
+<p>판결의 대상도 비어 있고 되돌릴 목표점도 적혀 있지 않다면 이 판결은 불완전한 것일까요. 정반대입니다. 빈칸에 형벌이나 진노나 선언 같은 어떤 단어를 갈아 끼워 보아도 내가 돌이키지 아니하리니라는 말한 이의 부정 선언은 조금도 흔들리지 않습니다. 민수기 23장 20절에서 발람이 축복을 두고 내가 돌이킬 수 없도다(וְלֹא אֲשִׁיבֶנָּה)라고 같은 꼴을 썼던 것처럼, 이 어형이 확정하는 것은 특정 물건이 아니라 <strong>말씀하신 분의 말씀이 결코 빈말로 거두어지지 않는다는 확정성 자체</strong>입니다. 대상의 명시가 아니라 발화하신 하나님의 이름에 판결의 전 하중이 실려 있는 것입니다.</p>
+<p>이 무게를 몸으로 익히기 위해 책상 앞에 앉아 오른손을 내밀어 봅니다. 지혜 문학이 열거하듯 셋에서 손가락 셋을 펴고 넷에서 네 번째 손가락을 편 뒤, 하나씩 항목을 세며 손가락을 접으면 손은 다시 처음의 주먹으로 가볍게 돌아옵니다. 그러나 아모스의 방식으로 다시 네 손가락을 편 뒤에는 손가락을 접지 않습니다. 로 아쉬베누를 나직이 발음하며 <strong>편 손바닥을 그대로 탁자 위에 엎어 내려놓고 삼십 초 동안 들지도 접지도 않은 채</strong> 가만히 머물러 봅니다. 돌이키지 아니하리라는 것은 화려한 불꽃의 몸짓이 아니라 원래 자리로 되돌아가지 않는 무거운 손입니다. 무엇을 누르고 있는지 대상은 적히지 않았어도 손바닥을 통해 전해지는 압력은 숨이 막힐 듯 분명합니다. 그리고 그 내려놓아진 하나님의 손 맞은편에서, 내 힘으로 과거와 상황을 되돌려 보겠다고 허공에 뻗어 휘젓던 나의 조급한 손도 비로소 탁자 위에 조용히 내려놓게 됩니다.</p>
+<h2>빈칸을 함부로 메우지 않고 중보자의 이름을 바라보는 성숙</h2>
+<p>장 칼뱅이 아모스 강해의 맥락에서 짚어 주었듯, 언약 백성이 아닌 두로와 에돔과 암몬이 형제의 계약을 잊고 긍휼을 버리며 지경을 넓히려고 이웃의 배를 가른 일(1:9, 1:11, 1:13)에도 똑같은 판결의 꼬리가 붙는다는 사실은, <strong>일반 은총 아래 살아가는 모든 민족과 일상 또한 하나님의 재판석 관할 아래 있음</strong>을 일깨웁니다. 이 본문 앞에서 우리는 세 가지 낭떠러지를 조심해야 합니다. 이스라엘이라는 단어가 이 일곱 절에 없다고 해서 열방만 심판받으니 우리는 안전하다고 여기는 자기 위안은 아모스 3장 2절과 9장 7절이 엄히 가로막고, 비어 있는 목적어 자리를 임의로 키워 공포를 조장하거나 아모스가 이미 복음을 다 말한 것처럼 빈칸을 메워 버리는 과장도 본문의 절제를 어기는 일이며, 어찌할 수 없다며 주저앉는 운명론 역시 본문이 아직 집행의 날과 절차를 열어 두었다는 유예의 여지를 놓치는 일입니다. 돌이켜지지 않는 이 엄중한 판결을 끝내 누가 감당하시는가라는 질문에 대해, 아모스 본문은 침묵으로 자리를 비워 두고 신약의 정경인 히브리서 9장 15절이 그 위에 <strong>새 언약의 중보자이신 예수 그리스도</strong>의 이름을 은혜로 더해 줍니다.</p>
+<p>말한 이는 선명히 적고 대상은 여백으로 남겨 둔 이 신탁의 문법은, 오늘 우리가 문서를 읽고 말을 맺는 인격의 자세를 뿌리부터 바꾸어 놓습니다. 세무 통지서를 들고 찾아온 고객과 마주 앉을 때는 첫 줄의 숫자에 압도되지 않도록 문서의 꼬리인 처분 문구와 불복 기한을 먼저 짚어 읽되, 문서에 적히지 않은 빈칸을 상담자의 섣부른 짐작으로 채워 불안을 키우지 않는 절제를 지켜야 합니다. 반대로 교회 당회나 조직의 결의문을 작성할 때는, 말의 주인이신 하나님만이 대상을 비워 둘 수 있음을 기억하고 <strong>사람의 결정문에는 무엇을 언제까지 누구의 책임으로 확정하는지 목적어를 명확히 기재</strong>하여 훗날의 분쟁을 막아야 합니다. 그리고 개인의 삶에서 실패한 뒤 습관처럼 내뱉던 다시는 안 한다는 빈말 대신, 돌이킴의 주권자이신 하나님 앞에 내 손을 내려놓고 <strong>오늘 내가 멈추어야 할 구체적인 행동 하나를 목적어로 또렷이 적어 실천하는 진실한 신앙인</strong>이 되기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 04일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

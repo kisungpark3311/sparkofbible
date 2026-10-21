@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>칭호는 남기고 주어는 거두시는 은혜: 죽임과 살림이 마주 선 자리에서 손을 내리다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 25일 &middot; 고린도후서 3:1-6</span>
+      <h1>칭호는 남기고 주어는 거두시는 은혜: 죽임과 살림이 마주 선 자리에서 손을 내리다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h2>꾸밈말이 일하는 주어로 일어설 때</h2>
+<p>고린도후서 3장 1절부터 5절까지를 천천히 읽어 내려가면, 문장의 중심에는 언제나 '우리'라는 1인칭 복수와 '너희'라는 2인칭 복수가 번갈아 서 있다. 사도는 우리가 다시 자천하기를 시작하겠느냐고 묻고, 너희가 바로 우리의 편지이자 그리스도의 편지라고 선언하며, 우리의 만족이 오직 하나님으로부터 난다고 고백한다. 그러나 마침내 3장 6절의 문턱을 넘는 순간, 그토록 치열하게 동사를 붙들고 있던 <strong>1인칭과 2인칭이 모두 주어의 몫을 비우는 문법적 전환</strong>이 일어난다. '우리'는 오직 우리를 넉넉하게 하셨다는 동사 뒤에 붙은 <strong>대격 목적어(ἡμᾶς) 하나로만 남고</strong>, 그 빈자리를 3인칭 단수 동사 셋이 일제히 채운다.</p>
+<p>더욱 경이로운 사건은 3장 6절 한 절 안에서 벌어지는 격(格)의 이동이다. 앞 절반에서 새 언약의 일꾼이 어떤 성격의 사람인지를 꾸며 주던 무관사 속격 두 낱말, 곧 '문자의 아님(οὐ γράμματος)'과 '영의(ἀλλὰ πνεύματος)'가 불과 몇 낱말을 건너뛰는 사이에 <strong>관사를 부여받은 중성 단수 주격(τὸ γράμμα, τὸ πνεῦμα)으로 우뚝 일어선다</strong>. 그리고 신약 성경 스물일곱 권 전체를 통틀어 오직 이 한 절에만 나란히 등장하는 두 동사, <strong>죽인다(ἀποκτέννει)와 살린다(ζῳοποιεῖ)</strong>를 각각 자기 손에 쥔다. 일꾼의 성격을 규정하던 수식어가 스스로 일하는 주어로 올라서는 바로 그 찰나에, 인간 일꾼은 생사(生死)를 다루는 주어의 보좌에서 조용히 내려온다.</p>
+<p>이 정교한 문법의 이동을 머리의 분석에만 두지 않고 몸의 동작으로 통과해 보면 본문이 주는 해방감이 손끝에 만져진다. 1절부터 5절까지를 낭독할 때는 '우리'가 동사를 이끄는 구절마다 오른손을 가슴에 얹고, '너희'가 주어로 나서는 구절마다 손을 앞으로 뻗어 회중을 가리킬 수 있다. 하지만 6절 상반절, "그가 또한 우리를 새 언약의 일꾼 되기에 만족하게 하셨으니"에 이르면 가슴을 짚던 손을 내려 <strong>손바닥을 하늘로 향하여 펴는 수납의 자세</strong>가 된다. 그리고 이어지는 하반절, 개역개정이 "율법 조문은 죽이는 것이요 영은 살리는 것이니라"로 옮기고 개역한글이 "의문은 죽이는 것이요 영은 살리는 것임이니라"로 옮긴 선언 앞에서는 <strong>가리키던 손과 가슴에 얹었던 두 손을 모두 아래로 내려야만 한다</strong>. 그 두 동사 앞에는 내가 가슴을 치며 자랑할 1인칭 주어도, 손가락을 뻗어 지목할 2인칭 대상도 남아 있지 않기 때문이다.</p>
+<h2>가리키는 손가락을 거두고 빈 목적어 앞에 서다</h2>
+<p>왜 우리는 마지막 두 동사 앞에서 두 손을 모두 내려야 하는가. 원문 3장 6절은 '죽인다'와 '살린다'라는 두 현재 직설법 동사 뒤에 <strong>목적어를 단 한 글자도 적지 않은 채 온점으로 문장을 닫기 때문</strong>이다. '살린다(ζῳοποιεῖ)'라는 동일한 어형이 신약에서 쓰인 다른 두 자리인 요한복음 5장 21절을 펼쳐 보아도, 죽은 자들을 일으켜 살리는 주어는 오직 아버지와 아들이지 결코 인간 사역자가 아니다. 세무대리인의 위임장에 '누구누구의 대리인'이라는 속격 수식어가 적혀 있다고 해서 법적 처분의 효력이 대리인 자신의 인격에서 나오지 않는 것과 같고, 3절의 '육의 마음판'이 씨앗을 품는 흙의 바탕(여격)이 될 수는 있어도 싹을 틔우는 생명의 주체(주격)가 될 수 없는 이치와 같다. 물론 위임장이나 악보의 지시어, 씨앗과 흙이라는 일상의 유추들은 규정과 효력의 분리를 어렴풋이 보여 줄 뿐, 죽임과 살림이 한 절에 맞서고 기명 없는 관계대명사(ὅς)가 일꾼을 넉넉하게 만든다는 이 절의 고유한 공백까지 대신 채워 주지는 못한다.</p>
+<p>우리가 본문의 빈칸 앞에서 더욱 삼가야 할 지점은 어형과 정경의 경계선이 긋는 울타리다. 6절 하반절의 두 주어는 모두 중성 단수이기에 어떤 복수 집단이나 특정 민족의 이름도 그 주어 칸에 들어설 수 없다. 더욱이 로마서 2장 27절이나 7장 6절이 '문자(γράμμα)'와 '율법(νόμος)'을 한 절 안에 나란히 배치한 것과 달리, 고린도후서 전체에는 '율법'이라는 낱말이 단 한 번도 등장하지 않는다. 개역개정의 '율법 조문'이라는 역어가 로마서의 짝을 연상시키더라도, <strong>고린도후서 3장 본문 스스로는 그 등식을 만들지 않는다</strong>는 사실과 개역한글이 이를 '의문'으로 옮겼다는 차이를 함께 기억해야 한다. 아우구스티누스가 『영과 문자』에서 <strong>살리는 일의 임자를 인간의 능력이 아니라 성령께 돌린 통찰</strong>은 본문의 격 이동과 정확히 공명하지만, 문자를 곧장 율법 조문이나 특정 전통과 동일시하는 등식은 본문 바깥에 조심스럽게 내려놓아야 마땅하다.</p>
+<p>결국 고린도후서 3장 6절을 왜곡하는 모든 오용의 문은 본문이 굳게 닫아 둔 주어 칸이나 <strong>존재하지 않는 목적어 칸에 사람의 이름을 억지로 기입할 때</strong> 열린다. 빈 목적어 자리에 한 민족이나 옛 전통을 써넣으면 반유대주의적 정죄의 칼날이 되고, '문자' 자리에 성경 본문을 밀어 넣으면 기록된 말씀을 가벼이 여기는 반문서주의로 추락한다. 반대로 사역자 자신을 '살리는 주체'로 착각하면 3장 5절이 금한 사역자 영웅담이 되며, 명령법이 단 한 토막도 없는 이 본문을 "문자로 하지 말고 영으로 하라"는 다그침으로 바꾸면 또 다른 도덕주의의 무거운 멍에가 된다. 현재 직설법과 빈 목적어로 서 있는 이 문장은 과거의 누군가를 재단하는 판결문도 아니요 미래를 장담하는 보장 공식도 아닌, <strong>지금 일꾼이 서 있는 자리의 주인이 누구인지를 밝혀 주는 임명의 문장</strong>이다.</p>
+<h2>판정의 손끝을 접고 임명의 자리로 돌아가는 인격</h2>
+<p>이 임명장의 문법이 우리의 일터와 공동체 속으로 스며들면, 관계를 다루는 손길이 한결 정직하고 부드러워진다. 세무조사나 경정청구를 앞두고 "이 증빙 서류 묶음이 나를 살려 줄 것"이라고 믿으며 불안해하는 고객과 마주 앉을 때, 우리는 상담 메모를 두 열로 나누어 적을 수 있다. 왼쪽 열에는 이 서류가 무엇에 관한 증빙인지를 밝히는 수식의 자리를 적고, 오른쪽 열에는 실제 효력을 발생시키는 법령과 처분청이라는 주어의 자리를 적어 구분해 주는 것이다. 문서를 쓸모없는 것으로 깎아내리지 않으면서도 <strong>문서의 성격 규정과 처분의 효력 주체를 분리해 줄 때</strong>, 고객은 서류 만능의 조바심과 결과 뒤의 원망에서 한 걸음 벗어난다. 교회의 직분자 임명 예식문을 다듬을 때도 마찬가지다. 피임명인을 '영혼을 살리는 일꾼'이라는 무거운 주어로 세우는 대신, <strong>하나님께로부터 넉넉하게 된(ἱκάνωσεν) 새 언약의 일꾼</strong>으로 적을 때 예식은 인간의 공로 선언을 넘어 은혜의 서술이 되고, 직분자는 내가 생명을 만들어 내야 한다는 중압감 대신 맡겨진 자리의 넉넉함 속에서 사역을 시작한다.</p>
+<p>무엇보다 이 한 절의 말씀은 타인의 사역이나 동료의 일 처리를 향해 쉽게 손가락을 들던 우리의 내면을 깊이 성찰하게 만든다. 우리는 누군가의 서툰 방식을 볼 때마다 "저런 방식은 사람을 죽인다"는 평가의 문장을 얼마나 손쉽게 완성하곤 했던가. 말로는 방식을 주어로 삼는 듯하지만, 그 문장의 목적어 자리에는 언제나 내가 지목한 특정한 누군가가 과녁으로 세워져 있었다. 이제는 하루를 돌아보는 일기장 위에서 <strong>내가 임의로 신설해 넣은 평가 문장의 목적어들을 지워 나갈 때</strong>다. 사람에게는 '영의 일꾼'이라는 존귀한 칭호를 남겨 주시되 '살리는 주어'의 자리는 친히 거두어 가시는 하나님의 문법 앞에서, 우리는 남을 겨누던 근질거리는 손가락을 조용히 거둔다. <strong>일꾼은 규정되고 일은 다른 임자가 하신다</strong>는 그 든든한 진실 위에서, 비로소 우리의 인격은 판관의 오만을 벗고 은혜로 넉넉하게 된 자의 평안을 입는다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 25일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

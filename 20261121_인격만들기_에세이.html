@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>한 번 적힌 건짐의 주소, 비워 둔 내일의 칸에 걸어 둔 소망</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 21일 &middot; 고린도후서 1:8-14</span>
+      <h1>한 번 적힌 건짐의 주소, 비워 둔 내일의 칸에 걸어 둔 소망</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살 소망까지 끊어질 듯한 힘겨운 고비를 가까스로 넘긴 사람에게, 우리는 습관처럼 매끄러운 세 박자의 위로를 건네곤 합니다. "하나님이 과거에도 건지셨고, 현재에도 건지시며, 미래에도 모든 문제에서 반드시 건져 주실 것입니다." 언뜻 듣기에 믿음직스럽고 완벽해 보이는 이 보장 공식은, 막상 고린도후서 1장 10절의 헬라어 원문 앞에 서면 세 겹의 벽에 부딪혀 멈추어 섭니다. 한 절 안에 '건지다'(<code>ῥύομαι</code>, 뤼오마이)라는 동사가 세 번 연달아 등장하는 것은 사실이지만, 시상은 과거와 미래 두 가지뿐이고, 무엇보다 <strong>"무엇에서 건지셨는가"를 밝히는 범위가 오직 첫 번째 건짐에만 적혀 있기 때문</strong>입니다.</p>
+<p>고린도후서 1장 10절을 칸으로 나누어 들여다보면, 첫 번째 동사인 부정과거형 <code>ἐρρύσατο</code>(에뤼사토, 건지셨고) 앞에는 신약 전권에서 단 한 번 쓰인 어형 <code>ἐκ τηλικούτου θανάτου</code>(이같이 큰 사망에서)라는 구체적인 장소와 <code>ἡμᾶς</code>(우리를)라는 목적어가 또렷이 적혀 있습니다. 그러나 두 번째와 세 번째로 이어지는 미래형 <code>ῥύσεται</code>(뤼세타이, 건지시리라) 두 토막에는 <strong>'무엇에서'라는 범위 칸도, 목적어 칸도 모두 비어 있습니다</strong>. 개역한글과 개역개정 두 역본 모두 이 빈칸에 임의로 말을 보태지 않고 공백 그대로 살려 두었습니다. 더욱 놀라운 것은 세 번째 건짐이 놓인 자리입니다. 마지막 "건지시리라"는 독립된 사실 진술이 아니라, 완료형 동사 <code>εἰς ὃν ἠλπίκαμεν</code>(그에게 우리가 바라 왔다)이 이끄는 <code>ὅτι</code> 내용절 안에 고스란히 품겨 있습니다. <strong>지나간 건짐은 장소가 명시된 증언으로 서고, 앞으로의 건짐은 빈칸으로 남아 한 분을 향한 바람의 내용으로 놓이는 것</strong>입니다.</p>
+<h2>세 번의 건짐 가운데 오직 지나간 한 번에만 적힌 장소</h2>
+<p>성경이 앞으로 다가올 건짐의 범위를 적을 줄 몰라서 비워 둔 것이 아닙니다. 같은 미래 어형(<code>ῥύσεται</code>)이 쓰인 디모데후서 4장 18절을 보면, "주께서 나를 모든 악한 일에서 건져내시고"라며 미래의 동사 바로 옆에 건짐의 범위를 직접 명시합니다. 적을 수 있는 말을 고린도후서 1장 10절이 굳이 적지 않고 비워 두었다면, 그 공백은 <strong>본문이 의도적으로 남겨 둔 선택된 여백</strong>으로 읽어야 마땅합니다. 세 번의 건짐 동사가 첫 칸에서 마지막 칸까지 똑같이 물려받아 공유하는 것은 '이같이 큰 사망에서'라는 범위가 아니라, 절 머리에 놓인 주격 관계대명사 <code>ὃς</code>(호스, 그가) 하나뿐입니다. 그리고 그 관계대명사가 가리키는 선행사는 바로 앞 절인 1장 9절 끝에 우뚝 서 있는 한 분, 곧 <strong>"죽은 자를 다시 살리시는 하나님"(<code>τῷ θεῷ τῷ ἐγείροντι τοὺς νεκρούς</code>)</strong>이십니다.</p>
+<p>세무 실무에서 과세관청의 질의회신서를 다룰 때, 노련한 전문가일수록 회신서의 결론 문장보다 맨 앞에 적힌 '질의 내용'과 사실관계를 먼저 확인합니다. 작년에 특정 사실관계 아래에서 인정받은 경비 처리가 올해의 다른 거래에 자동으로 상속되지 않기 때문입니다. 작년의 통과 횟수를 셈하여 올해 세무조사의 무조건적인 보장을 끌어내는 것은 위험한 착각입니다. 물론 세무의 질의회신은 사실관계가 바뀌면 효력을 잃는 불확실한 절차이지만, 고린도후서 1장 10절이 범위를 상속하지 않는 이유는 정반대입니다. <strong>우리의 기대가 과거의 사건이나 상황에 매이지 않고 오직 줄 끝을 잡고 계신 한 분께만 걸려 있기 때문</strong>입니다. 암벽을 오르는 등반자가 이미 지나온 바위에 박아 둔 확보물은 과거의 한 지점을 증언할 뿐, 아직 오르지 않은 다음 구간의 안전을 보장하는 것은 확보물이 아니라 로프 반대편에서 줄을 단단히 붙들고 서 있는 확보자 자신인 것과 같습니다.</p>
+<h2>공식이 부러진 빈자리에서 죽은 자를 살리시는 분을 바라보다</h2>
+<p>만일 우리가 1장 10절의 두 번째와 세 번째 빈칸에 내가 지금 겪고 있는 질병의 완치나 재정 문제의 해결, 소송의 승소 같은 구체적인 문제의 이름을 임의로 채워 넣는다면 어떤 일이 일어날까요. 당장은 속이 시원한 보증서를 손에 쥔 것 같겠지만, 모든 빈칸이 확정된 결과로 다 채워지는 순간 정작 그 절의 중심을 지탱하고 있던 <strong>"그를 의지하여 바라노라"(<code>ἠλπίκαμεν</code>)라는 소망의 동사가 할 일을 잃고 사라져 버립니다</strong>. 빈칸은 약속이 부실해서 생긴 결함이 아니라, 우리로 하여금 자기를 의뢰하지 말고 오직 죽은 자를 다시 살리시는 하나님만 의뢰하게 하려는(1:9) <strong>바람과 신뢰가 숨 쉬는 자리</strong>입니다. 시간의 축을 과거·현재·미래의 세 칸짜리 보장 공식으로 그리면 현재형의 건짐이 빠진 불완전한 문장처럼 보이지만, 구문의 눈으로 다시 보면 지금 이 순간의 현재 자리에 우뚝 서 있는 동사는 건짐이 아니라 과거부터 지금까지 흔들림 없이 걸어 둔 '바라 왔다'(<code>ἠλπίκαμεν</code>)라는 완료형 소망입니다.</p>
+<p>이 구문의 전환은 우리를 세 가지 신앙의 낭떠러지에서 건져 줍니다. 빈칸에 내 소원을 적어 넣어 복음을 내 사건의 해결 보증서로 삼으려는 번영과 보장의 신앙, 반대로 범위가 안 적혔으니 지금의 고통은 내 공로로 참고 견뎌야 할 몫이라고 여기는 고난 미화, 그리고 현재형 건짐이 없으니 하나님이 지금은 침묵하신다고 단정하는 차가운 냉소입니다. 칼뱅이 고린도후서 1장 9절의 사형선고 같은 절망을 두고 <strong>신뢰 자체가 무너지는 자리가 아니라 신뢰의 수신자가 나 자신에게서 하나님께로 교체되는 국면</strong>이라고 통찰했듯, 1장 10절의 빈칸은 그 수신자의 교체를 내일의 시간 위로 길게 연장해 놓은 자리입니다. 로마서 4장 24절과 고린도전서 13장 12절이 정경의 빛을 더하듯, 지금은 우리가 부분적으로 알며 빈칸 위에서 그분을 바라보지만, 건짐의 열린 끝과 부분적인 앎은 마침내 1장 14절의 '우리 주 예수의 날'에 한 몸으로 온전히 만나게 될 것입니다.</p>
+<h2>내일의 주소록을 내 뜻으로 채우지 않고, 펴진 손으로 오늘을 건너다</h2>
+<p>왼손 손바닥 한가운데에 펜으로 "이같이 큰 사망에서"라고 한 번만 적어 보십시오. 그리고 오른손 검지로 첫 번째 건짐을 읽으며 그 글자 위를 짚은 뒤, 두 번째와 세 번째 건짐을 읽을 때에는 글자가 없는 빈 손가락 마디와 손목 근처의 맨살을 차례로 짚어 보십시오. 글자가 적힌 자리를 짚을 때 손가락은 안도하지만, 아무것도 적히지 않은 빈자리를 짚을 때 손가락은 본능적으로 불안해하며 자꾸만 글자가 적힌 쪽으로 미끄러져 돌아가려 합니다. 설교자가 강단에서 두 번째, 세 번째 건짐에 기어코 기적적인 예화를 덧붙이고 싶어 하는 충동이나, 성도가 기도의 응답을 내가 정해 둔 결과로만 재려는 조바심이 바로 그 손가락의 미끄러짐과 같습니다. 그러나 "그를 의지하여 바라노라"를 읽는 순간, 우리는 짚던 손가락을 거두고 <strong>글자가 적힌 자리와 빈자리를 모두 품은 손바닥 전체를 하늘을 향해 가만히 펴서 내밀게 됩니다</strong>.</p>
+<p>이 몸의 감각을 익힌 사람은 일상의 말과 실무의 자리에서 함부로 내일의 범위를 복사해 쓰지 않습니다. 큰 시련을 막 지나온 교우를 심방할 때, 지난번 건지신 구체적인 은혜의 장소를 함께 또렷이 기억하며 감사하되, 지금 마주한 새 아픔에 대해서는 섣불리 결과를 장담하는 대신 <strong>"그분께 우리가 바라 왔고 오늘도 그분을 바랍니다"라는 정직한 고백</strong>으로 함께 손을 잡습니다. 간증문을 다듬을 때에도 내 고난을 자격증처럼 내세우거나 앞으로의 만사형통을 장담하는 승리담 대신, 오직 나를 건지신 분의 이름을 높이는 감사의 기록으로 여백을 남깁니다. 세무 상담 메모에 작년의 인정 범위와 올해 새로 검토할 사항을 엄격히 나누어 적듯, 내 삶의 장부에서도 지나간 구원은 선명한 증언으로 적고 다가올 내일의 빈칸은 내 문제의 이름 대신 <strong>죽은 자를 다시 살리시는 하나님의 이름께 온전히 돌려 드리는 인격</strong>, 그 펴진 손바닥 위에 참된 평안이 머뭅니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 21일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
