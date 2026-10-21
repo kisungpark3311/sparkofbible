@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>일으키는 동사는 다른 분의 몫이다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 19일 &middot; 아모스 9:7-15</span>
+      <h1>일으키는 동사는 다른 분의 몫이다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<p>20261119_성경적 사고와 인격 만들기</p>
+<h2>일으키는 동사는 다른 분의 몫이다 — 씨앗 아이디어(아모스 9:11·9:14·9:15 — קוּם(쿰) · 머리 אָקִים(아킴))</h2>
+<blockquote>
+<p><span style="font-weight:700; color:var(--green);">원본 근거</span>: <a href="./20261119_생각의탄생13단계_아모스_9_7-15_일으키는동사는다른분의몫이다.html">20261119_생각의탄생13단계_아모스_9_7-15_일으키는동사는다른분의몫이다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><span style="font-weight:600; color:var(--green);">"회복 쪽의 「내가」가 세 절에 몰립니다 — 9:11·9:14·9:15. 9:11 한 절에 네 토막이 함께 놓이고, 그 넷이 아모스 전권에서 한 절에 가장 많이 놓인 「내가」입니다. 「다윗」이라는 이름은 아홉 절에서 주어로 서지 않습니다 — 소유의 자리에만 놓이고 그 이름에 딸린 동사가 0개입니다. 일으키는 동사가 전부 다른 분의 몫입니다. <strong>… ⚠ 「아모스뿐」이라는 결과를 셋째 꼴이 혼자 떠받칩니다.</strong></span></p>
+<p><strong>본문 핵심: 회복을 여는 동사의 주어가 아홉 절에서 한 번도 바뀌지 않습니다."</strong></p>
+<p>(출처: <a href="./20261119_일상의깊은사고_아모스_9_7-15.html">20261119_일상의깊은사고_아모스_9_7-15</a> 중심 신학 통찰 1️⃣ ①②)</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">개역한글</span> (로컬 <code>700_Ko_Bible/30아모스/암9.md</code> · 구문묵상 §2 개한 행과 대조 — 9:7-15 아홉 절 문면 일치, 차이는 띄어쓰기·문장부호뿐, 이 범위에서 탈락 0)</p>
+<blockquote>
+<p>9:11 그 날에 내가 다윗의 무너진 천막을 일으키고 그 틈을 막으며 그 퇴락한 것을 일으키고 옛적과 같이 세우고<br/>
+9:14 내가 내 백성 이스라엘의 사로잡힌 것을 돌이키리니 저희가 황무한 성읍을 건축하고 거하며 포도원들을 심고 그 포도주를 마시며 과원들을 만들고 그 과실을 먹으리라<br/>
+9:15 내가 저희를 그 본토에 심으리니 저희가 나의 준 땅에서 다시 뽑히지 아니하리라 이는 네 하나님 여호와의 말씀이니라</p>
+</blockquote>
+<p>⚠ <strong>역본 주의</strong>: 일상의깊은사고가 인용한 9:11·9:14 문면(「장막」·「그것들의 틈」·「허물어진 것을 일으켜서」 · 「황폐한 성읍을 건축하여 거주하며」)은 개역개정이다. 개역개정은 <code>נָטַע</code>를 9:14에서 「가꾸고」, 9:15에서 「심으리니」로 갈라 옮기고, 개역한글은 둘 다 「심다」로 일관한다(구문묵상 §1-5 생사 ③). 두 역본 모두 다섯 꼴의 1인칭을 전부 살린다(생사 ①). 9:11에서 지시 대상의 성·수가 네 번 갈리는 것을 두 역본이 「그 / 그것」 하나로 평평하게 만든다(§3-4).<br/>
+⚠ <strong>신명 주의(A6)</strong>: 9:15 「네 하나님 여호와」는 원문 <code>אָמַר יְהוָה אֱלֹהֶיךָ</code>이고, 9:8 개역한글 「주 여호와 내가」는 원문이 <code>עֵינֵי אֲדֹנָי יְהוִה</code>(「주 여호와의 눈이」)다. 9:11의 동사 넷에는 신적 이름이 0토막이고 주어는 굴절 1인칭뿐이다.</p>
+<p><span style="font-weight:700; color:var(--green);">원문</span> (OpenScriptures morphhb WLC · <a href="./20261119_구문묵상_아모스_9_7-15.html">20261119_구문묵상_아모스_9_7-15</a> §2 출력 그대로)</p>
+<blockquote>
+<p><strong>9:11</strong> בַּיּ֣וֹם הַה֔וּא אָקִ֛ים אֶת־סֻכַּ֥ת דָּוִ֖יד הַנֹּפֶ֑לֶת וְגָדַרְתִּ֣י אֶת־פִּרְצֵיהֶ֗ן וַהֲרִֽסֹתָיו֙ אָקִ֔ים וּבְנִיתִ֖יהָ כִּימֵ֥י עוֹלָֽם׃<br/>
+<strong>9:14</strong> וְשַׁבְתִּי֮ אֶת־שְׁב֣וּת עַמִּ֣י יִשְׂרָאֵל֒ וּבָנ֞וּ עָרִ֤ים נְשַׁמּוֹת֙ וְיָשָׁ֔בוּ וְנָטְע֣וּ כְרָמִ֔ים וְשָׁת֖וּ אֶת־יֵינָ֑ם וְעָשׂ֣וּ גַנּ֔וֹת וְאָכְל֖וּ אֶת־פְּרִיהֶֽם׃<br/>
+<strong>9:15</strong> וּנְטַעְתִּ֖ים עַל־אַדְמָתָ֑ם וְלֹ֨א יִנָּתְשׁ֜וּ ע֗וֹד מֵעַ֤ל אַדְמָתָם֙ אֲשֶׁ֣ר נָתַ֣תִּי לָהֶ֔ם אָמַ֖ר יְהוָ֥ה אֱלֹהֶֽיךָ׃</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">파싱 근거</span> (구문묵상 §1-5 · §3-4 · §3-5 · §3-6 · §4①)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱</th>
+<th>표제어</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>אָקִים</code> (9:11 ×2)</td>
+<td>히필 · 미완료 · 1인칭 공성 단수 (<code>HVhi1cs</code>)</td>
+<td>6965 b</td>
+<td>씨앗 머리. 첫째 목적어 <code>אֶת־סֻכַּת דָּוִיד הַנֹּפֶלֶת</code>, 둘째는 선치된 <code>וַהֲרִסֹתָיו</code></td>
+</tr>
+<tr>
+<td><code>וְגָדַרְתִּי</code> (9:11)</td>
+<td>칼 · 순차 완료 · 1인칭 공성 단수 (<code>HC/Vqq1cs</code>)</td>
+<td>1443</td>
+<td>「그 틈을 막으리라」. 개관 §4 라벨에서 빠졌던 다섯째 꼴</td>
+</tr>
+<tr>
+<td><code>וּבְנִיתִיהָ</code> (9:11)</td>
+<td>칼 · 완료 · 1인칭 공성 단수 + 3인칭 여성 단수 접미 (<code>HC/Vqp1cs/Sp3fs</code>)</td>
+<td>1129</td>
+<td>「내가 그것을 세우리라」. 구약 전권 1토막</td>
+</tr>
+<tr>
+<td><code>וְשַׁבְתִּי</code> (9:14)</td>
+<td>칼 · 순차 완료 · 1인칭 공성 단수 (<code>HC/Vqq1cs</code>)</td>
+<td>7725</td>
+<td>9:14의 유일한 1인칭. 3인칭 공성 복수 순차 완료 여섯을 거느린다</td>
+</tr>
+<tr>
+<td><code>וּנְטַעְתִּים</code> (9:15)</td>
+<td>칼 · 순차 완료 · 1인칭 공성 단수 + 3인칭 남성 복수 접미 (<code>HC/Vqq1cs/Sp3mp</code>)</td>
+<td>5193</td>
+<td>「내가 그들을 심으리니」. 9:14 <code>וְנָטְעוּ</code>(그들이 포도원을 심고)와 한 표제어</td>
+</tr>
+<tr>
+<td><code>דָּוִיד</code> (9:11)</td>
+<td>고유명 절대형 (<code>HNp</code>) · 연계형 <code>סֻכַּת</code>(<code>HNcfsc</code>)의 피지배 명사</td>
+<td>1732</td>
+<td>주어 몫 0 · 딸린 정동사 0(§1-4)</td>
+</tr>
+<tr>
+<td><code>הַנֹּפֶלֶת</code> (9:11)</td>
+<td>정관사 + 칼 분사 여성 단수 (<code>HTd/Vqrfsa</code>)</td>
+<td>5307</td>
+<td>「무너진」. 그 꼴은 구약 전권 1토막</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <span style="font-weight:700; color:var(--green);">계수 기준과 모집단</span>: 아래 수는 전부 구문묵상 §1-5가 morphhb WLC <strong>구약 39권 <code>&lt;verse&gt;</code> 직속 <code>&lt;w&gt;</code> 전수(케레 제외)</strong>로 센 꼴 제한 값이다.<br/>
+- <code>אָקִים</code>(<code>6965 b</code>+<code>HVhi1cs</code>) <strong>6토막 5절 5권</strong> — MT 소재 창 17:21 · 신 18:18 · 삼상 3:12 · 렘 30:9 · 암 9:11 ×2(구문묵상 통찰 1 · 개역 절번호 대조 전)<br/>
+- <code>וְגָדַרְתִּי</code>(<code>1443</code>+<code>HC/Vqq1cs</code>) <strong>2토막 2권</strong>(호 2:8 · 암 9:11)<br/>
+- <code>וּבְנִיתִיהָ</code>(<code>1129</code>+<code>HC/Vqp1cs/Sp3fs</code>) <strong>1토막 1권</strong><br/>
+- <code>וְשַׁבְתִּי</code>(<code>7725</code>+<code>HC/Vqq1cs</code>) <strong>6토막 4권</strong>(창·렘·겔·암)<br/>
+- <code>וּנְטַעְתִּים</code>(<code>5193</code>+<code>HC/Vqq1cs/Sp3mp</code>) <strong>3토막 2권</strong>(렘·암)<br/>
+- 다섯을 다 가진 책은 아모스 하나(예레미야 셋 · 창세기 둘). <strong>둘 이상이 한 절에 놓인 절은 구약 전권에 암 9:11 하나</strong>이고 거기 넷이다. 9:11의 1인칭 정동사 4는 <strong>아모스 전권 한 절 최다</strong>(차점 3이 다섯 절).<br/>
+- 단위 1인칭 정동사 <strong>11토막이 전부 한 입</strong>이다. 다른 입의 1인칭은 9:10 접미 <code>בַּעֲדֵינוּ</code> 하나뿐(§3-6).<br/>
+- ⛔ 이 수들은 <strong>범위</strong>다. 기둥은 「일으키는 동사의 주어가 하나이고 『다윗』은 소유 자리에만 놓인다」는 통사 사실이다.</p>
+<h3>사고의 통합 — "일으킴은 그분의 것, 사는 일은 그 위에서"</h3>
+<p>관찰은 회복 단락에서 사람의 동사가 0이 아니라는 데서 출발했다. 0인 것은 일으키는 동사의 다른 주어였다. 짓다와 심다는 두 주어를 건너가지만, 일으키고 막고 돌이키는 동사는 건너가지 않는다(1). 장면은 그것을 두 겹의 손으로 그렸고(2), 추상화는 대상의 정체와 때와 「아모스뿐」의 무게를 버린 뒤 「일으킴의 주어」 하나를 남겼다(3). 패턴 인식은 아모스의 히필 <code>קוּם</code> 다섯 자리에서 주어가 늘 한 분이거나 「없음」이라는 분포를 보았고(4), 패턴 형성은 그것을 「매달린 동사」 — 일으킴의 주절, 삶의 결과절, 보존의 받는 꼴 — 로 굳혔다(5).</p>
+<p>유추는 회생·원예·의료에서 같은 순서를 찾았지만, 세 유추 모두 조건 없는 1인칭은 담지 못했다(6). 몸은 일으켜지는 자의 가장 어려운 일이 힘을 빼는 것이라고 알려 주었고, 동시에 몸의 프로토콜이 본문보다 사람에게 일을 하나 더 준다는 것을 들켰다(7). 감정이입은 아홉 절에서 유일한 다른 1인칭 「우리에게」가 동사 없는 꼬리라는 것과, 심는 자가 먼저 심겼다는 것을 두 목소리로 들었다(8). 차원적 사고는 정경이 그 이름에 동사를 붙여도 그 동사가 다윗의 것이 아님을 보았다(9). 모형은 그것을 「주어 확인표」로 만들었고(10), 놀이는 사람의 동사를 지우면 회복이 순수해지는 것이 아니라 빈다는 것을 찾았으며(11), 변형은 계수 없이 주어 배치만으로 축이 선다는 것을 확인했다(12).</p>
+<p><span style="font-weight:700; color:var(--green);">① 최종 테제</span>: 아모스 9:11-15에서 무너진 것을 일으키는 동사는 전부 한 입의 1인칭이고 「다윗」에는 동사가 없다. 사람의 동사는 그 일으킴에 매달린 결과절로 많이 놓인다. 회복은 사람을 지우지 않고, <strong>사람의 자리를 일으킴 뒤로 정한다.</strong><br/>
+<span style="font-weight:700; color:var(--green);">② 가장 생산적이었던 도구</span>: <strong>놀이(11)</strong>. 사람의 동사를 지워 본 극단화가, 「일으키는 동사는 다른 분의 몫」이라는 부제를 「사람은 아무것도 하지 않는다」로 오독하지 않게 막았다. 1단계의 「건너가는 동사」 관찰이 놀이에서 비로소 무게를 얻었다.<br/>
+<span style="font-weight:700; color:var(--green);">③ 처음과 달라진 이해</span>: 처음에는 씨앗을 「주어의 독점」으로 읽었다. 끝에서는 「주어의 순서」로 읽는다. 9:14 → 9:15에서 심는 자가 먼저 심겼다는 순서가, 독점보다 더 정확하게 본문의 주어 배치를 말한다.</p>
+<blockquote>
+<p>[!insight] 회복은 사람을 지우지 않고, 사람의 자리를 일으킴 뒤로 정한다. 씨앗은 「주어의 독점」이 아니라 「주어의 순서」다.</p>
+<p><strong>"일으키는 동사는 다른 분의 몫이다 — 그래서 사는 동사가 우리 몫으로 남는다. 우리가 포도원을 심기 전에, 그분이 우리를 심으셨다."</strong></p>
+</blockquote>
+<hr/>
+<h2>개혁신학적 조명</h2>
+<p><strong>실질 접점 본문</strong><br/>
+- <span style="font-weight:700; color:var(--green);">누가복음 1:69</span> — 「그 종 다윗의 집에 우리를 위하여 구원의 뿔을 일으키셨으니」. 아모스에서 동사가 없던 이름의 집에 동사가 붙되, 그 동사의 주어는 다윗이 아니다. 9단계에서 보았듯 이것은 메움이 아니라 더함이다.<br/>
+- <span style="font-weight:700; color:var(--green);">고린도전서 3:6-7</span> — 심고 물 주는 사람의 일이 있으나 자라게 하시는 분은 하나님이라는 바울의 말은 「매달린 동사」의 신약 쪽 짝이다. 사람의 동사가 지워지지 않고, 자라게 하는 동사의 주어가 바뀌지 않는다. ⚠ 아모스가 그 말을 담은 것은 아니다 — 주제의 접점이지 인용 관계가 아니다.<br/>
+- <span style="font-weight:700; color:var(--green);">빌립보서 2:12-13</span> — 「구원을 이루라」는 명령과 「너희 안에서 행하시는 이는 하나님이시니」라는 근거가 한 문장에 놓인다. 아모스 9:11-15는 그 명령 쪽이 0인 본문이다. 두 본문을 하나로 만들지 않는다 — 바울 본문에는 명령이 있고 아모스 본문에는 없다는 차이를 그대로 둔다.</p>
+<p><span style="font-weight:700; color:var(--green);">신학자</span>: <strong>칼빈</strong>, 『소선지서 주석』(아모스). 구문묵상 §6③이 전하는 바로는 칼빈이 9:11-12의 다윗의 집 회복을 교회의 모임으로 읽고 사도행전 15장 인용을 그 근거로 들었다. ⚠ <strong>판본과 면수는 확인되지 않았다.</strong> 이 노트는 그 읽기를 받아 「초막 = 교회 조직」으로 바꾸지 않는다(조항 18) — 칼빈의 읽기는 정경이 더한 말(사도행전)에 기댄 읽기이고, 아모스 본문의 어휘는 그 등식을 담지 않는다. 개혁신학이 이 본문에서 정당하게 받을 수 있는 것은 등식이 아니라 <strong>은혜의 주권적 시작</strong> — 회복을 여는 동사에 사람의 조건이나 청원이 문법으로 붙어 있지 않다는 사실(조건절 0 · 명령 0)이다. ⚠ 이것은 부재에서 읽은 것이므로, 「청원이 필요 없다」는 교리 명제로 넓히지 않는다(구문묵상 §3-13 R21 유보).</p>
+<p><span style="font-weight:700; color:var(--green);">설교 적용점</span>: 적용 문장을 「무너진 것을 일으키자」로 쓰지 말고 「일으켜진 자리에서 짓고 심고 먹자」로 쓴다. 명령은 본문에서 끌어오지 않는다(명령 0). 회중이 할 일은 9:14의 여섯 동사 — 그것도 명령이 아니라 약속된 결과로 — 를 오늘의 삶에서 알아보는 것이다.</p>
+<p><span style="font-weight:700; color:var(--green);">복음 중심성 점검</span>: 도덕주의 귀결 여부 — 이 노트는 두 방향의 도덕주의를 모두 피해야 한다. ① 행동주의(「우리가 회복을 이룬다」)는 일으킴의 층에 사람을 넣는다. ② 정적주의(「아무것도 하지 않아도 된다」)는 삶의 층을 지운다. 복음은 그 사이의 타협이 아니라 순서다 — 일으키신 분이 먼저이고, 사는 일은 그 뒤에 그 위에서다. 그리고 ⛔ 이 회복을 9:8-10과 9:1-4의 심판에서 떼어내지 않는다(§7-4 · 신19). 일으킴은 무너짐을 지우지 않고, 무너진 것(<code>הַנֹּפֶלֶת</code>)을 목적어로 받는다.</p>
+<hr/>
+<h2>실무 적용</h2>
+<p><strong>목회 — 회복을 서두르는 성도 곁에서</strong><br/>
+- <strong>상황</strong>: 사업 실패·이혼·교회 분쟁 뒤에 「제가 빨리 다시 일어서야 하는데요」라고 말하는 성도.<br/>
+- <strong>적용</strong>: 「주어 확인표」 ①·②를 대화로 옮긴다. 「일으키는 일과 사는 일을 나눠 봅시다. 지금 하실 수 있는 일은 사는 일 쪽에 무엇이 있습니까 — 오늘 먹고, 오늘 한 사람과 말하는 일.」 일으키는 일을 성도의 과제로 남기지 않는다.<br/>
+- <strong>기대 효과</strong>: 「다시 일어서야 한다」는 압박이 「오늘 사는 일」의 목록으로 바뀐다.</p>
+<p><strong>세무 — 고객 상담(회생·경정청구)</strong><br/>
+- <strong>상황</strong>: 폐업 위기의 고객이 「세금 문제만 정리되면 다시 일어설 수 있다」고 말한다.<br/>
+- <strong>적용</strong>: 「매달린 동사」 도식으로 일을 가른다. 경정청구·회생 신청은 고객이 할 수 있는 일이다. 경정 결정·개시 결정은 과세관청과 법원의 몫이다. 결정 뒤의 신고·장부·변제가 다시 고객의 몫이다. 상담에서 고객이 통제할 수 없는 결정을 고객의 과제로 말하지 않는다.<br/>
+- <strong>기대 효과</strong>: 고객이 결정권자의 일에 매달려 소진되지 않고, 자기 몫(서류·기한·장부)에 힘을 모은다. ⚠ 유추의 한계 — 행정·사법 절차에는 신청이 필요하다. 아모스 9:11-15의 1인칭에는 신청이 0이다. 상담 비유를 설교로 옮길 때 「신청하면 일으켜 주신다」로 가지 않는다.</p>
+<p><strong>교회 행정</strong><br/>
+- <strong>상황</strong>: 분립·재건 중인 교회가 「회복 계획」 문서를 만든다.<br/>
+- <strong>적용</strong>: 문서의 목표 칸에 「교회를 회복시킨다」를 쓰지 않고, 실행 칸에 「예배·교제·돌봄을 지속한다」를 쓴다. 회복의 주어를 위원회로 쓰지 않는다. ⛔ 「다윗의 초막」을 교회 조직의 청사진으로 쓰지 않는다(조항 18).<br/>
+- <strong>기대 효과</strong>: 성과 압박 대신 지속 가능한 실행 목록이 남는다.</p>
+<p><strong>개인 의사결정</strong><br/>
+- <strong>상황</strong>: 오래 무너진 관계 앞에서 「내가 먼저 고쳐야 하나」를 결정하지 못한다.<br/>
+- <strong>적용</strong>: 내가 일으킬 수 있는 것과 없는 것을 나눈다. 상대의 마음을 일으키는 것은 내 동사가 아니다. 내 동사는 오늘의 말과 식탁이다.<br/>
+- <strong>기대 효과</strong>: 결과에 대한 책임과 행위에 대한 책임이 갈린다.</p>
+<hr/>
+<h2>[최종 연구 노트 승격 후보]</h2>
+<h3>0 관찰 (Observing) — "주어가 바뀌지 않는 아홉 절"</h3>
+<p>씨앗은 「회복 쪽의 『내가』가 세 절에 몰린다」를 짚었다. 그 문장을 다섯 꼴과 그 둘레의 동사로 늘려 세운다(구문묵상 §1-5 · §3-4 · §3-5 · §1-3).</p>
+<table>
+<thead>
+<tr>
+<th>절</th>
+<th>1인칭 동사</th>
+<th>목적어</th>
+<th>같은 절의 다른 주어</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9:11</td>
+<td><code>אָקִים</code> · <code>וְגָדַרְתִּי</code> · <code>אָקִים</code> · <code>וּבְנִיתִיהָ</code></td>
+<td>초막 · 틈 · 무너진 것들 · 그것</td>
+<td>0 — 「다윗」은 <code>סֻכַּת</code>에 딸린 소유 자리</td>
+</tr>
+<tr>
+<td>9:14</td>
+<td><code>וְשַׁבְתִּי</code></td>
+<td><code>שְׁבוּת</code>(사로잡힘)</td>
+<td>3인칭 공성 복수 여섯 — <code>וּבָנוּ</code> · <code>וְיָשָׁבוּ</code> · <code>וְנָטְעוּ</code> · <code>וְשָׁתוּ</code> · <code>וְעָשׂוּ</code> · <code>וְאָכְלוּ</code></td>
+</tr>
+<tr>
+<td>9:15</td>
+<td><code>וּנְטַעְתִּים</code> · <code>נָתַתִּי</code>(관계절)</td>
+<td>「그들」</td>
+<td>니팔 <code>יִנָּתְשׁוּ</code>(뽑히지 아니하리라 · 받는 꼴, 행위자 0)</td>
+</tr>
+</tbody>
+</table>
+<p>첫째, 일으키고 막고 세우는 동사 넷이 한 절에 몰리고 그 넷 사이에 다른 주어가 끼어들지 않는다. 둘째, 「다윗」은 아홉 절에서 한 번 놓이는데 그 자리는 목적어 안이다 — 연계형 <code>סֻכַּת</code>의 피지배 명사이고 그 이름에 딸린 정동사가 0토막이다. 셋째, 사람이 주어인 정동사는 9:14에 몰린다. 여섯이고 한 절에 그 꼴이 여섯 놓인 절은 구약 전권에 이 하나다. 그런데 그 여섯은 머리의 1인칭 하나에 매달린 순차 완료다. 회복 쪽의 다른 둘도 홀로 서지 않는다 — 9:12 <code>יִירְשׁוּ</code>는 <code>לְמַעַן</code> 뒤 목적절이고, 9:13 <code>וְנִגַּשׁ</code>(니팔 순차 완료 3남단 · 주어 「밭 가는 자」)는 1인칭이 아니라 「날들이 이르는」(<code>בָּאִים</code>) 뒤에 이어진다(§3-4·§3-5). ⛔ 9:12의 「만국」을 사람의 과제로 읽지 않는다(조항 20). 넷째, 같은 동사가 주어를 건너간다. 「짓다」는 9:11에서 1인칭이 짓고 9:14에서 3인칭 복수가 짓는다(§1-3). 「심다」는 9:14에서 그들이 포도원을 심고 9:15에서 그분이 그들을 심는다.</p>
+<blockquote>
+<p>[!insight] 회복 단락에서 사람의 동사는 0이 아니다. 0인 것은 <strong>일으키는 동사의 다른 주어</strong>다. 짓는 동사와 심는 동사는 두 주어를 건너가는데, 일으키는 동사(<code>אָקִים</code>)와 막는 동사·돌이키는 동사는 건너가지 않는다.</p>
+<p>[!question] 연결 질문<br/>
+- 「짓다」가 두 주어에 걸리는데 「일으키다」는 한 주어에만 걸리는 것은 이 아홉 절의 우연인가, 동사의 성격인가?<br/>
+- 사람이 포도원을 심는 절 바로 뒤에 그분이 사람을 심는 절이 오는 순서는 무엇을 먼저 보게 하는가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 표로 세운 「건너가는 동사와 건너가지 않는 동사」를, 형상화는 무너진 초막 하나 앞의 장면으로 옮긴다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "일으키는 자와 일으킬 자 없음"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>패턴 발현</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>아모스의 히필 <code>קוּם</code> 다섯 토막</td>
+<td>2:11 선지자와 나실인을 「일으켰나니」(wayyiqtol 1인칭) · 5:2 「일으킬 자 없으리로다」(<code>מְקִימָהּ</code> 부정된 분사) · 6:14 「내가 한 나라를 일으켜 너희를 치리니」(<code>מֵקִים</code>) · 9:11 ×2 <code>אָקִים</code>. ⚠ 각 자리의 논지는 4·8·12단위 몫이고 이 노트는 <span style="font-weight:700; color:var(--green);">분포만</span> 쓴다(구문묵상 §4① · 개관 §8-1-c ⑫)</td>
+</tr>
+<tr>
+<td>9:14-15의 「심다」</td>
+<td>사람이 포도원을 심고(<code>וְנָטְעוּ</code>) 그분이 사람을 심는다(<code>וּנְטַעְתִּים</code>) — 같은 표제어가 두 주어를 건너가되, 사람을 심는 자리는 1인칭이다</td>
+</tr>
+<tr>
+<td>사도행전 15:16 · 누가복음 1:69 (정경이 더한 말)</td>
+<td>사도행전은 1인칭 미래 넷으로 받는다(<code>ἀνοικοδομήσω</code> · <code>ἀνορθώσω αὐτήν</code> 등 · 구문묵상 §3-12 표). 누가복음 1:69는 「다윗의 집에 … 구원의 뿔을 일으키셨으니」 — 이름은 여전히 「집」을 거느리는 소유 자리이고, 일으키는 동사는 존대로 다른 분께 붙는다</td>
+</tr>
+<tr>
+<td>일상</td>
+<td>정신을 잃고 쓰러진 사람은 스스로 일어나지 못한다. 구조대가 일으키고, 일어난 뒤 걷는 것은 그 사람이다</td>
+</tr>
+</tbody>
+</table>
+<p>아모스 안에서 히필 <code>קוּם</code>의 주어는 1인칭(2:11 · 6:14 · 9:11 ×2)이거나 「없음」(5:2)이다. ⚠ 이 주어 판정은 구문묵상이 센 표가 아니라, 구문묵상 §4①·개관 §8-1-c ⑫가 준 다섯 소재의 꼴과 개역한글 문면을 이 노트가 읽은 것이다 — 기계 전수가 아니다.</p>
+<p><strong>공통 패턴</strong>: <strong>무너진 것을 일으키는 동사에는 무너진 쪽의 이름이 주어로 서지 않는다. 일어선 뒤의 동사에는 선다.</strong></p>
+<blockquote>
+<p>[!insight] 5:2 「일으킬 자 없으리로다」와 9:11 「내가 일으키리라」는 같은 히필 어간의 두 극이다 — 하나는 주어의 부재, 하나는 주어의 1인칭. 그 사이 어디에도 「이스라엘이 스스로 일어난다」는 꼴이 없다.</p>
+<p>[!question] 연결 질문<br/>
+- 5:2의 「일으킬 자 없음」은 9:11의 「내가」를 기다리는 빈자리인가 — 아니면 그렇게 잇는 것이 두 단위를 한 논지로 묶는 일(구문묵상 §4①이 피한 일)인가?<br/>
+- 6:14에서 같은 동사가 심판의 나라를 일으킨다면, 「일으킴의 주어가 하나」는 위로인가 두려움인가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 반복되는 패턴을, 패턴 형성은 주절과 결과절의 도식으로 굳힌다.</p>
+<h3>0 유추 (Analogizing) — "개시 결정은 신청인이 내리지 못한다"</h3>
+<p><span style="font-weight:700; color:var(--green);">① 세무·법(신학↔세무 교차)</span> — 회생 절차에서 채무자는 신청서를 낸다. 그러나 개시 결정은 채무자가 스스로 내리지 못한다. 결정이 난 뒤에 영업을 이어 가고 매출을 올리고 변제를 해 나가는 것은 채무자다. 새 통찰: <strong>삶의 층의 동사는 신청인의 것이지만, 일으킴의 층은 결정권자의 것이다</strong> — 9:14의 여섯 동사가 「돌이키리니」 뒤에 매달린 것과 같은 꼴이다. 한계: 회생에서는 채무자의 신청이 절차를 연다. 아모스 9:11-15에는 사람이 청하거나 돌이키는 정동사가 놓이지 않는다(명령 0 · 2인칭 정동사 0 · 단위의 <code>שׁוּב</code> 1토막은 1인칭 <code>וְשַׁבְתִּי</code> 하나 · 구문묵상 §3-7·§3-9·§4②). 신청의 자리가 문면에 비어 있다.</p>
+<p><span style="font-weight:700; color:var(--green);">② 원예</span> — 옮겨 심을 묘목은 스스로 자리를 고르지 못한다. 정원사가 구덩이를 파고 묻는다. 그 뒤에 뿌리를 내리고 잎을 내는 것은 묘목이다. 새 통찰: 9:15 「내가 그들을 심으리니」는 사람을 <strong>묘목의 자리</strong>에 두고, 9:14 「포도원들을 심고」는 같은 사람을 <strong>정원사의 자리</strong>에 둔다. 한 사람이 두 자리에 서되 순서가 정해져 있다. 한계: 묘목은 뽑히지 않는다는 보장을 받지 못한다. 9:15는 「다시 뽑히지 아니하리라」로 정원사의 손 밖의 보장을 담는다.</p>
+<p><span style="font-weight:700; color:var(--green);">③ 의료</span> — 심정지 환자를 되살리는 처치는 의료진의 손이다. 깨어난 환자가 숨 쉬고 먹고 걷는 것은 환자다. 새 통찰: 회복의 첫 동사가 남의 손이라는 사실이 깨어난 뒤의 동사를 하찮게 만들지 않는다. 한계: 의료진은 실패할 수 있다. 9:11의 1인칭 넷에는 조건절이 0이다.</p>
+<blockquote>
+<p>[!insight] 세 유추 모두에서 「일으킴」과 「삶」은 주어가 다르고 순서가 정해져 있다. 그리고 세 유추 모두 아모스가 담는 한 가지를 담지 못한다 — <strong>조건 없는 1인칭</strong>이다.</p>
+<p>[!question] 연결 질문<br/>
+- 회생 유추에서 「신청」을 지운 것은 본문에 충실한 것인가, 9:8의 유보(멸하지는 아니하리라)를 은근히 「신청 없는 결정」으로 봉합하는 것인가?<br/>
+- 묘목이 정원사가 되는 순간은 9:14와 9:15 가운데 어디인가 — 본문의 순서(9:14 → 9:15)는 그 물음에 무엇을 답하는가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 유추가 남긴 「일으켜지는 쪽의 자리」를 몸으로 시뮬레이션해 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "손을 내밀고 힘을 빼다"</h3>
+<p><strong>실천 프로토콜</strong> — 두 사람이 한다.<br/>
+1. 한 사람이 바닥에 등을 대고 눕는다. 눈을 감는다.<br/>
+2. 먼저 손을 짚지 않고, 다른 사람의 도움 없이 일어나 본다. 배와 허벅지의 근육이 얼마나 버티는지 느낀다.<br/>
+3. 다시 눕는다. 이번에는 손만 위로 내민다. 다른 사람이 그 두 손을 잡아 일으킨다. 누운 사람은 <strong>힘을 주지 않고</strong>, 끌려 올라가는 동안 등이 바닥에서 떨어지는 순간을 느낀다.<br/>
+4. 일어선 뒤 그 자리에서 몇 걸음 걷는다. 걷는 것은 자기 다리다.</p>
+<p><strong>몸이 가르쳐 주는 것</strong>: 3에서 가장 어려운 것은 힘을 빼는 일이다. 일으켜 주는 손을 돕겠다고 배에 힘을 주면 오히려 몸이 무거워진다. 그리고 4에서 걷는 다리는 아무도 대신 움직여 주지 않는다. 몸이 「매달린 동사」를 안다 — 일어섬은 남의 팔에서 오고, 걸음은 내 다리에서 나오되, 걸음은 일어섬 뒤에만 가능하다.</p>
+<p><strong>설교 전달 연결</strong>: 9:11을 읽을 때 설교자가 손을 한 번씩 위로 끌어올리는 동작을 넷 한다(일으키고 · 막고 · 일으키고 · 세우고). 9:14에서는 동작을 멈추고 회중을 가리키며 여섯 동사를 읽는다. 9:15에서 다시 손을 낮춰 「심는」 동작을 한다.</p>
+<blockquote>
+<p>[!insight] 일으켜지는 몸이 할 수 있는 일은 손을 내미는 것과 힘을 빼는 것이다 — 그런데 9:11-15에는 「손을 내밀라」는 명령조차 없다. 몸의 프로토콜이 본문보다 사람에게 일을 하나 더 준다는 것을 기록해 둔다.</p>
+<p>[!question] 연결 질문<br/>
+- 「손을 내민다」는 동작은 본문에 없는 신청을 몸이 덧붙인 것인가, 아니면 일으켜지는 자에게 자연히 따르는 것인가?<br/>
+- 힘을 빼는 일이 가장 어렵다는 몸의 경험은 9:10 「화가 우리에게 미치지 아니하리라」고 말한 자들의 힘과 어떻게 닿는가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 몸이 느낀 「힘을 주는 자」와 「힘을 빼는 자」를, 감정이입은 본문 안의 두 목소리로 들어가 1인칭으로 듣는다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "동사 없는 이름에 동사를 붙이다"</h3>
+<p><strong>구속사로 확장</strong> — 아모스 9:11에서 「다윗」은 동사가 없다. 정경이 뒤에 그 집에 동사를 붙인다.<br/>
+- <span style="font-weight:700; color:var(--green);">사도행전 15:16-17</span>이 9:11-12를 인용한다. 구문묵상 §3-12 표에 따르면 사도행전 문면은 머리 동사 <code>ἀναστρέψω</code>와 목적어 <code>τὸν Κύριον</code>처럼 MT·LXX 확인분에 대응이 0인 것을 담고, 9:12에서는 MT의 「에돔의 남은 자를 차지하다」가 「사람들의 남은 자가 찾다」로 갈린다. ⚠ <strong>어느 전승이 옳은지, 사도행전이 어느 계열을 따랐는지 판정하지 않는다.</strong> 이 노트가 받는 것은 하나다 — 사도행전 문면에서도 일으키고 다시 짓는 동사는 전부 1인칭 미래이고(4토막), 「다윗」은 여전히 <code>τὴν σκηνὴν Δαυεὶδ</code>의 소유 자리다.<br/>
+- <span style="font-weight:700; color:var(--green);">누가복음 1:69</span> — 「그 종 다윗의 집에 우리를 위하여 구원의 뿔을 일으키셨으니」. 그 집에 「일으키다」가 붙는다. 그러나 다윗은 여전히 「집」을 거느리는 이름이고, 일으키는 동사는 존대로 다른 분께 붙는다.<br/>
+- ⚠ 아모스가 그 뿔도 그 회의도 담지 않았다. 이것은 <strong>메움이 아니라 더함</strong>이다.</p>
+<p><strong>미시로 축소</strong> — 9:11 한 절 안에서 지시 대상의 성·수가 네 번 갈린다: <code>הַנֹּפֶלֶת</code> 여성 단수 · <code>פִּרְצֵיהֶן</code> 3인칭 여성 복수 · <code>וַהֲרִסֹתָיו</code> 3인칭 남성 단수 · <code>וּבְנִיתִיהָ</code> 3인칭 여성 단수(§3-4). 대상을 부르는 말은 네 번 바뀌고, 주어는 한 번도 바뀌지 않는다. 두 역본은 바뀌는 대상을 「그 / 그것」 하나로 평평하게 만들고, 바뀌지 않는 주어는 「내가」로 다섯 꼴 전부 살린다.</p>
+<p><strong>핵심 전복: 정경의 시간이 길어지자 「다윗」에 동사가 붙었다 — 그런데 그 동사도 다윗의 것이 아니었다.</strong> 확장해도 축소해도 같은 것이 남는다. 대상은 흔들리고(성·수 네 번), 인용 문면은 갈리고(세 문면), 이름은 동사를 얻는데, 일으키는 주어는 그대로다.</p>
+<blockquote>
+<p>[!insight] 구속사 스케일에서도 미시 스케일에서도 「일으킴의 주어」는 교체되지 않는다. 변하는 것은 대상의 이름과 문면이다.</p>
+<p>[!question] 연결 질문<br/>
+- 사도행전 문면의 첫 동사가 MT의 「일으키다」가 아니라 「다시 짓다」(<code>ἀνοικοδομήσω</code>)라는 차이는, 문면 귀속을 유보한 채로 무엇을 말할 수 있는가?<br/>
+- 누가복음 1:69가 붙인 「일으키셨으니」의 과거 꼴을, 9:13의 연표 0을 지키면서 어떻게 읽을 수 있는가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 여러 차원에서 확인한 「바뀌지 않는 주어」를, 모형 만들기는 회복 본문을 읽을 때 바로 쓰는 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>실질 접점 본문</strong><br/>
+- <span style="font-weight:700; color:var(--green);">누가복음 1:69</span> — 「그 종 다윗의 집에 우리를 위하여 구원의 뿔을 일으키셨으니」. 아모스에서 동사가 없던 이름의 집에 동사가 붙되, 그 동사의 주어는 다윗이 아니다. 9단계에서 보았듯 이것은 메움이 아니라 더함이다.<br/>
+- <span style="font-weight:700; color:var(--green);">고린도전서 3:6-7</span> — 심고 물 주는 사람의 일이 있으나 자라게 하시는 분은 하나님이라는 바울의 말은 「매달린 동사」의 신약 쪽 짝이다. 사람의 동사가 지워지지 않고, 자라게 하는 동사의 주어가 바뀌지 않는다. ⚠ 아모스가 그 말을 담은 것은 아니다 — 주제의 접점이지 인용 관계가 아니다.<br/>
+- <span style="font-weight:700; color:var(--green);">빌립보서 2:12-13</span> — 「구원을 이루라」는 명령과 「너희 안에서 행하시는 이는 하나님이시니」라는 근거가 한 문장에 놓인다. 아모스 9:11-15는 그 명령 쪽이 0인 본문이다. 두 본문을 하나로 만들지 않는다 — 바울 본문에는 명령이 있고 아모스 본문에는 없다는 차이를 그대로 둔다.</p>
+<ul>
+<li>
+<p><span style="font-weight:700; color:var(--green);">신학자</span>: <strong>칼빈</strong>, 『소선지서 주석』(아모스). 구문묵상 §6③이 전하는 바로는 칼빈이 9:11-12의 다윗의 집 회복을 교회의 모임으로 읽고 사도행전 15장 인용을 그 근거로 들었다. ⚠ <strong>판본과 면수는 확인되지 않았다.</strong> 이 노트는 그 읽기를 받아 「초막 = 교회 조직」으로 바꾸지 않는다(조항 18) — 칼빈의 읽기는 정경이 더한 말(사도행전)에 기댄 읽기이고, 아모스 본문의 어휘는 그 등식을 담지 않는다. 개혁신학이 이 본문에서 정당하게 받을 수 있는 것은 등식이 아니라 <strong>은혜의 주권적 시작</strong> — 회복을 여는 동사에 사람의 조건이나 청원이 문법으로 붙어 있지 않다는 사실(조건절 0 · 명령 0)이다. ⚠ 이것은 부재에서 읽은 것이므로, 「청원이 필요 없다」는 교리 명제로 넓히지 않는다(구문묵상 §3-13 R21 유보).</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 적용 문장을 「무너진 것을 일으키자」로 쓰지 말고 「일으켜진 자리에서 짓고 심고 먹자」로 쓴다. 명령은 본문에서 끌어오지 않는다(명령 0). 회중이 할 일은 9:14의 여섯 동사 — 그것도 명령이 아니라 약속된 결과로 — 를 오늘의 삶에서 알아보는 것이다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 도덕주의 귀결 여부 — 이 노트는 두 방향의 도덕주의를 모두 피해야 한다. ① 행동주의(「우리가 회복을 이룬다」)는 일으킴의 층에 사람을 넣는다. ② 정적주의(「아무것도 하지 않아도 된다」)는 삶의 층을 지운다. 복음은 그 사이의 타협이 아니라 순서다 — 일으키신 분이 먼저이고, 사는 일은 그 뒤에 그 위에서다. 그리고 ⛔ 이 회복을 9:8-10과 9:1-4의 심판에서 떼어내지 않는다(§7-4 · 신19). 일으킴은 무너짐을 지우지 않고, 무너진 것(<code>הַנֹּפֶלֶת</code>)을 목적어로 받는다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>목회 — 회복을 서두르는 성도 곁에서</strong><br/>
+- <strong>상황</strong>: 사업 실패·이혼·교회 분쟁 뒤에 「제가 빨리 다시 일어서야 하는데요」라고 말하는 성도.<br/>
+- <strong>적용</strong>: 「주어 확인표」 ①·②를 대화로 옮긴다. 「일으키는 일과 사는 일을 나눠 봅시다. 지금 하실 수 있는 일은 사는 일 쪽에 무엇이 있습니까 — 오늘 먹고, 오늘 한 사람과 말하는 일.」 일으키는 일을 성도의 과제로 남기지 않는다.<br/>
+- <strong>기대 효과</strong>: 「다시 일어서야 한다」는 압박이 「오늘 사는 일」의 목록으로 바뀐다.</p>
+<p><strong>세무 — 고객 상담(회생·경정청구)</strong><br/>
+- <strong>상황</strong>: 폐업 위기의 고객이 「세금 문제만 정리되면 다시 일어설 수 있다」고 말한다.<br/>
+- <strong>적용</strong>: 「매달린 동사」 도식으로 일을 가른다. 경정청구·회생 신청은 고객이 할 수 있는 일이다. 경정 결정·개시 결정은 과세관청과 법원의 몫이다. 결정 뒤의 신고·장부·변제가 다시 고객의 몫이다. 상담에서 고객이 통제할 수 없는 결정을 고객의 과제로 말하지 않는다.<br/>
+- <strong>기대 효과</strong>: 고객이 결정권자의 일에 매달려 소진되지 않고, 자기 몫(서류·기한·장부)에 힘을 모은다. ⚠ 유추의 한계 — 행정·사법 절차에는 신청이 필요하다. 아모스 9:11-15의 1인칭에는 신청이 0이다. 상담 비유를 설교로 옮길 때 「신청하면 일으켜 주신다」로 가지 않는다.</p>
+<p><strong>교회 행정</strong><br/>
+- <strong>상황</strong>: 분립·재건 중인 교회가 「회복 계획」 문서를 만든다.<br/>
+- <strong>적용</strong>: 문서의 목표 칸에 「교회를 회복시킨다」를 쓰지 않고, 실행 칸에 「예배·교제·돌봄을 지속한다」를 쓴다. 회복의 주어를 위원회로 쓰지 않는다. ⛔ 「다윗의 초막」을 교회 조직의 청사진으로 쓰지 않는다(조항 18).<br/>
+- <strong>기대 효과</strong>: 성과 압박 대신 지속 가능한 실행 목록이 남는다.</p>
+<p><strong>개인 의사결정</strong><br/>
+- <strong>상황</strong>: 오래 무너진 관계 앞에서 「내가 먼저 고쳐야 하나」를 결정하지 못한다.<br/>
+- <strong>적용</strong>: 내가 일으킬 수 있는 것과 없는 것을 나눈다. 상대의 마음을 일으키는 것은 내 동사가 아니다. 내 동사는 오늘의 말과 식탁이다.<br/>
+- <strong>기대 효과</strong>: 결과에 대한 책임과 행위에 대한 책임이 갈린다.</p>
+<h3>🥇 매달린 동사 — 회복 단락의 주절과 결과절</h3>
+<ul>
+<li><strong>핵심</strong>: 아모스 9:11-15에서 일으키는 동사는 주절의 1인칭이고, 사람의 동사 여섯(9:14)은 <code>וְשַׁבְתִּי</code> 하나에 매달린 순차 완료 결과절이며, 보존(9:15 <code>יִנָּתְשׁוּ</code>)은 행위자 없는 받는 꼴이다.</li>
+<li><strong>인격 형성</strong>: 「하나님이 다 하신다 / 우리가 해야 한다」의 양자택일을 문법의 층으로 푼다. 사람의 행위를 깎지 않고 자리를 정한다.</li>
+<li><strong>연결 고리</strong>: <a href="./20261119_구문묵상_아모스_9_7-15.html">20261119_구문묵상_아모스_9_7-15</a> §3-5·§3-6·§6④ / 고전 3:6-7 · 빌 2:12-13 / 신규 노트 후보: 매달린동사_회복단락</li>
+</ul>
+<h3>🥈 동사 없는 이름 — 「다윗」은 목적어 안에서만 놓인다</h3>
+<ul>
+<li><strong>핵심</strong>: 9:11의 <code>דָּוִיד</code>는 연계형 <code>סֻכַּת</code>의 피지배 명사이고 딸린 정동사가 0이다. 정경이 뒤에 그 집에 동사를 붙여도(눅 1:69 「일으키셨으니」) 그 동사는 다윗의 것이 아니다.</li>
+<li><strong>인격 형성</strong>: 메시아 본문을 「다윗 왕조의 재건 프로그램」으로 읽는 길을 어형으로 막으면서, 그리스도 연결을 메움이 아닌 더함으로 연다.</li>
+<li><strong>연결 고리</strong>: 구문묵상 §1-4·§6①·C4 R45 / <a href="./20261113_생각의탄생13단계_아모스_6_1-7_누운자가끌려가는앞머리에선다.html">20261113_생각의탄생13단계_아모스_6_1-7_누운자가끌려가는앞머리에선다</a>(6:5 「다윗」은 11단위 몫 — 소재 대조만) / 신규 노트 후보: 동사없는이름_다윗의초막</li>
+</ul>
+<h3>🥉 주어 확인표 — 회복 본문 설교 전 다섯 칸</h3>
+<ul>
+<li><strong>핵심</strong>: ① 여는 동사의 주어 ② 사람 동사의 절 지위 ③ 명령형·2인칭 수 ④ 역본의 보충·삭제(소제목 포함) ⑤ 신약 연결의 메움/더함.</li>
+<li><strong>인격 형성</strong>: ③칸이 적용에서 명령형을 지어내는 습관을 막고, ④칸이 역본 소제목 「이스라엘의 회복」을 구조로 받는 위험(조항 21)을 막는다.</li>
+<li><strong>연결 고리</strong>: 구문묵상 §3-12·§3-13 조항 21 / <a href="./20261117_생각의탄생13단계_아모스_8_1-10_익은것의이름이끝으로돌아온다.html">20261117_생각의탄생13단계_아모스_8_1-10_익은것의이름이끝으로돌아온다</a>(세 층 읽기표 — 같은 계열의 읽기 모형) / 신규 노트 후보: 주어확인표_회복본문</li>
+</ul>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 19일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

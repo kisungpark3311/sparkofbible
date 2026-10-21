@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>나처럼 영접하라 — 종이 아닌 형제로</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 02일 &middot; 빌레몬서 1:15-25</span>
+      <h1>나처럼 영접하라 — 종이 아닌 형제로</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 빌레몬서 1:15-25</h1>
+<h2>📖 나처럼 영접하라 — 종이 아닌 형제로</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 2일 (월) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"그를 나처럼 영접하라"</em> (1:17 · 직역)</p>
+<p><em>"우리 주 예수 그리스도의 은혜가 너희 심령과 함께 할지어다"</em> (1:25 · 개역한글)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p>빌레몬서의 마지막 열한 절은 한 사람을 받아들이라는 요청으로 움직입니다. 1:17이 <code>προσλαβοῦ</code>(프로슬라부), 「영접하라」를 놓고 그 앞에 이 책의 하나뿐인 「그러므로」가 섭니다. 요청은 명령 셋으로 더 받쳐집니다 — 셈을 내 계정에 올려라(1:18), 내 마음을 평안하게 하라(1:20), 묵을 곳을 예비하라(1:22). 이 단락에 2인칭 명령이 넷이고, 1:20에는 말하는 이 자신의 바람이 희구의 꼴로 한 번 섭니다. <strong>넷 가운데 「놓아 주라」는 0개입니다 — 놓아 줌을 뜻하는 낱말 두 계열이 이 책에 한 토큰도 없습니다.</strong> 1:15는 떼어진 일을 수동으로만 적고 그 일을 행한 쪽을 적지 않습니다. 글은 다섯 이름으로 닫히는데 1:23에 한 사람이고 1:24에 넷입니다. <strong>닫는 문장은 동사가 0개인 열 낱말이며, 머리와 꼬리의 은혜 인사는 바울 서신의 기본 꼴이어서 이 책만의 표지가 아닙니다 — 이 책만의 것은 1:3과 갈리는 네 지점입니다(1:3은 이 단락 밖입니다).</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 스무 낱말인데 동사가 0개입니다</h3>
+<blockquote>
+<p><em>"더는 종처럼이 아니라 종 위로, 사랑받는 형제로"</em> (1:16 · 직역)</p>
+</blockquote>
+<p>1:16은 이 단락에서 가장 긴 절인데 서술어가 0개입니다. <code>πόσῳ δὲ μᾶλλον</code>(포소 데 말론), 「하물며 얼마나 더」가 그 안에 서는데 스무 낱말 어디에도 동사가 없습니다. <strong>개역한글은 그 자리에 「둘 자라」와 「상관 된」을 보충해 넣습니다 — 원문에 0개인 말입니다.</strong> 자기 최상급을 먼저 깎습니다. <strong>동사가 0개인 그 꼴은 신약에 넷이어서 0개 자체는 이례가 아닙니다.</strong> 아홉 용례 가운데 <code>δέ</code>(데)를 끼운 것은 1:16 하나뿐이며, 유일한 것은 동사의 0개가 아니라 그 작은 낱말입니다. <strong>「신분이 끝났다」와 「관계가 바뀌었다」 중 어느 쪽인지 이 절은 가려 주지 않습니다.</strong></p>
+<h3>2️⃣ 떼어짐은 수동이고, 빚은 조건입니다</h3>
+<blockquote>
+<p><em>"그가 잠시 떼어진 것은"</em> (1:15 · 직역)<br/>
+<em>"그가 네게 무슨 불의를 했거나 빚진 것이 있다면"</em> (1:18 · 직역)</p>
+</blockquote>
+<p>1:15 <code>ἐχωρίσθη</code>(에코리스테)는 수동인데 행위자를 적는 자리가 0개입니다. 떼어진 일이 어느 쪽의 일인지 본문이 표기하지 않습니다. 하나님이 하신 일로 읽는 길과 사람의 일을 완곡하게 적은 것으로 읽는 길이 둘 다 열려 있고, 바로 앞의 <code>τάχα</code>(타카), 「아마도」가 말하는 이 자신의 유보를 표시합니다. 1:18은 조건절입니다 — 「빚진 것이 있다면」이 앞에 서므로 본문은 채무를 확정하지 않습니다. <strong>확정되지 않은 셈을 두고 「내 계정에 올려라」가 적힙니다.</strong></p>
+<h3>3️⃣ 명령 넷이 말하는 쪽으로 옮겨 옵니다</h3>
+<blockquote>
+<p><em>"이것을 내 셈에 올려라. 내가 갚겠다. 나 바울이 내 손으로 썼다"</em> (1:18-19 · 직역)</p>
+</blockquote>
+<p>넷은 요구 목록처럼 보이지만 세 번째 자리에서 화살의 방향이 바뀝니다. <code>ἐλλόγα</code>(엘로가)는 셈을 자기 쪽으로 옮기라는 말이고, <code>ἀποτίσω</code>(아포티소)는 1인칭입니다 — 「내가 갚겠다」. 서명 어구 <code>τῇ ἐμῇ χειρί</code>(테 에메 케이리), 「내 손으로」가 그 1인칭에 붙습니다. <strong>1:20의 앞쪽은 명령이 아니라 희구입니다 — 「주 안에서 내가 너로 기쁨을 얻기를」.</strong> 요청하는 쪽이 셈과 손과 바람을 먼저 내놓고 나서 명령이 섭니다. <strong>1:22의 묵을 곳도 말하는 이의 처소이며, 오네시모의 거처는 본문이 적지 않습니다.</strong></p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">셈이 내 손 밖에 있는 사람에게</span><br/>
+빚이 있다 해도 그 처리가 자기 손 밖에서 이루어지는 사람이 1:18의 자리에 섭니다. <strong>오늘 자기 힘으로 셈할 수 없는 한 가지를 떠올리고, 그것을 자기 힘으로 메우려는 시도를 한 번 멈춥니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">손으로 한 줄 적기</span><br/>
+바울은 셈을 자기 계정으로 옮기면서 「내 손으로」를 적어 넣었습니다. <strong>오늘 한 사람의 몫 하나를 종이에 손으로 적어 건네십시오 — 머릿속으로 떠안기로 결심하는 것과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">호칭을 소리 내어 부르기</span><br/>
+본문이 오네시모에게 두는 것은 요구가 아니라 호칭입니다 — 「사랑받는 형제」. <strong>오늘 한 사람을 그 호칭으로 소리 내어 불러 보십시오 — 마음으로 그렇게 여기는 것과 다릅니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<p>이 단락에는 신적 이름이 여덟 번 오는데 주어로 선 것이 0개입니다. 하나님이 주어로 서서 행하시는 자리가 본문에 없으므로, 감사 대신 고백과 결단으로 적습니다.</p>
+<blockquote>
+<p>주님, 저는 사람을 받아들이는 일에서 제 셈을 먼저 세웠습니다.<br/>
+제 손으로 처리할 수 없는 셈 앞에 조용히 서는 법을 배우지 못했습니다.<br/>
+저는 아직 한 사람을 형제라 부르지 못했음을 고백합니다.<br/>
+오늘 그 호칭을 입으로 부르는 자리까지 가기로 합니다.<br/>
+<strong>제 손으로 적어 건네는 한 줄을 미루지 않기로 합니다.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>1:16은 스무 낱말에 동사가 0개입니다. 당신의 번역본은 그 자리에 어떤 서술어를 넣어 두었습니까.</li>
+<li>1:15는 떼어진 일을 행한 쪽을 적지 않습니다. 당신은 그 빈자리를 무엇으로 메워 읽고 있었습니까.</li>
+<li>1:18의 셈이 당신 손 밖에서 처리된다면, 당신에게 남는 일은 무엇입니까.</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #빌레몬서 #생명의삶 #QT #성경묵상 #영접 #셈과손</span></p>
+<!-- 본문 1,597자 / raw 2,964자 (실측) · 금지된 네 문자열 각 0 · 기도: 주어 0건이므로 고백·결단으로 적고 사유를 기도 머리에 한 줄 명기 · 유보 유지: 1:16 두 독법 미판정, 1:15 행위자 미표기, 1:22 처소는 말하는 이의 것 -->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 02일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

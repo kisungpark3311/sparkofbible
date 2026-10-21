@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>회복을 담은 「내가」 다섯 꼴, 그 분모가 하나에서 여섯까지</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 19일 &middot; 아모스 9:7-15</span>
+      <h1>회복을 담은 「내가」 다섯 꼴, 그 분모가 하나에서 여섯까지</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 아모스 9:7-15</h1>
+<h2>📖 회복을 담은 「내가」 다섯 꼴, 그 분모가 하나에서 여섯까지</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 19일 (목) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"보라 주 여호와의 눈이 범죄한 나라를 주목하노니 내가 그것을 지면에서 멸하리라 그러나 야곱의 집은 온전히 멸하지는 아니하리라"</em> (아모스 9:8)</p>
+<p><em>"내가 그들을 그들의 땅에 심으리니 그들이 내가 준 땅에서 다시 뽑히지 아니하리라 네 하나님 여호와의 말씀이니라"</em> (아모스 9:15)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p><strong>아모스를 닫는 아홉 절에 「내가」로 열리는 동사가 열하나 놓이고, 그 열하나가 전부 한 입에서 나옵니다.</strong> 사람에게 향한 명령형이 0개이고 2인칭 동사도 0개입니다. 할 일을 담은 문장도 0개입니다. <strong>아모스를 열일곱 단락으로 갈라 전부 세어 보면, 명령형과 청유형과 지시형과 이야기를 이어 가는 서사 꼴, 넷이 동시에 0인 단락이 이 하나뿐입니다.</strong></p>
+<blockquote>
+<p><em>"그 날에 내가 다윗의 무너진 장막을 일으키고 그것들의 틈을 막으며 그 허물어진 것을 일으켜서 옛적과 같이 …"</em> (아모스 9:11 · 뒤를 잘라 인용했습니다)</p>
+</blockquote>
+<p>이 절 앞에 개역개정이 「이스라엘의 회복」이라는 소제목을 둡니다. ⛔ 그 소제목을 본문 구조의 근거로 받지 않습니다. 역본이 붙인 표제이고 「회복」이라는 명사가 본문에 0토막입니다. ⛔ 「다윗의 무너진 장막」을 성막이나 왕국으로 바꿔 읽지도 않습니다. 그 둘로 바꿔 놓을 어휘가 아모스 전권에 0개이고, 개정이 넣은 「장막」이 표준으로 대응하는 낱말도 아모스 전권에 0토막입니다. 인용을 자른 자리에 네 번째 「내가」가 하나 더 놓입니다. 거기 붙은 「옛적과 같이」는 비교를 나타내는 구입니다. ⛔ 「영원히」로 읽을 어형 근거가 없습니다 — 그 낱말이 아모스 전권에 한 번만 놓입니다.</p>
+<p>회복을 담은 「내가」는 9:11과 9:14와 9:15, 세 절에 모입니다. 다섯 꼴을 꼴까지 좁혀 구약 전권에서 세면 분모가 6·2·1·6·3입니다. 다섯을 다 담은 책이 아모스 하나이고 예레미야에 셋이 놓입니다. ⚠ 다만 「아모스 하나」라는 결과가 셋째 꼴 자체가 구약 한 토막인 사정에 걸려 있어서, 그 꼴을 셈에 넣으면 어느 셈이든 아모스만 남습니다. 더 센 수가 따로 있습니다. <strong>다섯 가운데 둘 이상이 한 절에 함께 놓인 절이 구약 전권에 아모스 9:11 하나이고, 그 한 절에 네 토막이 놓입니다.</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 역본의 「그러나」는 보충입니다</h3>
+<blockquote>
+<p><em>"내가 그것을 지면에서 멸하리라 그러나 야곱의 집은 온전히 멸하지는 아니하리라"</em> (아모스 9:8)</p>
+</blockquote>
+<p><strong>아모스 전권에 역접을 담당하는 접속사가 0토막입니다.</strong> 9:8의 「그러나」 자리에 본문이 놓은 낱말, 명사 하나와 접속사 하나입니다. <strong>그 두 낱말이 짝지어 선 절이 구약 전권에 다섯입니다.</strong> ⚠ 이 다섯은 따로 세어 둔 수이고 교차 확인을 하지 못했습니다. 역본이 그 둘을 「그러나」 하나로 매끄럽게 풀었습니다. <strong>손에 든 성경으로는 그것을 볼 수 없습니다.</strong> ⛔ 그래서 이 한 절을 「심판 뒤에 회복이 오니 괜찮다」로 봉합하면 안 됩니다. 멸함과 멸하지 않음이 한 절 안에 함께 서고, 본문이 그 둘을 화해시키지 않습니다.</p>
+<h3>2️⃣ 같은 원어 하나가 개역개정에서 두 낱말로 갈립니다</h3>
+<blockquote>
+<p><em>"그들이 황폐한 성읍을 건축하여 거주하며 포도원들을 가꾸고 그 포도주를 마시며"</em> (아모스 9:14)<br/>
+<em>"내가 그들을 그들의 땅에 심으리니"</em> (아모스 9:15)</p>
+</blockquote>
+<p><strong>두 절의 표시한 자리에 같은 원어 두 토막이 놓입니다.</strong> 개역개정이 9:14를 「가꾸고」로, 9:15를 「심으리니」로 갈라 옮깁니다. 개역한글은 9:14를 「심고」로 9:15를 「심으리니」로 옮겨 한 낱말을 지킵니다. 나란히 놓고 보십시오 — 개정 「가꾸고 / 심으리니」, 개한 「심고 / 심으리니」. 개정 문면에서 두 절의 어근 울림이 끊깁니다. 9:11에서도 같은 일이 생깁니다. 한 절 안에서 가리키는 대상의 성과 수가 네 번 갈리는데, 두 역본이 그 넷을 「그 / 그것」 하나로 평평하게 만듭니다. <strong>회중의 책에는 그 갈림이 보이지 않습니다.</strong></p>
+<h3>3️⃣ 「구스 족속 같지 아니하냐」에 우열의 근거가 없습니다</h3>
+<blockquote>
+<p><em>"이스라엘 자손들아 너희는 내게 구스 족속 같지 아니하냐 내가 이스라엘을 애굽 땅에서, 블레셋 사람을 갑돌에서, 아람 사람을 기르에서 올라오게 하지 아니하였느냐"</em> (아모스 9:7)</p>
+</blockquote>
+<p><strong>이 한 절에 민족 이름과 지명이 아홉 토막 놓이는데 관사가 0개입니다.</strong> <strong>아모스 전권의 족속 이름 여섯 가운데 관사가 붙은 자리, 2:9와 2:10의 둘뿐입니다.</strong> ⚠ 이 둘도 따로 세어 둔 수이고 교차 확인을 하지 못했습니다. 비교의 두 항이 통사로 대등하게 서고, 우월과 열등을 가르는 어형 근거가 0개입니다. ⛔ 이 절을 민족의 등급으로 읽지 않습니다. 같은 절에서 역어 하나도 갈립니다 — 개정이 「아람 사람을 기르에서」로 지명을 살리고, 개한은 「길에서」로 보통명사처럼 옮깁니다. 9:12의 「내 이름으로 일컫는 만국」도 같습니다. ⛔ 그 구절을 선교 명령으로 환산하지 않습니다 — 이름을 받는 쪽으로 놓인 꼴이고, 앞에서 적은 그 0개가 여기에도 걸립니다.</p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">오래 기다려 온 분에게</span><br/>
+9:8의 두 토막, 「내가 그것을 지면에서 멸하리라」와 「온전히 멸하지는 아니하리라」를 눈동자만 움직여 번갈아 보십시오. 한 쪽을 통째로 눈으로 훑는 것과 다릅니다. <strong>두 줄 사이를 눈이 오가는 동안, 유보가 한 절 안에서 열리고 닫히는 폭이 보입니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">벽 너머에서 오는 소리</span><br/>
+귀를 벽에 가까이 대고 집 안에서 나는 소리를 한 번 받아 보십시오. 스피커 음량을 올려 듣는 것과 다릅니다. 벽 너머에서 오는 소리에 등급이 붙지 않습니다. <strong>앞에서 적은 그 대등함이 여기에도 그대로 놓입니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">머리의 무게가 뒤로 쏠릴 때</span><br/>
+머리를 뒤로 젖혀 천장을 한참 보십시오. 천장 사진을 화면으로 보는 것과 다릅니다. <strong>머리의 무게가 뒤로 쏠리는 동안, 9:11의 네 「내가」가 전부 다른 분의 몫이고 다윗이라는 이름에 딸린 동사가 0개라는 사실이 함께 놓입니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<p>이름이 주어로 선 자리가 아홉 절에 둘입니다 — 「이 일을 행하시는 여호와」(9:12)와 「네 하나님 여호와」(9:15). ⚠ 그런데 인애와 긍휼과 구원이라는 낱말이 아모스 전권에 0회입니다. 그 사실을 적어 두고 감사로 엽니다.</p>
+<blockquote>
+<p>멸함과 멸하지 않음을 한 절에 함께 두신 분께 감사를 드립니다.<br/>
+이름이 선 두 자리만으로 감사를 적습니다.<br/>
+저는 그 사이를 매끄럽게 만들려 했습니다.<br/>
+역본이 보탠 접속사 하나를 본문의 약속으로 읽었습니다.<br/>
+오래 기다려 온 자리에서 회복의 날짜를 받지 못했음을 고백합니다.<br/>
+<strong>날짜 없이 기다리는 일을 배우게 하십시오.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>역본이 보탠 접속사 하나를 본문의 약속으로 읽어 온 자리가 어디입니까?</li>
+<li>날짜를 받지 못한 채 기다려 온 일이 지금 하나 있습니까?</li>
+<li>내가 등급을 매겨 둔 사람이 9:7의 아홉 토막 가운데 어디에 놓입니까?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #아모스 #생명의삶 #QT #성경묵상 #회복 #원어묵상 #개혁주의</span></p>
+<!-- 금지 문자열 각 0 -->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 19일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

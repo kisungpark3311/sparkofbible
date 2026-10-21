@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>앎이 보응의 근거로 선다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 07일 &middot; 아모스 3:1-8</span>
+      <h1>앎이 보응의 근거로 선다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<p>20261107_성경적 사고와 인격 만들기</p>
+<h2>앎이 보응의 근거로 선다 — 씨앗 아이디어(아모스 3:2 — <code>יָדַעְתִּי</code>(야다티) · 어근 <code>יָדַע</code>)</h2>
+<blockquote>
+<p><span style="font-weight:700; color:var(--green);">원본 근거</span>: <a href="./20261107_생각의탄생13단계_아모스_3_1-8_앎이보응의근거로선다.html">20261107_생각의탄생13단계_아모스_3_1-8_앎이보응의근거로선다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><span style="font-weight:600; color:var(--green);">"3:2는 앎을 먼저 두고 「그러므로」로 이어 갑니다. 그 「그러므로」가 복으로 가지 않고 보응으로 갑니다. 앎이 안전을 뜻한다는 셈이 본문 안에서 뒤집힙니다. … 「알았다」는 야다티입니다. 자료를 가진 앎이 아니라 가까이 두고 지내는 앎을 담는 낱말입니다. 신명기가 택하심을 담을 때 쓰는 낱말(바하르)은 아모스 전권에 한 자리도 없고, 「사랑하다」(아하브)도 이 여덟 절에 없습니다. … 오래됨이 근거로 인정되면서 결론이 반대로 납니다. <strong>… 본문은 그 오래됨을 부인하지 않고, 그것을 근거로 삼은 채 결론을 뒤집습니다.</strong></span></p>
+<p><strong>본문 핵심: 가까이 아는 사이라는 사실은 책임의 근거입니다."</strong></p>
+<p>(출처: <a href="./20261107_일상의깊은사고_아모스_3_1-8.html">20261107_일상의깊은사고_아모스_3_1-8</a> 주요 신학 통찰 1️⃣)</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">개역한글</span> (<a href="./20261107_구문묵상_아모스_3_1-8.html">20261107_구문묵상_아모스_3_1-8</a> §2 · 개한 소재 확인분)</p>
+<blockquote>
+<p>3:1 이스라엘 자손들아 여호와께서 너희를 쳐서 이르시는 이 말씀을 들으라 애굽 땅에서 인도하여 올리신 온 족속을 쳐서 이르시기를<br/>
+3:2 내가 땅의 모든 족속 중에 너희만 알았나니 그러므로 내가 너희 모든 죄악을 너희에게 보응하리라 하셨나니</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">원문</span> (구문묵상 §2를 그대로 옮김)</p>
+<blockquote>
+<p><strong>3:1</strong> שִׁמְע֞וּ אֶת־הַדָּבָ֣ר הַזֶּ֗ה אֲשֶׁ֨ר דִּבֶּ֧ר יְהוָ֛ה עֲלֵיכֶ֖ם בְּנֵ֣י יִשְׂרָאֵ֑ל עַ֚ל כָּל־הַמִּשְׁפָּחָ֔ה אֲשֶׁ֧ר הֶעֱלֵ֛יתִי מֵאֶ֥רֶץ מִצְרַ֖יִם לֵאמֹֽר׃<br/>
+<strong>3:2</strong> רַ֚ק אֶתְכֶ֣ם יָדַ֔עְתִּי מִכֹּ֖ל מִשְׁפְּח֣וֹת הָאֲדָמָ֑ה עַל־כֵּן֙ אֶפְקֹ֣ד עֲלֵיכֶ֔ם אֵ֖ת כָּל־עֲוֺנֹֽתֵיכֶֽם׃</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">파싱 근거</span> (구문묵상 §1-1 · §3 파싱표 · §3-1 · §4 ④ · §3-9)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱 (구문묵상 기재분만)</th>
+<th>표제어 · 계수</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>יָדַעְתִּי</code></td>
+<td>칼 완료 · 1인칭 공성 단수 · 주절</td>
+<td>3045 · 아모스 4토막(3:2 · 3:10 · 5:12 · 5:16)</td>
+<td><span style="font-weight:700; color:var(--green);">씨앗</span> — 근거 자리의 동사</td>
+</tr>
+<tr>
+<td><code>רַק</code></td>
+<td>단언 불변화사</td>
+<td>7535 · 아모스 1토막</td>
+<td>「너희만」의 「만」 — 꼴 서술까지만</td>
+</tr>
+<tr>
+<td><code>אֶתְכֶם</code></td>
+<td>목적격 표지 + 2인칭 남성 복수 접미</td>
+<td>—</td>
+<td>앎의 대상 「너희」</td>
+</tr>
+<tr>
+<td><code>מִכֹּל מִשְׁפְּחוֹת הָאֲדָמָה</code></td>
+<td><code>מִשְׁפָּחָה</code> 여성 복수 연계형 (3:1은 정관사 + 단수 절대형)</td>
+<td>4940</td>
+<td>비교 범위 「땅의 모든 족속」 · <code>הָאֲדָמָה</code>는 소재로만</td>
+</tr>
+<tr>
+<td><code>עַל־כֵּן</code></td>
+<td>지시 불변화사(마카프 결합)</td>
+<td>—</td>
+<td><span style="font-weight:700; color:var(--green);">축</span> — 앞마디를 근거로 받는다</td>
+</tr>
+<tr>
+<td><code>אֶפְקֹד</code></td>
+<td>칼 미완료 · 1인칭 공성 단수 · 주절 · 순차 꼴 0</td>
+<td>6485 a 「돌아보다·벌하다」</td>
+<td>결론 자리의 동사 · 개한 「보응하리라」</td>
+</tr>
+<tr>
+<td><code>עֲלֵיכֶם</code></td>
+<td>전치사 <code>עַל</code> + 2mp 접미</td>
+<td>5921 a</td>
+<td><code>אֶפְקֹד</code>의 대상 표시</td>
+</tr>
+<tr>
+<td><code>הֶעֱלֵיתִי</code></td>
+<td>히필 완료 · 1cs · <code>אֲשֶׁר</code> 관계절 안</td>
+<td>5927</td>
+<td>3:1 출애굽 서술 — 주장을 지지 않는 종속 자리</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <span style="font-weight:700; color:var(--green);">계수 기준</span>: 표제어 번호와 횟수는 전부 구문묵상의 morphhb·WLC 전수(「내 전수」로 표시된 것)를 옮긴 것이고, 이 노트가 따로 센 수가 아니다.<br/>
+- <strong>1인칭 동사 셋</strong>(완료 2 + 미완료 1)이 전부 3:1-2에 있다 — 모집단은 <strong>단위 여덟 절의 정동사</strong>다(구문묵상 §1-1 · 개관 §8-1-d ⑭).<br/>
+- <strong>미완료 13 = 1인칭 1 · 3인칭 12</strong>(3ms 8 · 3mp 2 · 3fs 2) — 모집단은 <strong>단위의 미완료 정동사</strong>다. ⛔ 「미완료 13 = 1인칭 심판 선언」으로 적지 않는다(구문묵상 §3-7 2).<br/>
+- <strong><code>יָדַע</code> + <code>רַק</code> 동일절 구약 7절</strong>(신명기 4절 · 창 19:8 · 삿 3:2 · 암 3:2) — 모집단은 <strong>구약 전권에서 두 표제어가 한 절에 함께 든 절</strong>이다. 신명기 네 절의 <code>רַק</code>는 사물·행위를 한정하고 사람을 한정하는 것은 암 3:2뿐이다(구문묵상 §1-5). ⛔ 이 노트는 이 수를 논증의 기둥으로 세우지 않는다 — 축은 계수가 아니라 <code>עַל־כֵּן</code>이 잇는 두 동사의 관계다.</p>
+<h3>사고의 통합 — "아심은 면제가 아니라 부르심이다"</h3>
+<p>관찰은 3:2의 꼴 하나에서 시작했다 — 완료 1cs <code>יָדַעְתִּי</code>와 미완료 1cs <code>אֶפְקֹד</code> 사이에 <code>עַל־כֵּן</code> 하나가 놓이고, 두 동사의 주어는 같은 분이다. 형상화는 그 꼴을 열쇠를 가진 사람부터 부르는 법정으로 그렸고, 추상화는 그 장면에서 「근거」 하나를 남겼다. 앎은 원인도 조건도 아니고, 결론이 서는 바닥이다. 패턴 인식은 「가까울수록 무거워지는 장부」를 네 도메인에서 찾았지만, 3:2만이 앎의 주어를 책임지는 쪽이 아니라 보응하시는 분에게 둔다는 갈림을 드러냈다.</p>
+<p>패턴 형성은 「전제 → 근거 → 그러므로 → 결론」 네 고리와 비어 있는 다섯째 고리를 도식으로 세웠다. 유추는 수탁자·열쇠·성실신고 확인으로 그 무게를 맞대었으나, 모든 유추가 앎의 주어를 사람에게 두어 한 걸음씩 모자랐다. 몸은 「이름이 불릴 때 드는 고개」로 앎이 곧 불러내심임을 배웠고, 감정이입은 가장 불편한 이가 낯선 이가 아니라 오래 다닌 사람임을 보았다. 차원적 사고는 줄표 하나만큼 가까운 보응과 구속사 끝까지 먼 그 감당의 자리를 겹쳐 놓았고, 모형은 방향은 고치되 무게는 덜지 못하는 점검표로 도덕주의의 출구를 막았다. 놀이는 「그러므로」가 서는 숨은 조건 — 앎을 받은 자와 보응을 받는 자가 같다는 것 — 을 찾아냈고, 변형은 그것을 세 대지로 옮겨 살아남은 뼈대를 확인했다.</p>
+<p>가장 생산적이었던 도구는 <strong>놀이(11)</strong>였다. 접속사·동사·대상을 하나씩 바꾸자 문장이 무너지는 자리가 모두 같은 곳으로 모였고, 그 자리가 「같은 대상」이라는 조건이었다. 이 조건은 1단계에서 보이지 않았다. 처음 관찰과 달라진 이해는 이것이다 — 처음에는 3:2의 놀라움이 「복 대신 보응」이라는 <strong>결론의 반전</strong>에 있다고 보았으나, 끝에서 보니 그 놀라움은 <strong>앎이 철회되지 않은 채 그대로 보응의 바닥이 된다</strong>는 데 있다. 아심은 거두어지지 않는다. 그래서 아심은 면제가 아니라, 맨 앞줄로 부르시는 부르심이다. 그 부르심 끝의 보응이 어디서 감당되는가는 아모스가 비워 둔 칸이고, 복음은 그 칸에 더해지는 말이다.</p>
+<blockquote>
+<p>[!insight] 아심은 거두어지지 않은 채 보응의 바닥이 된다. 그래서 아심은 면제가 아니라 맨 앞줄로 부르시는 부르심이다.</p>
+<p><span style="font-weight:600; color:var(--green);"><strong>"앎은 거두어지지 않은 채 「그러므로」의 바닥이 된다 — 가까이 아신 바 된 자는 면제가 아니라 맨 앞줄로 부르심을 받고, 그 부르심 끝의 보응이 어디서 감당되는지는 본문이 비워 둔 채 복음을 기다린다."</strong></span></p>
+</blockquote>
+<hr/>
+<h2>개혁신학적 조명</h2>
+<p><span style="font-weight:700; color:var(--green);">① 실질 접점 본문 셋</span> (⛔ 프루프텍스팅이 아니라 「앎-책임」의 결을 잇는 자리만)<br/>
+- <span style="font-weight:700; color:var(--green);">요한복음 10:14-15</span> — 구문묵상 포인트 4가 인용한 자리. 「앎」의 언어가 목숨 버림으로 이어진다. 3:2의 빈 다섯째 고리에 더해지는 가장 가까운 정경의 말이다.<br/>
+- <strong>누가복음 12장의 「많이 받은 자에게는 많이 찾으신다」는 결(12:48)</strong> — 받은 것의 크기가 요구의 근거가 된다는 요지. 다만 이 본문의 근거는 「맡김·받음」이고 3:2의 근거는 「아심」이어서, 결은 닮되 동사가 다르다는 점을 밝혀 둔다(요지 인용 · 축자 아님).<br/>
+- <span style="font-weight:700; color:var(--green);">베드로전서 4:17의 「심판이 하나님의 집에서 시작된다」는 결</span> — 가까운 쪽이 먼저 살펴진다는 요지. ⚠ 아모스 3:2를 인용한 자리가 아니며, 이 노트는 두 본문을 어구 겹침으로도 묶지 않는다(요지 인용 · 축자 아님).</p>
+<p><span style="font-weight:700; color:var(--green);">② 신학자 — 칼빈, 『기독교 강요』</span>: 칼빈은 하나님을 아는 지식과 자기를 아는 지식이 서로 얽혀 있다는 논지로 그 책을 연다. 3:2는 그 논지의 한 꼴을 비춘다 — 하나님께 아신 바 됨은 자기 죄악이 드러나는 자리와 떨어지지 않는다. ⚠ 이 연결은 논지 차원이고 축자 인용이 아니다. ⛔ 3:2에서 선택 교리의 낱말을 끌어오지 않는다는 이 노트의 한정은 칼빈의 예정론을 이 본문에 붙이지 않는다는 뜻이기도 하다.</p>
+<p><span style="font-weight:700; color:var(--green);">③ 언약적 읽기</span> — 구문묵상 §6 ②가 담듯, 3:1의 출애굽 서술과 3:2의 보응 선언이 <code>עַל־כֵּן</code> 하나로 이어지므로 심판은 언약 <strong>밖의</strong> 법정이 아니라 언약 <strong>안의</strong> 조항으로 읽힌다. 은혜는 책임을 없애지 않고 책임의 주소를 정한다.</p>
+<p><span style="font-weight:700; color:var(--green);">④ 설교 적용점</span> — 오래 다닌 회중에게 3:2는 「당신들은 안전하지 않다」는 위협이 아니라 「당신들은 먼저 불린다」는 진지함으로 전해야 한다. 적용은 남(다른 교회·세상)에게 돌리지 않고 「내 쪽」으로 쓴다(개관 §7-2).</p>
+<p><span style="font-weight:700; color:var(--green);">⑤ 복음 중심성 점검</span> — 이 씨앗은 도덕주의로 닫히기 쉽다(「가까우니 더 잘하라」). 10단계 점검표가 보여 주었듯 방향을 고쳐도 「모든 죄악」의 무게는 덜리지 않는다. 그 무게를 사람이 지는 것으로 끝맺으면 율법주의이고, 본문의 빈칸을 아모스가 채웠다고 말하면 본문을 넘는 것이다. 정직한 자리는 둘 사이다 — 3:2의 보응은 그대로 선포하고, 그 보응을 그리스도가 지신다는 것은 <strong>정경이 더한 복음</strong>으로 밝혀 선포한다.</p>
+<hr/>
+<h2>실무 적용</h2>
+<p><strong>목회</strong><br/>
+- <strong>상황</strong>: 수십 년 섬긴 장로가 재정 집행에서 관행대로 증빙을 생략하고 「다 아는 사이」라며 넘어간다.<br/>
+- <strong>적용</strong>: 3:2의 「그러므로」 방향을 행정 원칙으로 옮긴다 — 오래 섬긴 직분자일수록 먼저 증빙을 갖추는 문화를 당회가 함께 세운다. 의심이 아니라 「먼저 불리는 자리」로 설명한다.<br/>
+- <strong>기대 효과</strong>: 익숙함이 면제가 되는 관행이 끊기고, 오래된 직분자의 신뢰가 증빙 위에서 더 단단해진다.</p>
+<p><strong>세무·실무 — 고객 상담</strong><br/>
+- <strong>상황</strong>: 오래 거래한 고객이 「우리 사이에 뭘 그렇게 따지느냐」며 증빙 없는 비용 처리를 요청한다.<br/>
+- <strong>적용</strong>: 10단계 점검표 5번 항목처럼, 「오래 거래했다 → 그러므로 확인을 더 꼼꼼히 한다」로 방향을 세운다. 오래 안 대리인일수록 「몰랐다」는 말이 설 자리가 좁다는 점을 고객에게 정중히 설명한다.<br/>
+- <strong>기대 효과</strong>: 관계를 해치지 않으면서 확인 책임을 지키고, 사후에 고객과 대리인 모두가 지게 될 부담을 줄인다.</p>
+<p><strong>개인 의사결정</strong><br/>
+- <strong>상황</strong>: 오래 다닌 교회·오래 지킨 경건 습관에 기대어 최근의 미루어 둔 회개를 「괜찮다」고 넘긴다.<br/>
+- <strong>적용</strong>: 점검표 1열과 2열을 적고, 2열에 면제의 동사(괜찮다·넘긴다)가 있으면 3열을 「그러므로 이것부터」로 고쳐 쓴다. 1열(오래됨)은 지우지 않는다.<br/>
+- <strong>기대 효과</strong>: 오래됨을 자랑도 핑계도 아닌 「먼저 비추어질 자리」로 받아들이게 된다.</p>
+<hr/>
+<h2>[최종 연구 노트 승격 후보]</h2>
+<h3>0 관찰 (Observing) — "복으로 가지 않는 「그러므로」"</h3>
+<p>씨앗은 3:2의 한 접속을 짚었다. 그 접속을 둘레의 동사들과 함께 놓고 보면 3:1-2의 뼈대가 드러난다.</p>
+<table>
+<thead>
+<tr>
+<th>자리</th>
+<th>동사</th>
+<th>꼴 (구문묵상 §3)</th>
+<th>주장을 지는가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3:1</td>
+<td><code>שִׁמְעוּ</code> 들으라</td>
+<td>칼 명령 2mp — 단위의 유일한 의지형</td>
+<td>주절</td>
+</tr>
+<tr>
+<td>3:1</td>
+<td><code>הֶעֱלֵיתִי</code> 올려 인도하였다</td>
+<td>히필 완료 1cs</td>
+<td><code>אֲשֶׁר</code> 관계절 안 — 지지 않는다</td>
+</tr>
+<tr>
+<td>3:2</td>
+<td><code>יָדַעְתִּי</code> 알았다</td>
+<td>칼 완료 1cs</td>
+<td>주절 · 근거</td>
+</tr>
+<tr>
+<td>3:2</td>
+<td><code>אֶפְקֹד</code> 벌하리라(보응하리라)</td>
+<td>칼 미완료 1cs</td>
+<td>주절 · 결론</td>
+</tr>
+</tbody>
+</table>
+<p>첫째, <strong>두 동사 사이에 놓인 것은 <code>עַל־כֵּן</code> 하나다.</strong> 지시 불변화사가 앞마디 전체를 근거로 받아 뒷마디로 넘긴다. 둘째, <strong>근거와 결론의 주어가 같다.</strong> 둘 다 1인칭 공성 단수이고, 3:1이 그 「나」를 <code>יְהוָה</code>로 세운다. 알아 오신 분과 보응하시는 분 사이에 다른 주어가 끼어들지 않는다. 셋째, <strong>본문은 앎을 부인하지 않는다.</strong> 「너희만 알았다」는 결론을 뒤집기 위해 철회되지 않고, 그대로 결론의 근거가 된다. 뒤집히는 것은 근거가 아니라 <strong>결론의 방향</strong>이다.</p>
+<p>여기서 보이는 것과 생각한 것을 갈라 둔다. 보이는 것은 「완료 1cs + 지시 불변화사 + 미완료 1cs」라는 꼴이다. 「그래서 복이 올 것이라 기대했을 것」이라는 듣는 쪽의 셈은 본문에 적혀 있지 않고, 일상의깊은사고가 「뒤집힌다」고 부른 것은 그 셈과 본문의 결론 사이의 간격이다.</p>
+<blockquote>
+<p>[!insight] 3:2에서 뒤집히는 것은 앎이 아니라 <strong>앎에서 나오는 결론의 방향</strong>이다. 본문은 근거를 인정한 채 「그러므로」의 목적지를 보응으로 정한다.</p>
+<p>[!question] 연결 질문<br/>
+- 근거(앎)는 완료이고 결론(보응)은 미완료다. 이미 이루어진 관계가 아직 오지 않은 일의 근거가 될 때, 그 관계는 과거로 닫히는가 미래로 열리는가?<br/>
+- 「그러므로」가 받는 앞마디에서 무엇이 근거로 쓰이는가 — 「알았다」인가, 「너희만」인가, 「땅의 모든 족속 중에」인가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 근거를 인정한 채 결론이 뒤집히는 순간을, 실제로 듣는 사람이 서 있는 장면으로 그린다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "가까울수록 무거워지는 장부"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>앎(가까움)의 자리</th>
+<th>「그러므로」가 넘기는 곳</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>세무 대리</td>
+<td>수년간 장부를 맡아 온 기장 대리인</td>
+<td>오래 안 만큼 「몰랐다」고 말할 여지가 줄고, 확인할 책임이 커진다</td>
+</tr>
+<tr>
+<td>의료</td>
+<td>환자의 병력을 다 아는 주치의</td>
+<td>아는 만큼 놓친 징후가 더 무겁게 따져진다</td>
+</tr>
+<tr>
+<td>가정</td>
+<td>자녀의 습관을 가장 잘 아는 부모</td>
+<td>아는 만큼 침묵한 일이 더 무거운 몫이 된다</td>
+</tr>
+<tr>
+<td>교회</td>
+<td>오래 섬긴 직분자</td>
+<td>익숙함이 면제 사유가 되지 않고 먼저 살펴질 자리가 된다</td>
+</tr>
+</tbody>
+</table>
+<p>공통 패턴: <strong>관계가 깊을수록 그 관계는 면제 사유가 아니라 판단의 근거가 된다.</strong> 네 도메인 모두에서 「오래 알았다」는 사실은 부인되지 않는다. 오히려 그 사실이 「그러므로 더 살핀다」의 바탕이 된다.</p>
+<p>그러나 패턴을 3:2에 되비출 때 한 가지가 갈린다. 네 도메인에서 앎의 주어는 <strong>책임지는 사람 자신</strong>이다(대리인이 안다, 의사가 안다). 3:2에서 앎의 주어는 <strong>보응하시는 분</strong>이고 이스라엘은 앎의 대상이다. 「너희가 알았으니」가 아니라 「내가 너희를 알았으니」다. 패턴은 겹치지만 방향이 다르다 — 이 차이를 지우면 본문이 하지 않은 말(「너희가 많이 알았으니 책임져라」)을 본문에 넣게 된다.</p>
+<blockquote>
+<p>[!insight] 일상의 패턴은 「아는 자가 책임진다」이고, 3:2의 꼴은 「<strong>아신 바 된 자가 책임 앞에 선다</strong>」다. 겹치는 것은 「가까움 → 무게」의 방향이고, 갈리는 것은 앎의 주어다.</p>
+<p>[!question] 연결 질문<br/>
+- 「아신 바 된 자」의 책임은 「아는 자」의 책임과 어떻게 다르게 무거운가 — 내가 쌓은 앎이 아니라 받은 앎이 근거가 될 때?<br/>
+- 네 도메인 어디에서 「오래 알았으니 괜찮다」는 셈이 가장 빨리 자라는가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 겹침과 갈림을 함께 담는 도식으로 이 패턴을 정제한다.</p>
+<h3>0 유추 (Analogizing) — "수탁자의 무게"</h3>
+<p><strong>유추 ① 신탁의 수탁자 (법·세무)</strong><br/>
+재산을 맡은 수탁자는 맡긴 이와 가장 가까운 사람이다. 그 가까움 때문에 그는 일반인보다 무거운 주의 의무를 진다. 맡겨졌다는 사실이 면책이 아니라 의무의 근거다.<br/>
+- 새 통찰: 3:2의 앎도 「맡겨진 관계」처럼 무게를 낳는다.<br/>
+- 한계: 수탁자는 계약으로 그 자리에 들어가고 스스로 수락한다. 3:2의 앎은 이스라엘이 수락해서 성립한 것이 아니라 「내가 알았다」는 1인칭 완료로 선다. 그리고 ⛔ 「맡겨진 말씀」(위탁) 논지는 로마서 3장 노트와 3단위의 몫이므로 이 유추를 거기까지 밀지 않는다.</p>
+<p><strong>유추 ② 열쇠꾸러미 (일상)</strong><br/>
+집 열쇠를 가진 사람만이 문단속 책임을 진다. 낯선 행인에게는 「왜 문을 안 잠갔느냐」고 묻지 않는다.<br/>
+- 새 통찰: 앎은 출입의 권한이고, 그 권한이 곧 질문받을 자격이다.<br/>
+- 한계: 열쇠는 돌려줄 수 있다. 3:2에서 앎은 철회되지 않는다 — 「알았다」는 보응의 선언 안에서도 그대로 남는다.</p>
+<p><strong>유추 ③ 성실신고 확인 (세무 실무)</strong><br/>
+오래 기장해 온 대리인이 확인서에 서명할 때, 그가 고객의 사정을 잘 안다는 사실은 「몰라서 틀렸다」는 항변을 약하게 만든다. 앎이 확인 책임의 근거가 된다.<br/>
+- 새 통찰: 「그러므로」는 장부 위에서도 앎에서 책임으로 흐른다.<br/>
+- 한계: 세무에서 책임의 결론은 법이 정한 범위로 닫힌다. 3:2의 결론 「모든 죄악」은 범위가 「모든」이고, 그 끝이 어디서 감당되는지 본문 안에서 닫히지 않는다.</p>
+<blockquote>
+<p>[!insight] 세 유추 모두 「가까움 → 무거운 의무」를 보여 주지만, 모두 <strong>앎의 주어를 책임지는 쪽에 둔다.</strong> 3:2만이 앎의 주어를 보응하시는 분에게 두고, 그래서 유추는 언제나 한 걸음 모자란다.</p>
+<p>[!question] 연결 질문<br/>
+- 수탁자에게 「너를 믿고 맡겼으니 그러므로」라고 말하는 위탁자의 말투와, 3:2의 「너희만 알았나니 그러므로」는 어디서 같고 어디서 다른가?<br/>
+- 철회되지 않는 앎이 보응의 근거가 될 때, 그 앎은 보응 너머에서도 남는가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 머리로 맞댄 유추를 몸의 자세로 옮겨, 「아신 바 된 자가 불리는」 순간을 근육으로 겪어 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "이름이 불릴 때 드는 고개"</h3>
+<p><strong>실천 프로토콜</strong> — 눈을 감고 의자에 앉는다.<br/>
+1. 누군가 여러 사람의 이름을 차례로 부르는 장면을 떠올린다. 낯선 이름들이 지나간다. 몸은 느슨하다.<br/>
+2. 그 목소리가 <strong>내 이름</strong>을 부른다. 고개가 저절로 든다. 등이 펴진다.<br/>
+3. 그 자리에서 다음 말을 기다린다 — 칭찬일지 질문일지 모른 채. 이때 어깨와 손에 무엇이 일어나는지 느낀다.<br/>
+4. 손바닥을 펴서 무릎 위에 올린다. 숨긴 것 없이 내보이는 손이다. 3:2를 소리 내어 한 번 읽는다 — 「땅의 모든 족속 중에 너희만 알았나니 그러므로」.</p>
+<p>몸이 가르쳐 주는 것: 이름이 불리면 몸은 먼저 <strong>앞으로 나선다.</strong> 그것이 칭찬의 자리인지 심문의 자리인지 판단하기 전에, 「불렸다」는 사실이 몸을 일으킨다. 3:2의 앎이 그와 같다. 안다는 것은 불러낼 수 있다는 것이고, 불린 사람은 뒷줄에 숨을 수 없다. 펼친 손바닥은 보응을 피하는 자세가 아니라 앎 앞에 서는 자세다.</p>
+<p>설교 전달로 옮기면 — 3:2의 앞마디에서 회중을 향해 팔을 넓게 펴 「땅의 모든 족속」을 가리키고, 「너희만」에서 손을 거두어 앞줄을 가리키고, 「그러므로」에서 한 박자 멈춘다. 멈춤이 이 접속의 무게를 몸으로 전한다.</p>
+<blockquote>
+<p>[!insight] 몸은 「불렸다」는 사실에 먼저 반응한다. 3:2에서 <strong>앎은 불러내심이고, 불린 자는 그 다음 말이 무엇이든 그 자리에 서야 한다.</strong></p>
+<p>[!question] 연결 질문<br/>
+- 이름이 불렸을 때 가장 먼저 숨기고 싶어지는 것은 무엇인가 — 그리고 펼친 손바닥은 그것과 어떻게 마주하는가?<br/>
+- 「그러므로」에서 멈추는 한 박자는 회중에게 위협으로 들리는가, 진지함으로 들리는가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 불린 몸의 자리에서, 이 말을 처음 들은 사람과 지금 듣는 나의 마음속으로 들어간다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "한 마디 마카프에서 십자가까지"</h3>
+<p><strong>확장 — 구속사의 축</strong><br/>
+3:1은 출애굽을 히필 완료 1cs로 담고, 3:2는 그 위에 앎과 보응을 세운다. 은혜의 서술이 심판의 전제로 쓰이는 꼴이고, 구문묵상 §1-4는 이를 단위 4(2:9-11 → 2:13)와 한 틀로 본다. 구속사를 앞으로 늘이면, 「아신 바 된 자의 모든 죄악」이라는 미결의 칸이 정경 끝까지 이어진다. 신약은 그 칸을 다른 꼴로 다룬다 — 요한복음 10:14-15에서 「나는 내 양을 알고 양도 나를 아는 것이 … 나는 양을 위하여 목숨을 버리노라」(구문묵상 포인트 4 인용)고 말씀하신 분이, 같은 「앎」을 보응이 아니라 목숨 버림으로 가져간다. ⛔ 아모스가 그 갈림을 담은 것이 아니다 — 이것은 정경이 <strong>더한</strong> 말이다.</p>
+<p><strong>축소 — 한 낱말 안의 차원</strong><br/>
+반대로 줄이면, 이 모든 무게가 <code>עַל־כֵּן</code> 두 낱말을 잇는 마카프 하나에 걸린다. 구문묵상 §1-3이 단위의 마카프를 열셋으로 세는데, 그 하나가 근거와 결론을 한 덩이로 묶는다. 앎과 보응 사이의 거리는 줄표 하나만큼이다. 그 짧음이 「앎에서 보응으로 넘어가는 데 다른 조건이 필요하지 않다」는 것을 꼴로 보여 준다(⚠ 꼴 서술이고, 마카프에서 신학 명제를 끌어내지 않는다).</p>
+<p><strong>핵심 전복</strong>: 시간을 늘이면 3:2의 「그러므로」는 끝이 아니라 <strong>열린 칸</strong>이 되고, 줄이면 그 칸은 <strong>줄표 하나만큼 가깝다.</strong> 보응은 멀리 있는 일이 아니라 앎 바로 옆에 붙어 있고, 그 보응의 끝은 이 여덟 절 너머에 있다.</p>
+<blockquote>
+<p>[!insight] 앎과 보응은 문면에서 줄표 하나 거리이고, 그 보응을 감당할 자리는 구속사의 끝까지 멀다. <strong>가까움과 멂이 한 「그러므로」에 겹쳐 있다.</strong></p>
+<p>[!question] 연결 질문<br/>
+- 요한복음 10장의 「앎」을 3:2의 빈칸에 더할 때, 무엇을 더하고 무엇을 아모스에서 빼앗지 않아야 하는가?<br/>
+- 구속사를 넓힐 때 9:7(「구스 사람의 자손 같지 않으냐」)은 「너희만」을 어떤 크기로 다시 재게 하는가 — 여전히 닫지 않은 채로?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 이 겹친 차원을 실제 신앙 점검에 쓸 수 있는 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><span style="font-weight:700; color:var(--green);">① 실질 접점 본문 셋</span> (⛔ 프루프텍스팅이 아니라 「앎-책임」의 결을 잇는 자리만)<br/>
+- <span style="font-weight:700; color:var(--green);">요한복음 10:14-15</span> — 구문묵상 포인트 4가 인용한 자리. 「앎」의 언어가 목숨 버림으로 이어진다. 3:2의 빈 다섯째 고리에 더해지는 가장 가까운 정경의 말이다.<br/>
+- <strong>누가복음 12장의 「많이 받은 자에게는 많이 찾으신다」는 결(12:48)</strong> — 받은 것의 크기가 요구의 근거가 된다는 요지. 다만 이 본문의 근거는 「맡김·받음」이고 3:2의 근거는 「아심」이어서, 결은 닮되 동사가 다르다는 점을 밝혀 둔다(요지 인용 · 축자 아님).<br/>
+- <span style="font-weight:700; color:var(--green);">베드로전서 4:17의 「심판이 하나님의 집에서 시작된다」는 결</span> — 가까운 쪽이 먼저 살펴진다는 요지. ⚠ 아모스 3:2를 인용한 자리가 아니며, 이 노트는 두 본문을 어구 겹침으로도 묶지 않는다(요지 인용 · 축자 아님).</p>
+<p><span style="font-weight:700; color:var(--green);">② 신학자 — 칼빈, 『기독교 강요』</span>: 칼빈은 하나님을 아는 지식과 자기를 아는 지식이 서로 얽혀 있다는 논지로 그 책을 연다. 3:2는 그 논지의 한 꼴을 비춘다 — 하나님께 아신 바 됨은 자기 죄악이 드러나는 자리와 떨어지지 않는다. ⚠ 이 연결은 논지 차원이고 축자 인용이 아니다. ⛔ 3:2에서 선택 교리의 낱말을 끌어오지 않는다는 이 노트의 한정은 칼빈의 예정론을 이 본문에 붙이지 않는다는 뜻이기도 하다.</p>
+<p><span style="font-weight:700; color:var(--green);">③ 언약적 읽기</span> — 구문묵상 §6 ②가 담듯, 3:1의 출애굽 서술과 3:2의 보응 선언이 <code>עַל־כֵּן</code> 하나로 이어지므로 심판은 언약 <strong>밖의</strong> 법정이 아니라 언약 <strong>안의</strong> 조항으로 읽힌다. 은혜는 책임을 없애지 않고 책임의 주소를 정한다.</p>
+<p><span style="font-weight:700; color:var(--green);">④ 설교 적용점</span> — 오래 다닌 회중에게 3:2는 「당신들은 안전하지 않다」는 위협이 아니라 「당신들은 먼저 불린다」는 진지함으로 전해야 한다. 적용은 남(다른 교회·세상)에게 돌리지 않고 「내 쪽」으로 쓴다(개관 §7-2).</p>
+<p><span style="font-weight:700; color:var(--green);">⑤ 복음 중심성 점검</span> — 이 씨앗은 도덕주의로 닫히기 쉽다(「가까우니 더 잘하라」). 10단계 점검표가 보여 주었듯 방향을 고쳐도 「모든 죄악」의 무게는 덜리지 않는다. 그 무게를 사람이 지는 것으로 끝맺으면 율법주의이고, 본문의 빈칸을 아모스가 채웠다고 말하면 본문을 넘는 것이다. 정직한 자리는 둘 사이다 — 3:2의 보응은 그대로 선포하고, 그 보응을 그리스도가 지신다는 것은 <strong>정경이 더한 복음</strong>으로 밝혀 선포한다.</p>
+<ul>
+<li>
+<p><span style="font-weight:700; color:var(--green);">신학자</span>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 원본의 복음 중심성 점검을 따라 은혜의 근거와 순종의 열매를 구별한다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>목회</strong><br/>
+- <strong>상황</strong>: 수십 년 섬긴 장로가 재정 집행에서 관행대로 증빙을 생략하고 「다 아는 사이」라며 넘어간다.<br/>
+- <strong>적용</strong>: 3:2의 「그러므로」 방향을 행정 원칙으로 옮긴다 — 오래 섬긴 직분자일수록 먼저 증빙을 갖추는 문화를 당회가 함께 세운다. 의심이 아니라 「먼저 불리는 자리」로 설명한다.<br/>
+- <strong>기대 효과</strong>: 익숙함이 면제가 되는 관행이 끊기고, 오래된 직분자의 신뢰가 증빙 위에서 더 단단해진다.</p>
+<p><strong>세무·실무 — 고객 상담</strong><br/>
+- <strong>상황</strong>: 오래 거래한 고객이 「우리 사이에 뭘 그렇게 따지느냐」며 증빙 없는 비용 처리를 요청한다.<br/>
+- <strong>적용</strong>: 10단계 점검표 5번 항목처럼, 「오래 거래했다 → 그러므로 확인을 더 꼼꼼히 한다」로 방향을 세운다. 오래 안 대리인일수록 「몰랐다」는 말이 설 자리가 좁다는 점을 고객에게 정중히 설명한다.<br/>
+- <strong>기대 효과</strong>: 관계를 해치지 않으면서 확인 책임을 지키고, 사후에 고객과 대리인 모두가 지게 될 부담을 줄인다.</p>
+<p><strong>개인 의사결정</strong><br/>
+- <strong>상황</strong>: 오래 다닌 교회·오래 지킨 경건 습관에 기대어 최근의 미루어 둔 회개를 「괜찮다」고 넘긴다.<br/>
+- <strong>적용</strong>: 점검표 1열과 2열을 적고, 2열에 면제의 동사(괜찮다·넘긴다)가 있으면 3열을 「그러므로 이것부터」로 고쳐 쓴다. 1열(오래됨)은 지우지 않는다.<br/>
+- <strong>기대 효과</strong>: 오래됨을 자랑도 핑계도 아닌 「먼저 비추어질 자리」로 받아들이게 된다.</p>
+<h3>🥇 「그러므로」는 앎을 철회하지 않고 바닥으로 삼는다</h3>
+<ul>
+<li><strong>핵심</strong>: 3:2의 <code>עַל־כֵּן</code>은 앎을 근거로 인정한 채 결론을 보응으로 정한다. 뒤집히는 것은 근거가 아니라 결론의 방향이고, 앎은 선언 안에서 끝까지 남는다.</li>
+<li><strong>인격 형성</strong>: 흔히 3:2를 「특권에는 책임이 따른다」로 요약하지만, 그 요약은 앎을 「특권」으로 바꾸고 주어를 듣는 쪽으로 옮긴다. 본문의 앎은 아시는 분의 1인칭 완료이고, 철회되지 않는다는 점이 이 절의 무게다.</li>
+<li><strong>연결 고리</strong>: <a href="./20261107_구문묵상_아모스_3_1-8.html">20261107_구문묵상_아모스_3_1-8</a> §5 · <a href="./20261107_일상의깊은사고_아모스_3_1-8.html">20261107_일상의깊은사고_아모스_3_1-8</a> 통찰 1️⃣ · 요 10:14-15</li>
+</ul>
+<h3>🥈 「그러므로」가 서는 숨은 조건 — 같은 대상</h3>
+<ul>
+<li><strong>핵심</strong>: 앎의 대상(「너희만」)과 보응의 대상(「너희에게」)이 같을 때 「그러므로」가 성립한다. 접속사·동사·대상을 바꾸는 놀이에서 문장이 무너지는 지점이 모두 이 겹침이었다.</li>
+<li><strong>인격 형성</strong>: 3:2를 「특권-책임」 공식으로 읽으면 이 겹침이 보이지 않는다. 겹침을 보면, 정경이 그 둘 사이에 「대신 지시는 이」를 더할 때 그것이 얼마나 큰 더함인지가 드러난다.</li>
+<li><strong>연결 고리</strong>: 노트 후보: 생각의탄생13단계_아모스_3_1-8_놀이_같은대상(신규) · <a href="./20261103_생각의탄생13단계_아모스_1_1-8_보내는손과사르는불은다르다.html">20261103_생각의탄생13단계_아모스_1_1-8_보내는손과사르는불은다르다</a>(임자가 드러난 심판이 어디서 감당되는가 — 1단위 선택 이유와 호응)</li>
+</ul>
+<h3>🥉 「내가 아는 것」과 「아신 바 된 것」의 갈림</h3>
+<ul>
+<li><strong>핵심</strong>: 일상의 책임 패턴은 「아는 자가 책임진다」이고, 3:2는 「아신 바 된 자가 책임 앞에 선다」다. 겹치는 것은 「가까움 → 무게」이고 갈리는 것은 앎의 주어다.</li>
+<li><strong>인격 형성</strong>: 설교와 교육이 3:2를 「많이 아는 신자의 책임」으로 옮기면 본문이 하지 않은 말을 넣게 된다. 이 갈림을 지키면 적용이 「지식의 양」이 아니라 「관계의 근거」로 선다.</li>
+<li><strong>연결 고리</strong>: <a href="./_개관_아모스_20261103-1119.html">_개관_아모스_20261103-1119</a> §6-2 · 칼빈 『기독교 강요』 서두의 이중 지식 논지(논지 차원)</li>
+</ul>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 07일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>받음을 가리키는 꼴 열넷에 주는 이가 한 번도 적히지 않습니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 26일 &middot; 고린도후서 3:7-18</span>
+      <h1>받음을 가리키는 꼴 열넷에 주는 이가 한 번도 적히지 않습니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 고린도후서 3:7-18</h1>
+<h2>📖 받음을 가리키는 꼴 열넷에 주는 이가 한 번도 적히지 않습니다</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 26일 (목) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"돌에 써서 새긴 죽게 하는 율법 조문의 직분도 영광이 있어 이스라엘 자손들은 모세의 얼굴의 없어질 영광 때문에도 그 얼굴을 주목하지 못하였거든"</em> (개역개정 3:7)</p>
+<p><em>"우리가 다 수건을 벗은 얼굴로 거울을 보는 것 같이 주의 영광을 보매 그와 같은 형상으로 변화하여 영광에서 영광에 이르니 곧 주의 영으로 말미암음이니라"</em> (개역개정 3:18)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p><strong>열두 절에 동사가 스물아홉 토막 들어오고 그 가운데 열넷이 받음을 가리키는 꼴로 전해져 있습니다.</strong> 새겨진 일, 영광된 일, 없어지는 일, 굳어진 일, 읽히는 일, 벗겨지는 일, 변화되는 일이 모두 받음 쪽입니다. 그런데 「누구에게서」를 알리는 데 쓰는 전치사가 이 열두 절의 전치사 스물한 토막에 하나도 들어오지 않습니다. 그 전치사는 고린도후서 안에 열두 번 쓰이고 신약 스물세 권에 걸쳐 쓰이니 못 찾은 결과가 아닙니다. <strong>문장을 끝맺는 동사는 열다섯이고 그 가운데 「우리」를 주어로 삼은 토막이 둘(3:12·3:18)이며, 「너희」를 가리키는 꼴은 동사와 대명사 양편에서 0개이고 시키는 꼴도 0개입니다.</strong> <strong>그러니 이 단락이 먼저 담는 바는 요구가 아니라 받은 무게입니다.</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 「율법」이라는 낱말은 한 판에만 들어옵니다</h3>
+<blockquote>
+<p><em>"돌에 써서 새긴 죽게 하는 율법 조문의 직분도 영광이 있어"</em> (개역개정 3:7)</p>
+</blockquote>
+<p><strong>개역개정은 그 자리를 「율법 조문」으로 옮기고, 개역한글은 같은 자리를 「의문」이라는 낱말로 둡니다.</strong> 한 판에만 「율법」이 들어옵니다. 그리고 「율법」에 해당하는 원어 낱말은 고린도후서 열세 장 어디에도 한 번도 쓰이지 않습니다. 그 낱말은 신약 전체에 백아흔세 번, 열두 권에 걸쳐 쓰이니 이 책의 0이 못 찾은 결과가 아닙니다. 회중의 책에는 그 갈림이 보이지 않습니다. 그러니 이 본문을 한 민족이나 한 종교에 대한 판정으로 읽을 근거를 본문이 주지 않습니다. <strong>받음을 가리키는 열넷에 주는 이가 비어 있는 자리도 그와 같습니다 — 그 빈 데에 사람이나 집단의 이름을 넣는 셈은 본문이 주지 않았습니다.</strong></p>
+<h3>2️⃣ 「영광」이 열한 번 서지만 그 꼴은 드물지 않습니다</h3>
+<blockquote>
+<p><em>"하물며 영의 직분은 더욱 영광이 있지 아니하겠느냐"</em> (개역개정 3:8)<br/>
+<em>"정죄의 직분도 영광이 있은즉 의의 직분은 영광이 더욱 넘치리라"</em> (개역개정 3:9)</p>
+</blockquote>
+<p><strong>「영광」으로 옮겨진 원어 낱말이 이 열두 절에 열한 번 섭니다.</strong> 열두 절 전체가 백아흔세 낱말이니 5.7%이고, 고린도후서 전체 열아홉 번 가운데 57.9%가 여기 모입니다. 열두 절 길이로 신약 전권을 훑으면 그 낱말이 열한 번 서는 자리가 하나이고, 장으로 세어도 열한 번을 넘는 장이 하나이며 그다음이 여섯입니다. 다만 그 낱말의 가장 잦은 꼴은 드물지 않습니다 — 신약에 스물한 번, 열한 권에 걸쳐 섭니다. 드문 쪽은 꼴이 아니라 밀집입니다. <strong>그 밀집마저 고르지 않습니다 — 3:7-11 다섯 절에 여덟 토막, 3:18 한 절에 세 토막이고, 그 사이 3:12-17 여섯 절에는 0토막입니다.</strong></p>
+<h3>3️⃣ 「수건」은 신약에서 이 열두 절에만 있고 「거울」은 역어가 넣은 낱말입니다</h3>
+<blockquote>
+<p><em>"그러나 언제든지 주께로 돌아가면 그 수건이 벗겨지리라"</em> (개역개정 3:16)</p>
+</blockquote>
+<p>「수건」으로 옮겨진 원어 낱말은 신약 전체에 네 번 쓰이고 그 네 번이 다 이 열두 절입니다. 두 꼴 모두 신약에 한 토막뿐입니다. 3:18의 「거울」은 다릅니다 — 「거울」을 가리키는 원어 명사는 고린도후서에 한 번도 쓰이지 않고 신약 전체에 두 번 쓰입니다. 그 자리에 선 낱말은 신약에 한 번만 쓰인 말이어서 뜻을 대조할 데가 없고, 3:7의 「새긴」도 그렇습니다. 3:16에서는 개역개정이 「벗겨지리라」, 개역한글이 「벗어지리라」로 갈리는데 그 자리의 원어 꼴은 앞일을 가리키는 꼴이 아닙니다. <strong>그리고 3:16에는 주어 노릇을 하는 낱말이 하나도 없고, 돌아감을 가리키는 그 동사는 한 사람을 가리키는 꼴입니다.</strong> 바로 앞 두 절이 쓴 「그들의」는 여럿을 가리키는 「~의」 꼴이니 수가 맞지 않습니다. 그러니 「한 무리가 돌아가면」을 이 꼴에서 읽어 낼 수 없습니다. 누가 돌아가는지는 본문이 담지 않았고 저도 여기서 판정하지 않습니다. <strong>3:17도 그와 같습니다 — 손에 든 성경에는 동사가 둘 보이지만 원문의 그 구절에는 동사가 0개입니다.</strong></p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">거울에 비친 쪽이 가까운지 먼지만 눈으로 가늠하기</span><br/>
+이 항은 성경을 읽어도 뜻이 비치지 않는다고 느껴 온 한 분만의 것이고 다른 조건을 겸하지 않습니다. 이 열두 절에는 그분에게 시키는 꼴이 0개입니다. 거울 앞에 그대로 서서 비친 쪽이 선 쪽보다 가까운지 먼지만 눈으로 가늠해 보십시오. 거울을 들여다보는 것과 다릅니다. <strong>저쪽은 얼굴을 살피는 일이고, 이 항은 사이만 가늠하는 일입니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">되비침이 몇 겹까지 이어지는지 헤아려 보기</span><br/>
+벽거울과 손거울이 서로를 비추면 되비침이 겹으로 이어집니다. 겹이 늘어도 새 빛이 생기지 않고 처음 빛 하나가 거듭 되비칠 뿐입니다. 오늘 저녁에 그 겹이 몇까지 이어지는지 헤아려 보십시오. 두 쪽을 견주어 보는 것과 다릅니다. <strong>저쪽은 둘 사이를 고르는 일이고, 이 항은 하나가 거듭 돌아오는 자리를 헤아리는 일입니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">거울을 등지고 삼십 초만 서 보기</span><br/>
+하루 일이 끝난 뒤 거울을 등지고 삼십 초만 서 보십시오. 등지고 선 동안에도 거울은 그대로 있고, 비치지 않는다고 사라지지 않습니다. 몸이 아프거나 시간이 잘려 나간 날이면 그 삼십 초가 전부여도 됩니다. 거울얼룩을 손보는 것과 다릅니다. <strong>저쪽은 제 손이 하는 일이고, 이 항은 손이 하지 않는 일입니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>주는 영이시라고 본문이 한 번 말합니다. 그 한 문장 앞에 섭니다.<br/>
+열두 절에서 요구를 찾았고, 없자 요구를 만들려 했음을 고백합니다.<br/>
+비친 뜻이 흐릴 때 그 흐림의 까닭을 사람의 이름으로 적어 온 셈을 고백합니다.<br/>
+수건이 멈추는 데를 본문이 「그리스도 안에서」로 담았으니, 제 셈을 거두고 그 한 자리를 바라게 하여 주십시오.<br/>
+<strong>비치지 않는 동안에도 거울이 그대로 있듯이, 보이지 않는 동안에도 주께서 그대로 계심을 믿게 하여 주십시오.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<p>이 기도에 감사를 넣지 않았습니다. 이 열두 절에서 하나님을 가리키는 이름이 문장의 주어 노릇을 하는 구절이 3:17 하나이고, 그 구절의 동사는 무엇을 하신다는 말이 아니라 누구시다는 말입니다. 그리고 개역개정 본문 줄에도 「감사」라는 낱말이 이 열두 절에 한 번도 나오지 않습니다. 그래서 고백과 간구로만 적었습니다.</p>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>받음을 가리키는 꼴 열넷에 주는 이가 한 번도 적히지 않았습니다. 저는 그 빈 데에 무엇을 넣어 읽어 왔습니까?</li>
+<li>「율법」은 한 판에만 들어오고 그 낱말의 원어는 이 책에 0회입니다. 본문에 없는 낱말을 근거로 삼은 자리가 제게 있습니까?</li>
+<li>3:16은 누가 돌아가는지를 담지 않고 향하는 방향만 담습니다. 방향을 묻지 않고 사람을 먼저 가려낸 때가 제게 언제였습니까?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #고린도후서 #생명의삶 #QT #성경묵상 #영광 #수건 #새언약</span></p>
+<!-- 점검: 동작 3 · 대조 3 · 적중 0 · 초점 0 -->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 26일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

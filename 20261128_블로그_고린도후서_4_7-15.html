@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>깨질 그릇에 담겼는데 담긴 보배가 깨지지 않습니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 28일 &middot; 고린도후서 4:7-15</span>
+      <h1>깨질 그릇에 담겼는데 담긴 보배가 깨지지 않습니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 고린도후서 4:7-15</h1>
+<h2>📖 깨질 그릇에 담겼는데 담긴 보배가 깨지지 않습니다</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 28일 (토) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"우리가 이 보배를 질그릇에 가졌으니 이는 심히 큰 능력은 하나님께 있고 우리에게 있지 아니함을 알게 하려 함이라"</em> (개역개정 4:7)</p>
+<p><em>"주 예수를 다시 살리신 이가 예수와 함께 우리도 다시 살리사 너희와 함께 그 앞에 서게 하실 줄을 아노라"</em> (개역개정 4:14)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p><strong>본문은 고난을 여덟 토막으로 적습니다.</strong> 그 여덟이 네 짝으로 묶이고 짝마다 「그러나 ~는 아니다」가 끼어 있습니다. 긍정된 넷은 밖에서 당하는 일을 적고, 부정된 넷은 그 일이 끝까지 가지 않는다고 적습니다. 본문은 고난을 치우지 않고 고난의 끝을 막습니다. 막는 힘은 우리 쪽에 걸리지 않습니다 — 목적을 담는 자리가 넷인데 그 넷의 주어가 넷 다 우리 밖입니다. <strong>4:10과 4:11은 「예수의 생명」을 그 주어로 적고 동사를 받는 쪽으로 적어서, 「우리가 나타낸다」를 본문의 꼴로 만들 길이 없습니다.</strong> <strong>4:14가 앞일을 처음 놓으면서 그 앞일을 이미 일어난 한 사건에 겁니다.</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 「그러나 ~는 아니다」 네 짝이 신약 전권에서 이 두 절뿐입니다</h3>
+<blockquote>
+<p><em>"우리가 사방으로 욱여쌈을 당하여도 싸이지 아니하며 답답한 일을 당하여도 낙심하지 아니하며"</em> (개역개정 4:8)</p>
+<p><em>"박해를 받아도 버린 바 되지 아니하며 거꾸러뜨림을 당하여도 망하지 아니하고"</em> (개역개정 4:9)</p>
+</blockquote>
+<p><strong>두 절의 동사 여덟이 전부 「~있는」 꼴이고, 두 절에 끝맺는 동사가 0토막입니다.</strong> 이 네 토막 연쇄가 놓인 절을 신약 전권에서 훑으면 넷이고 넷 전부가 이 두 절입니다. 여덟 가운데 다섯이 신약 전권에 하나뿐인 꼴이며, 「망하지 아니하고」가 받은 낱말은 신약에 90토막인데 이 꼴로는 하나뿐입니다. 이 아홉 절에 명령하는 꼴도 0토막입니다 — 1~4장 전체에 0토막이고 이 책의 첫 명령은 5:20에 놓입니다. <strong>「고난을 받아들이라」를 이 단락의 동사 꼴로 받칠 길이 없습니다.</strong></p>
+<h3>2️⃣ 한 역어가 두 원어를 덮고, 한 원어가 두 역어로 갈립니다</h3>
+<blockquote>
+<p><em>"그러므로 우리가 이 직분을 받아 긍휼하심을 입은 대로 낙심하지 아니하고"</em> (개역개정 4:1)</p>
+<p><em>"그러므로 우리가 낙심하지 아니하노니 우리의 겉사람은 낡아지나"</em> (개역개정 4:16)</p>
+<p><em>"힘에 겹도록 심한 고난을 당하여 살 소망까지 끊어지고"</em> (개역개정 1:8)</p>
+</blockquote>
+<p>개역개정은 4장에서 같은 네 글자 역어를 세 자리에 씁니다(4:1 · 4:8 · 4:16). 원어는 둘입니다 — 4:1과 4:16이 한 낱말이고 4:8이 다른 낱말입니다. <strong>4:8의 그 낱말은 신약 전권에 두 토막뿐이고 둘 다 이 책에 놓이는데, 개역개정이 1:8에서는 「살 소망까지 끊어지고」로 옮기고 4:8에서는 그 네 글자로 옮깁니다.</strong> 4:8 안의 두 역어도 갈립니다 — 원어에서는 한 어근의 짝이고 뒤쪽이 강화된 꼴인데, 역어는 서로 무관한 두 낱말로 갈라 놓습니다. 어느 역어가 원어를 다 담았는지는 이 범위의 재료로 가릴 수 없고, 본문이 두 낱말을 한 짝으로 놓았다는 사실만 남습니다. <strong>회중의 책에는 그 갈림이 보이지 않습니다.</strong></p>
+<h3>3️⃣ 빌려 온 1인칭, 그리고 이름이 아닌 주어</h3>
+<blockquote>
+<p><em>"기록된 바 내가 믿었으므로 말하였다 한 것 같이 우리가 같은 믿음의 마음을 가졌으니 우리도 믿었으므로 또한 말하노라"</em> (개역개정 4:13)</p>
+</blockquote>
+<p>4:13의 1인칭 동사 넷이 두 쌍입니다. 앞 쌍은 하나를 가리키는 꼴이고 뒤 쌍은 여럿을 가리키는 꼴입니다. <strong>이 단락의 1인칭 동사 여섯을 전수로 세면 하나를 가리키는 꼴이 둘뿐이고 그 둘이 전부 인용문 안에 있습니다 — 바울 자신의 1인칭 단수 끝맺는 동사가 0토막입니다.</strong> 한 절에 「믿다」 둘과 「말하다」 둘이 함께 놓이는 절은 신약 전권에 4:13 하나이고, 앞 쌍이 받은 꼴은 신약 241토막 가운데 하나뿐입니다. 두 쌍 사이를 잇는 접속어가 한 절에 두 번 놓이는 절도 신약 전권에 이 한 절입니다. <strong>4:14의 앞일 둘은 주어를 「하나님」이라는 이름으로 적지 않고 「주 예수를 다시 살리신 이」로 적습니다 — 이 단락의 신적 이름 아홉 토막이 한 번도 주어 자리에 서지 않습니다.</strong></p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">금이 어디서 그치는지만 눈으로 가늠하기</span><br/>
+수술 날짜를 기다리거나 치료를 받는 중이어서 제 몸에 금이 간 것을 아는 분께, 본문은 요구를 걸지 않습니다. 할 수 있는 일이 작습니다 — 사발 굽에 간 금이 어디서 그치는지 눈으로 가늠해 보는 일입니다. <strong>그릇 바닥에 손바닥을 대어 받치거나 깨진 데를 손끝으로 더듬어 확인하는 것과는 다른 동작입니다.</strong> 가늠하는 눈은 그릇을 고치지 않고 금의 끝만 봅니다.</p>
+<p>📌 <span style="font-weight:700; color:var(--green);">깨진 조각을 접시 두 장 사이에 끼워 두기</span><br/>
+깨진 조각을 버리지 않고 접시 두 장 사이에 끼워 두십시오. <strong>빈 컵을 수도 아래 받치거나 대야에 물을 받거나 접시를 비우는 것과는 다른 동작입니다.</strong> 끼워 두는 손은 조각을 붙이지 않습니다. 없어지지 않게만 둡니다.</p>
+<p>📌 <span style="font-weight:700; color:var(--green);">빈 사발을 엎어 두기</span><br/>
+상을 치우기 전에 빈 사발 하나를 엎어 두십시오. <strong>국자로 덜어 놓은 몫을 솥에 되돌려 붓거나 그릇을 기울지 않게 받치는 것과는 다른 동작입니다.</strong> 엎어 두는 손은 사발을 채우지 않고, 다음에 쓸 수 있게만 둡니다.</p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<p><em>이 단락에서 하나님이 주어로 서는 끝맺는 동사가 둘(4:14)입니다. 그래서 감사를 적습니다 — 감사를 막는 규정의 발동 조건이 이 단락에 성립하지 않습니다.</em></p>
+<blockquote>
+<p>깨질 그릇에 보배를 담아 두신 하나님, 그 능력이 우리에게서 나지 않는다고 본문이 적어 주어 감사합니다.</p>
+<p>예수를 다시 살리신 분이 우리도 살리신다는 그 한 사건 위에 오늘을 둡니다.</p>
+<p>금이 간 자리를 숨기지 않고 그대로 지니고 가겠습니다. 고난의 끝을 막는 힘을 제 견딤에서 찾지 않겠습니다.</p>
+<p><strong>지금 아무것도 할 수 없는 자리에 있는 이들에게 요구를 얹지 않게 하여 주십시오.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>지금 내 고난의 어느 짝에 「그러나 ~는 아니다」가 붙어 있습니까?</li>
+<li>견딤의 힘을 내 안에서 찾으려 한 자리가 어디입니까?</li>
+<li>내가 믿은 것을 말할 때, 그 말의 출처를 어디로 적고 있습니까?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #고린도후서 #생명의삶 #QT #성경묵상 #질그릇 #보배 #고난</span></p>
+<!-- 판정 대상 0 · 면책 ⒤ 3 · 초점 계사 0/5 · 꼬리 0 · 1차 동작 3 -->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 28일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

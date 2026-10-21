@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>너희만 알았으니 보응하리라 — 되묻기 아홉이 한 선언을 둘러쌉니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 07일 &middot; 아모스 3:1-8</span>
+      <h1>너희만 알았으니 보응하리라 — 되묻기 아홉이 한 선언을 둘러쌉니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<hr/>
+<p>title: 너희만 알았으니 보응하리라<br/>
+date: 2026-11-07<br/>
+book: 아모스<br/>
+passage: 3:1-8<br/>
+unit: 5<br/>
+kind: 블로그요약<br/>
+stage: 2</p>
+<hr/>
+<h1>✝️ 오늘의 말씀 | 아모스 3:1-8</h1>
+<h2>📖 너희만 알았으니 보응하리라 — 되묻기 아홉이 한 선언을 둘러쌉니다</h2>
+<p><strong>2026-11-07 (토) | 생명의삶 QT</strong></p>
+<hr/>
+<blockquote>
+<p><em>"이스라엘 자손들아 여호와께서 너희를 쳐서 이르시는 이 말씀을 들으라 애굽 땅에서 인도하여 올리신 온 족속을 쳐서 이르시기를"</em> (아모스 3:1 · 개역한글)</p>
+<p><em>"주 여호와께서는 자기의 비밀을 그 종 선지자들에게 보이지 아니하시고는 결코 행하심이 없으시리라"</em> (아모스 3:7 · 개역한글)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p>여덟 절 안에 물음이 아홉 번 섭니다. 그 한가운데 선언 하나가 놓입니다. 땅의 모든 족속 가운데 너희만 알았으니 너희 모든 죄악을 보응하겠다는 3:2입니다. 물음을 여는 표지는 셋으로 갈립니다. <strong>묻는 불변화사가 다섯(3:3 · 3:4 둘 · 3:5 둘), 조건 접속사가 둘(3:6), 묻는 대명사가 둘(3:8)입니다.</strong> 되묻기는 아홉이고 선언은 하나입니다. <strong>미완료 꼴 열셋 가운데 1인칭은 3:2의 「보응하리라」 하나뿐이고, 나머지 열둘은 사자와 새와 덫과 나팔과 백성과 재앙과 사람이 주어입니다.</strong> 물음 사슬 안에 선언이 하나 더 끼어 있습니다 — 위에 옮긴 3:7입니다. <strong>사로잡아 가시던 분이 먼저 알리신다는 문장입니다.</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 되묻기 아홉이 같은 것을 아홉 번 묻습니다</h3>
+<blockquote>
+<p><em>"두 사람이 의합지 못하고야 어찌 동행하겠으며"</em> (아모스 3:3 · 개역한글)</p>
+<p><em>"창애를 땅에 베풀지 아니하고야 어찌 새가 거기 치이겠으며"</em> (아모스 3:5 · 개역한글)</p>
+</blockquote>
+<p>원인 없이 결과가 있겠느냐는 물음입니다. 동행에는 합의가 앞서고, 새가 치이는 데는 덫이 앞섭니다. 본문은 그 순서를 뒤집지 않습니다. <strong>사건을 늘어놓으며 서사를 이끄는 동사 꼴이 여덟 절에 하나도 쓰이지 않았습니다.</strong> <strong>이야기를 펼치는 대신 원인을 되묻는 쪽으로만 갑니다.</strong></p>
+<h3>2️⃣ 한 낱말이 열두 자리 가운데 한 자리에서 돌아섭니다</h3>
+<blockquote>
+<p><em>"주 여호와께서는 자기의 비밀을 그 종 선지자들에게 보이지 아니하시고는 결코 행하심이 없으시리라"</em> (아모스 3:7 · 개역한글)</p>
+</blockquote>
+<p>아모스는 한 어근을 열두 자리에서 씁니다. 열한 자리는 사로잡혀 가는 일을 담습니다. 3:7 한 자리만 「드러내다」 쪽으로 돌아섭니다. <strong>돌아선 그 한 자리가 목적어를 거느립니다 — 「자기의 비밀」입니다.</strong> 받는 쪽은 알아낸 사람이 아니고 받은 사람입니다. <strong>사로잡아 가시는 일을 가장 많이 담은 그 낱말이 한 번 돌아서서 벗겨 보이는 일을 담습니다.</strong></p>
+<h3>3️⃣ 번역이 보충한 낱말을 본문은 쓰지 않습니다</h3>
+<blockquote>
+<p><em>"두 사람이 의합지 못하고야 어찌 동행하겠으며"</em> (아모스 3:3 · 개역한글)</p>
+</blockquote>
+<p>3:3을 다른 역본은 「뜻이 같지 않은데」로 옮깁니다. 「뜻」에 해당하는 낱말이 히브리어 본문에는 들어 있지 않습니다. 3:3의 본문 낱말은 여섯이고, 그 가운데 동사는 「만나기로 하다」입니다. 3:5의 「베풀지」도 역어가 넣은 낱말입니다. <strong>덫을 놓는 사람이 그 절에 없고, 동사 셋이 모두 능동으로 「떨어진다 · 올라온다 · 잡는다」입니다.</strong> <strong>역어가 넣은 낱말과 본문이 둔 낱말을 갈라 보는 눈이 있어야 합니다.</strong></p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">지금 펼칠 힘이 남지 않은 분께</span><br/>
+앓는 중이거나 밤새 돌보는 중이라면, 눕거나 기댄 자세 그대로 3:8 한 절을 옆 사람에게 읽어 달라고 하십시오. 귀로 받는 것이 오늘의 전부여도 됩니다. <strong>혼자 소리 내어 읽는 것과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">아홉을 손가락으로 세어 보기</span><br/>
+3:3부터 3:8까지 물음이 끝나는 자리를 손가락으로 아홉 번 짚으십시오. <strong>통째로 읽어 내려가는 것과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">한 사람 손에 쥐여 주기</span><br/>
+이번 주 지출에서 한 줄을 떼어 현금으로 바꾸고, 한 사람의 손에 직접 쥐여 주십시오. <strong>계좌로 보내는 것과 다릅니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>주 여호와여, 오래 알아 왔다는 사실을 안전으로 셈한 것을 고백합니다.<br/>
+익숙하니 괜찮을 것이라 여긴 자리를 짚어 주십시오.<br/>
+되묻는 아홉 물음 앞에서 원인을 덮지 않겠습니다.<br/>
+들어야 할 한 문장을 피하지 않겠습니다.<br/>
+<strong>오늘 몸으로 할 수 있는 한 가지를 하겠습니다.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>오래 알아 왔다는 사실을 안전으로 셈한 자리가 어디입니까?</li>
+<li>결과만 받아 들고 원인을 덮어 둔 일이 이번 주에 있었습니까?</li>
+<li>역어가 넣은 낱말을 본문의 낱말로 알고 지나친 적이 있습니까?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #아모스 #생명의삶 #QT #성경묵상 #되묻기아홉 #드러내심 #보응</span></p>
+<!-- 생산 기록 (Stage 2 · 단위 5)
+     역본: 본문 인용은 전부 개역한글이고, 다른 역본 문면은 전해 받은 것이어서 인용하지 않았다.
+     R46: 이 단락에 하나님이 주어로 선 자리는 0건이 아니다(동사 토막 아홉). 기도는 고백과 결단으로
+          갔고 감사를 쓰지 않았다 — 사유는 단락의 무게가 보응 선언이고 1인칭 미완료가 하나라는 점이다.
+     R54 1차 동작: 듣기 · 세기 · 주기 (셋 전부에 대조문을 본문에 적었다)
+     R29: 본문이 적지 않은 결핍을 넣지 않았다. 「아홉」·「열둘」·「열두 자리」는 노트의 실측 수치다.
+     분량 실측치와 금지 문자열 점검 수치는 생산 보고에 적었다(산출물에 예측치를 적지 않는다).
+-->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 07일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

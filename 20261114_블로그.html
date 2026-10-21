@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>담보를 자기 자신으로 내놓으신 분이 성을 넘기십니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 14일 &middot; 아모스 6:8-14</span>
+      <h1>담보를 자기 자신으로 내놓으신 분이 성을 넘기십니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 아모스 6:8-14</h1>
+<h2>📖 담보를 자기 자신으로 내놓으신 분이 성을 넘기십니다</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 14일 (토) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"만군의 하나님 여호와께서 가라사대 주 여호와가 자기를 가리켜 맹세하였노라 내가 야곱의 영광을 싫어하며 그 궁궐들을 미워하므로 이 성읍과 거기 가득한 것을 대적에게 붙이리라 하셨느니라"</em> (아모스 6:8, 개역한글)</p>
+<p><em>"만군의 하나님 여호와께서 가라사대 이스라엘 족속아 내가 한 나라를 일으켜 너희를 치리니 저희가 하맛 어귀에서부터 아라바 시내까지 너희를 학대하리라 하셨느니라"</em> (아모스 6:14, 개역한글)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p><strong>위의 두 절을 나란히 놓고 보십시오.</strong> 호칭이 같습니다. 일곱 절의 첫 절과 끝 절에 같은 이름이 서 있고, 그 사이에 집 하나가 열립니다. 열 사람이 남아도 다 죽고, 뼈를 들어내는 사람이 내실에 대고 묻고, 돌아오는 대답은 한 낱말입니다. <strong>개역한글은 그 대답을 「아주 없다」로 옮깁니다.</strong> 그러고 나서 「잠잠하라」가 장면을 닫고, 여호와의 이름을 일컫지 못한다는 말로 끝납니다. 다음 말이 없습니다. <strong>첫 절이 적는 것은 심판의 세기가 아니라 담보의 정체입니다 — 맹세하시는 분이 자기 자신을 걸고 말씀하십니다.</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 번역이 지운 것 둘, 번역이 보탠 것 하나</h3>
+<blockquote>
+<p><em>"만군의 하나님 여호와께서 가라사대…"</em> (아모스 6:8, 개역한글)</p>
+<p><em>"만군의 하나님 여호와께서 가라사대…"</em> (아모스 6:14, 개역한글)</p>
+</blockquote>
+<p>두 줄을 눈으로 대조해 보십시오. 한 글자도 다르지 않습니다. 히브리어에서는 다릅니다. 끝 자리만 관사를 받아서, 그 세 낱말의 연쇄가 구약 전권에서 한 번만 놓이는 꼴이 됩니다. 드문 낱말이 아니라 드문 꼴입니다. 앞 자리도 희소합니다. 악센트까지 일치하는 자리가 구약에 둘뿐입니다. ⚠ 우리가 손에 든 성경으로는 그 차이를 볼 수 없습니다. 주석 없이 읽는 독자가 그것을 놓치는 것은 독자의 게으름이 아닙니다.</p>
+<blockquote>
+<p><em>"보라 여호와께서 명하시므로 큰 집이 침을 받아 갈라지며 작은 집이 침을 받아 터지리라"</em> (아모스 6:11, 개역한글)</p>
+</blockquote>
+<p>주체가 지워진 자리가 하나 더 있습니다. <strong>히브리어의 그 동사는 때리는 쪽을 주어로 담는 꼴인데, 두 개역이 모두 「침을 받아」·「타격을 받아」로 받는 쪽에서 옮깁니다.</strong> 개역한글은 그 한 동사를 두 번 옮깁니다. ⇒ 번역이 주체를 지웠다는 사실까지만 적습니다. 어느 쪽이 옳은지는 여기서 판정하지 않습니다.</p>
+<p>반대로 번역이 보탠 자리도 있습니다. 6:8의 「대적에게」입니다. 히브리어 본문에는 넘겨받는 쪽을 가리키는 낱말이 하나도 없습니다. 원수·적·대적에 해당하는 세 낱말이 이 일곱 절에 모두 0회입니다. 두 개역이 함께 그 한 낱말을 넣었습니다. 한국어 문장이 되려면 받는 쪽이 있어야 하기 때문일 수 있습니다. <strong>본문이 받는 쪽을 숨겼다고 읽지는 않습니다.</strong></p>
+<h3>2️⃣ 「내가 넘긴다」가 구약 전권에 이 한 자리뿐입니다</h3>
+<blockquote>
+<p><em>"…내가 야곱의 영광을 싫어하며 그 궁궐들을 미워하므로 이 성읍과 거기 가득한 것을 대적에게 붙이리라…"</em> (아모스 6:8, 개역한글)</p>
+</blockquote>
+<p><strong>「붙이리라」로 옮겨진 동사의 어근은 닫음과 넘김을 담고 구약에 아흔한 번 나옵니다.</strong> 사역의 꼴에서 1인칭이 걸린 자리는 다섯인데, 넷은 1인칭이 넘겨지는 쪽입니다 — 「나를 가두었다」, 「나를 넘기지 마소서」, 「그가 나를 넘기셨다」, 「주께서 나를 넘기지 아니하셨다」. 주체로 선 1인칭은 아모스 6:8 하나입니다. 구약 전권에서 사람의 탄원에만 머물던 어간이 이 한 자리에서 처음으로 주체를 얻습니다. 그 앞에 선 동사는 맹세 동사이고, 담보는 자기 자신입니다. <strong>아모스 안에서 맹세의 대상이 네 번 다 다른데, 담보가 자기 자신인 것은 이 한 자리입니다.</strong></p>
+<h3>3️⃣ 「내가」가 둘이고, 수가 화자를 가릅니다</h3>
+<blockquote>
+<p><em>"우리가 우리 힘으로 우리에게 뿔을 취하였다"</em> (아모스 6:13 · 히브리어를 그대로 푼 문면)</p>
+<p><em>"…이스라엘 족속아 내가 한 나라를 일으켜 너희를 치리니…"</em> (아모스 6:14, 개역한글)</p>
+</blockquote>
+<p>이 일곱 절에서 1인칭을 지는 형태소는 여덟입니다. 그 여덟을 수로 가르면 단수가 다섯, 복수가 셋입니다. <strong>단수 다섯은 전부 6:8과 6:14에 있고 전부 말씀하시는 분의 말입니다.</strong> 복수 셋은 전부 6:13 한 절에 있고 전부 인용된 사람들의 말입니다. ⇒ 위의 첫 줄은 하나님의 말이 아닙니다. <strong>사람의 자랑이고, 바로 다음 절의 단수 하나가 그 자랑을 받습니다.</strong> ⚠ 조심할 것이 하나 더 있습니다. 이 단락에는 같은 꼴 아홉이 돌아서 「내가 …하겠다」의 연쇄처럼 보이는데, 그 아홉 가운데 1인칭은 하나뿐이고 여덟이 3인칭입니다. 「이 단락은 1인칭 심판 선언이다」로 뭉치면 가운데 절이 지워지고 자랑하는 입이 사라집니다.</p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">지금 기도할 말이 하나도 남지 않은 분께</span><br/>
+6:10은 말이 끊긴 집을 꾸짖지 않고 그냥 담습니다. 장례를 두 번 치른 집, 이름을 부르려다 목이 막혀 그만둔 자리 — 본문은 말을 더 하라고 요구하지 않습니다. 오늘은 문장을 만들지 마시고 숨을 열까지 느리게 내쉬기만 하십시오. 속으로 기도문을 다듬는 것과 다릅니다. 숨을 내쉬는 동안은 말을 만들지 않아도 됩니다. 마태복음 27:46은 큰 소리로 부른 한 분을 담고, 그 뒤에 대답이 적히지 않습니다. <strong>히브리서 5:7은 그분이 「심한 통곡과 눈물로」 간구했다고 담습니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">담보에 적힌 이름을 서랍에서 꺼내 보기</span><br/>
+오늘 보증서나 계약서, 차용증 가운데 한 장을 서랍에서 밖으로 꺼내 놓고, 거기 담보로 적힌 이름이 누구인지 확인하십시오. 화면으로 훑는 것과 다릅니다. 종이를 밖으로 내는 동작이 들어갑니다. <strong>내 이름이 담보로 걸린 자리가 몇인지 오늘 한 번 알아 두십시오.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">이번에 들어온 것 하나를 들어 옮기기</span><br/>
+6:13의 자랑은 「우리 힘으로 우리에게」입니다. 이번 달에 집에 들어온 물건 하나를 골라, 자리에 둔 채로 보지 말고 손으로 들어 다른 자리로 옮기십시오. 손에 잠깐 쥐는 것과 다릅니다. 무게를 지고 자리를 바꾸는 일입니다. <strong>무게가 팔에 오는 동안, 그것이 지나온 손들을 하나씩 떠올리십시오.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>자기 자신을 담보로 걸고 말씀하신 주님, 감사합니다. 6:8에서 주님이 주어로 서신 동사가 셋이고, 그 가운데 하나가 담보를 자기 자신으로 내놓는 동사입니다. 보증을 받으실 분이 아니신데도 보증을 내놓으셨습니다.</p>
+<p>저는 주님의 말씀을 제 확신으로 보증하려 했습니다. 번역이 보여 주지 않는 것까지 안다고 여겼고, 사람의 자랑을 주님의 말씀으로 바꿔 읽기도 했습니다. 용서하여 주십시오.</p>
+<p><strong>오늘은 말을 더 보태지 않고, 주님이 내놓으신 담보 앞에서 숨을 고르겠습니다.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>내 성경에서 6:8과 6:14는 한 글자도 다르지 않습니다. 번역이 보여 주지 않는 것이 있다는 사실을 알았을 때, 나는 내가 읽는 본문을 어떻게 대하게 되는가?</li>
+<li>「우리 힘으로 우리에게」라는 문장을 내 입으로 말한 적이 최근에 있는가? 언제, 무엇을 두고 그렇게 말했는가?</li>
+<li>내가 지금 다른 사람에게 담보로 내놓은 것은 무엇인가? 그것이 내 확신인가, 주께서 내놓으신 담보인가?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #아모스 #생명의삶 #QT #성경묵상 #맹세와담보 #번역과원어 #넘기심</span></p>
+<!-- 본문 2,315자 / raw 3,933자 — 참고 폭(raw 2,928~3,492)의 윗선을 12.6% 넘겼다.
+       유보 둘과 두 역본 대조 세 자리를 잘라 폭에 맞추지 않고 초과를 받았다(R18·R39).
+     금지된 네 문자열 각 0
+     R46 — 주께서 주어로 선 동사 토막을 세어 확인한 뒤 감사를 썼다. 다른 신이 끼어든 자리 0.
+     R4 — 첫 적용의 수신자는 기도할 말이 남지 않은 사람이고 단독으로 두었다.
+     R3 — 둘째·셋째 적용이 종이와 물건의 무게에 닿는다.
+     1차 동작 3 — 숨을 느리게 내쉬기 · 서랍에서 밖으로 꺼내기 · 들어 옮기기
+     열어 둔 것 — 6:11의 주체가 누구인지 판정하지 않았다.
+-->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 14일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

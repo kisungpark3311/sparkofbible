@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>보내시는 기갈이 양식도 물도 아니고 말씀을 듣는 기갈입니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 18일 &middot; 아모스 8:11~9:6</span>
+      <h1>보내시는 기갈이 양식도 물도 아니고 말씀을 듣는 기갈입니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 아모스 8:11-9:6</h1>
+<h2>📖 보내시는 기갈이 양식도 물도 아니고 말씀을 듣는 기갈입니다</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 18일 (수) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"내가 기근을 땅에 보내리니 양식이 없어 주림이 아니며 물이 없어 갈함이 아니요 여호와의 말씀을 듣지 못한 기갈이라"</em> (아모스 8:11, 개역개정)</p>
+<p><em>"그의 궁전을 하늘에 세우시며 그 궁창의 기초를 땅에 두시며 바닷물을 불러 지면에 쏟으시는 이니 그 이름은 여호와시니라"</em> (아모스 9:6, 개역개정)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p>기갈을 보내시는 분이 8:11에서 그 기갈의 내용을 두 번 부정하고 한 번 바꿉니다. 양식이 없어 주림이 아니고 물이 없어 갈함이 아니며, 여호와의 말씀을 듣지 못한 기갈입니다. 한 절 뒤에 찾는 동작이 셋 담깁니다 — 비틀거리고, 돌아다니고, 구합니다. 결과는 한마디로 닫힙니다. 얻지 못합니다. 8:14는 그 기갈이 어디에 앉았는지를 맹세 둘로 드러냅니다. <strong>한국어 지면에서 맹세의 대상은 「사마리아의 죄된 우상」과 「단아 네 신들」과 「브엘세바가 위하는 것」 셋으로 읽히는데, 히브리어에서 신을 가리키는 표제어는 그 가운데 하나뿐이고 그 하나가 단의 신입니다.</strong> 「우상」이라는 낱말도 본문에 없습니다 — 두 한국어 번역이 넣었습니다. 9:1-4에서 선고가 1인칭으로 몰아치고, 9:5-6에서 그 1인칭이 0으로 끊기며 창조를 노래하는 두 절이 옵니다. 마지막 절의 첫 낱말이 「쌓아 올리시는 분」입니다. <strong>그 동사의 표제어는 구약에 삼백일흔다섯 토막이고 서른세 책에 걸쳐 있는데, 서두에 인용한 이 한 꼴은 구약 전권에 한 절입니다.</strong> <strong>그분이 하늘에 두신 것을 두 한국어 번역은 「궁전」으로, 형태 자료와 그리스어 역본은 「오름길」로 읽습니다.</strong> ⚠ 두 독법 가운데 어느 쪽이 옳은지는 가리지 않습니다.</p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 한 낱말이 세 낱말로 갈라집니다</h3>
+<blockquote>
+<p><em>"내가 기근을 땅에 보내리니 양식이 없어 주림이 아니며 물이 없어 갈함이 아니요 여호와의 말씀을 듣지 못한 기갈이라"</em> (아모스 8:11, 개역개정)</p>
+</blockquote>
+<p>위 한 줄에서 「기근」과 「주림」과 「기갈」을 세어 보십시오. 셋입니다. 히브리어 본문에서 기갈을 뜻하는 낱말은 이 절에 두 번 담기고, 셋째 자리에는 명사가 없습니다. <strong>개역개정과 개역한글이 그 자리에 「기갈」을 넣었고 그리스어 역본도 같은 낱말을 다시 넣었습니다.</strong> 두 한국어 번역은 같은 한 낱말을 「기근」과 「주림」으로 갈라 적었습니다. 손에 든 성경으로는 그 둘이 한 낱말임을 볼 수 없습니다. 이 낱말이 한 절에 두 번 담긴 절은 구약에 열세 곳입니다. <strong>거기에 부정하는 말과 「여호와의 말씀」이 함께 걸린 절은 구약 전권에 아모스 8:11 하나입니다.</strong></p>
+<h3>2️⃣ 들을 수 없는 말씀은 여럿이고 찾는 말씀은 하나입니다</h3>
+<blockquote>
+<p><em>"여호와의 말씀을 듣지 못한 기갈이라"</em> (아모스 8:11, 개역개정)</p>
+<p><em>"사람이 이 바다에서 저 바다까지, 북쪽에서 동쪽까지 비틀거리며 여호와의 말씀을 구하려고 돌아다녀도 얻지 못하리니"</em> (아모스 8:12, 개역개정)</p>
+</blockquote>
+<p>두 줄의 한국어가 같습니다. 히브리어는 다릅니다. 8:11의 「말씀」은 여럿을 가리키는 꼴이고 8:12의 「말씀」은 하나를 가리키는 꼴입니다. <strong>개역개정과 개역한글이 둘을 한 가지로 적었고 그리스어 역본도 둘 다 하나로 적었습니다.</strong> 세 역본이 그 수를 평평하게 만들었습니다. <strong>8:12의 「사람이」도 본문에 없습니다 — 찾는 동작 셋에 주어가 한 토막도 적혀 있지 않아서 두 한국어 번역이 함께 넣었습니다.</strong></p>
+<h3>3️⃣ 선고의 목적어는 「남은 자」가 아니라 「그들의 끝」입니다</h3>
+<blockquote>
+<p><em>"내가 그 남은 자를 칼로 죽이리니 그 중에서 한 사람도 도망하지 못하며 그 중에서 한 사람도 피하지 못하리라"</em> (아모스 9:1, 개역개정)</p>
+</blockquote>
+<p>히브리어 본문에서 이 선고가 받는 목적어는 「그들의 끝」입니다. <strong>「남은 자」를 뜻하는 낱말 둘은 이 열 절에 한 토막도 담기지 않았고, 세 역본이 함께 그 말을 넣었습니다.</strong> 본문은 「남은 자가 없다」를 적지 않습니다. 본문이 쓰는 낱말은 「구원」이 아니라 「도망」입니다 — 도망과 피함을 뜻하는 토막이 9:1 한 절에 넷 담깁니다. 9:1-4를 구원을 잃은 자리로도, 영원히 내버려진 자리로도 읽지 않습니다. 구원을 뜻하는 낱말 일곱 종이 아모스 전권에 0번이고, 돌이킴을 뜻하는 낱말은 이 책에 열다섯 번 담기는데 이 열 절에는 0번입니다. 두 0이 서로 다릅니다. 앞의 0은 책에 아예 없고, 뒤의 0은 책에 있으면서 이 열 절에만 없습니다.</p>
+<p><strong>요한복음 1:14는 그 말씀이 육신이 되어 우리 가운데 거하셨다고 적고, 요한복음 1:51은 하늘이 열리고 천사들이 인자 위에 오르락내리락하는 것을 보리라고 적습니다.</strong> ⚠ 아모스가 그 몸을 담지 않았으므로, 이 연결은 정경이 뒤에 더한 말로 적습니다.</p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">기도할 말이 남지 않은 분에게</span><br/>
+오늘 한 번만, 소리 없이 입을 벌리십시오. 문장을 갖춘 기도를 입으로 말하는 것과 다릅니다. 입을 벌리기만 하는 일은 숨을 들이마시는 일보다도 작습니다. <strong>본문은 듣지 못하는 처지를 게으름으로도 불신앙으로도 적지 않고 보내진 기갈로 적습니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">본문으로 가기 전에 한 호흡을 들이마시기</span><br/>
+8:11을 펴기 전에 한 호흡을 들이마시십시오. 소리 없이 입을 벌리는 것과 다릅니다. <strong>들리지 않는 달에도 호흡은 들어옵니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">물 한 모금으로 목을 적시기</span><br/>
+8:13을 읽는 날에 물 한 모금으로 목을 적시십시오. 한 호흡을 들이마시는 것과 다릅니다. <strong>8:13은 마음의 상태를 적지 않고 갈하여 쓰러지는 몸을 적습니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>보내리니, 찾아낼 것이요, 두시며, 쏟으시는 — 이 열 절에서 주님이 주어로 서신 낱말을 하나하나 세어 보았습니다. 그 자리가 있어서 감사합니다.<br/>
+들리지 않는 달에 저는 제 믿음의 양을 먼저 계산했습니다. 본문은 그 처지를 보내진 기갈로 적는데, 저는 제 탓과 남의 탓으로만 적었습니다.<br/>
+<strong>오늘은 말씀을 듣는 기갈을 제 입으로 고백합니다. 들릴 때까지 그 자리를 지키겠습니다.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>오늘 내 기갈은 양식의 기갈입니까, 물의 갈증입니까, 말씀을 듣는 기갈입니까?</li>
+<li>「기근」과 「주림」이 한 낱말임을 보고 나서, 8:11의 어디가 달리 읽힙니까?</li>
+<li>내 맹세가 무엇에 걸려 있는지 세어 본다면, 그 자리에 여호와의 이름이 들어 있습니까?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #아모스 #생명의삶 #QT #성경묵상 #말씀의기갈 #역본대조 #아모스8장</span></p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 18일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>비춤이 가장 많이 든 한 절, 그 절의 주어는 동사를 받지 않습니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 27일 &middot; 고린도후서 4:1-6</span>
+      <h1>비춤이 가장 많이 든 한 절, 그 절의 주어는 동사를 받지 않습니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 고린도후서 4:1-6</h1>
+<h2>📖 비춤이 가장 많이 든 한 절, 그 절의 주어는 동사를 받지 않습니다</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 27일 (금) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"어두운 데에 빛이 비치라 말씀하셨던 그 하나님께서 … 하나님의 영광을 아는 빛을 우리 마음에 비추셨느니라"</em> (개역개정 4:6)</p>
+<p><em>"그러므로 우리가 이 직분을 받아 긍휼하심을 입은 대로 낙심하지 아니하고"</em> (개역개정 4:1)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p><strong>4:1은 받은 직분을 가지고 물러서지 않는다는 말로 열립니다.</strong></p>
+<blockquote>
+<p><em>"오직 진리를 나타냄으로 하나님 앞에서 각 사람의 양심에 대하여 스스로 추천하노라"</em> (개역개정 4:2)</p>
+</blockquote>
+<p>과녁이 둘입니다. 각 사람의 양심, 그리고 하나님 앞. 4:3은 복음이 가려진 경우를 담되 누가 가렸는지 밝히지 않고, 4:4는 눈을 가린 이를 따로 담되 이름을 붙이지 않습니다.</p>
+<blockquote>
+<p><em>"우리는 우리를 전파하는 것이 아니라 오직 그리스도 예수의 주 되신 것과"</em> (개역개정 4:5)</p>
+</blockquote>
+<p>4:5는 전파되는 대상을 우리에서 그리스도 예수 주로 바꾸는데, 그 세 낱말이 이어진 절은 신약에 한 절뿐입니다. 4:3은 열세 낱말에 동사가 다섯이고 그 넷이 두 꼴을 두 번씩 되풀이하는데, 「가리어진」의 그 꼴이 한 절에 두 번 든 절은 신약에 4:3 하나입니다. <strong>이 여섯 절의 접속사는 열 토막, 낱말 대비 8.2%로 열한 단위 가운데 절대수와 밀도가 둘 다 가장 낮습니다.</strong> ⚠ 다만 「목적 표현이 없다」로 넓히면 거짓입니다. <strong>⛔ 4:2를 폭로의 규범으로 쓰지 않고, 이 여섯 절을 자기 직분을 정당화하는 근거로도 쓰지 않습니다(조항 A).</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 빛이 가장 많이 든 한 절에서, 주어가 끝맺는 동사를 직접 받지 않습니다</h3>
+<blockquote>
+<p><em>"어두운 데에 빛이 비치라 말씀하셨던 그 하나님께서 … 비추셨느니라"</em> (개역개정 4:6)</p>
+</blockquote>
+<p>빛과 어둠을 가리키는 낱말 열세 가지를 신약 전체에서 세면 그 낱말이 든 절이 백일곱입니다. 세 가지가 든 절은 하나도 없고, 네 가지가 든 절은 딱 하나이며 4:6이 그 절입니다. 그 한 절에 다섯 토막이 들고 앞의 4:4에 두 토막이 더 있어 이 여섯 절의 빛·어둠 낱말은 일곱 토막입니다. 비추다가 두 번 드는데 두 꼴의 때가 갈립니다 — 앞일로 적는 꼴은 신약 전권에 한 번뿐이고, 지나간 일로 적는 꼴은 세 번이어서 드물지 않습니다. 담을 수 있는 말은 「한 꼴만 유일하다」까지입니다. <strong>그런데 그 절의 주어는 끝맺는 동사를 직접 받지 않습니다.</strong> 「그 하나님」 뒤에는 「말씀하신」이라는 「~있는」 꼴 하나가 붙고, 비추신 일은 「그가」로 받아 가는 꼴을 거쳐 듭니다. <strong>두 역본은 그 두 겹을 풀어 한 문장으로 만들고, 원문의 그 끊김이 역문에서는 보이지 않습니다.</strong></p>
+<h3>2️⃣ 네 절 사이에 글자까지 같은 두 「신」, 가르는 재료는 수식구 하나입니다</h3>
+<blockquote>
+<p><em>"그 중에 이 세상의 신이 … 그리스도는 하나님의 형상이니라"</em> (개역개정 4:4)</p>
+</blockquote>
+<p>4:4가 눈을 가린 이를 「이 세상의 신」으로, 4:6이 비추신 분을 「그 하나님」으로 담고 두 역본의 선택이 일치합니다. 원문에서는 그 두 낱말이 다섯 차원에서 글자까지 같습니다 — 표제어, 여덟 글자 꼴, 품사, 그 앞에 붙는 말, 앞에 선 전치사가 둘 다 없는 자리. 갈리는 자리는 뒤에 붙은 수식구 하나입니다. 4:4는 「이 세대의」라는 「~의」 꼴을, 4:6은 「말씀하신」이라는 꼴을 답니다. 함께 든 낱말로도 가려지지 않습니다. 「하나님」과 「세대」가 한 절에 함께 든 절이 신약에 스물네 절이고 그 가운데 스물셋이 참 하나님입니다. 가르는 재료는 공존이 아니라 이어짐이어서, 네 낱말 연쇄로 보면 신약에 한 절뿐이고 4:4가 그 절입니다. <strong>참 하나님을 가리키는 기명은 열한 토막인데 주어 자리 하나, 「~의」 꼴 여섯, 「~을」 꼴 넷, 「~에게」 꼴과 부르는 꼴 0입니다.</strong> ⛔ 4:4는 가림을 끝맺는 동사로 담고 4:6은 비춤을 그렇게 담지 않으니, 두 행위자의 꼴이 대칭이 아니어서 나란히 견주지 않습니다. <strong>⛔ 「저 사람은 혼미하게 된 이다」라는 판정을 끌어낼 재료도 없습니다 — 대적과 우상을 가리키는 낱말 열일곱 가지가 이 여섯 절에 0토막입니다.</strong></p>
+<h3>3️⃣ 회중의 책에는 그 갈림이 보이지 않습니다</h3>
+<blockquote>
+<p><em>"…복음의 광채가 비취지 못하게 함이니"</em> (개역한글 · 한 전자화)</p>
+<p><em>"…복음의 광채를 비취지 못하게 함이니"</em> (개역한글 · 다른 전자화)</p>
+</blockquote>
+<p><strong>4:4의 원문에는 「~을」 꼴 한 토막이 「문장을 끝맺지 않는 꼴」 앞에 놓이는데, 그 꼴의 주어로도 목적어로도 읽힙니다.</strong> <strong>개역한글 두 전자화가 그 두 읽기를 각각 하나씩 택했습니다.</strong> ⚠ 조판 차이가 아니고, 어느 전자화가 인쇄본과 맞는지도 확인되지 않았으므로 여기서 판정하지 않습니다. 개역개정도 「광채가」입니다. 손에 든 책이 어느 전자화에서 왔는지에 따라 그 한 낱말이 달라지는데, 회중의 책에는 그 갈림이 보이지 않습니다. 갈림은 더 있습니다. 4:6의 한 토막을 개역개정은 「빛이 비치라」로, 개역한글은 「빛이 비취리라」로 옮깁니다. 앞쪽은 명령하는 꼴, 뒤쪽은 앞일로 적는 꼴인데 이 여섯 절에 명령하는 꼴이 0토막이므로 개역개정의 명령형에는 꼴 근거가 0개입니다. 4:3에서 원문은 받는 쪽으로 적힌 꼴을 두 번 담는데, 그 표시를 살린 수가 개역개정 1 · 개역한글 0입니다. 4:1의 「받아」도 역문이 더한 말입니다. 원문은 직분을 「가지고 있는」 꼴로 담고 주고받음을 뜻하는 두 낱말이 이 여섯 절에 0토막입니다(역어 O). 개역개정은 4:2의 「진리」에 「헬, 참」을, 4:6에 「창 1:3」을 적어 두었습니다. ⛔ 그 각주를 원어 뜻의 확정으로 쓰지 않습니다. 4:6과 창세기 1:3의 문면 차이는 다섯인데, 견줄 세 번째 문면이 없어 방향은 판정하지 않습니다.</p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">설교를 들어도 와닿지 않는다고 느껴 온 분께</span><br/>
+오늘 하실 일은 설명을 알아듣는 일이 아닙니다. 성경 책장 한 장을 손끝으로 더듬어 그 면이 거친지 매끈한지 가늠해 보십시오. 이 여섯 절에 명령하는 꼴도 2인칭 동사도 0토막이라 「정직하라」는 말이 한 번도 들어오지 않습니다. <strong>결의 방향을 가늠하는 일은 설교를 다시 들어 보는 것과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">결이 누운 쪽과 거스르는 쪽을 가려내기</span><br/>
+밥상 나무 상판의 결을 손바닥 밑면으로 가로질러 훑어 보십시오. 같은 면인데 한 방향은 매끄럽고 반대 방향은 걸립니다. 4:4와 4:6의 두 「신」이 그런 자리입니다. <strong>상판을 훑는 일은 책장 한 장을 손끝으로 더듬는 것과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">무늬가 끊기는 자리를 한 줄로 적어 두기</span><br/>
+벽지나 타일 무늬가 이어지다 끊기는 자리를 찾아 그 자리를 한 줄로 적어 두십시오. 4:4의 한 낱말이 두 전자화에서 갈리는 일도 적어 두면 남습니다. <strong>적어 두는 일은 상판의 결을 손바닥으로 훑는 것과 다릅니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>어둠에서 빛을 부르신 분과 우리 안에 비추신 분이 한 분이라고 본문이 적습니다. 우리는 그 빛을 만들지 못합니다.</p>
+<p>알아듣지 않는 사람을 분류하는 말을 본문에서 얻지 못했는데도 그 판정을 내려 온 일을 고백합니다. 전파되는 대상이 우리로 바뀌어 있던 자리도 고백합니다.</p>
+<p>명령하는 꼴이 하나도 없는 본문이니, 적힌 사실 앞에 머물겠습니다. 결이 누운 방향을 손으로 가늠하는 자리에서 다시 읽겠습니다.</p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+<p><strong>※ 감사를 적지 않았습니다. 4:4에서 주어 자리에 선 토막은 참 하나님이 아니고, 참 하나님 기명이 주어로 서서 끝맺는 동사를 받은 자리가 0토막이며(「~있는」 꼴 하나뿐) 감사를 뜻하는 낱말도 0토막입니다. 없는 근거로 감사를 만들지 않았습니다.</strong></p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>오늘 누군가를 「알아듣지 못하는 사람」으로 분류한 일이 있습니까?</li>
+<li>내가 전파하는 대상은 무엇입니까? 먼저 부인해야 할 자리가 어디입니까?</li>
+<li>손에 든 성경의 한 낱말이 다른 책과 갈릴 수 있음을 알고도 계속 읽겠습니까?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #고린도후서 #생명의삶 #QT #성경묵상 #빛과어둠 #역본대조 #구문묵상</span></p>
+<!-- 점검: 금지된 네 문자열 각 0 · 1차 동작 3(서로 다름) · 열린 유보 3 -->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 27일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

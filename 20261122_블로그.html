@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>「예」가 관사를 벗는 자리에서 주어가 옮겨 갑니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 22일 &middot; 고린도후서 1:15-24</span>
+      <h1>「예」가 관사를 벗는 자리에서 주어가 옮겨 갑니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 고린도후서 1:15-24</h1>
+<h2>📖 「예」가 관사를 벗는 자리에서 주어가 옮겨 갑니다</h2>
+<p><strong>2026-11-22 (일) | 생명의삶 QT</strong></p>
+<hr/>
+<blockquote>
+<p><em>"하나님은 미쁘시니라 우리가 너희에게 한 말은 예 하고 아니라 함이 없노라"</em> (고후 1:18)</p>
+<p><em>"우리 곧 나와 실루아노와 디모데로 말미암아 너희 가운데 전파된 하나님의 아들 예수 그리스도는 예 하고 아니라 함이 되지 아니하셨으니 그에게는 예만 되었느니라"</em> (고후 1:19)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p>열 절은 바뀐 일정으로 열립니다. 바울이 가려던 길이 바뀌었고, 그 바뀜을 두고 「예 예 하면서 아니라 아니라 하는 일」이라는 혐의가 걸립니다. 본문은 그 혐의를 물음으로 받습니다 — 열 절의 물음표가 둘인데 둘이 다 1:17에 붙습니다. <strong>그러면서 본문이 자기 변호로 답하지 않습니다.</strong></p>
+<p><strong>「예」는 여섯 번, 「아니라」는 네 번 들어와 열 토막이 되고, 그 가운데 다섯에만 관사가 붙습니다.</strong> 관사가 붙은 다섯은 1:17의 넷과 1:20의 하나이며, 붙지 않은 다섯은 1:18의 둘과 1:19의 셋입니다. 관사를 받으면 두 낱말이 명사구가 되어 「내게 있겠느냐」라고 물어지는 주어가 되고, 관사를 벗으면 술어가 되어 「우리의 말」과 「하나님의 아들」에게 돌려집니다. <strong>이 두 낱말은 고린도후서 전체에서 이 열 절에만 들어옵니다.</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 「나」의 동사가 물음표 아래 놓인 뒤에 주어가 바뀝니다</h3>
+<blockquote>
+<p><em>"이렇게 계획할 때에 어찌 경솔히 하였으리요 혹 계획하기를 육체를 따라 계획하여 예 예 하면서 아니라 아니라 하는 일이 내게 있겠느냐"</em> (고후 1:17)</p>
+</blockquote>
+<p>1:17의 동사는 다섯인데 그 가운데 넷이 스스로에게 돌아오는 꼴입니다. 열 절의 동사 스물다섯 가운데 아홉이 그 꼴이고(36.0%), 아홉 가운데 넷이 1:17 한 절에 모입니다. 그 아홉의 주어는 거의 다 「나」입니다. <strong>1:19에서 끝맺는 동사 둘의 주어가 「하나님의 아들 예수 그리스도」로 바뀌는데, 이 열 절에서 주어 자리에 선 신적 이름은 그 세 토막뿐입니다.</strong></p>
+<p>1:17에서 「예 예 아니라 아니라」를 담은 여섯 낱말은 야고보서 5:12의 여섯 낱말과 종지 문자 하나만 빼고 한 문자열입니다. 마태복음 5:37은 그 연쇄를 공유하지 않습니다. <strong>어느 쪽이 먼저인지도 어느 쪽이 영향을 주었는지도 이 자료로 가리지 않습니다 — 두 절이 여섯 낱말을 공유한다는 데까지만 적습니다.</strong></p>
+<h3>2️⃣ 개역개정이 1:15의 때를 지난 일로 닫습니다</h3>
+<blockquote>
+<p><em>"내가 이 확신을 가지고 너희로 두 번 은혜를 얻게 하기 위하여 먼저 너희에게 이르렀다가"</em> (고후 1:15)</p>
+<p><em>"내가 다시 고린도에 가지 아니한 것은 너희를 아끼려 함이라"</em> (고후 1:23)</p>
+</blockquote>
+<p><strong>원문 1:15의 동사는 지난 일로 이어 적는 꼴인데, 개역개정은 그것을 1:16 끝으로 옮겨 「계획하였으니」로 놓습니다.</strong> 1:15 자리에는 때를 담지 않던 동사 꼴이 「이르렀다가」, 곧 지난 일 종결로 들어섭니다. 그래서 「실제로 갔다」로 읽힐 꼴이 역문에 생기고, 그 독법이 1:23의 「가지 아니한」과 마주 놓입니다. 개역개정의 과거 종결 꼴을 도착한 사실로 받지 않습니다. 어느 쪽이 옳은지는 가리지 않고 두 문면을 나란히 놓습니다. 회중의 책에는 그 갈림이 보이지 않습니다. <strong>이 비교는 개역개정 한 판을 기준으로 적습니다 — 두 판을 함께 가리켜 적지 않습니다.</strong></p>
+<h3>3️⃣ 1:20부터 동사가 사라지고 주어가 하나로 남습니다</h3>
+<blockquote>
+<p><em>"하나님의 약속은 얼마든지 그리스도 안에서 예가 되니 그런즉 그로 말미암아 우리가 아멘 하여 하나님께 영광을 돌리게 되느니라"</em> (고후 1:20)</p>
+<p><em>"우리를 너희와 함께 그리스도 안에서 굳건하게 하시고 우리에게 기름을 부으신 이는 하나님이시니"</em> (고후 1:21)</p>
+</blockquote>
+<p><strong>원문 1:20에는 동사가 0개인데 개역개정이 동사 셋을 넣습니다 — 「예가 되니」·「아멘 하여」·「돌리게 되느니라」.</strong> 그 하나에는 1인칭 여럿을 가리키는 주어까지 보충합니다(「우리가 아멘 하여」). 원문 1:20의 1인칭은 「그로 말미암아」에 든 한 토막뿐입니다. 1:21-22에는 끝맺는 동사가 0개이고 동사 네 토막이 한 꼴로 서며 주어가 「하나님」 하나입니다. 번호를 붙인 순서로 적지 않습니다 — 그 순서를 원문이 만들지 않습니다. <strong>1:20의 「아멘」은 고린도후서에 한 번뿐인 낱말이고, 동사가 0개인 절에 들어 있습니다.</strong></p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">설교가 반만 들리는 자리에서</span><br/>
+귀가 어두워 설교를 반만 듣는 분께 이 열 절은 요구를 걸지 않습니다. 명령형이 0개이고 「굳건해지라」는 말이 한 번도 들어오지 않습니다(고린도후서의 명령형 스물두 번 가운데 첫째가 5장에 있습니다). 녹음해 둔 설교에서 1:19를 다룬 대목만 음량을 한 칸 올려 되들어 보십시오. <strong>말을 끊지 않고 끝까지 울리게 두는 것과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">약속한 날짜를 못 지킨 뒤에</span><br/>
+1:18은 「하나님은 미쁘시니라」를 동사 없이 놓습니다. 사람의 흔들림과 하나님의 미쁘심을 한 저울에 올리지 않습니다 — 본문에서 주어가 갈립니다. 심방 날짜를 두 번 바꾸었다면, 상대가 되물어 온 말을 끊지 않고 끝까지 울리게 두십시오. <strong>날짜와 금액을 상대 쪽 소리로 울려 받는 것과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">날짜와 금액을 다루는 책상에서</span><br/>
+1:22는 하나님이 하신 일을 「인치시고」와 「보증으로 우리 마음에 성령을 주셨느니라」로 담습니다. 계약금 수령일과 인감 날인은 세무의 일상입니다. 전화를 끊기 전에 날짜와 금액을 상대 쪽 소리로 한 번 더 울려 받으십시오. <strong>음량을 올려 되듣는 것과 다릅니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>하나님, 이 열 절에서 주어 자리에 서신 분이 하나님의 아들 예수 그리스도이시고, 그에게서 「예」가 되었다고 본문이 적습니다. 그 「예」를 두고 아멘 하여 하나님께 영광을 돌리게 하신 일에 감사드립니다.</p>
+<p>저는 바뀐 일정을 사람의 신실함 눈금으로 재어 왔습니다. 본문이 그 눈금을 쓰지 않는다고 고백합니다.</p>
+<p><strong>굳건하게 하시는 일의 주어가 저에게 맡겨지지 않았습니다. 변명 한 문장을 준비하기보다, 전파된 분이 「예」라고 다시 알게 하여 주십시오.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>「예」와 「아니라」가 관사를 벗는 1:18에서 주어가 누구로 옮겨 갑니까?</li>
+<li>바뀐 일정을 사람의 신실함 눈금으로 재어 본 자리가 어디였습니까?</li>
+<li>1:17의 여섯 낱말이 야고보서 5:12와 겹친다는 사실을 두고, 어느 쪽이 먼저인지 가리지 않은 채 무엇까지 말할 수 있습니까?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #고린도후서 #생명의삶 #QT #성경묵상 #예와아니라 #미쁘신하나님 #보증</span></p>
+<!-- 금지된 네 문자열 각 0 -->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 22일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

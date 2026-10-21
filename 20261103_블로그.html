@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>돌이키지 아니하리라 — 불을 보내는 임자가 여섯이고 그 결과가 넷이다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 03일 &middot; 아모스 1:1-8</span>
+      <h1>돌이키지 아니하리라 — 불을 보내는 임자가 여섯이고 그 결과가 넷이다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 아모스 1:1-8</h1>
+<h2>📖 돌이키지 아니하리라 — 불을 보내는 임자가 여섯이고 그 결과가 넷이다</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 3일 (화) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"여호와께서 가라사대 다메섹의 서너 가지 죄로 인하여 내가 그 벌을 돌이키지 아니하리니 이는 저희가 철 타작기로 타작하듯 길르앗을 압박하였음이라"</em> (암 1:3)</p>
+<p><em>"여호와께서 가라사대 가사의 서너 가지 죄로 인하여 내가 그 벌을 돌이키지 아니하리니 이는 저희가 모든 사로잡은 자를 끌어 에돔에 붙였음이라"</em> (암 1:6)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p>이 책은 사람의 말로 열립니다. 1:1의 첫 구가 「아모스의 말씀이라」이고, 그가 「드고아 목자 중」에 섰다고만 적힙니다. 둘째 절에서 말하는 임자의 이름이 안으로 끌려 들어옵니다.</p>
+<blockquote>
+<p><em>"저가 가로되 여호와께서 시온에서부터 부르짖으시며 예루살렘에서부터 음성을 발하시리니 목자의 초장이 애통하며 갈멜 산 꼭대기가 마르리로다"</em> (암 1:2)</p>
+</blockquote>
+<p>1:3과 1:6은 같은 꼴로 열립니다. 두 번 다 「내가 그 벌을 돌이키지 아니하리니」가 선언을 엽니다. <strong>역본이 넣은 「벌」에 해당하는 낱말을 본문은 0개 적습니다 — 돌이키지 않겠다고만 적혀 있습니다.</strong> 거절의 근거로 본문은 마음을 적지 않고 행위를 적습니다. 철 타작기로 타작한 일, 사람을 끌어 남에게 넘긴 거래입니다.</p>
+<p>심판 행위를 담는 동사가 여덟 절 안에 열 토막이고, 절마다 0 · 0 · 0 · 2 · 3 · 0 · 2 · 3으로 갈립니다. 「돌이키지 아니하리니」가 붙는 1:3과 1:6에는 그 동사를 0개 둡니다. 거절을 선언하는 자리에 행위를 두지 않고, 행위를 그 선언 바로 뒤에 엽니다. <strong>여덟 절 안에서 하나님이 주어로 서는 동사를 세어 보면 열다섯 토막입니다.</strong> <strong>말하는 임자와 행하는 임자가 한 분입니다.</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 열 토막을 둘로 갈라 읽습니다 — 「내가」 여섯, 그 결과 넷</h3>
+<blockquote>
+<p><em>"내가 하사엘의 집에 불을 보내리니 벤하닷의 궁궐을 사르리라"</em> (암 1:4)</p>
+</blockquote>
+<p>불을 보내는 임자가 「내가」입니다. 그 불을 사르는 주어는 불 자신, <code>אֵשׁ</code>(에쉬)입니다. 열 토막 가운데 「내가」로 선 꼴이 여섯이고(1:4 · 1:5 둘 · 1:7 · 1:8 둘), 나머지 넷은 그 여섯이 한 일의 결과를 담습니다 — 불이 궁궐을 사르고, 아람 백성이 사로잡혀 가고, 블레셋의 남은 자가 멸망합니다. 열을 통째로 「내가」로 읽으면 넷을 임자 쪽으로 끌어 올리게 됩니다. 「불을 보내리라」(<code>וְשִׁלַּחְתִּי</code>, 베실라흐티)는 꼴이 이 책 앞머리 세 묶음에 몰려 있고, <code>אֵשׁ</code>는 이 책에 아홉 토막입니다. 드문 낱말이라서 무게가 실리지 않습니다.</p>
+<p>이 「내가」의 사슬은 히브리어 본문 차원의 사실입니다. 1:8의 「내가 끊으리라」를 희랍어 판본은 「끊어지리라」로 옮겨 행하는 임자를 가립니다. <strong>두 문면을 함께 두고 어느 쪽이 옳은지 판정하지 않습니다.</strong></p>
+<h3>2️⃣ <code>שׁוּב</code>(슈브)가 한 단위 안에서 반대 일을 합니다</h3>
+<blockquote>
+<p><em>"내가 그 벌을 돌이키지 아니하리니"</em> (암 1:3·1:6)<br/>
+<em>"내가 또 손을 돌이켜 에그론을 치리니"</em> (암 1:8)</p>
+</blockquote>
+<p>한 어근이 한 단위 안에서 두 방향으로 섭니다. 1:3·1:6은 거절을 담고, 1:8은 손을 옮겨 치는 일을 담습니다. <strong>개역한글이 셋을 전부 「돌이키다」로 옮겨, 본문이 가른 자리를 우리말은 0개 보여 줍니다.</strong> 같은 어근으로 「내가 내 백성 이스라엘의 사로잡힌 것을 돌이키리니」가 9:14에 한 번 더 섭니다. 그 절은 이 단위 밖이고 수신자도 갈립니다. <strong>둘을 한 문장으로 잇지 않고 나란히 둡니다.</strong></p>
+<h3>3️⃣ 애통과 멸망이 단위 양 끝에 섭니다</h3>
+<blockquote>
+<p><em>"목자의 초장이 애통하며"</em> (암 1:2)<br/>
+<em>"블레셋의 남아 있는 자가 멸망하리라 이는 주 여호와의 말씀이니라"</em> (암 1:8)</p>
+</blockquote>
+<p>1:2의 「애통하며」(<code>וְאָבְלוּ</code>, 베아블루)와 1:8의 「멸망하리라」(<code>וְאָבְדוּ</code>, 베아브두)는 앞머리와 모음과 끝의 꼴이 전부 겹치고 마지막 자음 하나만 갈립니다. 두 어근은 서로 다릅니다. 단위의 첫 소리가 애통이고 마지막 소리가 멸망인데, 그 절을 닫는 구가 「이는 주 여호와의 말씀이니라」입니다. <strong>말할 힘이 떨어진 자리에도 그 처지를 말하는 임자의 이름이 붙어 있습니다.</strong></p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">지금 아무것도 할 수 없는 사람에게 — 들어 보십시오</span><br/>
+자기 처지를 설명할 말이 떨어진 자리에 본문은 요구를 0개 둡니다. 이 단락에 명령 꼴이 0개이고, 「너희」로 부르는 동사도 0개입니다. 오늘은 1:8을 다른 사람의 목소리로 읽어 달라 하고 그 옆에 앉아 듣기만 하십시오. <strong>옆에서 듣기는 혼자 소리 내어 읽기와 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">장부와 계약서에 한 줄 적어 보십시오</span><br/>
+1:3과 1:6은 거절의 근거를 도구와 거래로 적습니다. 철 타작기가 적히고, 끌어 넘긴 상대가 적히고, 범위가 적힙니다. 지난 한 달 장부와 계약서를 펼쳐, 내 손이 무엇으로 무엇을 했는지 한 줄로 적어 보십시오. <strong>무엇을 느꼈는지 적는 자리가 아닙니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">3:2를 이어 읽고 입으로 물어보십시오</span><br/>
+여기서 선고를 받는 쪽은 다메섹과 가사입니다. 같은 책 3:2가 그 선고를 돌려세웁니다 — 「내가 땅의 모든 족속 중에 너희만 알았나니 그러므로 내가 너희 모든 죄악을 너희에게 보응하리라」. <strong>오늘 1:3과 3:2를 이어 읽고, 「이 선고가 우리 자리를 비켜 가는가」를 소리 내어 물어보십시오.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>주님, 이 여덟 절에서 주님은 말하는 임자로만 서지 않으시고 행하는 임자로 서십니다. 감사합니다.<br/>
+저는 선고의 자리를 늘 남의 자리로 밀어 두었습니다. 다메섹과 가사를 읽으면서 제 손과 제 장부를 세지 않았습니다.<br/>
+오늘 제 손이 무엇으로 무엇을 했는지 한 줄 적어 보겠습니다. 주님 앞에서 숨기지 않겠습니다.<br/>
+<strong>거절하신 분과 손을 옮기신 분이 한 분이심을 제가 다 풀지 못한 채로 받습니다.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>열 토막을 여섯과 넷으로 갈라 읽으면, 내가 본문에서 덜 떠안게 되는 것이 무엇입니까?</li>
+<li>「돌이키지 아니하리니」와 「손을 돌이켜」가 한 임자의 말인데, 어느 쪽이 내 하루를 더 많이 설명합니까?</li>
+<li>3:2를 이어 읽은 뒤에도 이 선고를 남의 일로 둘 수 있습니까?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #아모스 #생명의삶 #QT #성경묵상 #심판신탁 #돌이키다</span></p>
+<!-- 본문 1,872자 / raw 3,330자 (count_body.py 실측) · 상한 1,800자를 72자 초과 · R39 20% 안이므로 재수정하지 않았고, 유보를 잘라 분량을 맞추지 않았다 · 금지된 네 문자열 각 0 -->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 03일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

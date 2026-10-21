@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>용서를 가리키는 표준 낱말 다섯이 이 편지에 없습니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 23일 &middot; 고린도후서 2:1-11</span>
+      <h1>용서를 가리키는 표준 낱말 다섯이 이 편지에 없습니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 고린도후서 2:1-11</h1>
+<h2>📖 용서를 가리키는 표준 낱말 다섯이 이 편지에 없습니다</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 23일 (월) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"너희가 무슨 일에든지 누구를 용서하면 나도 그리하고 내가 만일 용서한 일이 있으면 용서한 그것은 너희를 위하여 그리스도 앞에서 한 것이니"</em> (고후 2:10, 개역개정)</p>
+<p><em>"그러므로 너희를 권하노니 사랑을 그들에게 나타내라"</em> (고후 2:8, 개역개정)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p>바울은 다시 찾아가지 않은 까닭을 먼저 적습니다. <strong>「내가 다시는 너희에게 근심 중에 나아가지 아니하기로 스스로 결심하였노니」(2:1, 개역개정).</strong> 그다음에 한 사람을 다루는 말이 이어집니다 — 「이러한 사람은 많은 사람에게서 벌 받는 것이 마땅하도다」(2:6), 「너희는 차라리 그를 용서하고 위로할 것이니」(2:7). 읽으면 명령처럼 들립니다. <strong>원문에는 명령하는 꼴이 한 자리도 없습니다.</strong> 이 열한 절뿐 아니라 1장부터 4장까지 전체에 그 꼴이 0이고, 이 편지에서 명령하는 꼴은 5:20에서 처음 열립니다. 요구가 서는 자리는 「너희를 권하노니」(2:8) 하나이고 그 주어가 「나」 한 사람입니다. ⚠ 「0」은 신약 스물일곱 권만 확인한 수이고, 짧은 구간에서 한 꼴이 빠지는 일은 흔합니다. <strong>그 침묵에서 의도를 읽어 내지 않습니다.</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 용서를 가리키는 표준 낱말 다섯이 이 편지에 한 번도 없습니다</h3>
+<blockquote>
+<p><em>"너희가 무슨 일에든지 누구를 용서하면 나도 그리하고"</em> (고후 2:10, 개역개정)</p>
+</blockquote>
+<p>2:10 한 절에 「용서」가 세 번 놓입니다. <strong>신약 스물일곱 권에서 이 동사가 한 절에 세 번 놓이는 절은 여기 하나뿐입니다.</strong></p>
+<p>신약이 「용서하다·사하다」에 쓰는 표준 동사는 백마흔세 자리에 서고 열한 권에 퍼져 있습니다. 그 명사는 열일곱 자리 일곱 권, 「풀어 주다」는 예순일곱 자리 여섯 권입니다. 이 셋에 「양해」와 「놓아둠」을 더한 다섯 낱말이 고린도후서 전체에 한 자리도 없습니다. 이 편지가 택한 낱말은 다섯 자리뿐이고 그 뿌리가 「은혜」와 같습니다. 은혜는 이 편지에 열여덟 자리에 섭니다. <strong>받은 쪽과 건네는 쪽이 한 낱말로 겹칩니다.</strong></p>
+<p>⚠ 같은 저자의 다른 편지는 그 명사를 두 번 씁니다(엡 1:7 · 골 1:14). 「저자가 본래 그 말을 피한다」로 넓힐 길이 없습니다. 「이 편지가 그 말을 쓰지 않습니다」까지입니다.</p>
+<h3>2️⃣ 「근심」 한 낱말이 원문의 여덟 자리를 하나로 모읍니다</h3>
+<blockquote>
+<p><em>"내가 마음에 큰 눌림과 걱정이 있어 많은 눈물로 너희에게 썼노니 이는 너희로 근심하게 하려 한 것이 아니요"</em> (고후 2:4, 개역개정)</p>
+<p><em>"근심하게 한 자가 있었을지라도 나를 근심하게 한 것이 아니요 어느 정도 너희 모두를 근심하게 한 것이니"</em> (고후 2:5, 개역개정)</p>
+</blockquote>
+<p>원문에서 근심 계열은 여덟 자리이고 명사 셋과 동사 꼴 다섯으로 갈립니다. 그 다섯이 다시 갈립니다 — 스스로 하는 쪽이 셋, 받는 쪽으로 적힌 꼴이 둘입니다. 때도 갈립니다 — 지금 일 둘, 이미 된 일 둘, 지나간 일 하나입니다. 2:2에서는 한 낱말이 한 절 안에서 양쪽으로 갈립니다. 내가 근심하게 하는 쪽과 근심을 입는 쪽입니다.</p>
+<p>개역개정과 개역한글은 그 여덟을 모두 「근심」 한 낱말로 옮깁니다. 반대쪽도 있습니다. 2:4의 다른 두 낱말에서는 판이 서로 갈립니다 — 개역개정 「눌림과 걱정」, 개역한글 「환난과 애통한 마음」. <strong>2:5의 맺음도 갈립니다 — 개역개정 「너무 지나치게 말하지 아니하려」, 개역한글 「너무 심하게 하지 아니하려」.</strong></p>
+<p>수도 하나 어긋납니다. 개역개정 본문에서 「근심」은 아홉 자리에 서고 원문은 여덟 자리입니다. 늘어난 한 자리가 2:5의 뒤 대조절이고, 거기에는 원문에 동사가 0입니다. 번역이 「근심하게 한 것이니」로 채운 자리입니다. <strong>손에 든 성경으로는 그것을 볼 수 없습니다.</strong></p>
+<h3>3️⃣ 한 사람에게 향하는 일이 번역에서 여럿이 됩니다</h3>
+<blockquote>
+<p><em>"이러한 사람은 많은 사람에게서 벌 받는 것이 마땅하도다"</em> (고후 2:6, 개역개정)</p>
+<p><em>"그러므로 너희를 권하노니 사랑을 그들에게 나타내라"</em> (고후 2:8, 개역개정)</p>
+</blockquote>
+<p>2:6의 「이러한 사람」, 2:7의 「그가」, 2:8의 「그를」이 원문에서 셋 다 한 사람을 가리키는 꼴로 연달아 놓입니다. 그런데 2:8의 그 한 자리를 개역개정이 「그들에게」로, 개역한글이 「저희에게」로 옮깁니다. 사랑을 확정할 상대가 한 사람에서 집단으로 바뀝니다. 사람 이름은 한 자리도 없고 그가 한 일을 가리키는 낱말도 한 자리도 없습니다.</p>
+<p>심판을 가리키는 명사와 동사 여덟이 이 편지 전체에 0입니다. 2:1의 「결심하였노니」와 5:14의 한 자리에 같은 어근이 실재하지만 둘 다 심판을 가리키지 않습니다. 2:6이 쓴 「벌」은 신약에 한 번만 나오는 낱말입니다.</p>
+<p><strong>2:6에는 원문에 동사가 0입니다.</strong> 개역한글은 「벌 받은 것이 족하도다」, 개역개정은 「벌 받는 것이 마땅하도다」로 적습니다. 어느 편이 원문의 뜻인지 가릴 길이 본문에 없습니다. 2:7의 「잠길까」에도 각주 「헬, 삼키울까」가 붙어 두 갈래를 다 보입니다. 무엇이 그를 삼키는지 본문이 열어 둡니다. <strong>회중의 책에는 그 갈림이 보이지 않습니다.</strong></p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">용서했다고 말했으나 마음이 돌아오지 않은 분께</span><br/>
+손끝이 지금 찬지 더운지 한 번만 재어 보십시오. 그 하나로 오늘 몫을 닫습니다. 본문에는 「용서하라」를 받칠 명령하는 꼴이 0이고, 요구가 서는 자리는 「권하노니」 하나입니다. <strong>마음을 고쳐먹는 일과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">난방을 한 칸만 올려 두기</span><br/>
+식구나 손님이 앉을 자리 쪽 난방을 한 칸만 올려 두십시오. 2:8이 사랑을 확정하라고 적은 상대는 한 사람인데 번역이 그 자리를 여럿으로 바꿉니다. 한 사람 몫의 온도를 한 사람 몫으로 올립니다. <strong>그 사람을 머릿속으로 떠올려 보는 일과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">찬 손을 먼저 데우기</span><br/>
+누군가 근심에 잠기는 것을 볼 때 원인을 지목하는 말이 먼저 나옵니다. 그 말 대신 내 찬 손을 겨드랑이에 끼워 먼저 데우십시오. 2:7은 무엇이 그를 삼키는지 적지 않았고, 그 빈칸을 내가 채우지 않습니다. <strong>원인을 찾아 적어 두는 일과 다릅니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>주님, 용서를 명령으로 바꾸어 남에게 들이댄 자리를 고백합니다. 제 입에서 「성경이 용서하라고 했다」가 먼저 나왔고, 본문은 그 말을 받쳐 주지 않았습니다.<br/>
+이름 없는 한 사람을 집단으로 옮겨 놓고 그것을 바른 처분이라 적은 자리도 고백합니다.<br/>
+받은 몫이 충분한지 재는 저울을 들지 않겠습니다.<br/>
+그 원인을 모르는 자리를 비워 두겠습니다.<br/>
+<strong>오늘은 한 사람 몫의 온기만 맡겠습니다.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<p><em>이 열한 절에는 하나님이 문장의 주어로 선 자리가 0이고, 그 이름도 0이며, 감사를 가리키는 낱말도 0입니다. 그래서 기도를 고백과 결단으로 적었습니다.</em></p>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>누군가에게 용서를 요구하기 전에, 내가 먼저 구하는 쪽으로 서 본 자리가 있습니까?</li>
+<li>한 사람에게 할 말을 집단에게 돌려 말한 적이 있습니까? 그때 무엇이 바뀌었습니까?</li>
+<li>지금 내 손끝은 찬 쪽입니까 더운 쪽입니까? 그 하나만 재고 오늘을 닫아도 됩니까?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #고린도후서 #생명의삶 #QT #성경묵상 #용서 #은혜 #근심</span></p>
+<!--
+조항 넷(R46·R3·R4·R29)과 R55 면·역본 대조 배정은 본문에서 지켰고 사유를 그 자리에 적었다.
+1차 동작 셋: ①손끝 온도를 재기 ②난방을 한 칸 올려 두기 ③찬 손을 겨드랑이에 끼워 데우기
+  · 계열 = 온도·따뜻함·차가움·손끝 · 대조문 셋을 각 항 말미에 실었다
+유보 둘을 열어 둔 채 닫았다 — 2:6의 두 역어 판정 불가 · 2:7의 삼킴 행위자 빈칸
+금지 문자열 전수 각 0
+-->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 23일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

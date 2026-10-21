@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>향기라는 두 낱말이 이 책 전부에서 여섯 절에만 놓입니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 24일 &middot; 고린도후서 2:12-17</span>
+      <h1>향기라는 두 낱말이 이 책 전부에서 여섯 절에만 놓입니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 고린도후서 2:12-17</h1>
+<h2>📖 향기라는 두 낱말이 이 책 전부에서 여섯 절에만 놓입니다</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 24일 (화) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"우리는 구원 받는 자들에게나 망하는 자들에게나 하나님 앞에서 그리스도의 향기니"</em> (개역개정 2:15)</p>
+<p><em>"이 사람에게는 사망으로부터 사망에 이르는 냄새요 저 사람에게는 생명으로부터 생명에 이르는 냄새라 누가 이 일을 감당하리요"</em> (개역개정 2:16)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p>본문은 이동 보고로 열립니다. <em>"내가 그리스도의 복음을 위하여 드로아에 이르매 주 안에서 문이 내게 열렸으되"</em> (개역개정 2:12). 문이 열렸다는 보고 바로 뒤에 떠남이 놓입니다. <em>"내가 내 형제 디도를 만나지 못하므로 내 심령이 편하지 못하여 그들을 작별하고 마게도냐로 갔노라"</em> (개역개정 2:13). 이미 일어난 일을 담는 완료 꼴과 쉼과 지명이 한 절에 함께 놓이는 절은 신약에 두 절이며 둘 다 이 책입니다.</p>
+<p>뒤이어 2:14가 송축을 담고, 2:15-16이 향기와 냄새를 담으며, 2:17이 변론으로 닫힙니다. <strong>이 여섯 절의 끝맺는 동사는 다섯 토막이고 다섯이 전부 1인칭입니다.</strong> 이 책 서른한 단위를 전부 재면 끝맺는 동사가 전부 1인칭인 단위는 이 하나뿐입니다. 2인칭 동사가 0토막이고 2인칭 대명사가 0토막이며 부르는 꼴이 0토막입니다. <strong>가장 긴 절인 2:16에는 동사 토막 자체가 0개이고, 그 절이 물음으로 닫힙니다.</strong> 그 물음의 낱말 뿌리는 이 책에 다섯 토막이며 네 절에 걸칩니다. 2:6은 받은 벌이 넉넉한지를 묻고, 3:5는 <em>"우리의 만족은 오직 하나님으로부터 나느니라"</em> (개역개정 3:5)로 답합니다. <strong>그 넉넉하게 하시는 동사의 주어가 하나님입니다.</strong> ⚠ 3:5-6은 이 여섯 절 밖이며, 그 연결은 정경이 뒤에 더한 말로 담습니다.</p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 향기라는 말이 이 책에서 여섯 절에만 놓입니다</h3>
+<blockquote>
+<p><em>"우리는 구원 받는 자들에게나 망하는 자들에게나 하나님 앞에서 그리스도의 향기니"</em> (개역개정 2:15)</p>
+</blockquote>
+<p>「냄새」가 2:14와 2:16에 세 번, 「향기」가 2:15에 한 번 놓입니다. 두 낱말을 합쳐 이 책 네 토막이며 네 토막이 전부 이 여섯 절에 놓입니다. 신약 전권으로는 「냄새」가 여섯 토막(네 권), 「향기」가 세 토막(세 권)입니다. 꼴로 좁히면 더 또렷해집니다. <strong>「향기」가 주어로 서는 꼴은 신약 스물일곱 권에 2:15 하나뿐이고, 「냄새」가 주어로 서는 두 토막은 2:16 한 절에 몰려 있습니다.</strong> <strong>그 주어에 붙는 「~의」 꼴 수식이 「그리스도의」입니다.</strong></p>
+<h3>2️⃣ 제물을 가리키는 열 낱말이 이 책 전체에 0토막입니다</h3>
+<blockquote>
+<p><em>"이 사람에게는 사망으로부터 사망에 이르는 냄새요 저 사람에게는 생명으로부터 생명에 이르는 냄새라 누가 이 일을 감당하리요"</em> (개역개정 2:16)</p>
+</blockquote>
+<p><strong>신약에서 이 두 낱말이 한 절에 함께 선 절은 둘입니다(에베소서 5:2 · 빌립보서 4:18).</strong> <strong>둘 다 「향기의 냄새」라는 한 구이며 둘 다 바치는 물건과 묶입니다.</strong> ⚠ 그 두 절의 우리말 문면은 이번 자료에 실려 있지 않아 글자로 인용하지 않습니다. 이 책은 그 한 구를 쓰지 않고 두 낱말을 다른 절·다른 꼴로 갈라 놓습니다. 더 센 사실이 함께 나옵니다. 제물·바칠 것·제단·제사장·대제사장·피·향·유향·향유·기름 바름 — 열 낱말이 이 책 전체에 0토막입니다. 열 낱말의 신약 건수를 하나씩 확인했으니 그 0은 조회 실패가 아닙니다. ⛔ 그러므로 「향기는 내가 바치는 제물이다」라는 도식을 이 본문의 꼴로 받칠 길이 0토막입니다. ⛔ 거꾸로 「우리가 제물이다」로도 쓸 수 없습니다. 본문이 담는 말은 「우리가 그리스도의 향기다」까지입니다.</p>
+<h3>3️⃣ 손에 든 성경으로는 볼 수 없는 갈림이 2:14에 있습니다</h3>
+<blockquote>
+<p><em>"항상 우리를 그리스도 안에서 이기게 하시고 우리로 말미암아 각처에서 그리스도를 아는 냄새를 나타내시는 하나님께 감사하노라"</em> (개역개정 2:14)</p>
+</blockquote>
+<p>개역개정이 2:14를 「이기게 하시고」로 옮깁니다. 승리를 가리키는 세 낱말(신약 스물여덟·넷·하나)이 이 책 전체에 0토막입니다. 개역개정이 넣은 그 역어의 꼴은 고린도전서 15:57의 꼴입니다. 거기서 「우리」는 「~에게」 꼴이고 「승리」라는 명사가 적혀 있습니다. 2:14의 「우리」는 「~을」 꼴이며 그 명사가 0토막입니다. ⛔ 그러니 「우리가 이긴다」를 이 절의 꼴로 받칠 길이 없습니다. <strong>그 「~있는」 꼴 동사의 낱말은 신약에 두 토막뿐이고, 다른 한 토막(골로새서 2:15)의 「~을」 몫에는 꺾인 것들이 놓입니다.</strong> ⛔ 두 토막으로 방향을 확정하지 않습니다. <strong>「우리가 끌려간다」로도 「우리가 이긴다」로도 닫지 않습니다.</strong> ⚠ 2:14의 그 「~을」 꼴이 어느 방향인지 꼴로 결정할 길이 본문에 담기지 않았습니다. <strong>회중의 책에는 그 갈림이 보이지 않습니다.</strong> ⚠ 개역한글은 이번 자료에 이 여섯 절의 문면이 실려 있지 않아 이름만 호명하고 글자로 인용하지 않습니다.</p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">냄새·맛을 잃어 음식이 밋밋해진 분</span><br/>
+오늘 한 끼에서 <span style="font-weight:700; color:var(--green);">상에 오른 그릇을 하나씩 코끝에 스치게 하기</span>를 해 보십시오. 아무것도 오지 않아도 그 동작은 남습니다. 본문이 1인칭으로만 말하고 2인칭으로 아무것도 요구하지 않는다는 사실이 이 한 끼에 함께 놓입니다. <strong>상에 오른 음식의 이름을 눈으로 세어 보는 것과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">지목하기 전에 멈추기</span><br/>
+누군가의 가르침이 섞였다고 느낄 때 <span style="font-weight:700; color:var(--green);">코를 한 번 막기</span>를 먼저 해 보십시오. 2:17의 「수많은 사람들」은 신약에 일곱 토막이며 그 가운데 다섯 토막에서 한 몸 전체를 가리킵니다(로마서 5:15 · 5:19 두 토막 · 12:5 · 고린도전서 10:17). ⛔ 그 어구를 특정 무리로 지목하지 않습니다. <strong>숟가락을 입으로 가져가는 것과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">몸으로 먼저 하기</span><br/>
+<span style="font-weight:700; color:var(--green);">국그릇에서 오르는 김을 손바닥으로 코 앞까지 몰기</span>를 해 보십시오. 누가 살고 누가 망하는지 2:16은 그 갈림의 기준을 담지 않고 감당할 이를 묻습니다. ⛔ 2:16을 두 무리를 가르는 근거로 쓰지 않고 사람을 특정하지 않습니다. <strong>국그릇을 입 앞으로 끌어당기는 것과 다릅니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>하나님, 2:14가 감사를 주어로 올려 둡니다. 그 감사를 누가 하는지 본문이 꼴로 적지 않고, 받으시는 분만 「~에게」 꼴로 실어 둡니다.<br/>
+저희가 이긴 것을 세어 올리지 않게 하시고, 저희를 데리고 가시는 분의 걸음 안에 그대로 있게 하소서.<br/>
+저희가 향기가 되라는 요구를 이 여섯 절에 더하지 않게 하시고, 2:15가 담은 「그리스도의」라는 한 마디만 붙들게 하소서.<br/>
+<strong>누가 어느 끝에 서는지 저희가 앞질러 판정하지 않게 하시고, 그 물음을 감당할 이에게 돌리게 하소서.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>본문은 2인칭으로 아무것도 요구하지 않습니다. 요구가 0토막인 여섯 절에서 제가 무엇을 하라는 말을 만들어 내려 했습니까?</li>
+<li>2:14의 「우리」가 「~을」 꼴로 실린다는 사실은, 제가 오늘 이겼다고 말하려던 일을 어떻게 다시 읽게 합니까?</li>
+<li>2:16이 가르는 기준을 담지 않고 「누가 이 일을 감당하리요」로 닫을 때, 제가 이미 누구를 어느 끝에 놓아 두었습니까?</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #고린도후서 #생명의삶 #QT #성경묵상 #그리스도의향기 #원어묵상 #개혁주의</span></p>
+<!--
+앞단 = 머리 · 인용 둘 · 본문 핵심 / 뒷단 = 통찰 3 · 적용 3 · 기도 · 질문
+금지된 네 문자열 각 0
+1차 동작 3 · 핵동사 전부 상이 · 분모 88파일 전수 대조 겹침 0 · 대조문 3/3 본문에 실음
+금지 문자열 모집단 156 전수 → 1차 동작 적중 0 · 일반 서술 1종 9건
+R4 첫 항 단독 1 · R3 몸·물질 1(셋째 항) · R29 본문 밖 결핍 주입 0
+R46 예외 발동 1 · R45 라벨 1 · R55 = 독자 면 1 · 「노트 자신의 면」은 이 단위 미사용
+열어 둔 유보 4 · 차단 항 6
+인용 8블록 6종 전수 양방향 글자 대조 일치(불일치 0)
+배선 판정: 역본 배정 1 · 축 1 · 자력분 1
+참고 폭 초과를 받았다 — 유보 4항·차단 6항을 한 항도 줄이지 않았고 재수정 문턱 안이다.
+-->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 24일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

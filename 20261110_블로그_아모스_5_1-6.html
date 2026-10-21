@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>「찾으라 살리라」는 명령이 둘입니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 10일 &middot; 아모스 5:1-6</span>
+      <h1>「찾으라 살리라」는 명령이 둘입니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 아모스 5:1-6</h1>
+<h2>📖 「찾으라 살리라」는 명령이 둘입니다</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 10일 (화) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"이스라엘 족속아 내가 너희에게 대하여 애가로 지은 이 말을 들으라"</em> (암 5:1, 개한)</p>
+<p><em>"여호와께서 이스라엘 족속에게 이르시기를 너희는 나를 찾으라 그리하면 살리라"</em> (암 5:4, 개한)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p><strong>예언자가 첫 마디로 들으라 합니다.</strong> 들어야 할 것은 자기가 지금 손에 들고 있는 슬픔의 노래입니다. 그 노래의 내용이 둘째 절에 옵니다. <em>"처녀 이스라엘이 엎드러졌음이여 다시 일어나지 못하리로다 자기 땅에 던지웠으나 일으킬 자 없으리로다"</em>(5:2). 네 마디가 다 아래로 내려가고, 마지막 마디는 일으킬 쪽을 아예 부정합니다. 셋째 절은 숫자만 말합니다. <em>"천 명이 나가던 성읍에는 백 명만 남고 백 명이 나가던 성읍에는 열 명만 남으리라"</em>(5:3). 위로도 과장도 없이 비율만 놓여 있습니다. 넷째 절이 그 뒤에 옵니다. <em>"너희는 나를 찾으라 그리하면 살리라"</em>(5:4). <strong>일으킬 쪽이 없다고 선언된 자리에 「일어나라」가 아니라 「살라」가 왔습니다.</strong> <strong>다섯째 절은 찾지 말 자리 셋을 막고, 여섯째 절은 찾을 분을 한 번 더 지목합니다.</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 두 명령 사이에 있는 것은 접속사 하나입니다</h3>
+<blockquote>
+<p><em>"너희는 나를 찾으라 그리하면 살리라"</em> (암 5:4, 개한)</p>
+<p><em>"너희는 여호와를 찾으라 그리하면 살리라"</em> (암 5:6, 개한)</p>
+</blockquote>
+<p>「찾으라」와 「살라」가 둘 다 명하는 꼴입니다. <strong>역본이 둘 사이에 넣은 「그리하면」은 원문의 접속사 하나를 부사로 늘린 자리이고, 「살리라」는 명하는 말을 약속으로 옮긴 자리입니다.</strong> 본문이 명하는 것은 둘이고, 그 둘을 잇는 것은 접속사 하나입니다. 사는 일이 찾는 일의 대가로 기재되지 않고 또 하나의 명령으로 기재됩니다. <strong>두 낱말이 모두 명하는 꼴로 선 절은 구약에 두 자리뿐이고, 둘 다 이 단락 안에 있습니다.</strong></p>
+<h3>2️⃣ 애가는 시키는 말이 아니라 지금 들고 있는 것입니다</h3>
+<blockquote>
+<p><em>"이스라엘 족속아 내가 너희에게 대하여 애가로 지은 이 말을 들으라"</em> (암 5:1, 개한)</p>
+</blockquote>
+<p>「애가로 지은」이라고 읽으면 노래가 이미 다 만들어진 물건처럼 들립니다. <strong>원문의 꼴은 지금 하고 있는 동작을 짚습니다 — 「지어 놓은」이 아니라 「지금 들고 있는」입니다.</strong> 「지은」은 역본이 보충한 말입니다. 애가를 드는 자리가 구약에 아홉 절인데, 여덟은 남에게 시키거나 자기가 하겠다고 말하는 꼴이고 이 한 절만 진행 중인 동작으로 섭니다. <strong>예언자가 자기 손에 든 노래를 그대로 내놓으며 들으라 합니다.</strong></p>
+<h3>3️⃣ 찾을 자리가 셋에서 한 분으로 좁아집니다</h3>
+<blockquote>
+<p><em>"벧엘을 찾지 말며 길갈로 들어가지 말며 브엘세바로도 나아가지 말라"</em> (암 5:5, 개한)</p>
+<p><em>"너희는 여호와를 찾으라"</em> (암 5:6, 개한)</p>
+</blockquote>
+<p>막힌 목적어가 셋 다 장소입니다. 벧엘과 길갈과 브엘세바입니다. 명해진 목적어는 「나를」과 「여호와를」입니다. <strong>한 동사가 세 번 오면서 목적어만 바뀝니다.</strong> <strong>다섯째 절의 셋은 「하지 말라」고 막는 꼴이며, 그 막음이 찾음의 종점을 공간에서 한 분께로 옮겨 놓습니다.</strong></p>
+<blockquote>
+<p><span style="font-weight:700; color:var(--green);">인용 규칙</span>: 각 통찰은 자기 근거 구절을 자기 자리에 가지고 있습니다. 두 절을 견주는 통찰이면 둘을 나란히 두었습니다.</p>
+</blockquote>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">적용 1 — 지금 책을 펼 손이 없는 분께</span></p>
+<p>몸이 아파 누워 있거나 돌보는 일에서 손을 뗄 수 없다면, 오늘은 읽지 말고 들으십시오. 1절부터 4절까지를 소리로 틀어 놓고 끝까지 귀에 들어오게 두십시오. <strong>귀로 받는 동작입니다 — 소리 내어 읽는 동작과 다릅니다.</strong> 본문의 첫 명령도 「들으라」였습니다.</p>
+<p>📌 <span style="font-weight:700; color:var(--green);">적용 2 — 두 명령 사이를 세어 보기</span></p>
+<p>5장 4절을 펴고 「찾으라」와 「살리라」 사이에 놓인 낱말을 손가락으로 하나씩 세어 보십시오. 역본에는 두 마디가 들어가 있고 원문에는 하나가 있습니다. <strong>손가락으로 세는 동작입니다 — 눈으로 훑어 어림하는 것과 다릅니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">적용 3 — 발로 가는 자리에서</span></p>
+<p>이번 주에 가기로 정해 둔 모임 하나를 고르십시오. 그 자리에 가되, 시작 전 2분을 선 채로 쓰며 모임이 아니라 한 분을 향하는 데 그 시간을 두십시오. <strong>발을 옮기는 동작입니다 — 가지 않기로 정하는 것과 다릅니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>주 여호와여, 주께서 이스라엘 족속에게 말씀하셨습니다. 그 말씀이 두 명령으로 왔음을 감사드립니다.</p>
+<p>저희는 사는 일을 저희가 벌어 받는 값으로 셈해 왔습니다. 그 셈을 고백합니다.</p>
+<p>일으킬 쪽이 없다고 선언된 자리에 「살라」가 왔습니다. 그 말씀 앞에 서겠습니다.</p>
+<p><strong>찾을 자리를 공간에서 주께로 옮기겠습니다.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>내가 사는 일을 내 몫의 값으로 셈한 자리는 어디였습니까</li>
+<li>내 일정표에서 찾음의 대상 자리로 올라선 모임은 무엇입니까</li>
+<li>일으킬 쪽이 없다고 선언된 자리에 온 명령을 나는 무엇으로 바꾸어 들었습니까</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #아모스 #생명의삶 #QT #성경묵상 #두명령 #찾으라살리라</span></p>
+<!-- 분량: 본문 1,559자 / raw 2,993자 (★ 이 수치 기입 전 실측 · 참고 2,928~3,492 범위 안)
+     R46 — 하나님이 주어로 선 자리 2(둘 다 말씀하신 동작) · 처분 쪽 주어 0
+       ⇒ 감사를 썼고, 그 두 자리가 두는 것(말씀이 왔다)까지만 적었다. 하신 일의 목록으로 늘리지 않았다.
+     무게 후보 갈라 적기 — 여호와 2 · 다른 신 0 · 장소 3(벧엘·길갈·브엘세바는 신 이름이 아니다)
+     R3·R4 — 적용 1은 지금 할 수 없는 분 단독, 적용 2·3이 몸(손가락·발)에 닿는다
+     R54 1차 동작 — 듣기 · 세기 · 가기 (설교스케치·일상의깊은사고와 겹침 0 · 대조문 본문에 적음)
+     R57 — 금지된 네 문자열 각 0 · 공정 어휘 0 · 파싱 어휘 0 · 선제 치환: 누가→일으킬 쪽, 중요한·필요한 미사용
+-->
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 10일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>죽임과 살림이 한 절에 선다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 25일 &middot; 고린도후서 3:1-6</span>
+      <h1>죽임과 살림이 한 절에 선다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<p>20261125_성경적 사고와 인격 만들기</p>
+<h2>죽임과 살림이 한 절에 선다 — 씨앗 아이디어(고린도후서 3:6 — γράμμα(그람마) + πνεῦμα(프뉴마))</h2>
+<blockquote>
+<p><span style="font-weight:700; color:var(--green);">원본 근거</span>: <a href="./20261125_생각의탄생13단계_고린도후서_3_1-6_죽임과살림이한절에선다.html">20261125_생각의탄생13단계_고린도후서_3_1-6_죽임과살림이한절에선다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><span style="font-weight:600; color:var(--green);">"「죽인다」와 「살린다」가 3:6에 함께 놓입니다. 이 두 낱말이 한 절에 함께 놓이는 절은 신약 스물일곱 권 전체에서 그 하나뿐입니다. 두 동사는 3인칭 하나를 가리키는 꼴이고, 주어로는 그 앞에 붙는 말을 받은 중성 이름 묶음 둘이 들어섭니다. <strong>그 둘은 한 절 앞 절반에서 「~의」 꼴 수식어로 놓였던 낱말이고, 꼴이 바뀌며 수식에서 주어로 올라섭니다.</strong></span></p>
+<p><span style="font-weight:600; color:var(--green);">성이 중성이고 수가 하나를 가리키는 꼴이라, 여럿을 가리키는 집단 이름이 그 주어로 들어가지 못합니다. 어느 민족이나 어느 전통을 이 한 절로 판정할 길이 어형에서 막힙니다. <strong>… 두 동사의 때가 지금이고 앞일로 적는 꼴이 이 범위에 0토막이어서, 보장 공식을 만들 길도 0입니다.</strong></span></p>
+<p><strong>본문 핵심: 본문은 지금 벌어지는 두 일을 담고, 그 일의 임자를 사람에게 돌리지 않습니다."</strong></p>
+<p>(출처: <a href="./20261125_일상의깊은사고_고린도후서_3_1-6.html">20261125_일상의깊은사고_고린도후서_3_1-6</a> 주요 신학 통찰 1️⃣ ①·③)</p>
+</blockquote>
+<p><strong>역본</strong> — 구문묵상은 <span style="font-weight:700; color:var(--green);">개역개정을 주 역본</span>으로 축자 인용하고(조정자 확보 문면) 개역한글을 병기한다(두 웹 출처 교차). 개역한글은 로컬 <code>700_Ko_Bible/47고린도후서/고후3.md</code>와 다시 대조했다.</p>
+<table>
+<thead>
+<tr>
+<th>절</th>
+<th>개역개정 (구문묵상 인용)</th>
+<th>개역한글 (<code>700_Ko_Bible</code> 대조)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3:3</td>
+<td>너희는 우리로 말미암아 나타난 그리스도의 편지니 이는 먹으로 쓴 것이 아니요 오직 살아 계신 하나님의 영으로 쓴 것이며 또 돌판에 쓴 것이 아니요 오직 육의 마음판에 쓴 것이라</td>
+<td>너희는 우리로 말미암아 나타난 그리스도의 편지니 이는 먹으로 쓴 것이 아니요 오직 살아 계신 하나님의 영으로 한 것이며 또 돌비에 쓴 것이 아니요 오직 육의 심비에 한 것이라</td>
+</tr>
+<tr>
+<td>3:5</td>
+<td>우리가 무슨 일이든지 우리에게서 난 것 같이 스스로 만족할 것이 아니니 우리의 만족은 오직 하나님으로부터 나느니라</td>
+<td>우리가 무슨 일이든지 우리에게서 난 것 같이 생각하여 스스로 만족할 것이 아니니 우리의 만족은 오직 하나님께로서 났느니라</td>
+</tr>
+<tr>
+<td>3:6</td>
+<td>그가 또한 우리를 새 언약의 일꾼 되기에 만족하게 하셨으니 율법 조문으로 하지 아니하고 오직 영으로 함이니 율법 조문은 죽이는 것이요 영은 살리는 것이니라</td>
+<td>저가 또 우리로 새 언약의 일꾼 되기에 만족케 하셨으니 의문으로 하지 아니하고 오직 영으로 함이니 의문은 죽이는 것이요 영은 살리는 것임이니라</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>두 역본이 갈린다</strong> — 3:6의 <code>γράμμα</code> 두 토막을 개역개정은 「율법 조문」으로, 개역한글은 「의문」으로 옮긴다. 둘 다 밝혀 두고 어느 쪽도 원어 뜻으로 확정하지 않는다. ⚠ <strong>로컬 대조에서 구문묵상의 개한 문면과 어긋난 곳</strong>: 3:6 「일꾼」(로컬) ↔ 「일군」(구문묵상) · 3:5 「난 것 같이」(로컬) ↔ 「난 것같이」(구문묵상) · 3:2 「뭇 사람이」(로컬) ↔ 「뭇사람이」(구문묵상). 이 노트는 로컬 문면을 싣는다.</p>
+<p><span style="font-weight:700; color:var(--green);">원문</span> (구문묵상 §2 · SBLGNT 편집 표지 포함 문면)</p>
+<blockquote>
+<p>3:3 φανερούμενοι ὅτι ἐστὲ ἐπιστολὴ Χριστοῦ διακονηθεῖσα ὑφ’ ἡμῶν, ἐγγεγραμμένη οὐ μέλανι ἀλλὰ πνεύματι θεοῦ ζῶντος, οὐκ ἐν πλαξὶν λιθίναις ἀλλ’ ἐν πλαξὶν καρδίαις σαρκίναις.<br/>
+3:5 οὐχ ὅτι ⸂ἀφ’ ἑαυτῶν ἱκανοί ἐσμεν⸃ λογίσασθαί τι ὡς ἐξ ⸀αὑτῶν, ἀλλ’ ἡ ἱκανότης ἡμῶν ἐκ τοῦ θεοῦ,<br/>
+3:6 ὃς καὶ ἱκάνωσεν ἡμᾶς διακόνους καινῆς διαθήκης, οὐ γράμματος ἀλλὰ πνεύματος, τὸ γὰρ γράμμα ἀποκτέννει, τὸ δὲ πνεῦμα ζῳοποιεῖ.</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">파싱 근거</span> (<a href="./20261125_구문묵상_고린도후서_3_1-6.html">20261125_구문묵상_고린도후서_3_1-6</a> §1-4 · §1-5 · §3-6 · §4①②)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱</th>
+<th>표제어</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>γράμματος</code></td>
+<td><code>----GSN-</code> 속격 단수 중성 · 무관사</td>
+<td><code>γράμμα</code></td>
+<td>일꾼의 성격을 규정하는 수식어 (꼴 신약 3: Ro 2:27 · Ro 7:6 · 2Co 3:6)</td>
+</tr>
+<tr>
+<td><code>πνεύματος</code></td>
+<td>속격 단수 · 무관사</td>
+<td><code>πνεῦμα</code></td>
+<td>같은 수식 자리의 짝</td>
+</tr>
+<tr>
+<td><code>τὸ γράμμα</code></td>
+<td><code>----NSN-</code> 주격 단수 중성 · 관사</td>
+<td><code>γράμμα</code></td>
+<td><code>ἀποκτέννει</code>의 주어 (꼴 신약 전권 1토막)</td>
+</tr>
+<tr>
+<td><code>τὸ πνεῦμα</code></td>
+<td>주격 단수 중성 · 관사</td>
+<td><code>πνεῦμα</code></td>
+<td><code>ζῳοποιεῖ</code>의 주어 — 이 단위에서 신적 표제어가 주어로 선 유일한 토막</td>
+</tr>
+<tr>
+<td><code>ἀποκτέννει</code></td>
+<td><code>3PAI-S--</code> 현재 능동 직설 3인칭 단수</td>
+<td><code>ἀποκτείνω</code></td>
+<td>표제어 신약 74(10권) · 그 꼴 신약 1 ⇒ 74:1</td>
+</tr>
+<tr>
+<td><code>ζῳοποιεῖ</code></td>
+<td><code>3PAI-S--</code> 현재 능동 직설 3인칭 단수</td>
+<td><code>ζῳοποιέω</code></td>
+<td>표제어 신약 11(6권) · 그 꼴 신약 3(2권) ⇒ ⛔ 유일하지 않다</td>
+</tr>
+<tr>
+<td><code>ὃς … ἱκάνωσεν</code></td>
+<td><code>ὅς</code> 관계대명사 주격 + <code>3AAI-S--</code> 부정과거 능동 직설</td>
+<td><code>ἱκανόω</code></td>
+<td>넉넉하게 하신 이 — 기명 없이 관계대명사(선행사 3:5 <code>τοῦ θεοῦ</code>)</td>
+</tr>
+<tr>
+<td><code>ἡμᾶς</code></td>
+<td>1인칭 복수 대격</td>
+<td><code>ἐγώ</code>(자료가 1·2인칭 복수를 한 표제어로 합침)</td>
+<td>3:6에서 1인칭이 남은 유일한 꼴</td>
+</tr>
+<tr>
+<td><code>διακόνους</code></td>
+<td><code>----APM-</code> 대격 복수 남성</td>
+<td><code>διάκονος</code></td>
+<td>이중 대격의 둘째 — 「일꾼」</td>
+</tr>
+<tr>
+<td><code>πνεύματι</code> (3:3)</td>
+<td>여격 단수</td>
+<td><code>πνεῦμα</code></td>
+<td><code>μέλανι</code>(먹)의 짝 — 수단</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <span style="font-weight:700; color:var(--green);">계수 기준</span>: 신약 27권 중복 제거 137,554토막, MorphGNT <code>lemma</code> 칸 정확 일치 · 꼴은 morph 8글자(구문묵상 §3-16 철자 여섯 유형 재조회 완료 — <code>ζωοποιέω</code>로 조회하면 0건이므로 정본 <code>ζῳοποιέω</code>로 셌다). 「두 표제어가 한 절에 함께 놓인 절」은 절 단위로 떠서 센 수이고 그 값은 1(2Co 3:6)이다. 「신약 전권 유일 꼴」은 개관 가동 정의 ⒝(신약 수 = 범위 수)다. ⛔ 이 노트의 논지는 계수가 아니라 <strong>한 절 안의 격 바뀜과 주어 자리의 임자</strong>에 선다 — 계수는 그 자리가 다른 데서 되풀이되지 않는다는 보조 사실이다.</p>
+<h3>사고의 통합 — "일꾼은 규정되고, 일은 다른 임자가 한다"</h3>
+<p>관찰은 한 절 안의 꼴 바뀜에서 시작했다. 3:6 앞 절반에서 일꾼을 꾸미던 무관사 속격 둘이 뒤 절반에서 관사를 받은 중성 단수 주격이 되었고, 앞 다섯 절에서 번갈아 동사를 잡던 1인칭과 2인칭이 그 절에서 둘 다 주어의 몫을 비웠다. 1인칭은 <code>ἡμᾶς</code> 하나로 남았고, 두 동사 뒤에는 목적어가 없었다. 장면으로 세우자 칸을 떠난 두 낱말이 도장을 찍었고, 도장 아래 받는 이의 칸이 인쇄되어 있지 않았다. 알맹이는 <strong>임자</strong>였다 — 일꾼의 성격을 적는 말과 일의 임자를 적는 말이 같은 낱말이면서 같은 자리에 서지 않는다.</p>
+<p>패턴은 「살린다」의 같은 꼴을 따라갔다. 신약에서 그 꼴이 서는 세 토막 어디에도 일꾼이 주어로 서지 않았다. 격표는 빈칸이 두 종류임을 드러냈다 — 사람이 들어서지 않는 주어 칸, 아무도 적히지 않은 목적어 칸. 유추는 규정과 효력이 분리된다는 것을 보였지만, 셋 다 3:6의 빈칸을 대신 채워 주지 못하고 각자 다른 자리에서 부러졌다. 몸은 그 두 동사 앞에서 가리킬 데가 없는 두 손을 배웠고, 감정이입은 같은 꼴이 일꾼에게는 짐을 내려놓는 자리가, 과녁을 찾는 독자에게는 손가락을 거두게 하는 벽이 된다는 것을 보였다.</p>
+<p>가장 크게 움직인 것은 11단계였다. 목적어 칸을 채워 넣는 게임에서, 오용의 문이 주어 칸이 아니라 <strong>존재하지 않는 목적어 칸</strong>에서 열린다는 것이 드러났다. 9단계가 그것을 시제로 받쳤다 — 현재 직설과 빈 목적어는 과거의 판정도 미래의 보장도 허락하지 않는다. 그래서 3:6은 판정의 문장이 아니라 <strong>임명의 문장</strong>으로 읽힌다. 12단계의 임명장은 그 사실을 「대상란을 신설하지 말 것」이라는 조항으로 굳혔다.</p>
+<p><span style="font-weight:700; color:var(--green);">최종 테제</span>: <strong>고린도후서 3:6은 새 언약의 일꾼을 「문자의 아님, 영의」로 규정한 뒤, 그 두 규정어를 몇 낱말 사이에 주어로 올려 죽임과 살림을 한 절에 지운다.</strong> 일꾼은 그 두 일의 주어가 되지 못하고 넉넉하게 됨을 받는 목적어로 남으며, 두 일의 대상은 본문이 적지 않는다. 일꾼은 규정되고, 일은 다른 임자가 한다.<br/>
+<span style="font-weight:700; color:var(--green);">가장 생산적이었던 도구</span>: 11번 놀이. 게임 3(목적어 채워 넣기) 하나가 조항 G가 막으려는 오용의 구조를 본문 안에서 찾아 주었고, 그것이 9단계의 「판정이 아니라 임명」과 12단계 임명장의 7항을 낳았다.<br/>
+<span style="font-weight:700; color:var(--green);">처음 관찰과 달라진 이해</span>: 처음에 나는 이 절을 <strong>두 원리의 대조</strong>(문자 대 영)로 읽었다. 지금은 <strong>임자의 자리를 정하는 문장</strong>으로 읽는다. 대조는 앞 절반의 속격에서 끝나고, 뒤 절반은 대조가 아니라 주어 배정이다 — 그리고 그 배정에서 사람은 빠지고 대상은 비어 있다.</p>
+<blockquote>
+<p>[!insight] 3:6의 격 이동은 사람에게 <strong>칭호를 남기고 주어를 거둔다.</strong> 「영의 일꾼」은 남고 「살리는 일꾼」은 없다. 살리는 일의 임자가 사람 밖에 있다는 것이 일꾼의 넉넉함의 근거다.</p>
+<p><span style="font-weight:600; color:var(--green);">"일꾼을 꾸미던 두 말이 한 절 안에서 주어로 일어선다. 하나는 죽이고 하나는 살린다. <strong>일꾼은 그 두 동사를 잡지 않고 넉넉하게 됨을 받으며, 누구를 죽이고 누구를 살리는지는 본문이 적지 않는다."</strong></span></p>
+</blockquote>
+<hr/>
+<h2>개혁신학적 조명</h2>
+<p><span style="font-weight:700; color:var(--green);">성경 본문</span></p>
+<ul>
+<li><span style="font-weight:700; color:var(--green);">요한복음 5:21 ↔ 고후 3:6</span> — 「아버지께서 죽은 자들을 일으켜 살리심 같이 아들도 자기의 원하는 자들을 살리느니라」(개한, <code>700_Ko_Bible</code>). 「살린다」의 같은 꼴 <code>3PAI-S--</code>가 신약에서 서는 나머지 두 토막이 이 절에 있다(구문묵상 §1-5). 거기서 살리는 주어는 아버지와 아들이고, 고후 3:6에서는 <code>τὸ πνεῦμα</code>다. 4단계의 패턴 — 살리는 꼴은 사람 바깥의 주어를 받는다 — 이 정경 안에서 무게를 얻는다. ⚠ 고후 3:1-6이 이 연결을 담지 않으므로 <strong>정경이 뒤에 더한 말</strong>이다. 3:6의 빈 목적어를 요 5:21의 「원하는 자들」로 메우지 않는다.</li>
+<li><span style="font-weight:700; color:var(--green);">로마서 7:6 ↔ 고후 3:6</span> — 「이러므로 우리가 영의 새로운 것으로 섬길 것이요 의문의 묵은 것으로 아니할지니라」(개한). <code>γράμμα</code>가 <code>νόμος</code>와 한 절에 함께 놓이는 신약 두 절 가운데 하나다. 개한은 여기서도 <code>γράμμα</code>를 「의문」으로 옮기고, 같은 절 안의 「율법」은 따로 적는다. 로마서는 그 짝을 만들고 고린도후서 3장은 만들지 않는다. 이 대조가 9단계의 확장을 정경 안에서 확인한다 — 로마서의 짝을 아는 일은 고후 3:6을 읽는 데 금지되지 않지만, 고후 3:6 <strong>안으로 옮겨 넣는 일</strong>은 본문이 하지 않은 말이다.</li>
+<li><span style="font-weight:700; color:var(--green);">골로새서 1:12 ↔ 고후 3:6</span> — 「우리로 하여금 빛 가운데서 성도의 기업의 부분을 얻기에 합당하게 하신 아버지께 감사하게 하시기를 원하노라」(개한). 표제어 <code>ἱκανόω</code>가 신약에서 서는 두 토막 가운데 하나다(구문묵상 §3-6 ⑥). 골로새서는 「합당하게 하신」 이를 아버지로 명시하고, 고후 3:6은 관계대명사 하나로 적는다. ⚠ 이것도 <strong>정경이 뒤에 더한 말</strong>이고, 고후 3:6의 미결(관계대명사 주어)을 닫는 근거로 쓰지 않는다.</li>
+</ul>
+<p><span style="font-weight:700; color:var(--green);">신학자</span> — 아우구스티누스. 『영과 문자』(De spiritu et littera, 412년경)는 표제부터 이 절 3:6을 붙든 논고로 알려져 있다. 요지로 말하면 그는 「문자」를 성경의 문자적 의미로 보지 않고, 은혜 없이 주어진 계명이 사람을 정죄하는 자리로 읽었고, 「영」을 사랑을 마음에 부어 주시는 성령의 일로 읽었다. (⚠ 라틴어 원문과 장·절 번호는 이 환경에서 대조하지 못했으므로 요지로만 적는다 — 개관 §6-2 「미확인」.) 이 독법에서 취할 통찰은 하나다 — <strong>살리는 일의 임자를 사람의 능력이 아니라 영에게 둔다</strong>는 것, 이것은 5단계 격표와 정확히 맞는다. 분별할 지점도 하나다 — 그 전통이 「문자」를 계명(율법)과 잇는 것은 로마서의 짝(Ro 7:6)을 따라가는 읽기이고, 고후 3장은 <code>νόμος</code>를 0토막으로 두므로 <strong>이 노트는 그 등식을 고후 3:6의 본문 주장으로 싣지 않는다.</strong> 통찰은 취하되, 등식은 본문 밖에 둔다.</p>
+<p><span style="font-weight:700; color:var(--green);">설교 적용점</span> — 3:6을 설교할 때 「율법 조문은 죽이는 것」에서 멈추고 대조로 설교하지 않는다. 앞 절반 「새 언약의 일꾼 … 문자의 아닌 영의」를 먼저 읽어 <strong>일꾼의 규정</strong>을 세우고, 뒤 절반을 읽을 때는 7단계처럼 손을 내린다. 그리고 청중에게 한 가지만 묻는다 — 「이 두 동사의 주어 자리에 지금 누구를 넣고 있습니까? 목적어 자리에는요?」 ⚠ 개역개정으로 봉독할 때는 「율법 조문」의 원어가 <code>γράμμα</code>이고 개역한글이 「의문」으로 옮겼다는 것을 한 문장으로 밝힌다.</p>
+<p><span style="font-weight:700; color:var(--green);">복음 중심성 점검</span> — 낭떠러지가 넷이다. ① <strong>반유대적 오용</strong>: 3:6을 한 민족이나 전통의 판정으로 설교하는 것(조항 G · 조항 5). 꼴이 막는다 — 주어는 중성 단수, 목적어는 0, <code>νόμος</code>는 이 책 0토막. ② <strong>반문서주의</strong>: 「문자 = 성경 본문, 영 = 직접 계시」로 읽어 성경을 낮추는 것(조항 M). 문서 묶음 명사 넷이 이 책 0토막이고, <code>γράμμα</code>는 3:3의 먹·판과 재료의 짝으로 놓인다. ③ <strong>사역자 영웅담</strong>: 「영의 일꾼은 살리는 사람」으로 일꾼을 주어로 올리는 것. 11단계 게임 2가 보였듯 3:5와 부딪친다. ④ <strong>도덕주의</strong>: 「문자로 하지 말고 영으로 하라」는 명령으로 바꾸는 것. 이 단위에는 명령법이 0토막이고, 3:6은 명령이 아니라 넉넉하게 하신 일의 기술이다. 복음은 일꾼을 지우지 않고, <strong>살리는 일의 임자를 일꾼 밖에 두어 일꾼을 자유롭게 한다.</strong></p>
+<hr/>
+<h2>실무 적용</h2>
+<p><span style="font-weight:700; color:var(--green);">① 고객 상담 — 「서류가 나를 살린다」는 기대를 갈라 적는다</span><br/>
+<em>상황</em>: 세무조사나 경정청구를 앞둔 고객은 증빙 서류 묶음이 결과를 「낳는다」고 믿는다. 서류의 성격(무엇에 관한 증빙인가)과 처분의 주체(누가 결정하는가)가 상담 메모에서 한 줄로 섞인다.<br/>
+<em>적용</em>: 5단계 격표대로 메모를 두 열로 나눈다. 왼쪽은 「이 서류는 ○○의 증빙」(수식), 오른쪽은 「효력을 내는 것: 법령과 처분청」(주어). 고객 이름은 어느 열의 주어 칸에도 쓰지 않고, 결과의 대상도 미리 적지 않는다.<br/>
+<em>기대 효과</em>: 고객의 기대가 「내 서류가 이긴다」에서 「서류는 성격을 밝히고 결정은 따로 난다」로 조정되고, 결과가 나온 뒤의 원망이 줄어든다. ⛔ 이 유추는 「문서는 쓸모없다」로 가지 않는다 — 3:6도 일꾼을 지우지 않았다.</p>
+<p><span style="font-weight:700; color:var(--green);">② 교회 행정 — 임명 예식문의 주어를 점검한다</span><br/>
+<em>상황</em>: 직분자 임명 예식문은 흔히 「우리가 ○○를 세웁니다」, 「○○는 영혼을 살리는 일꾼입니다」로 쓰인다. 사람이 임명의 주어이자 살림의 주어가 된다.<br/>
+<em>적용</em>: 12단계 임명장 양식으로 예식문을 다시 쓴다. 피임명인은 넉넉하게 「된」 이로 적고, 「살리는」 동사의 주어 자리에는 피임명인을 넣지 않는다. ⛔ 3:6을 직분의 권위를 정당화하는 근거 구절로 인용하지 않는다 — 「부르다」·「세우다」 계열 어휘가 이 책에 0토막이고 <code>ἱκάνωσεν</code>의 주어는 관계대명사다(구문묵상 §3-14 ⑨).<br/>
+<em>기대 효과</em>: 예식이 직분자의 공로 선언이 아니라 임명의 기술이 되고, 직분자가 「살리는 책임」의 짐 대신 「넉넉하게 된 일꾼」의 자리에서 출발한다.</p>
+<p><span style="font-weight:700; color:var(--green);">③ 개인 의사결정 — 내 평가 문장의 목적어를 지운다</span><br/>
+<em>상황</em>: 남의 사역이나 일터의 동료를 평가할 때, 「저 방식은 사람을 죽인다」는 문장을 쉽게 만든다. 주어는 방식이지만 목적어 자리에 늘 특정한 사람이 들어간다.<br/>
+<em>적용</em>: 10단계 카드의 4번 칸을 하루 한 번 쓴다. 평가 문장을 적고, 목적어 자리에 사람을 넣었는지 확인하고, 넣었다면 지운 뒤 7번 칸 「나는 ___의 일꾼으로 넉넉하게 되었다」를 이어 쓴다.<br/>
+<em>기대 효과</em>: 비판이 지목에서 자기 점검으로 방향을 바꾼다. 8단계의 「과녁을 찾는 독자」가 손가락을 거두는 연습이 습관이 된다.</p>
+<hr/>
+<h2>[최종 연구 노트 승격 후보]</h2>
+<h3>0 관찰 (Observing) — "속격 둘이 주격 둘로"</h3>
+<p>씨앗은 한 절 안의 꼴 바뀜을 짚었다. 그 바뀜을 여섯 절 전체의 「누가 동사를 잡는가」에 대 보면, 마지막 절에서 일이 한꺼번에 일어난다.</p>
+<table>
+<thead>
+<tr>
+<th>구간</th>
+<th>정동사를 잡는 인칭</th>
+<th>정동사</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3:1</td>
+<td>1인칭 복수</td>
+<td><code>Ἀρχόμεθα</code> · <code>χρῄζομεν</code> (둘 다 물음표 안)</td>
+</tr>
+<tr>
+<td>3:2-3</td>
+<td>2인칭 복수</td>
+<td><code>ἐστε</code> · <code>ἐστὲ</code></td>
+</tr>
+<tr>
+<td>3:4-5</td>
+<td>1인칭 복수</td>
+<td><code>ἔχομεν</code> · <code>ἐσμεν</code></td>
+</tr>
+<tr>
+<td>3:6</td>
+<td><span style="font-weight:700; color:var(--green);">3인칭 단수 셋</span></td>
+<td><code>ἱκάνωσεν</code> · <code>ἀποκτέννει</code> · <code>ζῳοποιεῖ</code></td>
+</tr>
+</tbody>
+</table>
+<p>첫째, <strong>3:6에서 1인칭과 2인칭이 둘 다 주어의 몫을 비운다.</strong> 1인칭은 <code>ἡμᾶς</code> 대격 하나로만 남는다. 둘째, 같은 절 안에서 두 낱말이 <strong>격을 바꾼다</strong> — <code>γράμματος</code>·<code>πνεύματος</code>(속격, 관사 없음)가 몇 낱말 뒤 <code>τὸ γράμμα</code>·<code>τὸ πνεῦμα</code>(주격, 관사 있음)가 된다. 셋째, <code>πνεῦμα</code>는 이 단위에 세 번 놓이는데 세 번 다 격이 다르다 — 3:3 여격(<code>πνεύματι</code>, 먹의 짝), 3:6 속격(일꾼의 성격), 3:6 주격(살리는 동사의 주어). 넷째, 두 동사 <code>ἀποκτέννει</code>·<code>ζῳοποιεῖ</code> 뒤에 <strong>목적어가 놓이지 않는다</strong> — 원문 3:6은 <code>ζῳοποιεῖ.</code>에서 온점으로 닫힌다.</p>
+<blockquote>
+<p>[!insight] 3:6의 사건은 낱말이 바뀌는 데 있지 않고 <strong>같은 낱말의 자리가 바뀌는 데</strong> 있다. 일꾼을 꾸미던 두 말이 몇 낱말 사이에 스스로 일하는 말이 되고, 그 순간 사람은 주어의 자리를 떠난다.</p>
+<p>[!question] 연결 질문<br/>
+- 속격일 때 두 낱말에는 관사가 없고 주격일 때는 있다. 이 차이를 「특정성」으로 단정하지 않으면서(개관 §6-2) 관찰로만 붙들면 무엇이 남는가?<br/>
+- <code>πνεῦμα</code>의 짝이 3:3에서는 먹이고 3:6에서는 <code>γράμμα</code>다. 짝이 바뀔 때 대비의 성격도 바뀌는가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 자리가 바뀌는 그 순간을 한 장의 서류 위에서 장면으로 그린다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "꾸밈말이 일하는 말이 된다"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>꾸밈 자리</th>
+<th>일하는 자리</th>
+<th>사람의 자리</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>고후 3:6</td>
+<td><code>οὐ γράμματος ἀλλὰ πνεύματος</code> — 일꾼의 성격</td>
+<td><code>τὸ γράμμα ἀποκτέννει</code> · <code>τὸ πνεῦμα ζῳοποιεῖ</code></td>
+<td><code>ἡμᾶς</code> 대격 — 넉넉하게 됨을 받음</td>
+</tr>
+<tr>
+<td>요 5:21 (같은 꼴 <code>ζῳοποιεῖ</code> 두 토막)</td>
+<td>—</td>
+<td>개한 「아버지께서 … 살리심 같이 아들도 … 살리느니라」</td>
+<td>「자기의 원하는 자들」 — 살림을 받는 쪽</td>
+</tr>
+<tr>
+<td>법률 문장</td>
+<td>「법률의 효력」</td>
+<td>「효력이 발생한다」</td>
+<td>당사자는 효력을 받는 쪽</td>
+</tr>
+<tr>
+<td>세무</td>
+<td>「실질의 원칙」</td>
+<td>「실질이 과세를 정한다」</td>
+<td>납세자는 정해지는 쪽</td>
+</tr>
+</tbody>
+</table>
+<p>네 행이 같은 문형을 갖는다 — <strong>사람을 규정하던 말이 주어로 올라서면 사람은 그 동사를 받는 쪽으로 물러난다.</strong> 요 5:21 행은 표제어뿐 아니라 꼴까지 같고(구문묵상 §1-5 표), 그 주어가 아버지와 아들이다. 3:6에서 같은 꼴의 주어는 <code>τὸ πνεῦμα</code>다. 살리는 동사의 같은 꼴이 신약에서 서는 세 토막 가운데 어디에도 일꾼이 주어로 서지 않는다.</p>
+<p>패턴이 부러지는 자리도 있다. 법률과 세무의 행에서는 꾸밈말이 <strong>개념</strong>이고 주어로 올라도 은유에 그친다. 3:6에서는 <code>πνεῦμα</code>가 같은 단위 3:3에서 <code>θεοῦ ζῶντος</code>(살아 계신 하나님의)를 받는 낱말이다 — 개념의 의인화로 끝나지 않는다. 그리고 <code>γράμμα</code> 쪽은 신적 표제어가 아니다. 두 주어가 꼴은 같고(중성 단수 주격·관사) 임자의 종류는 같지 않다.</p>
+<blockquote>
+<p>[!insight] 「살린다」의 같은 꼴은 신약 세 토막에서 언제나 <strong>사람 바깥의 주어</strong>를 받는다. 이 패턴은 일꾼을 낮추는 패턴이 아니라 살림의 임자를 지정하는 패턴이다.</p>
+<p>[!question] 연결 질문<br/>
+- 같은 꼴과 같은 주어 자리를 두고, 3:6의 <code>γράμμα</code>는 신적 표제어가 아닌데 왜 <code>πνεῦμα</code>와 같은 문형에 놓였는가 — 본문은 그 둘을 대등하게 세우는가, 맞세우는가?<br/>
+- 요 5:21의 「원하는 자들」처럼 3:6에도 살림을 받는 이를 적는 말이 있는가? 없다면 그 부재는 무엇을 막는가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 되풀이되는 문형을 3:6 한 절의 구조로 다시 세운다.</p>
+<h3>0 유추 (Analogizing) — "위임장과 대리권"</h3>
+<p><strong>(a) 신학 ↔ 세무·법 교차 — 위임장의 「~의 대리인」</strong><br/>
+세무대리 위임장에는 「○○의 세무대리인」이라는 칸이 있다. 그 속격은 대리인의 성격을 규정한다. 그런데 신고의 효력을 내는 것은 대리인의 이름이 아니라 위임한 본인의 권리이고, 그 권리를 대리인에게 넘겨준 문서다.<br/>
+<em>새 통찰</em>: 3:6의 「영의 일꾼」도 성격 규정이고, 살리는 효력은 규정어 쪽이 주어로 진다. 일꾼은 <code>ἱκάνωσεν</code>으로 <strong>넉넉하게 된</strong> 사람 — 위임장으로 말하면 선임된 사람이다.<br/>
+<em>유추가 깨지는 지점</em>: 위임장에는 언제나 위임한 본인의 이름이 적힌다. 3:6의 <code>ἱκάνωσεν</code>은 주어로 관계대명사 하나를 받고 기명을 받지 않는다. ⛔ 그 칸을 위임장처럼 이름으로 채워 단정하지 않는다(선정표 §5 — 미결). 그리고 위임장은 <strong>문서</strong>다. 이 유추를 끝까지 밀면 「문서 대 영」으로 미끄러지는데, <code>γράμμα</code>는 3:6에서 성경·율법을 가리키는 낱말이 아니다(문서 묶음 명사 넷이 이 책 0토막 · 조항 M).</p>
+<p><strong>(b) 악보의 지시어</strong><br/>
+악보 위에 적힌 「포르테」는 소리의 성격을 꾸미는 말이다. 연주가 시작되면 그 말이 소리 자체가 된다.<br/>
+<em>새 통찰</em>: 꾸밈말이 일하는 말이 되는 순간이 3:6의 <code>γάρ</code>다. 앞 절반의 속격은 지시어이고 뒤 절반의 주격은 울리는 소리다.<br/>
+<em>깨지는 지점</em>: 악보의 지시어를 소리로 바꾸는 것은 연주자다. 3:6에서는 그 바꿈을 일꾼이 하지 않는다 — 두 동사의 주어가 규정어 자신이다. 연주자 유추는 일꾼을 다시 주어로 올려 세운다.</p>
+<p><strong>(c) 씨앗과 흙 — 생명을 「주는」 쪽</strong><br/>
+흙은 씨앗의 바탕이고 씨앗을 「품는」 일을 한다. 그러나 싹을 내는 생명은 흙의 것이 아니다.<br/>
+<em>새 통찰</em>: 3:3의 「살의 마음 판」이 바탕이었다면 3:6의 <code>ζῳοποιεῖ</code>는 그 바탕 위에서 일하는 임자를 따로 세운다. 바탕(여격, 3:3)과 임자(주격, 3:6)가 다른 격으로 적힌다.<br/>
+<em>깨지는 지점</em>: 흙과 씨앗은 둘 다 자연이다. 3:6은 살리는 일과 함께 <strong>죽이는 일</strong>을 한 절에 둔다 — 흙 유추에는 죽이는 짝이 없다. 한 절에 두 동사가 공존한다는 이 단위의 유일한 사실을 이 유추는 담지 못한다.</p>
+<blockquote>
+<p>[!insight] 세 유추가 모두 <strong>규정과 효력의 분리</strong>는 보여 주지만, 부러지는 자리가 셋이다 — 위임자의 이름(3:6에 기명 없음), 바꾸는 연주자(3:6에 일꾼 주어 없음), 죽이는 짝(3:6에 공존). 어느 유추도 3:6의 빈칸을 대신 채워 주지 못한다.</p>
+<p>[!question] 연결 질문<br/>
+- 위임장 유추가 「문서 대 영」으로 미끄러지는 지점을 강단에서 미리 막으려면 어떤 한 문장이 필요한가?<br/>
+- 「죽이는 짝」이 유추마다 빠진다는 것은, 3:6의 대치가 일상 경험의 어느 범주에도 쉽게 들어가지 않는다는 뜻인가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 머리로 세운 격표를 몸으로 통과시킨다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "가슴에서 손을 내리다"</h3>
+<p><strong>실천 프로토콜 ①</strong>: 선 자세에서 3:1-6을 소리 내어 읽는다. 1인칭이 동사를 잡는 절(3:1 · 3:4 · 3:5)에서는 오른손을 가슴에 얹는다. 2인칭이 동사를 잡는 절(3:2 · 3:3)에서는 손을 앞으로 내밀어 청중을 가리킨다.</p>
+<p><strong>실천 프로토콜 ②</strong>: 3:6에 이르면 「그가 또 우리로 … 만족케 하셨으니」에서 가슴의 손을 <strong>내려</strong> 손바닥을 위로 편다 — 넉넉하게 됨을 받는 자세다. 그리고 「의문은 죽이는 것이요 영은 살리는 것임이니라」를 읽을 때는 <strong>두 손을 다 내린다.</strong> 가리키지도, 가슴에 얹지도 않는다. 눈을 감고 그 두 동사를 들어 본다.</p>
+<p>몸이 가르쳐 주는 것: 3:6의 마지막 두 마디에서 몸이 <strong>할 일이 없다.</strong> 가리킬 사람이 없고(목적어 0), 가슴에 얹을 1인칭도 없다(주어가 중성 단수). 1단계에서 문법으로 확인한 「1인칭과 2인칭이 둘 다 주어의 몫을 비운다」가 손이 둘 다 내려가는 동작으로 확인된다. 손가락이 누군가를 가리키고 싶어 근질거린다면, 그 근질거림이 조항 G가 막는 바로 그 충동이다.</p>
+<p><em>설교 전달로 옮기면</em>: 3:1-5에서는 강대상 앞으로 나와 청중과 자신을 번갈아 가리킨다. 3:6 뒤 절반에서는 손을 내리고 멈춘다. 가리키는 손가락이 없는 몇 초가 「목적어 0」의 설교다.</p>
+<blockquote>
+<p>[!insight] 3:6 끝의 두 동사는 <strong>가리키는 손을 거둔 몸</strong>으로만 정직하게 읽힌다. 손가락을 드는 순간 본문에 없는 목적어가 들어온다.</p>
+<p>[!question] 연결 질문<br/>
+- 두 손을 내린 채 「죽이는 것」을 읽을 때 생기는 불안은 무엇을 향한 불안인가 — 나인가, 남인가?<br/>
+- 손바닥을 위로 편 자세(넉넉하게 됨)와 두 손을 내린 자세(임자 아님)는 같은 동작의 두 단계인가, 다른 동작인가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 손을 내린 사람과, 손가락을 들고 싶은 사람의 속으로 들어간다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "목적어가 비어 있다"</h3>
+<p><strong>확장 — 신약 27권의 축</strong></p>
+<p><code>ἀποκτείνω</code>와 <code>ζῳοποιέω</code>가 한 절에 함께 놓인 절은 신약 27권에서 3:6 하나다(구문묵상 §1-5 — 절 단위 전수). 「죽인다」의 표제어는 신약 74토막 10권에 흔하고, 그 꼴은 여기 한 토막이다. 「살린다」의 같은 꼴은 요 5:21에 두 토막이 더 있다. 그리고 「죽이는 것」의 주어 <code>γράμμα</code>가 <code>νόμος</code>와 한 절에 함께 놓이는 절은 신약에 둘이고 둘 다 로마서다(Ro 2:27 · Ro 7:6). 이 책에서 <code>νόμος</code>는 0토막이다. ⇒ 신약 전체의 축으로 넓혀도 3:6은 로마서의 짝을 <strong>스스로 만들지 않는다.</strong> 역어 「율법 조문」이 그 짝을 들여온다.</p>
+<p>시간의 축도 넓혀 본다. 두 동사는 <strong>현재 직설</strong>이고, 이 범위에 미래 꼴이 0토막이다. 「영으로 하면 앞으로 살 것이다」 같은 보장의 문장이 꼴에서 서지 않는다. 동시에 두 동사가 과거 시제도 아니다 — 「옛날 어느 민족에게 일어난 일」로 밀어 둘 수도 없다.</p>
+<p><strong>축소 — 관사 하나</strong></p>
+<p>3:6의 뒤 절반에서 두 주어 앞에 붙은 <code>τὸ</code> 둘을 본다. 앞 절반의 속격에는 관사가 없다. ⛔ 관사의 유무로 특정성을 단정하지 않는다(개관 §6-2). 다만 꼴의 사실은 남는다 — 같은 낱말이 관사 없이 꾸미다가 관사를 받고 주어로 선다. 한 절, 몇 낱말 사이의 일이다.</p>
+<p><strong>핵심 전복</strong>: 3:6을 「율법 조문은 죽인다」로 읽으면 이 절은 <strong>과거의 한 체계와 그 체계를 붙든 사람들에 대한 판정</strong>처럼 들린다. 그러나 꼴이 차원을 바꾼다 — 주어는 중성 단수이고, 동사는 현재이며, 목적어는 비어 있다. 이 절이 말하는 것은 <strong>지금 새 언약의 일꾼에게 걸려 있는 일의 임자</strong>다. 판정의 문장이 아니라 임명의 문장이다.</p>
+<blockquote>
+<p>[!insight] 시제와 목적어가 이 절의 차원을 정한다. <strong>현재 직설과 빈 목적어</strong>는 과거의 판정도 미래의 보장도 허락하지 않고, 독자를 지금의 일꾼 자리로 데려온다.</p>
+<p>[!question] 연결 질문<br/>
+- 「지금 죽인다」는 현재 직설은 새 언약의 일꾼에게도 위협으로 걸려 있는가 — 「문자의 일꾼」이 될 가능성으로?<br/>
+- 로마서의 <code>γράμμα</code>/<code>νόμος</code> 짝을 알고 있는 독자는, 고후 3:6을 읽을 때 그 지식을 어디까지 가져와도 되는가?</p>
+</blockquote>
+<p><span style="font-weight:700; color:var(--green);">다리</span>: 이 차원 전환을 실제 문장 앞에서 점검할 도구를 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><span style="font-weight:700; color:var(--green);">성경 본문</span></p>
+<ul>
+<li><span style="font-weight:700; color:var(--green);">요한복음 5:21 ↔ 고후 3:6</span> — 「아버지께서 죽은 자들을 일으켜 살리심 같이 아들도 자기의 원하는 자들을 살리느니라」(개한, <code>700_Ko_Bible</code>). 「살린다」의 같은 꼴 <code>3PAI-S--</code>가 신약에서 서는 나머지 두 토막이 이 절에 있다(구문묵상 §1-5). 거기서 살리는 주어는 아버지와 아들이고, 고후 3:6에서는 <code>τὸ πνεῦμα</code>다. 4단계의 패턴 — 살리는 꼴은 사람 바깥의 주어를 받는다 — 이 정경 안에서 무게를 얻는다. ⚠ 고후 3:1-6이 이 연결을 담지 않으므로 <strong>정경이 뒤에 더한 말</strong>이다. 3:6의 빈 목적어를 요 5:21의 「원하는 자들」로 메우지 않는다.</li>
+<li><span style="font-weight:700; color:var(--green);">로마서 7:6 ↔ 고후 3:6</span> — 「이러므로 우리가 영의 새로운 것으로 섬길 것이요 의문의 묵은 것으로 아니할지니라」(개한). <code>γράμμα</code>가 <code>νόμος</code>와 한 절에 함께 놓이는 신약 두 절 가운데 하나다. 개한은 여기서도 <code>γράμμα</code>를 「의문」으로 옮기고, 같은 절 안의 「율법」은 따로 적는다. 로마서는 그 짝을 만들고 고린도후서 3장은 만들지 않는다. 이 대조가 9단계의 확장을 정경 안에서 확인한다 — 로마서의 짝을 아는 일은 고후 3:6을 읽는 데 금지되지 않지만, 고후 3:6 <strong>안으로 옮겨 넣는 일</strong>은 본문이 하지 않은 말이다.</li>
+<li>
+<p><span style="font-weight:700; color:var(--green);">골로새서 1:12 ↔ 고후 3:6</span> — 「우리로 하여금 빛 가운데서 성도의 기업의 부분을 얻기에 합당하게 하신 아버지께 감사하게 하시기를 원하노라」(개한). 표제어 <code>ἱκανόω</code>가 신약에서 서는 두 토막 가운데 하나다(구문묵상 §3-6 ⑥). 골로새서는 「합당하게 하신」 이를 아버지로 명시하고, 고후 3:6은 관계대명사 하나로 적는다. ⚠ 이것도 <strong>정경이 뒤에 더한 말</strong>이고, 고후 3:6의 미결(관계대명사 주어)을 닫는 근거로 쓰지 않는다.</p>
+</li>
+<li>
+<p><span style="font-weight:700; color:var(--green);">신학자</span>: 아우구스티누스. 『영과 문자』(De spiritu et littera, 412년경)는 표제부터 이 절 3:6을 붙든 논고로 알려져 있다. 요지로 말하면 그는 「문자」를 성경의 문자적 의미로 보지 않고, 은혜 없이 주어진 계명이 사람을 정죄하는 자리로 읽었고, 「영」을 사랑을 마음에 부어 주시는 성령의 일로 읽었다. (⚠ 라틴어 원문과 장·절 번호는 이 환경에서 대조하지 못했으므로 요지로만 적는다 — 개관 §6-2 「미확인」.) 이 독법에서 취할 통찰은 하나다 — <strong>살리는 일의 임자를 사람의 능력이 아니라 영에게 둔다</strong>는 것, 이것은 5단계 격표와 정확히 맞는다. 분별할 지점도 하나다 — 그 전통이 「문자」를 계명(율법)과 잇는 것은 로마서의 짝(Ro 7:6)을 따라가는 읽기이고, 고후 3장은 <code>νόμος</code>를 0토막으로 두므로 <strong>이 노트는 그 등식을 고후 3:6의 본문 주장으로 싣지 않는다.</strong> 통찰은 취하되, 등식은 본문 밖에 둔다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 3:6을 설교할 때 「율법 조문은 죽이는 것」에서 멈추고 대조로 설교하지 않는다. 앞 절반 「새 언약의 일꾼 … 문자의 아닌 영의」를 먼저 읽어 <strong>일꾼의 규정</strong>을 세우고, 뒤 절반을 읽을 때는 7단계처럼 손을 내린다. 그리고 청중에게 한 가지만 묻는다 — 「이 두 동사의 주어 자리에 지금 누구를 넣고 있습니까? 목적어 자리에는요?」 ⚠ 개역개정으로 봉독할 때는 「율법 조문」의 원어가 <code>γράμμα</code>이고 개역한글이 「의문」으로 옮겼다는 것을 한 문장으로 밝힌다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 낭떠러지가 넷이다. ① <strong>반유대적 오용</strong>: 3:6을 한 민족이나 전통의 판정으로 설교하는 것(조항 G · 조항 5). 꼴이 막는다 — 주어는 중성 단수, 목적어는 0, <code>νόμος</code>는 이 책 0토막. ② <strong>반문서주의</strong>: 「문자 = 성경 본문, 영 = 직접 계시」로 읽어 성경을 낮추는 것(조항 M). 문서 묶음 명사 넷이 이 책 0토막이고, <code>γράμμα</code>는 3:3의 먹·판과 재료의 짝으로 놓인다. ③ <strong>사역자 영웅담</strong>: 「영의 일꾼은 살리는 사람」으로 일꾼을 주어로 올리는 것. 11단계 게임 2가 보였듯 3:5와 부딪친다. ④ <strong>도덕주의</strong>: 「문자로 하지 말고 영으로 하라」는 명령으로 바꾸는 것. 이 단위에는 명령법이 0토막이고, 3:6은 명령이 아니라 넉넉하게 하신 일의 기술이다. 복음은 일꾼을 지우지 않고, <strong>살리는 일의 임자를 일꾼 밖에 두어 일꾼을 자유롭게 한다.</strong></p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><span style="font-weight:700; color:var(--green);">① 고객 상담 — 「서류가 나를 살린다」는 기대를 갈라 적는다</span><br/>
+<em>상황</em>: 세무조사나 경정청구를 앞둔 고객은 증빙 서류 묶음이 결과를 「낳는다」고 믿는다. 서류의 성격(무엇에 관한 증빙인가)과 처분의 주체(누가 결정하는가)가 상담 메모에서 한 줄로 섞인다.<br/>
+<em>적용</em>: 5단계 격표대로 메모를 두 열로 나눈다. 왼쪽은 「이 서류는 ○○의 증빙」(수식), 오른쪽은 「효력을 내는 것: 법령과 처분청」(주어). 고객 이름은 어느 열의 주어 칸에도 쓰지 않고, 결과의 대상도 미리 적지 않는다.<br/>
+<em>기대 효과</em>: 고객의 기대가 「내 서류가 이긴다」에서 「서류는 성격을 밝히고 결정은 따로 난다」로 조정되고, 결과가 나온 뒤의 원망이 줄어든다. ⛔ 이 유추는 「문서는 쓸모없다」로 가지 않는다 — 3:6도 일꾼을 지우지 않았다.</p>
+<p><span style="font-weight:700; color:var(--green);">② 교회 행정 — 임명 예식문의 주어를 점검한다</span><br/>
+<em>상황</em>: 직분자 임명 예식문은 흔히 「우리가 ○○를 세웁니다」, 「○○는 영혼을 살리는 일꾼입니다」로 쓰인다. 사람이 임명의 주어이자 살림의 주어가 된다.<br/>
+<em>적용</em>: 12단계 임명장 양식으로 예식문을 다시 쓴다. 피임명인은 넉넉하게 「된」 이로 적고, 「살리는」 동사의 주어 자리에는 피임명인을 넣지 않는다. ⛔ 3:6을 직분의 권위를 정당화하는 근거 구절로 인용하지 않는다 — 「부르다」·「세우다」 계열 어휘가 이 책에 0토막이고 <code>ἱκάνωσεν</code>의 주어는 관계대명사다(구문묵상 §3-14 ⑨).<br/>
+<em>기대 효과</em>: 예식이 직분자의 공로 선언이 아니라 임명의 기술이 되고, 직분자가 「살리는 책임」의 짐 대신 「넉넉하게 된 일꾼」의 자리에서 출발한다.</p>
+<p><span style="font-weight:700; color:var(--green);">③ 개인 의사결정 — 내 평가 문장의 목적어를 지운다</span><br/>
+<em>상황</em>: 남의 사역이나 일터의 동료를 평가할 때, 「저 방식은 사람을 죽인다」는 문장을 쉽게 만든다. 주어는 방식이지만 목적어 자리에 늘 특정한 사람이 들어간다.<br/>
+<em>적용</em>: 10단계 카드의 4번 칸을 하루 한 번 쓴다. 평가 문장을 적고, 목적어 자리에 사람을 넣었는지 확인하고, 넣었다면 지운 뒤 7번 칸 「나는 ___의 일꾼으로 넉넉하게 되었다」를 이어 쓴다.<br/>
+<em>기대 효과</em>: 비판이 지목에서 자기 점검으로 방향을 바꾼다. 8단계의 「과녁을 찾는 독자」가 손가락을 거두는 연습이 습관이 된다.</p>
+<h3>🥇 속격에서 주격으로 — 한 절 안의 격 이동과 1인칭의 대격 잔류</h3>
+<ul>
+<li><strong>핵심</strong>: 고후 3:6 앞 절반의 무관사 속격 <code>γράμματος</code>·<code>πνεύματος</code>가 뒤 절반에서 관사를 받은 중성 단수 주격으로 올라 <code>ἀποκτέννει</code>·<code>ζῳοποιεῖ</code>의 주어가 된다. 앞 다섯 절에서 정동사를 잡던 1인칭·2인칭은 이 절에서 주어의 몫을 비우고, 1인칭은 <code>ἱκάνωσεν</code>의 대격 <code>ἡμᾶς</code>로만 남는다. <code>πνεῦμα</code>는 이 단위에서 여격(3:3) → 속격(3:6) → 주격(3:6)으로 세 격을 거친다.</li>
+<li><strong>인격 형성</strong>: 「문자 대 영」을 두 원리의 대조로만 읽던 통상 독법을, 대조(속격)와 주어 배정(주격)의 두 단계로 갈라 읽게 한다. 일꾼은 규정되지만 일의 임자가 되지 않는다는 명제를 어형 하나로 세우고, 사역자 영웅담과 자격 셈을 동시에 막는다.</li>
+<li><strong>연결 고리</strong>: 고후 3:3 · 3:5 · 3:6 / 요 5:21 / 골 1:12 / <a href="./20261125_구문묵상_고린도후서_3_1-6.html">20261125_구문묵상_고린도후서_3_1-6</a> §1-4 · §3-6 · §4① / 구별선 <a href="./20261124_생각의탄생13단계_고린도후서_2_12-17_향기는수식에서주어로선다.html">20261124_생각의탄생13단계_고린도후서_2_12-17_향기는수식에서주어로선다</a> / 신규 노트 후보: 속격에서주격으로_고후3_6</li>
+</ul>
+<h3>🥈 목적어 0 — 죽임과 살림의 대상이 적히지 않는다</h3>
+<ul>
+<li><strong>핵심</strong>: 3:6의 두 동사는 목적어 없이 온점으로 닫힌다. 주어는 중성 단수라 복수 집단명사가 들어서지 못하고, 대상은 아예 적히지 않는다. 이 단위에 민족 이름이 0토막이고 <code>νόμος</code>가 이 책 0토막이다.</li>
+<li><strong>인격 형성</strong>: 반유대적 오용의 입구가 주어 칸이 아니라 <strong>존재하지 않는 목적어 칸</strong>에 있음을 보인다(11단계 게임 3). 오용을 「조심하라」는 권고가 아니라 본문의 꼴로 막고, 해석자가 써 넣는 빈칸이 어디인지를 정확히 짚는다.</li>
+<li><strong>연결 고리</strong>: 고후 3:6 / 개관 §7-1(조항 5) · §24-2(조항 G) / <a href="./_개관_고린도후서_20261120-.html">_개관_고린도후서_20261120-</a> / 신규 노트 후보: 목적어없는두동사</li>
+</ul>
+<h3>🥉 역어가 짝을 들여온다 — 「율법 조문」과 「의문」</h3>
+<ul>
+<li><strong>핵심</strong>: <code>γράμμα</code>와 <code>νόμος</code>가 한 절에 함께 놓이는 신약 절은 둘이고 둘 다 로마서다(Ro 2:27 · Ro 7:6). 고린도후서에는 <code>νόμος</code>가 0토막이다. 개역개정은 3:6의 <code>γράμμα</code> 두 토막을 「율법 조문」으로, 개역한글은 「의문」으로 옮긴다.</li>
+<li><strong>인격 형성</strong>: 같은 원문 앞에서 역어 하나가 독자가 빈 목적어 칸에 써 넣을 이름의 쉬움을 바꾼다는 것을 보인다. 역본 비교가 문체 문제가 아니라 오용 차단의 문제임을 드러낸다. ⛔ 어느 역어도 원어 뜻의 확정으로 쓰지 않는다.</li>
+<li><strong>연결 고리</strong>: 고후 3:6 / 롬 7:6 · 롬 2:27 / <a href="./20261125_구문묵상_고린도후서_3_1-6.html">20261125_구문묵상_고린도후서_3_1-6</a> §3-13 / 배치 간 대조 — 롬 7:1-6 「빈자리에들어온분」 · 롬 2:17-29 「보이지않는자리로옮겨진판정」(선정표 §4-4 · 씨앗 낱말 다름 · 논지 다름) / 신규 노트 후보: 역어가들여온짝_율법조문</li>
+</ul>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 25일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

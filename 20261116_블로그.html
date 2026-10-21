@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>그 말 앞에 누구의 이름이 달려 있습니까</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">오늘의 말씀 블로그 &middot; 2026년 11월 16일 &middot; 아모스 7:10-17</span>
+      <h1>그 말 앞에 누구의 이름이 달려 있습니까</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<h1>✝️ 오늘의 말씀 | 아모스 7:10-17</h1>
+<h2>📖 그 말 앞에 누구의 이름이 달려 있습니까</h2>
+<p><span style="font-weight:700; color:var(--muted);">2026년 11월 16일 (월) | 생명의삶 QT</span></p>
+<hr/>
+<blockquote>
+<p><em>"아모스가 말하기를 …"</em> (아모스 7:11 · 두 우리말 역본이 함께 옮긴 문면)</p>
+<p><em>"여호와께서 이와 같이 말씀하시기를 네 아내는 성읍 가운데서 창녀가 될 것이요 네 자녀들은 칼에 엎드러지며 네 땅은 측량하여 나누어질 것이며 너는 더러운 땅에서 죽을 것이요 이스라엘은 반드시 사로잡혀 그의 땅에서 떠나리라 하셨느니라"</em> (아모스 7:17, 개역개정)</p>
+</blockquote>
+<hr/>
+<h2>🔍 본문 핵심</h2>
+<p>벧엘의 제사장 아마샤가 왕에게 사람을 보냈습니다(7:10). <strong>보낸 말은 겹으로 싸여 있고 겹이 셋이며, 가장 안쪽에 한 문장이 놓입니다 — 「아모스가 이와 같이 말하였다」.</strong> 「이와 같이 말하였다」는 전령이 보낸 이의 말을 옮길 때 그 앞에 달아 두는 공식입니다. 구약 전권에서 이 공식 뒤에 사람 이름이 붙은 자리가 열두 토막이고 그중 아홉이 왕입니다. 예언자의 이름이 거기 붙은 자리는 7:11 하나입니다. 아마샤는 왕이 받던 꼴을 예언자에게 입혀 그 말을 왕에게 운반했습니다. <strong>여섯 절 뒤 같은 공식이 돌아오는데 앞에 달린 이름이 바뀌어 있습니다 — 7:17의 「여호와께서 이와 같이 말씀하시기를」.</strong> <strong>두 선고의 꼬리 다섯 낱말은 자모와 악센트까지 한 꼴이고, 달라지는 것은 머리에 적힌 이름뿐입니다.</strong></p>
+<hr/>
+<h2>💡 오늘의 통찰</h2>
+<h3>1️⃣ 번역으로는 그 갈림을 볼 수 없습니다</h3>
+<blockquote>
+<p><em>"여호와께서 말씀하시기를 네 아내는 성읍 중에서 창기가 될 것이요 … 이스라엘은 정녕 사로잡혀 그 본토에서 떠나리라 하셨느니라"</em> (7:17, 개역한글)</p>
+<p><em>"여호와께서 이와 같이 말씀하시기를 … 이스라엘은 반드시 사로잡혀 그의 땅에서 떠나리라 하셨느니라"</em> (7:17, 개역개정)</p>
+</blockquote>
+<p>인용 둘을 나란히 놓고 보십시오. 「이와 같이」가 한쪽에만 있습니다. <strong>히브리어 본문은 7:11과 7:17 두 자리에 같은 지시 부사를 달아 두는데, 7:11에서는 두 역본이 모두 그것을 옮기지 않았고 7:17에서는 개역한글이 지우고 개역개정만 살렸습니다.</strong> 한 공식이 예언자의 입과 여호와의 입에 각각 한 번씩 들어오는 꼴이 우리말 어디에서도 드러나지 않습니다. <strong>그리스어 역본에서는 그 갈림이 남습니다.</strong></p>
+<h3>2️⃣ 보냄은 사람 쪽에 있고 취함은 여호와 쪽에 있습니다</h3>
+<blockquote>
+<p><em>"양떼를 따를 때에 여호와께서 나를 데려다가 내게 이르시기를 가서 내 백성 이스라엘에게 예언하라 하셨나니"</em> (7:15, 개역한글)</p>
+<p><em>"양 떼를 따를 때에 여호와께서 나를 데려다가 여호와께서 내게 이르시기를 가서 내 백성 이스라엘에게 예언하라 하셨나니"</em> (7:15, 개역개정)</p>
+</blockquote>
+<p>두 인용의 길이가 다릅니다. <strong>개역개정에는 「여호와께서」가 두 번 적혀 있고 개역한글에는 한 번만 적혀 있습니다.</strong> 이 여덟 절에서 「보내다」를 담은 동사는 한 번 들어오는데, 그 동사를 행한 이가 제사장 아마샤입니다(7:10). 여호와 쪽에 적힌 동사는 「데려다가」 하나, 양 떼 뒤에서 취하셨다는 말입니다. <strong>두 역본이 갈리는 자리는 이 여덟 절에 열 토막입니다 — 기별하여↔보내어(7:10) · 7:11 끝의 「하고」 유무 · 왕의 궁↔나라의 궁궐(7:13) · 배양↔재배(7:14) · 7:15 둘째 이름의 생략↔보충 · 경계↔경고(7:16) · 7:17 「이와 같이」 미역↔보충 · 창기↔창녀 · 줄 띄워↔측량하여 · 본토↔그의 땅.</strong></p>
+<h3>3️⃣ 7:12는 금지가 아니라 허가입니다</h3>
+<blockquote>
+<p><em>"선지자가 아니며 … 아들도 아니요"</em> (7:14, 개역한글 조각)</p>
+</blockquote>
+<p><strong>「예언하다」를 담은 한 어근이 이 여덟 절에 네 토막 들어오고 네 꼴이 전부 다릅니다.</strong> 7:12 앞에는 부정 표지가 한 토막도 붙어 있지 않습니다 — 히브리어를 그대로 풀면 「거기서는 예언하라」, 장소를 지정한 허가입니다. 금지는 7:13과 7:16 둘입니다. 7:14에서 아모스가 자기를 소개한 문장에는 연결 동사가 한 토막도 없어서 「아니었다」인지 「아니다」인지 꼴로 결정되지 않습니다. 두 개역은 현재로, 그리스어 역본은 과거로 옮깁니다. <strong>어느 쪽이 맞는지 본문이 정하지 않으므로 여기서도 정하지 않습니다.</strong></p>
+<hr/>
+<h2>✅ 오늘의 적용</h2>
+<p>📌 <span style="font-weight:700; color:var(--green);">종이 한 장을 반으로 접기</span><br/>
+오늘 손으로 처리한 문서 가운데 하나를 골라, 종이 한 장을 반으로 접고 왼쪽에는 전해 받은 말을, 오른쪽에는 내가 덧붙인 말을 나누어 적어 보십시오. <strong>접는 것은 그 종이에 줄을 그어 칸을 만드는 것과 다릅니다 — 접은 자리는 펴면 없어지고, 줄은 남습니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">소리 내어 한 문장을 읊기</span><br/>
+오늘 누군가에게 전할 말 하나를 골라, 그 사람에게 가기 전에 소리 내어 한 문장으로 읊어 보십시오. <strong>소리 내어 읊는 것은 눈으로 따라가는 것과 다릅니다 — 그 문장 앞에 내 이름을 달았는지 귀가 먼저 알아챕니다.</strong></p>
+<p>📌 <span style="font-weight:700; color:var(--green);">(이 항은 단독입니다) 하루가 조각난 분에게 — 입속으로 한 문장을 되뇌기</span><br/>
+이 항의 받는 이는 돌볼 틈이 없고 시간이 잘려 나간 분입니다. 앞의 둘을 할 자리가 없다면 입속으로 한 문장만 되뇌어 보십시오. <strong>입속으로 되뇌는 것은 소리 내어 읊는 것과 다릅니다 — 자리도 도구도 들지 않고, 걸어가는 중에도 됩니다.</strong></p>
+<hr/>
+<h2>🙏 오늘의 기도</h2>
+<blockquote>
+<p>여호와여, 양 떼 뒤에서 한 사람을 취하신 그 한 자리를 이 여덟 절에서 봅니다. 그 한 자리를 두고 감사합니다.<br/>
+전해 받은 말 앞에 제 이름을 달아 두고도 알지 못했던 날을 고백합니다.<br/>
+<strong>보내신 분의 말을 제 말로 바꾸지 않겠습니다. 입을 열기 전에 그 말의 임자가 누구인지 먼저 확인하겠습니다.</strong></p>
+<p>예수님의 이름으로 기도합니다. 아멘.</p>
+</blockquote>
+<hr/>
+<h2>📝 묵상 질문</h2>
+<ol>
+<li>오늘 전한 말 가운데 그 앞에 내 이름이 달려 있던 것은 어느 것입니까.</li>
+<li>7:11과 7:17의 꼬리가 한 꼴인데도 본문이 「아모스의 말이 맞았다」고 적지 않은 까닭을 어떻게 물어야 하겠습니까.</li>
+<li>내게 허가된 자리와 금지된 자리를, 나는 누구의 말로 알고 있습니까.</li>
+</ol>
+<hr/>
+<p><span style="font-weight:700; color:var(--muted);">#오늘의말씀 #아모스 #생명의삶 #QT #성경묵상 #사자공식 #번역대조</span></p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 16일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
