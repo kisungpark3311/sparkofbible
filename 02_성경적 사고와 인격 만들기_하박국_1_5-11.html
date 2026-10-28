@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>일으킨다는 말에 대상이 없다 — 씨앗 아이디어(하박국 1:6 — `מֵקִים`(메킴) · `הִנְנִי מֵקִים`(힌니 메킴) · `קוּם` 히필)</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 2 편 &middot; 하박국 1:5-11</span>
+      <h1>일으킨다는 말에 대상이 없다 — 씨앗 아이디어(하박국 1:6 — `מֵקִים`(메킴) · `הִנְנִי מֵקִים`(힌니 메킴) · `קוּם` 히필)</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>02_성경적 사고와 인격 만들기</p>
+<h2>일으킨다는 말에 대상이 없다 — 씨앗 아이디어(하박국 1:6 — <code>מֵקִים</code>(메킴) · <code>הִנְנִי מֵקִים</code>(힌니 메킴) · <code>קוּם</code> 히필)</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./02_생각의탄생13단계_하박국_1_5-11_일으킨다는말에대상이없다.html">02_생각의탄생13단계_하박국_1_5-11_일으킨다는말에대상이없다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"「보라 내가 일으킨다」는 힌니 메킴입니다. 히브리어 본문의 표기로 세면 1:5-11과 2:2-20에서 하나님을 가리키는 「나」는 1:6의 이 한 자리입니다. 1:7 「자기로」의 인칭 하나는 판정을 미룹니다. ⚠ 그리스어 역본과 사도행전 13:41은 1:5에 이미 「내가」를 두고 개역도 그렇습니다. 「한 번」은 히브리어 본문에서만 성립합니다. 같은 꼴을 쓰는 다른 자리들과 달리 1:6에는 「누구를 치려고」가 절 안에 없습니다. … 그 빈칸을 「모두를 치는 심판」으로 채우지 않습니다. 예언자는 1:12에서 그것을 「심판하기 위하여」로 받고, 우리는 그 받음이 예언자의 것임을 기억합니다.</strong></p>
+<p><strong>본문 핵심: 하나님은 한 번 「내가」로 서시고, 그 일으킴의 대상을 절 안에 적지 않으십니다."</strong></p>
+<p>(출처: <a href="./02_일상의깊은사고_하박국_1_5-11.html">02_일상의깊은사고_하박국_1_5-11</a> 중심 신학 통찰 1️⃣ ②·③·본문 핵심)</p>
+</blockquote>
+<p>⚠ 통찰 ③의 「하나님은 말씀을 아끼시고」는 의도 귀속이어서 인용에서 뺐다(선정표 §5 ★). 「같은 꼴을 쓰는 다른 자리들」은 구문묵상 §3-2의 <strong><code>הִנְנִי</code> 접미 꼴 넷</strong>으로 읽는다.</p>
+<p><strong>개역한글</strong> (<a href="./02_구문묵상_하박국_1_5-11.html">02_구문묵상_하박국_1_5-11</a> §2 · <code>tmp/하박국/_KRV88_정본.md</code>)</p>
+<blockquote>
+<p>1:5 여호와께서 가라사대 너희는 열국을 보고 또 보고 놀라고 또 놀랄찌어다 너희 생전에 내가 한 일을 행할 것이라 혹이 너희에게 고할찌라도 너희가 믿지 아니하리라<br />
+1:6 보라 내가 사납고 성급한 백성 곧 땅의 넓은 곳으로 다니며 자기의 소유 아닌 거할 곳들을 점령하는 갈대아 사람을 일으켰나니<br />
+1:11 그들은 그 힘으로 자기 신을 삼는 자라 이에 바람 같이 급히 몰아 지나치게 행하여 득죄하리라</p>
+</blockquote>
+<p><strong>원문</strong> (구문묵상 §2를 그대로 옮김 · OSHB/WLC)</p>
+<blockquote>
+<p><strong>1:5</strong> רְא֤וּ בַגּוֹיִם֙ וְֽהַבִּ֔יטוּ וְהִֽתַּמְּה֖וּ תְּמָ֑הוּ כִּי־פֹ֨עַל֙ פֹּעֵ֣ל בִּֽימֵיכֶ֔ם לֹ֥א תַאֲמִ֖ינוּ כִּ֥י יְסֻפָּֽר׃<br />
+<strong>1:6</strong> כִּֽי־הִנְנִ֤י מֵקִים֙ אֶת־הַכַּשְׂדִּ֔ים הַגּ֖וֹי הַמַּ֣ר וְהַנִּמְהָ֑ר הַֽהוֹלֵךְ֙ לְמֶרְחֲבֵי־אֶ֔רֶץ לָרֶ֖שֶׁת מִשְׁכָּנ֥וֹת לֹּא־לֽוֹ׃<br />
+<strong>1:11</strong> אָ֣ז חָלַ֥ף ר֛וּחַ וַֽיַּעֲבֹ֖ר וְאָשֵׁ֑ם ז֥וּ כֹח֖וֹ לֵאלֹהֽוֹ׃</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (구문묵상 §1-5 · §3-1 · §3-2 · §3-6 · §3-9 · §4 ①)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱 (구문묵상 기재분만)</th>
+<th>표제어 · 계수</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>הִנְנִי</code></td>
+<td>불변화사 + 1인칭 공성 단수 접미(<code>HTm/Sp1cs</code>) · <code>כִּי</code> 근거절 머리</td>
+<td>2005(⛔ 2009로 찾으면 0건)</td>
+<td>하나님 1인칭이 동사 굴절이 아니라 지시 불변화사의 접미에 놓인다 — 사실로만, 축 명제 아님</td>
+</tr>
+<tr>
+<td><code>מֵקִים</code></td>
+<td>히필 분사 · 남성 단수 절대형(<code>HVhrmsa</code>) · 근거절 서술</td>
+<td>6965 b</td>
+<td><strong>씨앗</strong> — 분사여서 때를 담지 않는다 · 개역 「일으켰나니」는 과거로 굳힌다</td>
+</tr>
+<tr>
+<td><code>אֶת־הַכַּשְׂדִּים</code></td>
+<td>목적 표지 + 정관사 + 고유명(<code>Np</code> · 수 태그 0)</td>
+<td>이 책 1회</td>
+<td>일으켜지는 것 · ⛔ 현대 대입 금지</td>
+</tr>
+<tr>
+<td><code>וְאָשֵׁם</code></td>
+<td>칼 완료 3인칭 남성 단수 · 일반형</td>
+<td>—</td>
+<td>1:11 「죄책을 진다」 · 충돌 A의 다른 끝</td>
+</tr>
+<tr>
+<td><code>פֹּעֵל</code></td>
+<td>칼 분사 · 주어 대명사 0</td>
+<td>6466</td>
+<td>⛔ 하나님 주어 분사로 세지 않는다</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수 기준</strong> — 아래 수는 전부 구문묵상이 WLC·OSHB로 센 것(「내 전수」 표시분)을 옮겼고, 이 노트가 따로 센 수가 없다.<br />
+- <strong><code>6965</code> 히필 분사 구약 11토막</strong> — 모집단: <strong>WLC 39권 · <code>&lt;note&gt;</code> 뗌 · 앞뒤 네 낱말</strong>(구문묵상 <code>02_s1b.py</code>). 바로 앞이 <code>הִנְנִי</code>인 넷 가운데 대상구 0은 합 1:6 하나. 나머지 여섯(삼상 2:8 · 사 44:26 · 렘 10:20 · 렘 50:32 · 시 113:7 · 암 5:2)은 <code>הִנְנִי</code> 꼴이 아니고, 슥 11:16은 <code>הִנֵּה אָנֹכִי</code> 꼴이다.</p>
+<table>
+<thead>
+<tr>
+<th>앞 낱말</th>
+<th>자리</th>
+<th>뒤 네 낱말 (구문묵상 §3-2)</th>
+<th>대상구</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>הִנְנִי</code></td>
+<td>창 9:9</td>
+<td><code>אֶת־בְּרִיתִי אִתְּכֶם …</code></td>
+<td><code>אִתְּכֶם</code>(너희와 함께)</td>
+</tr>
+<tr>
+<td><code>הִנְנִי</code></td>
+<td>삼하 12:11</td>
+<td><code>עָלֶיךָ רָעָה מִבֵּיתֶךָ …</code></td>
+<td><code>עָלֶיךָ</code>(너를 치려고)</td>
+</tr>
+<tr>
+<td><code>הִנְנִי</code></td>
+<td>암 6:14</td>
+<td><code>עֲלֵיכֶם בֵּית יִשְׂרָאֵל …</code></td>
+<td><code>עֲלֵיכֶם</code>(너희를 치려고)</td>
+</tr>
+<tr>
+<td><code>הִנְנִי</code></td>
+<td><strong>합 1:6</strong></td>
+<td><code>אֶת־הַכַּשְׂדִּים הַגּוֹי הַמַּר</code></td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td><code>הִנֵּה אָנֹכִי</code></td>
+<td>슥 11:16</td>
+<td><code>רֹעֶה בָּאָרֶץ …</code></td>
+<td>0 — 장소구 <code>בָּאָרֶץ</code>뿐</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>하나님 1인칭 표지 「하나」</strong> — 모집단: <strong>MT 태그 · 1:5-11과 2:2-20(하나님 발화로 읽히는 범위)</strong>. 1:5-11의 1인칭 태그는 둘(1:6 Sp1cs · 1:7 Sp1cp 보류)이고, 2:2-20의 1인칭 태그 하나(2:2 <code>וַיַּעֲנֵנִי</code>)는 예언자다(구문묵상 §1-5).</li>
+<li><strong>정동사 21</strong> — 모집단: <strong>이 일곱 절의 정동사</strong>. 듣는 이들(2mp) 다섯 · 주어 없는 푸알 하나 · 일으켜진 쪽과 그 부분 열다섯(1:11 <code>חָלַף</code>는 주어 보류) · <strong>하나님 0</strong>. 그러나 1인칭 접미가 이끄는 분사가 하나(<code>מֵקִים</code>) 있다(구문묵상 §3-6 R46).</li>
+<li>⛔ 이 노트는 계수를 논증의 유일한 기둥으로 세우지 않는다. 축은 「몇 번」이 아니라 <strong>1:6 한 절 안에 무엇이 적히고 무엇이 적히지 않았는가</strong>다.</li>
+</ul>
+<h3>사고의 통합 — "빈칸은 고백으로 받고 판정으로 닫지 않는다"</h3>
+<p>관찰은 1:6의 꼴 하나에서 시작했다 — <code>הִנְנִי</code> + <code>מֵקִים</code>, 목적어와 동격 넷, 그리고 같은 꼴 네 토막 가운데 이 자리에만 없는 「누구를 향해」. 형상화는 그것을 소리 가득한 장면 속 침묵 한 칸으로 그렸고, 추상화는 「빈칸」 하나를 남겼다. 패턴 인식은 「서둘러 채우는 귀」가 본문보다 읽는 우리를 비춘다는 것을 드러냈다.</p>
+<p>패턴 형성은 「선언 · 묘사 · 받음」 세 층을 세웠고, 유추 셋은 모두 1인칭이나 죄책 가운데 한쪽 끝을 지워 모자랐다. 몸은 세워짐과 방향 받음이 다르다는 것을, 감정이입은 서둘러 채우는 일이 「모래」 속 한 사람을 다시 지운다는 것을 보았다. 차원적 사고는 한 낱말 크기의 빈칸이 정경 끝까지 열려 있음을, 모형은 채움을 고백으로 바꾸게 하되 물음을 대신 견뎌 주지 못하는 카드를 내놓았다. 놀이는 대상구가 「너희」의 자리를 정하는 말이라는 것을 찾아냈고, 변형은 그 뼈대를 세 대지로 확인했다.</p>
+<p>가장 생산적이었던 도구는 <strong>패턴 형성(5)</strong>이었다. 세 층을 나누자 1:12의 「심판하기 위하여」가 1:6의 빈칸을 닫는 판정이 아니라 다른 층에 놓인 고백이라는 것이 보였고, 그것이 4단계의 「서둘러 채우는 귀」와 예언자의 받음을 가르는 기준이 되었다. 처음 관찰과 달라진 이해는 이것이다 — 처음에는 이 씨앗의 무게가 「하나님이 무엇을 말씀하지 않으셨는가」에 있다고 보았으나, 끝에서 보니 그 무게는 <strong>비어 있는 칸 앞에서 듣는 쪽이 무엇을 하는가</strong>에 있다. 1:6은 일으키시는 이를 적고 과녁을 적지 않는다. 그 칸을 판결로 닫는 귀는 마음을 놓고, 그 칸을 「주께서」로 시작하는 고백으로 받는 입은 곧바로 더 깊은 물음으로 들어간다. 그 물음이 어디서 답을 얻는지는 이 일곱 절이 적지 않고, 정경은 1:5의 경고를 부활 선포 곁에 더해 두었다.</p>
+<blockquote>
+<p>[!insight] 1:6의 빈칸은 닫히지 않는다. 그 칸 앞에서 교회가 할 수 있는 정직한 일은 판정이 아니라, 「주께서」로 시작하는 고백으로 받고 답이 오지 않은 물음을 그 고백과 함께 지니는 것이다.</p>
+<p><strong>"일으키시는 이는 적혀 있고 과녁의 칸은 비어 있다 — 그 칸을 판결로 닫으면 일으키심은 허용으로, 죄책은 면책으로 미끄러지고, 고백으로 받으면 물음이 남는다. 하박국은 그 물음을 예언자의 입에 그대로 맡겼다."</strong></p>
+<p>[!question] 연결 질문<br />
+- 고백으로 받은 빈칸이 다음 단락에서 물음으로 터질 때, 그 물음은 받음을 무르는가 깊게 하는가?<br />
+- 「주께서」로 시작하는 고백과 판결의 말을 가르는 기준은 꼴인가, 말하는 이가 서는 자리인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 이 통합에서 나온 재료(세 층 · 빈칸 점검 카드 · 고백과 물음의 짝)를 신학적 조명과 실무, 그리고 위키 연결망으로 넘긴다.</p>
+<h3>0 관찰 (Observing) — "과녁이 적히지 않은 일으킴"</h3>
+<p>씨앗은 1:6의 한 분사를 짚었다. 그 분사를 둘레의 꼴과 함께 놓고 보면 1:5-6의 뼈대가 드러난다.</p>
+<table>
+<thead>
+<tr>
+<th>자리</th>
+<th>꼴 (구문묵상 §3)</th>
+<th>주장을 지는가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1:5 <code>רְאוּ</code> · <code>וְהַבִּיטוּ</code> · <code>וְהִתַּמְּהוּ</code> · <code>תְּמָהוּ</code></td>
+<td>2인칭 남성 복수 명령 넷</td>
+<td>주절 — 주동사</td>
+</tr>
+<tr>
+<td>1:5 <code>כִּי־פֹעַל פֹּעֵל בִּימֵיכֶם</code></td>
+<td>명사 + 칼 분사 · 주어 대명사 0</td>
+<td>첫째 근거절</td>
+</tr>
+<tr>
+<td>1:6 <code>כִּי־הִנְנִי מֵקִים אֶת־הַכַּשְׂדִּים</code></td>
+<td>불변화사 + 1cs 접미 · 히필 분사 · 목적</td>
+<td>둘째 근거절 — <strong>축은 주동사가 아니라 주동사의 근거에 놓인다</strong>(구문묵상 §3 정박 이탈 표시)</td>
+</tr>
+<tr>
+<td>1:6 <code>הַגּוֹי … הַהוֹלֵךְ … לָרֶשֶׁת</code></td>
+<td>동격 넷 + <code>לְ</code> 부정사</td>
+<td>묘사 — 무엇이 일으켜지는가</td>
+</tr>
+</tbody>
+</table>
+<p>첫째, <strong>일으키는 이는 절 안에 있다.</strong> 정동사는 아니지만 분사 <code>מֵקִים</code>의 주어 자리를 <code>הִנְנִי</code>의 1인칭 접미가 진다. 둘째, <strong>일으켜지는 것도 길게 있다</strong> — 목적어 하나에 동격 넷. 셋째, <strong>누구를 향하는지는 없다.</strong> 같은 네 토막 가운데 셋은 <code>אִתְּכֶם</code> · <code>עָלֶיךָ</code> · <code>עֲלֵיכֶם</code>을 다는데, 합 1:6에는 그 자리의 전치사구가 0이다.</p>
+<p>보이는 것과 생각한 것을 갈라 둔다. 보이는 것은 「1인칭 접미 + 분사 + 목적어 + 동격 넷 + 전치사구 0」이다. 「일부러 과녁을 감추셨다」는 생각이지 보이는 것이 아니다 — 대상구 생략은 무표일 수 있다.</p>
+<blockquote>
+<p>[!insight] 1:6은 <strong>누가 일으키는지와 무엇을 일으키는지는 적고, 무엇을 향해 일으키는지는 적지 않는다.</strong> 이 노트가 붙드는 빈칸은 「일으키는 이의 부재」가 아니라 「과녁의 부재」다.</p>
+<p>[!question] 연결 질문<br />
+- 일으켜지는 것의 묘사는 넷이나 붙는데 과녁은 하나도 없다면, 듣는 이의 눈은 그 길이 차이 속에서 어디로 끌려가는가?<br />
+- 이 빈칸은 1:5의 명령 넷(「보라 · 살펴라 · 놀라라 · 놀라라」)이 무엇을 보게 하는지와 어떻게 얽히는가 — 명령에도 목적어가 없고 장소구 <code>בַגּוֹיִם</code> 하나만 붙는다는 사실과 함께?</p>
+</blockquote>
+<p><strong>다리</strong>: 「적힌 것은 길고 적히지 않은 것은 비어 있는」 이 꼴을, 실제로 그 말을 듣고 서 있는 사람들의 장면으로 옮긴다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "서둘러 채우는 귀"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>과녁이 적히지 않은 말</th>
+<th>듣는 쪽이 하는 일</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>직장</td>
+<td>「다음 주 조직 개편이 있다」는 공지</td>
+<td>사람들은 「누가 대상인가」를 복도에서 채운다 — 대개 남의 이름으로</td>
+</tr>
+<tr>
+<td>세무</td>
+<td>사유가 짧게 적힌 안내문 한 장</td>
+<td>고객은 「왜 나인가」를 채우고, 때로 「누가 제보했나」로 채운다</td>
+</tr>
+<tr>
+<td>교회</td>
+<td>「하나님이 이 일을 일으키셨다」는 해석</td>
+<td>회중은 「누구를 향한 일인가」를 채운다 — 대개 자기 아닌 쪽으로</td>
+</tr>
+</tbody>
+</table>
+<p>공통 패턴: <strong>과녁이 적히지 않은 말 앞에서, 듣는 귀는 서둘러 채운다</strong> — 두려우면 자기 쪽으로, 방어하면 남의 쪽으로.</p>
+<p>그러나 1:6에 되비추면 두 가지가 갈린다. 첫째, 일상의 말은 대개 <strong>뒤에 과녁을 밝힐 이</strong>가 있다(회사는 발표한다). 1:5-11은 단락이 끝날 때까지 그 칸을 밝히지 않고, 처음 말을 넣는 이는 <strong>들은 예언자</strong>다(1:12). 둘째, 일상의 생략은 곧 신호지만 1:6의 생략은 신호인지조차 꼴로 가려지지 않는다(유보 ⅲ). 패턴을 그대로 옮기면 「일부러 긴장을 주셨다」는 의도 귀속이 다시 들어온다.</p>
+<blockquote>
+<p>[!insight] 일상의 패턴에서 겹치는 것은 <strong>「비어 있으면 듣는 쪽이 채운다」는 귀의 습관</strong>이고, 갈리는 것은 <strong>1:6의 빈칸이 신호인지조차 적혀 있지 않다</strong>는 점이다. 그래서 이 패턴은 본문이 아니라 <strong>본문을 읽는 우리</strong>를 비춘다.</p>
+<p>[!question] 연결 질문<br />
+- 교회가 「하나님이 일으키셨다」고 말할 때, 자기 쪽으로 채우는 습관과 남의 쪽으로 채우는 습관 가운데 어느 것이 더 빨리 자라는가?<br />
+- 1:12의 예언자는 그 빈칸을 「심판하기 위하여」로 채웠다. 그 채움은 네 도메인의 「서둘러 채우기」와 같은 것인가, 다른 것인가 — 무엇이 그 둘을 가르는가(답은 다음 단계의 도식에서 찾는다)?</p>
+</blockquote>
+<p><strong>다리</strong>: 「말한 이 · 빈칸 · 처음 채운 이」가 서로 다른 층에 놓인다는 관찰을 도식으로 정제한다.</p>
+<h3>0 유추 (Analogizing) — "사유란이 빈 통지서"</h3>
+<p><strong>유추 ① 행정 통지서의 사유란 (세무·행정)</strong><br />
+세무 실무에서 공적 통지에는 대개 대상과 사유가 적히고, 고객은 그 칸부터 찾는다. 칸이 짧으면 상담 전화가 길어진다 — 고객은 빈칸을 스스로 채우며 온다.<br />
+- 새 통찰: 1:6은 듣는 이를 「사유란이 빈 통지서」를 받은 자리에 세운다. 무엇이 일으켜지는지는 알리되 누구를 향해는 적지 않는다.<br />
+- 한계: 통지의 빈칸은 절차의 흠이고 바로잡을 수 있다. 1:6의 빈칸은 흠인지조차 말할 수 없다(유보 ⅲ). 이 유추를 밀면 「해명할 의무를 다하지 않으셨다」는, 본문이 하지 않은 고발이 들어온다.</p>
+<p><strong>유추 ② 도끼와 찍는 이 (정경 안의 그림)</strong><br />
+이사야 10:15는 「도끼가 그것으로 찍는 이에게 스스로 뽐내겠느냐」(직역 · <code>הֲיִתְפָּאֵר הַגַּרְזֶן</code>)고 묻는다(구문묵상 §1-2 E · 개역 문면은 받지 않았다).<br />
+- 새 통찰: 1:11 「그의 힘이 그의 신」은 도구가 자기를 쓰는 이를 잊는 모습과 맞닿는다. 일으켜진 자의 묘사가 길수록 그는 자기 힘만 본다.<br />
+- 한계: 이사야의 물음은 그 긴장 곁에 놓일 뿐 닫아 주지 않는다(일상의깊은사고 「긴장」). 「도구니까 책임이 없다」로 밀면 1:11 <code>וְאָשֵׁם</code>이 지워진다 — 봉합 1이 막는 바로 그 면책이다.</p>
+<p><strong>유추 ③ 무대에 배우를 세우는 연출자 (공연)</strong><br />
+연출자가 「이 배우를 세운다」고 말하고, 대본은 그 배우의 대사로 가득 찬다.<br />
+- 새 통찰: 1:6 다음 다섯 절이 일으켜진 자의 묘사로 채워지는 구조가 무대와 닮았다.<br />
+- 한계 — <strong>여기서 가장 크게 깨진다.</strong> 배우는 대본을 읽을 뿐 극 중 악행의 책임을 지지 않는다. 1:11은 일으켜진 자에게 죄책을 지우고, 힘을 「그의 신」으로 삼은 것도 그 자신이다. 연출 유추는 일으킴과 죄책을 너무 쉽게 화해시킨다.</p>
+<blockquote>
+<p>[!insight] 세 유추는 모두 한쪽 끝을 지운다 — 통지서 유추는 말씀하시는 분을 행정청으로 끌어내리고, 도끼·연출 유추는 일으켜진 자의 죄책을 덜어 낸다. <strong>1:6과 1:11은 그 두 끝을 동시에 붙들고 있어서, 어떤 유추도 한 걸음씩 모자란다.</strong></p>
+<p>[!question] 연결 질문<br />
+- 사유란이 빈 통지서를 받은 고객에게 세무 대리인이 가장 먼저 해야 할 일이 「빈칸을 대신 채워 주기」가 아니라면, 그것은 무엇인가 — 그리고 그것이 1:12의 예언자가 한 일과 어떻게 닮았는가?<br />
+- 연출 유추가 깨지는 지점(죄책)을 지키면서도 1:6의 1인칭을 「허용」으로 낮추지 않으려면, 어떤 그림이 남는가 — 아니면 그림 없이 두는 것이 정직한가?</p>
+</blockquote>
+<p><strong>다리</strong>: 머리로 맞댄 유추들이 모두 모자랐으니, 이번에는 「일으켜진다」는 동작 자체를 몸으로 겪어 본다 — 방향이 주어지지 않은 채로.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "일으켜 세워진 채 서 있기"</h3>
+<p><strong>실천 프로토콜</strong> — 두 사람이 한다. 혼자라면 의자 등받이를 짚고 한다.<br />
+1. 한 사람이 바닥이나 낮은 의자에 앉는다. 다른 사람이 손을 내밀어 그를 <strong>일으켜 세운다.</strong> 일으키는 사람은 아무 말도 하지 않는다.<br />
+2. 일어선 사람은 그 자리에서 <strong>어느 쪽으로도 걸음을 떼지 않고</strong> 열을 셀 동안 서 있는다. 눈을 감는다.<br />
+3. 그 열 동안 몸이 어디로 기우는지 느낀다 — 앞으로, 옆으로, 일으킨 사람 쪽으로. 발바닥이 무엇을 기다리는지 느낀다.<br />
+4. 눈을 뜨고 1:6을 소리 내어 한 번 읽는다 — 「보라 내가 … 일으켰나니」. 그리고 그 뒤에 「누구를 향해」를 붙이지 않고 입을 닫는다.</p>
+<p>몸이 가르쳐 주는 것: 일으켜진 몸은 가만히 서 있지 못하고 <strong>방향을 찾아 기운다.</strong> 방향 없는 열 초는 생각보다 길고, 그 사이 몸은 스스로 한쪽을 고르려 한다. 1:7-11의 일으켜진 자도 땅의 넓은 곳으로 다니고(1:6), 끝내 자기 힘을 신으로 삼는다(1:11). 그 기울어짐이 누구의 방향인지는 몸으로도 본문으로도 갈라지지 않는다. 몸이 아는 것은 <strong>세워진다는 것과 방향을 받는다는 것이 같은 일이 아니라</strong>는 것뿐이다.</p>
+<p>설교 전달로 옮기면 — 1:6을 읽으며 손바닥을 위로 하여 천천히 들어 올리고, 든 채 멈춘다. 손끝을 회중 쪽으로도 창밖 쪽으로도 향하지 않는다. 멈춘 손이 「과녁의 칸」을 보여 준다.</p>
+<blockquote>
+<p>[!insight] 몸은 <strong>세워짐과 방향 받음이 다르다</strong>는 것을 먼저 안다. 1:6이 적은 것은 세움이고, 방향의 칸은 몸이 견디기 어려울 만큼 오래 비어 있다.</p>
+<p>[!question] 연결 질문<br />
+- 열 초 동안 몸이 스스로 고른 방향은, 1:11에서 일으켜진 자가 자기 힘을 신으로 삼는 일과 어떤 점에서 닮았고 어떤 점에서 다른가(⚠ 닮음을 「그러니 그의 탓만은 아니다」로 밀지 않는다)?<br />
+- 멈춘 손을 회중이 「위협」으로 볼까 「기다림」으로 볼까 — 그 해석도 회중이 빈칸을 채우는 방식이 아닌가?</p>
+</blockquote>
+<p><strong>다리</strong>: 일어선 몸의 자리에서 한 걸음 물러나, 이 선언을 들은 사람들과 이 선언에 휩쓸린 사람들의 마음속으로 들어간다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "한 낱말 없는 자리에서 정경 끝까지"</h3>
+<p><strong>확장 — 단락에서 책으로, 책에서 정경으로</strong><br />
+단락 밖으로 늘이면, MT의 1:5-11과 2:2-20 범위에서 하나님 1인칭 표지는 다시 나오지 않는다(1:7 보류) — 빈칸은 그 홀로 선 문장에 붙어 있다. 정경으로 늘이면, 바울이 안디옥 회당 설교 끝에서 1:5를 경고로 인용한다(행 13:41). 그 앞에 「하나님이 죽은자 가운데서 저를 살리신지라」(13:30) · 「죽은 자 가운데서 저를 일으키사」(13:34) · 「하나님의 살리신 이는 썩음을 당하지 아니하였나니」(13:37)가 놓이고, 13:38-39가 「이 사람을 힘입어 죄 사함을 너희에게 전하는」 일과 「믿는 자마다 의롭다 하심을 얻는」 일을 선포한 뒤, 13:40 「삼가라」로 13:41을 연다(구문묵상 §3-8 · 개역 bible.com KRV88).</p>
+<p>⛔ 여기서 묶지 않을 것을 먼저 적는다. 1:6의 <code>מֵקִים</code>(히브리어 <code>קוּם</code> 히필)과 행 13:30·37의 <code>ἤγειρεν</code> · 13:34의 <code>ἀνέστησεν</code>은 <strong>다른 언어의 다른 동사</strong>이고, 사도행전은 1:6을 인용하지 않았다. 13:33 <code>ἀναστήσας</code>는 지시가 보류되어 있다(같은 설교 13:22가 <code>ἤγειρεν</code>을 다윗을 왕으로 세우는 데 쓴다). 사도행전의 1:5 문면은 MT와 수신자·1인칭이 다르다. 묶을 수 있는 것은 <strong>바울이 1:5의 경고를 부활 선포 바로 뒤에 두었다</strong>는 배치 사실까지다 — 이것은 <strong>신약이 더한 것</strong>이다.</p>
+<p><strong>축소 — 한 낱말 없는 자리</strong><br />
+반대로 줄이면, 무게가 <strong>한 낱말의 자리</strong>에 걸린다. 암 6:14에서는 <code>מֵקִים</code> 바로 뒤에 <code>עֲלֵיכֶם</code> 한 낱말이 놓이고, 합 1:6에서는 <code>אֶת־הַכַּשְׂדִּים</code>이 온다. 차이는 전치사 하나에 접미 하나다. 그 한 낱말이 없어 1:5의 「너희」는 <strong>어느 자리인지 적히지 않은 채</strong> 남는다(⚠ 꼴 서술 — 빈자리에서 뜻을 끌어내지 않는다).</p>
+<p><strong>핵심 전복</strong>: 시간을 늘이면 빈칸은 정경이 1:5에 경고를 더하는 자리까지 열려 있고, 줄이면 그 빈칸은 <strong>한 낱말 크기</strong>다. 아주 작은 빈칸이 아주 먼 데까지 열려 있다 — 그래서 그 빈칸은 메울 수 있을 것처럼 작아 보여도, 메우지 말아야 할 만큼 멀리 닿는다.</p>
+<blockquote>
+<p>[!insight] 빈칸은 <strong>한 낱말 크기이고, 정경 끝까지 열려 있다.</strong> 작아서 쉽게 메워지고, 멀어서 함부로 메울 수 없다.</p>
+<p>[!question] 연결 질문<br />
+- 바울이 1:5의 경고를 부활 선포 바로 뒤에 둔 배치는, 1:6의 빈칸에 무엇을 더하고 무엇을 하박국에서 빼앗지 않아야 하는가?<br />
+- 「한 낱말 없는 자리」를 설교에서 보여 줄 때, 암 6:14의 <code>עֲלֵיכֶם</code>과 나란히 놓는 것은 꼴 비교인가, 아니면 아모스 12단위의 논지를 다시 끌어오는 일인가 — 어디서 멈추어야 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 한 낱말 크기의 빈칸이 실제 해석 현장에서 얼마나 쉽게 채워지는지를 점검할 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>① 실질 접점 본문 셋</strong> (⛔ 프루프텍스팅이 아니라 「일으킴 · 도구 · 경고」의 결을 잇는 자리만)<br />
+- <strong>이사야 10:15</strong> — 「도끼가 그것으로 찍는 이에게 스스로 뽐내겠느냐」(직역 · 구문묵상 §1-2 E · 개역 문면 미수집). 1:11 「그의 힘이 그의 신」과 맞닿는 물음이다. 다만 이 물음은 1:6과 1:11의 긴장 곁에 놓일 뿐 그것을 닫지 않는다.<br />
+- <strong>스가랴 11:16</strong> — <code>כִּי הִנֵּה אָנֹכִי מֵקִים רֹעֶה</code>(직역 「보라, 내가 이 땅에 한 목자를 일으킨다」). 하나님이 해로운 목자를 「일으키신다」는 같은 히필 분사이고, 이 자리도 대상구 없이 장소구만 단다. ⛔ 두 본문을 한 신학으로 묶지 않고, 「하나님의 일으킴이 해로운 행위자에게도 쓰인다」는 정경의 결만 나란히 둔다.<br />
+- <strong>사도행전 13:40-41</strong> — 1:5를 실제로 인용하는 자리. 부활 선포(13:30 · 34 · 37)와 죄 사함·칭의의 선포(13:38-39) 뒤에 「삼가라」로 1:5의 경고를 둔다. ⚠ 문면(수신자·1인칭)이 MT와 다르고, 1:6 <code>מֵקִים</code>과 사도행전의 「살리다」는 다른 동사다 — <strong>신약이 더한 것</strong>이다.</p>
+<p><strong>② 신학자 — 칼빈, 『기독교 강요』 1권 섭리론(16-18장)</strong>: 칼빈은 하나님께서 악한 자들까지도 당신의 뜻을 이루는 데 쓰시되, 그 악의 책임은 악을 행한 자들에게 있고 하나님은 죄의 조성자가 아니라는 논지를 편다. 이 논지가 1:6과 1:11의 두 끝을 함께 붙든다 — 1인칭 「일으킨다」를 단순 허용으로 낮추지 않고, <code>וְאָשֵׁם</code>을 도구의 면책으로 지우지 않는다. 웨스트민스터 신앙고백 5장 4항도 같은 결을 고백한다(구문묵상 §6 ③ · 요지). ⚠ 두 문서 모두 논지 차원의 연결이고 장·항의 문면을 이번에 대조하지 않았다. ⚠ 칼빈의 하박국 주석에 관한 귀속은 판본·면수를 확인하지 않았으므로 쓰지 않는다. ⛔ 섭리 교리로 1:13의 물음을 닫지 않는다 — 교리는 두 끝을 붙드는 틀이지 「왜」에 대한 답이 아니다.</p>
+<p><strong>③ 언약적 읽기</strong> — 구문묵상 §6 ②가 담듯, 언약의 하나님은 언약 밖의 민족도 「일으키신다」. 그러나 그 민족은 언약 안으로 들어오지 않는다(1:11). 언약의 주가 열국의 주라는 고백과, 열국이 그 주를 섬기지 않는다는 사실이 한 단락에 함께 놓인다.</p>
+<p><strong>④ 설교 적용점</strong> — 강단은 「하나님이 일으키셨다」는 1인칭을 지우지 말되, 그 일의 과녁을 선고하지 않는다. 특정 집단·나라·사람을 과녁 칸에 넣는 설교는 개관 §7-4가 막는 대입이다. 적용은 「내 쪽」으로 쓴다 — 나는 그 빈칸을 무엇으로 채워 왔는가.</p>
+<p><strong>⑤ 복음 중심성 점검</strong> — 이 씨앗은 숙명론(「다 하나님이 일으키셨으니 받아들여라」 — 죄책과 물음이 지워진다)이나 해석 도덕주의(「함부로 채우지 말라」는 기술만 남는다)로 닫히기 쉽다. 이 일곱 절은 복음을 담지 않는다(참 하나님 기명 0 · 그리스도 기명 0). 정직한 자리는 빈칸과 1:13의 물음을 그대로 두고, 바울이 그 경고를 부활과 죄 사함의 선포 곁에 두었다는 것을 <strong>정경이 더한 말</strong>로 밝혀 선포하는 것이다.</p>
+<ul>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 원본의 복음 중심성 점검을 따라 은혜의 근거와 순종의 열매를 구별한다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>목회 — 재난 앞의 심방</strong><br />
+- <strong>상황</strong>: 큰 사고나 재난을 겪은 가정을 심방하는데, 함께 간 교인이 「하나님이 이 일을 왜 일으키셨는지 생각해 보세요」라고 먼저 말을 꺼낸다.<br />
+- <strong>적용</strong>: 심방 전에 10단계 카드 1·2·7번을 함께 읽는다. 과녁의 칸을 그 가정에게 채워 주지 않고(「이것은 경고입니다」), 심방자의 받음은 「저는 이렇게 받습니다」로만 말한다. 「왜 우리입니까」라는 물음은 하나님께 그대로 올리도록 함께 기도한다.<br />
+- <strong>기대 효과</strong>: 위로의 말이 판결이 되는 일을 막고, 고통받는 가정이 「설명 안의 사례」가 아니라 하나님 앞의 사람으로 남는다.</p>
+<p><strong>교회 행정 — 성장 지표 보고</strong><br />
+- <strong>상황</strong>: 연말 당회에서 출석·헌금·사역 확장 수치를 보고하며 「하나님이 우리 교회를 일으키셨다」는 문구로 보고서를 맺자는 제안이 나온다.<br />
+- <strong>적용</strong>: 구문묵상 §6 ④를 따른다 — 힘의 크기를 일하심의 증거로 셈하는 꼴은 1:11의 관계절과 닮을 수 있다. 보고서는 수치와 고백을 갈라 적고, 「일으키셨다」의 과녁을 보고서가 대신 판정하지 않는다.<br />
+- <strong>기대 효과</strong>: 수치는 사실로, 은혜의 고백은 고백으로 남고, 「커진 것 = 인정받은 것」이라는 셈이 당회 문서에 굳지 않는다.</p>
+<p><strong>세무·실무 — 고객 상담</strong><br />
+- <strong>상황</strong>: 고객이 갑작스러운 세무 통지를 받고 와서 「누가 나를 찔렀는지」, 「왜 하필 나인지」를 먼저 묻는다. 안내문의 사유 칸은 짧다.<br />
+- <strong>적용</strong>: 대리인은 빈칸을 추측으로 대신 채우지 않는다(「경쟁 업체가 제보한 것 같습니다」). 통지서에 적힌 것과 적히지 않은 것을 표로 갈라 보여 주고, 적히지 않은 것은 공식 절차로 확인할 항목으로 둔다.<br />
+- <strong>기대 효과</strong>: 근거 없는 「과녁 채우기」로 감정을 소모하는 일이 줄고, 확인 가능한 사실 위에서 준비가 시작된다.</p>
+<h3>🥇 1:6은 일으키시는 이와 일으켜지는 것을 적고, 과녁을 적지 않는다</h3>
+<ul>
+<li><strong>핵심</strong>: <code>הִנְנִי</code> + <code>מֵקִים</code> 네 토막 가운데 셋은 대상구를 달고, 합 1:6만 대상구 없이 목적어와 동격 넷으로 넘어간다(<code>הִנְנִי</code> 접미 꼴 안에서만). 1인칭은 적혀 있고 과녁의 칸은 단락 끝까지 비어 있다.</li>
+<li><strong>인격 형성</strong>: 흔히 1:5-11을 「하나님이 갈대아로 유다를 심판하신다」로 요약하지만, 그것은 1:12 예언자의 받음을 1:6의 문면으로 옮긴 것이다. 빈칸을 보면 그 받음이 얼마나 무거운 고백이었는지와 왜 바로 뒤에 1:13의 물음이 오는지가 보인다.</li>
+<li><strong>연결 고리</strong>: <a href="./02_구문묵상_하박국_1_5-11.html">02_구문묵상_하박국_1_5-11</a> §3-2 · <a href="./02_일상의깊은사고_하박국_1_5-11.html">02_일상의깊은사고_하박국_1_5-11</a> 통찰 1️⃣ · 슥 11:16 · 암 6:14(꼴 비교만)</li>
+</ul>
+<h3>🥈 선언–빈칸–받음 세 층</h3>
+<ul>
+<li><strong>핵심</strong>: 1:5-6(1인칭 선언) · 1:7-11(3인칭 묘사 · 죄책) · 1:12(예언자의 받음)는 다른 층이다. 빈칸에 처음 말을 넣는 이는 들은 이이고, 그 받음 바로 뒤에 물음이 온다.</li>
+<li><strong>인격 형성</strong>: 해석을 층으로 나누면, 교회가 사건 앞에서 하는 말이 선언을 흉내 내는지 고백을 흉내 내는지 가려진다. 고백의 꼴(「주께서 … 두셨나이다」)은 물음을 막지 않는다.</li>
+<li><strong>연결 고리</strong>: <a href="./03_생각의탄생13단계_하박국_1_12-17_이러므로의끝이물음으로꺾인다.html">03_생각의탄생13단계_하박국_1_12-17_이러므로의끝이물음으로꺾인다</a>(1:12-17 단위 · 받음과 물음의 다음 자리 — 논지 합치지 않음) · 「빈칸 채우기 점검 카드」(노트 후보)</li>
+</ul>
+<h3>🥉 대상구는 듣는 이의 자리를 정하는 말이다</h3>
+<ul>
+<li><strong>핵심</strong>: 놀이(11)에서 대상구를 넣을 때마다 1:5의 「너희」가 피고석이나 관람석으로 옮겨졌다. 1:6은 「너희」의 자리를 정하지 않은 채 「보라」 앞에 세운다(⚠ 놀이의 발견 · 의도 귀속 아님).</li>
+<li><strong>인격 형성</strong>: 대상구를 듣는 이의 자리 문제로 보면, 1:5 「믿지 아니하리라」가 왜 남의 일이 아닌지 꼴 안에서 물을 수 있다.</li>
+<li><strong>연결 고리</strong>: <a href="./02_설교스케치_하박국_1_5-11.html">02_설교스케치_하박국_1_5-11</a> · 행 13:40-41(더함) · <a href="./20261114_생각의탄생13단계_아모스_6_8-14_넘기는일인칭이여기하나다.html">20261114_생각의탄생13단계_아모스_6_8-14_넘기는일인칭이여기하나다</a>(암 6:14 대상구 있는 꼴 — 구분 링크)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 2 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

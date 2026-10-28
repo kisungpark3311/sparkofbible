@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>표지 없는 한 낱말이 탄원이 된다 — 씨앗 아이디어(하박국 1:2 · 1:3 — `חָמָס`(하마스))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 1 편 &middot; 하박국 1:1-4</span>
+      <h1>표지 없는 한 낱말이 탄원이 된다 — 씨앗 아이디어(하박국 1:2 · 1:3 — `חָמָס`(하마스))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>01_성경적 사고와 인격 만들기</p>
+<h2>표지 없는 한 낱말이 탄원이 된다 — 씨앗 아이디어(하박국 1:2 · 1:3 — <code>חָמָס</code>(하마스))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./01_생각의탄생13단계_하박국_1_1-4_표지없는한낱말이탄원이된다.html">01_생각의탄생13단계_하박국_1_1-4_표지없는한낱말이탄원이된다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"1:2의 히브리어 순서는 <code>אֶזְעַק אֵלֶיךָ חָמָס</code>, 「내가 주께 외친다, 하마스를」입니다. 하마스 앞에는 목적 표지도 전치사도 없습니다. 외친 말 그 자체인지, 외친 목적인지, 외친 까닭인지는 꼴이 정해 주지 않습니다. 「인하여」는 번역이 그 셋 가운데 하나를 고른 결과입니다. … 세 읽기 가운데 어느 쪽을 택해도 남는 것이 둘 있습니다. 외침이 「주께」 향한다는 방향과, 겪은 일의 이름 하나입니다.</strong></p>
+<p><strong>본문 핵심: 다듬은 문장이 없어도, 「주께」라는 방향과 겪은 일의 이름은 탄원이 됩니다."</strong></p>
+<p>(출처: <a href="./01_일상의깊은사고_하박국_1_1-4.html">01_일상의깊은사고_하박국_1_1-4</a> 주요 신학 통찰 1️⃣ ②·③)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<a href="./01_구문묵상_하박국_1_1-4.html">01_구문묵상_하박국_1_1-4</a> §2 · 정본 KRV88 문면)</p>
+<blockquote>
+<p>1:2 여호와여 내가 부르짖어도 주께서 듣지 아니하시니 어느 때까지리이까 내가 강포를 인하여 외쳐도 주께서 구원치 아니하시나이다<br />
+1:3 어찌하여 나로 간악을 보게 하시며 패역을 목도하게 하시나이까 대저 겁탈과 강포가 내 앞에 있고 변론과 분쟁이 일어났나이다</p>
+</blockquote>
+<p><strong>원문</strong> (구문묵상 §2를 그대로 옮김 · 악센트 뗀 문면)</p>
+<blockquote>
+<p><strong>1:2</strong> עַד־אָנָה יְהוָה שִׁוַּעְתִּי וְלֹא תִשְׁמָע אֶזְעַק אֵלֶיךָ חָמָס וְלֹא תוֹשִׁיעַ<br />
+<strong>1:3</strong> לָמָּה תַרְאֵנִי אָוֶן וְעָמָל תַּבִּיט וְשֹׁד וְחָמָס לְנֶגְדִּי וַיְהִי רִיב וּמָדוֹן יִשָּׂא</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (구문묵상 §3-2 · §3-3 · §3-5 · §3-6 · §4①)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱 (구문묵상 기재분만)</th>
+<th>표제어 · 계수</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>שִׁוַּעְתִּי</code></td>
+<td>피엘 완료 1cs · 반절 A 주동사</td>
+<td>꼴 구약 4자리(합 1:2 · 욘 2:3 · 시 30:3 · 시 88:14 · MT 절번호)</td>
+<td>반절 A의 외침 — 방향은 절 머리 호격 <code>יְהוָה</code>가 진다</td>
+</tr>
+<tr>
+<td><code>אֶזְעַק</code></td>
+<td>칼 미완료 1cs · 반절 B 주동사</td>
+<td><code>זָעַק</code>(06 씨앗 동사)</td>
+<td>씨앗이 기대는 동사 — ⛔ 축으로 세우지 않음</td>
+</tr>
+<tr>
+<td><code>אֵלֶיךָ</code></td>
+<td>전치사 + 2ms 접미</td>
+<td>—</td>
+<td><strong>방향</strong> — 외침이 향하는 곳</td>
+</tr>
+<tr>
+<td><code>חָמָס</code></td>
+<td>명사 · 전치사 없는 절대형 · 앞 표지 0</td>
+<td>2555 · 이 책 6토막(1:2 · 1:3 · 1:9 · 2:8 · 2:17×2) · 구약 60(20권)</td>
+<td><strong>씨앗</strong> — 겪은 일의 이름</td>
+</tr>
+<tr>
+<td><code>וְלֹא תִשְׁמָע</code> · <code>וְלֹא תוֹשִׁיעַ</code></td>
+<td>칼 / 히필 미완료 2ms · 부정 등위</td>
+<td>—</td>
+<td>두 외침 뒤의 응답 부재 — 이 네 절 안에서 풀리지 않음</td>
+</tr>
+<tr>
+<td><code>וְשֹׁד וְחָמָס לְנֶגְדִּי</code></td>
+<td>무동사절(동사 0)</td>
+<td><code>שֹׁד</code> 7701 이 책 2</td>
+<td>1:3 둘째 토막 — 「내 앞에」(1cs 접미) 곁</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수 기준</strong>: 수치는 전부 구문묵상·Stage 0.5가 센 값을 옮긴 것이고, 이 노트가 따로 센 수가 아니다.<br />
+- <strong>「전치사 없는 절대형은 1:2·1:3 둘」</strong> — 모집단은 <strong>하박국의 <code>חָמָס</code> 6토막</strong>이다. 1:9 <code>לְחָמָס</code>도 태그는 절대형이어서 「절대형 둘뿐」이 아니라 「전치사 없는 절대형 둘」로 좁힌 기준이다(구문묵상 §1-5 · 개관 §8-2). 2:8 · 2:17×2는 연계형이다.<br />
+- <strong>2인칭 남성</strong>: 정동사 4 · 접미 1(<code>אֵלֶיךָ</code>) — 모집단은 <strong>단위 1:1-4의 46토막</strong>이다. 정동사 넷 가운데 <code>תַרְאֵנִי</code>·<code>תַּבִּיט</code>는 2ms/3fs 동형이어서 2인칭은 문맥 판정이다(구문묵상 §3-5).<br />
+- ⛔ 이 수들은 논증의 기둥이 아니다. 축은 <strong>한 낱말 앞의 빈 표지와 곁의 방향</strong>이라는 자리의 사실이다.</p>
+<p>⚠ <strong>역본 문면 한 가지</strong> — 개역한글 1:2 둘째 반절 「내가 강포를 인하여 외쳐도」에는 <code>אֵלֶיךָ</code>에 대응하는 역어가 없다. 원문에 없는 「주께서」는 두 번 주어로 들어가고(구문묵상 §3-6 ③), 원문에 있는 「당신께」는 문면에서 보이지 않는다. ⛔ 이 노트는 역본 문면으로 축을 세우지 않고, 원문의 <code>אֵלֶיךָ</code>만 방향의 근거로 쓴다.</p>
+<h3>사고의 통합 — "방향이 정해진 이름은 이미 탄원이다"</h3>
+<p>관찰은 1:2 둘째 반절의 세 낱말에서 시작했다 — 1cs 외침 동사, 2ms 전치사구 <code>אֵלֶיךָ</code>, 그리고 앞에 표지가 하나도 없는 <code>חָמָס</code>. 비어 있는 것은 방향이 아니라 연결이었다. 형상화는 그 꼴을 번호표를 쥔 대기석으로 그려, 같은 이름이 「당신께」 보내는 입술과 「내 앞에」를 쥔 손의 두 자리에 서는 것을 보았다. 추상화는 그 장면에서 「향함」 하나를 남겼고, 패턴 인식은 「받는 곳이 정해진 한 마디」를 네 도메인에서 찾았지만, 1:2만이 응답이 부정된 채 그 받는 곳을 향한다는 갈림을 드러냈다.</p>
+<p>패턴 형성은 「방향 · 고리 · 이름 · 응답 · 해소」 다섯 층을 세우고, 그 가운데 고리와 해소 두 칸이 빈 채로 탄원이 완결된다는 법칙을 얻었다. 유추는 고충 신청서와 주소만 정확한 봉투와 응급 벨로 그 구조를 맞대었으나, 모두 응답을 전제한 제도 위에 서서 한 걸음씩 모자랐다. 몸은 「쥔 채 고개를 드는」 자세로 보낸 이름이 손 안의 일을 없애지 않음을 배웠고, 감정이입은 가장 불편한 이가 탄원하는 사람이 아니라 그 탄원을 완성해 주고 싶은 곁사람임을 보았다. 차원적 사고는 땅을 채웠던 이름이 한 사람의 짧은 외침이 되고, 정경이 그 이름을 「행하지 않은」 종의 이야기 곁에도 둔다는 것을 겹쳐 놓았다 — 그 곁줄은 신약이 더한 것이고 히브리어 낱말에서만 선다. 모형은 두 칸을 비워 두는 탄원 카드로 「응답 받는 기도법」의 출구를 막았고, 놀이는 방향을 빼면 무너지고 이름을 바꾸면 끊기며 표지를 넣으면 좁아질 뿐이라는 뼈대를 찾았다. 변형은 그 뼈대를 세 대지로 옮겨 살아남은 것을 확인했다.</p>
+<p>가장 생산적이었던 도구는 <strong>놀이(11)</strong>였다. 표지를 끼워 넣는 놀이가 아무것도 무너뜨리지 않고 길만 좁힌다는 발견이, 「표지의 0」을 결함이 아니라 <strong>열림</strong>으로 읽게 했다. 그리고 그 놀이에서 개역한글 문면이 방향(<code>אֵלֶיךָ</code>)을 옮기지 않고 고리(「인하여」)를 채웠다는 사실이 거울처럼 드러났다. 처음 관찰과 달라진 이해는 이것이다 — 처음에는 이 씨앗의 놀라움이 「문장 없이 한 낱말로도 기도가 된다」는 <strong>짧음</strong>에 있다고 보았으나, 끝에서 보니 그 놀라움은 <strong>연결을 비운 채 방향과 이름만으로 탄원이 완결된다</strong>는 데 있다. 짧음은 결과이고, 핵심은 향함이다. 응답은 이 네 절 안에서 오지 않는다. 그 부재도 「당신께」 향한 말 안에 들어 있다.</p>
+<blockquote>
+<p>[!insight] 탄원을 탄원이게 하는 것은 문장의 완성이 아니라 <strong>향함</strong>이다. 1:2는 고리와 응답 두 칸을 비운 채, 방향과 겪은 일의 이름만으로 이미 하나님께 향한 말이 된다.</p>
+<p>[!question] 연결 질문<br />
+- 향함이 탄원의 핵심이라면, 1:5의 응답(위로가 아닌 응답)을 들은 뒤에도 그 향함은 같은 2인칭으로 이어지는가 — 다음 단락들을 닫지 않고 따라가며 물을 것인가?<br />
+- 「채우지 않은 칸」을 지키는 일은 개인 기도와 공적 예배(대표기도·중보기도)에서 같은 모양이어야 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 통합된 테제를 개혁신학의 빛과 목회·세무 실무의 자리에 비추어, 어디까지가 본문의 말이고 어디부터가 더함인지 갈라 적는다.</p>
+<blockquote>
+<p><strong>"표지 하나 없이 놓인 이름도, 「당신께」라는 방향을 얻으면 이미 탄원이다 — 그 이름이 외친 말인지 까닭인지는 비워 둔 채, 응답 없는 시간까지 그분께 향한 말 안에 담긴다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "표지가 0인 자리"</h3>
+<p>씨앗은 1:2 둘째 반절의 세 낱말을 짚었다. 그 세 낱말을 첫째 반절과 나란히 놓으면 1:2의 뼈대가 드러난다.</p>
+<table>
+<thead>
+<tr>
+<th>반절</th>
+<th>외침 동사</th>
+<th>방향</th>
+<th>외침 곁의 명사</th>
+<th>뒤따르는 부정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td><code>שִׁוַּעְתִּי</code> 피엘 완료 1cs</td>
+<td>절 머리 호격 <code>יְהוָה</code></td>
+<td>없음</td>
+<td><code>וְלֹא תִשְׁמָע</code></td>
+</tr>
+<tr>
+<td>B</td>
+<td><code>אֶזְעַק</code> 칼 미완료 1cs</td>
+<td><code>אֵלֶיךָ</code> (전치사 + 2ms 접미)</td>
+<td><code>חָמָס</code> — 앞 표지 0</td>
+<td><code>וְלֹא תוֹשִׁיעַ</code></td>
+</tr>
+</tbody>
+</table>
+<p>첫째, <strong>두 반절 모두 방향이 있다.</strong> A는 호격으로, B는 전치사구로 외침이 향하는 이를 적는다. 둘째, <strong>명사가 얹힌 것은 B뿐이고, 그 명사 앞에는 표지가 하나도 없다.</strong> <code>אֶת</code>도 없고 전치사도 없다. 그래서 그 명사가 외침과 어떤 관계인지 꼴이 말하지 않는다. 셋째, <strong>1:3에서 같은 낱말이 다시 놓인다.</strong> <code>וְשֹׁד וְחָמָס לְנֶגְדִּי</code> — 동사가 0인 절에서, 이번에는 「내 앞에」라는 1cs 접미 전치사구 곁에 놓인다.</p>
+<p>보이는 것과 생각한 것을 갈라 둔다. 보이는 것은 「1cs 동사 + 2ms 전치사구 + 표지 없는 명사」라는 꼴, 그리고 같은 명사가 「내 앞에」 곁에 한 번 더 놓인다는 배치다. 「화자가 너무 지쳐서 문장을 다듬지 못했다」는 말은 본문에 없다 — 그것은 내면을 지어내는 해석이고 개관 §7-15가 막는 자리다. 이 노트가 부르는 「다듬은 문장 없음」은 <strong>꼴의 사실</strong>(표지 0)이지 화자의 상태가 아니다.</p>
+<blockquote>
+<p>[!insight] 1:2에서 비어 있는 것은 <strong>방향이 아니라 연결</strong>이다. 외침이 어디로 가는지는 적혀 있고, 그 곁의 이름이 외침과 어떻게 이어지는지만 적혀 있지 않다.</p>
+<p>[!question] 연결 질문<br />
+- 반절 A에는 이름이 없고 반절 B에는 이름이 있다. 같은 응답 부재(<code>וְלֹא</code>)가 두 반절에 붙는다면, 이름의 있고 없음은 탄원의 무엇을 바꾸는가?<br />
+- 1:2의 <code>חָמָס</code>는 「당신께」 곁에, 1:3의 <code>חָמָס</code>는 「내 앞에」 곁에 있다. 한 낱말이 두 전치사구 사이를 오갈 때, 그 낱말은 어느 쪽의 것인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 표지 없이 놓인 이름 하나와 정해진 방향을, 실제로 그렇게 말할 수밖에 없는 사람이 앉아 있는 장면으로 그린다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "받는 곳이 정해진 한 마디"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>받는 곳</th>
+<th>표지 없이 놓이는 한 마디</th>
+<th>무엇이 그 한 마디를 호소로 만드는가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>응급</td>
+<td>119 상황실</td>
+<td>「불이야」 · 「사람이 쓰러졌어요」</td>
+<td>수신처가 정해진 회선 — 문법이 아니라 회선이 호소를 만든다</td>
+</tr>
+<tr>
+<td>가정</td>
+<td>부엌의 어머니</td>
+<td>아이의 「엄마!」 다음에 오는 「피!」</td>
+<td>이름 하나가 상황 전체를 싣는다</td>
+</tr>
+<tr>
+<td>세무</td>
+<td>관할 세무서 민원실</td>
+<td>고충 신청서 「사유」 칸의 한 줄</td>
+<td>접수처가 정해져 있으면 짧은 사유도 서류가 된다</td>
+</tr>
+<tr>
+<td>시편 기도</td>
+<td>호격으로 부른 이</td>
+<td>「여호와여」 다음의 짧은 부르짖음</td>
+<td>호격이 받는 이를 세운다</td>
+</tr>
+</tbody>
+</table>
+<p>공통 패턴: <strong>받는 곳이 정해지면, 연결어 없는 한 마디가 호소로 선다.</strong> 네 도메인 모두에서 한 마디는 「왜」·「때문에」·「위하여」를 달지 않는다. 그 연결은 받는 쪽이 듣고 채우거나, 채우지 않은 채 받는다.</p>
+<p>그런데 이 패턴을 1:2에 되비출 때 두 가지가 갈린다. 첫째, 네 도메인에서는 회선이 연결되면 <strong>응답이 오는 것이 전제</strong>다. 1:2는 두 외침 뒤에 바로 <code>וְלֹא</code>(그리고 ~않다)를 붙인다 — 받는 곳은 정해져 있는데 응답은 부정된다. 둘째, 1:2-4 전체는 <strong>세 절에 걸친 짜인 탄원</strong>이다(구문묵상 포인트 1). 표지 없는 한 마디는 그 짜임 안의 한 자리이지 단락의 전부가 아니다. 그리고 표지 없이 <code>חָמָס</code>가 동사 곁에 놓이는 꼴 자체는 드문 것이 아니다 — 구문묵상 §4①이 인용한 창 6:11·6:13에서도 그 낱말은 동사 곁에 전치사 없이 선다(⚠ 그 구실은 판정하지 않고, ⛔ 그 동사로 2:14를 잇지 않는다 — 07 몫). 이 노트가 붙드는 것은 「드문 꼴」이 아니라 <strong>외침 동사와 2인칭 방향 곁에 그 낱말이 놓였다는 자리</strong>다.</p>
+<blockquote>
+<p>[!insight] 일상의 패턴은 「받는 곳이 정해진 한 마디는 응답을 부른다」이고, 1:2의 꼴은 「<strong>받는 곳이 정해진 한 마디가 응답 부재 속에서도 그 받는 곳을 향한다</strong>」다. 겹치는 것은 향함이고, 갈리는 것은 응답의 유무다.</p>
+<p>[!question] 연결 질문<br />
+- 응답이 오지 않는 회선에 거듭 같은 이름을 보내는 일은, 일상에서는 고장 신고인데 1:2에서는 무엇인가?<br />
+- 「드문 꼴」이 아니라 「자리」가 무게를 진다면, 같은 낱말이 1:9 · 2:8 · 2:17에서 다른 자리에 설 때 그 무게는 어떻게 달라지는가(02·05·08 몫 — 소재로만)?</p>
+</blockquote>
+<p><strong>다리</strong>: 겹침(향함)과 갈림(응답 부재)을 함께 담는 도식으로 이 패턴을 정제한다.</p>
+<h3>0 유추 (Analogizing) — "주소만 정확한 봉투"</h3>
+<p><strong>유추 ① 납세자의 고충 신청 (세무 실무)</strong><br />
+납세자가 부당하다고 느끼는 처분을 겪었을 때, 법률 용어를 다 갖추지 못한 채 관할 기관 앞으로 「사유」 한 줄만 적어 낸다. 수신 기관이 정확하면 서류는 접수된다. 사유의 법적 구성은 받는 쪽이 검토하며 채운다.<br />
+- 새 통찰: 1:2의 <code>אֵלֶיךָ</code>는 수신 기관란이다. 수신처가 정확하면 「사유」 칸이 한 낱말이어도 그 서류는 아무 데로나 흩어지지 않는다.<br />
+- 한계: 고충 신청은 처리 기한과 회신이 제도로 보장된다. 1:2는 수신이 정확한데도 <code>וְלֹא תִשְׁמָע</code>가 붙는다. 제도의 유추는 <strong>응답 부재</strong>에서 깨진다. 그리고 1:2의 「사유」 칸은 받는 쪽이 채워 주었다는 기록조차 이 단위 안에 없다.</p>
+<p><strong>유추 ② 주소만 정확한 봉투 (일상)</strong><br />
+편지지를 다 채우지 못한 채, 봉투에 받는 이의 주소를 정확히 쓰고 속에 종이 한 장 — 한 낱말만 적어 넣는다. 우체국은 내용의 길이를 묻지 않고 주소를 본다.<br />
+- 새 통찰: 「향함」은 내용의 부족을 덮는 것이 아니라, 부족한 내용 그대로 그것을 보낼 수 있게 한다.<br />
+- 한계: 봉투는 보낸 이가 주소를 안다는 전제에서 선다. 1:2의 방향은 화자가 주소를 「아는」 것이 아니라 호격으로 「부르는」 것이다 — 호격은 주소 기재가 아니라 관계의 호칭이다(구문묵상 §6②의 언약적 읽기).</p>
+<p><strong>유추 ③ 응급 벨 (의료)</strong><br />
+병상의 환자는 말 대신 벨을 누른다. 벨은 무엇이 아픈지 말하지 않지만 어디로 갈지는 정해져 있다.<br />
+- 새 통찰: 1:2의 반절 A(<code>שִׁוַּעְתִּי</code> 단독)가 벨이라면, 반절 B는 벨과 함께 아픈 곳의 이름을 말한 것이다.<br />
+- 한계: 벨에는 응답할 간호사가 대기한다는 약속이 붙는다. 1:2는 그 대기를 부정형으로 적는다.</p>
+<blockquote>
+<p>[!insight] 세 유추 모두 「수신처가 정확하면 짧은 내용도 전달된다」를 보여 주지만, <strong>모두 응답을 전제한 제도 위에 선다.</strong> 1:2만이 수신처가 정확한 채 응답이 부정된 자리에서 이름을 보낸다 — 그래서 유추는 늘 한 걸음 모자란다.</p>
+<p>[!question] 연결 질문<br />
+- 「사유」 칸을 받는 쪽이 채운다는 세무의 관행과, 「인하여」로 고리를 채운 번역의 손은 어디서 같고 어디서 다른가?<br />
+- 호격 <code>יְהוָה</code>가 「주소」가 아니라 「관계의 호칭」이라면, 응답 부재는 그 관계를 끊는 것인가, 관계 안의 일인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 머리로 맞댄 봉투와 벨의 유추를 몸으로 옮겨, 「향하여 이름을 내놓는」 동작을 근육으로 겪어 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "고개를 돌려 이름을 내놓기"</h3>
+<p><strong>실천 프로토콜</strong> — 의자에 앉아 눈을 감는다.<br />
+1. 두 손을 무릎 위에 모아 쥔다. 손 안에 지금 내 앞에 있는 일 하나를 쥐고 있다고 여긴다(1:3 「내 앞에」의 자리).<br />
+2. 고개를 천천히 든다. 어디를 향하는지 몸이 먼저 정하게 한다(1:2 <code>אֵלֶיךָ</code>의 자리). 문장을 만들려고 하지 않는다.<br />
+3. 그 일의 이름을 한 낱말로, 소리 내어 한 번 말한다. 「~때문에」 · 「~해 주십시오」를 붙이지 않는다.<br />
+4. 그대로 몇 숨을 기다린다. 아무 소리가 돌아오지 않는 시간을 몸으로 견딘다(1:2 <code>וְלֹא</code>의 자리).<br />
+5. 손은 여전히 쥐고 있음을 느낀다. 이름을 보냈다고 손 안의 일이 사라지지 않았다.</p>
+<p>몸이 가르쳐 주는 것: 고개를 드는 동작이 먼저이고, 말은 나중이다. 방향이 정해지면 입은 한 낱말로도 움직인다. 그리고 5번에서 몸은 정직하게 말한다 — <strong>보낸 이름은 손 안의 일을 없애지 않는다.</strong> 1:3에서 같은 낱말이 「내 앞에」 그대로 있는 배치가 몸에서는 「쥔 손이 풀리지 않음」으로 겪어진다. 탄원은 그 일을 내려놓는 동작이 아니라, 쥔 채로 고개를 드는 동작이다.</p>
+<p>설교 전달로 옮기면 — 1:2를 읽을 때 「당신께」에서 시선을 회중 위로 들고, 「하마스」에서 한 박자 멈추어 그 낱말만 따로 놓고, 「구원하지 않으십니다」에서 시선을 내린다. 1:3의 「내 앞에」에서는 두 손을 강대상 위에 모은다. 멈춤이 「표지 0」을, 모은 손이 「눈앞」을 전한다.</p>
+<blockquote>
+<p>[!insight] 몸은 <strong>방향을 먼저 정하고, 이름은 쥔 채로 내놓는다.</strong> 1:2-3의 배치는 「내려놓기」가 아니라 「쥔 채 향하기」의 자세다.</p>
+<p>[!question] 연결 질문<br />
+- 4번의 기다림에서 몸은 무엇을 먼저 하려 드는가 — 다시 문장을 만들려 하는가, 고개를 내리려 하는가?<br />
+- 「쥔 채 향하기」를 회중이 따라 할 때, 그것이 응답을 받아 내는 기술로 오해되지 않게 하려면 무엇을 함께 말해야 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 쥔 손과 든 고개의 자리에서, 그 장면 안의 사람과 그 곁에 선 사람의 마음으로 들어간다 — 단, 1:2 화자의 내면이 아니라 적용 장면의 두 사람으로.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "가득한 땅에서 한 사람의 외침으로"</h3>
+<p><strong>확장 — 정경의 축</strong><br />
+같은 표제어를 정경 위에 늘어놓으면 세 자리가 보인다(전부 구문묵상 §4① · §6① 인용 문면).<br />
+- 창 6:11 <code>וַתִּמָּלֵא הָאָרֶץ חָמָס</code> · 6:13 — 땅 전체가 그 이름으로 가득하다. 주어는 땅이고, 외치는 1인칭은 없다.<br />
+- 합 1:2 <code>אֶזְעַק אֵלֶיךָ חָמָס</code> — 한 사람의 1인칭이 그 이름을 「당신께」 보낸다.<br />
+- 사 53:9 <code>עַל לֹא חָמָס עָשָׂה</code> — 그 이름을 「행하지 않은」 이가 있고, 그 무덤이 악인들과 함께 놓인다.</p>
+<p>땅에 가득했던 이름이 한 사람의 입에서 외침이 되고, 다시 그 이름을 행하지 않은 종의 자리로 옮겨 간다. ⛔ 이 셋을 하나의 줄거리로 묶은 것은 하박국이 아니라 이 노트의 배열이다. 그리고 셋째 자리에서 신약은 그 종을 그리스도로 읽는다 — 벧전 2:22 <code>ὃς ἁμαρτίαν οὐκ ἐποίησεν</code>. ⚠ 벧전 2:22는 그 자리에 「죄」를 쓰므로, <strong>폭력이라는 이름으로 잇는 줄은 히브리어 문면에서만 선다.</strong> 이것은 신약이 더한 것이고, 「종이 그 폭력을 받았다」는 말은 사 53:9 어디에도 없다. 이 노트가 말할 수 있는 것은 여기까지다 — 1:2가 「당신께」 보낸 그 이름을, 정경은 <strong>행하지 않은 이</strong>의 이야기 곁에도 둔다.</p>
+<p><strong>축소 — 한 낱말 앞의 빈자리</strong><br />
+반대로 줄이면, 이 모든 무게가 <code>אֵלֶיךָ</code>와 <code>חָמָס</code> 사이의 <strong>아무것도 없는 틈</strong> 하나에 걸린다. 표지 하나가 들어갈 자리다. 그 틈에 <code>אֶת</code>이 들어가면 ⒝ 쪽으로, <code>עַל</code>이나 「인하여」가 들어가면 ⒞ 쪽으로 기운다. 틈은 비어 있어서 세 길을 모두 열어 둔다(⚠ 꼴 서술이다 — 빈 틈에서 신학 명제를 끌어내지 않는다).</p>
+<p><strong>핵심 전복</strong>: 시간을 늘이면 <code>חָמָס</code>는 땅의 상태에서 종의 이야기까지 가는 <strong>긴 이름</strong>이 되고, 줄이면 그 이름은 외침 곁에 <strong>표지 하나 없는 짧은 거리</strong>로 붙어 있다. 정경이 길게 끌고 가는 이름이, 1:2에서는 한 사람의 입술에서 아무 연결어 없이 「당신께」로 간다.</p>
+<blockquote>
+<p>[!insight] 1:2에서 <code>חָמָס</code>는 <strong>정경에서 가장 긴 이름 가운데 하나가 가장 짧은 꼴로 놓인 자리</strong>다. 땅을 채웠던 이름이, 한 사람이 향하여 보내는 한 낱말이 된다.</p>
+<p>[!question] 연결 질문<br />
+- 창 6의 「가득함」에는 외치는 1인칭이 없고, 합 1:2에는 있다. 같은 이름 앞에 「외치는 나」가 설 때 무엇이 새로 생기는가?<br />
+- 사 53:9의 곁줄을 1:2에 더할 때, 「행하지 않은 이」가 「당한 이」로 미끄러지지 않게 하려면 설교자는 어떤 문장을 피해야 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 길게 늘인 이름과 짧은 틈을 겹친 이 차원을, 실제로 쓸 수 있는 기도의 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>① 실질 접점 본문</strong> (⛔ 프루프텍스팅이 아니라 「향하는 탄원」의 결을 잇는 자리만 · 전부 신약이 더한 것 또는 구약 안의 곁줄)<br />
+- <strong>이사야 53:9 · 베드로전서 2:22</strong> — 같은 표제어 <code>חָמָס</code>를 「행하지 않은」 종. 신약은 그를 그리스도로 읽는다. ⚠ 벧전 2:22는 「죄」를 쓰므로 폭력 낱말의 연결은 히브리어 문면에서만 선다. ⛔ 「종이 폭력을 받았다」로 대속형을 채우지 않는다. 이 연결이 1:2에 주는 것은 답이 아니라 곁줄이다 — 탄원자가 아뢴 그 이름을 정경은 그 이름을 행하지 않은 이의 무덤 곁에도 둔다.<br />
+- <strong>누가복음 18:7-8</strong> — 「밤낮 그에게 부르짖는 이들」(구문묵상 §6① 직역). 겹침은 <strong>장면</strong>이고 낱말이 아니다. 18:8은 「속히 원한을 풀어 주리라」와 「인자가 와서 믿음을 찾겠느냐」를 함께 둔다. ⛔ 그 약속으로 1:2를 닫지 않는다.<br />
+- <strong>시편 22:2 · 마태복음 27:46</strong> — 1:3의 <code>לָמָּה</code>와 시 22:2의 「왜」가 한 표제어(4100)이고, 마 27:46에서 예수께서 그 물음을 외치셨다(구문묵상 포인트 2). ⚠ 이 연결의 근거는 표제어 하나이고 씨앗 <code>חָמָס</code>의 축이 아니다 — 「하나님께 향한 물음」이라는 결에서만 곁에 둔다.</p>
+<p><strong>② 신학자 — 칼빈, 『기독교 강요』 3권 20장(기도론)</strong>: 칼빈은 기도를 하나님 앞에 마음을 쏟아 놓는 일로 다루며, 성도의 기도가 흠과 조급함을 지닌 채 드려져도 하나님이 그것을 받으신다는 취지를 시편의 탄원들을 들어 말한다. 1:2는 그 논지의 한 꼴을 비춘다 — 다듬지 못한 말도 하나님을 향하는 한 기도의 자리를 잃지 않는다. ⚠ 이 연결은 논지 차원이고 축자 인용이 아니며, 장·절 소재는 원문 대조로 확인할 것. ⛔ 칼빈의 「받으신다」로 1:2의 <code>וְלֹא</code>(듣지 않으신다)를 덮지 않는다 — 이 네 절 안에서 응답은 0이다.</p>
+<p><strong>③ 언약적 읽기</strong> — 구문묵상 §6②가 담듯, 하나님을 2인칭으로 부르는 탄원은 언약 관계 안의 호소다. <code>אֵלֶיךָ</code>는 주소가 아니라 관계의 방향이다(6단계 유추 ②의 한계). 응답 부재가 그 관계를 끊었다고 본문은 말하지 않는다 — 부재조차 「당신께」 아뢰어진다.</p>
+<p><strong>④ 설교 적용점</strong> — 「기도를 잘하는 법」이 아니라 「기도의 방향을 잃지 않는 법」으로 전한다. 문장을 갖추지 못한 성도를 부족한 신앙으로 보지 않되, 「짧게 하면 된다」는 기법으로 바꾸지도 않는다. 1:2-4 전체는 세 절의 짜인 탄원이고, 한 낱말은 그 안의 한 자리다.</p>
+<p><strong>⑤ 복음 중심성 점검</strong> — 이 씨앗은 두 쪽으로 닫히기 쉽다. 하나는 도덕주의(「힘들어도 하나님께 말씀드려라」 — 향함을 의무로 바꿈), 하나는 승리주의(「결국 들으셨다」 — 해소의 빈칸을 채움). 정직한 자리는 둘 사이다. 1:2의 탄원은 응답 없이 그대로 선포하고, 그 이름이 정경에서 「행하지 않은 종」 곁에도 놓이며 신약이 그 종을 그리스도로 읽는다는 것은 <strong>신약이 더한 복음</strong>으로 밝혀 선포한다.</p>
+<ul>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 원본의 복음 중심성 점검을 따라 은혜의 근거와 순종의 열매를 구별한다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>목회 — 심방과 통화</strong><br />
+- <strong>상황</strong>: 폭력이나 부당한 일을 겪은 성도가 기도 요청을 하면서 「뭐라고 기도해야 할지 모르겠어요」라고 말한다.<br />
+- <strong>적용</strong>: 10단계 「세 칸 탄원 카드」의 ①·②칸만 함께 채운다 — 「여호와여, 당신께」와 그 일의 이름 하나. 목회자가 ③칸(까닭·목적)을 대신 채우거나 ④칸(응답)을 미리 약속하지 않는다(8단계 시점 ②의 경계).<br />
+- <strong>기대 효과</strong>: 성도는 「기도를 못 한다」는 부끄러움 대신 「향할 곳이 있다」는 자리를 얻고, 목회자는 위로의 문장으로 탄원을 서둘러 닫는 습관을 끊는다.</p>
+<p><strong>세무·실무 — 고객 상담</strong><br />
+- <strong>상황</strong>: 세무 처분을 겪은 고객이 법률 용어를 모른 채 「억울하다」는 한 마디만 반복한다.<br />
+- <strong>적용</strong>: 6단계 유추 ①처럼, 먼저 「수신처」를 바로 세운다 — 이 일이 어느 기관의 어느 절차로 가야 하는지를 정한다. 고객의 한 마디를 서둘러 법률 논리로 바꾸기 전에, 그가 겪은 사실의 이름을 그대로 받아 적는다. 사유의 법적 구성은 그다음이다.<br />
+- <strong>기대 효과</strong>: 고객의 진술이 대리인의 논리에 덮이지 않고, 신청서의 수신처와 사실 기재가 정확해져 절차가 엉뚱한 곳으로 흩어지지 않는다. ⚠ 이 유추는 응답이 제도로 보장되는 세계의 것이다 — 1:2의 응답 부재와 같은 자리가 아님을 상담자 스스로 기억한다.</p>
+<p><strong>개인 의사결정 — 오래 풀리지 않는 일 앞에서</strong><br />
+- <strong>상황</strong>: 길어지는 가족의 치료나 끝나지 않는 분쟁 앞에서, 기도가 점점 줄어 아예 입을 닫게 된다.<br />
+- <strong>적용</strong>: 7단계 프로토콜의 1~3번만 하루 한 번 한다 — 손에 쥐고, 고개를 들고, 이름 하나를 「당신께」. 응답을 기록하는 칸은 만들지 않는다.<br />
+- <strong>기대 효과</strong>: 문장이 무너져도 방향은 무너지지 않게 붙들 수 있다. 응답이 늦어도 그 늦음까지 그분께 향한 말 안에 넣는 습관이 생긴다.</p>
+<h3>🥇 표지의 0은 결함이 아니라 열림이다</h3>
+<ul>
+<li><strong>핵심</strong>: 1:2 <code>אֶזְעַק אֵלֶיךָ חָמָס</code>에서 <code>חָמָס</code> 앞에 표지가 하나도 없다. 어떤 표지를 넣어도 문장은 더 분명해지고 더 좁아진다(외친 말 · 목적 · 까닭 가운데 하나로). 원문의 0은 세 길을 함께 지닌 꼴이다.</li>
+<li><strong>인격 형성</strong>: 흔히 이 절을 「강포로 인해 부르짖는 예언자」로 읽지만, 그 읽기는 번역이 고른 한 길이다. 0을 결함이 아니라 열림으로 보면, 번역이 넣은 「인하여」와 지운 「당신께」가 함께 보인다.</li>
+<li><strong>연결 고리</strong>: <a href="./01_구문묵상_하박국_1_1-4.html">01_구문묵상_하박국_1_1-4</a> §3-2 · §3-6 · <a href="./01_일상의깊은사고_하박국_1_1-4.html">01_일상의깊은사고_하박국_1_1-4</a> 통찰 1️⃣ · 신규 「생각의탄생13단계_하박국_1_1-4_놀이_표지끼워넣기」(노트 후보)</li>
+</ul>
+<h3>🥈 향함이 이름을 탄원으로 만든다</h3>
+<ul>
+<li><strong>핵심</strong>: 세 읽기 어느 쪽에서도 남는 것은 방향(<code>אֵלֶיךָ</code>)과 이름(<code>חָמָס</code>)이다. 방향을 빼면 같은 이름은 거리의 고함이 되고, 방향이 있으면 연결이 비어도 탄원이 된다.</li>
+<li><strong>인격 형성</strong>: 「짧은 기도도 기도다」라는 기법론과 갈린다. 핵심은 짧음이 아니라 받는 이의 자리이고, 그 자리는 응답이 부정된 순간에도 2인칭으로 유지된다.</li>
+<li><strong>연결 고리</strong>: <a href="./00_하박국_묵상단위_마스터.html">00_하박국_묵상단위_마스터</a> §4 01행 · <a href="./06_생각의탄생13단계_하박국_2_9-11_사람이빠진자리에돌이외친다.html">06_생각의탄생13단계_하박국_2_9-11_사람이빠진자리에돌이외친다</a>(받는 이가 적히지 않은 외침 — 구분 링크) · 눅 18:7-8(장면 겹침)</li>
+</ul>
+<h3>🥉 탄원을 완성해 주고 싶은 곁사람의 경계</h3>
+<ul>
+<li><strong>핵심</strong>: 1:2의 빈 고리 앞에서 가장 쉽게 손을 대는 이는 겪은 사람이 아니라 곁에서 문장을 다듬어 주려는 사람이다. 번역의 「인하여」와 목회자의 기도문 교정은 같은 방향으로 움직인다.</li>
+<li><strong>인격 형성</strong>: 탄원 본문의 적용은 대개 「탄원하는 이」에게 향하지만, 이 씨앗은 적용의 무게를 <strong>듣는 이·돕는 이</strong>에게 옮긴다. 목회 돌봄의 윤리로 곧장 이어진다.</li>
+<li><strong>연결 고리</strong>: <a href="./01_설교스케치_하박국_1_1-4.html">01_설교스케치_하박국_1_1-4</a> · <a href="./01_일상의깊은사고_하박국_1_1-4.html">01_일상의깊은사고_하박국_1_1-4</a> 포인트 2 · 칼빈 『기독교 강요』 3권 20장(논지 차원)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 1 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

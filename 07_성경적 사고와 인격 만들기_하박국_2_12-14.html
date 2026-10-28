@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>땅은 채워지고 채우는 이는 비어 있다 — 씨앗 아이디어(하박국 2:14 — `תִּמָּלֵא`(팀말레) · 어근 `מָלֵא` + `לָדַעַת אֶת־כְּבוֹד יְהוָה`)</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 7 편 &middot; 하박국 2:12-14</span>
+      <h1>땅은 채워지고 채우는 이는 비어 있다 — 씨앗 아이디어(하박국 2:14 — `תִּמָּלֵא`(팀말레) · 어근 `מָלֵא` + `לָדַעַת אֶת־כְּבוֹד יְהוָה`)</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>07_성경적 사고와 인격 만들기</p>
+<h2>땅은 채워지고 채우는 이는 비어 있다 — 씨앗 아이디어(하박국 2:14 — <code>תִּמָּלֵא</code>(팀말레) · 어근 <code>מָלֵא</code> + <code>לָדַעַת אֶת־כְּבוֹד יְהוָה</code>)</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./07_생각의탄생13단계_하박국_2_12-14_땅은채워지고채우는이는비어있다.html">07_생각의탄생13단계_하박국_2_12-14_땅은채워지고채우는이는비어있다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"히브리어에서 「채워지리라」(<code>תִּמָּלֵא</code>, 팀말레)와 맞는 쪽은 「땅」(<code>הָאָרֶץ</code>)입니다. 「채워지다」는 받는 꼴이고 행위자를 대지 않습니다. 거기에 「여호와의 영광을 알다」(<code>לָדַעַת אֶת־כְּבוֹד יְהוָה</code>, 라다앗)가 붙는데, 그것이 채움의 내용인지(「아는 것으로 채워진다」) 목적이나 결과인지(「알도록」), 누가 아는지 본문은 정하지 않습니다. … 이 노트는 처음에 받는 꼴을 보고 「하나님이 땅을 채우신다」를 쓰려 했습니다. 단위 안에 행위자 표지가 없어 그 문장을 쓰지 않았습니다. 땅이 채워지는 때가 언제인지도 본문은 대지 않습니다. 채움의 주어와 때가 비어 있는 약속을, 그 빈칸째로 받아 듭니다.</strong></p>
+<p><strong>메시지 핵심: 땅이 채워지리라는 약속은 채우는 이의 이름 없이 우리 앞에 놓여 있습니다."</strong></p>
+<p>(출처: <a href="./07_일상의깊은사고_하박국_2_12-14.html">07_일상의깊은사고_하박국_2_12-14</a> 중심 신학 통찰 3️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<a href="./07_구문묵상_하박국_2_12-14.html">07_구문묵상_하박국_2_12-14</a> §2 · KRV88 정본 문면)</p>
+<blockquote>
+<p>2:12 피로 읍을 건설하며 불의로 성을 건축하는 자에게 화 있을찐저<br />
+2:13 민족들이 불 탈 것으로 수고하는 것과 열국이 헛된 일로 곤비하게 되는 것이 만군의 여호와께로서 말미암음이 아니냐<br />
+2:14 대저 물이 바다를 덮음 같이 여호와의 영광을 인정하는 것이 세상에 가득하리라</p>
+</blockquote>
+<p><strong>원문</strong> (구문묵상 §2를 그대로 옮김)</p>
+<blockquote>
+<p><strong>2:12</strong> ה֛וֹי בֹּנֶ֥ה עִ֖יר בְּדָמִ֑ים וְכוֹנֵ֥ן קִרְיָ֖ה בְּעַוְלָֽה׃<br />
+<strong>2:13</strong> הֲל֣וֹא הִנֵּ֔ה מֵאֵ֖ת יְהוָ֣ה צְבָא֑וֹת וְיִֽיגְע֤וּ עַמִּים֙ בְּדֵי־אֵ֔שׁ וּלְאֻמִּ֖ים בְּדֵי־רִ֥יק יִעָֽפוּ׃<br />
+<strong>2:14</strong> כִּ֚י תִּמָּלֵ֣א הָאָ֔רֶץ לָדַ֖עַת אֶת־כְּב֣וֹד יְהוָ֑ה כַּמַּ֖יִם יְכַסּ֥וּ עַל־יָֽם׃ ס</p>
+</blockquote>
+<p>⚠ 개역한글 2:14는 「인정하는 것이 … 세상에 가득하리라」로 옮겨, 동사와 맞는 쪽을 「땅」에서 「인정하는 것」으로 바꾸고 땅을 처소(「세상에」)로 내리며, 니팔을 「가득하다」로 평평하게 한다(구문묵상 §3-7 ⒝ · 개관 §8-1 45). ⛔ 이 노트는 개역 문면으로 2:14의 주어·태를 세우지 않는다.</p>
+<p><strong>파싱 근거</strong> (구문묵상 §3-3 · §3-4 · §3-5 · §3-6 · §4①)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱 (구문묵상 기재분만)</th>
+<th>표제어 · 계수 (모집단 명시)</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>תִּמָּלֵא</code></td>
+<td>니팔 미완료 3fs · <code>כִּי</code> 절</td>
+<td>4390 <code>HVNi3fs</code> 꼴 <strong>구약 4토막</strong>(전 1:8 · 6:7 · 욥 15:32 · 합 2:14) · 4390 니팔 미완료 전수에서 바로 뒤 토막이 <code>הָאָרֶץ</code>인 것 = 합 2:14 하나</td>
+<td><strong>씨앗</strong> — 받는 꼴</td>
+</tr>
+<tr>
+<td><code>הָאָרֶץ</code></td>
+<td>관사 有 · 동사와 3fs 일치</td>
+<td>776</td>
+<td>동사와 맞는 칸</td>
+</tr>
+<tr>
+<td><code>לָדַעַת</code></td>
+<td>칼 부정사 연계 · 의미상 주어 표지 없음</td>
+<td>3045</td>
+<td>붙은 말 — 구실 미정(봉합 6)</td>
+</tr>
+<tr>
+<td><code>אֶת־כְּבוֹד יְהוָה</code></td>
+<td>목적격 표지 + 3519 연계형 + 3068</td>
+<td>3519 구약 200토막(XML 직접 · 케레 0) · 하박국 3토막(2:14 · 2:16×2 — 2:16은 08 몫)</td>
+<td>영광이 놓인 칸 — 부정사의 목적어 안</td>
+</tr>
+<tr>
+<td><code>כַּמַּיִם יְכַסּוּ עַל־יָם</code></td>
+<td>피엘 미완료 3mp · 비교절</td>
+<td>3680 · 4325 · 3220</td>
+<td>「물이 바다 위를 덮듯이」 — 덮음의 주어는 물(채움의 행위자 아님)</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수 기준</strong>: 아래 수는 전부 구문묵상(XML 직접 · <code>tmp/하박국/07_s1*.py</code> 출력)이 기재한 값이고, 이 노트가 따로 센 수가 아니다.<br />
+- <strong>4390 + 3519 + 776 한 절 = 구약 3절</strong> — 모집단: 구약 전권에서 「채우다」·「영광」·「땅」 세 표제어가 한 절에 든 절. 민 14:21 <code>וְיִמָּלֵא</code>(니팔 미완료 3ms) · 시 72:19 <code>וְיִמָּלֵא</code>(니팔 미완료 3ms)는 동사가 영광과 성·수가 맞고 땅 앞에 <code>אֶת</code>가 붙는다. 합 2:14만 동사가 땅과 3fs로 맞는다(구문묵상 §3-3 표).<br />
+- <strong>합 2:14 ↔ 사 11:9b 겹치는 표제어 8</strong>(3588 · 4390 · 776 · 853 · 3068 · 4325 · 3220 · 3680) · <strong>갈림 다섯</strong> — ① 활용형 ② 표제(3045 동사 ↔ 1844 명사) ③ <code>כָּבוֹד</code> 유무 ④ 전치사와 관사 ⑤ 어순. 개관 §3-2의 「7」은 <code>כִּי</code>를 뺀 수다(개관 §8-1 42).<br />
+- <strong>3045 + 3519 한 절 = 구약 3절</strong>(대상 17:18 · 합 2:14 · 시 145:12) — 그중 영광이 「알다」 계열 동사의 목적어인 것은 시 145:12(히필 부정사)와 합 2:14(칼 부정사) 둘.<br />
+- <strong>R46</strong> — 단위 신명 3토막(2:13 <code>יְהוָה</code> 출처 · <code>צְבָאוֹת</code> 구성 요소 · 2:14 <code>יְהוָה</code> 연계 속격) 전부 사격 · 하나님을 가리키는 굴절 정동사 0 · 니팔 <code>תִּמָּלֵא</code>의 행위자 표지 0(구문묵상 §3-5).<br />
+- ⛔ 이 노트는 이 계수들을 논증의 유일한 기둥으로 세우지 않는다. 세 절 비교는 「동사가 무엇과 맞는가」라는 꼴 관찰을 보여 주는 자리이고, 축은 그 배치 자체다.</p>
+<h3>사고의 통합 — "약속은 받는 쪽의 문장으로 온다"</h3>
+<p>관찰은 2:14의 꼴 하나에서 시작했다 — 니팔 미완료 3fs <code>תִּמָּלֵא</code>가 <code>הָאָרֶץ</code>와 맞고, 행위자 표지는 없으며, <code>כְּבוֹד יְהוָה</code>는 부정사 <code>לָדַעַת</code>의 목적어 안에 놓인다. 형상화는 그 꼴을 물때를 기다리는 갯벌로 그렸고, 눈이 가는 곳이 붓는 손이 아니라 채워질 바닥임을 보았다. 추상화는 그 장면에서 「받는 자리」 하나를 남겼다 — 행위자 공백은 배경이고, 무게는 주어 자리에 선 땅에 있다. 패턴 인식은 받는 쪽에서 적힌 일상의 기록들을 찾았지만, 그 기록들은 이미 받은 상태를 적고 주는 쪽을 다른 칸에 두었다. 2:14는 아직 정해지지 않은 받음을 적고 그 칸을 단위 안에 두지 않는다.</p>
+<p>패턴 형성은 「세 칸 지도」로 민 14:21 · 시 72:19 · 합 2:14를 나란히 세웠다. 동사와 맞는 칸이 앞의 둘은 영광, 하박국은 땅이다 — 병행의 방향은 판정하지 않은 채로. 유추는 적요 없는 입금 앞의 세무사 손이 빈칸을 메우려 움직이는 반사를 보여 주었고, 그 반사가 이 본문 앞에서 멈춰야 함을 거꾸로 가르쳤다. 몸은 빈 그릇을 받친 두 손으로 메우고 싶은 조급함을 겪었고, 감정이입은 가장 불편한 이가 오래 기다려 온 성도임을 보았다. 차원적 사고는 정경의 넓이에서 나란히 선 약속들과 한 일치 표지에서 갈리는 자리를 겹쳤고, 모형은 「세 칸 읽기 카드」로 메운 자리를 드러내되 메운 말의 참거짓은 가리지 않았다. 놀이는 빈칸에 이름을 넣으면 누군가를 고르게 되고, 동사의 짝을 영광으로 바꾸면 영광이 「알다」의 목적어 자리를 떠나 「알다」 없는 두 절의 꼴이 된다는 것을 찾아냈다. 변형은 그것을 「채워질 땅」 3대지로 옮겨 뼈대가 살아남는 것을 확인했다.</p>
+<p>가장 생산적이었던 도구는 <strong>놀이(11)</strong>였다. 특히 둘째 놀이 — 동사의 짝을 영광으로 바꾸어 보기 — 에서 1단계의 두 관찰(땅이 주어 · 영광이 앎의 목적어)이 따로 떨어진 사실이 아니라 한 문장의 짜임으로 맞물려 있다는 것이 드러났다. 처음 관찰과 달라진 이해는 이것이다 — 처음에는 2:14의 무게가 「채우는 이가 비어 있다」는 <strong>없음</strong>에 있다고 보았다. 끝에서 보니 무게는 <strong>있음</strong>에 있다. 동사와 맞는 자리에 땅이 서 있고, 영광은 그 땅의 채움에 붙은 앎의 목적어로 서 있다. 비어 있는 칸은 그 둘을 둘러싼 테두리다. 그래서 이 약속은 채우는 이의 동작으로 오지 않고, 채워질 땅의 문장으로 온다. 그 땅에 선 교회는 칸을 메우는 자가 아니라 받치는 자로 하나님 나라를 바란다 — 그 바람의 내용을 신약이 더한다는 경계를 지닌 채.</p>
+<blockquote>
+<p>[!insight] 2:14의 무게는 빈 행위자 칸이 아니라 <strong>동사와 맞는 자리에 선 땅과, 앎의 목적어로 놓인 영광</strong>에 있다. 빈 칸은 그 둘을 감싼 테두리이고, 교회는 그 테두리를 메우지 않고 받친다.</p>
+<p><strong>"약속은 채우는 이의 동작이 아니라 채워질 땅의 문장으로 온다 — 땅이 주어로 서고 영광은 앎의 목적어로 놓이며, 채우는 이와 때의 칸은 비어 있는 채로 피로 짓는 성읍 바로 뒤에 놓인다."</strong></p>
+<p>[!question] 연결 질문<br />
+- 「없음」에서 「있음」으로 무게를 옮긴 이 통합이, 다시 땅을 「채워질 자격이 있는 쪽」으로 높이는 읽기로 미끄러지지 않으려면 무엇을 붙들어야 하는가?<br />
+- 받치는 교회라는 그림은 2:12의 피로 짓는 성읍 앞에서 손을 놓는 핑계가 되지 않는가 — 받침과 방관은 어디서 갈리는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 통합된 테제를 정경과 개혁신학의 빛에 비추어, 실질 접점이 있는 자리와 더함의 경계를 가른다.</p>
+<h3>0 관찰 (Observing) — "동사와 맞는 낱말은 땅이다"</h3>
+<p>씨앗은 2:14의 한 동사를 짚었다. 그 동사를 둘레의 낱말과 함께 칸으로 나누어 놓는다.</p>
+<table>
+<thead>
+<tr>
+<th>칸</th>
+<th>무엇이 놓였는가</th>
+<th>꼴 (구문묵상 §3-3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>동사</td>
+<td><code>תִּמָּלֵא</code> 채워지리라</td>
+<td>니팔 미완료 3fs</td>
+</tr>
+<tr>
+<td>동사와 맞는 낱말</td>
+<td><code>הָאָרֶץ</code> 땅</td>
+<td>3fs · 관사 有</td>
+</tr>
+<tr>
+<td>행위자</td>
+<td>(없음)</td>
+<td>단위 안 표지 0</td>
+</tr>
+<tr>
+<td>붙은 말</td>
+<td><code>לָדַעַת</code> 알다</td>
+<td>칼 부정사 연계 · 의미상 주어 표지 없음</td>
+</tr>
+<tr>
+<td>영광</td>
+<td><code>אֶת־כְּבוֹד יְהוָה</code></td>
+<td>부정사의 목적어 안 · 연계형</td>
+</tr>
+<tr>
+<td>비교</td>
+<td><code>כַּמַּיִם יְכַסּוּ עַל־יָם</code></td>
+<td>피엘 미완료 3mp · 덮는 주어는 물</td>
+</tr>
+</tbody>
+</table>
+<p>첫째, <strong>채워지는 것은 땅이다.</strong> 동사의 3fs가 <code>הָאָרֶץ</code>와 맞는다. 둘째, <strong>채우는 이를 대는 낱말이 없다.</strong> 「누구에 의하여」·「무엇으로」에 해당하는 표지가 이 단위에 없다. 셋째, <strong>영광은 동사 옆이 아니라 「알다」 뒤에 있다.</strong> <code>כְּבוֹד</code>는 채워지는 것으로도, 채우는 것으로도 적히지 않고, 아는 일의 목적어로 놓인다.</p>
+<p>보이는 것과 생각한 것을 갈라 둔다. 보이는 것은 「니팔 3fs + 관사 붙은 땅 + 부정사 + 연계 속격」이라는 꼴이다. 「하나님이 채우실 것」이라는 생각은 꼴이 아니라 읽는 이가 빈칸에 넣고 싶어 하는 문장이다. 개역한글 「인정하는 것이 … 세상에 가득하리라」도 꼴이 아니라 역어의 선택이다 — 개역은 동사와 맞는 쪽을 바꾸었다.</p>
+<blockquote>
+<p>[!insight] 2:14에는 세 칸이 있다. 동사와 맞는 칸에는 <strong>땅</strong>이, 영광의 칸에는 <strong>「알다」의 목적어</strong>가, 행위자 칸에는 <strong>아무것도</strong> 놓이지 않았다. 이 세 칸이 서로 다른 낱말에 나뉘어 있다는 것이 첫 관찰이다.</p>
+<p>[!question] 연결 질문<br />
+- 영광이 동사와 맞는 자리에 있지 않다는 것은 영광이 이 문장에서 무엇을 하지 않는다는 뜻인가 — 그리고 무엇을 하지 않는다고 말하는 것도 판정이 되는가?<br />
+- 비교절의 「물」은 덮는 일의 주어다. 그 물을 채움의 행위자로 끌어올리지 않으려면 두 동사를 어떻게 갈라 읽어야 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 세 칸이 나뉜 이 꼴을 눈에 보이는 장면으로 옮겨, 채워지는 쪽에 서 본다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "받는 쪽에서 적힌 기록"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>받는 쪽에서 적힌 기록</th>
+<th>비어 있는 칸</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>히브리어 정경(구문묵상 §3-3)</td>
+<td>합 2:14 「땅이 채워지리라」</td>
+<td>행위자 · 때 · 아는 이</td>
+</tr>
+<tr>
+<td>농사</td>
+<td>영농 일지 「논에 물이 들었다」</td>
+<td>누가 물꼬를 텄는지</td>
+</tr>
+<tr>
+<td>병원</td>
+<td>간호 기록 「수액 투여됨 · 환자 안정」</td>
+<td>투여한 이(서명란에 따로)</td>
+</tr>
+<tr>
+<td>장부</td>
+<td>통장 거래 내역 「입금 3,000,000」</td>
+<td>적요가 비면 보낸 이</td>
+</tr>
+<tr>
+<td>가정</td>
+<td>「아이 방이 정리되었다」</td>
+<td>누가 했는지 묻지 않을 때</td>
+</tr>
+</tbody>
+</table>
+<p>공통 패턴: <strong>기록이 받는 쪽의 상태로 적힐 때, 주는 쪽의 칸은 다른 데로 밀려나거나 빈다.</strong> 다섯 도메인 모두에서 문장의 주어는 받는 쪽(논·환자·통장·방·땅)이다.</p>
+<p>그러나 패턴을 2:14에 되비출 때 갈리는 곳이 있다. 일상의 네 기록에서 빈 칸은 대개 <strong>다른 데 적혀 있다</strong> — 간호 기록에는 서명란이, 영농 일지에는 작업자 이름이, 통장에는 송금인 정보가 따로 있다. 2:14에는 그런 「다른 칸」이 단위 안에 없다. 그리고 일상의 기록에서 받는 쪽은 이미 받았다(완료). 2:14의 땅은 「채워지리라」 — 미완료이고, 그 때는 정해지지 않았다.</p>
+<blockquote>
+<p>[!insight] 일상의 받는 쪽 기록은 <strong>이미 받은 상태를 적고 주는 쪽을 다른 칸에 둔다.</strong> 2:14는 <strong>아직 정해지지 않은 받음을 적고 주는 쪽의 칸을 단위 안 어디에도 두지 않는다.</strong> 겹치는 것은 「받는 쪽이 주어」이고, 갈리는 것은 시점과 다른 칸의 유무다.</p>
+<p>[!question] 연결 질문<br />
+- 서명란이 따로 있는 기록과 서명란이 없는 기록을 같은 「수동」으로 묶으면, 무엇을 잘못 읽게 되는가?<br />
+- 2:14의 받음이 미완료라는 것은 받는 쪽인 땅에게 어떤 자리를 주는가 — 기다림인가, 아직 아님인가, 정할 수 없는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 겹침과 갈림을 함께 담는 도식으로 이 패턴을 세 칸 지도로 정제한다.</p>
+<h3>0 유추 (Analogizing) — "적요 없는 입금"</h3>
+<p><strong>유추 ① 적요 없는 입금 (세무)</strong><br />
+고객의 통장에 큰돈이 들어왔는데 적요가 비어 있다. 세무 대리인의 손은 자동으로 움직인다 — 송금인을 찾고, 계약서를 찾고, 소명 자료를 만든다. 세무에서 출처 없는 입금은 그대로 두면 안 되는 칸이다.<br />
+- 새 통찰: 2:14 앞에서 읽는 이의 손이 「채우는 이는 하나님」으로 움직이는 것은 이 직업적 반사와 닮았다. 빈 칸을 견디지 못하는 손이다.<br />
+- 한계: 세무의 빈 적요는 실제로 누군가 보냈고 찾으면 나오는 사실이다. 2:14의 빈 칸은 <strong>단위 안에서 찾을 표지가 없다</strong> — 찾아낼 사실이 아니라 본문이 적지 않은 칸이다. 그리고 세무사라도 증빙이 없으면 「확인 불가」로 적어야지 송금인을 지어내서는 안 된다. 그 점에서 유추는 거꾸로 돌아와 이 노트의 규칙을 받친다.</p>
+<p><strong>유추 ② 논에 물이 든다 (농사)</strong><br />
+농부는 「물이 들었다」고 말한다. 누가 물꼬를 텄는지 굳이 말하지 않는다.<br />
+- 새 통찰: 받는 쪽의 문장은 받는 쪽이 무엇이 되는지에 눈을 둔다. 논은 물이 들어야 모를 낸다.<br />
+- 한계: 농부는 물꼬를 튼 사람이 누구인지 안다. 2:14의 독자는 단위 안에서 그것을 알 수 없다. 또 「물이 든 논」은 농사의 결과를 정해 주지만, 2:14의 「알다」가 채움의 내용인지 목적인지는 정해지지 않는다(봉합 6).</p>
+<p><strong>유추 ③ 쉼표 (음악)</strong><br />
+악보의 쉼표는 소리가 없는 칸이지만 박자로 적혀 있다.<br />
+- 새 통찰: 빈 칸이 적혀 있다는 것과 칸이 없다는 것은 다르다.<br />
+- 한계: 쉼표는 길이가 정해져 있다. 2:14의 때는 정해져 있지 않다 — 이 유추를 「곧 끝날 쉼」으로 밀면 봉합 7을 닫는다.</p>
+<blockquote>
+<p>[!insight] 세 유추 모두 <strong>빈 칸을 아는 누군가가 따로 있다</strong>(송금인·물꼬 튼 사람·작곡가). 2:14만이 그 칸을 단위 안 어디에도 적지 않는다. 그래서 세무사의 반사(메우기)는 이 본문 앞에서 멈추는 연습이 된다.</p>
+<p>[!question] 연결 질문<br />
+- 「확인 불가」라고 정직하게 적는 세무 문서의 언어를, 2:14를 설교하는 문장의 언어로 옮기면 어떤 꼴이 되는가?<br />
+- 빈 칸을 견디는 일과 빈 칸을 방치하는 일은 어디서 갈리는가 — 2:12의 피로 짓는 성읍 앞에서도 그 둘이 갈리는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 머리로 맞댄 유추를 몸의 자세로 옮겨, 채우는 손이 아니라 받는 손이 되어 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "빈 그릇을 받친 두 손"</h3>
+<p><strong>실천 프로토콜</strong> — 빈 그릇 하나를 들고 의자에 앉는다.<br />
+1. 그릇을 두 손으로 받쳐 무릎 높이에 둔다. 눈을 감는다. 그릇이 비어 있는 무게를 손바닥으로 느낀다.<br />
+2. 「무엇을 부을까」를 생각하지 않는다. 손은 붓는 손이 아니라 받치는 손이다. 손목에 힘이 들어가면 풀어 준다.<br />
+3. 2:14를 우리말 직역 순서대로 천천히 읽는다 — 「땅이 채워지리라 / 여호와의 영광을 알도록 / 물이 바다 위를 덮듯이」. 첫 마디에서 그릇을 아주 조금 들어 올린다.<br />
+4. 읽기를 마치면 그릇을 그대로 받친 채 열을 센다. 그릇은 끝까지 비어 있다.</p>
+<p>몸이 가르쳐 주는 것: 받치는 손은 오래 버티기 어렵다. 열을 세는 사이 손이 무엇이라도 하고 싶어진다 — 그릇을 내려놓든지, 무엇을 채우러 일어서든지. 그 조급함이 2:14 앞에서 「하나님이 채우신다」나 「우리가 채우자」를 서둘러 말하고 싶어지는 마음의 몸이다. 받치는 자세는 빈칸을 메우지 않는 자세다.</p>
+<p>설교 전달로 옮기면 — 2:14를 읽을 때 손가락으로 위를 가리키지 않는다(그 손짓은 행위자 칸에 이름을 넣는다). 두 손을 펴서 앞으로 내밀고 손바닥을 위로 한 채 멈춘다. 「땅이」에서 손을 펴고, 「채워지리라」에서 멈춘다. 손짓은 채워질 쪽을 보여 주고 채우는 이를 가리키지 않는다.</p>
+<blockquote>
+<p>[!insight] 몸은 빈 그릇을 오래 받치지 못하고 <strong>무엇이든 채우고 싶어 한다.</strong> 2:14 앞에서 필요한 것은 붓는 손이 아니라, 빈 채로 받치는 손을 끝까지 내리지 않는 일이다.</p>
+<p>[!question] 연결 질문<br />
+- 손가락으로 위를 가리키는 손짓을 지우면, 회중은 그 빈자리를 불안으로 듣는가 기다림으로 듣는가?<br />
+- 받치는 손이 지쳐 내려앉을 때, 그 지침은 2:13의 「곤비」와 같은 말인가 — 그 둘을 잇는 것도 봉합 2·3을 닫는 일이 아닌가?</p>
+</blockquote>
+<p><strong>다리</strong>: 받치는 손의 조급함에서, 이 약속 앞에 선 두 사람의 마음속으로 들어간다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "세 절의 일치에서 한 접두까지"</h3>
+<p><strong>확장 — 정경의 축</strong><br />
+2:14를 정경의 넓이로 놓으면, 「채우다」·「영광」·「땅」이 한 절에 놓인 세 자리(민 14:21 · 시 72:19 · 합 2:14)와, 표제어 여덟을 함께 갖는 사 11:9가 나란히 선다. 이 노트는 그 넷을 시간 순서나 인용 방향으로 줄 세우지 않는다(봉합 8) — <strong>나란히 서 있다는 사실</strong>까지다. 그 나란함 안에서 2:14만이 땅을 동사의 짝으로 세우고, 앞에 화 선언과 물음을 둔다. 피로 짓는 성읍(2:12)과 채워질 땅(2:14)이 한 단락에 맞서 있다.</p>
+<p>신약으로 늘이면, 교회는 주기도에서 아버지의 나라가 오기를 구한다(마 6:10 요지 · 축자 인용 아님). ⚠ 이것은 <strong>신약이 더한 것</strong>이다. 그 기도가 2:14를 인용한 자리라는 표지는 없고, 이 노트는 두 본문의 꼴 겹침을 주장하지 않는다. 겹치는 것은 신학적 결 하나다 — 교회가 자기가 이루지 않는 것을 구하며 기다린다는 것. ⛔ 주기도를 근거로 2:14의 빈 행위자 칸을 메우지 않는다.</p>
+<p><strong>축소 — 한 일치 표지 안의 차원</strong><br />
+반대로 줄이면, 이 노트의 축 전체가 <code>תִּמָּלֵא</code>의 3fs 일치 하나에 걸린다. 그 일치가 동사를 <code>הָאָרֶץ</code>에 묶는다. 민 14:21 · 시 72:19의 <code>וְיִמָּלֵא</code>가 3ms로 영광에 묶이는 것과의 차이도 바로 이 일치 표지에서 난다(구문묵상 §3-3). ⚠ 꼴 서술이다 — 일치 표지에서 「땅이 더 중요하다」 같은 명제를 끌어내지 않는다.</p>
+<p><strong>핵심 전복</strong>: 정경의 넓이로 보면 2:14는 영광의 약속들 사이에 선 <strong>한 자리</strong>이고, 줄여 보면 그 자리를 가르는 것은 <strong>성·수 일치 하나</strong>다. 크게 보면 같은 약속의 무리 같고, 작게 보면 동사가 누구와 맞는가에서 갈린다.</p>
+<blockquote>
+<p>[!insight] 넓게 보면 2:14는 영광을 말하는 정경의 자리들과 나란히 서고, 좁게 보면 <strong>3fs 일치 하나가 땅을 그 문장의 주어로 묶는다.</strong> 같음은 넓은 데서, 갈림은 작은 데서 보인다.</p>
+<p>[!question] 연결 질문<br />
+- 주기도의 청원을 2:14 곁에 더할 때, 무엇을 더하고 무엇을 하박국에서 빼앗지 않아야 하는가 — 특히 빈 행위자 칸을?<br />
+- 같은 단락의 2:12(짓는 분사 머리)와 2:14(채워지는 땅)를 크게 놓으면 「인간의 건설 ↔ 땅의 받음」으로 보이는데, 이 대비는 본문 꼴인가, 읽는 이가 만든 대칭인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 넓음과 좁음이 겹친 이 차원을 실제로 본문을 읽고 기도할 때 쓰는 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>① 실질 접점 본문</strong> (⛔ 프루프텍스팅이 아니라 꼴이 확인된 자리만)<br />
+- <strong>민수기 14:21</strong> — 같은 「채우다」의 니팔 미완료가 하나님의 1인칭 맹세(<code>חַי־אָנִי</code>) 뒤에 놓이고, 동사는 영광과 3ms로 맞는다(구문묵상 §3-3 · §6②). 2:14에는 맹세도 1인칭도 없고 화 선언과 물음 다음에 <code>כִּי</code>로 놓인다. 두 절은 같은 어간·활용형(니팔 미완료)을 쓰되 인칭·성·수가 갈리고(3ms ↔ 3fs), 동사와 맞는 낱말이 다르다.<br />
+- <strong>이사야 11:9</strong> — 표제어 여덟이 겹치고 다섯에서 갈린다. 「앎」이 이사야에서는 명사, 하박국에서는 동사 부정사이고, 영광은 하박국에만 있다. ⛔ 선후·방향 판정 없음(봉합 8). ⛔ 11:1 · 11:10의 이새를 하박국의 메시아 논증으로 옮기지 않는다.<br />
+- <strong>시편 145:12</strong> — 영광이 「알게 하다」(히필 부정사)의 목적어로 놓이는 다른 한 절이다(3045 + 3519 한 절 셋 가운데). 영광이 「앎」의 대상으로 놓이는 꼴이 정경에 하박국 하나만은 아니라는 것을 보여 준다 — 그래서 이 노트는 「영광을 알다」를 하박국만의 신학으로 세우지 않는다.</p>
+<p><strong>② 신학자 — 칼뱅, 『기독교 강요』 1권</strong>: 칼뱅은 세상을 「하나님의 영광의 극장」이라 불렀다(구문묵상 §6③ 기재 · 요지 · 원문 대조 안 함). 2:14는 영광이 드러난다고 말하지 않고, 채워질 땅에 그 영광을 「알다」를 붙인다. 극장의 그림이 보는 일이라면 2:14의 낱말은 아는 일이다. 웨스트민스터 소요리문답 1문의 요지(하나님을 영화롭게 하고 즐거워함)도 영광을 사람이 알고 누리는 자리로 옮긴다. ⚠ 이 연결은 논지 차원이고, 2:14의 <code>לָדַעַת</code>이 누구의 앎인지(봉합 6)를 소요리문답의 「사람」으로 정하지 않는다.</p>
+<p><strong>③ 설교 적용점</strong> — 2:14를 「선교 완성」의 표어로 걸지 않는다(§7-11). 표어가 되는 순간 행위자 칸에 「우리」가, 때 칸에 「우리 세대」가 들어간다. 강단은 「이 땅은 채워질 땅이다」까지 말하고, 그 땅에 선 교회가 무엇을 바라며 기도하는지를 신약의 말로 더해 밝힌다.</p>
+<p><strong>④ 복음 중심성 점검</strong> — 이 씨앗은 두 방향으로 닫히기 쉽다. 하나는 <strong>확신주의</strong>(「하나님이 다 채우신다」로 빈칸을 메워 위로를 서두름)이고, 다른 하나는 <strong>행동주의</strong>(「우리가 채워야 한다」로 빈칸에 교회를 넣어 과제로 만듦 — 이것은 도덕주의의 한 꼴이다). 2:14의 꼴은 둘 다 허락하지 않는다. 그리스도 기명 재료가 이 단위에 0이므로(재료 부재), 복음은 이 본문에서 「발견」되지 않고 <strong>신약이 더하는 말</strong>로 선포된다 — 채워질 땅을 바라는 교회는 그 나라를 스스로 세우지 않고, 그리스도 안에서 오는 나라를 구한다. 그 더함의 경계를 밝히는 것이 이 본문 설교의 정직이다.</p>
+<ul>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 원본의 복음 중심성 점검을 따라 은혜의 근거와 순종의 열매를 구별한다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>목회 — 교회 행정·선교 보고</strong><br />
+- <strong>상황</strong>: 선교 보고서와 주보 문구가 「땅끝까지 복음이 채워지는 날이 가까웠다」, 「우리 교회가 이 땅을 채운다」 같은 문장으로 채워져 있다.<br />
+- <strong>적용</strong>: 10단계 「세 칸 읽기 카드」로 문구를 점검한다. ③행위자 칸에 「우리 교회」, ④때 칸에 「가까웠다」가 들어간 문장에 밑줄을 긋고, 보고는 실제로 한 일(방문·후원·교육)을 사실대로 적고, 약속은 「땅이 채워지리라」는 본문의 꼴대로 인용한다.<br />
+- <strong>기대 효과</strong>: 선교 보고가 성과 과장이나 종말 일정의 언어로 미끄러지지 않고, 한 일과 바라는 것이 갈라진 정직한 문서가 된다.</p>
+<p><strong>세무·실무 — 고객 상담</strong><br />
+- <strong>상황</strong>: 고객의 통장에 적요 없는 입금이 있고, 고객은 「그냥 아는 사람이 준 돈」이라며 출처를 그럴듯하게 적어 달라고 한다.<br />
+- <strong>적용</strong>: 6단계 유추 ①을 실무로 되돌린다. 증빙으로 확인되는 칸(입금일·금액·계좌)과 확인되지 않는 칸(송금인과의 관계·성격)을 표로 갈라 고객에게 보여 주고, 확인되지 않는 칸은 추가 자료를 받기 전까지 「확인 불가」로 둔다. 그럴듯한 사연으로 칸을 메우지 않는다.<br />
+- <strong>기대 효과</strong>: 고객은 무엇이 증빙되고 무엇이 비어 있는지 정확히 알게 되고, 대리인은 지어낸 소명으로 생길 사후 책임을 지지 않는다. 빈칸을 견디는 습관이 장부의 신뢰를 지킨다.</p>
+<p><strong>개인 의사결정</strong><br />
+- <strong>상황</strong>: 오래 기다린 일(가족의 회복, 진로)에 대해 「언제 · 누가 · 어떻게」가 보이지 않아, 스스로 날짜를 정해 놓고 그날이 지나면 낙심한다.<br />
+- <strong>적용</strong>: 7단계 「빈 그릇을 받친 두 손」을 하루 한 번 해 보고, 일기에 그 일을 적을 때 「채워지리라」의 꼴로 적는다 — 받는 쪽(나·가정)을 주어로, 날짜와 행위자 칸은 비워 둔다. 내가 할 수 있는 일은 따로 한 줄로 적어 기다림의 문장과 섞지 않는다.<br />
+- <strong>기대 효과</strong>: 기다림이 스스로 정한 기한에 묶이지 않고, 내가 할 일과 내가 정할 수 없는 일이 갈라져 낙심의 고리가 느슨해진다.</p>
+<h3>🥇 동사와 맞는 낱말은 땅이다 — 세 절 비교로 본 2:14</h3>
+<ul>
+<li><strong>핵심</strong>: 「채우다 · 영광 · 땅」이 한 절에 놓인 구약 세 절 가운데 니팔 미완료 동사가 땅과 맞는 것은 합 2:14뿐이고, 영광은 「알다」의 목적어 안에 놓인다. 행위자 공백은 세 절 비교의 배경이고, 갈림은 성·수 일치에서 난다.</li>
+<li><strong>인격 형성</strong>: 흔히 2:14를 「온 땅에 하나님의 영광이 가득하리라」로 기억하지만, 그 문장은 개역의 주어 교체나 민수기·시편의 일치(영광이 동사의 짝)와 같은 꼴이다. 원문은 영광을 동사의 짝에서 내려 앎의 목적어로 둔다.</li>
+<li><strong>연결 고리</strong>: <a href="./07_구문묵상_하박국_2_12-14.html">07_구문묵상_하박국_2_12-14</a> §3-3 · <a href="./07_일상의깊은사고_하박국_2_12-14.html">07_일상의깊은사고_하박국_2_12-14</a> 통찰 3️⃣ · 민 14:21 · 시 72:19 · 사 11:9</li>
+</ul>
+<h3>🥈 빈칸을 메우는 두 길 — 확신주의와 행동주의</h3>
+<ul>
+<li><strong>핵심</strong>: 2:14의 빈 행위자 칸은 「하나님이」(위로)와 「우리가」(과제) 두 길로 가장 자주 메워진다. 놀이 ①과 10단계 카드가 두 길이 같은 칸을 건드린다는 것을 보여 주었다.</li>
+<li><strong>인격 형성</strong>: 두 설교는 서로 반대처럼 보이지만 같은 칸에 이름을 넣는다. 그 칸을 비워 두는 설교만이 「신약이 더한 말」을 더함으로 밝힐 자리를 남긴다.</li>
+<li><strong>연결 고리</strong>: 「생각의탄생13단계_하박국_2_14_세칸읽기카드」(노트 후보) · <a href="./00_하박국_묵상단위_마스터.html">00_하박국_묵상단위_마스터</a> §7-11 · 주기도의 나라 청원(마 6:10 요지 · 신약이 더한 것)</li>
+</ul>
+<h3>🥉 「알다」는 영광의 자리 이동과 맞물린다</h3>
+<ul>
+<li><strong>핵심</strong>: 동사의 짝을 영광으로 바꾸면(민수기·시편 꼴) 영광은 「알다」의 목적어 자리를 떠난다. 「채우다 · 영광 · 땅」 세 절 가운데 3045가 함께 든 것은 합 2:14뿐이다(세 절 모집단 · 문법 강제의 주장 아님).</li>
+<li><strong>인격 형성</strong>: 2:14의 「앎」을 지식 운동이나 교육 과제로 설교하기 전에, 그 낱말이 문장 안에서 어떤 짜임 위에 서 있는지를 먼저 보게 한다. ⚠ 짜임의 관찰이지 의도의 귀속이 아니다.</li>
+<li><strong>연결 고리</strong>: 시 145:12 · 칼뱅 「영광의 극장」(요지) · 웨스트민스터 소요리문답 1문(요지)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 7 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
