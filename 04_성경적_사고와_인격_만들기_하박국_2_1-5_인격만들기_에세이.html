@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>에무나는 두 역어 사이에 남고, 사는 이는 문장 위에 흔들림 없이 서 있다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+      code[dir="rtl"], em[dir="rtl"] {
+      direction: rtl;
+      unicode-bidi: isolate;
+    }
+    p > code[dir="rtl"] {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 하박국 제 04편 &middot; 하박국 2:1-5</span>
+      <h1>에무나는 두 역어 사이에 남고, 사는 이는 문장 위에 흔들림 없이 서 있다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<blockquote>보라 그의 마음은 교만하며 그의 속에서 정직하지 못하니라 그러나 의인은 그 믿음으로 말미암아 살리라 (하박국 2:4)</blockquote>
+<p>성경을 오래 읽어 온 사람일수록 어떤 구절 앞에서는 눈보다 기억이 먼저 반응합니다. 하박국 2장 4절 하반절, 의인은 그 믿음으로 말미암아 살리라라는 문장이 그러합니다. 우리는 이 한 줄을 로마서와 갈라디아서의 선언으로 먼저 배웠고 평생의 신앙 표어로 새겨 왔습니다. 그러나 잠시 익숙한 기억의 속도를 늦추고 하박국 본문의 자리에 멈추어 히브리어 원문 세 토막, 베차딕 베에무나토 이흐예를 들여다보면, 하나로 닫아 두었던 낱말 안에 놀라운 폭이 열려 있음을 보게 됩니다.</p>
+<p>문장의 주어는 관사도 접미도 없는 형용사 의인이고, 동사는 칼 미완료형 살리라입니다. 그 사이에 전치사구 베에무나토 하나가 놓입니다. 흥미로운 것은 같은 개역한글 안에서도 구약에 단 두 절뿐인 이 한 꼴 베에무나토가 다르게 옮겨진다는 점입니다. 하박국 2장 4절에서는 그 믿음으로 말미암아로, 시편 96편 13절에서는 그의 진실하심으로 백성을 판단하시리로다로 번역됩니다. 같은 낱말 에무나가 출애굽기 17장 12절에서는 명사로 옮겨지지 않고 모세의 손이 해가 지도록 내려오지 아니한지라라는 서술로 풀립니다. 영어 역본 ESV도 본문에 믿음(faith)을, 난외에 신실함(Or faithfulness)을 나란히 둡니다.</p>
+<h3>원문이 정하지 않은 것을 역어가 고르라 강요받는 자리</h3>
+<p>왜 한 번역 안에서도, 또 여러 역본 사이에서도 이 한 낱말은 하나의 역어로 닫히지 않을까요. 그것은 번역의 실수가 아니라 원문 낱말이 품은 폭과 우리말 문법 사이의 거리에서 오는 정직한 흔적입니다. 원문의 한 낱말이 붙드는 태도와 버티는 상태를 함께 품을 때, 받는 쪽 언어는 문장 꼴 때문에 하나를 고르라고 강요받습니다. 국제회계기준 개념체계가 신뢰성이라는 말을 충실한 표현으로 바꾸어 강조점을 옮긴 일이나, 우리 민법이 신의와 성실 두 말을 하나로 줄이지 않고 신의성실 원칙으로 나란히 묶은 것도 같은 이유입니다.</p>
+<p>더욱이 하박국 2장 4절 하반절에서는 역어 선택이 또 하나의 압력을 불러옵니다. 낱말 끝 삼인칭 남성 단수 접미사, 곧 그의라는 한 글자의 임자가 본문에 이름으로 정해져 있지 않기 때문입니다. 그의 믿음이라고 읽으면 접미사가 소리 없이 의인에게 붙고, 그의 신실함이라고 읽으면 귀가 다른 임자를 찾기 시작합니다. 넓혀 보면 마소라 본문의 그의 에무나는 칠십인역의 나의 신실함, 로마서와 갈라디아서의 인칭 없는 문면, 히브리서 10장 38절의 나의 의인까지 다섯 문면으로 정경 안에 나란히 실려 있습니다. 정경은 넓은 차원에서 다섯 문면을 억지로 화해시키지 않고, 어형은 좁은 차원에서 한 글자 접미의 임자를 대지 않습니다.</p>
+<h3>조세조약의 동등 정본 조항과, 손이 쉬는 문장의 양 끝</h3>
+<p>이 열린 폭 앞에서 성경을 읽는 인격은 어디에 서야 할까요. 두 나라의 조세조약을 다루는 세무 실무자는 양 언어본은 동등하게 정본이다라는 조항 앞에서 한국어본 한 줄만 보고 의견서를 쓰지 않습니다. 두 언어본을 나란히 펴고 어긋나는 낱말이 있으면 의견서에 그대로 나란히 적습니다. 웨스트민스터 신앙고백 1장 8절과 9절이 말하듯, 원어에 호소하며 번역된 성경을 읽는 교회는 성경의 참되고 온전한 뜻이 하나임을 고백합니다. 폭이란 두 뜻이 다 맞다는 다의주의가 아닙니다. 뜻은 하나이되, 그 하나를 우리 역어가 닫을 근거를 본문에서 받지 못했기에 서두르지 않는 정직한 보류입니다.</p>
+<p>이 보류가 걸음을 멈추게 하지 않는다는 것은 종이 한 장을 들고 두 줄을 소리 내어 읽을 때 몸으로 먼저 확인됩니다. 그러나 의인은 그 믿음으로 말미암아 살리라를 읽으며 오른손을 가볍게 쥐고, 이어 의인은 그의 신실함으로 살리라를 읽으며 손바닥을 위로 펴 가슴 높이에 두어 보십시오. 두 줄을 잇달아 읽는 동안 손은 전치사구의 낱말 하나에서만 움직이고, 문장의 머리인 의인은과 꼬리인 살리라에서는 고요히 쉽니다. 역어를 닫아 보는 놀이에서도 흔들린 것은 늘 전치사구와 접미였을 뿐, 주어와 동사는 한 번도 흔들리지 않았습니다.</p>
+<h3>열린 칸을 억지로 닫지 않고도 흔들리지 않는 칸에 기대어 걷는 삶</h3>
+<p>처음에는 이 구절의 무게가 믿음이냐 신실함이냐라는 낱말 문제에 있는 줄 알았으나, 끝에서 보니 무게는 낱말이 열려 있어도 문장이 선다는 데 있었습니다. 폭은 낱말에 있고, 사는 이는 문장에 서 있습니다. 에무나가 두 역어 사이에 남기에 우리는 내 신실함을 쌓으라는 도덕주의로도, 본문이 하지 않은 말을 하박국에 되돌려 얹는 길로도 가지 않은 채 의인은 살리라라는 문장에 기대어 걸을 수 있습니다. 그리고 신약이 이 줄을 세 자리에서 실어 밝혀 준 구원은 신약이 더한 복음으로 분명히 구별해 선포합니다.</p>
+<p>이 성경적 사고는 구체적인 인격의 열매로 이어집니다. 성경공부 교재에 두 역어와 신약의 문면들을 나란히 실어 교인들이 하박국의 자리와 신약이 더한 복음을 구별하게 돕는 목회, 고객이 한 언어본의 유리한 문장만 들고 와 단정할 때 확정된 것과 확인이 남은 칸을 의견서에 갈라 적는 세무 실무가 한 뿌리에서 자랍니다. 익숙한 표어가 원문에서 다르게 읽힐 수 있어 마음이 흔들리는 날에도, 열린 칸을 억지로 닫지 않으면서 손이 쉬는 고정 칸, 의인은 살리라라는 문장 위에 오늘의 결단 하나를 단단히 세우는 우리가 되기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      하박국 제 04편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

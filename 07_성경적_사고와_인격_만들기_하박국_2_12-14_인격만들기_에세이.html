@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>빈 그릇을 받친 두 손으로 기다리는 땅의 문장</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+      code[dir="rtl"], em[dir="rtl"] {
+      direction: rtl;
+      unicode-bidi: isolate;
+    }
+    p > code[dir="rtl"] {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 하박국 제 07편 &middot; 하박국 2:12-14</span>
+      <h1>빈 그릇을 받친 두 손으로 기다리는 땅의 문장</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<blockquote>대저 물이 바다를 덮음 같이 여호와의 영광을 인정하는 것이 세상에 가득하리라 (하박국 2:14)</blockquote>
+<p>누군가로부터 무언가를 받는 사건을 기록할 때, 문장의 주어가 누가 되느냐에 따라 기록의 결은 전혀 달라집니다. 주는 이를 주어로 삼으면 시선은 베푸는 손에 머물지만, 받는 쪽을 주어로 삼으면 시선은 채워질 바닥의 넓이에 머뭅니다. 우리가 애송해 온 하박국 2장 14절은 흔히 온 세상에 하나님의 영광이 가득하리라는 선언으로 기억됩니다. 개역한글 성경 역시 인정하는 것이 세상에 가득하리라고 옮겨 동사와 맞는 주체를 인정하는 것으로 바꾸고 땅을 처소로 내렸습니다. 그러나 히브리어 원문의 문법적 뼈대를 들여다보면 익숙한 기억과는 다른 배치가 드러납니다.</p>
+<p>원문에서 채워지리라를 뜻하는 니팔 미완료 여성 단수 동사 팀말레와 성·수가 일치하는 낱말은 영광이 아니라 땅, 하아레츠입니다. 구약 전체에서 채우다와 영광과 땅이 한 절에 함께 든 곳은 민수기 14장 21절, 시편 72편 19절, 하박국 2장 14절 세 곳뿐인데, 앞의 두 절은 동사가 남성 단수로 영광과 맞지만 오직 하박국 2장 14절만 여성 단수로 땅과 맞습니다. 게다가 땅을 채우는 행위자 표지는 단락 안에 없고, 여호와의 영광은 동사 옆이 아니라 알다라는 부정사 라다앗의 목적어 안에 놓여 있습니다. 비교절인 물이 바다 위를 덮듯이에서도 덮는 주어는 물일 뿐 채움의 행위자가 아닙니다. 약속은 채우는 이의 동작으로 오지 않고 채워질 땅의 문장으로 다가옵니다.</p>
+<h3>적요 없는 입금 앞에서 멈추는 손과 받는 쪽의 기록</h3>
+<p>일상에서도 받는 쪽을 주어로 적는 기록들을 만납니다. 영농 일지에는 논에 물이 들었다고 적히고, 간호 기록지에는 수액 투여됨이라 적히며, 통장 내역에는 입금 삼백만 원이라 찍힙니다. 주어는 모두 받는 쪽인 논과 환자와 통장이지만, 일상의 기록들에는 주는 쪽을 확인할 다른 칸이 따로 있습니다. 간호 기록지에는 서명란이, 통장에는 송금인 정보가 있으며, 무엇보다 그 기록들은 이미 받은 완료 상태를 적습니다. 반면 하박국 2장 14절의 땅이 채워지리라는 아직 때가 정해지지 않은 미완료의 받음이며, 주는 이의 칸을 본문 단위 안 어디에도 두지 않습니다.</p>
+<p>세무 대리인으로 고객의 통장을 검토하다가 큰돈이 들어왔는데 적요가 비어 있는 내역을 마주할 때가 있습니다. 그때 전문가의 손은 직업적 반사로 즉시 움직여 송금인과 계약서를 찾고 소명 자료를 만들어 빈칸을 메우려 합니다. 세무에서 출처 없는 입금은 그대로 두면 안 되는 칸이기 때문입니다. 14절 앞에서 우리의 손이 하나님이 채우신다며 움직이는 것도 빈칸을 견디지 못하는 반사와 닮았습니다. 그러나 세무사라도 증빙이 없을 때 고객의 말만 듣고 그럴듯한 사연을 지어내어 칸을 메워서는 안 되며, 증빙되는 계좌와 금액만 적고 나머지는 확인 불가로 두어야 장부의 신뢰가 지켜집니다. 본문이 행위자와 때의 칸을 비워 두었다면, 지어낸 말로 메우려던 손을 멈추는 것이 말씀 앞의 정직한 실무입니다.</p>
+<h3>확신주의와 행동주의를 넘어, 빈 그릇을 받치는 몸의 연습</h3>
+<p>이 빈칸을 메우려는 유혹은 흔히 두 갈래로 나타납니다. 하나는 하나님이 다 채우신다며 빈칸에 하나님의 이름을 넣어 위로를 서두르는 확신주의이고, 다른 하나는 우리가 채워야 한다며 빈칸에 교회를 넣어 과제로 만드는 도덕주의적 행동주의입니다. 선교 보고서와 주보 문구가 땅끝까지 복음이 채워지는 날이 가까웠다거나 우리 교회가 이 땅을 채운다는 말로 채워질 때, 두 길은 반대처럼 보이지만 본문이 비워 둔 행위자와 때의 칸에 이름을 넣는다는 점에서 같습니다. 또한 동사의 짝을 영광으로 바꾸면 영광이 알다의 목적어 자리를 떠나듯, 알다 역시 문장의 짜임 위에 서 있으므로 성급히 지식 운동의 과제로 소비하지 말아야 합니다.</p>
+<p>이 조급함을 다스리기 위해 빈 그릇 하나를 두 손으로 받쳐 들고 의자에 앉아 봅니다. 무릎 높이에 빈 그릇을 두고 눈을 감은 채, 무엇을 부을까를 생각하지 않고 비어 있는 무게만을 손바닥으로 느낍니다. 땅이 채워지리라, 여호와의 영광을 알도록, 물이 바다 위를 덮듯이라는 직역 순서대로 천천히 읽으며 그릇을 조금 들어 올리고 열을 세어 봅니다. 열을 세는 짧은 사이에도 몸은 빈 그릇을 오래 받치지 못하고 무엇이든 채우려 조급해집니다. 그래서 설교자는 이 절을 읽을 때 손가락으로 위를 가리켜 행위자 칸에 이름을 넣지 않고, 두 손바닥을 위로 펴 앞으로 내밀어 채워질 쪽을 받쳐 보인 채 멈춰 섭니다.</p>
+<h3>없음의 공백에서 있음의 테두리로, 받치는 교회의 기도</h3>
+<p>처음에는 이 구절의 무게가 채우는 이가 비어 있다는 없음에 있다고 보았습니다. 그러나 사유의 끝에서 마주한 무게는 있음에 있습니다. 동사와 맞는 자리에 피로 지은 성읍 바로 뒤의 땅이 서 있고, 영광은 그 땅의 채움에 붙은 앎의 목적어로 서 있습니다. 빈칸은 그 둘을 감싼 테두리입니다. 칼뱅이 말한 하나님의 영광의 극장과 웨스트민스터 소요리문답 제1문의 요지도 영광을 알고 누리는 자리와 맞닿아 있습니다.</p>
+<p>단락 안에 그리스도 기명 재료가 없으므로, 복음은 본문에서 발굴되지 않고 신약이 더하는 말로 선포됩니다. 채워질 땅을 받치는 교회는 그 나라를 스스로 세우지 않고 그리스도 안에서 오는 아버지의 나라를 구합니다. 선교 보고서는 실제로 한 일만 사실대로 적고 약속은 본문 꼴대로 인용하며, 오랜 기다림으로 지친 개인의 일기장에는 나를 받는 쪽의 주어로 두고 날짜와 행위자 칸을 비워 둔 채 채워지리라의 꼴로 적어 봅니다. 내가 할 일과 내가 정할 수 없는 일을 갈라 둘 때, 빈칸을 견디는 인격의 열매가 깊어집니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      하박국 제 07편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

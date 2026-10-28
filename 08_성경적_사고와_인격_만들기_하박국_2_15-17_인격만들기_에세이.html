@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>임자의 이름을 끝에 새긴 채 네 위로 돌아드는 잔</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+      code[dir="rtl"], em[dir="rtl"] {
+      direction: rtl;
+      unicode-bidi: isolate;
+    }
+    p > code[dir="rtl"] {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 하박국 제 08편 &middot; 하박국 2:15-17</span>
+      <h1>임자의 이름을 끝에 새긴 채 네 위로 돌아드는 잔</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<blockquote>네게 영광이 아니요 수치가 가득한즉 너도 마시고 너의 할례 아니한 것을 드러내라 여호와의 오른손의 잔이 네게로 돌아올 것이라 더러운 욕이 네 영광을 가리우리라 (하박국 2:16)</blockquote>
+<p>문장에서 누가 주어로 서고 누가 전치사 아래에 놓이는지를 살피는 일은, 우리가 세계와 하나님의 말씀을 대하는 태도를 비추는 거울이 됩니다. 하박국 2장 16절은 네 개의 정동사를 배치합니다. 앞선 세 동사, 곧 배부르다(사바타)와 마셔라(슈테), 드러내라(베헤아렐)는 모두 2인칭 남성 단수 너를 주어로 세웁니다. 그런데 네 번째 정동사 돌아들리라(팃소브)에 이르면 주어가 사람에서 사물로 바뀝니다. 3인칭 여성 단수인 이 동사의 주어는 여성 명사 잔(코스)이며, 앞선 세 동사의 주어였던 너는 네 위로(알레카)라는 전치사 접미사로 내려앉아 잔 아래에 놓입니다.</p>
+<p>더욱 눈여겨볼 대목은 잔에 붙은 연계 사슬입니다. 잔은 오른손(야민)에, 오른손은 여호와에 연계로 매입니다. 가운데 고리인 오른손은 연계형이라 주어가 될 수 없고, 사슬 끝의 여호와는 단락 마흔한 개 토막 중 유일한 신명이지만 어느 동사의 주어도 아닙니다. 개역한글은 16절의 돌아들리라와 17절의 덮으리라를 둘 다 돌아오다로 옮겨 한 역어로 묶었지만, 원문은 다른 두 어근을 구별하면서 16절 끝마디에 주어인 잔과 임자의 이름을 세워 두었습니다.</p>
+<h3>명의와 실질 귀속, 소속만 말하고 행위를 지어내지 않는 정직</h3>
+<p>움직이는 것은 물건이고 붙은 이름이 그 물건의 소속과 무게를 정하는 구도는 일상에서도 만납니다. 납세고지서에는 세무서장 명의가, 판결문에는 법원 이름이, 장부의 비용에는 법인 계좌 명의가 붙습니다. 고지서를 들고 온 사람은 집배원이지만 문서의 무게는 명의에서 옵니다. 세법의 실질 귀속 원리 또한 계좌를 굴린 행위자와 별개로 그 소득이 누구의 것인지를 묻습니다.</p>
+<p>그러나 일상의 패턴을 16절에 되비추면 한 가지가 갈립니다. 일상의 명의는 곧바로 세무서장이 발행했다거나 왕이 보냈다라는 행위자로 읽히고, 세무의 귀속도 결국 실질 행위자를 찾아가는 절차입니다. 반면 16절의 사슬은 잔이 여호와의 오른손에 속해 있다는 소속만 말할 뿐, 누가 보냈는지를 적지 않습니다. 세무조사 대응 소명서를 쓸 때 증빙이 특정 계좌로의 입금이라는 귀속만 보여 주는데도 초안에 대표이사가 직접 지시하여 입금하였다는 행위자 문장을 지어내어 넣는다면, 증빙보다 앞서 나가 스스로 쟁점을 만드는 일입니다. 증빙이 귀속만 말할 때 행위자를 지어내지 않는 실무의 정직은, 본문이 사슬 끝에 둔 이름을 내 마음대로 동사의 주어로 올리지 않는 조심과 맞닿아 있습니다.</p>
+<h3>오른손에서 뗀 컵과 이름과 너를 잇는 경첩</h3>
+<p>물이 반쯤 든 컵 하나를 준비해 몸으로 이 문장을 겪어 봅니다. 컵을 오른손으로 쥐면 이 컵은 내 오른손의 잔입니다. 이어서 컵을 탁자 위에 내려놓고 손을 뗍니다. 컵은 그대로 내 컵이지만 내 손은 컵을 움직이지 않습니다. 소속은 남고 쥠은 풀렸습니다. 이제 컵이 돌아가는 동안 내가 돌린다가 아니라 잔이 돈다고 소리 내어 말해 봅니다. 사물이 움직이는 문장을 들으면 자동으로 손을 찾는 우리에게 잔이 돈다는 말이 얼마나 어색한지 몸이 먼저 압니다.</p>
+<p>이름을 주어로 올려 하나님이 진노의 잔을 돌리신다로 요약하는 순간, 사슬이 풀리고 소속이 행위로 바뀌며 본문에 없는 진노 어휘가 들어옵니다. 원문에서 잔은 사슬 끝의 이름과 전치사 아래의 너를 맞물리는 경첩입니다. 그래서 설교자가 여호와의 오른손의 잔이 네 위로 돌아들리라를 읽을 때에는 하늘을 가리키며 하나님이 보내신다는 몸짓을 덧붙이지 않고, 손바닥을 위로 펴 받쳐 든 모양을 만들었다가 네 위로에서 회중석이 아니라 설교자 자신의 머리 위로 손을 가져갑니다. 너를 남에게 돌리지 않는 자세입니다.</p>
+<h3>본문의 문장과 교회의 고백을 구별하는 경외의 언어</h3>
+<p>정경의 잔 구절들인 예레미야 25장 15절(내 손에서)이나 애가 4장 21절과 나란히 놓아 보면, 하박국 2장 16절은 3인칭 연계 사슬로 임자를 대는 방식으로 구별됩니다. 처음에는 이름이 주어가 아니라는 빠짐에 놀랐으나, 끝에서 보니 이름은 빠진 것이 아니라 임자의 자리를 맡고 있습니다. 웨스트민스터 신앙고백 제5장(섭리)의 고백과 이 절은 충돌하지 않으나, 우리는 섭리 교리를 문법에서 끌어내지도 않고 문법을 교리로 고쳐 읽지도 않습니다. 하나님의 이름을 경외함으로만 쓰라는 하이델베르크 요리문답 제99문의 정신 역시, 설교 원고의 하나님 주어 문장을 점검해 본문 문장과 신앙고백의 말을 구별하게 합니다.</p>
+<p>신약 마태복음 26장 39절의 이 잔을 두고 드린 기도 또한 하박국의 잔과 같은 잔으로 단정해 본문의 빈곳을 메우지 않고, 정경이 더한 복음의 말로 경계를 밝혀 나란히 세웁니다. 나를 해친 사람을 두고 하나님이 벌하실 거야라고 되뇌던 분노의 말버릇을 멈추고, 그 잔은 여호와의 오른손의 것이며 누구 위로 돌아드는지 나는 지어내지 않는다며 컵을 내려놓을 때, 이름을 내 손에 쥐려던 마음이 비로소 풀립니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      하박국 제 08편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

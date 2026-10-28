@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>남의 입에 대신 넣어 줄 수 없는 한 사람의 서명란</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+      code[dir="rtl"], em[dir="rtl"] {
+      direction: rtl;
+      unicode-bidi: isolate;
+    }
+    p > code[dir="rtl"] {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 하박국 제 12편 &middot; 하박국 3:16-19</span>
+      <h1>남의 입에 대신 넣어 줄 수 없는 한 사람의 서명란</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<blockquote>내가 들었으므로 내 창자가 흔들렸고 그 목소리로 인하여 내 입술이 떨렸도다 ... 비록 무화과나무가 무성치 못하며 포도나무에 열매가 없으며 감람나무에 소출이 없으며 밭에 식물이 없으며 우리에 양이 없으며 외양간에 소가 없을찌라도 나는 여호와를 인하여 즐거워하며 나의 구원의 하나님을 인하여 기뻐하리로다 주 여호와는 나의 힘이시라 나의 발을 사슴과 같게 하사 나로 나의 높은 곳에 다니게 하시리로다 (합 3:16-19)</blockquote>
+<p>세상에는 아무리 가까운 사이라도, 아무리 뛰어난 전문가라도 결코 대신 발음해 줄 수 없는 말들이 있다. 혼인 예식장에서 신랑과 신부가 마주 서서 건네는 서약의 예라는 대답은 대리인이 대신 해 줄 수 없고, 법정 증인석에서 내가 직접 보았습니다라고 증언하는 진술 역시 변호인이 대신 말할 수 없다. 병원 진료실에서 0부터 10까지 통증의 세기를 묻는 질문 앞에서는 가장 정밀한 의료 기기도 침묵할 수밖에 없으며 오직 아픈 환자 자신의 입술만이 그 숫자를 말할 수 있다. 세무 대리인이 고객의 장부를 꼼꼼히 살피고 신고서를 완벽하게 작성해 준다 해도, 마지막 장의 이 내용이 사실임을 확인합니다라는 본인 서명란과 제가 올해로 이 사업을 접겠습니다라는 무거운 결정은 오직 납세자 본인의 몫으로 남는다. 어떤 말들은 그 내용보다 누가 말하는가 하는 화자의 자리가 먼저 정해져 있기 때문이다.</p>
+<p>하박국 3장 18절을 여는 바아니, 곧 그리고 나는이라는 짧은 낱말이 바로 그렇게 당사자만을 위해 비워 둔 서명란과 같은 자리다. 앞선 17절의 여섯 문장이 이어지는 동안 본문에는 말하는 화자의 1인칭도, 하나님의 이름도 단 한 번 등장하지 않았다. 무화과와 포도나무, 감람나무와 밭, 양과 소라는 사물과 짐승들만이 주어로 서서 저마다의 결핍을 증언할 뿐이었다. 그렇게 여섯 줄 동안 텅 비어 있던 화자의 자리가, 18절 첫머리에 이르러 독립 대명사 아니 하나로 단숨에 채워진다. 놀라운 것은 채워진 것이 빈 밭이나 빈 외양간이 아니라 말하는 사람의 자리라는 사실이며, 그 사람이 입을 열어 내놓는 에엘로자와 아길라라는 두 동사가 오직 1인칭 단수 청유형으로만 적혀 있다는 점이다.</p>
+<h3>내용보다 화자가 먼저 정해져 있는 당사자의 말</h3>
+<p>처음 하박국 3장 17절과 18절을 나란히 읽을 때는 결핍에도 불구하고 기뻐한다는 내용의 극적인 반전에 마음이 빼앗기기 쉽다. 그러나 문장의 문법적 뼈대를 이리저리 옮겨 보며 그 경계를 만져 보면, 우리가 그동안 얼마나 쉽게 이 본문의 문법을 허물어 왔는지가 드러난다. 만약 17절과 18절 사이에 그러므로라는 뜻의 히브리어 라켄을 끼워 넣어 빈 밭이기 때문에 기뻐한다고 읽는다면, 그것은 고통 자체를 미화하는 왜곡이 된다. 원문은 두 절 사이에 결론을 내리는 접속사 대신 그저 그리고 혹은 그러나로 읽히는 접속사 베 한 글자만을 조용히 놓아두었을 뿐이다. 다짐은 결핍에서 도출된 논리적 결론이 아니라, 지워지지 않은 결핍과 떨림 바로 곁에 나란히 선 당사자의 말이다.</p>
+<p>더욱 결정적인 경계는 인칭을 바꾸어 볼 때 나타난다. 18절의 내가 즐거워하리라, 내가 기뻐하리라라는 1인칭 청유형 동사를 다른 사람에게 건네어 너도 기뻐하라, 여러분도 즐거워하십시오라고 말하려면, 히브리어 동사 형태 자체를 청유형에서 명령형으로 완전히 뜯어고쳐야만 한다. 실제로 요엘 2장 22절과 23절은 무화과나무와 포도나무가 제 힘을 내어 소출이 풍성해진 자리 뒤에서 여호와 안에서 즐거워하라는 2인칭 복수 명령형을 쓴다. 그러나 소출이 전혀 없는 빈 밭 뒤에 서 있는 하박국 3장 18절은 결코 그 명령형을 쓰지 않는다. 그러므로 고난 중에 있는 이웃에게 하박국을 인용하며 결핍 속에서도 기뻐하라고 권고하는 일은, 성경을 깊이 해석하는 일이 아니라 성경이 지켜 낸 동사의 형태를 바꾸어 남의 서명란에 내 글씨를 대신 적어 넣는 월권이다. 남에게 시킬 수 없는 기쁨이라는 말은 단순한 경건의 수사가 아니라 본문의 형태론이 굳게 가로막고 서 있는 문법의 사실이다.</p>
+<h3>입술에 댄 손끝이 기억하는 한 사람의 떨림과 다짐</h3>
+<p>떨리는 몸과 다짐하는 입술이 분리될 수 없는 한 사람의 것임을 근육으로 기억하기 위해, 조용한 방에 앉아 오른손 검지와 중지 끝을 아랫입술에 가볍게 대어 본다. 그 상태로 16절의 내 창자가 흔들렸고 내 입술이 떨렸도다를 천천히 소리 내어 읽으면, 손끝에 입술의 미세한 움직임과 떨림이 그대로 전해진다. 이제 입술에서 손끝을 떼지 않은 채 17절의 여섯 이름, 무화과나무, 포도나무, 감람나무, 밭, 양, 소를 한 절씩 숨을 고르며 읽어 내려간다. 여섯째 줄이 끝나면 손끝을 입술에 그대로 둔 채 한 박자 가만히 멈추었다가, 이어서 그리고 나는 여호와 안에서 즐거워하리라를 끝까지 읽고 나서야 비로소 손을 내린다. 이 작은 동작이 우리 몸에 가르쳐 주는 바는 명확하다. 16절의 떨림을 말하던 바로 그 입술과 18절의 다짐을 말하는 입술이 내 손끝 아래에서 단 한 순간도 바뀌지 않았다는 사실이다. 입술에 손을 대고 있는 동안에는 16절의 떨림을 닦아 내고 아무 일도 없었던 듯 새 입술로 18절을 낭독할 수도 없고, 남을 향해 손을 뻗어 너도 기뻐하라고 손짓할 수도 없다.</p>
+<p>시야를 하박국 전체로 넓히면 1장 15절에서 그물로 사람을 낚아 올리며 기름진 음식 위에서 기뻐하던 약탈자의 기쁨과, 3장 18절에서 음식을 내지 않는 빈 밭을 등지고 여호와 안에서 기뻐하겠다는 화자의 다짐이 선명한 대조를 이룬다. 또한 하이델베르크 요리문답 제1문이 살아서나 죽어서나 나의 유일한 위로가 무엇인지를 1인칭 단수로 묻고 답하며 나의 몸과 영혼이 다 신실하신 구주 예수 그리스도의 것임을 고백하듯, 교회는 하박국이 이름을 비워 둔 채 내 구원의 하나님이라 부른 그 자리 위에 그리스도의 이름을 더하여 나의 하나님으로 고백한다. 물론 요리문답 27문이 풍년과 흉년을 하나님의 섭리 아래 고백한다 해서, 결핍의 원인 주어를 적지 않은 하박국 3장 17절의 문면에 그것을 억지로 역투사하지는 않는다. 본문은 몸의 떨림과 결핍의 목록, 당사자의 다짐과 주 여호와는 나의 힘이시라는 고백의 네 칸은 빽빽이 채워 두되, 문제가 해결되었다는 다섯째 칸만은 끝내 비워 둔 채 책을 닫는다. 우리는 다짐을 명령으로 바꾸는 도덕주의로도, 빈 다섯째 칸을 임의로 채워 넣는 승리주의로도 나아가지 않는다.</p>
+<h3>합독문의 인칭을 지키고 상담 기록지의 본인 칸을 비워 두는 인격</h3>
+<p>누가 말하는가 하는 인칭의 경계를 존중하는 성경적 사고는 예배 공동체의 배려와 일터의 직업윤리, 그리고 일상의 위로 방식을 깊이 다듬어 준다. 교회가 어려운 시기를 지날 때 예배 순서에 하박국 3장 17절과 18절 합독을 넣으면서, 흔히 순서지 문구를 우리는 여호와로 인하여 즐거워하며라고 복수로 고쳐 적곤 한다. 그때 원문 그대로 나는이라는 1인칭을 살려 두고 반드시 16절의 떨리는 몸부터 함께 싣자. 그리고 합독문 아래에 작은 글씨로 이 말씀은 소리를 내어 읽지 않고 함께 듣는 것으로도 주님께 드릴 수 있습니다라는 안내 한 줄을 넣어 두는 것이다. 당장 내 입으로 기뻐하겠다는 말을 차마 발음할 수 없는 상한 심령의 교우가 예배의 자리에서 밀려나지 않고, 16절의 떨림 안에서 자기 이름을 발견하며 숨을 쉴 수 있게 하는 목회적 환대다.</p>
+<p>세무 사무소에서 폐업이나 매출 급감으로 찾아온 고객과 상담할 때도 이 경계는 그대로 지켜져야 한다. 매출이 끊긴 고객이 긴 한숨 끝에 그래도 한 해만 더 버텨 보겠습니다, 혹은 여기서 사업을 접겠습니다라고 말했을 때, 상담 기록을 정리하는 직원이 이를 고객께서 긍정적으로 극복 의지를 보이심이라는 식으로 매끄럽게 덮어 적지 않도록 기록지 양식에 고객 본인의 말 칸을 따로 만들어 두자. 세무사의 검토 의견과 고객 본인의 떨리는 결정을 섞지 않고 고객이 한 표현 그대로 남겨 두는 것, 그리고 상담 자리에서 섣불리 그래도 감사하셔야죠라며 3장 18절을 들이밀지 않는 것이 당사자의 서명란을 침범하지 않는 전문가의 정직이다. 나아가 고난을 겪는 지인에게 비록 무화과나무가 무성치 못하며라는 성경 구절 이미지를 위로 문자로 보내려다 말고 조용히 손을 멈추어 보자. 내 눈에는 은혜로운 다짐으로 보이는 그 구절이, 지금 빈 밭 한가운데 서 있는 상대에게는 너도 어서 기뻐하라는 무언의 독촉장으로 읽힐 수 있음을 헤아리는 것, 그리하여 성경 구절 대신 지금 겪고 있는 밤이 얼마나 추운지를 묻는 짧은 안부 한 줄만 건네는 것이야말로, 당사자의 말을 남의 입에 억지로 밀어 넣지 않는 성숙한 그리스도인의 인격이다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      하박국 제 12편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

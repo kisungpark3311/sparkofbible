@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>표지 없는 한 낱말이 당신께 향할 때 이미 탄원이 된다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+      code[dir="rtl"], em[dir="rtl"] {
+      direction: rtl;
+      unicode-bidi: isolate;
+    }
+    p > code[dir="rtl"] {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 하박국 제 01편 &middot; 하박국 1:1-4</span>
+      <h1>표지 없는 한 낱말이 당신께 향할 때 이미 탄원이 된다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+
+<blockquote>"여호와여 내가 부르짖어도 주께서 듣지 아니하시니 어느 때까지리이까 내가 강포를 인하여 외쳐도 주께서 구원치 아니하시나이다 어찌하여 나로 간악을 보게 하시며 패역을 목도하게 하시나이까 대저 겁탈과 강포가 내 앞에 있고 변론과 분쟁이 일어났나이다" (하박국 1:2-3)</blockquote>
+<p>고통의 한복판에 들어선 사람은 종종 문장을 잃어버립니다. 무엇 때문에 이토록 아픈지, 이 일을 통해 무엇을 어떻게 구해야 하는지 인과의 고리를 매끄럽게 엮어 낼 여력이 남아 있지 않을 때가 있습니다. 하박국 1장 2절 둘째 반절의 히브리어 원문 '에즈아크 엘레카 하마스'(אֶזְעַק אֵלֶיךָ חָמָס)는 바로 그 자리에 놓인 세 낱말을 보여 줍니다. 1인칭 단수 외침 동사 '에즈아크', 2인칭 남성 단수 접미사가 붙은 전치사구 '엘레카'(당신께), 그리고 앞에 아무런 표지도 없이 놓인 명사 '하마스'(강포)입니다.</p>
+<p>처음 이 구절을 마주할 때에는 문장도 없이 한 낱말만으로 기도가 된다는 '짧음'에 눈이 머뭅니다. 그러나 본문의 문법적 자리를 끝까지 따라가 보면, 진정한 놀라움은 짧음이 아니라 연결 고리와 해소의 칸을 비워 둔 채 오직 '향함'과 '겪은 일의 이름'만으로 탄원이 완결된다는 사실에 있습니다.</p>
+<h3>비어 있는 연결 고리와 지워지지 않는 방향</h3>
+<p>1장 2절의 첫째 반절과 둘째 반절을 나란히 세워 보면 본문의 뼈대가 또렷하게 드러납니다. 첫째 반절은 절 머리의 호격 '여호와여'(יְהוָה)로 방향을 정하고 구약에서 네 자리(합 1:2, 욘 2:3, 시 30:3, 시 88:14)에 쓰인 피엘 완료 동사 '쉬바티'(שִׁוַּעְתִּי, 내가 부르짖었다)를 두지만, 외침 곁에 별도의 명사를 놓지 않습니다. 반면 둘째 반절은 칼 미완료 동사 '에즈아크' 뒤에 전치사구 '엘레카'(당신께)로 방향을 명시한 다음 '하마스'라는 명사를 얹습니다. 하박국 전체에 여섯 토막(1:2, 1:3, 1:9, 2:8, 2:17 두 번)으로 등장하는 '하마스' 가운데 전치사 없는 절대형은 1장 2절과 3절 두 곳뿐입니다. 그 명사 앞에는 목적격 표지 '에트'(אֶת)도 없고 전치사도 없습니다. 그리고 1장 3절의 동사 없는 절(וְשֹׁד וְחָמָס לְנֶגְדִּי)에서 같은 낱말이 이번에는 '내 앞에'라는 1인칭 접미 전치사구 곁에 다시 놓입니다.</p>
+<p>우리는 여기서 눈에 보이는 본문의 꼴과 우리가 덧붙인 생각을 엄격히 갈라 두어야 합니다. "화자가 너무 지쳐서 미처 문장을 다듬지 못했다"는 설명은 본문에 없는 화자의 내면을 지어내는 해석일 뿐입니다. 본문이 보여 주는 다듬은 문장 없음은 화자의 심리 상태가 아니라 '표지가 0'이라는 문법적 꼴의 사실입니다. 역본의 문면을 비추어 보면 흥미로운 대조가 드러납니다. 개역한글 1장 2절 둘째 반절 "내가 강포를 인하여 외쳐도"에는 원문에 없는 '주께서'가 두 번 주어로 들어간 반면, 정작 원문에 있는 '당신께'(אֵלֶיךָ)에 대응하는 역어는 보이지 않고, 비어 있던 고리 자리에 '인하여'가 채워져 있습니다. 그러나 그 빈틈에 어떤 표지를 끼워 넣어 보아도 문장은 외친 말 자체나 목적, 혹은 까닭 가운데 하나로 좁아질 뿐입니다. 표지의 0은 결함이 아니라 세 갈래의 길을 함께 품은 열림이며, 방향을 빼면 거리의 고함으로 무너지고 이름을 바꾸면 맥락이 끊기지만 표지를 비워 둘 때에는 '당신께'라는 방향과 이름 하나가 온전한 탄원으로 섭니다.</p>
+<h3>응답이 부정된 회선 위로 이름을 보내는 몸의 자세</h3>
+<p>일상의 여러 영역에서도 받는 곳이 정해지면 연결어 없는 한 마디가 곧바로 호소가 됩니다. 119 상황실이라는 수신처가 정해진 회선 위에서 터져 나오는 "불이야", 부엌의 어머니를 부른 뒤 이어지는 아이의 "피!", 관할 세무서 민원실 고충 신청서의 '사유' 칸에 적힌 짧은 한 줄, 혹은 편지지를 다 채우지 못한 채 주소만 정확히 적어 넣은 봉투와 병상의 응급 벨까지, 수신처가 분명하면 '왜'나 '때문에'를 달지 않은 한 마디도 흩어지지 않습니다. 그러나 이 모든 일상의 유추는 회선이 연결되면 마땅히 응답이 온다는 제도적 전제 위에 서 있습니다. 하박국 1장 2절이 일상의 제도와 갈라지는 지점이 바로 여기입니다. 본문은 두 번의 외침 뒤에 곧바로 '벨로 티쉬마'(וְלֹא תִשְׁמָע, 주께서 듣지 아니하시니)와 '벨로 토쉬아'(וְלֹא תוֹשִׁיעַ, 주께서 구원치 아니하시나이다)를 붙입니다. 수신처는 정확한데 응답은 부정되고, 그 부재조차 '당신께' 향한 말 안에 담깁니다.</p>
+<p>머리로 맞댄 유추가 응답 부재 앞에서 한 걸음씩 모자랄 때, 우리는 몸으로 이 배치를 겪어 볼 수 있습니다. 의자에 앉아 무릎 위에 두 손을 모아 지금 '내 앞에'(1:3) 있는 일 하나를 쥐고, 문장을 만들려 하지 않은 채 고개를 천천히 들어 '당신께'(1:2) 향하는 방향을 먼저 정한 뒤, 아무 연결어 없이 그 일의 이름을 소리 내어 한 번 부르고 아무 소리가 돌아오지 않는 침묵을 견뎌 보는 것입니다. 그때 몸은 정직하게 일러 줍니다. 고개를 드는 동작이 말보다 먼저이고, 이름을 보냈다고 해서 손 안에 쥔 일이 사라지지 않는다는 사실입니다. 탄원은 손 안의 일을 없애거나 가볍게 내려놓는 동작이 아니라, 쥔 손이 풀리지 않은 채로 고개를 드는 자세입니다.</p>
+<p>정경의 축으로 시야를 넓히면, 창세기 6장 11절과 13절에서 온 땅을 가득 채웠던(וַתִּמָּלֵא הָאָרֶץ חָמָס) 그 긴 이름이 하박국 1장 2절에서는 한 사람의 1인칭 입술에서 가장 짧은 꼴로 '당신께' 보내지고, 이사야 53장 9절(עַל לֹא חָמָס עָשָׂה)에서는 그 이름을 행하지 않은 종의 무덤 곁에 놓입니다. 신약 베드로전서 2장 22절은 그 종을 그리스도로 읽으면서 '죄'라는 헬라어를 쓰므로 폭력이라는 이름으로 잇는 줄은 히브리어 문면에서만 서며, 종이 폭력을 받았다는 대속형을 이사야 본문에 임의로 채우지 않더라도, 탄원자가 아뢴 그 이름을 정경이 '행하지 않은 이'의 이야기 곁에 두었다는 사실은 신약이 더한 복음의 빛으로 우리를 비춥니다.</p>
+<h3>탄원을 서둘러 완성해 주려는 곁사람의 손을 멈추며</h3>
+<p>칼빈은 『기독교 강요』 3권 20장 기도론에서 기도를 하나님 앞에 마음을 쏟아 놓는 일로 다루며, 성도의 기도가 흠과 조급함을 지닌 채 드려져도 하나님이 그것을 받으신다는 논지를 시편의 탄원들을 들어 말합니다. 절 머리의 호격 '여호와여'와 '당신께'는 단순한 주소 기재가 아니라 언약 관계 안의 호칭이기에, 응답의 부재가 그 관계를 끊지 못합니다. 물론 칼빈의 논지로 1장 2절의 '듣지 않으신다'를 덮어 버리지는 않으며, 누가복음 18장 7-8절의 밤낮 부르짖는 이들 장면이나 시편 22장 2절과 마태복음 27장 46절의 '왜'(לָמָּה)라는 물음 역시 장면과 표제어의 겹침으로 곁에 둘 뿐 그것으로 1장 2절의 부정을 서둘러 닫지 않습니다. 우리는 향함을 의무로 바꾸는 도덕주의와 해소의 빈칸을 미리 채우는 승리주의 사이에서, 기도를 잘하는 기법이 아니라 기도의 방향을 잃지 않는 자리를 배웁니다.</p>
+<p>무엇보다 이 본문 앞에서 가장 쉽게 손을 대는 이는 고통을 겪은 당사자가 아니라, 곁에서 그 탄원의 문장을 다듬어 주려는 사람입니다. 번역의 '인하여'와 목회자의 성급한 기도문 교정은 같은 방향으로 움직입니다. 폭력이나 부당한 일을 겪고 "뭐라고 기도해야 할지 모르겠어요"라고 말하는 성도를 심방하거나 통화할 때, 목회자는 '여호와여, 당신께'라는 방향과 그 일의 이름 두 칸만 함께 채우고, 까닭이나 응답의 칸을 대신 채워 주거나 미리 약속하지 말아야 합니다. 그때 성도는 기도를 못 한다는 부끄러움 대신 향할 곳이 있다는 자리를 얻고, 목회자는 위로의 문장으로 탄원을 서둘러 닫는 습관을 끊게 됩니다.</p>
+<p>세무 실무의 고객 상담에서도 이 원리는 정직과 환대의 인격으로 이어집니다. 세무 처분을 겪은 고객이 법률 용어를 모른 채 "억울하다"는 한 마디만 반복할 때, 대리인은 자신의 논리로 고객의 말을 덮기 전에 먼저 이 일이 어느 기관의 어느 절차로 가야 하는지 '수신처'를 바로 세우고, 고객이 겪은 사실의 이름을 그대로 받아 적어야 합니다. 법적 구성은 그다음이며, 동시에 상담자는 응답이 제도로 보장되는 세무의 세계가 1장 2절의 응답 부재와 같은 자리가 아님을 겸손히 기억해야 합니다. 오래 풀리지 않는 가족의 치료나 분쟁 앞에서 입이 닫힐 때에도, 응답을 기록하는 칸을 만들지 않은 채 날마다 손에 쥐고 고개를 들어 이름 하나를 '당신께' 건네는 그 자리에서, 우리의 무너진 문장은 이미 하나님께 닿는 탄원이 됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      하박국 제 01편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
