@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>두 번의 돌이키심이 내 소유의 공식이 되지 않을 때, 끊기지 않는 중보의 입을 바라보다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 15일 &middot; 아모스 7:1-9</span>
+      <h1>두 번의 돌이키심이 내 소유의 공식이 되지 않을 때, 끊기지 않는 중보의 입을 바라보다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>두 번이나 연거푸 긍휼을 입은 사람은 세 번째 위기 앞에서도 저절로 손바닥이 먼저 펴지기 마련입니다. 이전의 두 번이 그러했으니 이번에도 내가 같은 방식으로 간구하면 똑같은 결과가 돌아올 것이라는 계산이 머리보다 근육에 먼저 배어들기 때문입니다. 그러나 아모스 7장 1절부터 9절까지의 세 환상 기록은 <strong>우리 안에 자리 잡은 이 은밀한 인과의 장부를 조용히, 그러나 단호하게 거두어 갑니다</strong>. 메뚜기 환상(7:1-3)과 불 환상(7:4-6), 그리고 다림줄 환상(7:7-9)으로 이어지는 이 아홉 절은 각 구역의 원문 낱말 수가 마흔한 개, 서른아홉 개, 마흔세 개로 거의 완벽하게 대칭을 이룹니다. <strong>세 번째 구역이 짧아서 간구나 응답이 빠진 것이 결코 아니라는 뜻</strong>입니다.</p>
+<p>앞선 두 환상에서는 예언자의 간구와 하나님의 응답이 한 벌의 틀처럼 정확히 되풀이됩니다. 아모스가 청컨대 사하소서(슬라흐 나), 청컨대 그치소서(하달 나)라고 명령형 동사에 간청의 불변화사 나를 붙여 아뢰면, 그 뒤를 <strong>여호와께서 이에 대하여 뜻을 돌이키셨다(니함 아도나이)라는 니팔 완료형 동사</strong>가 받습니다. 그런데 정확히 같은 길이로 펼쳐지는 세 번째 다림줄 환상에 들어서면, 앞선 두 구역에 꼬박꼬박 자리 잡고 있던 명령형 간구와 간청의 나, 그리고 돌이키심을 뜻하는 니함이라는 세 칸이 동시에 흔적도 없이 비워집니다. 대신 앞선 두 구역에서는 단 한 번도 등장하지 않던 하나님의 일인칭 정동사 두 개, 곧 내가 다시는 지나가지 아니하리니(로 오시프)와 내가 일어나리라(베캄티)가 그 빈자리를 가득 채웁니다. <strong>셋째 환상의 전환은 단순한 침묵이 아니라 사람의 간구와 응답의 칸이 함께 비워지고 하나님의 일인칭 선언이 전면에 드러나는 문법적 자리바꿈</strong>입니다.</p>
+<h2>순서는 인과가 아니며, 은혜의 되풀이는 인간의 규칙으로 소유되지 않는다</h2>
+<p>여기서 본문을 정직하게 읽는 눈은 우리가 습관적으로 덧붙여 온 그래서라는 인과 접속사가 원문 어디에도 적혀 있지 않음을 발견합니다. 이 아홉 절에는 하나님의 속마음이나 후회, 번민을 묘사하는 어휘가 전혀 없으며, <strong>본문은 오직 예언자가 말했고 여호와께서 돌이키셨다는 사건의 순서만을 나란히 적을 뿐</strong>, 이렇게 구했으니 이렇게 돌이키실 수밖에 없다는 기도 효력론의 공식을 조금도 지지하지 않습니다. 더욱이 세 번째 환상에서 만약 예언자의 간구만 빠지고 응답 없음만 적혔다면 네가 기도하지 않아서 심판이 왔다는 조건론이 성립했을 것이고, 반대로 간구는 있었는데 돌이키심만 빠졌다면 하나님이 기도를 거절하셨다는 체념이 성립했을 것입니다. <strong>본문은 간구와 응답을 한 짝으로 함께 비워 버림으로써 인간의 열심을 탓하는 조건론과 하나님의 무정함을 탓하는 거절 독법을 동시에 가로막습니다</strong>.</p>
+<p>나아가 정경은 하나님의 돌이키심(니함)을 다루는 다른 대목에서도 이 되풀이가 인간의 공식으로 굳어지는 길을 철저히 차단합니다. 사무엘상 15장은 한 장 안에서 여호와께서 사울을 왕 삼으신 것을 후회하셨더라(니함, 15:35)라는 아모스 7장과 똑같은 문법 형태의 동사 바로 곁에, <strong>이스라엘의 지존자는 결코 변개치 않으심이니이다(로 인나헴, 15:29)라는 선언을 나란히 세워 둡니다</strong>. 세무 행정에서 두 해 연속 같은 쟁점에 대해 유리한 유권해석 회신을 받았다고 해서 그 회신이 세 번째 해의 법령 자체가 될 수 없듯, 앞선 두 번의 돌이키심은 그 순간 하나님이 베푸신 주권적 응답이지 받은 사람이 다음번에도 권리처럼 청구할 수 있는 소유물이 아닙니다. 의자에 앉아 두 번 손바닥을 펴며 간구하는 동작을 반복한 뒤 세 번째에는 손을 펴지 않고 다림줄(아나크)이라는 사물의 이름 한 낱말만 대답해 보면, <strong>그동안 내 손이 은혜를 당연한 규칙으로 움켜쥐려 했음을 깨닫고 비로소 말하던 자에서 잠잠히 듣는 자의 자세로 옮겨 가게 됩니다</strong>.</p>
+<h2>한 단어로 줄어든 예언자의 입 너머에서 항상 살아 간구하시는 중보자</h2>
+<p>시야를 구속사의 긴 축으로 넓혀 보면 아모스 7장의 이 아슬아슬한 멈춤이 어디를 향하고 있는지 더욱 입체적으로 드러납니다. 출애굽기 32장 14절과 시편 106편 23절은 모세가 결렬된 틈에 서서 중보할 때 여호와께서 뜻을 돌이키사 화를 내리지 않으셨던 중보의 계보를 보여 줍니다. 아모스 7장은 바로 그 중보의 계보 위에서 <strong>예언자의 입(바오마르)이 세 번 다 열리되, 앞선 두 번의 간절한 호소가 세 번째에는 다림줄(아나크)이라는 단 한 낱말의 대답으로 오그라드는 한계 지점</strong>을 가감 없이 보여 줍니다. 게다가 칠십인역(LXX) 판본을 대조해 보면 마소라 본문(MT)에서 여호와께서 돌이키셨다라는 삼인칭 완료형 응답이 칠십인역에서는 돌이키소서라는 이인칭 명령형 간구로 적혀 있어, 판본의 문면 사이에서도 응답의 자리가 얼마나 깊은 긴장 속에 놓여 있는지를 보게 됩니다.</p>
+<p>바로 이처럼 사람 중보자의 입이 한 낱말로 줄어들고 더 이상 간청을 이어가지 못하는 자리 너머에, 신약 정경은 아모스가 미처 담지 못했던 영원한 한 입을 더해 줍니다. 히브리서 7장 25절은 <strong>그가 항상 살아서 저희를 위하여 간구하심이니라</strong>라고 선포합니다. 예수 그리스도는 아모스가 비워 둔 세 번째 칸을 단순히 인간적인 기도로 메우는 분이 아니라, 돌이키심의 유일한 주어이신 하나님 편에서 사람의 몸을 입고 오셔서 결코 끊기지 않는 중보의 입이 되어 주신 분입니다. 또한 7장 8절의 선고 문장 한복판에도 내 백성 이스라엘(암미 이스라엘)이라는 언약의 호칭이 지워지지 않고 그대로 남아 있다는 사실은, <strong>하나님의 다림줄 선고가 백성을 영원히 버리는 파기가 아니라 끝내 자기 아들의 영원한 중보 안에서 자기 백성을 다루시는 주권의 자리</strong>임을 일깨워 줍니다.</p>
+<h2>선례를 권리로 삼지 않는 정직함과 응답의 주어를 존중하는 경건</h2>
+<p>돌이키심의 주어는 사람이 아니라 하나님이시며 은혜는 공식으로 소유되지 않는다는 이 진리는, 우리의 기도와 공동체 행정과 직업 현장의 태도를 단단하게 바로잡아 줍니다. 먼저 개인의 경건 생활에서 두 번 응답받았던 기도 제목이 올해는 응답되지 않을 때, 우리는 내 기도의 기술이나 정성이 부족해서 실패했다고 자책하는 도덕주의나 아예 기도를 포기하는 정적주의로 미끄러지지 말아야 합니다. 기도문을 억지로 늘리기 전에 <strong>내 마음의 장부에서 그래서라는 인과의 줄을 지우고, 오지 않았다는 사실 옆에 이 일의 주어는 여전히 하나님이시다는 고백을 적을 때</strong> 기도는 주술적 기법 경쟁에서 해방됩니다. 강단에서 말씀을 전하거나 공동체에서 권면을 할 때에도, 원문 7장 9절의 내가 일어나리라에 역본이 보충한 치리라에 기대어 목소리를 높여 위압하기보다, 먼저 듣는 자의 낮은 목소리로 본문의 무게만을 정직하게 전달해야 합니다.</p>
+<p>실무와 행정의 영역에서도 순서를 보증으로 착각하지 않는 분별력은 필수적입니다. 세무 상담에서 의뢰인이 작년과 재작년에 이 공제가 인정되었으니 올해도 똑같이 해 달라고 요구할 때, <strong>앞선 두 해의 결과는 그때의 사실관계에 대한 판단이었으며 올해의 근거는 오직 올해의 사실과 법령에 있음</strong>을 검토서 첫 장에 분명히 분리해 적어야 분쟁을 막을 수 있습니다. 교회의 행정에서도 재정 보고나 사역 평가를 두 번 유예해 주었다고 해서 세 번째 유예를 당연한 관례나 권리로 여기는 일이 없도록, 예외적 배려를 규정 변경이 아닌 당회의 한시적 결정으로 회의록에 명확히 남겨야 합니다. <strong>지나간 두 번의 은혜와 배려를 내 소유의 기득권으로 삼지 않고, 매 순간 응답의 주권을 가지신 주님과 항상 살아 간구하시는 그리스도의 입술만을 겸손히 의지하는 사람</strong>, 그 사람이 다림줄 앞에서도 흔들리지 않는 성숙한 그리스도인입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 15일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

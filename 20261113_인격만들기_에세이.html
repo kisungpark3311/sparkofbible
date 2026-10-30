@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>자리는 그대로 둔 채 줄의 방향이 바뀔 때, 먼저 서야 할 앞자리</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 13일 &middot; 아모스 6:1-7</span>
+      <h1>자리는 그대로 둔 채 줄의 방향이 바뀔 때, 먼저 서야 할 앞자리</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 흔히 성경의 심판 선언을 읽을 때 높고 안락하던 자들이 가장 밑바닥으로 추락하는 극적인 역전을 기대하곤 합니다. 남의 몰락을 통해 은밀한 위안을 얻으려는 마음은 앞자리에 앉은 이들이 맨 뒷줄로 밀려나기를 바라지만, 아모스 6장 1절부터 7절까지의 본문은 <strong>그러한 통속적인 역전의 기대와 손쉬운 위로를 허락하지 않습니다</strong>. 아모스 전체에서 행위를 당하는 상태를 가리키는 수동 분사는 단 다섯 번 등장하는데, 그중 세 번이 바로 이 일곱 절 안에 집중되어 있습니다. 더구나 무언가를 행하는 능동 분사와 무언가가 되어 있는 수동 분사가 <strong>한 절 안에서 나란히 짝을 이루는 구절은 이 단락의 첫째 절(6:1), 한가운데인 넷째 절(6:4), 마지막 일곱째 절(6:7) 세 곳뿐</strong>이며, 이 세 절이 단락의 머리와 중심과 꼬리를 정확히 지탱합니다.</p>
+<p>흥미로운 점은 컬러 사진을 흑백으로 변환하면 보색 관계이던 빨강과 초록이 똑같은 회색 톤으로 평평해지듯, 원문의 정교한 분사 짝이 번역본의 문면에서는 눈에 띄지 않게 묻힌다는 사실입니다. 개역한글은 1절의 지명된 자들(네쿠베이)과 4절 및 7절의 침상에 길게 뻗어 있는 자들(세루힘)이라는 수동 분사 세 개를 모두 능동의 어감으로 옮겼고, 정작 7절에서 떠나는 행위를 가리키는 <strong>능동 분사 골림(끌려가는 자들)은 사로잡히는 자라는 수동의 어감으로 뒤집어</strong> 옮겼습니다. 역본의 문장만 읽는 독자는 형태와 의미가 교차하는 이 팽팽한 긴장을 미처 발견하기 어렵지만, <strong>원문의 문법적 짝을 따라가다 보면 자리를 뒤집지 않고 줄의 방향만 바꾸어 버리는 서늘한 판결의 방식</strong>과 마주하게 됩니다.</p>
+<h2>상아 침상의 으뜸이 끌려가는 행렬의 맨 앞에 서다</h2>
+<p>1절과 4절에 등장하는 시온과 사마리아 산의 지도자들은 <strong>열국의 으뜸(레쉬트)으로 지명되어</strong> 이스라엘 족속이 찾아오는 중심에 앉아 있었습니다. 그들은 상아 상에 눕고 침상에 길게 몸을 뻗으며 양떼에서 어린 양과 우리에서 송아지를 골라 먹으면서도, 요셉의 환난과 <strong>공동체의 깨어짐(쉐베르 요셉) 앞에서는 조금도 아파하지 않았습니다</strong>. 놀랍게도 호격으로만 길게 이어지는 1절부터 6절까지의 여섯 절 동안에는 그들의 동작을 서술하는 주절의 정동사가 단 하나도 등장하지 않습니다. 실제로 바닥이나 소파에 등을 대고 팔다리를 길게 뻗은 채 1절부터 6절까지를 소리 내어 읽어 보면, 문장이 끝나지 않아 몸을 일으킬 문법적 이유를 전혀 얻지 못한다는 사실을 체감하게 됩니다. <strong>아무 일도 하지 않고 누림의 상태에 머물러 있던 몸이 처음으로 얻게 되는 동사는 스스로 고른 움직임이 아니라 끌려간다는 선고</strong>였습니다.</p>
+<p>7절의 그러므로 이제(라켄 아타)라는 전환과 함께 마침내 이 단락의 유일한 주절 주동사인 이글루(그들이 끌려가리라)가 떨어집니다. 여기서 같은 어근 갈라(떠나다, 사로잡혀 가다)가 주동사 이글루와 구약 전체 백여든여섯 번의 용례 중 오직 이 절에만 등장하는 능동 분사 골림(끌려가는 자들)이라는 두 꼴로 나란히 서고, <strong>그 둘 사이를 브로쉬(앞머리에)라는 위치어가 단단히 잇습니다</strong>. 선고는 그들이 누리던 으뜸의 자리를 빼앗아 행렬의 맨 끝으로 보내지 않습니다. <strong>으뜸으로 불리던 자들은 자리가 그대로 유지된 채 끌려가는 무리의 맨 앞머리에 서게 되며, 선고는 자리를 빼앗는 대신 줄의 방향을 바꿉니다</strong>. 누워 있던 자리에서 일어나 방문 바로 앞에 서서 등 뒤에 긴 줄이 있다고 상상해 보면, 이전에는 자기들에게 찾아오는 사람들을 정면으로 내려다보았으나 이제는 따라오는 무리의 무게를 오직 등으로 느껴야 하는 앞자리의 무거움이 온몸으로 전해집니다.</p>
+<h2>비어 있는 선고자의 입, 그리고 성문 밖 앞자리를 스스로 고르신 분</h2>
+<p>이 일곱 절의 구조를 차원을 달리해 들여다보면 또 하나의 기이한 공백이 드러납니다. 바로 앞 단락(5:27)과 바로 뒤 단락(6:8, 6:14)에는 여호와의 이름과 일인칭 동사가 선명하게 기록되어 있는 반면, 6장 1절부터 7절 사이에는 <strong>하나님이 문법적 주어로 놓인 토막이나 일인칭 발화 공식이 단 한 번도 등장하지 않습니다</strong>. 선고를 누가 내리는가의 차원에서 보면 이 구절은 완전히 비어 있는 골짜기 같지만, 시선을 돌려 누가 어디에 서는가의 차원으로 읽으면 끌려가는 자들의 위치어로 빈틈없이 꽉 차 있습니다. <strong>본문은 선고하시는 분의 입을 침묵 속에 남겨 두고, 오직 선고를 받는 자들이 서야 할 앞머리(브로쉬)의 위치만을 정밀하게 기록합니다</strong>. 호송 행렬의 선두 차량은 길을 고르는 자리이면서 동시에 매복을 가장 먼저 맞는 자리인데, 7절의 사람들은 그 앞머리를 스스로 고르지 않고 끌려가 세워졌다는 점에서 깊은 간극이 남습니다.</p>
+<p>아모스 선지자는 이 본문에서 그리스도를 직접 기록하지 않았으며, 우리는 원문의 문법에서 억지로 예언을 끌어내어 빈칸을 메우려 해서는 안 됩니다. 그러나 성경 전권이라는 정경의 큰 빛은 아모스가 정밀하게 기록해 둔 그 앞머리의 위치 위에, <strong>그 자리를 스스로 고르신 한 분의 구속 사건을 겹쳐 더합니다</strong>. 누가복음 23장 26절은 사람들이 예수를 끌고 갔다고 기록하고, 요한복음 19장 17절은 예수께서 자기의 십자가를 지시고 스스로 나오셨다고 기록함으로써, 끌려감과 스스로 나아감이라는 두 꼴을 한 분의 걸음 안에서 하나로 묶어 냅니다. 부요하신 자로서 우리를 위하여 스스로 가난하게 되신 그리스도(고후 8:9)께서는 인류의 죄에 대한 하나님의 진노를 몸과 영혼에 친히 짊어지시고(하이델베르크 요리문답 제37문), 우리를 위하여 앞서 가신 분(히 6:20)이 되어 성문 밖 고난의 맨 앞자리에 서셨습니다. <strong>사람이 끌려가 세워지던 심판의 앞머리에 주님께서 자원하여 먼저 서셨다는 정경의 더함은 본문의 엄중한 경고를 값싼 은혜로 지우지 않고 우리 앞자리의 방향을 주님 뒤로 돌려놓습니다</strong>.</p>
+<h2>영예의 순번을 먼저 맞고 먼저 짐 지는 책임의 순번으로 고쳐 쓰다</h2>
+<p>자리는 그대로이되 줄의 성격이 바뀐다는 이 성경적 통찰은 오늘 우리의 직장과 교회와 일상의 인격을 빚는 구체적인 거울이 됩니다. 국세기본법상 법인의 재산으로 체납 세액을 충당하지 못할 때 <strong>지배 지분을 행사하던 과점주주에게 제2차 납세의무를 지우는 법리</strong>는 이 구조를 고스란히 보여 줍니다. 배당과 의결권 행사의 줄에서 맨 앞에 섰던 대표 주주가 회사가 무너지는 줄에서도 맨 앞에 서게 될 때, 세무 실무자는 법적 요건을 따지기에 앞서 대표님이 배당과 결정의 줄에서 맨 앞이셨듯 법은 줄이 반대로 설 때도 같은 자리를 본다는 위치의 의미를 차분히 설명해 줄 수 있습니다. 교회 행정에서도 마찬가지입니다. 교회 요람의 직분자 명단이 영예의 서열로만 읽히지 않으려면, 그 명단 옆에 재난과 분쟁과 교우의 깨어짐 앞에서 가장 먼저 연락받고 가장 먼저 나서는 책임의 순번을 같은 순서로 적어 넣어야 합니다. <strong>앞자리는 대접받는 영예의 자리이기 전에 공동체의 바람과 아픔을 맨 먼저 맞는 자리</strong>이기 때문입니다.</p>
+<p>하루를 마감하며 우리가 점검해야 할 것은 오늘 내가 얼마나 많은 일을 해냈는가 하는 업적의 목록이 아니라, <strong>오늘 내가 어느 줄의 맨 앞에 서 있었는가 하는 자리의 방향</strong>입니다. 앞자리에 서지 말라는 도덕주의적 회피로 숨거나 그리스도께서 대신 끌려가셨으니 내 자리는 상관없다는 값싼 안일에 머무는 두 낭떠러지를 넘어, 우리는 영문 밖으로 앞서 가신 주님의 등을 바라보며 우리의 앞자리를 다시 정돈해야 합니다. 오늘 밤 잠들기 전에 잠시 누웠다가 일어나 문 앞에 서 보며, 내가 가정과 일터와 교회에서 점유하고 있는 우선권이 나를 위해 상아 침상을 지키는 줄인지, 아니면 형제의 아픔을 먼저 짊어지기 위해 문을 여는 줄인지 정직하게 물어보기를 바랍니다. <strong>성문 밖 고난의 앞머리를 스스로 고르신 그리스도를 따라 내가 선 모든 앞자리를 책임과 섬김의 최전선으로 바꾸어 가는 것</strong>, 그것이 말씀을 통과한 성도의 단단한 인격입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 13일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

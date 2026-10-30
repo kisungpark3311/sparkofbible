@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>아심은 면제가 아니라 맨 앞줄로 부르시는 이름입니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 11월 07일 &middot; 아모스 3:1-8</span>
+      <h1>아심은 면제가 아니라 맨 앞줄로 부르시는 이름입니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h2>줄표 하나로 이어진 아심과 보응의 자리</h2>
+<p>오래된 관계는 흔히 우리에게 묘한 안도감을 건넵니다. 수십 년을 다닌 예배당의 익숙한 장의자, 오랫동안 호흡을 맞춰 온 동역자와의 눈빛, 해마다 장부를 맡겨 온 단골 고객과의 인사 속에는 굳이 말로 적지 않아도 서로가 이해해 주리라는 암묵적인 기대가 자라납니다. 그러나 아모스 3장 2절은 우리가 기대어 온 그 오래된 친밀함의 계산서를 단 한 줄의 문장으로 뒤집어 놓습니다. 여호와께서는 땅의 모든 족속 가운데 오직 너희만을 알았다고 먼저 선언하신 뒤, 그 자리에 <strong>그러므로 내가 너희 모든 죄악을 너희에게 보응하리라</strong>는 뜻밖의 결론을 놓으십니다. 우리가 마음속으로 적어 넣던 안전과 면제의 자리에 돌연 <strong>보응이라는 무거운 결론</strong>이 들어서는 것입니다.</p>
+<p>원문의 문법적 결을 따라가 보면 이 반전의 무게는 더욱 또렷해집니다. 하나님께서 너희만 알았다고 말씀하실 때 쓰인 히브리어 동사 <strong>야다티는 칼 완료 일인칭 공성 단수</strong>로, 단순히 정보를 파악했다는 뜻이 아니라 오랜 세월 곁에 두고 사귀어 온 깊은 인격적 앎을 가리킵니다. 놀라운 것은 이 완료형 동사와 미래의 보응을 선언하는 미완료형 동사 에프코드 사이에 <strong>알켄이라는 지시 불변화사 하나가 마카프 줄표 하나로</strong> 바짝 묶여 있다는 사실입니다. 본문은 결론을 뒤집기 위해 과거의 아심을 취소하거나 철회하지 않습니다. 출애굽부터 이어져 온 그 아심은 조금도 거두어지지 않은 채, 줄표 하나 거리에 놓인 <strong>보응의 흔들리지 않는 바닥</strong>이 됩니다.</p>
+<p>일상의 여러 영역에서도 가까움이 곧 책임의 무게가 되는 풍경은 낯설지 않습니다. 수년간 한 사업장의 장부를 기장해 온 세무 대리인이 성실신고 확인서에 서명할 때, 고객의 사정을 누구보다 잘 안다는 사실은 사후에 몰랐다는 항변을 허락하지 않는 무거운 확인 책임의 근거가 됩니다. 환자의 오랜 병력을 꿰고 있는 주치의나 집 열쇠꾸러미를 건네받은 수탁자 역시 그 가까움 때문에 낯선 행인에게는 묻지 않는 문단속의 책임을 집니다. 그러나 세상의 모든 유추에서는 앎의 주어가 책임을 지는 사람 자신인 반면, 아모스 3장 2절에서는 <strong>앎의 주어가 보응하시는 하나님 자신</strong>이라는 점에서 결정적인 갈림이 일어납니다. 내가 많이 알아서 책임지는 수준을 넘어, <strong>하나님께 아신 바 된 자가 그분의 부르심 앞에 선다</strong>는 사실이 우리를 핑계할 수 없는 자리로 데려갑니다.</p>
+<h2>이름이 불릴 때 고개를 드는 몸과 펼친 손바닥</h2>
+<p>이 문장이 지닌 실존적 무게를 머리가 아니라 몸의 감각으로 통과해 보려면, 조용히 의자에 앉아 누군가 여러 사람의 이름을 차례로 호명하는 법정을 떠올려 보면 좋습니다. 낯선 사람들의 이름이 불려 지나갈 때 우리의 어깨와 등은 느슨하게 풀려 있습니다. 그러나 그 목소리가 마침내 내 이름을 또렷이 부르는 순간, 그것이 상을 주려는 자리인지 잘못을 묻는 자리인지 따지기도 전에 <strong>고개가 저절로 들리고 굽었던 등이 펴집니다</strong>. 안다는 것은 곧 이름을 불러낼 수 있다는 뜻이며, 호명된 사람은 더 이상 뒷줄의 군중 속으로 숨을 수 없습니다. 무릎 위에 두 손바닥을 활짝 펴서 올려놓고 본문을 소리 내어 읽을 때, 우리는 <strong>불린 자가 마땅히 서야 할 정직한 맨 앞줄</strong>을 근육으로 배우게 됩니다.</p>
+<p>그렇다면 아신 바 된 백성이 마주해야 할 그 모든 죄악의 보응은 도대체 어디에서 끝이 나는 것일까요. 아모스 3장 2절은 앎을 받은 대상과 보응을 받는 대상이 정확히 같은 너희라는 사실을 못 박은 채, 그 무거운 보응이 궁극적으로 어떻게 감당되는지에 대해서는 <strong>침묵의 빈칸으로 남겨 둡니다</strong>. 방향을 고쳐 다시 살겠다고 결단하는 인간의 도덕적 점검표만으로는 이미 쌓인 모든 죄악의 무게를 결코 덜어낼 수 없습니다. 아모스가 채우지 않고 비워 둔 이 구속사의 아득한 여백 위로, 신약의 정경은 요한복음 10장 14절과 15절의 음성을 더합니다. 나는 내 양을 알고 양도 나를 안다고 말씀하신 선한 목자께서, 그 아심의 결론을 <strong>양을 위하여 자기 목숨을 버리시는 십자가의 자리</strong>로 가져가신 것입니다.</p>
+<p>칼빈이 기독교 강요의 첫머리를 열며 하나님을 아는 지식과 우리 자신을 아는 지식이 거울처럼 서로 얽혀 있다고 통찰한 까닭도 여기에 있습니다. 하나님께 깊이 아신 바 되었다는 은혜의 빛 앞에 다가설수록, 우리의 어두운 허물과 죄악이 더욱 선명하게 드러나며 두 손바닥을 펴고 서게 됩니다. 그러므로 아모스의 심판 선언은 언약이 깨어진 바깥의 낯선 법정이 아니라, 출애굽의 은혜로 맺어진 <strong>언약 안의 엄위로운 조항</strong>으로 읽혀야 합니다. 본문이 선포하는 보응의 어조를 값싼 위로로 뭉개지도 말고 인간의 힘으로 다 갚으라는 율법주의로 닫지도 않은 채, <strong>정경이 더한 그리스도의 대속을 함께 붙드는 것</strong>이 개혁신학이 서 있는 정직한 자리입니다.</p>
+<h2>익숙함의 면제부를 내려놓고 먼저 불리는 인격</h2>
+<p>이 말씀이 우리의 일상과 일터 속으로 걸어 들어올 때, 우리의 인격은 오래됨을 사용하는 방식을 근본적으로 바꾸게 됩니다. 교회에서 수십 년을 헌신한 중직자가 재정을 집행하며 우리끼리 다 아는 사이에 무슨 영수증이냐고 관행처럼 넘어갈 때, 우리는 아모스 3장 2절의 <strong>그러므로가 가리키는 방향</strong>을 행정의 원칙으로 세워야 합니다. 오래 섬기고 깊이 신뢰받는 직분자일수록 의심받기 때문이 아니라 <strong>공동체에서 가장 먼저 불리는 영광스러운 책임의 자리</strong>에 서 있기에, 누구보다 먼저 투명한 증빙을 갖추어 신뢰의 바닥을 단단히 다지는 것입니다.</p>
+<p>세무와 실무의 현장에서도 이 인격의 원리는 흔들리지 않는 기준이 됩니다. 오랜 세월 거래해 온 고객이 친분을 앞세워 증빙 없는 비용 처리를 슬쩍 요청할 때, 성경적 인격을 지닌 전문가는 오래 거래했으니 눈감아 주는 것이 아니라 <strong>오래 알았으므로 확인을 더욱 꼼꼼히 하는 길</strong>을 택합니다. 오랜 세월 장부를 맡아 온 대리인일수록 몰랐다는 변명이 설 자리가 좁아진다는 사실을 정중하고도 따뜻하게 설명할 때, 당장의 어색함 너머에서 고객과 대리인 모두가 사후의 무거운 추징과 무너짐으로부터 보호받게 됩니다. 친밀함을 원칙 훼손의 구실로 삼지 않는 태도가 곧 <strong>이웃과 고객을 진정으로 아끼는 사랑의 실무</strong>입니다.</p>
+<p>무엇보다 우리는 홀로 서는 기도의 골방에서 나 자신의 오래된 신앙 이력을 점검해야 합니다. 새벽을 깨운 연수와 익숙해진 경건의 습관에 기대어, 최근에 미루어 둔 작은 회개와 양심의 가책을 괜찮다고 덮어 두려는 마음이 올라올 때마다 내 이름을 부르시는 주님의 음성에 고개를 들어야 합니다. 주님께서 나를 땅의 모든 족속 가운데 아셨다는 그 놀라운 완료형 은혜를 결코 지우지 않되, 그 은혜 위에 적힌 안일한 면제의 동사들을 지우고 <strong>그러므로 오늘 이것부터 주님 앞에 바로 세우겠다</strong>는 응답을 적어 넣으십시오. 아심이 면제가 아니라 맨 앞줄로 부르시는 거룩한 부르심임을 아는 사람만이, <strong>은혜의 깊이만큼 무거워진 진실한 인격</strong>으로 오늘을 걸어갈 수 있습니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 11월 07일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
