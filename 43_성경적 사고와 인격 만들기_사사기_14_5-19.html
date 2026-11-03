@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>강림과 행위 사이에 이음말이 없다 — 씨앗 아이디어(사사기 14:6 · 14:19 — `וַתִּצְלַח עָלָיו רוּחַ יְהוָה`(와티츨라흐 알라우 루아흐 야훼))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 43 편 &middot; 사사기 14:5-19</span>
+      <h1>강림과 행위 사이에 이음말이 없다 — 씨앗 아이디어(사사기 14:6 · 14:19 — `וַתִּצְלַח עָלָיו רוּחַ יְהוָה`(와티츨라흐 알라우 루아흐 야훼))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>43_성경적 사고와 인격 만들기</p>
+<h2>강림과 행위 사이에 이음말이 없다 — 씨앗 아이디어(사사기 14:6 · 14:19 — <code>וַתִּצְלַח עָלָיו רוּחַ יְהוָה</code>(와티츨라흐 알라우 루아흐 야훼))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./43_생각의탄생13단계_사사기_14_5-19_강림과행위사이에이음말이없다.html">43_생각의탄생13단계_사사기_14_5-19_강림과행위사이에이음말이없다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"원문 두 절은 「와티츨라흐 알라우 루아흐 야훼」 네 낱말로 똑같이 엽니다. 뜻은 「여호와의 신이 그에게 내렸다」입니다. 두 절 다 삼손의 이름이 없고 「그에게」로만 그를 가리키며, 「크게」에 해당하는 낱말도 없습니다. (…) 원문은 내림과 그 뒤의 행위 사이에 까닭도 목적도 잇지 않습니다. 이 절의 첫 문장이 말하는 것은 여호와의 신이 그에게 내렸다는 일이고, 사자를 찢은 이는 다음 문장의 「그」입니다.</strong></p>
+<p><strong>본문 핵심: 내린 이는 여호와의 신이고, 본문은 내림과 그 뒤 행위 사이에 아무 이음말도 두지 않습니다."</strong></p>
+<p>(출처: <a href="./43_일상의깊은사고_사사기_14_5-19.html">43_일상의깊은사고_사사기_14_5-19</a> 주요 신학 통찰 1️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본.md</code> · bible.com KRV88)</p>
+<blockquote>
+<p>14:6 삼손이 여호와의 신에게 크게 감동되어 손에 아무 것도 없어도 그 사자를 염소 새끼를 찢음 같이 찢었으나 그는 그 행한 일을 부모에게도 고하지 아니하였고<br />
+14:19 여호와의 신이 삼손에게 크게 임하시매 삼손이 아스글론에 내려가서 그곳 사람 삼십명을 쳐 죽이고 노략하여 수수께끼 푼 자들에게 옷을 주고 심히 노하여 아비 집으로 올라갔고</p>
+</blockquote>
+<p><strong>원문</strong> (<a href="./43_구문묵상_사사기_14_5-19.html">43_구문묵상_사사기_14_5-19</a> §2 · XML 추출 문면)</p>
+<blockquote>
+<p>14:6 וַתִּצְלַ֨ח עָלָ֜יו ר֣וּחַ יְהוָ֗ה וַֽיְשַׁסְּעֵ֨הוּ֙ כְּשַׁסַּ֣ע הַגְּדִ֔י וּמְא֖וּמָה אֵ֣ין בְּיָד֑וֹ וְלֹ֤א הִגִּיד֙ לְאָבִ֣יו וּלְאִמּ֔וֹ אֵ֖ת אֲשֶׁ֥ר עָשָֽׂה׃<br />
+14:19 וַתִּצְלַ֨ח עָלָ֜יו ר֣וּחַ יְהוָ֗ה וַיֵּ֨רֶד אַשְׁקְל֜וֹן וַיַּ֥ךְ מֵהֶ֣ם ׀ שְׁלֹשִׁ֣ים אִ֗ישׁ וַיִּקַּח֙ אֶת־חֲלִ֣יצוֹתָ֔ם וַיִּתֵּן֙ הַחֲלִיפ֔וֹת לְמַגִּידֵ֖י הַחִידָ֑ה וַיִּ֣חַר אַפּ֔וֹ וַיַּ֖עַל בֵּ֥ית אָבִֽיהוּ׃ פ</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (<a href="./43_구문묵상_사사기_14_5-19.html">43_구문묵상_사사기_14_5-19</a> §3-0 · §3-1 · §3-4 · §3-5)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱</th>
+<th>표제어</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>וַתִּצְלַח</code> 14:6 · 14:19</td>
+<td>칼 wayyiqtol 3fs (<code>HC/Vqw3fs</code>)</td>
+<td><code>צלח</code> 6743 a</td>
+<td>씨앗. 주어 <code>רוּחַ</code></td>
+</tr>
+<tr>
+<td><code>עָלָיו</code></td>
+<td>전치사 + 3ms 접미 (<code>HR/Sp3ms</code>)</td>
+<td><code>עַל</code></td>
+<td>삼손을 이름 없이 가리킴</td>
+</tr>
+<tr>
+<td><code>רוּחַ יְהוָה</code></td>
+<td>연계 (<code>HNcbsc</code> · <code>HNp</code>)</td>
+<td><code>רוּחַ</code> · <code>יְהוָה</code></td>
+<td>정동사의 주어는 <code>רוּחַ</code> · YHWH는 연계 속격</td>
+</tr>
+<tr>
+<td><code>וַיְשַׁסְּעֵהוּ</code> 14:6</td>
+<td>피엘 wayyiqtol 3ms + 3ms 접미</td>
+<td><code>שׁסע</code> 8156</td>
+<td>14:6 강림 뒤 같은 절의 wayyiqtol 하나</td>
+</tr>
+<tr>
+<td><code>וּמְאוּמָה אֵין בְּיָדוֹ</code></td>
+<td>무동사 상황절</td>
+<td><code>מְאוּמָה</code> 3972</td>
+<td>「그의 손에 아무것도 없었다」</td>
+</tr>
+<tr>
+<td><code>וְלֹא הִגִּיד</code> 14:6</td>
+<td>부정 + 히필 완료 3ms</td>
+<td><code>נגד</code> 5046</td>
+<td>장면을 멈추는 부정 서술</td>
+</tr>
+<tr>
+<td><code>וַיֵּרֶד</code> · <code>וַיַּךְ</code> · <code>וַיִּקַּח</code> · <code>וַיִּתֵּן</code> · <code>וַיִּחַר</code> · <code>וַיַּעַל</code> 14:19</td>
+<td>wayyiqtol 여섯 (칼 · 히필 <code>וַיַּךְ</code>) — 주어 3ms 넷 → <code>אַפּוֹ</code> → 3ms</td>
+<td>각각</td>
+<td>14:19 강림 뒤 같은 절의 wayyiqtol 여섯</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수 기준 · 모집단</strong>: ① 「네 낱말 겉꼴 3」은 구약 전체에서 네 낱말이 글자까지 일치하는 자리를 센 값이다(14:6 · 14:19 · 15:14 — 셋 다 사사기 · Stage 0.5 §3 기제공). ② <code>צלח</code> 6743 a 「구약 10 · 그중 주어가 <code>רוּחַ</code>인 것 8(사사기 3 · 삼상 5)」은 하위 표제어 6743 a 기준이고, 6743 b(「형통하다」 · 18:5)는 넣지 않았다. ③ 「뒤 wayyiqtol 하나 / 여섯」은 <strong>강림과 같은 절 안</strong>에서 강림 다음에 오는 wayyiqtol의 수다(구문묵상 §3-5 표). ④ 범위의 YHWH는 2이고 둘 다 <code>רוּחַ יְהוָה</code> 연계 안이며, YHWH가 정동사의 주어로 선 자리는 0이다(§3-6). ⛔ 이 수들은 논증의 기둥이 아니라 관찰의 좌표다. 축은 수가 아니라 「같은 머리 뒤에 원문이 무엇을 넣지 않았는가」에 선다.</p>
+<h3>사고의 통합 — "열린 칸을 열린 채 읽는다"</h3>
+<p>관찰은 같은 네 낱말에서 시작해 두 절의 칸을 하나씩 갈랐다. 머리는 글자까지 같고, 꼬리는 하나와 여섯으로 갈리며, 머리와 꼬리 사이에는 <code>וַ</code>만 있었다. 같은 단위에서 서술자는 14:10과 14:17에 설명의 <code>כִּי</code>를 쓰지만 두 강림 문장 뒤에는 쓰지 않는다 — 그 차이는 사실까지만 적었다. 형상은 같은 도장이 찍힌 두 장의 서류였고, 결정적인 것은 도장과 줄 사이의 빈 띠였다. 알맹이는 <strong>접속 공백</strong>이었다. 강림과 행위를 잇는 「그래서」는 우리의 접속사이고, 「아무 관계 없다」도 우리의 접속사다.</p>
+<p>패턴은 원문의 공식이 아니라 이음매를 메우는 손에서 찾아졌다. 역본의 어미 다섯, 「신이 내리면 노가 탄다」는 공식, 원장에 메모를 붙이는 검토자의 손이 모두 같은 일을 했다. 이음매 판정표는 결과 · 순서 · 승인(그리고 괄호 속 단죄)을 한 판에 세웠고, 그 판이 본문이 아니라 읽는 이의 기울기를 잰다는 것을 보였다. 두 유추는 머리와 꼬리의 정당성이 다른 칸이라는 데서 만나고, 원문에는 그 다른 칸조차 없다는 데서 부러졌다. 몸은 이음말을 넣고 싶은 충동이 숨에서 먼저 일어난다는 것을 알려 주었고, 감정이입은 같은 빈칸이 힘 없는 이에게서는 숙제를, 설교자에게서는 판결을 거둔다는 것을 보였다.</p>
+<p>가장 크게 움직인 것은 9단계와 11단계였다. 9단계는 「성령의 힘으로 찢었다」는 기억이 두 문장을 한 문장으로 합치면서 이음매를 부사구 속에 묻는다는 것을 드러냈다. 11단계는 이음말 하나가 원문에 없는 명사(힘)와 평가(옳음 · 그름)를 데리고 들어온다는 것을 보여 주었다. 두 발견은 한 점에서 만난다 — 이 단위를 잘못 읽는 가장 흔한 길은 과감한 해석이 아니라, 문장을 합치고 어미 하나를 넣는 아주 작은 손짓이다.</p>
+<p><strong>최종 테제</strong>: 사사기 14:6과 14:19는 글자 하나 다르지 않은 강림 문장을 두 번 세우고, 그 뒤 서로 다른 꼬리를 달되 머리와 꼬리 사이에 목적 · 이유 · 평가를 하나도 넣지 않는다. 내린 이(<code>רוּחַ</code>)와 행한 이(3ms)는 서로 다른 문장의 주어다. 이 빈 이음매는 메우라는 빈칸이 아니라 열어 둔 칸이고, 결과인지 순서인지 승인인지는 본문 안에서 판정되지 않는다(봉합 3).<br />
+<strong>가장 생산적이었던 도구</strong>: 11번 놀이. 게임 2(「그러나」 넣기)가 이음말이 혼자 오지 않고 「힘」과 고발장을 데려온다는 것을 보여 주었고, 그것이 10단계 카드의 6번 칸과 12단계 확인서의 6항(의견 공란)을 낳았다.<br />
+<strong>처음 관찰과 달라진 이해</strong>: 처음에 나는 이 단위를 <strong>신의 강림이 두 번 다른 결과를 낳은 이야기</strong>로 읽었다. 지금은 <strong>같은 강림 문장 뒤에 두 번 다른 문장이 놓였고, 그 사이를 잇는 말이 없는 본문</strong>으로 읽는다. 「결과」라는 말부터가 내가 넣은 이음말이었다.</p>
+<blockquote>
+<p>[!insight] 열린 칸을 열린 채 읽는다는 것은 무관심이 아니다. 머리(여호와의 신이 그에게 내렸다)도 지우지 않고, 꼬리(그가 행한 일)도 지우지 않고, 그 둘 사이에 내 말을 끼우지 않는 것이다. 그때 본문은 승인문도 고발장도 아닌 <strong>자기 문장</strong>으로 남는다.</p>
+<p><strong>"여호와의 신은 같은 네 낱말로 두 번 그에게 내렸다. 그 뒤에 적힌 일은 두 번 달랐다. 그 사이에 본문은 아무 말도 놓지 않았고, 나도 놓지 않는다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "같은 머리, 다른 꼬리"</h3>
+<p>씨앗은 두 절의 머리가 같다는 사실을 짚었다. 그 사실을 표 하나로 펼쳐 세우면, 같은 머리 뒤에서 두 절이 어디서 갈리는지가 칸마다 드러난다(구문묵상 §3-5).</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>14:6</th>
+<th>14:19</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>머리 네 낱말</td>
+<td><code>וַתִּצְלַח עָלָיו רוּחַ יְהוָה</code></td>
+<td>글자 하나 다르지 않음</td>
+</tr>
+<tr>
+<td>앞 문맥</td>
+<td>젊은 사자가 그를 향해 으르렁댐(<code>שֹׁאֵג לִקְרָאתוֹ</code>)</td>
+<td>성읍 사람들의 답과 삼손의 응수(14:18)</td>
+</tr>
+<tr>
+<td>삼손의 이름</td>
+<td>없음 · <code>עָלָיו</code>만</td>
+<td>없음 · <code>עָלָיו</code>만</td>
+</tr>
+<tr>
+<td>같은 절 안 뒤 wayyiqtol</td>
+<td>하나(<code>וַיְשַׁסְּעֵהוּ</code>)</td>
+<td>여섯</td>
+</tr>
+<tr>
+<td>같은 절 안 뒤 비동사 · 부정</td>
+<td><code>וּמְאוּמָה אֵין בְּיָדוֹ</code> · <code>וְלֹא הִגִּיד</code></td>
+<td>없음</td>
+</tr>
+<tr>
+<td>머리와 뒤 사이의 표지</td>
+<td><code>וַ</code></td>
+<td><code>וַ</code></td>
+</tr>
+</tbody>
+</table>
+<p>첫째, <strong>머리는 같은데 꼬리의 길이가 다르다.</strong> 둘째, <strong>주어가 머리에서 꼬리로 넘어갈 때 원문은 한 번도 이름을 대지 않는다.</strong> 머리의 주어는 <code>רוּחַ</code>(3fs)이고, 다음 동사부터 3ms가 된다. 범위에서 삼손의 이름은 여섯 토막(14:5 · 14:7 · 14:10 · 14:12 · 14:15 · 14:16)인데, 두 강림 절에는 0이다(구문묵상 E2). 셋째, 마지막 행이 이 노트의 자리다. <strong>머리와 꼬리 사이에는 <code>וַ</code>만 있다.</strong> 「그래서」도, 「위하여」도, 「그러나」도, 평가하는 말도 없다(봉합 3).</p>
+<p>그리고 같은 단위 안에서 서술자가 이유를 붙이는 문장이 따로 있다는 사실이 이 빈 칸을 도드라지게 한다. 14:10 <code>כִּי כֵּן יַעֲשׂוּ הַבַּחוּרִים</code>(젊은이들이 그렇게 하곤 했으니)은 서술자가 관습을 풀어 주는 설명절이고, 14:17 <code>כִּי הֱצִיקַתְהוּ</code>(그 여자가 그를 조였으므로)는 이유절이다(구문묵상 §3-0 종속절 목록). 서술자는 이 단위에서 설명의 <code>כִּי</code>를 두 번 쓴다. 두 강림 문장 뒤에는 쓰지 않는다. ⛔ 이 차이는 사실까지다 — 「서술자가 일부러 숨겼다」는 의도 판정으로 넘기지 않는다(마스터 §6-2 침묵 논증 금지).</p>
+<blockquote>
+<p>[!insight] 두 강림 문장은 <strong>머리가 같고 이음매가 같다.</strong> 갈리는 것은 이음매 뒤의 길이뿐이다. 이유를 댈 줄 아는 서술자가 이 두 이음매에는 아무것도 대지 않았다.</p>
+<p>[!question] 연결 질문<br />
+- 같은 머리 뒤에 하나는 멈추고 하나는 여섯을 이어 간다면, 그 길이의 차이는 머리에서 오는가, 앞 문맥에서 오는가, 아니면 어느 쪽인지 본문이 말하지 않는가?<br />
+- 14:10 · 14:17의 <code>כִּי</code> 두 자리는 서술자에 대해 무엇을 알려 주고, 무엇은 알려 주지 않는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 표 위의 「같은 머리 · 빈 이음매 · 다른 꼬리」를 눈에 보이는 장면으로 옮긴다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "역본이 이음매를 메운다"</h3>
+<p>먼저 사사기 안에서 같은 일(여호와의 신이 사람에게 임함)을 적는 자리를 동사별로 늘어놓는다(구문묵상 §3-5 · 사실만).</p>
+<table>
+<thead>
+<tr>
+<th>자리</th>
+<th>동사</th>
+<th>이 노트와의 관계</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3:10 · 11:29</td>
+<td><code>היה</code></td>
+<td>언급만(07 · 36 단위 자리)</td>
+</tr>
+<tr>
+<td>6:34</td>
+<td><code>לבשׁ</code></td>
+<td>언급만(18 단위 자리 · 축 금지)</td>
+</tr>
+<tr>
+<td>13:25</td>
+<td><code>חלל</code> 히필</td>
+<td>언급만(41 단위 범위)</td>
+</tr>
+<tr>
+<td>14:6 · 14:19 · 15:14</td>
+<td><code>צלח</code> 6743 a</td>
+<td>14:6 · 14:19가 이 노트 · 15:14는 45 단위 범위</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ 마스터 §3-1 T6 경고: 동사 셋(<code>היה</code> · <code>לבשׁ</code> · <code>צלח</code>)을 역어로 묶지 않는다. 개한은 13:25를 「감동하시니라」로, 14:6을 「감동되어」로 옮겨 겉말을 겹치게 한다 — ⛔ 그 겉말로 두 절을 한 틀로 묶지 않는다.</p>
+<p>책 밖에서 같은 동사와 <code>רוּחַ</code>가 함께 서는 자리를 나란히 적기만 한다(구문묵상 §3-5): 삼상 10:6 <code>וְצָלְחָה עָלֶיךָ רוּחַ יְהוָה</code> · 10:10 <code>וַתִּצְלַח עָלָיו רוּחַ אֱלֹהִים</code> · 11:6 <code>וַתִּצְלַח רוּחַ אֱלֹהִים עַל שָׁאוּל</code> · 16:13 <code>וַתִּצְלַח רוּחַ יְהוָה אֶל דָּוִד</code>. 삼상 11:6에서는 강림 뒤 같은 절에 <code>וַיִּחַר אַפּוֹ מְאֹד</code>가 오고, 14:19에서도 강림 뒤 <code>וַיִּחַר אַפּוֹ</code>가 온다(E7). 패턴을 찾는 눈은 즉시 공식을 만든다 — 「신이 내리면 노가 탄다」. 구문묵상은 이 문장을 통찰로 세우려다 두 절 일반화이고 노여움을 신의 작용으로 읽게 한다는 이유로 내려놓았다(바뀐 판단 2). ⛔ 이 노트도 세우지 않고, 그 공식이 <strong>이음매를 메우는 한 방식</strong>이라는 것만 적는다.</p>
+<p>그러면 실제로 되풀이되는 패턴은 무엇인가. 원문 쪽의 반복이 아니라 <strong>읽는 쪽의 반복</strong>이다.</p>
+<table>
+<thead>
+<tr>
+<th>이음매</th>
+<th>원문</th>
+<th>개한이 넣은 것</th>
+<th>구문묵상 판정</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>14:6 강림 → 찢음</td>
+<td><code>וַ</code></td>
+<td>「감동되어」(주어 삼손 · 피동)</td>
+<td>주어 바꿈 · 피동(R47)</td>
+</tr>
+<tr>
+<td>14:6 찢음 → 알리지 않음</td>
+<td><code>וְ</code></td>
+<td>「찢었으나」</td>
+<td>인과 · 역접으로 읽힐 어미(⒠)</td>
+</tr>
+<tr>
+<td>14:6 상황절</td>
+<td>무동사절</td>
+<td>「없어도」</td>
+<td>양보 어미 — 위업처럼 읽히게 함(⒠)</td>
+</tr>
+<tr>
+<td>14:19 강림 → 내려감</td>
+<td><code>וַ</code></td>
+<td>「임하시매」</td>
+<td>연결 어미 「-매」</td>
+</tr>
+<tr>
+<td>14:19 <code>וַיִּחַר אַפּוֹ</code></td>
+<td>주어 「그의 코」</td>
+<td>「심히 노하여」</td>
+<td>주어 삼손으로 · 「심히」 삽입</td>
+</tr>
+</tbody>
+</table>
+<p>다섯 행이 같은 문형을 갖는다 — <strong>원문이 비워 둔 이음매에 역본이 어미 하나씩을 놓는다.</strong> 역본이 잘못했다는 판정이 아니다. 우리말은 어미 없이 문장을 잇기 어렵다. 다만 그 어미 하나하나가 「결과」나 「역접」이나 「양보」 쪽으로 이음매를 기울인다는 것이 패턴이다. 세무 실무에도 같은 문형이 있다. 거래처가 보낸 원장에는 날짜와 금액만 줄지어 있는데, 검토자의 메모에는 어느새 「~때문에 지급」, 「~에 따라 환입」이 붙어 있다. 원장에는 없던 이음말이다.</p>
+<blockquote>
+<p>[!insight] 이 단위에서 되풀이되는 것은 원문의 공식이 아니라 <strong>이음매를 메우는 손</strong>이다 — 역본의 어미, 패턴을 찾는 눈의 공식, 검토자의 메모가 모두 같은 일을 한다.</p>
+<p>[!question] 연결 질문<br />
+- 「신이 내리면 노가 탄다」는 공식은 왜 그토록 그럴듯하게 들리는가 — 두 절의 겉꼴 때문인가, 우리가 힘과 분노를 한 덩어리로 보는 습관 때문인가?<br />
+- 어미 없이 잇기 어려운 우리말로 번역할 때, 이음매를 가장 덜 기울이는 어미는 무엇인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 「이음매를 메우는 방식」들을 한 판 위에 세워 서로 견준다.</p>
+<h3>0 유추 (Analogizing) — "수임장과 개별 신고"</h3>
+<p><strong>(a) 신학 ↔ 세무 교차 — 세무대리 수임과 개별 신고서</strong><br />
+세무사가 고객과 수임 계약을 맺으면 대리인 지위가 생긴다. 그러나 수임 사실은 그 뒤 세무사가 작성한 신고서 한 장 한 장의 내용이 옳다는 보증이 아니다. 수임은 머리이고 신고서는 꼬리이며, 개별 신고서의 적정성은 그 신고서 자체로 검토된다.<br />
+<em>새 통찰</em>: 14:6 · 14:19의 머리와 꼬리가 이렇게 다른 문장이다. 머리의 주어는 <code>רוּחַ</code>이고 꼬리의 주어는 3ms다. 「머리가 있었으니 꼬리는 옳다」는 추론은 수임장 하나로 모든 신고서를 승인하는 것과 같은 비약이다 — 원문은 그 비약의 낱말을 넣지 않았다.<br />
+<em>유추가 깨지는 지점</em>: 수임장에는 <strong>위임 범위가 적힌다.</strong> 14:6 · 14:19의 강림 문장은 범위도 목적도 적지 않는다. 그리고 수임 관계는 고객과 대리인이 맺는 계약인데, 「여호와의 신이 그에게 내렸다」를 계약 관계로 읽을 근거는 본문에 없다. 무엇보다 이 유추는 은근히 「무권대리」 · 「월권」이라는 판단 범주를 불러들인다 — 그것은 넷째 칸(단죄)으로 가는 길이다. ⛔ 유추가 판정을 실어 나르게 두지 않는다.</p>
+<p><strong>(b) 악보 — 같은 동기, 다른 전개</strong><br />
+한 곡에서 같은 동기(네 음)가 두 번 나온다. 첫 번째 뒤에는 짧은 마디 하나와 쉼표가 오고, 두 번째 뒤에는 여섯 마디가 쉬지 않고 이어진다.<br />
+<em>새 통찰</em>: 1단계의 「같은 머리, 다른 꼬리」가 그대로 옮겨진다. 듣는 이는 두 번째 동기를 듣는 순간 첫 번째를 떠올리고, 그 비교가 두 전개의 차이를 들리게 한다. 14:19를 읽는 순간 14:6의 네 낱말이 되울린다.<br />
+<em>깨지는 지점</em>: 악보에는 셈여림표와 표정 기호가 있다 — 작곡자가 「힘차게」, 「부드럽게」를 적는다. 14:6 · 14:19에는 그런 표지가 없다. 개한의 「크게」 두 번은 원문에 없는 셈여림표를 역자가 적어 넣은 것과 같다(§3-8).</p>
+<blockquote>
+<p>[!insight] 두 유추가 모두 <strong>머리와 꼬리의 정당성은 다른 칸</strong>이라는 점에서 만나고, 모두 <strong>원문에는 그 다른 칸 자체가 없다</strong>는 점에서 부러진다. 수임장에는 범위가, 악보에는 표정 기호가 있지만, 두 강림 문장에는 그 어느 칸도 없다.</p>
+<p>[!question] 연결 질문<br />
+- 「다른 칸이 아예 없다」는 것은 판단을 금하는 것인가, 판단이 본문 밖에서 와야 한다는 것인가?<br />
+- 유추가 판정 범주(월권 · 무권대리)를 몰래 실어 나를 때, 그것을 알아차리는 신호는 무엇인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 머리로 세운 「다른 칸」을 몸으로 통과시켜, 이음말을 넣고 싶은 충동이 어디서 일어나는지 느껴 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "「그래서」를 삼키는 혀"</h3>
+<p><strong>실천 프로토콜 ①</strong>: 14:6 개역한글(위 [원문] 절)을 소리 내어 읽는다. 한 호흡으로 읽힌다. 「-되어 · -어도 · -으나」가 문장을 끌고 간다.</p>
+<p><strong>실천 프로토콜 ②</strong>: 이번에는 원문 순서를 따라 문장마다 끊어 읽는다. 「여호와의 신이 그에게 내렸다.」 — 숨을 한 번 쉰다. 「그가 그것을 염소 새끼 찢듯 찢었다.」 — 숨. 「그의 손에는 아무것도 없었다.」 — 숨. 「그는 그가 한 일을 그 아비와 어미에게 알리지 않았다.」 각 숨에서 혀끝에 「그래서」나 「그러나」가 올라오면, 그 낱말을 소리 내지 않고 삼킨다.</p>
+<p><strong>실천 프로토콜 ③</strong>: 14:19도 같은 방식으로 읽는다. 「여호와의 신이 그에게 내렸다.」 숨. 그리고 여섯 문장을 하나씩. 다섯째 문장 「그의 코가 탔다」에서는 주어가 바뀐다는 것을 의식하며 고개를 살짝 숙인다.</p>
+<p>몸이 가르쳐 주는 것: 혀가 가장 강하게 「그래서」를 밀어 올리는 자리는 <strong>첫 숨</strong>, 곧 강림 문장과 첫 행위 문장 사이다. 1단계에서 표로 확인한 빈 이음매가 여기서 목 근육의 저항으로 확인된다. 그리고 14:19에서는 첫 숨에서 「그래서」보다 다른 말이 올라온다 — 「왜?」. 그 물음도 삼킨다. 본문이 그 숨에 넣지 않은 것이기 때문이다.</p>
+<p><em>설교 전달로 옮기면</em>: 일상의깊은사고 포인트 2가 이미 몸짓을 정했다 — 14:19를 말하는 동안 두 팔을 몸 옆에 내린다. 이 단계는 거기에 호흡을 더한다. 강림 문장 뒤에 한 박자 쉬고, 그 쉼을 설명으로 채우지 않는다. 주먹을 쥐거나 팔을 휘두르는 몸짓은 「결과」와 「승인」의 이음말을 몸으로 넣는 일이다.</p>
+<blockquote>
+<p>[!insight] 이음말을 넣고 싶은 충동은 생각보다 <strong>먼저 혀와 숨에서</strong> 일어난다. 빈 이음매를 지키는 일은 판단을 참는 일이기 전에 호흡을 참는 일이다.</p>
+<p>[!question] 연결 질문<br />
+- 끊어 읽기로 들을 때 청중은 무엇을 잃고 무엇을 얻는가 — 이야기의 흐름을 잃고, 대신 무엇을 듣게 되는가?<br />
+- 「왜?」를 삼킨 설교자는 그 물음을 영영 버리는가, 아니면 다른 자리(정경 전체 · 신학)로 옮겨 묻는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 숨을 참던 몸에서 나와, 그 빈 이음매 앞에 선 두 사람의 속으로 들어간다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "다른 문장, 다른 주어"</h3>
+<p><strong>확장 — 책과 정경의 축</strong></p>
+<p>13:5의 「구원하기 시작하리라」(39 단위 · 언급만), 13:25의 신의 움직임(41 단위), 이 단위의 두 강림, 15:14의 셋째 강림을 잇대면 곧 「약속 → 강림 → 구원」이라는 큰 이음말을 넣고 싶어진다. 그러나 구문묵상은 이 열다섯 절에 「구원하다」(<code>ישׁע</code>)가 없고 「이스라엘」이라는 낱말도 없으며 블레셋도 이름으로 나오지 않는다고 적는다(§1-3). ⛔ 책 단위의 이음말로 이 단위의 빈 이음매를 덮지 않는다. 확장은 빈 이음매를 메워 주지 않고, 오히려 이음매가 단위마다 따로 비어 있다는 것을 보여 준다.</p>
+<p><strong>축소 — 한 절 안의 주어</strong></p>
+<p>한 절 안으로 줄이면 사실이 더 날카롭다. 14:6의 첫 정동사 <code>וַתִּצְלַח</code>는 3fs이고 주어는 <code>רוּחַ</code>다. 다음 정동사 <code>וַיְשַׁסְּעֵהוּ</code>는 3ms다. 개한은 이 두 문장을 「삼손이 … 감동되어 … 찢었으나」 한 문장으로 묶고 주어를 삼손 하나로 통일한다(§3-1 · R47). 원문에서는 <strong>내린 이와 찢은 이가 서로 다른 문장의 서로 다른 주어</strong>다. 일상의깊은사고가 「사자를 찢은 이는 다음 문장의 「그」입니다」라고 쓴 것이 바로 이 축소의 결과다.</p>
+<p><strong>핵심 전복</strong>: 우리는 14:6을 「삼손이 성령의 힘으로 사자를 찢었다」라는 <strong>한 문장</strong>으로 기억한다. 원문은 그것을 <strong>두 문장</strong>으로 적었다. 한 문장으로 기억하면 강림은 찢음의 부사구(「성령의 힘으로」)가 되고, 이음매는 문법 안으로 사라진다. 두 문장으로 읽으면 강림은 자기 주어를 가진 사건이고, 찢음도 자기 주어를 가진 사건이며, 둘 사이에 이음매가 보인다. <strong>이 단위의 이음매를 지우는 가장 흔한 방법은 해석이 아니라 기억 속의 문장 합치기다.</strong></p>
+<blockquote>
+<p>[!insight] 「성령의 힘으로 찢었다」는 기억은 두 문장을 한 문장으로 합치면서 <strong>이음매를 부사구 속에 묻는다.</strong> 원문은 내린 이와 찢은 이를 다른 문장에 세웠다.</p>
+<p>[!question] 연결 질문<br />
+- 내가 성경에서 「한 문장」으로 기억하는 장면들 가운데 원문이 두 문장으로 적은 것은 무엇이 더 있는가?<br />
+- 책 전체의 약속(13:5)을 이 단위에 끌어오지 않으면서도, 그 약속을 잊지 않는 읽기는 어떤 모양인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 「두 문장으로 읽기」를 실제로 점검할 도구를 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>층을 먼저 밝힌다.</strong> 이 단위의 원문에는 그리스도 계열 기명이 0이고, 구문묵상 C4 배선은 「미달 5 · 재료 부재」다(§3-7 · C4). 아래의 정경 · 신학 연결은 <strong>본문이 말하지 않는 것</strong>을 정경 전체와 신앙고백의 층에서 곁에 두는 것이며, 14:6 · 14:19의 주장으로 쓰지 않는다.</p>
+<p><strong>성경 본문 (정경 전체의 층 · 문면 대조 안 함 → 요지)</strong></p>
+<ul>
+<li><strong>고린도전서 12-13장 (요지)</strong> — 성령의 나타남은 각 사람에게 주어지되 공동체의 유익을 위한 것이고, 은사가 있어도 사랑이 없으면 아무것도 아니라는 요지. <em>층</em>: 사사기 14장은 「은사」라는 낱말을 쓰지 않는다. 선택 이유가 연 「은사와 그 쓰임」의 물음을 정경 안에서 묻는다면, 신약은 <strong>은사의 있음과 그 쓰임의 정당성을 다른 칸에 적는다</strong>는 점에서 이 노트의 판정표와 꼴이 닮는다. ⛔ 이것으로 14:19를 「사랑 없는 은사 사용」으로 판정하지 않는다 — 넷째 칸(단죄)을 신약의 이름으로 넣는 일이다.</li>
+<li><strong>갈라디아서 5장 (요지)</strong> — 성령의 열매로 열거되는 목록이 성품의 말들이고 「힘」을 그 목록에 넣지 않는다는 요지. <em>층</em>: 14:6을 「성령 충만 = 힘」으로 옮기려는 습관(8단계 첫 시점)을 정경 전체가 지지하지 않는다는 곁말로만 둔다.</li>
+<li><strong>히브리서 11:32 (요지)</strong> — 삼손의 이름이 믿음의 사람들 사이에 열거된다. <em>층</em>: 마스터 §6-2는 이것이 <strong>이름 열거</strong>뿐이라고 막는다. ⛔ 「목록에 올랐으니 모범」으로도, 14:19의 승인 근거로도 쓰지 않는다.</li>
+</ul>
+<p><strong>신앙고백</strong> — 하이델베르크 요리문답 53문의 요지: 성령은 성부 · 성자와 함께 영원한 하나님이시고, 내게도 주어져 참된 믿음으로 그리스도와 그의 모든 은덕에 참여하게 하며 나를 위로하고 영원히 함께하신다(요지 · 원문 대조 안 함 · 구문묵상 §6③). 이 조항을 14:6 · 14:19의 증거 본문으로 쓰지 않는다. 다만 그 조항이 신자에게 주어지는 성령을 <strong>그리스도와의 연합과 위로</strong>로 말하고 「힘의 분량」으로 말하지 않는다는 꼴을, 14:6을 오늘의 「성령 충만 = 힘」으로 옮기지 않는 근거 곁에 둔다. 개혁신학이 성령의 주권을 말할 때, 이 단위의 문법은 한 가지를 정확히 지킨다 — 두 강림 문장의 주어는 사람이 아니라 <code>רוּחַ</code>다. 사람은 그 문장에서 대명 접미 <code>עָלָיו</code>로만, 받는 자리에 있다.</p>
+<ul>
+<li>
+<p><strong>인격의 열매</strong>: 14:6과 14:19를 설교할 때 강림 문장을 원문대로 「여호와의 신이 그에게 내렸다」로 먼저 말하고, 「크게」를 빼고, 한 박자 쉰다(7단계). 그리고 회중에게 말한다 — "본문은 여기서 이유를 적지 않습니다. 이 일이 옳았는지도 적지 않습니다." 그 말이 회피로 들리지 않게 하려면 같은 단위 14:10 · 14:17에서 서술자가 이유를 적는 문장을 함께 읽어 준다(1단계). 그러면 빈 이음매가 설교자의 핑계가 아니라 본문의 사실로 선다. ⚠ 이 설교에는 감사 기도를 두지 않는다(구문묵상 §3-6 R46 — YHWH 정동사 주어 0 · 강림 바로 뒤에 찢음과 삼십 명을 침이 와서 감사가 폭력의 결과에 걸릴 위험). 기도는 고백과 결단으로 한다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 낭떠러지가 셋이다. ① <strong>능력주의(오순절식 직결)</strong>: 14:6을 「성령 받으면 힘이 난다」로 설교하면 원문에 없는 「힘」이 들어오고, 힘이 나지 않는 성도에게 숙제가 얹힌다(8단계). ② <strong>승인의 신학</strong>: 14:19를 「하나님이 블레셋을 치시려고 삼손에게 임하셨다」로 설교하면 이음매에 「위하여」가 들어가고, 강림이 삼십 명을 친 일의 보증서가 된다(11단계 게임 1). ③ <strong>단죄의 도덕주의</strong>: 반대로 「삼손이 성령을 사사로이 썼다」로 설교하면 이음매에 「그러나」가 들어가고 원문에 없는 평가가 선다(게임 2 · 마스터 §6-2 일괄 폄하 금지). 복음은 이 단위에서 장식 연결로 오지 않는다. 사자를 그리스도로, 꿀을 복음으로 읽지 않는다(C4 재료 부재). 이 단위가 복음에 닿는 자리는 더 좁고 정직하다 — <strong>본문이 판결하지 않은 자리에서 판결을 쥐려는 손을 내려놓게 하는 것.</strong> 판결은 본문 밖, 정경 전체를 맡으신 분에게 남겨 둔다.</p>
+</li>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>① 목회 — 설교 원고에 「접속어 점검 카드」를 댄다</strong><br />
+<em>상황</em>: 사사기 13-16장 설교 원고는 이야기를 흐르게 하려고 「~하시매」, 「그 힘으로」, 「그러나」를 자주 쓴다. 그 어미들이 본문의 판단처럼 들린다.<br />
+<em>적용</em>: 10단계 카드의 3번 · 6번 칸을 원고 검토 마지막 단계에 넣는다. 강림 문장과 행위 문장 사이에 쓴 접속어를 모두 형광펜으로 표시하고, 각각 옆에 「본문」 / 「나의 연결」을 적는다. 「나의 연결」로 표시된 것은 설교에서 「제가 이어 보자면」처럼 출처를 밝혀 말하거나 지운다.<br />
+<em>기대 효과</em>: 회중이 본문의 말과 설교자의 말을 구별해 듣는다. 14:19 같은 자리에서 설교가 승인문이나 고발장으로 기울지 않는다.</p>
+<p><strong>② 목회 — 힘이 나지 않는 성도 곁에서</strong><br />
+<em>상황 · 적용</em>: 「성령 충만하면 힘이 난다는데 저는 왜 안 될까요」라는 물음에, 14:6 첫 문장 「여호와의 신이 그에게 내렸다」를 그대로 읽어 주고 그 문장에 「힘」이 없으며 읽는 이에게 약속으로 쓰이지 않았다는 데까지만 말한다(일상의깊은사고 포인트 1). 다른 약속을 덧붙이지 않는다.<br />
+<em>기대 효과</em>: 숙제를 거두되 헛된 약속도 얹지 않고, 곁에 머무는 자리가 남는다.</p>
+<p><strong>③ 세무·실무 — 수임 사실과 개별 신고의 검토를 다른 칸에 둔다</strong><br />
+<em>상황</em>: 「우리가 수임한 고객이니」라는 신뢰도, 「문제 고객」이라는 선입견도 개별 신고서 검토를 대신하기 쉽다.<br />
+<em>적용</em>: 검토 체크리스트를 「수임 관계」(머리 — 계약 · 위임 범위)와 「개별 신고 적정성」(꼬리 — 증빙 · 계산) 두 칸으로 나누고, 사이에 「그러므로」를 쓰지 않는다. 메모에 「~때문에」를 쓰려 할 때 근거 서류가 원장에 없으면 「근거 미확인」으로 적는다(4단계).<br />
+<em>기대 효과</em>: 사후 검증에서 무엇이 사실이고 무엇이 검토자의 연결이었는지가 메모에서 바로 갈린다.</p>
+<h3>🥇 같은 머리, 빈 이음매, 다른 꼬리 — <code>וַתִּצְלַח עָלָיו רוּחַ יְהוָה</code> 두 자리</h3>
+<ul>
+<li><strong>핵심</strong>: 14:6과 14:19는 글자 하나 다르지 않은 네 낱말로 열리고, 같은 절 안에서 뒤 wayyiqtol 하나(+ 무동사절 · 부정 서술) / 여섯으로 갈린다. 머리와 꼬리 사이의 표지는 두 절 다 <code>וַ</code>뿐이며, 같은 단위의 서술자는 14:10 · 14:17에 설명의 <code>כִּי</code>를 쓰면서 두 강림 문장 뒤에는 쓰지 않는다.</li>
+<li><strong>인격 형성</strong>: 「강림 → 위업 · 승인 · 유용」의 세 독법이 모두 같은 빈 이음매에 다른 낱말을 넣는 일임을 보인다. 관계를 판정하지 않고(봉합 3) 판정하려는 손을 드러낸다.</li>
+<li><strong>연결 고리</strong>: 삿 14:6 · 14:19 · 15:14 / <a href="./43_구문묵상_사사기_14_5-19.html">43_구문묵상_사사기_14_5-19</a> §3-5 · §3-8 · 봉합 3 / 신규 「접속공백_강림과행위」(노트 후보)</li>
+</ul>
+<h3>🥈 내린 이와 행한 이는 다른 문장의 주어다 — 3fs <code>רוּחַ</code> → 3ms</h3>
+<ul>
+<li><strong>핵심</strong>: 14:6의 첫 정동사 <code>וַתִּצְלַח</code>는 3fs(주어 <code>רוּחַ</code>), 다음 <code>וַיְשַׁסְּעֵהוּ</code>는 3ms이고, 두 절 모두 삼손의 이름이 없다(범위 이름 6토막 중 두 강림 절 0). 개한은 14:6을 「삼손이 … 감동되어 … 찢었으나」 한 문장으로 합치고 주어를 삼손으로 통일한다.</li>
+<li><strong>인격 형성</strong>: 「성령의 힘으로 찢었다」는 기억 속 한 문장이 이음매를 부사구로 묻는 과정을 보여 준다. 오순절식 직결(「성령 충만 = 힘」)을 해설이 아니라 문장 경계로 막는다.</li>
+<li><strong>연결 고리</strong>: 삿 14:6 / 13:25 「감동하시니라」와의 역어 겹침(⛔ 묶지 않음) / 하이델베르크 53문(요지) / 신규 「두문장으로읽기_삿14_6」(노트 후보)</li>
+</ul>
+<h3>🥉 이음말은 혼자 오지 않는다 — 「그래서」는 보증서를, 「그러나」는 「힘」을 데려온다</h3>
+<ul>
+<li><strong>핵심</strong>: 빈 이음매에 「그래서」를 넣으면 강림이 행위의 보증서가 되고, 「그러나」를 넣으면 원문에 없는 「힘」과 「유용」의 서사가 따라 들어온다. 개한의 어미 다섯(-되어 · -으나 · -어도 · -매 · 「심히 노하여」)이 이음매를 각각 결과 · 역접 · 양보 쪽으로 기울인다.</li>
+<li><strong>인격 형성</strong>: 판단이 들어오는 경로가 거창한 해석이 아니라 어미 하나라는 것을 삽입 실험과 역어 대조로 보이고, 「접속어 점검 카드」로 이어진다.</li>
+<li><strong>연결 고리</strong>: <a href="./43_구문묵상_사사기_14_5-19.html">43_구문묵상_사사기_14_5-19</a> §3-8 ⒠ · 바뀐 판단 2 · 7 / 마스터 제2부 §6-2 「역본 문면으로 틀을 세우기」 / 신규 「접속어점검카드」(노트 후보)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 43 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

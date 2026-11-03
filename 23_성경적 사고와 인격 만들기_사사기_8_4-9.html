@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>손바닥과 손은 두 낱말이다 — 씨앗 아이디어(사사기 8:6 — כַּף(카프))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 23 편 &middot; 사사기 8:4-9</span>
+      <h1>손바닥과 손은 두 낱말이다 — 씨앗 아이디어(사사기 8:6 — כַּף(카프))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>23_성경적 사고와 인격 만들기</p>
+<h2>손바닥과 손은 두 낱말이다 — 씨앗 아이디어(사사기 8:6 — כַּף(카프))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./23_생각의탄생13단계_사사기_8_4-9_손바닥과손은두낱말이다.html">23_생각의탄생13단계_사사기_8_4-9_손바닥과손은두낱말이다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"원문은 앞의 손을 「카프」(손바닥)로, 뒤의 손을 「야드」로 갈라 씁니다. 사사기에서 뒤에 주인 이름을 받는 「카프」 넷은 모두 6장에서 8장 사이에 있고, 넷 모두 적의 손바닥입니다. … 같은 명사가 한 이야기 안에서 이어지고, 한 문장 안에 「적의 손바닥」과 「너의 손」이 맞놓인다는 데까지가 원문의 사실입니다.</strong></p>
+<p><strong>메시지 핵심: 개역한글이 「손」 하나로 옮긴 자리에 원문은 두 낱말을 두었고, 그 까닭은 열려 있다."</strong></p>
+<p>(출처: <a href="./23_일상의깊은사고_사사기_8_4-9.html">23_일상의깊은사고_사사기_8_4-9</a> 주요 신학 통찰 2️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본.md</code>)</p>
+<blockquote>
+<p>8:6 숙곳 방백들이 가로되 세바와 살문나의 손이 지금 어찌 네 손에 있관대 우리가 네 군대에게 떡을 주겠느냐</p>
+<p>6:13 … 이제 여호와께서 우리를 버리사 미디안의 손에 붙이셨나이다</p>
+</blockquote>
+<p><strong>원문</strong> (구문묵상 §2 — XML 추출)</p>
+<blockquote>
+<p><strong>8:6</strong> וַיֹּ֨אמֶר֙ שָׂרֵ֣י סֻכּ֔וֹת הֲ֠כַף זֶ֧בַח וְצַלְמֻנָּ֛ע עַתָּ֖ה בְּיָדֶ֑ךָ כִּֽי־נִתֵּ֥ן לִֽצְבָאֲךָ֖ לָֽחֶם׃</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (<a href="./23_구문묵상_사사기_8_4-9.html">23_구문묵상_사사기_8_4-9</a> §3-0 · §3-3 · §4①)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>분석</th>
+<th>표제어</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>הֲכַף … בְּיָדֶךָ</code></td>
+<td>무동사 의문 주절(의문 <code>הֲ</code> + 연계 <code>כַּף</code> + 부사 <code>עַתָּה</code> + 술어 전치사구)</td>
+<td>—</td>
+<td>씨앗 문장. 주절에 동사가 없다</td>
+</tr>
+<tr>
+<td><code>כַּף</code></td>
+<td>명사 · 여성 · 연계(마스터 <code>HTi/Ncfsc</code>)</td>
+<td>3709</td>
+<td>적 왕들의 손바닥 — 씨앗</td>
+</tr>
+<tr>
+<td><code>בְּיָדֶךָ</code></td>
+<td>전치사 <code>בְּ</code> + 명사 + 2ms 접미</td>
+<td><code>יָד</code> 3027</td>
+<td>기드온의 손</td>
+</tr>
+<tr>
+<td><code>עַתָּה</code></td>
+<td>부사 「지금」</td>
+<td>—</td>
+<td>주어와 술어 사이 · 물음의 때</td>
+</tr>
+<tr>
+<td><code>נִתֵּן</code></td>
+<td>칼 미완료 1cp · <code>כִּי</code> 뒤 결과 종속절</td>
+<td>—</td>
+<td>「떡을 주다」는 물음 뒤로 밀려 있다</td>
+</tr>
+<tr>
+<td><code>לִצְבָאֲךָ</code></td>
+<td>전치사 <code>לְ</code> + 명사 + 2ms 접미</td>
+<td><code>צָבָא</code> 6635 a</td>
+<td>수령자를 「네 군대」로 부른다</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>כַּף</code> 사사기 분포</strong> (구문묵상 §4① · XML 직접 · <code>05_s1b.py</code>)</p>
+<table>
+<thead>
+<tr>
+<th>자리</th>
+<th>문면</th>
+<th>소유자</th>
+<th>연계 + 소유 명사</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6:13</td>
+<td><code>בְּכַף־מִדְיָן</code></td>
+<td>미디안</td>
+<td>○</td>
+</tr>
+<tr>
+<td>6:14</td>
+<td><code>מִכַּף מִדְיָן</code></td>
+<td>미디안</td>
+<td>○</td>
+</tr>
+<tr>
+<td>8:6</td>
+<td><code>הֲכַף זֶבַח</code></td>
+<td>세바(와 살문나)</td>
+<td>○</td>
+</tr>
+<tr>
+<td>8:15</td>
+<td><code>הֲכַף זֶבַח</code></td>
+<td>세바(와 살문나)</td>
+<td>○</td>
+</tr>
+<tr>
+<td>12:3</td>
+<td><code>בְכַפִּי</code></td>
+<td>입다 자신(1cs 접미)</td>
+<td>✕</td>
+</tr>
+<tr>
+<td>14:9</td>
+<td><code>כַּפָּיו</code></td>
+<td>삼손 자신(쌍수 3ms 접미)</td>
+<td>✕</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ 계수 기준: 모집단은 <strong>사사기 전체의 표제어 <code>כַּף</code>(3709) 토큰 여섯</strong>이고, 「주인 이름을 받는」은 <strong>연계형 뒤에 소유 명사가 오는 꼴</strong>로 갈랐다(구문묵상 계수). 의문 <code>הֲ</code>가 붙은 <code>כַּף</code>는 구약 두 토막이고 둘 다 사사기 8장이다(8:6 · 8:15 — 구문묵상 §3-3). ⛔ 이 분포는 이 노트가 출발하는 사실일 뿐, 두 낱말을 가른 까닭의 증거로 쓰지 않는다. ⛔ 8:15는 분포의 한 칸으로만 센다(축은 단위 24).</p>
+<h3>사고의 통합 — "접힌 역어를 펴면 물음의 과녁이 보인다"</h3>
+<p>관찰(1)은 우리말 「손이 … 손에」 밑에서 두 명사와 빈 동사를 찾아냈고, 형상화(2)는 그 두 명사를 「요단 저편의 없는 손바닥」과 「성문 앞의 빈 손」으로 그렸다. 추상화(3)는 장면을 걷어 내고 「없는 것의 자리」를 남겼다 — 물음은 행위가 아니라 위치를 묻고, 요구되는 것과 요구받는 이를 다른 이름으로 부른다. 패턴 인식(4)과 패턴 형성(5)은 이 구조가 세무 · 금융 · 교회 행정 · 일상에서 「증거가 먼저 서는 물음」으로 반복된다는 것을 확인하고, A(요구되는 것) · B(요구받는 손) · C(밀려난 결과)의 「두 손 도식」으로 굳혔다. 그 도식에서 가장 중요한 것은 칸이 아니라 A와 B 사이의 경계선이었다.</p>
+<p>유추(6)는 증빙철과 내민 손, 증거물과 증인, 같은 음의 두 악기로 그 경계선을 옮겨 보았고, 세 유추가 모두 「갈라 적기의 사실은 옮겨 오되 목적은 옮겨 오지 못한다」는 같은 자리에서 깨졌다. 몸(7)은 두 손을 한 이름으로 부를 때 주의가 요구되는 쪽으로만 기운다는 것을, 감정이입(8)은 물음을 고른 입과 이름이 바뀐 손 사이의 거리를 느끼게 했다. 차원적 사고(9)는 분포를 「뜻」에서 「누가 어떤 전치사로 그 낱말을 말하는가의 지도」로 바꿔 놓았고, 모형(10)은 그것을 「두 손 확인 카드」로 만들었다. 놀이(11)가 가장 생산적이었다 — 낱말을 바꿔 끼우고 동사를 넣어 보는 동안, 두 명사와 빈 동사가 맞물려 대답하는 이의 수고를 문장 밖으로 밀어낸다는 것이 드러났다. 변형(12)은 그 모든 것 가운데 「둘이다」와 「왜인지는 열려 있다」만이 끝까지 남는다는 것을 확인했다.</p>
+<p>처음 관찰과 달라진 이해 하나: 처음에는 <code>כַּף</code> 분포가 무언가를 <strong>말해 주는</strong> 증거처럼 보였다 — 적의 손바닥이 마침내 이스라엘의 손 안으로 들어오는가 하는 이야기의 실처럼. 열세 단계를 지나고 나니 그 분포는 <strong>읽는 이를 멈춰 세우는</strong> 표시로 남는다. 분포는 사실이고, 그 사실이 가리키는 뜻은 본문 밖으로 꺼내지지 않았다. 그래서 이 노트가 얻은 것은 「두 낱말의 뜻」이 아니라 「두 낱말을 한 낱말로 읽지 않는 법」이다. 그 법을 오늘 내 입에 옮기면, 증거를 묻는 물음 안에서 요구되는 것과 와 있는 사람을 다른 이름으로 부르는 일이 된다 — 그것은 8:6의 가르침이 아니라 8:6 앞에 선 독자의 넓힌 적용이다.</p>
+<blockquote>
+<p><strong>"한 역어가 접어 둔 두 손을 펴면, 8:6의 물음이 겨누는 것은 「무엇을 했느냐」가 아니라 「없는 것이 지금 네 손에 있느냐」임이 보인다. 그 물음이 왜 그 두 낱말을 골랐는지는 끝까지 열려 있고, 펴서 읽는 이의 몫은 판정이 아니라 자기 물음 안에서 두 손을 갈라 부르는 일이다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "한 문장 두 손"</h3>
+<p>씨앗 문장을 성분별로 늘어놓으면, 우리말에서는 보이지 않던 세 가지가 보인다.</p>
+<table>
+<thead>
+<tr>
+<th>성분</th>
+<th>원문</th>
+<th>개역한글</th>
+<th>무엇이 보이는가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>의문 + 주어</td>
+<td><code>הֲכַף זֶבַח וְצַלְמֻנָּע</code></td>
+<td>「세바와 살문나의 손이」</td>
+<td>의문 <code>הֲ</code>가 동사가 아니라 명사 <code>כַּף</code>에 붙는다</td>
+</tr>
+<tr>
+<td>때</td>
+<td><code>עַתָּה</code></td>
+<td>「지금」</td>
+<td>주어와 술어 사이에 끼어 있다</td>
+</tr>
+<tr>
+<td>술어</td>
+<td><code>בְּיָדֶךָ</code></td>
+<td>「네 손에 있관대」</td>
+<td>「있다」 동사는 원문에 없다 — 전치사구가 술어다</td>
+</tr>
+<tr>
+<td>결과</td>
+<td><code>כִּי־נִתֵּן לִצְבָאֲךָ לָחֶם</code></td>
+<td>「우리가 네 군대에게 떡을 주겠느냐」</td>
+<td>문장 안의 유일한 정동사는 종속절에 있다</td>
+</tr>
+</tbody>
+</table>
+<p>첫째, <strong>손을 가리키는 명사가 둘이다.</strong> 앞은 <code>כַּף</code>, 뒤는 <code>יָד</code>. 주인도 갈린다 — 앞의 것은 적 왕들의 것, 뒤의 것은 기드온의 것이다. 개역한글은 둘을 「손」 한 역어로 받는다(구문묵상 §3-9 ⒟). 둘째, <strong>주절에 동사가 없다.</strong> 물음은 「네가 잡았느냐」가 아니라 「있느냐」의 꼴, 곧 무엇이 어디에 놓여 있는가를 묻는다. 셋째, <strong>분포</strong>: 사사기의 <code>כַּף</code> 여섯 토막 가운데 연계형으로 소유 명사를 받는 넷은 6-8장에 있고 전부 적의 손바닥이다. 나머지 둘(12:3 · 14:9)은 접미가 붙은 자기 손바닥이다.</p>
+<p>보이는 것과 생각한 것을 가른다. 보이는 것은 「두 명사 · 무동사 · 분포」다. 「손바닥이 뒤집혔다」 · 「방백들이 6장을 떠올렸다」 · 「잘린 손을 세는 관습」은 생각한 것이고, 본문은 그 어느 것도 말하지 않는다.</p>
+<blockquote>
+<p>[!insight] 우리말 「손이 … 손에」는 같은 낱말의 되풀이로 들리지만, 원문의 8:6은 <strong>서로 다른 두 명사를 한 물음의 양 끝에 세운 문장</strong>이다. 물음의 무게는 동사가 아니라 그 두 명사의 위치 관계에 걸려 있다.</p>
+<p>[!question] 연결 질문<br />
+- 의문 표지가 동사 없이 명사에 바로 붙는 물음은, 동사가 있는 물음과 무엇을 다르게 묻는가?<br />
+- 연계형 넷이 전부 적의 것이라는 분포는 사실이다. 그 사실을 「뜻」으로 바꾸는 순간 무엇을 덧붙이게 되는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 이 두 명사가 실제 장면 안에서 어디에 있는지 — 하나는 보이고 하나는 보이지 않는다 — 를 그려 본다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "증거가 먼저 서는 물음"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>요구되는 것(부재 · 다른 이름)</th>
+<th>요구받는 손(현존)</th>
+<th>결과로 밀려난 것</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>삿 8:6</td>
+<td>세바와 살문나의 <code>כַּף</code></td>
+<td>기드온의 <code>יָד</code></td>
+<td>떡(<code>נִתֵּן … לָחֶם</code>)</td>
+</tr>
+<tr>
+<td>세무 실무</td>
+<td>증빙 서류 · 거래 기록</td>
+<td>상담하러 온 사람</td>
+<td>처리 · 회신</td>
+</tr>
+<tr>
+<td>금융</td>
+<td>담보 · 소득 자료</td>
+<td>대출을 청하는 사람</td>
+<td>대출 실행</td>
+</tr>
+<tr>
+<td>교회 행정</td>
+<td>결과 보고 · 정산서</td>
+<td>사역을 마치고 돌아온 사람</td>
+<td>식사 · 다음 지원</td>
+</tr>
+<tr>
+<td>일상 대화</td>
+<td>「결과부터 보여 줘」</td>
+<td>도움을 청한 친구</td>
+<td>도움</td>
+</tr>
+</tbody>
+</table>
+<p>다섯 행이 같은 문형을 갖는다 — <strong>물음은 여기 없는 무엇을 앞세우고, 여기 있는 사람의 손은 그것을 담을 그릇으로만 불리며, 주는 일은 그 확인 뒤로 밀린다.</strong></p>
+<p>그러나 패턴이 부러지는 데가 둘 있다. 첫째, 세무 · 금융 행의 증빙 요구는 <strong>법과 계약에 근거가 있고 정당하다.</strong> 8:6의 물음에는 그런 근거가 적혀 있지 않으며, 본문은 그 물음을 옳다고도 그르다고도 하지 않는다(봉합 1). 패턴의 같음은 <strong>문형의 같음</strong>이지 정당성의 같음이 아니다. 둘째, 사사기 행만 <strong>두 손이 다른 낱말</strong>이다. 다른 행에서는 「서류」와 「사람」이 처음부터 다른 낱말이라 섞이지 않는데, 개역한글의 8:6에서는 두 끝이 같은 「손」으로 불려 문형 자체가 흐려진다.</p>
+<blockquote>
+<p>[!insight] 「증거가 먼저 서는 물음」은 어디에나 있다. 8:6이 특별한 것은 그 문형이 아니라, <strong>두 끝에 서로 다른 낱말을 붙여 두었다는 것</strong>이고, 그 표시를 한 역어가 지웠다는 것이다.</p>
+<p>[!question] 연결 질문<br />
+- 정당한 증빙 요구와 8:6의 물음을 같은 표에 넣을 때, 나는 숙곳을 변호하고 있는가, 내 직업을 고발하고 있는가 — 둘 다 아니려면 무엇을 비교해야 하는가?<br />
+- 다른 언어의 역본은 8:6의 두 명사를 어떻게 옮기는가? (이 노트는 대조하지 않았다 — 구문묵상도 LXX 미확인.)</p>
+</blockquote>
+<p><strong>다리</strong>: 다섯 행에서 공통으로 드러난 「두 끝 · 두 이름 · 밀려난 결과」를 하나의 도식으로 굳힌다.</p>
+<h3>0 유추 (Analogizing) — "증빙철과 내민 손"</h3>
+<p><strong>유추 1 — 세무 상담실 (신학 ↔ 세무)</strong><br />
+상담 책상 위에는 두 가지가 놓인다. 하나는 증빙철이고, 하나는 그 증빙철을 들고 온 사람의 손이다. 세무사는 「영수증 있습니까?」라고 묻는다. 그 물음은 정당하다. 그런데 장부에 적을 때 증빙의 칸과 상담인의 칸을 같은 이름으로 부르면 — 예컨대 둘 다 「자료」라고만 적으면 — 무엇이 없고 누가 와 있는지가 지워진다.<br />
+- <strong>새 통찰</strong>: 두 칸을 다른 이름으로 부르는 것만으로, 「증빙이 없다」는 사실과 「이 사람이 와 있다」는 사실이 서로를 지우지 않는다.<br />
+- <strong>한계</strong>: 세무의 증빙 요구는 법적 근거가 있는 절차다. 8:6의 물음은 그런 절차가 아니며, 본문은 방백들의 물음을 평가하지 않는다. 이 유추로 숙곳의 물음을 「정당한 실사」로 미화하지도 「비정한 관료」로 단죄하지도 않는다(구문묵상 §6④⒟).</p>
+<p><strong>유추 2 — 법정의 증거물과 증인</strong><br />
+법정에는 증거물 번호가 붙은 물건과 증인석에 선 사람이 있다. 둘은 처음부터 다른 이름으로 기록된다. 증인에게 「그 물건이 지금 당신 손에 있습니까?」라고 물을 수는 있지만, 증거물과 증인을 같은 번호로 부르는 법정은 없다.<br />
+- <strong>새 통찰</strong>: 8:6의 원문은 법정 기록처럼 두 범주를 갈라 적는다 — 요구되는 증거(<code>כַּף</code>)와 그것을 내놓아야 할 사람(<code>יָד</code>).<br />
+- <strong>한계</strong>: 법정의 갈라 적기는 제도의 목적이 분명하다. 8:6에서 두 낱말을 가른 목적은 본문에 없다(봉합 2). 유추가 「원문은 의도적으로 법적 범주를 갈랐다」로 미끄러지면 안 된다.</p>
+<p><strong>유추 3 — 같은 음, 다른 악기</strong><br />
+같은 음높이를 바이올린과 클라리넷이 낸다. 악보에 음표만 적으면 둘은 같은 음이다. 그러나 귀는 음색으로 둘을 가른다. 역어 「손」은 악보의 음표처럼 높이만 남기고 음색을 지운다.<br />
+- <strong>새 통찰</strong>: 두 낱말의 차이는 「뜻」의 차이이기 전에 <strong>결(음색)</strong>의 차이일 수 있다 — 그 결이 무엇을 뜻하는지 몰라도, 결이 있다는 것은 들린다.<br />
+- <strong>한계</strong>: 음색의 차이는 들어서 확인되지만, <code>כַּף</code>와 <code>יָד</code>가 이 자리에서 어떤 결의 차이를 냈는지는 확인할 길이 없다. 유추는 「차이가 있다」까지만 데려다준다.</p>
+<blockquote>
+<p>[!insight] 세 유추가 같은 곳에서 깨진다 — <strong>갈라 적기의 사실은 옮겨 오지만, 갈라 적기의 목적은 옮겨 오지 못한다.</strong> 8:6에서 옮겨 올 수 있는 것은 「두 칸이 있다」는 구조이고, 「왜」는 남는다.</p>
+<p>[!question] 연결 질문<br />
+- 내 상담 장부의 칸 이름 가운데, 서로 다른 두 범주를 한 낱말로 묶어 버린 것은 무엇인가?<br />
+- 「목적을 모르는 갈라 적기」를 존중하는 읽기는, 목적을 정해 버리는 읽기보다 무엇을 더 보존하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 두 칸의 경계를 머리가 아니라 손 자체로 느껴 본다 — 하나는 펴고 하나는 쥔다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "편 손바닥, 빈 손"</h3>
+<p><strong>실천 프로토콜</strong> (2분)<br />
+1. 눈을 감고 두 손을 앞으로 내민다.<br />
+2. 왼손은 손바닥이 위로 오게 활짝 편다. 이것을 「요구되는 것의 자리」로 정한다 — 거기에 무엇이 놓여 있어야 한다는 말을 듣는 손이다.<br />
+3. 오른손은 편안하게 아래로 늘어뜨린다. 이것을 「내 앞에 선 사람의 손」으로 정한다.<br />
+4. 속으로 8:6을 우리말로 읽는다 — 「손이 지금 어찌 네 손에 있관대.」 두 손이 같은 낱말로 불릴 때 몸이 어디로 기우는지 느낀다.<br />
+5. 이번에는 원문 순서로 읽는다 — 「카프 … 아타 … 베야데카.」 왼손을 부를 때 왼손에, 오른손을 부를 때 오른손에 주의를 옮긴다.</p>
+<p><strong>몸의 반응이 가르쳐 주는 것</strong>: 우리말로 읽을 때는 두 손이 한 덩어리로 느껴지고 주의가 왼손(요구되는 것)으로 쏠린다. 원문 순서로 두 이름을 갈라 부르면, 오른손 — 아무것도 쥐지 않은 채 내 앞에 있는 손 — 이 비로소 따로 느껴진다. 편 손바닥은 「무엇이 있어야 한다」는 압력을 받고, 늘어뜨린 손은 그 압력 때문에 자기가 거기 있다는 사실을 잊기 쉽다.</p>
+<p><strong>설교 전달 아이디어</strong>: 8:6을 낭독할 때 두 「손」에서 같은 손짓을 하지 않는다. 앞의 「손」에서는 손바닥을 펴 보이고, 뒤의 「손」에서는 손을 몸 쪽으로 낮춘다. 그리고 「원문은 두 낱말입니다. 왜 두 낱말인지는 본문이 말하지 않습니다」라고 한 문장으로 말한다. 손짓이 해석을 대신하지 않도록, 손짓은 「둘이다」까지만 보여 준다.</p>
+<blockquote>
+<p>[!insight] 두 손을 같은 낱말로 부르면 몸은 <strong>요구되는 쪽으로만</strong> 기운다. 갈라 부를 때에야 <strong>요구받는 쪽의 손</strong>이 몸에 들어온다.</p>
+<p>[!question] 연결 질문<br />
+- 편 손바닥에 무엇을 올려놓아야 한다는 압력을 받을 때, 내 다른 손은 무엇을 하고 있는가?<br />
+- 손짓 하나가 본문에 없는 해석(예: 「뒤집힌 손바닥」)을 몸으로 몰래 들여오지 않으려면 어디서 멈춰야 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 몸이 느낀 두 손을, 그 물음을 입에 올린 사람과 그 물음을 받은 사람의 안쪽에서 들어 본다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "여섯 토막의 지도"</h3>
+<p><strong>확대 — 이야기 전체의 시간 축</strong></p>
+<pre><code>6:13  בְּכַף־מִדְיָן   이스라엘이 미디안의 손바닥 「안에」   (기드온의 말)
+6:14  מִכַּף מִדְיָן   미디안의 손바닥 「에서」             (여호와의 말 · 동사는 단위 19)
+  ⋮
+8:6   הֲכַף זֶבַח     미디안 왕들의 손바닥이 네 손에 「있느냐」 (방백들의 말)
+8:15  הֲכַף זֶבַח     같은 물음의 되인용                   (단위 24)
+  ⋮
+12:3  בְכַפִּי       입다 자신의 손바닥
+14:9  כַּפָּיו       삼손 자신의 두 손바닥
+</code></pre>
+<p>이야기의 시간 축에 놓으면, 연계형 <code>כַּף</code> 넷은 기드온 단락에 몰려 있고 그 넷 모두가 화자의 입 안에 있다(6:13 기드온 · 6:14 여호와 · 8:6 방백들 · 8:15 기드온의 되인용). 전치사도 갈린다 — <code>בְּ</code>(안에) · <code>מִן</code>(에서) · 의문 <code>הֲ</code>(있느냐). 이것이 분포가 보여 주는 지도다. ⛔ 이 지도를 「손바닥이 뒤집혔다」는 서사 의도로 읽지 않는다 — 방백들이 6장의 말을 의식했는지는 근거가 없다(일상의깊은사고 통찰 2 ③). 또 개역한글은 6:1(<code>יָד</code> · 마스터 T11)과 6:13(<code>כַּף</code>)을 똑같이 「미디안의 손에 붙이-」로 옮겨, 우리말 독자는 이 지도의 첫 칸부터 두 낱말을 가를 수 없다(역어 사실까지 · 「주는 손」 논지 아님).</p>
+<p><strong>축소 — 한 글자</strong></p>
+<p>8:6의 물음 전체는 명사 앞의 접두 하나, <code>הֲ</code>에 걸려 있다. 의문 <code>הֲ</code>가 <code>כַּף</code>에 붙은 꼴은 구약에 두 토막뿐이고 둘 다 사사기 8장이다(구문묵상 §3-3). 한 글자가 명사를 물음으로 바꾸고, 그 물음이 동사 없이 「지금」과 「네 손」을 끌어당긴다. 확대해서 보면 이야기 전체를 꿰는 낱말이, 축소해서 보면 한 글자의 의문 표지에 매달려 있다.</p>
+<p><strong>핵심 전복: 처음 관찰에서 분포는 「적의 손바닥이라는 뜻」처럼 보였다. 차원을 바꾸자 그것은 「누가 어떤 전치사로 그 낱말을 말하는가」의 지도가 되었고, 뜻은 지도 바깥에 남았다.</strong></p>
+<blockquote>
+<p>[!insight] 큰 차원에서 <code>כַּף</code>는 <strong>말하는 이들의 입을 따라 이어지는 명사</strong>이고, 작은 차원에서는 <strong>한 글자 물음표에 매달린 명사</strong>다. 두 차원 어디에서도 그 명사를 고른 까닭은 보이지 않는다.</p>
+<p>[!question] 연결 질문<br />
+- 연계형 넷이 전부 인물의 말 안에 있고 서술자 문장에는 없다는 사실은, 「누구의 어휘인가」라는 물음을 어떻게 바꾸는가?<br />
+- 12:3 · 14:9의 「자기 손바닥」과 6-8장의 「적의 손바닥」을 한 지도에 둘 때, 둘을 잇는 선을 긋고 싶은 충동은 어디서 오는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 지도와 한 글자에서 얻은 것을, 오늘 내가 증거를 물을 때 실제로 쓸 수 있는 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>1. 본문과 나란히 놓이는 정경의 말 — 관계는 판정하지 않는다</strong><br />
+- <strong>신명기 23:4</strong>(히 23:5): 율법은 길 가는 이스라엘을 「떡과 물로 영접하지 아니하였다」(<code>קִדְּמוּ אֶתְכֶם בַּלֶּחֶם וּבַמַּיִם בַּדֶּרֶךְ</code>)는 것을 판정의 사유로 적는다(개역한글 문면 미수집 · 요지). 8:4-9의 서술자는 숙곳 · 브누엘을 판정하지 않는다. 두 본문은 나란히 놓일 뿐이며, 이 노트는 어느 쪽이 다른 쪽을 겨냥했는지 말하지 않는다(구문묵상 §1-4 ⛔).<br />
+- <strong>잠언 25:21 · 로마서 12:19-21</strong>: 원수에게도 떡을 먹이라는 지혜의 말을 신약이 인용하며, 원수 갚는 일을 주께 맡긴다(요지 · 문면 미수집). 이것은 사사기의 빈자리를 채우는 말이 아니라 <strong>신약이 더한 기준</strong>이다(구문묵상 §6① · R29). 8:7 · 8:9의 위협과 이 말의 관계도 판정하지 않는다(봉합 9).</p>
+<p><strong>2. 신학자 — 장 칼뱅 『기독교 강요』 제2권 제8장 제6계명 해설</strong><br />
+칼뱅은 제6계명이 살인의 금지에 그치지 않고 이웃의 생명을 지키고 돕는 데까지 이른다고 풀었다(요지 · 원문 대조 안 함). 하이델베르크 요리문답 제107문도 이웃을 해치지 않는 데 그치지 않고 원수에게도 선을 행하라는 것을 그 계명의 요구로 적는다(요지 · 구문묵상 §6③). 이 노트의 씨앗에 닿는 지점은 좁다. 교회의 기준은 계명에서 오고, 사사기 8:6은 그 기준이 필요한 세상 — 증거가 손에 들어오기 전에는 떡이 오가지 않는 대화 — 을 평가 없이 보여 준다.</p>
+<p><strong>3. 설교 적용점 한 가지</strong><br />
+8:6을 읽을 때 「개역한글은 두 손을 한 낱말로 옮겼지만 원문은 두 낱말입니다. 왜 두 낱말인지 본문은 말하지 않습니다」를 그대로 말한다. 그다음 적용은 회중의 바깥(숙곳 같은 「그 사람들」)이 아니라 설교자와 회중 자신의 입으로 향하게 한다 — 우리가 누군가에게 「지금 네 손에 무엇이 있느냐」고 물을 때, 그 사람을 무엇이라고 부르는가. 숙곳 · 브누엘을 오늘의 어느 교회 · 지역 · 집단에 대입하지 않는다(마스터 §7-38).</p>
+<p><strong>4. 복음 중심성 점검</strong><br />
+이 단위의 그리스도 연결 재료는 0이다(C4 ✕7 · 재료 부재). 이 노트는 「떡」 · 「손」 · 「피곤한 삼백」을 예표로 세우지 않았다. 그렇다고 결론이 「증거를 덜 요구하는 착한 사람이 되자」는 도덕주의로 끝나면 안 된다. 본문은 말하지 않지만, 정경 전체에서 교회가 받은 것은 증거가 손에 쥐어지기 전에 먼저 주어진 은혜라는 고백이다 — 이 고백은 8:6의 주장이 아니라 신약이 더한 층이고, 바로 그 층이 「먹이라」(롬 12:20 요지)는 명령을 행위의 조건이 아니라 받은 은혜의 응답으로 만든다. 도덕적 결단은 이 순서 뒤에만 선다.</p>
+<ul>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 원본의 복음 중심성 점검을 따라 은혜의 근거와 순종의 열매를 구별한다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p>⚠ 아래 셋은 모두 8:6의 문면 사실(두 명사 · 무동사 물음 · 청원의 까닭이 대답에 없음)을 내 쪽으로 옮긴 <strong>넓힌 적용</strong>이다. 본문이 이 동작을 가르친다고 말하지 않는다. 세무 사실(기한 · 법조문)은 쓰지 않는다(마스터 §7-40).</p>
+<p><strong>1. 고객 상담 전이 — 자료 요청 회신</strong><br />
+- <strong>상황</strong>: 영세 사업자가 「몸이 아파 장사를 쉬었다」며 기장 업무 지연을 알리고 도움을 청하는 메일을 보낸다. 증빙 자료가 아직 하나도 오지 않았다.<br />
+- <strong>적용</strong>: 「두 손 확인 카드」 1 · 2 · 3번을 회신 초안 위에 적는다. 1번(요구되는 것)에는 필요한 증빙의 이름을, 2번(와 있는 이)에는 고객의 이름을, 3번에는 그분이 쓴 낱말 「아팠다」를 그대로 적는다. 회신의 첫 문장은 3번에 답하고, 증빙 요청은 둘째 문단에 사물의 이름으로 적는다.<br />
+- <strong>기대 효과</strong>: 증빙 요청은 그대로 하면서도, 고객이 「자료 없는 사람」 한 낱말로 접히지 않는다. 회신을 받는 사람은 자기가 말한 사정이 읽혔다는 것을 첫 줄에서 안다.</p>
+<p><strong>2. 조직 · 교회 행정 전이 — 지원 요청 양식</strong><br />
+- <strong>상황</strong>: 교회 구제 위원회의 지원 신청서가 「신청 사유 및 증빙」 한 칸으로 되어 있다. 위원들은 그 칸을 읽으며 증빙 유무로 먼저 판단한다.<br />
+- <strong>적용</strong>: 양식을 두 칸으로 가른다 — 「신청하신 분의 말씀(사정)」과 「확인할 자료」. 위원회 회의에서는 첫 칸을 먼저 소리 내어 읽고, 둘째 칸을 다룬다.<br />
+- <strong>기대 효과</strong>: 확인 절차는 그대로 남고, 신청자의 말이 증빙 칸 밑에 묻히지 않는다. 두 범주가 두 이름을 갖는 것만으로 회의의 순서가 달라진다.</p>
+<p><strong>3. 개인 의사결정 전이 — 가족 · 동역자에게 묻는 말</strong><br />
+- <strong>상황</strong>: 오래 병상을 지킨 가족이나 늦게 돌아온 봉사팀이 지쳐서 도움을 청할 때, 내 입에서 먼저 「그래서 결과는?」이 나오려 한다.<br />
+- <strong>적용</strong>: 그 물음이 무동사의 「있느냐」 꼴인지 스스로 확인한다(놀이 3). 그 꼴이면, 상대의 수고가 대답이 될 수 있는 물음 — 「오늘 어땠어요?」 — 을 먼저 한다. 결과는 그 뒤에 묻는다.<br />
+- <strong>기대 효과</strong>: 결과를 묻지 않는 것이 아니라, 결과를 묻는 물음이 상대의 수고를 문장 밖으로 밀어내지 않게 된다.</p>
+<h3>🥇 「두 손 도식 — 요구되는 것과 요구받는 이를 갈라 부르기」</h3>
+<ul>
+<li><strong>핵심</strong>: 8:6의 무동사 의문 주절은 요구되는 것(<code>כַּף</code> · 부재)과 요구받는 이(<code>יָד</code> · 현존)를 다른 이름으로 한 물음에 묶고, 「줄 것」을 결과절로 민다. 이 A · B · C 구조는 증거를 먼저 세우는 모든 물음에서 반복되며, 두 끝을 한 낱말로 부르면 구조 자체가 보이지 않는다.</li>
+<li><strong>인격 형성</strong>: 기존 읽기는 8:6을 「숙곳의 불신 · 비겁」(판정) 또는 「신중함」(미화)으로 읽는다. 이 후보는 판정 없이 문장 꼴만으로 물음의 과녁을 드러내며, 적용을 숙곳이 아니라 독자의 물음으로 돌린다.</li>
+<li><strong>연결 고리</strong>: <a href="./23_구문묵상_사사기_8_4-9.html">23_구문묵상_사사기_8_4-9</a> §3-3 · §5 / <a href="./22_생각의탄생13단계_사사기_7_23-8_3_견준것은남은포도와거둠이다.html">22_생각의탄생13단계_사사기_7_23-8_3_견준것은남은포도와거둠이다</a>(역어가 지운 차이 — 이웃 단위) / 「같은낱말을역본이둘로가른다」(노트 후보) 계열의 거울 노트 후보</li>
+</ul>
+<h3>🥈 「분포는 지도이지 뜻이 아니다 — <code>כַּף</code> 여섯 토막」</h3>
+<ul>
+<li><strong>핵심</strong>: 사사기 <code>כַּף</code> 여섯 가운데 연계 넷은 6-8장 · 전부 적의 손바닥 · 전부 인물의 말 안이다. 이 분포는 「누가 어떤 전치사로 그 낱말을 말하는가」의 지도로는 선명하지만, 낱말 선택의 까닭을 알려 주지 않는다.</li>
+<li><strong>인격 형성</strong>: 분포 계수를 곧바로 서사 의도(「손바닥이 뒤집혔다」)로 바꾸는 흔한 미끄러짐을 막는 읽기 규율을 세운다. 계수는 모집단과 함께, 뜻은 열린 채로.</li>
+<li><strong>연결 고리</strong>: <a href="./00_사사기_묵상단위_마스터.html">00_사사기_묵상단위_마스터</a> §6-2(「유일 · 처음 · 마지막」을 모집단 없이 쓰지 말 것) / 「19_생각의탄생13단계_사사기_7_1-8」(노트 후보)(같은 기드온 단락의 손 어휘 — 「주는 손」은 19 소유) / 「역어가지운결」(노트 후보)</li>
+</ul>
+<h3>🥉 「무동사 물음은 대답하는 이의 수고를 밀어낸다」</h3>
+<ul>
+<li><strong>핵심</strong>: 「있느냐」 꼴의 물음에는 「있다/없다」만 맞고, 추격 중이라는 사실이나 피곤하다는 사실은 대답이 되지 못한다. 두 명사와 빈 동사가 맞물려 물음을 위치 확인 하나로 좁힌다.</li>
+<li><strong>인격 형성</strong>: 히브리어 무동사절이라는 문법 사실이 오늘의 대화 습관(결과부터 묻기)을 비추는 거울이 된다 — 다만 그 효과를 화자의 의도로 바꾸지 않는다.</li>
+<li><strong>연결 고리</strong>: <a href="./23_일상의깊은사고_사사기_8_4-9.html">23_일상의깊은사고_사사기_8_4-9</a> 통찰 1 · 3 / <a href="./24_구문묵상_사사기_8_10-21.html">24_구문묵상_사사기_8_10-21</a>(8:15 되인용 — 단위 24 몫) / 「질문의꼴이대답을정한다」(노트 후보)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 23 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

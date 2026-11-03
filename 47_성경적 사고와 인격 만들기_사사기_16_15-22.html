@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>떠나심은 그의 앎 밖에서 일어났다 — 씨앗 아이디어(사사기 16:20 — לֹא יָדַע(로 야다))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 47 편 &middot; 사사기 16:15-22</span>
+      <h1>떠나심은 그의 앎 밖에서 일어났다 — 씨앗 아이디어(사사기 16:20 — לֹא יָדַע(로 야다))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>47_성경적 사고와 인격 만들기</p>
+<h2>떠나심은 그의 앎 밖에서 일어났다 — 씨앗 아이디어(사사기 16:20 — לֹא יָדַע(로 야다))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./47_생각의탄생13단계_사사기_16_15-22_떠나심은그의앎밖에서일어났다.html">47_생각의탄생13단계_사사기_16_15-22_떠나심은그의앎밖에서일어났다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"원문은 「베후 로 야다 키 아도나이 사르 메알라이우」, 곧 「그러나 그는 알지 못했다, 여호와께서 그에게서 떠나셨다는 것을」입니다. 떠나심은 서술자가 사실로 놓아 둔 내용이고, 문장이 힘주어 적는 쪽은 삼손이 몰랐다는 데 있습니다.</strong></p>
+<p><strong>이 문장은 언제 떠나셨는지도, 왜 떠나셨는지도 말하지 않습니다. 설교자가 여기서 까닭을 지어 붙이면 본문이 비워 둔 칸을 제 말로 채우는 셈입니다.</strong></p>
+<p><strong>본문 핵심: 16:20의 무게는 「떠나셨다」를 품은 채 「알지 못했다」에 놓여 있습니다."</strong></p>
+<p>(출처: <a href="./47_일상의깊은사고_사사기_16_15-22.html">47_일상의깊은사고_사사기_16_15-22</a> 주요 신학 통찰 1️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본.md</code> · bible.com KRV88)</p>
+<blockquote>
+<p>16:19 들릴라가 삼손으로 자기 무릎을 베고 자게 하고 사람을 불러 그 머리털 일곱 가닥을 밀고 괴롭게 하여본즉 그 힘이 없어졌더라<br />
+16:20 들릴라가 가로되 삼손이여 블레셋 사람이 당신에게 미쳤느니라 하니 삼손이 잠을 깨며 이르기를 내가 전과 같이 나가서 몸을 떨치리라 하여도 여호와께서 이미 자기를 떠나신 줄을 깨닫지 못하였더라</p>
+</blockquote>
+<p><strong>원문</strong> (<a href="./47_구문묵상_사사기_16_15-22.html">47_구문묵상_사사기_16_15-22</a> §2 · XML 추출)</p>
+<blockquote>
+<p><strong>16:19</strong> וַתְּיַשְּׁנֵ֨הוּ֙ עַל־בִּרְכֶּ֔יהָ וַתִּקְרָ֣א לָאִ֔ישׁ וַתְּגַלַּ֕ח אֶת־שֶׁ֖בַע מַחְלְפ֣וֹת רֹאשׁ֑וֹ וַתָּ֨חֶל֙ לְעַנּוֹת֔וֹ וַיָּ֥סַר כֹּח֖וֹ מֵעָלָֽיו׃<br />
+<strong>16:20</strong> וַתֹּ֕אמֶר פְּלִשְׁתִּ֥ים עָלֶ֖יךָ שִׁמְשׁ֑וֹן וַיִּקַ֣ץ מִשְּׁנָת֗וֹ וַיֹּ֨אמֶר֙ אֵצֵ֞א כְּפַ֤עַם בְּפַ֨עַם֙ וְאִנָּעֵ֔ר וְהוּא֙ לֹ֣א יָדַ֔ע כִּ֥י יְהוָ֖ה סָ֥ר מֵעָלָֽיו׃</p>
+</blockquote>
+<p><strong>직역</strong>(구문묵상 §3-5): 「(그 여자가) 말했다. "블레셋 사람이 당신 위에, 삼손." 그가 자기 잠에서 깼다. 그리고 말했다. "내가 번번이 하던 대로 나가리라. 그리고 (몸을) 떨치리라." 그러나 그는 알지 못했다 — 여호와께서 그에게서 떠나셨다는 것을.」</p>
+<p><strong>파싱 근거</strong> (<a href="./47_구문묵상_사사기_16_15-22.html">47_구문묵상_사사기_16_15-22</a> §3-0 표 · §3-4 · §3-5)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱</th>
+<th>표제어</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>יָדַע</code></td>
+<td>Qal 완료 3ms · 부정(<code>לֹא</code>) · 대명사 <code>הוּא</code> 선행</td>
+<td>3045 <code>ידע</code></td>
+<td>씨앗 — 주절의 동사</td>
+</tr>
+<tr>
+<td><code>סָר</code></td>
+<td>Qal 완료 3ms · <code>כִּי</code> 내용절 · 주어 <code>יְהוָה</code></td>
+<td>5493 <code>סור</code></td>
+<td>앎의 내용 — 떠나심</td>
+</tr>
+<tr>
+<td><code>וְהוּא</code></td>
+<td>접속사 + 3ms 인칭 대명사</td>
+<td>—</td>
+<td>와이크톨 사슬을 끊는 이접절</td>
+</tr>
+<tr>
+<td><code>אֵצֵא</code> · <code>וְאִנָּעֵר</code></td>
+<td>Qal 미완료 1cs · Niphal 미완료 1cs</td>
+<td>—</td>
+<td>깨어난 삼손의 말(인물 층)</td>
+</tr>
+<tr>
+<td><code>וַיָּסַר כֹּחוֹ מֵעָלָיו</code></td>
+<td>Qal wayyiqtol 3ms · 주어 「힘」</td>
+<td>5493 <code>סור</code></td>
+<td>16:19 서술 — 16:20과의 관계는 판정 보류(봉합 4)</td>
+</tr>
+<tr>
+<td><code>וַתֵּרֶא … כִּי־הִגִּיד</code></td>
+<td>Qal wayyiqtol 3fs + <code>כִּי</code> + Hiphil 완료 3ms</td>
+<td>7200 · 5046</td>
+<td>이 단위의 다른 지각 동사(16:18) — 비채택 후보 2️⃣의 재료 · 축 아님</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수 기준과 모집단</strong>(구문묵상 §3-5 · §3-7 · Stage 0.5 C7): ① 이 단위(16:15-22)의 신적 기명은 YHWH 1(16:20 <code>כִּי</code>절 주어) · 엘로힘 1(16:17 <code>נְזִיר אֱלֹהִים</code> 연계 속격 · 삼손의 발화 안) · 아도나이 0이다. ② 사사기에서 「<code>לֹא</code> + <code>ידע</code> + <code>כִּי</code>」 꼴은 넷(13:16 · 14:4 · 16:20 · 20:34)이고, <code>כִּי</code>절에 정동사가 있는 곳은 16:20 하나다. ③ 이 단위의 <code>סור</code>는 셋(16:17 삼손의 조건 귀결 · 16:19 서술 · 16:20 서술 <code>כִּי</code>절)이다. 유보: 「알지 못함」 틀은 마스터 §3-1에 행이 없고(구문묵상 §3-5 ⚠ · 마스터 주기 「소유자 없음」), 이 노트는 축 문장의 꼴을 대조하는 데까지만 쓴다. ⛔ 이 계수들을 논증의 유일한 기둥으로 세우지 않는다 — 기둥은 한 문장 안에서 주절과 내용절이 층을 달리한다는 구문 사실이다. ⛔ 개역한글 「이미」 · 「하여도」 · 「깨닫지」는 원문 근거로 쓰지 않는다(「이미」는 대응 낱말 없음 · 「-여도」는 이접절의 대조를 양보로 좁힌 역어 · 구문묵상 §3-8).</p>
+<h3>사고의 통합 — "같은 빈칸 앞에서 멈추는 읽기"</h3>
+<p>관찰은 와이크톨 사슬을 끊는 <code>וְהוּא</code> 한 줄을 보았다. 형상화는 그것을 넷째 외침 뒤 객석에만 보이는 자막으로 그렸고, 추상화는 까닭 · 시점 · 세 「떠나다」의 인과 · 인물 평가를 버리고 「앎 밖의 사실」을 남겼다. 패턴 인식은 「알다」의 내용절이 말하는 이가 참으로 지는 사실이라는 짜임을 사사기의 넷과 법 · 연극에서 확인했고, 패턴 형성은 그것을 「세 층의 앎」 — 서술자 · 독자 · 인물 — 으로 세우면서 세 층 모두에 같은 빈칸이 있다는 것을 드러냈다.</p>
+<p>유추는 선의의 장부에서 사실의 칸과 앎의 칸을 갈랐고, 세 유추가 모두 까닭의 칸을 채우려는 순간 깨진다는 것을 보였다. 몸은 인물과 서술자 사이가 한 걸음이지만 「까닭을 아는 자리」로 갈 바닥은 없다는 것을 알려 주었고, 감정이입은 독자와 설교자가 각각 우월과 조급에서 같은 빈칸 앞의 멈춤으로 옮겨 가는 것을 보였다. 차원적 사고는 「이미」를 빼면 문장이 「그가 몰랐다」로 돌아온다는 것을, 모형은 그 빈칸을 「비움」으로 적어 두는 칸을, 놀이는 16:20이 무엇을 더해도 설명이 되는 최소의 문장이라는 것을 확인했다. 변형에서 살아남은 것은 층 · 사실 · 빈칸이었다.</p>
+<p>① <strong>최종 테제</strong>: 16:20은 떠나심을 서술자의 사실로 놓고 그것을 삼손의 앎 밖에 둔다. 그러나 그 문장을 읽는 독자도, 문장을 쓴 서술자의 목소리도 까닭과 시점은 올리지 않는다. 선택 이유가 말한 「자기 상태를 모르는 채 「번번이 하던 대로」 나서는 사람의 자리」로 이 문장을 뻗는다면, 그것은 「감지력을 길러 하나님의 떠나심을 알아채라」는 경고가 아니라, 본문은 말하지 않지만 정경 전체에서 사람에게 자기 앎의 전부가 주어지지 않았다는 고백의 자리로 뻗는다 — 그리고 남의 모름을 말하는 우리는, 서술자처럼 사실까지만 말하고 까닭을 지어 붙이지 않는 자리에 선다.<br />
+② <strong>가장 생산적이었던 도구</strong>: 놀이(11단계)였다. 원문을 일부러 바꿔 보았을 때, 어떤 변형도 문장을 더 정직하게 만들지 못하고 모두 더 설명적으로 만든다는 것이 드러났다. 그 발견이 「최소의 문장」이라는 이름과 모형의 ⑤칸에 근거를 주었다.<br />
+③ <strong>처음 관찰과 달라진 이해</strong>: 처음에는 이 문장의 중심이 「삼손의 모름」, 곧 인물 층의 결핍이라고 보았다. 통합에서 보니 중심은 층과 층 사이에 있다. 독자는 삼손보다 한 줄을 더 알지만, 그 한 줄에도 까닭은 없다. 모름은 삼손만의 것이 아니라, 정도를 달리해 문장 앞의 모두에게 나뉘어 있다.</p>
+<blockquote>
+<p><strong>"떠나심은 그의 앎 밖에서 일어났고, 서술자는 그 사실을 독자에게 건넸다. 그러나 까닭은 아무에게도 건네지 않았다 — 그 빈칸 앞에서 멈추는 것이 이 문장을 읽는 법이다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "끊긴 사슬 속의 한 줄"</h3>
+<p>16:20은 와이크톨로 흐른다 — <code>וַתֹּאמֶר</code>(그 여자가 말했다) · <code>וַיִּקַץ מִשְּׁנָתוֹ</code>(그가 자기 잠에서 깼다) · <code>וַיֹּאמֶר</code>(그가 말했다). 그리고 흐름이 멈춘다. <code>וְהוּא לֹא יָדַע</code>는 접속사와 대명사가 앞선 절로, 사슬을 끊는 꼴이다(구문묵상 §3-0). 보이는 것을 셋으로 적는다.</p>
+<ol>
+<li>주절의 주어는 이름(「삼손」)이 아니라 대명사 <code>הוּא</code>이고, 동사는 부정된 칼 완료다. 동작이 아니라 앎의 부재가 적힌다.</li>
+<li>이 단위에서 YHWH는 한 번 불린다. 그 한 번은 주절이 아니라 <code>כִּי</code> 내용절 안에서 <code>סָר</code>의 주어로 선다.</li>
+<li>개역한글의 「이미」에 대응하는 낱말은 원문에 없다. 「몸을 떨치리라 하여도」의 「-여도」는 <code>וַיֹּאמֶר … וְהוּא</code>의 대조를 양보 어미로 좁힌 역어다.</li>
+</ol>
+<p>여기서 「생각한 것」을 떼어 둔다. 「삼손이 영적으로 둔했다」 · 「경고 신호를 놓쳤다」는 문장 어디에도 없다. 그것은 관찰이 아니라 해석이다. 보이는 것은 문장의 층이다 — 인물의 말(1cs 미완료 둘) 바로 뒤에, 서술자의 목소리로 된 한 줄이 끼어든다.</p>
+<blockquote>
+<p>[!insight] 16:20의 주장은 「알지 못했다」에 있고, 떠나심은 그 앎의 내용으로 문장에 들어온다. YHWH는 이 단위의 유일한 기명이지만, 그 사실은 계수일 뿐 논증의 출발점이 아니다 — 출발점은 그 이름이 어느 층에 서 있는가다.</p>
+<p>[!question] 연결 질문<br />
+- 사슬을 끊는 <code>וְהוּא</code> 하나가 없었다면, 「그는 알지 못했다」는 사건의 연속처럼 읽혔을까?<br />
+- 인물의 말과 서술자의 말이 맞닿은 자리에서, 독자는 누구의 귀로 듣게 되는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 관찰은 「끊긴 사슬 속의 한 줄」을 남겼다. 형상화는 이 한 줄이 어떤 장면 속에 놓이는지 그린다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "부정된 앎과 참인 내용"</h3>
+<p>먼저 사사기 안에서 찾는다. 구문묵상 §3-5가 대조한 「<code>לֹא</code> + <code>ידע</code> + <code>כִּי</code>」 넷이다.</p>
+<table>
+<thead>
+<tr>
+<th>자리</th>
+<th>누가 모르는가</th>
+<th>내용절</th>
+<th>내용절의 꼴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13:16</td>
+<td>마노아</td>
+<td><code>כִּי־מַלְאַךְ יְהוָה הוּא</code></td>
+<td>명사절</td>
+</tr>
+<tr>
+<td>14:4</td>
+<td>그의 아버지와 어머니</td>
+<td><code>כִּי מֵיְהוָה הִיא</code></td>
+<td>명사절</td>
+</tr>
+<tr>
+<td>16:20</td>
+<td><code>הוּא</code>(삼손)</td>
+<td><code>כִּי יְהוָה סָר מֵעָלָיו</code></td>
+<td>정동사(칼 완료)</td>
+</tr>
+<tr>
+<td>20:34</td>
+<td><code>וְהֵם</code>(59 범위 · 사실 언급만)</td>
+<td><code>כִּי־נֹגַעַת עֲלֵיהֶם הָרָעָה</code></td>
+<td>분사절</td>
+</tr>
+</tbody>
+</table>
+<p>13-16장의 셋은 모두 <code>כִּי</code>절 안에 YHWH가 있고, 대명사가 주어로 앞서는 꼴(<code>וְהוּא</code> · <code>וְהֵם</code>)은 16:20과 20:34가 같다(구문묵상 §3-5). 다만 이 노트는 틀 소유를 주장하지 않고, 20:30-34와의 겹침(봉합 8)을 축으로 쓰지 않는다.</p>
+<p>다른 영역으로 넓힌다.</p>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>패턴 발현</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>언어</td>
+<td>「알다」의 내용절은 말하는 이가 참으로 전제하는 사실이다 — 구문묵상 통찰 1이 적은 대로, 서술자의 문장에서 떠나심은 사실로 서고 주장은 주절에 놓인다</td>
+</tr>
+<tr>
+<td>법</td>
+<td>「선의」(어떤 사실을 알지 못함)를 판단하려면 그 사실이 먼저 확정되어 있어야 한다(일반 법리 요지 · 조문 대조 안 함)</td>
+</tr>
+<tr>
+<td>연극</td>
+<td>극적 아이러니 — 관객이 아는 사실을 인물이 모른다. 그 사실은 극이 관객에게 건넨 것이다</td>
+</tr>
+</tbody>
+</table>
+<p>공통 패턴: <strong>「누군가 모른다」는 문장은, 그 모르는 내용을 말하는 이가 참으로 지고 있어야 성립한다.</strong></p>
+<blockquote>
+<p>[!insight] 16:20에서 떠나심을 참으로 지는 목소리는 서술자다. 삼손의 모름을 말하는 문장은, 같은 호흡으로 서술자의 앎을 드러낸다.</p>
+<p>[!question] 연결 질문<br />
+- 13:16 · 14:4의 명사절과 16:20의 정동사 사이의 차이를 「의도」로 읽을 수 있는가, 아니면 꼴의 사실로만 두어야 하는가?<br />
+- 법의 선의와 극적 아이러니가 같은 짜임이라면, 둘은 어디서 갈라지는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 패턴 인식은 「부정된 앎과 참인 내용」을 찾았다. 패턴 형성은 이것을 앎의 층 구조로 정리한다.</p>
+<h3>0 유추 (Analogizing) — "선의의 장부"</h3>
+<p><strong>유추 1 — 신학 ↔ 세무·법: 선의(善意)의 판단.</strong> 민사·세무 실무에서 「선의」는 어떤 사실을 알지 못한 상태를 가리킨다(일반 법리 요지 · 조문 대조 안 함). 판결문이나 결정서는 먼저 사실을 확정하고(예: 거래 상대방의 자료가 사실과 달랐다), 그다음 당사자가 그 사실을 알았는지를 따로 판단한다. 두 칸은 섞이지 않는다.<br />
+- 새 통찰: 16:20도 두 칸이다 — 사실의 칸(서술자가 놓은 떠나심)과 앎의 칸(삼손의 <code>לֹא יָדַע</code>). 앎의 칸을 채운다고 사실의 칸이 설명되지는 않는다.<br />
+- 한계: 법의 선의는 책임을 나누기 위한 개념이다(몰랐으니 보호한다 / 알았으니 책임진다). 16:20은 삼손의 모름에 책임 판정을 붙이지 않는다. 이 유추를 끝까지 끌고 가면 「몰랐으니 면책인가 유책인가」라는, 본문이 하지 않은 판정으로 넘어간다.</p>
+<p><strong>유추 2 — 연극: 객석에만 보이는 자막.</strong> 2단계의 장면을 다시 쓴다. 관객이 아는 것이 많아질수록 인물의 대사는 달리 들린다. 「번번이 하던 대로 나가리라」는 자막이 뜬 뒤 다른 무게로 울린다.<br />
+- 새 통찰: 서술자의 한 줄은 삼손의 말을 고치지 않는다. 그 말 곁에 놓일 뿐이다.<br />
+- 한계: 무대의 아이러니는 대개 관객에게 까닭까지 알려 준다(누가 독을 탔는지 관객은 안다). 16:20은 까닭을 주지 않는다 — 아이러니의 틀로 다 읽으면 빈칸이 가려진다.</p>
+<p><strong>유추 3 — 번역 공증: 원문에 없는 날짜.</strong> 계약서 번역본에 원문에 없는 「이미」 한 낱말이 들어가면, 두 사건의 선후가 문서에 생긴다. 개역 「이미 자기를 떠나신 줄을」이 그렇다.<br />
+- 새 통찰: 시간 부사 하나가 「언제부터였나」라는 추리를 연다(9단계에서 다시 다룬다).<br />
+- 한계: 개역의 「이미」는 오역이라고 단정할 것이 아니라 역어 선택이다. 이 노트는 역어를 판정하지 않고, 원문 근거로 쓰지 않을 뿐이다.</p>
+<blockquote>
+<p>[!insight] 세 유추 모두 「사실의 칸」과 「앎의 칸」을 갈라 놓을 때만 선다. 세 유추가 모두 깨지는 지점도 같다 — 까닭의 칸을 슬그머니 채우려는 순간이다.</p>
+<p>[!question] 연결 질문<br />
+- 세무 결정서에서 「납세자는 알지 못하였다」를 쓰는 사람은 그 문장으로 무엇을 인정하게 되는가?<br />
+- 무대 아이러니가 까닭까지 알려 주는 관습에 익숙한 청중에게, 까닭 없는 자막은 어떻게 들리는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 유추는 「선의의 장부」에서 사실과 앎의 두 칸을 확인했다. 몸으로 생각하기는 그 두 칸의 거리를 근육과 자세로 잰다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "일어서는 자리와 비켜서는 자리"</h3>
+<p><strong>실천 프로토콜</strong></p>
+<ol>
+<li>의자에 앉아 눈을 감는다. 다른 사람이 16:20 앞부분 「블레셋 사람이 당신 위에, 삼손」을 읽어 준다(혼자라면 스스로 읽는다).</li>
+<li>눈을 뜨고 일어서며, 몸을 한 번 털어 내는 동작과 함께 1인칭으로 말한다 — 「내가 번번이 하던 대로 나가리라. 그리고 떨치리라.」</li>
+<li>그 자리에서 <strong>한 걸음 옆으로 비켜선다.</strong> 방금 서 있던 빈자리를 바라보며 서술자의 목소리로 읽는다 — 「그러나 그는 알지 못했다 — 여호와께서 그에게서 떠나셨다는 것을.」</li>
+<li>비켜선 자리에서 이어서 「왜냐하면 …」이라고 말해 보려 한다.</li>
+</ol>
+<p>몸이 가르쳐 주는 것: 2번의 자리에서는 앞으로 나가려는 힘이 다리에 실린다. 3번의 자리에서는 몸이 멈춰 있고, 눈은 방금의 자리를 본다 — 같은 사람이 한 걸음 사이에 인물에서 서술자로 바뀐다. 그리고 4번에서 입이 막힌다. 대본에 없기 때문이다. 「왜냐하면」을 말하려는 순간, 몸은 세 번째 자리를 찾지만 그런 자리는 본문 안에 없다.</p>
+<p>설교 동선으로 옮기면 이렇다. 강단 한가운데에서 삼손의 말을 하고, 한 걸음 옆에서 서술자의 문장을 읽는다. 까닭을 말하는 세 번째 자리는 만들지 않는다. 16:21의 붙잡힘은 동작으로 재연하지 않는다.</p>
+<blockquote>
+<p>[!insight] 인물과 서술자의 거리는 한 걸음이다. 그러나 서술자와 「까닭을 아는 자리」 사이에는 걸음을 디딜 바닥이 없다.</p>
+<p>[!question] 연결 질문<br />
+- 비켜선 자리에서 빈자리를 바라볼 때 드는 감정은 연민인가, 앎의 우월인가, 아니면 둘 다 아닌가?<br />
+- 강단에서 「세 번째 자리」를 만들지 않으면, 회중은 그 빈자리를 무엇으로 채우게 되는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 몸은 두 자리와 하나의 없는 자리를 알려 주었다. 감정이입은 그 자리들에 선 사람의 마음으로 들어간다 — 다만 삼손의 마음은 아니다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "시간 표지 없는 완료"</h3>
+<p><strong>시간 축.</strong> 원문 <code>סָר</code>는 칼 완료 하나다. 개역은 여기에 「이미」를 넣었다(6단계 유추 3). 그 낱말이 들어가면 독자의 머릿속에 시간선이 그어진다 — 떠나심이 밀림 앞인가, 무릎에서 잠든 때인가, 그 전인가. 원문에는 그 선이 없다. 16:19 <code>וַיָּסַר כֹּחוֹ מֵעָלָיו</code>와 16:20 <code>סָר</code> 두 서술 문장 사이에도 잇는 낱말이 없다(봉합 4). 시점은 열려 있다(봉합 7).</p>
+<p><strong>미시 축소.</strong> 한 글자로 내려간다. <code>וְהוּא</code>의 접속사와 대명사 — 이 한 덩어리가 와이크톨 사슬을 끊고, 문장을 사건의 층에서 진술의 층으로 옮긴다(1단계). 16:20의 무게는 큰 낱말이 아니라 이 작은 전환에 실린다.</p>
+<p><strong>거시 확장.</strong> 책의 차원으로 올라간다. 사사기의 「<code>לֹא</code> + <code>ידע</code> + <code>כִּי</code>」 넷은 13장 마노아 · 14장 부모 · 16장 삼손 · 20장 무리에 하나씩 놓인다(4단계 표 · 사실). 이 노트는 그 분포에서 「책의 주제」를 끌어내지 않는다 — 틀은 마스터에서 소유자가 없고, 20:34 쪽은 59의 범위다. 정경의 차원에서는, 본문은 말하지 않지만 정경이 하나님 편에서 「떠나심」을 적는 다른 자리들이 있다(예: 삼상 16:14 사울과 여호와의 신 · 요지 · 원문 대조 안 함). 그러나 그 자리들로 16:20의 까닭을 보충하지 않는다. 다른 자리의 까닭을 이 자리에 옮겨 오면, 이 문장이 비워 둔 칸이 남의 글로 채워진다.</p>
+<p><strong>핵심 전복: 시간을 넣으면(「이미」) 이야기는 「언제부터였나」를 묻는 추리가 되지만, 시간을 빼면 문장은 「그가 몰랐다」로 돌아온다. 차원을 늘리면 빈칸이 커지는 것이 아니라 더 또렷해진다.</strong></p>
+<blockquote>
+<p>[!insight] 시간 표지 없는 완료는 독자를 시간선 위의 탐정에서 문장 앞의 청자로 되돌린다.</p>
+<p>[!question] 연결 질문<br />
+- 역본 하나의 부사가 설교의 대지를 만들어 낸 경우(「이미 떠나신 하나님」)를 우리는 몇 번이나 들었는가?<br />
+- 정경의 다른 「떠나심」 자리를 읽을 때, 그 까닭을 16:20에 옮기지 않으면서 함께 읽는 방법은 무엇인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 차원적 사고는 「시간 표지 없는 완료」를 확인했다. 모형 만들기는 이 모든 것을 설교자와 실무자가 손에 쥘 수 있는 카드 한 장으로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>1. 실질 접점이 있는 본문 (요지 · 개역 문면 대조 안 함)</strong></p>
+<ul>
+<li><strong>사무엘상 16:14</strong> — 여호와의 신이 사울에게서 떠났다고 적는 자리(요지). 정경이 「떠나심」을 하나님 편의 행위로 적는 다른 자리다. 다만 그곳의 문맥과 까닭을 16:20에 옮겨 와 「삼손도 사울처럼 버림받았다」로 잇지 않는다. 두 자리를 나란히 두는 데까지가 이 노트의 몫이다.</li>
+<li><strong>고린도전서 4:4</strong> — 바울이 스스로 자책할 것을 알지 못해도 그것으로 의롭다 함을 얻지 않으며 자기를 판단하시는 이는 주시라고 말하는 자리(요지). 사람의 자기 앎이 판단의 자리가 아니라는 고백이다. 이 연결은 16:20의 주장이 아니라, 정경 전체에서 「사람에게 자기 앎의 전부가 주어지지 않았다」는 고백이 나오는 층이다.</li>
+<li><strong>시편 139편 1-6절</strong> — 하나님은 사람을 살펴 아시고, 그 앎은 사람이 미칠 수 없이 높다는 고백(요지). 16:20의 서술자 층과 겹쳐 보이지만, 시편의 「하나님의 앎」을 16:20 서술자의 앎과 동일시하지 않는다.</li>
+</ul>
+<p><strong>2. 신학자 — 칼빈, 『기독교 강요』 1권 17장(섭리 교리의 바른 사용 · 요지 · 원문 대조 안 함)</strong>: 칼빈은 하나님의 섭리가 다스리는 일의 까닭이 우리에게 감추어져 있을 때, 그 까닭을 억지로 캐내지 말고 경외로 멈추라고 권한다(요지). 이 권고가 16:20 앞에서 지키게 하는 것은 하나다 — 「떠나셨다」를 하나님의 행위로 받되, 그 까닭을 우리가 지어 대지 않는 것이다. 구문묵상 §6③은 웨스트민스터 신앙고백 5장 5항(요지)을 다루면서 그 고백의 「이전 죄의 징계」를 16:20의 까닭으로 옮기면 서원 위반의 인과가 그대로 들어온다고 경고했다. 칼빈의 권고도 같은 경계 안에서만 쓴다 — 해석 열쇠가 아니라 멈춤의 근거로.</p>
+<p><strong>3. 설교 적용점</strong>: 16:20을 설교할 때 「떠나심의 까닭」을 대지로 세우지 않는다. 세 대지 가운데 하나를 「비어 있는 칸」으로 두고, 회중에게 서술자가 건넨 것(떠나심)과 건네지 않은 것(까닭 · 시점)을 나란히 보여 준다. 머리털을 힘의 원천으로, 들릴라를 무너뜨린 원인으로, 삼손을 그리스도의 그림으로 세우는 세 지름길을 모두 닫는다.</p>
+<p><strong>4. 복음 중심성 점검</strong>: 이 본문은 도덕주의로 기울기 쉽다 — 「영적 감지력을 길러 하나님이 떠나시는 순간을 알아채라」. 그 결론은 구원의 무게를 사람의 감지 능력에 올린다. 이 노트는 그 길을 가지 않는다. 본문은 말하지 않지만 정경 전체에서, 우리의 의는 우리의 자기 앎에 달려 있지 않다(고전 4:4 요지). 다만 이 단위에는 그리스도 계열 기명이 없고(구문묵상 C4 ○0 · 재료 부재), 눈 · 사슬 · 맷돌 · 자라기 시작한 머리털을 고난과 부활의 그림으로 잇지 않는다. 복음은 이 노트가 16:20에 덧붙이는 장식이 아니라, 16:20의 빈칸을 사람의 설명으로 채우지 않아도 되게 하는 정경 전체의 바탕으로만 놓인다.</p>
+<ul>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 원본의 복음 중심성 점검을 따라 은혜의 근거와 순종의 열매를 구별한다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>1. 고객 상담 전이 — 세무조사 소명서의 「알지 못하였다」</strong><br />
+- <strong>상황</strong>: 거래처의 자료가 사실과 달랐던 사안에서, 소명서에 「납세자는 거래 상대방의 자료가 사실과 다르다는 것을 알지 못하였다」를 쓴다.<br />
+- <strong>적용</strong>: 「앎 문장 분해 카드」(10단계)로 나눈다. 이 문장은 ③ 내용절(자료가 사실과 달랐다)을 작성자가 참으로 지는 꼴이다(4단계 패턴). 그러므로 내용절 사실을 인정할 것인지 먼저 따로 정하고, 「왜 몰랐는지」에 대한 추정 문장(바빴다 · 담당자가 바뀌었다)은 증빙이 있는 것만 별도 항목으로 적는다. ⑤ 까닭의 칸을 증빙 없이 채우지 않는다.<br />
+- <strong>기대 효과</strong>: 소명서가 한 문장 안에서 사실 인정과 선의 주장을 뒤섞어 스스로 모순되는 일을 막는다. 6단계 유추의 한계도 기억한다 — 법의 선의는 책임을 나누는 개념이고, 16:20은 그런 판정을 하지 않는다. 본문은 소명서 작성법의 근거가 아니라, 「앎의 칸과 사실의 칸을 가르는」 읽기 습관을 빌려 주는 데까지다.</p>
+<p><strong>2. 조직 · 교회 행정 전이 — 경위서와 당회록</strong><br />
+- <strong>상황</strong>: 교회 재정 처리에서 착오가 있었고, 경위서에 「담당 집사는 …을 알지 못했다」를 적어야 한다.<br />
+- <strong>적용</strong>: 세 층(5단계)을 경위서에 옮긴다. 확인된 사실(서술자 층), 담당자가 몰랐다는 사실(인물 층), 그리고 아직 확인되지 않은 까닭을 「확인되지 않음」으로 따로 둔다. 16:16 <code>הֵצִיקָה</code>가 서술일 뿐 책임 배분이 아니듯(구문묵상 §3-1), 경위서의 「알지 못했다」도 책임을 매기는 문장으로 쓰지 않는다.<br />
+- <strong>기대 효과</strong>: 경위서가 원인 추정과 책임 배분 문서로 변질되지 않고, 당회가 사실 위에서 다음 결정을 할 수 있다.</p>
+<p><strong>3. 개인 의사결정 · 목회 심방 전이 — 남의 모름을 말할 때</strong><br />
+- <strong>상황</strong>: 심방에서 한 성도가 어려움을 털어놓았고, 그 사정을 다른 이에게 전해야 할 때가 온다.<br />
+- <strong>적용</strong>: 8단계 설교자의 절제를 빌린다. 「그분은 …을 몰랐다」까지만 말하고, 「왜 몰랐는지」를 대신 지어 붙이지 않는다. 그 성도를 삼손에 대지 않는다.<br />
+- <strong>기대 효과</strong>: 전달된 말이 그 사람에 대한 판정으로 굳지 않는다. 16:20의 서술자가 사실을 건네되 까닭을 적지 않은 것처럼, 말하는 사람이 자기 몫의 경계를 지킨다.</p>
+<h3>🥇 세 층의 앎 — 내용절은 서술자가 진다</h3>
+<ul>
+<li><strong>핵심</strong>: 16:20 <code>וְהוּא לֹא יָדַע כִּי יְהוָה סָר מֵעָלָיו</code>에서 주절의 부정은 인물(삼손)이, 내용절의 사실은 서술자가 진다. 독자는 그 사이에서 「떠나셨다」를 건네받지만 까닭 · 시점은 받지 못한다. 세 층 모두에 같은 빈칸이 있다.</li>
+<li><strong>인격 형성</strong>: 흔한 읽기는 「삼손의 영적 무지」라는 인물 층 하나로 이 문장을 닫는다. 이 후보는 층과 층 사이의 앎의 차이와, 층을 가로질러 공통인 빈칸을 함께 본다 — 그래서 독자의 우월감도 설교자의 조급함도 함께 꺾는다.</li>
+<li><strong>연결 고리</strong>: <a href="./47_구문묵상_사사기_16_15-22.html">47_구문묵상_사사기_16_15-22</a> §3-5 · <a href="./42_생각의탄생13단계_사사기_14_1-4_옳음은삼손의눈에놓여있다.html">42_생각의탄생13단계_사사기_14_1-4_옳음은삼손의눈에놓여있다</a>(14:4 서술자 층의 「알지 못함」) · <a href="./40_구문묵상_사사기_13_8-18.html">40_구문묵상_사사기_13_8-18</a>(13:16 마노아)</li>
+</ul>
+<h3>🥈 시간 표지 없는 완료 — 역본의 「이미」가 만드는 추리</h3>
+<ul>
+<li><strong>핵심</strong>: 원문 <code>סָר</code>는 완료 하나이고 시간 부사가 없다. 개역의 「이미」는 독자의 머릿속에 시간선을 긋고, 설교를 「언제부터 떠나셨나」의 추리로 끌고 간다.</li>
+<li><strong>인격 형성</strong>: 역본의 한 낱말이 설교 대지를 만들어 내는 기제를 구체적으로 보여 준다. 역어를 판정하지 않으면서도 원문 근거에서 떼어 내는 읽기의 본보기다.</li>
+<li><strong>연결 고리</strong>: <a href="./47_구문묵상_사사기_16_15-22.html">47_구문묵상_사사기_16_15-22</a> §3-8 · 「역어가 넣은 시간 부사 — 개역한글 「이미」」(노트 후보)</li>
+</ul>
+<h3>🥉 가장 적게 말하는 꼴 — 덧붙일수록 설명이 된다</h3>
+<ul>
+<li><strong>핵심</strong>: 16:20을 긍정으로 뒤집거나, 내용절을 주절로 올리거나, 인과를 넣으면 문장은 모두 더 설명적이 된다. 원문은 무엇을 더해도 설명이 되고, 무엇을 빼도 문장이 아니게 되는 최소의 문장이다.</li>
+<li><strong>인격 형성</strong>: 「본문이 침묵한다」는 막연한 말 대신, 종속절의 자리(떠나심을 앎의 대상으로 붙잡아 두는 자리)라는 구문 사실로 그 절제를 설명한다.</li>
+<li><strong>연결 고리</strong>: <a href="./47_설교스케치_사사기_16_15-22.html">47_설교스케치_사사기_16_15-22</a> · <a href="./46_구문묵상_사사기_16_1-14.html">46_구문묵상_사사기_16_1-14</a>(앞의 세 외침과 풀림)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 47 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

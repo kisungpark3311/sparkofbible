@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>까닭은 저주 쪽에만 붙어 있다 — 씨앗 아이디어(사사기 5:23-24 — אוֹרוּ(오루))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 14 편 &middot; 사사기 5:23-31</span>
+      <h1>까닭은 저주 쪽에만 붙어 있다 — 씨앗 아이디어(사사기 5:23-24 — אוֹרוּ(오루))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>14_성경적 사고와 인격 만들기</p>
+<h2>까닭은 저주 쪽에만 붙어 있다 — 씨앗 아이디어(사사기 5:23-24 — אוֹרוּ(오루))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./14_생각의탄생13단계_사사기_5_23-31_까닭은저주쪽에만붙어있다.html">14_생각의탄생13단계_사사기_5_23-31_까닭은저주쪽에만붙어있다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"개역으로도 저주에는 「…할 것은 … 아니함이니라」로 까닭이 붙고, 5:24의 복에는 까닭이 없습니다. 두 절은 나란히 놓였지만 둘을 잇는 말이 없습니다. 저주에는 「너희」라는 듣는 쪽이 있고, 복에는 복을 주는 이의 이름이 없습니다."</strong></p>
+<p><strong>"노래는 「저주는 오지 않은 이에게, 복은 행한 이에게」라는 짝을 만들지 않았습니다. 복 쪽에 까닭이 없기 때문입니다. 저주받을 대상은 메로스와 그 거민으로 이름이 붙어 있고, 저주하라는 말을 듣는 「너희」는 이름이 없습니다."</strong></p>
+<p><strong>본문 핵심: 까닭은 저주에만 붙어 있고, 저주를 매기는 손은 이름이 없습니다.</strong></p>
+<p>(출처: <a href="./14_일상의깊은사고_사사기_5_23-31.html">14_일상의깊은사고_사사기_5_23-31</a> 주요 신학 통찰 1️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본_1-5장.md</code> · 5장)</p>
+<blockquote>
+<p>5:23 여호와의 사자의 말씀에 메로스를 저주하라 너희가 거듭 거듭 그 거민을 저주할 것은 그들이 와서 여호와를 돕지 아니하며 여호와를 도와 용사를 치지 아니함이니라 하시도다<br />
+5:24 겐 사람 헤벨의 아내 야엘은 다른 여인보다 복을 받을 것이니 장막에 거한 여인보다 더욱 복을 받을 것이로다</p>
+</blockquote>
+<p><strong>원문</strong> (<a href="./14_구문묵상_사사기_5_23-31.html">14_구문묵상_사사기_5_23-31</a> §2 · XML)</p>
+<blockquote>
+<p><strong>5:23</strong> א֣וֹרוּ מֵר֗וֹז אָמַר֙ מַלְאַ֣ךְ יְהוָ֔ה אֹ֥רוּ אָר֖וֹר יֹשְׁבֶ֑יהָ כִּ֤י לֹֽא־בָ֨אוּ֙ לְעֶזְרַ֣ת יְהוָ֔ה לְעֶזְרַ֥ת יְהוָ֖ה בַּגִּבּוֹרִֽים׃</p>
+<p><strong>5:24</strong> תְּבֹרַךְ֙ מִנָּשִׁ֔ים יָעֵ֕ל אֵ֖שֶׁת חֶ֣בֶר הַקֵּינִ֑י מִנָּשִׁ֥ים בָּאֹ֖הֶל תְּבֹרָֽךְ׃</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (<a href="./14_구문묵상_사사기_5_23-31.html">14_구문묵상_사사기_5_23-31</a> §3-0 표 · §3-1 · §3-2 · §3-8 · §4①②)</p>
+<table>
+<thead>
+<tr>
+<th>칸</th>
+<th>5:23 저주 쪽</th>
+<th>5:24 복 쪽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>동사</td>
+<td><code>אוֹרוּ</code> · <code>אֹרוּ</code> — Qal 명령 2mp 둘 + <code>אָרוֹר</code> Qal 부정사 절대 하나</td>
+<td><code>תְּבֹרַךְ</code> · <code>תְּבֹרָךְ</code> — Pual 미완료 3fs 둘(둘째는 휴지형)</td>
+</tr>
+<tr>
+<td>토막 · 말하는 행위</td>
+<td>토막 셋 · 말하는 행위로는 명령 둘(부정사 절대는 둘째 명령을 거듭함)</td>
+<td>토막 둘 · 절의 앞과 끝을 감쌈</td>
+</tr>
+<tr>
+<td>대상 · 주어</td>
+<td>목적어 <code>מֵרוֹז</code>(메로스) · <code>יֹשְׁבֶיהָ</code>(그곳의 거민)</td>
+<td>주어 야엘(<code>אֵשֶׁת חֶבֶר הַקֵּינִי</code> 동격)</td>
+</tr>
+<tr>
+<td>듣는 이 · 주는 이</td>
+<td>수신자 2mp — 이름 없음(봉합 1)</td>
+<td>복을 주는 이 — 이름으로 나오지 않음</td>
+</tr>
+<tr>
+<td>까닭</td>
+<td><code>כִּי</code> 절 하나 — 동사 <code>לֹא־בָאוּ</code>(3cp 완료 · 한 번) + <code>לְעֶזְרַת יְהוָה</code> 두 번(둘째에 <code>בַּגִּבּוֹרִים</code>)</td>
+<td><code>כִּי</code> 절 없음 · 비교 <code>מִנָּשִׁים</code> 두 번(둘째에 <code>בָּאֹהֶל</code>)</td>
+</tr>
+<tr>
+<td>틀</td>
+<td>인용 틀 <code>אָמַר מַלְאַךְ יְהוָה</code>가 첫 명령 뒤에 끼어 있음 · 끝 경계 표지 없음(봉합 3)</td>
+<td>접속사 없이 5:23에 붙음(아홉 절 머리 접속사 0 · E5)</td>
+</tr>
+<tr>
+<td>개역한글</td>
+<td>둘째 명령의 법을 「저주할 것은」(의무 서술)으로 · 부정사 절대를 「거듭 거듭」으로 · 연계를 「여호와를 돕지」로 풀고 「치지」를 넣음</td>
+<td>「다른」 · 「거한」 · 「더욱」을 넣어 등급을 만듦(원문 두 비교에 등급 차 없음)</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수 기준과 모집단</strong>: 모든 계수는 구문묵상 §1-5 · §3-1 · §3-2 · §4의 XML 계수다. ① <code>ארר</code>(779)는 <strong>이 단위 범위(5:23-31) 안 3</strong>(모두 5:23) · <strong>사사기 안 4</strong>(넷째는 21:18 <code>אָרוּר</code> 칼 수동분사 · 다른 단위 · 잇지 않음 · E1) · <strong>구약 63(12권)</strong>. ② <code>ברך</code>(1288)는 <strong>사사기 안 6</strong>이고 5:24의 둘만 푸알 미완료다(나머지는 binyan · 단위가 달라 잇지 않음). ③ 「도움」(5833 · 5:23 <code>לְעֶזְרַת</code>)은 <strong>사사기 안 2</strong> — 둘 다 5:23. ④ <code>מֵרוֹז</code>(4789)는 <strong>구약 1</strong>. ⛔ 계수를 기둥으로 세우지 않는다. 기둥은 <strong><code>כִּי</code> 절과 수신자 2mp가 저주 쪽에만 있고, 복 쪽에는 둘 다 없다</strong>는 어형 사실이다. ⛔ 토막 계수를 개역한글 문면으로 하지 않는다(구문묵상 §3-1).</p>
+<h3>사고의 통합 — "메우지 않는 비대칭"</h3>
+<p>관찰은 5:23과 5:24가 「저주 ↔ 복」의 짝이면서 꼴 · 듣는 이 · 까닭 세 칸에서 모두 한쪽만 채워져 있음을 보았다. 형상화는 그것을 한쪽만 채워진 화이트보드 양식으로 세웠고, 추상화는 알맹이를 「까닭의 비대칭」, 곧 두 글자 <code>כִּי</code>의 유무로 깎았다. 패턴 인식은 「무게 지우는 쪽에 근거」라는 꼴이 행정 · 판결 · 공동체 · 가정에 두루 있음을 찾았지만, 5:23에서는 그 무게를 실행할 손이 이름 없는 「너희」에게 넘어가 있다는 차이를 함께 찾았다. 패턴 형성은 이를 「짝 선언 세 칸 대조」의 네 줄 규칙으로 정제했다.</p>
+<p>유추(통지서 · 악보 · 대화방)는 대칭이 원문이 아니라 <strong>읽는 이의 손</strong>에서 나온다는 것을 세 번 확인했다. 몸으로 생각하기는 그 손을 무릎 위에 편 채 두는 「가리키지 않는 손」으로 옮겼고, 감정이입은 대칭의 설교가 설교자를 편하게 하고 빠진 사람을 아프게 한다는 것을 두 마음에서 들었다. 차원적 사고는 정경의 저주 · 복 언어와 이 단위 사이에 다리를 놓지 않으면서, <code>כִּי</code>를 보는 눈만은 정경 어디로든 들고 갈 수 있음을 보였다. 모형은 「까닭 칸 점검표」가 되었고, 그 마지막 두 줄은 본문이 아니라 나의 문장을 검사한다. 놀이는 까닭을 옮겨 다는 모든 시도가 금지선이나 공허로 끝남을 보였고, 뜻밖에 이 짝에서 <strong>가장 주인 없는 문장은 복의 문장</strong>이라는 꼴을 드러냈다. 변형은 그 모든 것을 「빈 칸은 빈 칸으로」라는 시와 잠언으로 줄였다.</p>
+<p><strong>① 최종 테제</strong>: 사사기 5:23-24는 저주와 복을 맞붙이되 까닭(<code>כִּי</code> 절)과 듣는 「너희」를 저주 쪽에만 둔다. 이 비대칭을 「저주는 오지 않은 이에게, 복은 행한 이에게」라는 대칭으로 메우는 순간 원문에 없는 인과가 서고, 이름 없는 「너희」 자리에 오늘의 누군가를 넣는 순간 읽는 이가 저주를 실행하는 손이 된다. 비대칭을 메우지 않는 것이 이 짝을 정직하게 읽는 길이며, 저주의 무게를 남이 아니라 내 쪽에 두는 길이다.</p>
+<p><strong>② 가장 생산적이었던 도구</strong>: <strong>놀이(11단계)</strong>. 까닭을 실제로 옮겨 달아 보는 세 판이, 빈 칸이 「쓸 말이 없는 자리」가 아니라 「쓰는 순간 금지선을 넘는 자리」임을 보여 주었고, 「복의 문장이 가장 주인 없다」는 예상 밖의 꼴을 드러냈다. 관찰이 본 비대칭이 놀이에서 비로소 무게를 얻었다.</p>
+<p><strong>③ 처음 관찰과 달라진 이해</strong>: 처음에는 비대칭을 「저주 쪽은 자세하고 복 쪽은 간략하다」는 <strong>분량의 차이</strong>로 보았다. 통합에 와서는 그것이 <strong>손의 차이</strong>로 보인다 — 저주 쪽에는 말하는 이 · 실행할 이 · 까닭이 다 있고, 복 쪽에는 받는 이 하나만 이름으로 서 있다(말하는 이의 경계는 봉합 3으로 열림). 비대칭은 정보의 많고 적음이 아니라, 누가 그 문장 안에서 무엇을 맡는가의 배치다.</p>
+<blockquote>
+<p><strong>"까닭은 저주 쪽에만 붙어 있다. 그 비대칭을 메우지 않을 때, 저주를 매기는 손은 이름 없이 남고, 나는 그 손이 되지 않는다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "까닭 절 하나의 위치"</h3>
+<p>해석을 미루고, 5:23과 5:24를 성분으로만 나란히 놓는다.</p>
+<p>첫째, <strong>동사의 꼴이 다르다</strong>. 5:23은 명령이다 — <code>אוֹרוּ</code>, 그리고 틀 뒤 <code>אֹרוּ</code> + 부정사 절대 <code>אָרוֹר</code>. 5:24는 수동 미완료다 — <code>תְּבֹרַךְ</code> · <code>תְּבֹרָךְ</code>. 한쪽은 누군가에게 「하라」고 하고, 다른 쪽은 누군가가 「받는다/받기를」이라고 한다.</p>
+<p>둘째, <strong>듣는 이가 한쪽에만 있다</strong>. 명령 2mp는 「너희」를 품는다. 그 「너희」가 누구인지 5:23은 밝히지 않지만(봉합 1), 듣는 자리가 문법 안에 있다는 것은 사실이다. 5:24의 푸알 미완료에는 듣는 자리가 없고, 복을 주는 이도 이름으로 나오지 않는다.</p>
+<p>셋째, <strong>까닭이 한쪽에만 있다</strong>. 5:23에는 <code>כִּי</code>로 여는 마디가 있다 — 「그들이 여호와의 도움에 … 오지 않았다」. 5:24에는 그 마디가 없다.</p>
+<p>넷째, <strong>둘 사이에 이음말이 없다</strong>. 5:24는 접속사 없이 시작한다(아홉 절 머리 접속사 0 · E5).</p>
+<blockquote>
+<p>[!insight] 두 절은 「저주 ↔ 복」이라는 겉의 짝을 이루지만, <strong>꼴 · 듣는 이 · 까닭</strong> 세 칸에서 모두 한쪽만 채워져 있다. 짝은 있으나 대칭은 없다.</p>
+<p>[!question] 연결 질문<br />
+- 짝의 한쪽에만 까닭이 있을 때, 읽는 눈은 왜 다른 쪽의 까닭을 저절로 찾으려 하는가?<br />
+- 듣는 「너희」가 저주 쪽에만 있다면, 복 쪽에는 무엇이 비어 있는 것인가 — 듣는 이인가, 주는 이인가, 둘 다인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 세 칸이 한쪽만 채워진 이 꼴이, 실제로 읽는 자리에서 어떤 모양으로 보이는지 장면으로 세운다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "이유가 붙는 쪽과 붙지 않는 쪽"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>패턴 발현</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>행정 · 세무 문서</td>
+<td>불이익 처분에는 근거 법령과 사유를 적는 칸이 있고, 신청이 받아들여진 결과 통지는 짧은 경우가 많다(실무 경험 일반 · 구체 서식은 사안별 대조 · 요지)</td>
+</tr>
+<tr>
+<td>법정 판결</td>
+<td>결론의 무게가 큰 쪽(유죄 · 패소)에 이유가 길게 붙는다는 직관이 흔하다(판결 일반 · 요지)</td>
+</tr>
+<tr>
+<td>교회 공동체의 말</td>
+<td>「왜 안 왔느냐」에는 까닭을 묻고 달지만, 「수고했다」에는 까닭이 생략되기 쉽다</td>
+</tr>
+<tr>
+<td>가정의 훈육</td>
+<td>꾸중에는 「왜냐하면」이 붙고, 칭찬은 「잘했다」 한마디로 끝나기 쉽다</td>
+</tr>
+</tbody>
+</table>
+<p><strong>공통 패턴</strong>: 짝을 이룬 두 판단 가운데 <strong>무게를 지우는 쪽</strong>에 근거가 붙고, 무게를 덜어 주는 쪽은 근거 없이 선언되는 경향이 여러 영역에서 반복된다.</p>
+<p>⚠ 그러나 이 표는 5:23-24의 <strong>꼴</strong>이 다른 영역의 꼴과 닮았다는 데까지만 말한다. 노래가 「왜」 그렇게 배치했는지, 저주에 까닭을 다는 것이 정의의 요구인지 수사의 장치인지는 이 표가 말하지 않는다(봉합 6). 그리고 일상의 패턴과 다른 점이 하나 있다 — 5:23의 저주는 <strong>명령</strong>이어서 실행할 「너희」를 문법 안에 품는다. 꾸중이나 처분과 달리, 판단하는 이와 실행하는 이가 갈라져 있다.</p>
+<blockquote>
+<p>[!insight] 반복되는 패턴은 「무게 지우는 쪽에 근거」다. 그런데 5:23에서 그 무게를 <strong>실행할 손</strong>은 이름 없는 「너희」에게 넘어가 있다. 패턴이 같아도 손의 자리가 다르다.</p>
+<p>[!question] 연결 질문<br />
+- 근거가 붙은 선언은 실행자에게 「정당하다」는 느낌까지 함께 넘기는가?<br />
+- 근거 없는 복 선언을 들은 이(야엘)는 그 복의 까닭을 스스로 채워야 하는 처지인가, 그 칸은 노래 밖에 남는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 「근거 · 듣는 이 · 주는 이」 세 칸을 하나의 틀로 묶어, 짝 선언을 읽을 때마다 쓸 수 있게 정제한다.</p>
+<h3>0 유추 (Analogizing) — "부과 통지서와 경정 결과"</h3>
+<p><strong>유추 1 — 세무: 불이익 통지와 인용 통지 (신학 ↔ 세무 교차)</strong><br />
+과세 관청이 불이익한 처분을 할 때는 사유를 적어 알리는 것이 원칙으로 알려져 있고(요지 · 조문 미대조), 납세자의 청구가 받아들여진 결과는 상대적으로 짧게 통지되는 경험이 흔하다. 실무자가 그 짧은 통지를 받아 들고 고객에게 「이건 우리가 이런 점을 잘 소명해서 받아들여진 겁니다」라고 사유를 지어 덧붙이는 순간, 통지에 없는 판단 근거가 생긴다.<br />
+- <strong>새 통찰</strong>: 근거 없는 「유리한 결과」에 근거를 지어 붙이는 것이 실무에서 가장 흔한 과잉 서술이다. 5:24 앞에서도 같은 손이 움직인다.<br />
+- <strong>한계</strong>: 행정 문서의 비대칭은 제도가 정한 것이지만, 5:23-24의 비대칭이 무엇에서 왔는지는 원문이 말하지 않는다. 제도의 이유를 노래에 옮길 수 없다.</p>
+<p><strong>유추 2 — 음악: 한 손만 적힌 악보</strong><br />
+피아노 악보에 오른손 선율만 적히고 왼손 칸이 비어 있다. 연주자는 화음을 채우고 싶다. 그러나 작곡자가 비워 두었다면 그것은 「쉼」이다. 채우면 연주자의 편곡이 된다.<br />
+- <strong>새 통찰</strong>: 빈 칸을 「쉼표」로 연주하는 것도 연주다 — 비움은 수동이 아니라 읽기의 행위다.<br />
+- <strong>한계</strong>: 악보는 작곡자의 의도가 쉼인지 생략인지 대개 표시가 있다. 5:24에는 그런 표시가 없다 — 「의도된 쉼」이라고 말하는 것조차 판정이다.</p>
+<p><strong>유추 3 — 일상: 단체 대화방의 공지</strong><br />
+「이번 모임에 안 온 분들, 이유를 말해 주세요」와 「오신 분들 감사합니다」가 나란히 올라온다. 앞 문장에는 「왜」가 있고 뒤 문장에는 없다. 읽는 이는 자연스럽게 「안 온 쪽은 문책, 온 쪽은 칭찬」의 대조로 읽는다.<br />
+- <strong>새 통찰</strong>: 병치된 두 문장은 이음말이 없어도 독자 안에서 대조로 굳는다 — 5:23-24도 그렇게 굳기 쉽다.<br />
+- <strong>한계</strong>: 대화방의 두 문장은 같은 사람이 썼지만, 5:23과 5:24는 말하는 이의 경계조차 열려 있다(봉합 3).</p>
+<blockquote>
+<p>[!insight] 세 유추가 모두 가리키는 손은 <strong>빈 칸을 채우는 읽는 이의 손</strong>이다. 원문이 비대칭을 주었을 때, 대칭은 읽는 이가 만든 것이다.</p>
+<p>[!question] 연결 질문<br />
+- 비어 있는 「왜」를 남긴 채 결과만 전하는 정직함이, 상담 자리에서는 오히려 불친절로 들리지 않는가?<br />
+- 빈 칸을 쉼표로 읽는 훈련이 지나치면, 원문이 실제로 채워 둔 칸(5:23 <code>כִּי</code>)까지 가볍게 다루게 되지 않을까?</p>
+</blockquote>
+<p><strong>다리</strong>: 「채우지 않는 손」을 머리가 아니라 실제 손과 숨으로 시험해 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "가리키지 않는 손"</h3>
+<p>구문묵상과 일상의깊은사고는 이 단위의 적용에 몸 동작을 두지 않았다 — 5:23에서 무엇을 하라는 말을 받은 이는 이름 없는 「너희」뿐이라, 어떤 동작이든 그 수신자 몫을 맡는 꼴이 되기 때문이다(구문묵상 바뀐 판단 6). 그래서 이 단계의 프로토콜은 <strong>동작을 하지 않는 연습</strong>이다.</p>
+<p><strong>프로토콜</strong>: 의자에 앉아 두 손을 무릎 위에 편 채 올려 둔다. 눈을 감고 개역한글 5:23을 소리 내어 읽는다. 「저주하라」에서 손가락이 무엇을 가리키고 싶어지는지 알아차린다 — 그러나 손은 움직이지 않는다. 「저주할 것은」에서 숨이 이어지는 곳을 느낀다. 까닭(「…아니함이니라」)이 있으니 숨은 끝까지 기댈 데가 있다. 이어 5:24를 읽는다. 「복을 받을 것이니」 뒤에 숨이 기대고 싶은 「왜냐하면」이 오지 않는다. 그 빈 자리에서 숨을 서둘러 메우지 말고 한 번 그냥 내쉰다.</p>
+<p><strong>몸이 가르쳐 준 것</strong>: 저주의 문장을 읽을 때 몸은 <strong>어딘가를 가리키려</strong> 한다. 그 충동이 곧 「너희」의 자리에 앉으려는 몸의 움직임이다. 손을 편 채 두면, 저주의 무게는 바깥의 누군가에게 가지 않고 읽는 내 무릎 위에 머문다. 5:24에서는 숨이 기댈 까닭이 없어 몸이 잠깐 허공에 뜬다 — 그 허공을 견디는 것이 비대칭을 몸으로 읽는 일이다.</p>
+<p>설교 전달에 옮기면: 5:23을 낭독할 때 회중을 손으로 가리키지 않는다. 시선을 회중의 특정 자리에 고정하지 않는다(§7-7).</p>
+<blockquote>
+<p>[!insight] 「가리키지 않는 손」은 수동이 아니다. 그것은 이름 없는 「너희」의 자리를 <strong>비워 두는 몸의 해석</strong>이다.</p>
+<p>[!question] 연결 질문<br />
+- 낭독자가 손을 쓰지 않을 때, 회중은 저주의 문장을 누구에게 향한 말로 듣게 되는가?<br />
+- 5:24의 「허공에 뜬 숨」을 회중과 함께 견디는 낭독 방식이 있을까 — 쉼의 길이로?</p>
+</blockquote>
+<p><strong>다리</strong>: 손을 편 채 읽은 그 자리에서, 이 본문을 가장 다르게 듣는 두 사람의 마음속으로 들어간다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "두 글자 키와 정경의 저주 · 복"</h3>
+<p><strong>거시 확장 — 정경의 층(본문은 말하지 않지만)</strong><br />
+정경에는 저주와 복이 짝을 이루는 본문이 여럿 있다 — 신명기 27-28장의 저주와 복의 선포, 창세기 12:3의 복과 저주(원문 · 개역 미대조 · 요지). 이 노트가 말할 수 있는 것은 <strong>사사기 5:23-24도 그 짝의 꼴을 하고 있으되, 한쪽에만 까닭을 단다</strong>는 꼴의 사실까지다. 5:23-24가 그 본문들을 인용 · 반향하는지, 그 본문들도 같은 비대칭을 갖는지는 대조하지 않았다 — 판정하지 않는다.</p>
+<p>정경 전체를 신약까지 넓히면, 저주와 복의 언어는 그리스도 안에서 다시 말해진다 — 율법의 저주 아래 있는 이들을 위해 그리스도께서 저주를 받으셨다는 고백(갈라디아서 3장 · 요지), 「축복하고 저주하지 말라」는 권면(로마서 12:14 · 요지). <em>그러나 이것은 정경 전체의 층이다</em>. 구문묵상 C4는 이 단위의 그리스도 연결을 ✕7 · 재료 부재로 판정했다. 5:23의 저주가 그리스도의 십자가를 예표한다고, 5:24의 복이 은혜의 복음을 가리킨다고 이 노트는 쓰지 않는다.</p>
+<p><strong>미시 축소 — 두 글자</strong><br />
+비대칭 전체가 <code>כִּי</code> 한 낱말의 있고 없음에 걸려 있다. 이 낱말을 5:23에서 지우면 저주는 「까닭 없는 명령」이 되고, 5:24에 하나 넣으면 복은 「까닭 있는 선언」이 된다. 아홉 절의 무게 배치가 두 글자 하나로 뒤집힌다.</p>
+<p><strong>핵심 전복</strong>: 거시로 보면 이 짝은 정경의 큰 저주 · 복 주제의 한 조각처럼 보인다. 미시로 보면 그 조각의 성격을 정하는 것은 주제가 아니라 <strong>한 글자 마디의 위치</strong>다. 큰 주제로 읽으면 대칭을 기대하게 되고, 작은 글자로 읽으면 비대칭이 보인다.</p>
+<blockquote>
+<p>[!insight] 정경 전체의 저주 · 복 언어와 이 단위 사이에는 다리를 놓지 않는다. 그러나 <strong>두 글자 <code>כִּי</code>를 보는 눈</strong>은 정경의 다른 저주 · 복 본문을 읽을 때도 그대로 가져갈 수 있는 도구다.</p>
+<p>[!question] 연결 질문<br />
+- 신명기 27-28장 · 창세기 12:3을 원문으로 대조한다면, 까닭 절은 어느 쪽에 붙어 있을까 — 이 단위와 같을까, 다를까?<br />
+- 「축복하고 저주하지 말라」는 신약의 권면을 5:23 옆에 두는 것은 대조인가 교정인가 — 이 노트가 그 어느 쪽도 본문의 주장으로 만들지 않으려면 어떻게 배치해야 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 거시와 미시에서 얻은 「<code>כִּי</code>를 보는 눈」을 실제로 들고 다닐 수 있는 점검 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>1. 실질 접점이 있는 정경 본문 (층을 밝혀서)</strong></p>
+<ul>
+<li><strong>사사기 5:23-24 자체</strong> — 이 노트의 근거는 이 두 절의 꼴뿐이다. 「여호와의 도움」의 뜻(봉합 4), 복의 성격(봉합 5), 저주 · 복 · 행위의 관계(봉합 6)는 열린 채로 둔다.</li>
+<li><strong>신명기 27-28장 · 창세기 12:3</strong> (원문 · 개역 미대조 · 요지) — 정경의 대표적 저주 · 복 짝 본문이다. <em>본문(5:23-24)은 말하지 않지만</em>, 정경 전체에서 저주와 복은 언약 관계의 언어로 자주 함께 나온다. 이 노트는 5:23-24를 그 본문들의 적용 · 반향으로 판정하지 않고, 「짝의 꼴을 공유한다」는 데까지만 둔다.</li>
+<li><strong>로마서 12:14 · 갈라디아서 3장</strong> (요지 · 대조하지 않음) — 신약은 성도에게 저주하지 말고 축복하라고 권하고, 그리스도께서 저주를 받으셨다고 고백한다. <em>이것은 정경 전체의 층이다</em>. 구문묵상 C4는 이 단위의 그리스도 연결을 ✕7 · 재료 부재로 판정했으므로, 5:23의 저주를 십자가의 예표로, 5:24의 복을 복음의 복으로 세우지 않는다. 다만 「이름 없는 『너희』 자리에 내가 앉지 않는다」는 이 노트의 읽기는, 신약이 성도의 입에서 저주를 거두라고 한 권면과 <strong>같은 방향을 바라본다</strong> — 그 일치를 본문의 주장으로 만들지 않는다.</li>
+</ul>
+<p><strong>2. 신학자</strong>: 디트리히 본회퍼는 『시편: 성경의 기도서』에서 원수에 대한 저주가 담긴 시편을 성도가 개인의 보복 기도로 드릴 수 없으며, 그 기도는 원수를 하나님께 맡기는 것이고 궁극적으로 그리스도를 통해서만 드릴 수 있다는 취지를 말한다(요지 · 쪽수 미대조). 이 생각은 구문묵상 §6③이 「개혁신학은 시편과 노래의 저주 · 원수 멸망 기원을 개인의 보복 기도로 옮기지 않는 해석 전통을 지녀 왔다」고 적되 그것을 해석 원리로 확정하지 않은 자리와 접점을 갖는다. 이 노트도 본회퍼의 해석을 5:23의 의미로 읽어 넣지 않고, 「저주의 명령을 내 입의 처방으로 삼지 않는다」는 읽기의 배경으로만 둔다.</p>
+<p><strong>3. 신앙고백</strong>: 구문묵상은 「종교개혁 신앙고백이 이 단락에 관해 따로 내린 규정은 확인하지 않았다」고 적었다. 이 노트도 신앙고백 조항을 인용하지 않는다.</p>
+<p><strong>4. 설교 적용점</strong>: 5:23-24를 설교할 때 「메로스는 오지 않아 저주를, 야엘은 행해서 복을」이라는 두 줄 대조를 뼈대로 쓰지 않는다. 대신 두 절을 따로 읽고, 「저주에는 ‘왜냐하면’이 있고 복에는 없다」는 꼴을 회중이 직접 보게 한다. 5:23 낭독 때 회중을 손이나 눈으로 지목하지 않고, 「‘너희’가 누구인지 본문은 밝히지 않는다」는 문장을 반드시 넣는다(§7-7). 5:24를 「하나님이 야엘의 행위를 칭찬하셨다」로 옮기지 않는다(§7-5⒝). 감사 기도로 맺지 않는다(R46) — 맺음은 고백과 결단으로.</p>
+<p><strong>5. 복음 중심성 점검</strong>: 이 노트가 도덕주의로 귀결되는가? 「빈 칸을 메우지 말라」만 남으면 신중함의 교훈이 된다. 그러나 테제의 중심은 <strong>저주를 매기는 손이 내 손이 아니라는 것</strong>이다. 판정과 저주의 자리가 사람에게 맡겨지지 않았다는 사실은, 심판을 하나님께 돌리고 성도의 입에는 축복을 두라는 정경 전체의 복음적 방향과 공명한다. 다만 그 공명은 5:23-24의 주장이 아니라 정경 전체의 층으로 구별해 둔다.</p>
+<ul>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 원본의 복음 중심성 점검을 따라 은혜의 근거와 순종의 열매를 구별한다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>1. 고객 상담 전이 — 유리한 결과에 사유를 지어 붙이지 않기</strong><br />
+- <strong>상황</strong>: 고객의 청구가 받아들여진 결과 통지가 짧게 왔다. 고객은 「왜 받아들여졌느냐」고 묻고, 실무자는 「우리 소명이 이 점에서 통했다」고 사유를 지어 말하고 싶어진다(통지 서식 · 기재 범위는 사안별 대조 · 요지).<br />
+- <strong>적용(까닭 칸 점검표 2 · 6번)</strong>: 통지에 적힌 사유와 적히지 않은 칸을 갈라서 보여 준다. 「통지에 적힌 것은 여기까지이고, 그 밖의 이유는 문서로 확인되지 않습니다」라고 말한다. 반대로 불리한 처분의 사유는 문면 그대로 읽어 준다 — 사유가 있는 쪽은 있는 대로, 없는 쪽은 없는 대로.<br />
+- <strong>기대 효과</strong>: 다음 사안에서 「그때 이렇게 해서 이겼다」는 근거 없는 공식이 생기지 않고, 고객과 실무자가 같은 문서를 기준으로 판단한다.</p>
+<p><strong>2. 조직 · 교회 행정 전이 — 불참 명단을 저주의 칸에 두지 않기</strong><br />
+- <strong>상황</strong>: 교회 행사 뒤 「이번에 함께하지 않은 분들」을 주보나 단체 대화방에 언급하자는 의견이 나온다. 마침 그 주 설교 본문이 사사기 5장이다.<br />
+- <strong>적용(짝 선언 세 칸 대조 · 규칙 3)</strong>: 참여한 이들에게 감사를 전하는 공지는 내되, 불참자에 관한 문장은 쓰지 않는다. 특히 5:23을 공지 · 광고에 인용하지 않는다(§7-7). 불참의 사정은 공동체가 판정할 칸이 아니라 개인 목양의 자리로 넘긴다.<br />
+- <strong>기대 효과</strong>: 공동체의 말이 「까닭 붙은 저주」와 「까닭 없는 칭찬」의 대조로 굳지 않고, 빠진 사람이 다음 모임에 돌아올 길이 열린다.</p>
+<p><strong>3. 개인 의사결정 전이 — 꾸중의 「왜냐하면」과 칭찬의 빈 칸을 알아차리기</strong><br />
+- <strong>상황</strong>: 가정이나 직장에서 나는 잘못에는 길게 이유를 달고, 잘한 일에는 「수고했어」 한마디로 넘어가는 습관이 있다.<br />
+- <strong>적용(가리키지 않는 손)</strong>: 꾸중의 문장을 말하기 전에 손가락이 상대를 가리키고 있는지 알아차리고 손을 편다. 칭찬에 이유를 덧붙이고 싶을 때는, 내가 실제로 본 것만 말하고 상대의 동기를 지어 붙이지 않는다.<br />
+- <strong>기대 효과</strong>: 내 말이 상대를 재는 저울이 되지 않고, 칭찬은 근거 없는 공식이 아니라 본 것의 보고가 된다. ⛔ 이 습관을 5:23-24의 「교훈」으로 내세우지 않는다 — 본문이 가르치는 것이 아니라 본문을 읽은 이의 응답이다.</p>
+<h3>🥇 까닭의 비대칭 — 사사기 5:23-24 저주 · 복 짝의 <code>כִּי</code> 절 배치</h3>
+<ul>
+<li><strong>핵심</strong>: 5:23 <code>ארר</code> 세 토막(명령 둘 + 부정사 절대 하나)에는 <code>כִּי</code> 절과 수신자 2mp가 있고, 접속사 없이 붙은 5:24 <code>תְּבֹרַךְ</code> 두 토막에는 <code>כִּי</code> 절도 복을 주는 이의 이름도 없다. 노래는 「저주는 오지 않은 이에게, 복은 행한 이에게」라는 대칭을 만들지 않았다.</li>
+<li><strong>인격 형성</strong>: 흔한 설교 뼈대(불참 ↔ 참여 대조)가 원문의 어느 문장도 아니라는 것을 두 글자 마디의 유무로 보여 준다 — 수신자 · 복의 성격 · 세 요소의 관계는 열어 둔 채.</li>
+<li><strong>연결 고리</strong>: <a href="./14_구문묵상_사사기_5_23-31.html">14_구문묵상_사사기_5_23-31</a> §3-1 · §3-2 · 바뀐 판단 2 · <a href="./00_사사기_묵상단위_마스터.html">00_사사기_묵상단위_마스터</a> U16 · 신 27-28장 · 창 12:3(꼴 대조 미실시) · 「까닭의 비대칭 — 짝 선언의 근거 절 배치」(노트 후보)</li>
+</ul>
+<h3>🥈 이름 없는 수신자 자리 — 저주의 명령과 읽는 이의 손</h3>
+<ul>
+<li><strong>핵심</strong>: 5:23의 명령은 실행할 「너희」를 문법 안에 품지만 이름을 주지 않는다. 그 자리에 누구를 넣든 그 사람은 판정할 수 없는 대상을 저주하는 손이 된다.</li>
+<li><strong>인격 형성</strong>: 저주 본문의 오용(§7-7)을 「적용이 지나쳤다」는 도덕 판단이 아니라 「수신자 칸을 채웠다」는 문법의 문제로 짚는다. 본회퍼의 저주 시편 읽기(요지)와 접점을 갖되 근거로 세우지 않는다.</li>
+<li><strong>연결 고리</strong>: <a href="./14_일상의깊은사고_사사기_5_23-31.html">14_일상의깊은사고_사사기_5_23-31</a> 통찰 1️⃣ ③ · 포인트 1 · 「가리키지 않는 손」(노트 후보) · 『시편: 성경의 기도서』(요지)</li>
+</ul>
+<h3>🥉 까닭 칸 점검표 — 설교 요약문과 실무 문서의 공통 검사</h3>
+<ul>
+<li><strong>핵심</strong>: 짝 선언을 옮길 때 ① 토막 계수 ② 까닭 마디 위치 ③ 수신자 ④ 주는 이 ⑤ 이음말 ⑥ 내 요약의 까닭 첨가 ⑦ 내 적용의 대상 첨가를 점검한다. 6 · 7번은 본문이 아니라 나의 문장을 검사한다.</li>
+<li><strong>인격 형성</strong>: 성경 해석의 「봉합하지 않음」과 실무 문서의 「통지에 없는 사유를 쓰지 않음」이 같은 규칙임을 한 표로 보여 준다.</li>
+<li><strong>연결 고리</strong>: <a href="./11_생각의탄생13단계_사사기_4_13-24_어지럽힘과굴복시킴은다른일이다.html">11_생각의탄생13단계_사사기_4_13-24_어지럽힘과굴복시킴은다른일이다</a>(한 역어 두 원어 점검표 — 점검표 계열) · 「까닭 칸 점검표」(노트 후보)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 14 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>코가 탄다는 말이 기드온의 청에 선다 — 씨앗 아이디어(사사기 6:39 — אַל־יִחַר אַפְּךָ בִּי(알-이하르 아프카 비))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 18 편 &middot; 사사기 6:33-40</span>
+      <h1>코가 탄다는 말이 기드온의 청에 선다 — 씨앗 아이디어(사사기 6:39 — אַל־יִחַר אַפְּךָ בִּי(알-이하르 아프카 비))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>18_성경적 사고와 인격 만들기</p>
+<h2>코가 탄다는 말이 기드온의 청에 선다 — 씨앗 아이디어(사사기 6:39 — אַל־יִחַר אַפְּךָ בִּי(알-이하르 아프카 비))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./18_생각의탄생13단계_사사기_6_33-40_코가탄다는말이기드온의청에선다.html">18_생각의탄생13단계_사사기_6_33-40_코가탄다는말이기드온의청에선다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"「알-이하르 아프카 비」는 「당신의 코가 내게 타지 마소서」입니다. 사사기에서 「코가 타다」는 일곱 번 나오고, 여섯은 서술자의 이야기 문장입니다. 「말라」와 함께 인물의 입에 놓인 자리는 6:39 하나입니다. (…) 아브라함과의 겹침은 청하는 사람의 공손한 말투에 관한 사실입니다. 시험이 옳았는지는 그 겹침이 정하지 않습니다. 2:22-3:4와 6:39의 나란함도 사실이지만, 그 나란함이 기드온을 꾸짖는지 원문은 말하지 않습니다.</strong></p>
+<p><strong>본문 핵심: 6:39는 이 책에서 두 낱말이 인물의 입에 놓인 유일한 자리이고, 본문은 그 말을 판정 없이 적습니다."</strong></p>
+<p>(출처: <a href="./18_일상의깊은사고_사사기_6_33-40.html">18_일상의깊은사고_사사기_6_33-40</a> 주요 신학 통찰 1️⃣ ②·③ · 본문 핵심)</p>
+</blockquote>
+<p>⚠ 위 인용의 「유일한 자리」는 <strong>사사기 범위</strong>의 계수다(구문묵상 §3-6 「사사기 범위 계수」). 정경 범위로 넓히면 같은 청원 공손 꼴이 창 18:30 · 18:32 · 44:18 · 출 32:22에 있다 — 이 노트는 「유일」을 무게로 세우지 않는다.</p>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본.md</code> 6장)</p>
+<blockquote>
+<p>6:39 기드온이 또 하나님께 여짜오되 주여 내게 진노하지 마옵소서 내가 이번만 말하리이다 구하옵나니 나로 다시 한번 양털로 시험하게 하소서 양털만 마르고 사면 땅에는 다 이슬이 있게 하옵소서 하였더니<br />
+6:40 이 밤에 하나님이 그대로 행하시니 곧 양털만 마르고 사면 땅에는 다 이슬이 있었더라</p>
+</blockquote>
+<p><strong>원문</strong> (<a href="./18_구문묵상_사사기_6_33-40.html">18_구문묵상_사사기_6_33-40</a> §2 — XML 추출 문면)</p>
+<blockquote>
+<p><strong>6:39</strong> וַיֹּ֤אמֶר גִּדְעוֹן֙ אֶל־הָ֣אֱלֹהִ֔ים אַל־יִ֤חַר אַפְּךָ֙ בִּ֔י וַאֲדַבְּרָ֖ה אַ֣ךְ הַפָּ֑עַם אֲנַסֶּ֤ה נָּא־רַק־הַפַּ֨עַם֙ בַּגִּזָּ֔ה יְהִי־נָ֨א חֹ֤רֶב אֶל־הַגִּזָּה֙ לְבַדָּ֔הּ וְעַל־כָּל־הָאָ֖רֶץ יִֽהְיֶה־טָּֽל׃</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (<a href="./18_구문묵상_사사기_6_33-40.html">18_구문묵상_사사기_6_33-40</a> §3-0 · §3-6 · §4)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱</th>
+<th>표제어</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>אַל־יִחַר</code></td>
+<td>부정 <code>אַל</code> + 칼 지시 3ms 짧은꼴</td>
+<td><code>חרה</code> 2734</td>
+<td><strong>씨앗</strong>. 주어는 <code>אַפְּךָ</code></td>
+</tr>
+<tr>
+<td><code>אַפְּךָ</code></td>
+<td>명사 + 2ms 접미</td>
+<td><code>אַף</code> 639</td>
+<td>「코가 타다」의 짝 · 「당신의 코」</td>
+</tr>
+<tr>
+<td><code>בִּי</code></td>
+<td>전치사 <code>בְּ</code> + 1cs</td>
+<td>—</td>
+<td>「내게」 — 청하는 사람이 대상 자리에</td>
+</tr>
+<tr>
+<td><code>וַאֲדַבְּרָה</code></td>
+<td>피엘 청유 1cs (어미 <code>-ָה</code> 보임)</td>
+<td>—</td>
+<td>「내가 이번만 말하겠습니다」</td>
+</tr>
+<tr>
+<td><code>אֲנַסֶּה</code></td>
+<td>피엘 1cs · 태그 청유 / 겉꼴 미완료</td>
+<td><code>נסה</code> 5254</td>
+<td>다리 사실 · 청유 판독 보류(봉합 2)</td>
+</tr>
+<tr>
+<td><code>יְהִי־נָא</code></td>
+<td>칼 지시 3ms 짧은꼴 + <code>נָא</code></td>
+<td><code>היה</code></td>
+<td>「양털에만 마름이 있게 하소서」</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수 기준과 모집단</strong>: <code>חרה</code>+<code>אַף</code>는 <strong>사사기 범위 · 표제어 기준(lemma 639)</strong> 으로 7이다 — 서술자 wayyiqtol 여섯(「여호와의 코」 2:14 · 2:20 · 3:8 · 10:7 / 사람의 코 9:30 스불 · 14:19 삼손) · 인물 발화 안 부정 지시형 하나(6:39). 2:14 · 2:20 · 3:8 · 10:7의 <code>אַף</code>은 자료의 형태소 칸이 불변화사(<code>HTa</code>)로 붙어 있는 결함이 있어 lemma로 셌다(구문묵상 §1-5). <code>נסה</code>는 사사기 4(피엘 부정사 연계 셋 2:22 <code>נַסּוֹת</code> · 3:1 · 3:4 <code>לְנַסּוֹת</code> / 정형 1cs 하나 6:39) · 구약 36(13권). <code>יִחַר</code>는 짧은꼴이라 미완료 <code>יֶחֱרֶה</code>와 겉꼴로 갈린다(구문묵상 §3-6). ⛔ 개한 「주여」는 원문에 없는 호격, 「진노하지」는 「코가 타다」를 푼 역어다.</p>
+<h3>사고의 통합 — "하나님 쪽 낱말이 사람의 청에 선다"</h3>
+<p>열두 단계가 남긴 것을 모은다.</p>
+<ul>
+<li><strong>1 관찰 · 2 형상화</strong>: 사사기에서 「코가 타다」는 여섯 번 서술자의 평서문 줄에 있고, 6:39에서 한 번 따옴표 안에 들어온다.</li>
+<li><strong>3 추상화</strong>: 낱말은 같고 법이 다르다 — wayyiqtol의 사실에서 부정 지시형의 청으로.</li>
+<li><strong>4 패턴 인식</strong>: 그 청의 꼴은 정경의 청원 공손 꼴(창 18:30 · 18:32 · 44:18 · 출 32:22)에 속한다. 이례도 대담함도 아니다.</li>
+<li><strong>5 패턴 형성</strong>: 「화자 층 지도」 — 사사기에서는 한 칸을 혼자 차지하고, 정경에서는 정해진 칸에 합류하는 점.</li>
+<li><strong>6 유추</strong>: 권한 쪽 문서의 낱말이 그 앞에 선 사람의 청원 문장에 들어가는 이동.</li>
+<li><strong>7 몸 · 8 감정이입</strong>: 옆에서 보던 얼굴을 정면으로 마주하는 자세 · 평가하지 않는 서술자, 골라야 했던 역자, 같은 말투를 쓰는 독자.</li>
+<li><strong>9 차원</strong>: 두 서술 사이의 의지의 순간 · 모집단을 밝힌 「유일」 · 역본이 덧칠한 발화층.</li>
+<li><strong>10 모형 · 11 놀이 · 12 변형</strong>: 칸만 있고 화살표 없는 층 표시 본문표 · 서술자가 관용구를 다시 가져가지 않은 선택 · 다섯 목소리 낭독.</li>
+</ul>
+<p>이 모두를 하나로 묶으면 이 문장이 된다.</p>
+<blockquote>
+<p><strong>사사기 서술자가 하나님 쪽 이야기 문장에 쓰던 「코가 타다」는, 6:39에서 한 사람의 청 안으로 들어가 「타지 마소서」의 꼴로 선다. 그 꼴은 정경의 청하는 사람들의 말투이고, 서술자는 그 청에도 그 밤에도 판정을 쓰지 않는다.</strong></p>
+</blockquote>
+<p>통합의 문장에서 뻗어 나갈 수 있는 층을 밝힌다. <strong>본문은 말하지 않지만</strong>, 정경 전체에서 보면 하나님 앞에서 「노하지 마소서」로 말을 여는 사람들이 여럿 있고(4단계), 그들의 청은 모두 하나님을 「당신」으로 마주한다. 개혁교회는 기도를 성자의 이름으로 드리는 것으로 고백한다(웨스트민스터 신앙고백 21장 3절 요지 · 원문 대조 안 함). 그러나 이 연결은 <strong>정경을 읽는 신자의 고백 층</strong>에 속하고, 사사기 6:39가 그리스도를 말한다는 뜻이 아니다. 구문묵상의 C4 판정 「재료 부재 · ✕7」은 그대로 둔다.</p>
+<blockquote>
+<p>[!insight] 씨앗은 「사사기에서 서술의 낱말이 한 번 청원의 낱말이 되는 자리」로 확장되었다. 그 자리의 무게는 희소함이 아니라 층의 이동에 있고, 그 이동은 정경의 청원 말투로 이어지며, 본문은 그 청의 옳고 그름을 끝까지 적지 않는다.</p>
+<p>[!question] 연결 질문<br />
+- 「판정 없는 청원 서사」를 설교할 때, 청중이 가장 먼저 채우고 싶어 하는 빈칸(기드온의 동기 · 하나님의 반응 · 방식의 승인)을 설교자는 어떤 문장으로 비워 둘 수 있는가?<br />
+- 같은 화자 층 계열의 01(갚음의 해석은 패자의 입에 있다)과 이 노트를 나란히 놓으면, 사사기 서술자가 인물의 입에 맡기는 말과 자기 목소리로 쓰는 말 사이에 어떤 경계가 보이는가?</p>
+</blockquote>
+<h3>0 관찰 (Observing) — "일곱 자리의 층"</h3>
+<p>씨앗은 한 절을 짚었다. 그 한 절을 사사기 전체의 같은 관용구 일곱 자리 위에 놓고, 각 자리에서 <strong>누가 그 말을 하고 있는가</strong>만 본다(구문묵상 §3-6 · §4 ②의 값).</p>
+<table>
+<thead>
+<tr>
+<th>자리</th>
+<th>누구의 코</th>
+<th>누가 말하는가(층)</th>
+<th>꼴</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2:14</td>
+<td>여호와의 코</td>
+<td>서술자</td>
+<td>wayyiqtol</td>
+</tr>
+<tr>
+<td>2:20</td>
+<td>여호와의 코</td>
+<td>서술자</td>
+<td>wayyiqtol</td>
+</tr>
+<tr>
+<td>3:8</td>
+<td>여호와의 코</td>
+<td>서술자</td>
+<td>wayyiqtol</td>
+</tr>
+<tr>
+<td>9:30</td>
+<td>스불의 코</td>
+<td>서술자</td>
+<td>wayyiqtol</td>
+</tr>
+<tr>
+<td>10:7</td>
+<td>여호와의 코</td>
+<td>서술자</td>
+<td>wayyiqtol</td>
+</tr>
+<tr>
+<td>14:19</td>
+<td>삼손의 코</td>
+<td>서술자</td>
+<td>wayyiqtol</td>
+</tr>
+<tr>
+<td><strong>6:39</strong></td>
+<td><strong>「당신의」 코</strong> (2ms 접미)</td>
+<td><strong>기드온(인물 발화)</strong></td>
+<td><strong>부정 <code>אַל</code> + 지시 짧은꼴</strong></td>
+</tr>
+</tbody>
+</table>
+<p>세 가지가 눈에 들어온다. 첫째, 여섯 자리는 모두 이야기를 적는 문장이다 — 「그런 일이 있었다」를 서술하는 꼴이다. 둘째, 6:39 하나만 따옴표 안에 있고, 그 꼴은 서술이 아니라 「그러지 마소서」라는 청의 꼴이다. 셋째, 서술자 문장 넷에서 코의 주인은 「여호와」로 이름이 붙는데, 6:39에서 코의 주인은 이름 없이 2ms 접미 「당신의」로만 불린다. 이 범위의 신명 넷은 모두 서술자층에 있고(6:34 · 6:36 · 6:39 도입구 · 6:40), 기드온의 말 안에는 신명이 없다(구문묵상 §1-3).</p>
+<p>이 표는 계수를 무게로 세우려는 표가 아니다. 일곱이라는 수는 사사기라는 한 책, <code>אַף</code> 639라는 한 표제어 기준의 값이고, 그 안에서 층이 어떻게 나뉘는지를 보이는 데까지만 쓴다.</p>
+<blockquote>
+<p>[!insight] 같은 관용구가 사사기 안에서 두 층에 나뉘어 선다. 여섯은 서술자가 「있었다」고 적는 층이고, 하나는 인물이 「없게 해 달라」고 말하는 층이다. 씨앗의 무게는 수의 희소함이 아니라 <strong>층이 바뀐다는 사실</strong>에 있다.</p>
+<p>[!question] 연결 질문<br />
+- 서술자가 여섯 번 이야기 문장으로 쓴 관용구가 인물의 입에서는 왜 「하지 마소서」의 꼴로만 나오는가 — 이것은 사사기만의 배치인가, 히브리어 청원 말투의 일반적 꼴인가?<br />
+- 서술자 문장에서는 이름이 붙고(「여호와의 코」) 인물의 말에서는 「당신의」로 불리는 차이는 층의 차이에서 오는 것인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 층이 바뀌는 순간을, 책 한 쪽 위의 시각적 장면으로 그려 본다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "정경의 청원 공손 꼴 넷"</h3>
+<p>구문묵상이 조정자 XML 확인으로 나란히 둔 네 자리를 6:39 곁에 세운다(구문묵상 §3-6 · 바뀐 판단 7 문면 그대로).</p>
+<table>
+<thead>
+<tr>
+<th>자리</th>
+<th>원문(구문묵상 문면)</th>
+<th>말하는 이 → 듣는 이(본문 장면)</th>
+<th>코(<code>אַף</code>)</th>
+<th>뒤에 붙는 말</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>창 18:30</td>
+<td><code>אַל־נָא יִחַר לַאדֹנָי וַאֲדַבֵּרָה</code></td>
+<td>아브라함 → 하나님</td>
+<td>없음</td>
+<td>「내가 말하겠습니다」</td>
+</tr>
+<tr>
+<td>창 18:32</td>
+<td><code>אַל־נָא יִחַר לַאדֹנָי וַאֲדַבְּרָה אַךְ־הַפַּעַם</code></td>
+<td>아브라함 → 하나님</td>
+<td>없음</td>
+<td>「이번만 말하겠습니다」</td>
+</tr>
+<tr>
+<td>창 44:18</td>
+<td><code>וְאַל־יִחַר אַפְּךָ בְּעַבְדֶּךָ</code></td>
+<td>유다 → 윗사람</td>
+<td><strong>있음</strong> · 2ms 접미</td>
+<td>「당신의 종에게」</td>
+</tr>
+<tr>
+<td>출 32:22</td>
+<td><code>אַל־יִחַר אַף אֲדֹנִי</code></td>
+<td>아론 → 「내 주」(<code>אֲדֹנִי</code>)</td>
+<td><strong>있음</strong> · 「내 주의」</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>삿 6:39</strong></td>
+<td><code>אַל־יִחַר אַפְּךָ בִּי וַאֲדַבְּרָה אַךְ הַפָּעַם</code></td>
+<td>기드온 → 하나님</td>
+<td><strong>있음</strong> · 2ms 접미</td>
+<td>「내게」 + 「이번만 말하겠습니다」</td>
+</tr>
+</tbody>
+</table>
+<p>무늬는 분명하다. 다섯 자리 모두 부정 <code>אַל</code> + <code>יִחַר</code>로 열리고, 모두 아랫사람이 윗사람이나 하나님 앞에서 말을 꺼내는 자리다. 구문묵상의 판정 그대로, 이것은 <strong>청원의 공손 꼴</strong>이다. 문면만 놓고 보면 6:39는 두 갈래를 한 문장에 모은다 — 「<code>אַפְּךָ</code> + <code>בְּ</code> 대상」(창 44:18과 같은 짜임)과 「<code>וַאֲדַבְּרָה אַךְ … הַפַּעַם</code>」(창 18:32와 같은 짜임). 일상의깊은사고가 18:32를 「거의 같은 꼴」이라 부른 것도 이 겹침이다.</p>
+<p>이 패턴 인식은 1단계의 인상을 바로잡는다. 사사기 안에서만 보면 6:39는 일곱 가운데 하나뿐인 인물 발화라 「이례의 말」처럼 보인다. 정경으로 넓히면 그 꼴은 이례가 아니라 <strong>청하는 사람의 정해진 말투</strong>에 속한다. 구문묵상이 바뀐 판단 7에서 「이례」 신호를 거둔 까닭이 이것이고, 선정표 §5가 「이례의 말」 · 「대담한 청원」 신호를 금한 까닭도 이것이다. 이 패턴은 말투에 관한 사실이고, 그 말투로 시작한 청이 옳았는지는 정하지 않는다(일상 ③).</p>
+<blockquote>
+<p>[!insight] 6:39의 머리는 정경의 청원 공손 꼴에 속한다. 사사기 안의 희소함은 「이 책 서술자가 그 관용구를 주로 이야기 문장으로 썼다」는 사실로 읽어야 하고, 기드온의 말이 특별히 대담했다는 신호로 읽으면 안 된다.</p>
+<p>[!question] 연결 질문<br />
+- 창 18:30 · 18:32에는 <code>אַף</code>이 없고 <code>לַאדֹנָי</code>가 붙는다. 「코」가 문면에 있는 꼴과 없는 꼴의 차이는 뜻의 차이인가, 같은 공손 꼴의 변이인가?<br />
+- 다섯 자리 가운데 들은 이가 하나님인 자리(창 18 · 삿 6)와 사람인 자리(창 44 · 출 32)가 같은 꼴을 쓴다는 사실은, 이 꼴을 「신학적 말」이 아니라 「청하는 말」로 분류하게 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 1단계의 층 표와 4단계의 정경 무늬를 하나의 틀로 엮는다.</p>
+<h3>0 유추 (Analogizing) — "처분 문서의 낱말이 청구서에"</h3>
+<p>세무 일터에는 두 종류의 문서가 있다. 하나는 과세관청이 쓰는 문서다 — 결정 통지, 고지서. 그 문서에서 「부과한다」 · 「가산세」 같은 낱말은 처분하는 쪽의 평서문에 놓인다. 다른 하나는 납세자가 쓰는 문서다 — 이의를 다투거나 사정을 아뢰는 청구서. 청구서를 쓰는 사람은 처분 문서의 그 낱말을 가져와 전혀 다른 꼴로 쓴다. 「가산세를 부과하지 말아 주십시오.」</p>
+<p>낱말은 같다. 그러나 처분 문서에서 그 낱말은 일어난 일 · 일어날 일을 <strong>통지하는</strong> 꼴이고, 청구서에서는 그 일이 <strong>없기를 청하는</strong> 꼴이다. 쓰는 사람도 다르다. 앞의 것은 권한을 가진 쪽, 뒤의 것은 그 권한 앞에 선 쪽이다. 그리고 청구서의 그 문장은 대개 정해진 공손한 서두와 함께 온다 — 일터 사람이라면 누구나 아는 양식이다.</p>
+<p>이 유추가 비추는 것: 5단계 지도의 「서술층 · 사실의 법」에서 「발화층 · 의지의 법」으로의 이동은, <strong>권한 쪽 문서의 낱말이 그 앞에 선 사람의 청원 문장으로 들어가는 이동</strong>과 모양이 같다. 그리고 청원서의 공손한 서두가 그 청구의 옳고 그름을 정하지 않듯, 6:39의 공손 꼴도 청의 옳고 그름을 정하지 않는다(4단계).</p>
+<p>이 유추가 넘지 않는 선: ⛔ 하나님을 과세관청에, 기드온을 납세자에 겹치지 않는다. 유추는 <strong>문장 안 낱말의 위치 이동</strong>까지다. ⛔ 「청구서의 서두를 잘 쓰면 처분이 바뀐다」로 6:40을 읽지 않는다 — 6:40 「그렇게 하셨다」의 성격은 열려 있다(봉합 5).</p>
+<blockquote>
+<p>[!insight] 6:39의 축은 「권한 쪽 평서문의 낱말이 그 앞에 선 사람의 청원 문장에 들어가는 이동」과 모양이 같다. 일터 사람에게 익숙한 이 이동이, 공손 꼴이 내용 판정이 아니라는 4단계의 결론을 몸에 익은 감각으로 받쳐 준다.</p>
+<p>[!question] 연결 질문<br />
+- 청원서에서 처분 문서의 낱말을 그대로 가져오는 것과 풀어 쓰는 것(「진노하지 마옵소서」처럼)은 무엇이 다른가 — 개역한글의 역어 선택은 이 차이 중 어느 쪽인가?<br />
+- 유추가 「위치 이동」에서 멈추게 하려면 비유의 어느 요소를 의도적으로 지워야 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 문서 위의 이동을 이제 읽는 사람의 몸, 곧 혀와 목소리에서 느껴 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "3인칭을 2인칭으로 읽는 혀"</h3>
+<p>사사기 2:14의 개역한글을 소리 내어 읽는다. 「여호와께서 이스라엘에게 진노하사 노략하는 자의 손에 붙여 …」 목소리는 평평하다. 이야기꾼의 목소리다. 2:20을 읽는다. 「여호와께서 이스라엘에게 진노하여 이르시되 …」 3:8을 읽는다. 「여호와께서 이스라엘에게 진노하사 그들을 메소보다미아 왕 구산 리사다임의 손에 파셨으므로 …」 세 번 모두 3인칭 주어가 앞에 서고, 혀는 남의 일을 전하는 속도로 움직인다.</p>
+<p>그다음 6:39를 같은 목소리로 읽어 본다. 「주여 내게 진노하지 마옵소서.」 평평한 목소리로는 이 문장이 읽히지 않는다. 어미가 「마옵소서」로 내려앉기 때문이다. 혀는 저절로 속도를 늦추고 목소리는 낮아진다. 「내게」라는 말에서 읽는 사람 자신이 문장 안의 대상 자리에 들어간다. 3인칭으로 읽던 관용구가 2인칭 앞의 1인칭 문장으로 바뀌는 순간을 혀가 먼저 안다.</p>
+<p>원어 쪽에서는 더 분명하다. 관용구의 주어는 <code>אַף</code>, 곧 「코」다(구문묵상 §4 ②: 「코」가 주어인 관용구). 서술자의 문장에서 그 코는 「여호와의」이고, 6:39에서는 「당신의」(<code>אַפְּךָ</code>)다. 말하는 사람은 그 코를 3인칭으로 가리키지 않고 마주한 상대의 것으로 부른다. 몸으로 생각하면 이것은 <strong>옆에서 보던 얼굴을 정면으로 마주하는</strong> 자세의 변화다.</p>
+<p>여기서 멈춘다. ⛔ 「코가 탄다」는 관용구를 얼굴이 붉어지는 노의 생리로 늘려 하나님의 감정을 그리지 않는다(§7-8 · 봉합 4). 몸으로 느낀 것은 <strong>읽는 사람의 자세</strong>이지, 들은 이의 마음이 아니다.</p>
+<blockquote>
+<p>[!insight] 같은 관용구를 3인칭 서술로 읽을 때와 2인칭 앞의 청으로 읽을 때, 읽는 사람의 혀와 자세가 달라진다. 「옆에서 보던 얼굴을 정면으로 마주한다」 — 이것이 층 이동의 몸의 감각이다.</p>
+<p>[!question] 연결 질문<br />
+- 회중 낭독에서 2:14와 6:39를 같은 사람이 같은 목소리로 읽으면 무엇이 지워지는가?<br />
+- 「내게」(<code>בִּי</code>)가 문장 안에서 말하는 사람을 대상 자리에 둔다는 사실은, 읽는 사람이 그 문장을 자기 기도로 옮겨 읽을 때 어떤 경계를 요구하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 몸에서 느낀 자세의 변화를, 이 문장을 다룬 사람들의 자리에서 다시 느껴 본다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "적힌 일과 청한 일"</h3>
+<p>같은 관용구를 세 차원에서 잰다.</p>
+<p><strong>시간 차원</strong> — 서술자의 여섯 자리는 wayyiqtol, 곧 이야기 속에서 이미 일어난 일의 사슬이다. 6:39의 지시형은 일어나지 않은 일을 향한다. 같은 낱말이 한쪽에서는 지나간 일을 적고, 다른 쪽에서는 아직 오지 않은 일이 오지 않기를 청한다. 그리고 6:40은 다시 wayyiqtol로 돌아와 「그렇게 하셨다」를 적는다. 시간축 위에서 6:39는 <strong>두 서술(6:38 · 6:40) 사이에 끼인 의지의 순간</strong>이다. 6:40이 6:39의 지시형 <code>יְהִי־נָא חֹרֶב אֶל־הַגִּזָּה לְבַדָּהּ</code>의 낱말을 결과로 되받는다는 사실(구문묵상 §3-7)은 적을 수 있다. 그러나 「코가 타지 마소서」라는 앞부분에 대해서는 6:40이 아무것도 되받지 않는다. 그 부분의 결과는 적혀 있지 않다.</p>
+<p><strong>범위 차원</strong> — 1단계는 사사기(한 책)에서 쟀고, 4단계는 정경(창 · 출)으로 넓혔다. 범위를 바꿀 때마다 「유일」의 뜻이 바뀐다. 사사기 범위에서 6:39는 인물 발화 하나다. 정경 범위에서 6:39는 정해진 공손 꼴의 한 사례다. 차원적 사고의 교훈은 단순하다 — <strong>모집단을 밝히지 않은 「유일」은 문장으로 쓰지 않는다.</strong></p>
+<p><strong>층 차원</strong> — 이 단위에는 세 층이 겹친다. 서술층(신명 넷 · 하나님 주어 정동사 하나), 발화층(2ms만 · 신명 없음), 역본층(「주께서」 · 「주여」 · 「진노하지」 · 「시험하게 하소서」). 역본층은 발화층 안에 신명과 호격을 넣어 서술층과 비슷하게 보이게 만든다. 층을 하나 지우면(역본층을 걷으면) 발화층의 모양이 드러난다 — 상대를 이름 없이 「당신」으로 부르고, 그 「당신」의 코가 타지 않기를 청하는 문장.</p>
+<blockquote>
+<p>[!insight] 6:39는 시간축에서 두 서술 사이의 의지의 순간이고, 범위축에서 「사사기 하나 · 정경 정해진 꼴」이며, 층축에서 역본이 덧칠한 발화층이다. 세 축 모두에서 6:39의 결과(앞부분 「타지 마소서」에 대한)는 적혀 있지 않다.</p>
+<p>[!question] 연결 질문<br />
+- 6:40이 6:39 뒷부분(양털 · 땅)의 낱말만 되받고 앞부분(코 · 노)은 되받지 않는다는 사실을, 판정 없이 설교 문장으로 옮기면 어떤 모양이 되는가?<br />
+- 역본층을 걷어 낸 발화층을 회중에게 보여 주려면, 낭독이나 화면에서 어떤 표시가 필요한가?</p>
+</blockquote>
+<p><strong>다리</strong>: 세 축의 결과를 손에 잡히는 하나의 모형으로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>성경 본문</strong> (원문 · 꼴은 구문묵상 문면에서)</p>
+<ul>
+<li><strong>창 18:30 · 18:32 ↔ 삿 6:39</strong> — <code>אַל־נָא יִחַר לַאדֹנָי וַאֲדַבְּרָה אַךְ־הַפַּעַם</code>. 하나님 앞에서 말을 이어 가는 아브라함의 말투(구문묵상 Q1 · 통찰 1의 장면 기재)가 6:39 첫 마디와 거의 같은 꼴이다. 개혁신학이 이 병행에서 붙들 것은 「하나님 앞에서 청하는 사람이 자기 자리를 아는 말투」라는 사실까지다. 아브라함의 청과 기드온의 청이 같은 내용이었다거나 같은 평가를 받았다고 잇지 않는다.</li>
+<li><strong>창 44:18 ↔ 삿 6:39</strong> — <code>וְאַל־יִחַר אַפְּךָ בְּעַבְדֶּךָ</code>. 2ms 접미가 붙은 「당신의 코」와 <code>בְּ</code> 대상 짜임이 6:39 <code>אַפְּךָ בִּי</code>와 같다. 듣는 이가 사람(유다가 마주한 윗사람)인 자리에서도 같은 꼴이 쓰인다는 사실은, 이 꼴이 신학적 특수어가 아니라 <strong>청하는 말의 일반 문법</strong>임을 보여 준다.</li>
+<li><strong>사사기 2:14 · 2:20 · 3:8 · 10:7 (서술층)</strong> — 개혁신학은 하나님의 노를 성경이 서술하는 언어로 진지하게 받는다. 그러나 이 단위에서는 그 서술의 언어가 인물의 입에서 청원으로 바뀌었다는 사실만 적고, 6:39에서 하나님의 감정이 실제로 어떠했는지는 묻지 않는다(§7-8). 신인동형적 표현을 신학적으로 다루는 일은 이 본문의 몫이 아니다.</li>
+</ul>
+<p><strong>신앙고백 (대조하지 않은 것은 「요지」)</strong> — 웨스트민스터 신앙고백 21장 3절은 요지로, 기도가 감사와 함께 성자의 이름으로, 성령의 도우심을 따라, 그분의 뜻에 맞게 드려져야 한다고 말한다(요지 · 원문 대조 안 함). 이 고백은 기도의 <strong>꼴과 자리</strong>를 말하지, 기도로 하나님의 뜻을 확인하는 절차를 말하지 않는다. 6:39를 그 고백에 비추면, 청원 공손 꼴은 기도하는 사람의 자리를 보여 주는 말투로 읽을 수 있으나, 양털 방식을 오늘의 절차로 세우는 근거는 되지 않는다. 구문묵상 §6 ③ 그대로 — 개혁신학은 서사에 적힌 일과 성경이 명한 일을 가른다. 이 단락에 관해 신앙고백서가 따로 내린 규정은 확인하지 않았다.</p>
+<ul>
+<li>
+<p><strong>인격의 열매</strong>: 이 본문을 설교할 때 6:39를 두 번 읽는다. 한 번은 개역한글로, 한 번은 「당신의 코가 내게 타지 마소서」라는 원문 뜻으로. 그리고 2:14 한 절을 앞에 읽어 두어, 같은 관용구가 이야기꾼의 목소리로 먼저 나왔다는 것을 회중이 귀로 듣게 한다. 설교자는 6:39와 6:40 사이에 「그래서 하나님은 …」이라는 해설 문장을 넣지 않는다(11단계 게임 2). ⚠ 개역한글 「주여」 · 「주께서」는 원문에 없으므로 그 낱말을 근거로 기드온의 신앙 상태를 말하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 낭떠러지가 셋이다. ① <strong>정죄형</strong>: 「기드온은 하나님을 시험한 불신앙의 사람」 — 6:39의 공손 꼴과 판정 부재를 지운다. 마스터 §6-2가 막은 「기드온은 의심 많은 신앙」이 바로 이것이다. ② <strong>승인형</strong>: 「하나님은 조건 기도에 응답하신다」 — 6:40의 성격(봉합 5)을 닫고 §7-15를 어긴다. ③ <strong>영웅형</strong>: 「하나님 앞에서도 담대히 청한 기드온」 — 구문묵상 바뀐 판단 7이 거둔 「대담」 신호를 되살린다. 복음은 이 셋 어느 쪽으로도 기드온을 쓰지 않는다. 본문이 남긴 것은, 하나님 쪽 낱말을 빌려 「그러지 마소서」라고 청한 사람이 있었고, 하나님이 그 밤에 그렇게 하셨다는 서술이다. 그 사이를 우리의 판정으로 메우지 않을 때, 은혜는 「청이 옳았기 때문」이 아니라 서술된 하나님의 행하심 그 자체로 남는다.</p>
+</li>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>① 목회 — 「양털」 질문을 받았을 때 본문의 층부터 보여 준다</strong><br />
+<em>상황</em>: 진로나 결혼을 앞둔 청년이 「기드온처럼 조건을 걸고 기도해도 되느냐」고 묻는다.<br />
+<em>적용</em>: 10단계 「층 표시 본문표」를 함께 펼친다. 권하지도 막지도 않고(§7-15), 6:39의 첫 마디가 정경의 청하는 사람들의 말투라는 것, 그리고 서술자가 그 청에 평가를 쓰지 않았다는 것을 본문 그대로 보여 준다. 대화의 끝에 「그러니 이렇게 하라」는 방법을 주지 않는다.<br />
+<em>기대 효과</em>: 청년의 물음이 「방법의 허락」에서 「본문이 적은 데까지 함께 읽기」로 옮겨 간다. 목회자도 본문을 근거로 한쪽 방법을 승인하거나 정죄하는 자리에 서지 않게 된다.</p>
+<p><strong>② 세무 실무 — 고객의 공손한 서두를 사안 판정의 근거로 읽지 않는다</strong><br />
+<em>상황</em>: 고객이나 거래처가 보낸 소명 자료나 사과 메일이 「노여워 마시고 한 번만 말씀드리겠습니다」 같은 정중한 서두로 시작한다. 실무자는 그 말투에 끌려 사안의 사실관계를 덜 따지거나, 반대로 「변명이 길다」며 미리 불신하기 쉽다.<br />
+<em>적용</em>: 4단계의 결론을 업무 규칙으로 쓴다 — <strong>공손 꼴은 말투의 사실이고, 사안의 옳고 그름을 정하지 않는다.</strong> 검토 메모를 두 칸으로 나눈다. 「말투」 칸(서두 · 경어)과 「사실」 칸(증빙 · 일자 · 금액). 판단은 사실 칸에서만 내린다.<br />
+<em>기대 효과</em>: 정중한 서두에 대한 호감이나 반감이 검토 결과에 섞이지 않는다. 6단계 유추에서 본 것처럼, 처분 쪽 낱말을 빌린 청원 문장은 그 자체로 청원일 뿐 근거가 아니다.</p>
+<p><strong>③ 문서 작성 — 청원서에서 「권한 쪽 낱말」의 위치를 의식한다</strong><br />
+<em>상황</em>: 실무자가 고객을 대신해 관청에 사정을 아뢰는 문서를 쓴다. 처분 문서의 낱말(가산세 · 부과)을 가져와 「하지 말아 달라」는 꼴로 쓴다.<br />
+<em>적용</em>: 6단계 유추대로, 그 낱말이 처분 문서에서 어떤 꼴이었는지와 청원서에서 어떤 꼴이 되는지를 먼저 적어 본다. 청원서의 공손한 서두는 정해진 양식대로 두되, 서두가 청구 이유를 대신하지 않게 이유 문단을 따로 세운다. (특정 법 조문과 절차는 사안마다 확인한다 — 이 노트는 조문을 대조하지 않았다.)<br />
+<em>기대 효과</em>: 문서가 말투로 설득하려는 꼴에서 벗어나, 권한 앞에 선 사람의 정중함과 사실의 근거를 각자의 자리에 둔다.</p>
+<h3>🥇 같은 낱말, 다른 법 — 서술자의 wayyiqtol 여섯과 인물의 부정 지시형 하나</h3>
+<ul>
+<li><strong>핵심</strong>: 사사기에서 <code>חרה</code>+<code>אַף</code>(사사기 범위 · lemma 639 기준 7)는 서술자의 이야기 문장 여섯(2:14 · 2:20 · 3:8 · 10:7 「여호와의 코」 / 9:30 · 14:19 사람의 코)과 인물 발화 안의 부정 지시형 하나(6:39 <code>אַל־יִחַר אַפְּךָ בִּי</code>)로 나뉜다. 낱말은 같고 층과 법이 다르다.</li>
+<li><strong>인격 형성</strong>: 6:39를 「기드온의 마음」으로 읽는 길(불신 · 두려움 · 대담)을 문법의 층으로 막는다. 무게를 수의 희소함이 아니라 층의 이동에 두므로, 모집단을 바꾸어도(정경으로 넓혀도) 주장이 무너지지 않는다.</li>
+<li><strong>연결 고리</strong>: 삿 2:14 · 2:20 · 3:8 · 6:39 · 10:7 / <a href="./18_구문묵상_사사기_6_33-40.html">18_구문묵상_사사기_6_33-40</a> §3-6 · §4 ② / <a href="./01_생각의탄생13단계_사사기_1_1-7_갚음의해석은패자의입에있다.html">01_생각의탄생13단계_사사기_1_1-7_갚음의해석은패자의입에있다</a>(같은 화자 층 계열) / 신규 「같은낱말다른법_삿6_39」(노트 후보)</li>
+</ul>
+<h3>🥈 청원 공손 꼴 다섯 — 말투는 판정이 아니다</h3>
+<ul>
+<li><strong>핵심</strong>: 삿 6:39의 머리는 창 18:30 · 18:32 · 44:18 · 출 32:22와 같은 「<code>אַל</code> + <code>יִחַר</code>」 청원 공손 꼴이다. 듣는 이가 하나님인 자리(창 18 · 삿 6)와 사람인 자리(창 44 · 출 32)가 같은 꼴을 쓴다.</li>
+<li><strong>인격 형성</strong>: 「사사기 안 유일」을 「이례 · 대담」 신호로 키우는 읽기를 정경 병행으로 바로잡는다(구문묵상 바뀐 판단 7). 동시에 그 병행이 청의 옳고 그름을 정하지 않는다는 선을 지켜, 병행을 승인의 근거로도 쓰지 않는다.</li>
+<li><strong>연결 고리</strong>: 창 18:30 · 18:32 · 44:18 / 출 32:22 / 삿 6:39 / 신규 「청원공손꼴_알이하르」(노트 후보)</li>
+</ul>
+<h3>🥉 짧은꼴 하나가 가르는 것 — 예측이 아니라 청</h3>
+<ul>
+<li><strong>핵심</strong>: 6:39 <code>יִחַר</code>는 지시형 짧은꼴이라 미완료 <code>יֶחֱרֶה</code>와 겉꼴로 갈린다. 첫 마디는 「당신의 코가 탈 것이다」라는 예측이 아니라 「타지 마소서」라는 청이다. 같은 절의 <code>אֲנַסֶּה</code>는 꼴로 법이 갈리지 않아(봉합 2) 대조가 된다.</li>
+<li><strong>인격 형성</strong>: 한 절 안에서 법이 확정된 동사(<code>יִחַר</code>)와 열린 동사(<code>אֲנַסֶּה</code>)를 나란히 보여, 어디까지가 원문의 사실이고 어디부터가 판독인지를 문법으로 가른다. 「기드온은 노를 확신했다」 같은 문장이 본문 문장이 아님을 꼴로 보인다.</li>
+<li><strong>연결 고리</strong>: 삿 6:39 / <a href="./18_구문묵상_사사기_6_33-40.html">18_구문묵상_사사기_6_33-40</a> §3-6 · §3-10 · 봉합 2 / 신규 「짧은꼴과열린법_삿6_39」(노트 후보)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 18 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

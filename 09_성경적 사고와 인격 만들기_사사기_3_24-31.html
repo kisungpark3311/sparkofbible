@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>쉰 것은 이스라엘이 아니라 땅이다 — 씨앗 아이디어(사사기 3:30 — הָאָרֶץ(하아레츠))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 9 편 &middot; 사사기 3:24-31</span>
+      <h1>쉰 것은 이스라엘이 아니라 땅이다 — 씨앗 아이디어(사사기 3:30 — הָאָרֶץ(하아레츠))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>09_성경적 사고와 인격 만들기</p>
+<h2>쉰 것은 이스라엘이 아니라 땅이다 — 씨앗 아이디어(사사기 3:30 — הָאָרֶץ(하아레츠))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./09_생각의탄생13단계_사사기_3_24-31_쉰것은이스라엘이아니라땅이다.html">09_생각의탄생13단계_사사기_3_24-31_쉰것은이스라엘이아니라땅이다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"3:14에서 이스라엘 자손은 모압 왕 에글론을 열여덟 해 섬겼습니다. 3:30에서 그 굴복의 방향이 뒤집혀, 모압이 이스라엘의 손 아래로 들어갑니다. 태평했다고 적힌 자리에는 이스라엘이 아니라 「그 땅」이 섭니다."</strong></p>
+<p><strong>"굴복의 방향이 뒤집혔고, 쉼은 땅의 일로 적혔습니다. 열여덟 해 바치던 물건이 그 뒤 어디로 갔는지 이 절은 말하지 않습니다."</strong></p>
+<p><strong>본문 핵심: 3:30은 굴복한 쪽을 모압으로, 쉰 쪽을 땅으로 적고 그 햇수에 풀이를 달지 않는다.</strong></p>
+<p>(출처: <a href="./09_일상의깊은사고_사사기_3_24-31.html">09_일상의깊은사고_사사기_3_24-31</a> 주요 신학 통찰 1️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본_1-5장.md</code> · 3장 · 5장 / <code>_KRV88_정본.md</code> · 8장)</p>
+<blockquote>
+<p>3:14 이에 이스라엘 자손이 모압 왕 에글론을 십 팔년을 섬기니라<br />
+3:30 그 날에 모압 사람이 이스라엘의 수하에 항복하매 그 땅이 팔십년 동안 태평하였더라</p>
+<p>(견줌) 3:11 그 땅이 태평한지 사십년에 그나스의 아들 옷니엘이 죽었더라 · 5:31 (끝) 그 땅이 사십년 동안 태평하였더라 · 8:28 미디안이 이스라엘 자손 앞에 복종하여 다시는 그 머리를 들지 못하였으므로 기드온의 사는날 동안 사십년에 그 땅이 태평하였더라</p>
+</blockquote>
+<p><strong>원문</strong> (<a href="./09_구문묵상_사사기_3_24-31.html">09_구문묵상_사사기_3_24-31</a> §2 · XML)</p>
+<blockquote>
+<p><strong>3:30</strong> וַתִּכָּנַ֤ע מוֹאָב֙ בַּיּ֣וֹם הַה֔וּא תַּ֖חַת יַ֣ד יִשְׂרָאֵ֑ל וַתִּשְׁקֹ֥ט הָאָ֖רֶץ שְׁמוֹנִ֥ים שָׁנָֽה׃ ס</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (<a href="./09_구문묵상_사사기_3_24-31.html">09_구문묵상_사사기_3_24-31</a> §3-0 표 · §3-5 · §4①②)</p>
+<table>
+<thead>
+<tr>
+<th>칸</th>
+<th>첫 동사</th>
+<th>둘째 동사</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>꼴</td>
+<td><code>וַתִּכָּנַע</code>(바티카나) — Niphal wayyiqtol 3fs</td>
+<td><code>וַתִּשְׁקֹט</code>(바티쉬코트) — Qal wayyiqtol 3fs</td>
+</tr>
+<tr>
+<td>주어</td>
+<td><code>מוֹאָב</code> (여성 단수 동사를 받음)</td>
+<td><code>הָאָרֶץ</code> (3fs)</td>
+</tr>
+<tr>
+<td>붙은 말</td>
+<td><code>בַּיּוֹם הַהוּא</code> · <code>תַּחַת יַד יִשְׂרָאֵל</code></td>
+<td><code>שְׁמוֹנִים שָׁנָה</code></td>
+</tr>
+<tr>
+<td>이스라엘의 자리</td>
+<td>「손」의 연계 속격</td>
+<td>없음</td>
+</tr>
+<tr>
+<td>뒷말</td>
+<td>—</td>
+<td>단락 표지 <code>ס</code> (3:11과 달리 죽음 기사가 붙지 않음 · E9)</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수 기준과 모집단</strong>: 모든 계수는 구문묵상 §3-5 · §4의 사사기 전권 XML 계수다. ① 겉꼴 <code>וַתִּשְׁקֹט הָאָרֶץ</code>는 <strong>사사기 안 4</strong> — 3:11(40) · 3:30(80) · 5:31(40) · 8:28(40). 넷 모두 주어는 「땅」이고, 햇수 80은 3:30 하나다. ② <code>כנע</code>(3665)는 사사기 4(니팔 3:30 · 8:28 · 11:33 / 히필 4:23)이고, 「굴복」과 「태평」이 한 절에 서는 것은 3:30 · 8:28 둘이다. ③ 표제어 <code>אֶרֶץ</code> 자체의 사사기 · 구약 계수는 구문묵상에 없다 — 이 노트는 「땅」의 빈도를 쓰지 않는다. ⛔ 계수를 기둥으로 세우지 않는다. 기둥은 <strong>3:30 두 동사의 주어가 각각 모압과 땅이고 이스라엘은 주어 칸에 없다</strong>는 어형 · 구문 사실이다.</p>
+<h3>사고의 통합 — "쉼은 내 이름 앞에 오지 않는다"</h3>
+<p>관찰은 3:30 한 절에서 <strong>주어 칸 둘, 이름 둘</strong>을 셌다. 굴복은 모압에게, 쉼은 땅에게 귀속되고, 이스라엘은 「손 아래」라는 자리말로만 선다. 형상화는 그 사실을 낭독자의 귀로 옮겼다 — 「우리가」를 기대하고 숨을 들이쉰 자리에 「그 땅이」가 놓인 반 박자의 어긋남. 추상화는 그 어긋남을 <strong>귀속</strong>이라는 한 개념으로 줄였고, 그 과정에서 「태평」의 뜻 · 팔십의 까닭 · 두 손의 관계를 손대지 않은 채 옆에 두었다. 패턴 인식은 이 책의 「태평」 넷이 모두 땅을 주어로 한다는 계수에서 이것이 예외가 아니라 배정의 꼴임을 확인했고, 세법 · 농사 · 음악 · 의무기록에서 같은 꼴을 찾았다.</p>
+<p>패턴 형성은 「두 칸 결산」으로 그 꼴을 굳혔고, 결산서의 절반이 「적히지 않은 것」 줄임을 보여 주었다 — 쉼을 준 자, 공물의 행방, 두 칸의 인과. 유추는 세 영역에서 같은 지점, 곧 조건 · 의도 · 시간 관계가 적히지 않은 자리에서 깨졌고, 그 깨지는 자리가 본문이 열어 둔 자리와 겹쳤다. 몸은 귀속을 <strong>기댐</strong>으로 번역했고, 감정이입은 같은 배정이 한 사람에게는 짐을 내려놓게 하고 다른 사람에게는 주인공 자리를 비우게 함을 들었다. 차원적 사고는 한 글자 접두에서 정경의 땅까지 쉼의 주어가 사람 바깥에 적히는 방향을 보았되, 정경 쪽은 3:30이 아니라 정경이 말하는 층임을 밝혔다. 모형은 그것을 「주어 칸 점검 카드」로, 놀이는 「행위자 없는 쉼」이라는 발견으로, 변형은 의견서와 잠언으로 옮겼고, 어디서나 「주어는 원자료대로, 빈칸은 빈칸대로」가 살아남았다.</p>
+<p><strong>① 최종 테제</strong>: 사사기 3:30은 한 사건의 결과를 두 칸에 나누어 적는다 — 굴복은 모압의 동사, 쉼은 땅의 동사다. 이스라엘은 결과의 주어가 아니라 자리의 이름이고, 쉼에는 행위자도 조건도 적히지 않는다. 이 주어 배정을 지키며 읽는 사람은 쉼을 자기 공로의 계정에 넣지 않고, 본문이 비워 둔 칸을 자기 이름으로 메우지 않는다. <strong>② 가장 생산적이었던 도구</strong>는 <strong>놀이</strong>였다 — 주어를 바꿔 넣는 세 판이 「우리가 3:30을 고쳐 읽고 싶을 때마다 쉼에 행위자를 붙인다」는 습관을 드러냈고, 원문의 「땅」이 그 손을 막는 문법임을 보여 주었다. <strong>③ 처음 관찰과 달라진 이해</strong>: 처음에는 「이스라엘이 주어 칸에 없다」를 결핍으로 보았다. 끝에서는 그것이 <strong>놓여남의 자리</strong>로 보인다 — 쉼이 내 이름으로 적히지 않았으니, 쉼을 지키려고 내가 다시 버틸 이유도 그 문장 안에는 없다. 다만 그 놓여남이 누구 덕인지는 3:30이 적지 않으며, 그 고백은 정경 전체의 몫으로 남는다.</p>
+<blockquote>
+<p><strong>"쉼은 내 이름 앞에 오지 않는다. 사사기 3:30은 굴복을 모압에게, 쉼을 땅에게 적고 이스라엘에게는 자리만 준다 — 그 빈 주어 칸을 내 이름으로 메우지 않는 것이, 이 절을 정직하게 읽는 첫걸음이다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "주어 칸 둘, 이름 둘"</h3>
+<p>해석을 미루고, 3:30 한 절을 문장 성분으로만 뜯어 본다.</p>
+<p>첫째, <strong>동사가 둘이고 꼴이 같다</strong>. 둘 다 wayyiqtol, 둘 다 3인칭 여성 단수다. 어간만 다르다 — 첫째는 니팔(굴복하다), 둘째는 칼(태평하다).</p>
+<p>둘째, <strong>주어가 둘이고 서로 다르다</strong>. 첫 동사 앞에는 <code>מוֹאָב</code>, 둘째 동사 뒤에는 <code>הָאָרֶץ</code>. 어느 칸에도 「이스라엘」은 앉지 않는다. 이스라엘은 <code>תַּחַת יַד יִשְׂרָאֵל</code>, 곧 「이스라엘의 손 아래」라는 전치사구 안에서 연계 속격으로만 선다.</p>
+<p>셋째, <strong>붙은 말이 칸마다 다르다</strong>. 굴복 칸에는 때(<code>בַּיּוֹם הַהוּא</code>)와 자리(손 아래)가 붙고, 태평 칸에는 길이(<code>שְׁמוֹנִים שָׁנָה</code>)가 붙는다. 굴복은 「그 날」의 일이고, 태평은 「팔십 년」의 일이다.</p>
+<p>넷째, 같은 단위 안에서 「땅」은 한 번 더 나온다. 3:25 <code>נֹפֵל אַרְצָה מֵת</code> — 구문묵상 구조도는 「땅으로 엎드러져 죽어 있다」(방향 he)로 옮긴다. 다락방 바닥의 「땅으로」와 단락 끝의 「그 땅」이 여덟 절 안에 있다. ⛔ 이 둘을 「왕이 땅에 엎드러지자 땅이 쉬었다」는 인과 · 상징 명제로 잇지 않는다 — 그것은 3:29 일만의 침과 함께 통쾌함의 문법으로 미끄러지는 길이고(§7-2 · §7-4), 원문은 두 낱말을 잇는 말을 두지 않는다. 관찰은 「두 번 있다」까지다.</p>
+<p>다섯째, 개역한글은 「모압 사람이」 · 「그 땅이」로 두 주어를 다 살렸지만, 「항복하매」의 「-매」가 두 문장을 원인과 결과처럼 묶는다. 원문은 wayyiqtol 둘을 잇댈 뿐 「-매」에 해당하는 연결을 두지 않는다(구문묵상 §3-5).</p>
+<blockquote>
+<p>[!insight] 3:30에서 이스라엘은 <strong>결과의 주어가 아니라 자리의 이름</strong>이다. 굴복은 모압에게, 쉼은 땅에게 동사가 귀속되고, 이스라엘은 「손」 한 낱말로 그 자리를 표시할 뿐이다.</p>
+<p>[!question] 연결 질문<br />
+- 개역의 「-매」를 걷으면 두 문장은 원인과 결과인가, 그냥 나란한 두 결산인가 — 원문은 그 사이를 정해 주는가?<br />
+- 「태평」 칸에 이스라엘이 아니라 땅이 앉은 것은, 이 책의 다른 세 「태평」에서도 같은가?</p>
+</blockquote>
+<p><strong>다리</strong>: 주어 칸 두 개를 실제로 읽히는 장면으로 세워, 독자의 귀가 어디서 「우리」를 기대하고 어디서 「땅」을 듣는지 확인한다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "결과를 자리에 적는 문장"</h3>
+<p>먼저 사사기 안에서. 겉꼴 <code>וַתִּשְׁקֹט הָאָרֶץ</code> 넷(3:11 · 3:30 · 5:31 · 8:28)은 <strong>모두 주어가 「땅」</strong>이다(구문묵상 §3-5 계수 · 이 책 안). 넷 가운데 하나에서만 이스라엘이 쉬었다고 적혔다면 3:30의 「땅」은 우연일 수 있겠지만, 그런 자리는 없다. 이 정형은 쉼을 처음부터 땅에 배정한다. ⛔ 3:11 · 5:31 · 8:28을 해석하지 않고 주어 칸만 센다.</p>
+<p>그리고 「굴복 + 태평」이 한 절에 선 둘(3:30 · 8:28)을 나란히 놓으면 굴복 칸의 자리말이 갈린다 — 3:30 <code>תַּחַת יַד יִשְׂרָאֵל</code>(이스라엘의 손 아래), 8:28 <code>לִפְנֵי בְּנֵי יִשְׂרָאֵל</code>(이스라엘 자손 앞에). 두 절 모두 이스라엘은 자리말 속에만 있고, 쉼의 주어는 땅이다.</p>
+<p>다른 도메인에서 같은 꼴을 찾는다.</p>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>패턴 발현</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>세법</td>
+<td>재산세 같은 보유세는 <strong>과세물건(토지 · 건물)</strong>과 <strong>납세의무자(소유자)</strong>를 따로 적는다. 세액이 줄거나 비과세가 될 때 법문의 주어는 흔히 「그 토지」다 — 사람의 형편이 아니라 물건의 요건으로 결과가 정해진다</td>
+</tr>
+<tr>
+<td>농사</td>
+<td>휴경(休耕) — 「밭을 쉬게 한다」. 쉬는 것은 밭이고, 농부는 그 기간에 다른 일을 한다</td>
+</tr>
+<tr>
+<td>음악</td>
+<td>쉼표는 연주자가 아니라 <strong>마디</strong>에 적힌다. 연주자는 쉼표를 「갖지」 않고 그 마디를 지나간다</td>
+</tr>
+<tr>
+<td>의무기록</td>
+<td>「환부가 안정되었다」와 「환자가 회복되었다」는 다른 기록이다 — 부위의 상태와 사람의 상태를 따로 쓴다</td>
+</tr>
+</tbody>
+</table>
+<p><strong>공통 패턴 한 문장</strong>: 결과가 사람의 이름 앞에 오지 않고 <strong>사람이 머무는 자리</strong>의 이름 앞에 적히면, 그 결과는 사람의 성취나 소유로 계산되지 않는다.</p>
+<blockquote>
+<p>[!insight] 3:30은 예외적 표현이 아니라 <strong>배정 규칙</strong>처럼 읽힌다 — 이 책에서 「태평」은 넷 모두 땅의 동사다. 그래서 질문이 바뀐다: 「왜 여기서 땅인가」가 아니라 「이 정형은 왜 쉼을 늘 사람 아닌 자리에 적는가」 — 그리고 그 물음의 답을 본문은 주지 않는다.</p>
+<p>[!question] 연결 질문<br />
+- 굴복 칸은 사람(모압)인데 쉼 칸은 왜 사람이 아닌가 — 두 칸이 서로 다른 종류의 결과라는 표시인가?<br />
+- 「사람이 머무는 자리」에 결과가 적힐 때, 그 자리를 떠난 사람에게 그 결과는 따라가는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 네 영역에서 본 꼴을 하나의 도식으로 묶어, 3:30을 읽는 틀로 정제한다.</p>
+<h3>0 유추 (Analogizing) — "과세물건과 납세의무자"</h3>
+<p><strong>유추 ① — 세무: 물건에 적히는 감면.</strong> 토지에 관한 감면 · 비과세 규정은 흔히 「○○에 사용하는 토지」처럼 <strong>물건의 요건</strong>을 주어로 세우고, 그 결과가 소유자의 세액에 반영된다(구체 조문은 대조하지 않았다 · 요지). 상담 현장에서 고객은 「제가 감면받았다」고 말하지만, 법문의 논리로는 「그 토지가 요건을 갖추었다」가 먼저다. 그래서 땅을 팔거나 용도를 바꾸면 그 결과는 사람을 따라가지 않는다.<br />
+→ <strong>새 통찰</strong>: 3:30의 쉼도 「그 땅」에 적혔다. 쉼은 사람의 공로 계정에 들어가지 않는다.<br />
+→ <strong>깨지는 지점</strong>: 세법의 물건 요건은 사람이 충족시킬 수 있는 조건이지만, 3:30은 쉼의 조건을 하나도 적지 않는다. 「땅이 요건을 갖추어 쉬었다」로 옮기면 원문에 없는 조건절을 만든다.</p>
+<p><strong>유추 ② — 음악: 마디에 적힌 쉼표.</strong> 연주자는 쉼표 동안 악기를 내려놓지 않는다. 쉼표는 연주자의 휴가가 아니라 곡의 시간에 적힌 표시다.<br />
+→ <strong>새 통찰</strong>: 「팔십 년」은 쉼 칸의 길이 항목 — 곡의 몇 마디처럼 <strong>시간에 적힌 값</strong>이다. 연주자가 그 마디를 「소유」하지 않듯, 이스라엘도 그 팔십을 자기 이름으로 받지 않는다.<br />
+→ <strong>깨지는 지점</strong>: 쉼표는 작곡자가 의도해 넣은 것이지만, 3:30은 쉼의 「작곡자」를 적지 않는다. 의도를 읽어 넣으면 봉합 9(왜 80인가)를 닫게 된다.</p>
+<p><strong>유추 ③ — 농사: 휴경지.</strong> 밭이 쉬는 동안 농부는 일하지 않는 것이 아니라 다른 자리에서 일한다.<br />
+→ <strong>새 통찰</strong>: 땅의 쉼과 사람의 일은 동시에 있을 수 있다. 3:30은 그 팔십 년 동안 사람이 무엇을 했는지 적지 않는다 — 그리고 3:31은 「그 뒤에」(<code>וְאַחֲרָיו</code>) 삼갈이 블레셋과 싸운 일을 덧붙인다.<br />
+→ <strong>깨지는 지점</strong>: 3:31의 「그 뒤」가 팔십 년 안인지 밖인지 원문은 말하지 않는다(봉합 11). 「땅은 쉬었지만 사람은 싸웠다」로 쓰면 봉합 11을 닫는다. 유추는 「동시에 있을 수 있다」까지만 허락한다.</p>
+<blockquote>
+<p>[!insight] 세 유추가 같은 곳에서 깨진다 — <strong>조건 · 의도 · 시간 관계를 3:30이 적지 않는다는 지점</strong>. 유추가 깨지는 자리가 곧 본문이 열어 둔 자리다.</p>
+<p>[!question] 연결 질문<br />
+- 「쉼이 공로 계정에 들어가지 않는다」는 통찰은 은혜의 언어로 옮겨도 되는가, 아니면 그것도 조건을 넣는 일인가?<br />
+- 고객에게 「감면은 땅의 요건이지 당신의 성취가 아니다」라고 말할 때 생기는 저항은, 3:30을 「우리가 쉬었다」로 읽고 싶은 마음과 같은 뿌리인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 머리로 세운 유추를 몸의 자세로 옮겨, 「쉼이 내 이름 앞에 오지 않는다」를 근육이 어떻게 받아들이는지 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "손바닥을 바닥에"</h3>
+<p><strong>실천 프로토콜</strong>: 앉은 채 3:27-30을 소리 내어 읽는다. 사람이 주어인 문장(「불매」 · 「내려오니」 · 「내려가서」 · 「죽였으니」)에서는 두 손을 무릎 위에 둔다. 3:30 「모압 사람이 … 항복하매」에서도 그대로 둔다. 「그 땅이」에서 <strong>두 손바닥을 천천히 바닥(또는 책상 면)에 내려 붙인다</strong>. 「팔십년 동안 태평하였더라」를 다 읽을 때까지 손을 떼지 않는다. 그리고 눈을 감고, 손바닥에 닿은 면이 무엇을 하고 있는지 느껴 본다.</p>
+<p><strong>몸의 반응이 가르쳐 주는 것</strong>: 손을 바닥에 붙이는 순간 「주어」가 내 가슴(나)에서 손 아래의 면으로 옮겨 간다. 바닥은 아무것도 하지 않는다 — 그저 받치고 있다. 「태평했다」는 동사가 나의 동작이 아니라 <strong>내가 기대고 있는 것의 상태</strong>로 느껴진다. 그리고 묘하게도, 손을 내려놓은 사람이 가장 편하다. 쉼이 내 이름으로 적히지 않았다는 것이 박탈감이 아니라 기댈 곳으로 다가온다.</p>
+<p><strong>설교 전달 연결</strong>: 3:30을 낭독할 때 손을 펴서 아래로 내리는 동작 하나 — 「쉰 것은 우리가 아니라 그 땅입니다」를 말로 하지 않고 손으로 보여 준다. ⛔ 3:29를 읽을 때는 어떤 제스처도 두지 않는다(구문묵상 포인트 2 · 「다른 절과 같은 목소리로」) — 침의 장면을 몸으로 재연하지 않는다.</p>
+<blockquote>
+<p>[!insight] 몸은 「귀속」을 <strong>기댐</strong>으로 번역한다. 쉼이 땅에 적혔다는 사실은 머리에서는 소유권의 문제지만, 손바닥에서는 「나는 받쳐지는 쪽이다」라는 자세가 된다.</p>
+<p>[!question] 연결 질문<br />
+- 손을 바닥에 붙였을 때의 편안함은 본문이 주는 것인가, 내가 얹은 것인가 — 그 둘을 어떻게 가를까?<br />
+- 기댐의 자세가 3:31(삼갈이 막대기를 든 손)과 나란히 놓이면 무엇이 달라지는가 — 그 둘의 시간 관계를 정하지 않은 채로?</p>
+</blockquote>
+<p><strong>다리</strong>: 몸으로 느낀 「기댐」을 1인칭 목소리로 옮겨, 이 주어 배정을 가장 반기는 마음과 가장 불편해하는 마음을 각각 들어 본다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "한 글자 타브에서 정경의 땅까지"</h3>
+<p><strong>미시로 축소 — 한 글자.</strong> <code>וַתִּשְׁקֹט</code>의 접두 <code>ת</code>(타브)가 3인칭 여성 단수를 표시한다. 이 한 글자가 동사를 「그녀가 — 땅이」로 묶는다. 바로 앞 <code>וַתִּכָּנַע</code>도 같은 접두로 모압을 받는다. 3:27-29의 사람 주어 동사들은 3ms · 3mp 접두를 달았다. 3:30에서 접두가 여성 단수로 바뀌는 그 글자가 「주어가 사람 무리에서 이름 둘로 바뀌었다」는 표지다(구문묵상 §3-0 표 · §3-5). 귀속은 거창한 신학 이전에 <strong>동사 머리의 한 글자</strong>에 새겨져 있다.</p>
+<p><strong>시간으로 확대 — 이 책 안.</strong> 단락은 「섬김 열여덟 해」(3:14)로 무겁게 시작해 「태평 팔십 년」(3:30)으로 닫힌다. 두 수 모두 단락 안에 있다. ⛔ 그러나 둘을 나누거나 곱하거나 견주어 뜻을 만들지 않는다 — 팔십의 까닭은 열려 있다(봉합 9). 시간 축이 보여 주는 것은 「주어가 바뀌었다」는 것뿐이다: 열여덟 해의 주어는 「이스라엘 자손」(섬기니라)이었고, 팔십 년의 주어는 「그 땅」이다.</p>
+<p><strong>구속사로 확대 — 정경의 땅.</strong> <em>본문은 말하지 않지만</em>, 정경 전체에는 땅을 쉼의 주어로 적거나 땅에 쉼을 배정하는 본문들이 있다. 여호수아는 정복 기사 끝에 「그 땅이 전쟁에서 쉬었다」는 취지의 문장을 둔다(수 11:23 · 14:15 — 원문 · 개역 미대조 · 요지). 레위기는 일곱째 해에 「땅이 쉬게」 하라고 명한다(레 25:2-5 — 미대조 · 요지 · 동사는 같은 낱말이 아닐 수 있다). 바울은 피조물이 썩어짐의 종노릇에서 해방되기를 기다린다고 쓴다(롬 8:19-22 — 요지). 이 정경의 층에서 땅은 사람의 무대 소품이 아니라 하나님의 일하심 아래 함께 놓인 피조물이다. ⛔ 이 본문들은 3:30의 낱말이나 의도를 정하지 않으며, 3:30을 그것들의 예고나 성취로 세우지 않는다 — 「뻗을 여지」의 층이다.</p>
+<p><strong>핵심 전복: 차원을 바꾸자 「쉼」은 사람이 쟁취해 보유하는 상(賞)에서, 땅에 내려앉는 상태로 바뀌었다 — 한 글자 접두에서 정경의 땅까지, 쉼의 주어는 사람 바깥에 적힌다.</strong></p>
+<blockquote>
+<p>[!insight] 미시(한 글자)와 거시(정경)가 같은 방향을 가리킨다 — 쉼은 사람 무리의 동사 뒤에 「새 주어」로 온다. 단, 거시 쪽은 3:30이 아니라 <strong>정경이</strong> 말하는 것이고, 그 층을 밝혀 두어야 확장이 정직하다.</p>
+<p>[!question] 연결 질문<br />
+- 「주어가 바뀌었다」는 시간 축의 사실을, 수의 비교 없이 설교에서 어떻게 전할 수 있을까?<br />
+- 정경의 「땅의 쉼」 본문들을 3:30 곁에 둘 때, 3:30 자신의 침묵(쉼을 준 자를 적지 않음)은 어떻게 지켜지는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 차원에서 얻은 원칙 — 「결과의 주어를 원문대로 적는다」 — 을 실제로 쓸 수 있는 점검 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>1. 실질 접점이 있는 정경 본문 (층을 밝혀서)</strong></p>
+<ul>
+<li><strong>여호수아 11:23 · 14:15</strong> (요지 · 원문 · 개역 미대조) — 정복 기사 끝에 땅이 전쟁에서 쉬었다는 취지의 맺음이 있다. 3:30과 함께 「땅을 쉼의 주어로 적는 맺음」을 정경이 거듭 쓴다는 것을 보여 줄 수 있다. ⛔ 낱말 · 꼴의 일치는 이 노트가 확인하지 않았으므로 「같은 정형」이라 하지 않는다.</li>
+<li><strong>레위기 25:2-5</strong> (요지 · 미대조) — 땅의 안식년. 쉼을 땅에 배정하는 율법의 언어. 3:30이 이 율법을 가리킨다고 말하지 않는다 — 다만 정경 안에서 땅이 하나님의 질서 아래 「쉬는 주체」로 다뤄진다는 넓은 배경이 된다.</li>
+<li><strong>로마서 8:19-22</strong> (요지) — 피조물의 고대와 해방. <em>본문(3:30)은 말하지 않지만</em>, 정경 전체에서 땅과 피조물의 쉼은 구속의 완성과 맞닿는다. ⛔ 구문묵상 C4는 이 단위의 그리스도 연결을 ✕7 · 재료 부재로 판정했다. 따라서 「팔십 년 태평 → 그리스도의 평화」, 「에훗 → 그리스도」를 세우지 않는다. 그리스도와 그의 안식(마 11:28 · 히 4장)은 3:30의 예표 해석이 아니라 <strong>정경 전체의 고백</strong>으로서만 이 노트 곁에 선다.</li>
+</ul>
+<p><strong>2. 신학자</strong>: 헤르만 바빙크는 『개혁교의학』 종말론에서 구속이 영혼만이 아니라 땅을 포함한 피조 세계 전체의 회복에 이른다고 가르친다(요지 · 저작 위치 미대조). 이 관점은 3:30의 「땅」을 무대 소품이 아니라 하나님의 통치 아래 놓인 피조물로 읽게 돕는다. 다만 바빙크의 종말론을 3:30의 의도로 읽어 넣지 않는다.</p>
+<p><strong>3. 하이델베르크 요리문답 제103문</strong> (요지 · 대조하지 않음) — 안식일 계명의 해설에서 「이 생에서 영원한 안식을 시작한다」는 취지를 말한다. 쉼을 사람이 쟁취하는 상이 아니라 하나님이 일하시도록 내어 드리는 자리로 보는 개혁파의 안식 이해는, 「쉼을 내 공로 계정에 넣지 않는다」는 이 노트의 테제와 접점을 갖는다 — 접점이지 3:30의 해석이 아니다.</p>
+<p><strong>4. 설교 적용점</strong>: 3:30을 설교할 때 「우리가 이겼으니 평안을 누리자」로 맺지 않는다. 「쉰 것은 그 땅이었다」는 원문의 주어를 그대로 읽어 주고, 쉼을 지키려는 자기 노력의 짐을 내려놓게 하되, 그 쉼을 준 분에 대한 고백은 3:30이 아니라 단락 머리 3:15의 서술자 문장과 정경 전체의 복음에서 가져온다.</p>
+<p><strong>5. 복음 중심성 점검</strong>: 이 노트가 도덕주의로 귀결되는가? 「주어를 바르게 적으라」만 남으면 정직성의 교훈이 된다. 그러나 테제의 중심은 「쉼은 내 이름 앞에 오지 않는다」 — 쉼이 공로의 결과로 적히지 않았다는 데 있다. 이것은 은혜의 문법과 공명한다. 다만 그 공명을 3:30의 주장으로 만들지 않고, 정경 전체에서 확인되는 복음의 층으로 구별해 둔다.</p>
+<ul>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 원본의 복음 중심성 점검을 따라 은혜의 근거와 순종의 열매를 구별한다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>1. 고객 상담 전이 — 감면 · 비과세 소명</strong><br />
+- <strong>상황</strong>: 고객이 토지 관련 감면을 「제가 받아 낸 것」으로 이해하고, 용도 변경 · 양도 뒤에도 그 효과가 유지되리라 기대한다.<br />
+- <strong>적용(두 칸 결산)</strong>: 상담 기록에 「감면의 요건 주체 = 그 토지(용도 · 기간)」와 「납세의무자 = 고객」을 칸을 나누어 적는다. 요건이 물건에 걸려 있음을 보여 주고, 물건의 사정이 바뀌면 결과도 따라 바뀐다는 점을 사전에 설명한다(구체 조문은 사안별 대조 · 요지).<br />
+- <strong>기대 효과</strong>: 사후 추징에 대한 오해와 분쟁이 줄고, 고객이 「내 공로」가 아니라 「요건의 유지」에 주의를 기울이게 된다.</p>
+<p><strong>2. 조직 · 교회 행정 전이 — 연말 보고서 · 당회 회의록</strong><br />
+- <strong>상황</strong>: 회의록과 보고서가 「우리 교회가 ○○을 이겨 내고 평안을 누렸다」는 결과 문장으로 가득하다.<br />
+- <strong>적용(주어 칸 점검 카드)</strong>: 결과 문장마다 원자료(합의서 · 판결 · 결산서)의 주어를 확인하고, 「덕분에 · 그래서」 같은 연결어와 기재되지 않은 까닭을 회의록 서술에서 빼며, 고백과 감사는 「기도 · 고백」 항목으로 따로 적는다.<br />
+- <strong>기대 효과</strong>: 기록이 사실 문서로 남아 훗날 분쟁 시 증거력이 높아지고, 감사는 서술과 섞이지 않아 더 분명해진다.</p>
+<p><strong>3. 개인 의사결정 전이 — 쉼을 대하는 습관</strong><br />
+- <strong>상황</strong>: 한 해의 큰일이 끝난 뒤, 그 평온을 「내가 버틴 결과」로 여기고 그것을 지키려 다시 긴장한다.<br />
+- <strong>적용(몸 프로토콜)</strong>: 저녁에 3:30을 읽으며 「그 땅이」에서 손바닥을 책상 면에 내려놓는다. 평온의 주어를 내 이름이 아니라 내가 머무는 자리(집 · 일터 · 관계)로 적어 본다 — 일기 한 줄: 「오늘 ○○이 평온했다」.<br />
+- <strong>기대 효과</strong>: 쉼을 지키려는 과잉 긴장이 풀리고, 쉼을 소유가 아닌 받쳐짐으로 경험한다. ⛔ 이 습관이 「태평 = 신앙의 상태」라는 등식을 만들지 않도록, 일기에 영적 평가어를 붙이지 않는다.</p>
+<h3>🥇 쉼은 행위자 없는 동사로 적힌다 — 사사기 「태평」 정형의 주어 배정</h3>
+<ul>
+<li><strong>핵심</strong>: 사사기의 겉꼴 <code>וַתִּשְׁקֹט הָאָרֶץ</code> 넷은 모두 「땅」을 주어로 하고, 3:30은 같은 절에서 굴복은 모압에게, 쉼은 땅에게 배정한다. 쉼에는 사역형도, 자리말도, 행위자도 붙지 않는다.</li>
+<li><strong>인격 형성</strong>: 흔히 「이스라엘이 평안을 누렸다」로 요약되는 순환 틀의 맺음이 원문에서는 사람을 주어 칸에서 빼고 쓴다는 점을 어형으로 보여 준다 — 「승리 → 보상」 공식을 원문이 쓰지 않는다는 근거가 된다(뜻 · 수 · 인과는 열어 둔 채).</li>
+<li><strong>연결 고리</strong>: <a href="./09_구문묵상_사사기_3_24-31.html">09_구문묵상_사사기_3_24-31</a> §3-5 · <a href="./00_사사기_묵상단위_마스터.html">00_사사기_묵상단위_마스터</a> U11 · 수 11:23(요지) · 「행위자 없는 동사 — 결과 귀속의 문법」(노트 후보)</li>
+</ul>
+<h3>🥈 두 칸 결산 — 결과를 칸별 주어로 적는 읽기와 기록의 규칙</h3>
+<ul>
+<li><strong>핵심</strong>: 한 사건의 결과를 칸마다 자기 주어로 적고, 칸 사이의 인과와 「적히지 않은 것」을 메우지 않는다. 3:30 · 세무 소명 · 교회 회의록에 같은 규칙이 통한다.</li>
+<li><strong>인격 형성</strong>: 본문 해석의 정직성과 실무 문서의 증거력을 한 규칙으로 묶는다 — 「진술임을 구분 표시하라」는 실무 원칙이 설교의 「본문 사실 / 적용」 구분과 같은 뿌리임을 보여 준다.</li>
+<li><strong>연결 고리</strong>: 「주어 칸 점검 카드」(노트 후보) · <a href="./09_일상의깊은사고_사사기_3_24-31.html">09_일상의깊은사고_사사기_3_24-31</a> 포인트 2 · <a href="./04_생각의탄생13단계_사사기_2_1-5_내언약과맺을언약은다르다.html">04_생각의탄생13단계_사사기_2_1-5_내언약과맺을언약은다르다</a>(덮는 동사 · 공식 해체)</li>
+</ul>
+<h3>🥉 쉼을 공로 계정에 넣지 않기 — 안식의 개혁파 이해와 「땅의 쉼」</h3>
+<ul>
+<li><strong>핵심</strong>: 쉼이 사람의 이름 앞에 오지 않는다는 원문의 배정은, 쉼을 쟁취의 상이 아니라 받쳐짐으로 보는 개혁파 안식 이해(하이델베르크 제103문 요지)와 접점을 갖는다.</li>
+<li><strong>인격 형성</strong>: 「쉼을 지키려는 과잉 긴장」이라는 목회 현장의 실제 문제를 본문의 문법 하나로 짚는다 — 단, 3:30을 안식 교리의 근거 본문으로 세우지 않고 접점으로만 둔다.</li>
+<li><strong>연결 고리</strong>: 레 25:2-5(요지) · 롬 8:19-22(요지) · 바빙크 『개혁교의학』 종말론(요지) · 「쉼의 주어 — 정경의 땅 본문 모음」(노트 후보)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 9 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

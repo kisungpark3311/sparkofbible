@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>말씀하신 분을 서술자가 다시 적는다 — 씨앗 아이디어(사사기 20:35 — וַיִּגֹּף(바이고프 · 「치셨다」))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 60 편 &middot; 사사기 20:35-48</span>
+      <h1>말씀하신 분을 서술자가 다시 적는다 — 씨앗 아이디어(사사기 20:35 — וַיִּגֹּף(바이고프 · 「치셨다」))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>60_성경적 사고와 인격 만들기</p>
+<h2>말씀하신 분을 서술자가 다시 적는다 — 씨앗 아이디어(사사기 20:35 — וַיִּגֹּף(바이고프 · 「치셨다」))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./60_생각의탄생13단계_사사기_20_35-48_말씀하신분을서술자가다시적는다.html">60_생각의탄생13단계_사사기_20_35-48_말씀하신분을서술자가다시적는다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"20:28은 여호와의 말씀이고 20:35는 서술자의 문장입니다. 하나는 「내가」로 말씀하시는 약속이고, 하나는 그날의 일을 여호와께 돌리는 기록입니다. … 바이고프(וַיִּגֹּף)는 「치셨다」는 한 낱말입니다. 개역한글 「쳐서 파하게 하시매」는 「-게 하시」와 「-매」를 덧대어 「여호와가 치셨으므로 이스라엘이 죽였다」는 다리를 놓지만, 원문에는 그 다리가 없습니다. … 말씀과 서술과 베냐민의 말, 세 목소리가 한 전투 안에 있습니다. 이 셋을 섞지 않는 것이 이 본문을 읽는 첫 정직입니다.</strong></p>
+<p><strong>본문 핵심: 서술자는 그날의 일을 여호와께 돌리지만, 그 문장과 사람의 행위가 어떻게 이어지는지는 말하지 않는다."</strong></p>
+<p>(출처: <a href="./60_일상의깊은사고_사사기_20_35-48.html">60_일상의깊은사고_사사기_20_35-48</a> 주요 신학 통찰 1️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본.md</code>에서 문면 그대로)</p>
+<blockquote>
+<p>20:28 … 여호와께서 가라사대 올라가라 내일은 내가 그를 네 손에 붙이리라<br />
+20:35 여호와께서 이스라엘 앞에서 베냐민을 쳐서 파하게 하시매 당일에 이스라엘 자손이 베냐민 사람 이만 오천 일백을 죽였으니 다 칼을 빼는 자이었더라<br />
+20:36 이에 베냐민 자손이 자기가 패한 것을 깨달았으니 이는 이스라엘 사람이 기브아에 매복한 군사를 믿고 잠간 베냐민 사람 앞을 피하매<br />
+20:39 이스라엘 사람은 싸우다가 물러가고 베냐민 사람은 이스라엘 사람 삼십명 가량을 쳐 죽이기를 시작하며 이르기를 이들이 정녕 처음 싸움같이 우리에게 패한다 하다가</p>
+</blockquote>
+<p>⚠ 개역이 넣은 말: 20:35의 사역 「-게 하시」와 인과 어미 「-매」(구문묵상 §3-6 ⒜ · ⒠), 20:36b-37을 20:36a의 까닭처럼 묶는 「이는 … 피하매 … 쳤음이더라」(⒟). 20:39 「우리에게 패한다」의 원문은 <code>לְפָנֵינוּ</code>(우리 앞에서)다. 이 노트는 개역의 이 말들을 원문 근거로 쓰지 않는다.</p>
+<p><strong>원문</strong> (구문묵상 §2 · XML 출력 문면)</p>
+<blockquote>
+<p><strong>20:35</strong> וַיִּגֹּ֨ף יְהוָ֥ה ׀ אֶֽת־בִּנְיָמִן֮ לִפְנֵ֣י יִשְׂרָאֵל֒ וַיַּשְׁחִיתוּ֩ בְנֵ֨י יִשְׂרָאֵ֤ל בְּבִנְיָמִן֙ בַּיּ֣וֹם הַה֔וּא עֶשְׂרִ֨ים וַחֲמִשָּׁ֥ה אֶ֛לֶף וּמֵאָ֖ה אִ֑ישׁ כָּל־אֵ֖לֶּה שֹׁ֥לֵף חָֽרֶב׃</p>
+</blockquote>
+<p>20:28 발화의 약속 부분(구문묵상 §3-1 인용 꼴): <code>מָחָר אֶתְּנֶנּוּ בְיָדֶךָ</code>.</p>
+<p><strong>파싱 근거</strong> (<a href="./60_구문묵상_사사기_20_35-48.html">60_구문묵상_사사기_20_35-48</a> §3-0 · §3-1 · §4①)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱</th>
+<th>자리 · 층</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>וַיִּגֹּף</code></td>
+<td>Qal wayyiqtol 3ms · 주어 <code>יְהוָה</code></td>
+<td>20:35 · 서술자</td>
+<td>씨앗 · 단락 주동사</td>
+</tr>
+<tr>
+<td><code>וַיַּשְׁחִיתוּ</code></td>
+<td>Hiphil wayyiqtol 3mp · 주어 <code>בְנֵי יִשְׂרָאֵל</code></td>
+<td>20:35 · 서술자</td>
+<td>나란히 선 둘째 동사 · 수 25,100이 붙음</td>
+</tr>
+<tr>
+<td><code>נִגָּפוּ</code></td>
+<td>Niphal 완료 3cp</td>
+<td>20:36a · 베냐민이 본 내용(<code>כִּי</code>)</td>
+<td>요약 끝의 「맞았음」</td>
+</tr>
+<tr>
+<td><code>נִגָּף</code></td>
+<td>Niphal 분사 ms(부정사 절대형 <code>נִגּוֹף</code> 앞섬)</td>
+<td>20:39 · 베냐민의 말 안</td>
+<td><code>לְפָנֵינוּ</code> — 맞는 이가 갈리는 자리</td>
+</tr>
+<tr>
+<td><code>אֶתְּנֶנּוּ</code></td>
+<td>YHWH 1인칭 발화 · 동사 <code>נתן</code></td>
+<td>20:28 · 발화</td>
+<td>위층 — 약속</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수 기준과 모집단</strong>: ① <code>נגף</code>(5062)는 사사기 <strong>5토막</strong>(전부 20:32-39) — 칼 능동은 20:35 <strong>하나</strong>, 나머지 넷은 니팔(20:32 · 20:36 · 20:39 ×2). 범위(20:35-48) 안은 4. 구약 49(조사표 (6)항 · 케레 영향 미확인). ② <code>נגף</code> + <code>לִפְנֵי</code>는 사사기 3자리(20:32 · 20:35 · 20:39). ③ YHWH는 <strong>범위 안 1</strong>(20:35)이고, 범위 안 서술자의 YHWH 주어 정동사도 이 하나다 — 「이 책에서 유일」이 아니며 「17-21장 본선 유일」도 아니다(구문묵상 §3-1). ④ 범위 wayyiqtol 22의 주어는 YHWH 1 · 이스라엘 10 · 베냐민 10 · 비인칭 1(구문묵상 E1). ⛔ 이 수들은 층과 주어가 <strong>어디서 갈리는지</strong>를 가리킬 뿐, 「한 번 나온다 — 그러므로」의 무게가 되지 않는다(마스터 §6-3). 축의 무게는 그 문장의 내용, 「여호와께서 이스라엘 앞에서 베냐민을 치셨다」에 둔다.</p>
+<h3>사고의 통합 — "말씀과 서술과 사람의 행위를 섞지 않는다"</h3>
+<p>관찰(1)은 20:35가 한 문장이 아니라 주어가 다른 두 문장이 한 절에 놓인 것임을 보았고, 형상화(2)는 그것을 화살표 없는 두 줄과 역본의 연필 자국으로 그렸다. 추상화(3)는 인과의 화살표, 그 반대 방향의 「하나님은 죽이지 않으셨다」, 「심판의 역전」이라는 극적 장치를 버리고 「나란함」을 남겼다. 패턴 인식(4)은 좋은 기록이 관계 판단을 사실 칸 밖에 둔다는 것을 네 도메인에서 확인했고, 패턴 형성(5)은 그것을 「세 층 두 동사 표」와 두 비움 칸(B0 · C0)으로 정제하며 기재된 「없음」과 쓰이지 않은 「공란」을 갈랐다. 유추(6)의 세 갈래는 모두 「관계를 확인하는 절차」에서 깨졌고, 그 자리가 바로 B0였다.</p>
+<p>몸(7)은 나란함이 쉬는 자세가 아니라 기울지 않게 버티는 수고임을 가르쳤다. 감정이입(8)은 번역자의 경건한 다리가 다른 이의 삶 위에서 판정의 다리가 되었다는 것을, 그리고 그 다리를 걷는 일이 재난 뒤의 한 사람에게 숨을 돌려준다는 것을 보였다. 차원(9)은 큰 축척의 요약이 다리를 놓고 작은 축척의 공란이 그 다리를 거둔다는 것을 드러냈다. 모형(10)은 그 읽기를 카드 ⑥(공란)과 ⑦(본문 밖으로 끌려가는 손)으로 만들었고, 놀이(11)는 한 줄을 지우는 오독과 사이에 말을 넣는 오독이 같은 뿌리에서 나온다는 것을 보였다. 변형(12)에서 살아남은 것은 「지운다 / 쓰지 않는다」의 두 동작이었다.</p>
+<p>선택 이유가 열어 둔 자리 — 하나님의 행위와 사람의 행위를 인과로 묶지 않고 나란히 읽는 자리 — 에 이 노트가 이른 곳은 이렇다. <strong>나란히 읽는다는 것은 둘의 관계를 부정하는 것이 아니라, 원문이 진술하지 않은 관계를 내가 진술하지 않는 것이다.</strong> ① <strong>최종 테제</strong>: 20:35에서 서술자는 20:28에 말씀하신 여호와를 그날의 일의 주어로 다시 세우고, 같은 절에 이스라엘 자손의 행위를 나란히 둔다. 읽는 이의 일은 세 층(발화 · 서술 · 인물의 말)을 섞지 않고, 역본이 놓은 다리를 걷어 내며, 그 자리에 다른 다리 — 인과든 무관함이든 역전이든 — 를 놓지 않는 것이다. ② <strong>가장 생산적이었던 도구</strong>: 놀이(11) — 한 줄씩 지워 보는 장난이 서로 반대인 두 오독(하나님 없는 기록 / 사람 없는 승전 신학)을 한꺼번에 드러내, 두 줄을 다 남기는 것 말고는 길이 없음을 보였다. ③ <strong>처음 관찰과 달라진 이해</strong>: 처음에는 「수가 사람 동사에만 붙는다」는 배치가 씨앗의 가장 날카로운 발견처럼 보였다. 끝에서는 그것이 오히려 가장 위험한 미끼였음이 드러났다 — 그 배치에서 명제를 뽑는 순간 공란 B0를 채우게 된다. 남은 중심은 배치가 아니라 <strong>공란을 공란으로 두는 손</strong>이다.</p>
+<blockquote>
+<p><strong>"말씀하신 분을 서술자가 그날의 일의 주어로 다시 세운다. 사람의 행위도 같은 절에 사람의 동사로 적힌다. 둘 사이는 희다 — 그 흰 자리를 걷어 낸 다리로도, 새 다리로도 메우지 않고 받는다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "한 절, 두 동사"</h3>
+<p>씨앗이 짚은 자리를 구문묵상 §3-1 · E2 그대로 층별로 늘어놓는다.</p>
+<table>
+<thead>
+<tr>
+<th>층</th>
+<th>자리</th>
+<th>동사</th>
+<th>주어</th>
+<th>「앞에서」</th>
+<th>붙은 수</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>발화(여호와 1인칭)</td>
+<td>20:28</td>
+<td><code>אֶתְּנֶנּוּ</code>(<code>נתן</code>)</td>
+<td>여호와</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>서술자</td>
+<td>20:35a</td>
+<td><code>וַיִּגֹּף</code>(칼)</td>
+<td><code>יְהוָה</code></td>
+<td><code>לִפְנֵי יִשְׂרָאֵל</code></td>
+<td>없음</td>
+</tr>
+<tr>
+<td>서술자</td>
+<td>20:35b</td>
+<td><code>וַיַּשְׁחִיתוּ</code>(히필)</td>
+<td><code>בְנֵי יִשְׂרָאֵל</code></td>
+<td>—</td>
+<td>25,100</td>
+</tr>
+<tr>
+<td>베냐민이 본 내용</td>
+<td>20:36a</td>
+<td><code>נִגָּפוּ</code>(니팔)</td>
+<td>베냐민</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>베냐민의 말</td>
+<td>20:39</td>
+<td><code>נִגּוֹף נִגָּף</code>(니팔)</td>
+<td>「그」</td>
+<td><code>לְפָנֵינוּ</code></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>보이는 것 셋. 첫째, <strong>한 절 안에 wayyiqtol 둘이 나란히 선다.</strong> 주어가 다르고 어간이 다르다(칼 / 히필). 둘 사이에 「키」 같은 이유 표지도, 결과를 밝히는 말도 없다. 둘째, <strong>수는 둘째 동사에 붙는다.</strong> 25,100은 이스라엘 자손의 <code>וַיַּשְׁחִיתוּ</code> 뒤에 오고 <code>וַיִּגֹּף</code>에는 수가 없다(E5). 셋째, <strong>20:35 뒤로 <code>נגף</code>는 니팔로만 남는다.</strong> 한 번은 요약 끝 베냐민의 봄 안(20:36a), 한 번은 상술 안 베냐민의 말 안(20:39)이다. 서술자의 「베냐민을 이스라엘 앞에서」와 베냐민의 말 「그가 우리 앞에서」는 한 동사 · 한 전치사 안에서 맞는 이가 서로 바뀐다. 해석은 아직 하지 않는다 — 특히 둘째 관찰에서 「그러니 하나님은 죽이지 않으셨다」로 건너뛰지 않는다. 그것은 보이는 것이 아니라 생각한 것이다.</p>
+<blockquote>
+<p>[!insight] 20:35는 「하나님이 이기게 하신 한 문장」이 아니라 <strong>주어가 다른 두 문장이 한 절에 놓인 것</strong>이다. 그 둘을 하나로 보이게 한 것은 원문이 아니라 우리말의 「-게 하시매」다.</p>
+<p>[!question] 연결 질문<br />
+- 두 문장 사이에 아무 이음말이 없다는 것은 「관계가 없다」는 뜻인가, 「관계를 말하지 않았다」는 뜻인가?<br />
+- 수가 어느 동사 뒤에 오는가는 서술의 내용인가, 서술의 배치인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 다섯 줄의 표를 손에 쥘 수 있는 장면 — 한 장의 기록지 — 으로 옮긴다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "이음말 없는 병기"</h3>
+<p>추상화(3)의 「나란함」이 다른 도메인에서 되풀이되는지 본다.</p>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>패턴 발현</th>
+<th>관계는 어디서 정해지는가</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>히브리 서사(이 단위)</td>
+<td>20:35 wayyiqtol 둘이 주어를 달리해 나란히 선다 · 이유 표지 없음</td>
+<td>원문은 진술하지 않는다(봉합 1)</td>
+</tr>
+<tr>
+<td>회계 장부</td>
+<td>같은 날짜에 두 계정의 기재가 위아래로 놓인다</td>
+<td>장부가 아니라 증빙과 규정이 정한다</td>
+</tr>
+<tr>
+<td>재판 기록</td>
+<td>「사실인정」 칸에 두 사실이 나열되고 「판단」 칸은 따로 있다</td>
+<td>판단 칸에서 근거와 함께</td>
+</tr>
+<tr>
+<td>진료 기록</td>
+<td>관찰 소견 둘이 나란히 적히고 진단은 별도 항목</td>
+<td>진단 항목에서</td>
+</tr>
+<tr>
+<td>우리말 번역(대조군)</td>
+<td>두 문장을 연결 어미로 한 문장에 묶는다</td>
+<td>번역이 정해 버린다</td>
+</tr>
+</tbody>
+</table>
+<p>공통 패턴: <strong>좋은 기록은 두 사실을 나란히 적고, 둘의 관계는 다른 칸 — 근거가 있는 칸 — 에 맡긴다. 그 칸이 비어 있으면 비어 있다고 적는다.</strong> 다섯째 행이 대조군이다. 연결 어미 하나가 「다른 칸」에 가야 할 판단을 사실 칸 안으로 끌어들인다.</p>
+<p>주의 하나. 이스라엘 서사에서 wayyiqtol 사슬은 서사의 기본 꼴이다(마스터 §6-2 「동사 꼴 분포를 그대로 신학 명제로」 금지). 그러니 이 패턴의 근거는 「wayyiqtol이라서」가 아니라 <strong>이 절에 이유 · 결과를 밝히는 말이 없다는 문면</strong>과 <strong>역본이 그 자리에 어미를 넣었다는 대조</strong>다.</p>
+<blockquote>
+<p>[!insight] 네 도메인 모두 관계 판단을 <strong>사실 칸 밖</strong>에 둔다. 20:35에서 그 바깥 칸은 비어 있고, 개역은 그 빈 칸의 내용을 사실 칸 안에 미리 적어 넣었다.</p>
+<p>[!question] 연결 질문<br />
+- 성경 서술에서 「판단 칸」에 해당하는 것은 무엇인가 — 서술자의 평가 문장(예: 17:6 · 21:25 후렴)인가, 정경 전체인가?<br />
+- 판단 칸이 비어 있는 기록을 읽을 때, 읽는 이가 그 칸을 채울 권한은 어디까지인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 다섯 도메인의 공통 꼴을 이 단위에 맞는 표 한 장으로 정제한다.</p>
+<h3>0 유추 (Analogizing) — "결정과 이행의 두 칸"</h3>
+<p>패턴 형성(5)의 표를 다른 분야에 대 본다. 각 유추에서 새 통찰 하나와 깨지는 지점 하나를 적는다.</p>
+<p><strong>① 세무 — 결정 통지와 납부 기록.</strong> 한 사건 파일에 두 문서가 나란히 있다. 하나는 관청이 낸 결정이고, 하나는 납세자가 이행한 기록이다. 상담 메모에 「관청이 결정했으므로 고객이 납부했다」고 한 문장으로 적으면 깔끔해 보이지만, 실제로는 고객이 이의를 검토하다가 다른 사정으로 납부했을 수도 있다. 숙련된 실무자는 두 기록을 나란히 적고, 관계는 확인된 경우에만 근거와 함께 따로 적는다. <em>새 통찰</em>: 연결 어미 하나가 상담 메모에 「확인하지 않은 인과」를 들여온다 — 개역의 「-매」가 하는 일과 같은 꼴이다. <em>깨지는 지점</em>: 세무에서는 두 기록의 관계를 법이 정하고 확인할 길이 있다. 20:35의 B0 칸은 확인할 서류가 없다. 하나님의 행위는 사람의 행위와 같은 장부의 같은 계정에 놓이는 항목이 아니다.</p>
+<p><strong>② 음악 — 두 성부.</strong> 대위법에서 두 성부는 각자의 선율을 가진 채 동시에 울린다. 한 성부가 다른 성부의 반주로 내려가면 대위가 아니라 화성이 된다. <em>새 통찰</em>: 20:35의 두 동사를 「주선율과 반주」로 읽는 순간 한쪽이 다른 쪽에 종속된다 — 「-게 하시매」는 여호와의 줄을 주선율로, 이스라엘 자손의 줄을 그 결과음으로 만든다. <em>깨지는 지점</em>: 음악에는 두 성부의 어울림을 정하는 규칙이 있다. 본문은 두 줄의 어울림에 대한 규칙을 말하지 않는다.</p>
+<p><strong>③ 과학 — 상관과 인과.</strong> 두 사건이 같은 날 함께 기록되었다는 것은 상관이지 인과의 증명이 아니다. <em>새 통찰</em>: 같은 절 안에 놓였다는 근접성은 관계를 암시할 수는 있어도 관계를 진술하지는 않는다. <em>깨지는 지점</em>: 과학은 변수를 통제해 인과를 시험한다. 하나님은 통제할 변수가 아니고, 본문은 실험 보고서가 아니다. 이 유추를 밀고 가면 「하나님의 행위는 검증할 수 없으니 없는 것과 같다」로 미끄러진다 — 그것은 공란을 채우는 또 다른 방식이다.</p>
+<blockquote>
+<p>[!insight] 세 유추는 모두 <strong>「관계를 확인하는 절차」에서 깨진다.</strong> 세무에는 법과 서류가, 음악에는 규칙이, 과학에는 실험이 있다. 20:35의 B0 칸에는 그 절차가 주어져 있지 않다 — 그래서 비워 두는 것이 정직이다.</p>
+<p>[!question] 연결 질문<br />
+- 확인 절차가 없는 관계를 「모른다」고 적는 것과 「신비」라고 부르는 것은 같은가?<br />
+- 세무 메모의 「-므로」를 지우는 습관이 성경 읽기의 「-매」를 알아보는 눈으로 옮겨 올 수 있는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 머리로 세운 「나란함」을 몸의 자세로 옮겨, 그것을 버티는 데 어떤 힘이 드는지 느껴 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "포개지 않는 두 손"</h3>
+<p>유추(6)의 「두 성부」를 손으로 옮긴다.</p>
+<p><strong>실천 프로토콜</strong>: 책상 앞에 앉아 눈을 감는다. 오른손을 펴서 책상 위에 놓으며 속으로 20:35 첫 마디를 읽는다 — 「여호와께서 이스라엘 앞에서 베냐민을 치셨다.」 왼손을 펴서 오른손 옆에, 손가락 하나 간격을 두고 놓으며 둘째 마디를 읽는다 — 「그날 이스라엘 자손이 베냐민에게서 멸했다.」 30초 동안 두 손을 그대로 둔다. 다음으로 개역의 문장을 소리 내 읽으며 오른손을 왼손 위에 포갠다 — 「쳐서 파하게 하시매 … 죽였으니」. 다시 손을 떼어 나란히 놓는다.</p>
+<p><strong>몸의 반응</strong>: 두 손을 포갤 때는 근육이 쉰다. 한 손이 다른 손을 덮으면 그것으로 끝난다. 나란히 둘 때는 오히려 어깨에 힘이 들어간다 — 손이 자꾸 서로에게 기울거나, 한 손이 다른 손을 밀어내려 한다. 「나란함」은 가만히 있는 것이 아니라 <strong>기울지 않게 버티는 일</strong>이다. 또 하나, 오른손을 들어 버리고 왼손만 남겨 보면 책상이 한쪽으로 비어 보인다. 반대로 왼손을 들어 버리면 오른손이 홀로 승전의 손처럼 보인다. 어느 쪽을 들어도 다른 그림이 된다.</p>
+<p><strong>설교 전달 아이디어</strong>: 20:35를 낭독할 때 두 마디 사이에 짧게 숨을 끊는다. 「-매」로 흘려 읽지 않고, 두 문장을 따로 내려놓는 호흡. 동작은 덧붙이지 않는다 — 이 장면 앞에서 손동작이 승리의 몸짓으로 읽힐 위험이 있기 때문이다.</p>
+<blockquote>
+<p>[!insight] 몸은 <strong>포갬이 편하고 나란함이 수고롭다</strong>는 것을 가르친다. 개역의 「-매」는 게으름이 아니라, 읽는 이를 편하게 하려는 친절이었을 수 있다 — 그러나 그 친절이 원문의 수고를 덜어 냈다.</p>
+<p>[!question] 연결 질문<br />
+- 낭독의 호흡 하나로 원문의 병렬을 들려줄 수 있다면, 해설 없이 어디까지 전달되는가?<br />
+- 한 손만 남기는 두 가지 오독은 오늘 교회에서 각각 어떤 말투로 나타나는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 손을 포갠 사람 — 「-게 하시매」를 쓴 번역자 — 과, 그 포개진 문장을 자기 삶에 대해 들은 사람의 안으로 들어간다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "큰 축척의 한 문장, 작은 축척의 두 줄"</h3>
+<p>감정이입(8)의 두 목소리를 축척 위에 놓는다.</p>
+<p><strong>확장(큰 축척)</strong>: 사사기 전체 서술자는 2장 이하 여러 자리에서 여호와를 동사의 주어로 세운다(구문묵상 §3-1 「이 책에서 유일」 금지의 근거). 그러니 20:35는 「책이 처음으로 하나님을 행위자로 말한 자리」가 아니다. 범위 안에서는 YHWH가 이 한 번이고, 그 뒤 상술(20:36b-46)과 후속(20:47-48)에는 이름이 다시 나오지 않는다. 정경 전체로 넓히면, 하나님의 행위와 사람의 행위가 한 서술에 함께 놓이는 일은 성경에서 낯설지 않다 — 그러나 그 관계를 각 본문이 어떻게 말하는지는 본문마다 따로 읽어야 하며, 이 노트는 그 대조를 하지 않았다. 큰 축척에서 20:35는 「하나님이 이스라엘에게 이기게 하셨다」는 한 줄 요약처럼 보인다.</p>
+<p><strong>축소(작은 축척)</strong>: 한 절 안으로 들어가면 그 한 줄은 두 줄로 갈라진다. 칼 3ms 하나와 히필 3mp 하나, 그 사이의 공란. 더 들어가면 첫 줄 끝에 <code>לִפְנֵי יִשְׂרָאֵל</code> 두 낱말이 있고, 이 두 낱말은 네 절 뒤 베냐민의 입에서 <code>לְפָנֵינוּ</code>로 뒤집혀 나온다. 작은 축척에서는 「이기게 하셨다」가 사라지고, 층과 주어와 전치사의 배치만 남는다.</p>
+<p><strong>핵심 전복: 큰 축척에서 「하나님이 이기게 하신 문장」으로 보이던 20:35가, 작은 축척에서는 「말씀하신 분을 주어로 다시 세운 문장과 사람의 행위를 적은 문장이 공란을 사이에 두고 놓인 자리」로 바뀐다.</strong> 감정이입(8)의 두 번째 사람에게 판정으로 날아간 것은 큰 축척의 요약이었고, 그를 풀어 준 것은 작은 축척의 공란이었다.</p>
+<blockquote>
+<p>[!insight] 요약은 큰 축척의 산물이고, 요약은 늘 다리를 놓는다. <strong>씨앗의 자리는 작은 축척에 있다.</strong> 다만 작은 축척에서 본 공란을 다시 큰 축척의 명제(「하나님은 관여하지 않으셨다」)로 부풀리지 않는다.</p>
+<p>[!question] 연결 질문<br />
+- 서술자가 20:35에서 먼저 요약하고 20:36b부터 다시 풀어 쓴 짜임은, 요약이 놓는 다리를 서술자 스스로 경계한 것인가 — 이 물음 자체를 판정 없이 둘 수 있는가?<br />
+- 정경 전체의 「하나님의 행위와 사람의 행위」 본문들을 대조할 때, 이 단위의 공란을 다른 본문의 진술로 채우지 않으려면 어떤 절차가 필요한가?</p>
+</blockquote>
+<p><strong>다리</strong>: 작은 축척의 눈을 누구나 쓸 수 있는 도구 — 카드 한 장 — 로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>실질 접점이 있는 본문</strong><br />
+- <strong>사사기 20:28</strong> — 이 씨앗의 위층이다. 「올라가라 내일은 내가 그를 네 손에 붙이리라」(정본 문면 위 [원문] 참조). 말씀이 앞에, 서술이 뒤에 놓였다는 데까지가 본문의 사실이다. ⛔ 이 이어짐을 18:6 제사장 발화의 참 · 거짓을 가리는 근거로 쓰지 않는다(봉합 10).<br />
+- <strong>누가복음 13:1-5의 요지</strong>(문면 대조 안 함) — 재난을 당한 이들이 다른 이들보다 더 죄가 있어서 그리되었느냐는 생각을 예수께서 물리치시는 대목. 사사기 20:35를 해설하는 본문이 아니다. 이 연결은 본문의 주장이 아니라 정경 전체에서 오는 독법의 층으로, 「하나님이 치셨다」는 서술 문장을 오늘의 재난에 판정으로 옮기지 않는 태도(구문묵상 §3-1)와 만난다.<br />
+- <strong>욥기 42:7의 요지</strong>(문면 대조 안 함) — 욥의 고난을 하나님의 징벌로 단정해 말한 친구들을 하나님이 옳지 않다 하시는 결말. 마찬가지로 사사기 본문의 해설이 아니라, 하나님의 행위를 사람의 사정에 판정으로 적용하는 말을 정경이 경계한다는 층에서만 곁에 둔다.</p>
+<ul>
+<li>
+<p><strong>신학자</strong>: 칼빈, 『기독교 강요』 제1권 섭리론의 요지(원문 대조 안 함): 섭리를 고백하되 그것을 핑계 삼아 사람의 행위를 덮지 말고, 하나님의 감추어진 뜻을 함부로 캐지 말라는 절제. 다만 개혁파 신앙고백이 섭리와 사람의 행위가 어떻게 함께 가는지를 다룬다는 사실을, 이 노트는 20:35의 공란 B0를 채우는 조항으로 쓰지 않는다. 구문묵상 §6③이 밝힌 대로, 원문이 두 행위를 병렬로 둘 뿐 관계를 진술하지 않으므로 조항을 곁에 두면 원문이 하지 않은 관계 진술을 덧붙이게 된다. 칼빈에게서 빌려 오는 것은 섭리의 <strong>설명</strong>이 아니라 섭리 앞의 <strong>절제</strong>다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 20:35로 설교할 때 감사의 내용을 「승리」나 「전투의 결과」로 삼지 않는다. 구문묵상 §3-4(R46)대로 감사는 「서술자가 이 일을 여호와께 돌린다」는 사실과 「20:28에 말씀하신 여호와가 20:35 서술에서 다시 주어로 선다」는 층위 사실에 묶는다. 같은 기도 안에 엎드러진 이들 앞의 탄식을 함께 둘 수 있다 — 서술자가 진 쪽을 두 번 세고(20:35 · 20:46) 두 번 「다 용사」라 부른다는 것은 본문에 있는 사실이다. 그 호칭의 뜻(애도 · 존중 · 다른 것)은 정하지 않는다(봉합 14).</p>
+</li>
+<li>
+<p><strong>교리</strong>: 구문묵상 C4 배선은 이 범위의 그리스도 연결을 ○0 · △0 · ✕7, 「재료 부재」로 판정했다. 「여호와께서 치셨다」를 십자가의 심판 · 대속으로 잇지 않는다(구문묵상 §3-5). 대신 도덕주의 귀결을 점검한다 — 「하나님이 치실 때 회개하라」(구문묵상 바뀐 판단 5), 「하나님 편에 서면 이긴다」, 「하나님은 그 죽음과 무관하시다」는 셋 다 본문 밖에서 들어온 문장이다. 이 단락이 복음을 위해 할 수 있는 일은, 하나님에 대한 서술을 사람을 겨누는 판정으로 바꾸지 않는 데까지다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>목회 — 설교 · 성경공부 준비 (상황 → 도구 → 효과)</strong><br />
+- <strong>상황</strong>: 20장을 함께 읽는 모임에서 「그러니까 하나님이 베냐민을 죽이신 거죠?」라는 질문이 나온다.<br />
+- <strong>도구</strong>: 「층 가르기 카드」(10단계) — 개역 20:35와 원문 직역 두 줄을 칠판에 나란히 쓰고, 카드 ④ · ⑤를 함께 채워 「-게 하시매」가 원문에 없는 연결임을 보인 뒤 ⑥을 공란으로 남긴다.<br />
+- <strong>효과</strong>: 인도자가 「예」도 「아니오」도 지어내지 않고, 본문이 말한 두 줄과 말하지 않은 칸을 함께 확인한다. ⛔ 20장을 교회 징계 교본으로 끌어가지 않는다(§7-36).</p>
+<p><strong>세무 — 고객 상담 전이</strong><br />
+- <strong>상황</strong>: 상담 기록을 정리하며 「관청의 결정이 있었으므로 고객이 납부했다」 같은 문장을 쓰려 한다.<br />
+- <strong>도구</strong>: 「세 층 두 동사 표」(5단계)를 메모에 대 본다 — 관청의 행위와 고객의 행위를 각각 다른 줄에 주어와 함께 적고, 둘의 관계는 고객에게 확인한 경우에만 근거와 함께 따로 적는다. 확인하지 않았으면 「관계 미확인」이라고 적는다.<br />
+- <strong>효과</strong>: 기록에 확인하지 않은 인과가 섞이지 않는다. 뒷날 그 기록을 근거로 판단할 때 사실과 추정이 갈려 있다. ⛔ 구체적인 세법 조문 · 불복 기한 · 서식 이름은 이 노트에서 확인하지 않았으므로 적지 않는다(마스터 §7-40 주기). 20장의 수를 금액이나 지분으로 비유하지 않는다(구문묵상 바뀐 판단 8).</p>
+<p><strong>교회 행정 · 개인 의사결정 전이</strong><br />
+- <strong>상황</strong>: 교회 안에서 어떤 일이 잘 풀렸을 때 회의록이나 광고에 「하나님께서 ○○을 통해 이루셨습니다」라고 쓰려 한다. 반대로 일이 꼬였을 때 「하나님이 막으셨습니다」라고 쓰려 한다.<br />
+- <strong>도구</strong>: 놀이 ①②(11단계)를 그대로 한다 — 하나님 줄만 남긴 문장과 사람 줄만 남긴 문장을 둘 다 써 보고, 각 문장이 누구의 책임을 지우는지 확인한 뒤 감사는 감사대로, 사람의 수고와 잘못은 사람의 동사로 따로 적는다.<br />
+- <strong>효과</strong>: 감사의 언어가 다른 이를 판정하거나 사람의 책임을 지우는 말로 바뀌지 않는다. ⛔ 이 적용은 20장의 승패를 오늘 교회 안의 승패에 대입하지 않는다(§7-38) — 가져오는 것은 「한 문장에 두 주어를 섞지 않는다」는 꼴뿐이다.</p>
+<h3>🥇 기재된 「없음」과 쓰이지 않은 「공란」 — 20:35 B1 칸과 B0 칸</h3>
+<ul>
+<li><strong>핵심</strong>: <code>וַיִּגֹּף</code>에 수가 붙지 않는다는 것은 본문의 배치(기재 사실)이고, <code>וַיִּגֹּף</code>와 <code>וַיַּשְׁחִיתוּ</code>의 관계는 본문이 쓰지 않은 공란이다. 기재 사실에서 공란의 내용을 뽑아내는 순간 — 「그러니 하나님은 죽이지 않으셨다」 — 침묵 논증이 된다.</li>
+<li><strong>인격 형성</strong>: 인과 화살표(역본)만 경계하던 읽기가, 반대 방향의 화살표(「무관함」)도 같은 잘못임을 구조로 보여 준다. 구문묵상 §3-3의 자기 금지와 바뀐 판단 8을 하나의 읽기 규칙으로 묶는다.</li>
+<li><strong>연결 고리</strong>: <a href="./60_구문묵상_사사기_20_35-48.html">60_구문묵상_사사기_20_35-48</a> §3-3 · E5 · 봉합 1 · <a href="./00_사사기_묵상단위_마스터.html">00_사사기_묵상단위_마스터</a> 제2부 §6-2(침묵 논증) · <a href="./58_생각의탄생13단계_사사기_20_12-23_상대가가나안에서베냐민이된다.html">58_생각의탄생13단계_사사기_20_12-23_상대가가나안에서베냐민이된다</a>(칸 4와 칸 0)</li>
+</ul>
+<h3>🥈 역본의 다리 — 「-게 하시」 · 「-매」가 사실 칸에 들여온 판단</h3>
+<ul>
+<li><strong>핵심</strong>: 개역 20:35는 사역 어미와 인과 어미 둘로 원문의 병렬을 한 문장의 인과로 바꾼다. 20:36b-37의 「이는 … 쳤음이더라」도 같은 방식으로 「두 번 서술」 짜임을 가린다.</li>
+<li><strong>인격 형성</strong>: 번역 문제를 문법 지적에서 끝내지 않고, 그 다리가 오늘 누구의 삶 위에 판정으로 건너가는지(재난 뒤의 신정론 적용)까지 잇는다. 동시에 어떤 이음말이든(「그런데」 포함) 같은 일을 한다는 것을 놀이로 보였다.</li>
+<li><strong>연결 고리</strong>: <a href="./60_구문묵상_사사기_20_35-48.html">60_구문묵상_사사기_20_35-48</a> §3-6 ⒜ · ⒟ · ⒠ · <a href="./60_블로그_사사기_20_35-48.html">60_블로그_사사기_20_35-48</a> · 마스터 제2부 §6-2(역본 문면으로 틀 세우기 금지)</li>
+</ul>
+<h3>🥉 세 층 — 발화(20:28) · 서술(20:35) · 인물의 말(20:39)</h3>
+<ul>
+<li><strong>핵심</strong>: 한 전투 안에 여호와의 1인칭 약속, 서술자의 3인칭 요약, 베냐민의 「그가 우리 앞에서 맞는다」가 함께 있다. 동사도 다르다(<code>נתן</code> / <code>נגף</code> 칼 / <code>נגף</code> 니팔). 셋을 섞지 않는 것이 이 본문을 읽는 첫 정직이다.</li>
+<li><strong>인격 형성</strong>: 「다시 적는다」를 같은 말의 반복이 아니라 <strong>말씀하신 분이 서술의 주어로 다시 서는 층위 이동</strong>으로 읽는다. 맞는 이가 바뀌는 20:35 ↔ 20:39에 「역전」 평가를 붙이지 않고 꼴의 사실로만 둔다.</li>
+<li><strong>연결 고리</strong>: <a href="./60_일상의깊은사고_사사기_20_35-48.html">60_일상의깊은사고_사사기_20_35-48</a> 통찰 1️⃣ · <a href="./59_구문묵상_사사기_20_24-34.html">59_구문묵상_사사기_20_24-34</a>(20:28 약속의 단위) · 봉합 9 · 10</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 60 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

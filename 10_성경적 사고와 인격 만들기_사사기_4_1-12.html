@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>둘째 팖은 아직 드보라의 말이다 — 씨앗 아이디어(사사기 4:2 · 4:9 — מכר(마카르))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 10 편 &middot; 사사기 4:1-12</span>
+      <h1>둘째 팖은 아직 드보라의 말이다 — 씨앗 아이디어(사사기 4:2 · 4:9 — מכר(마카르))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>10_성경적 사고와 인격 만들기</p>
+<h2>둘째 팖은 아직 드보라의 말이다 — 씨앗 아이디어(사사기 4:2 · 4:9 — מכר(마카르))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./10_생각의탄생13단계_사사기_4_1-12_둘째팖은아직드보라의말이다.html">10_생각의탄생13단계_사사기_4_1-12_둘째팖은아직드보라의말이다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"두 문장 모두 여호와께서 파시는 분입니다. 4:2는 이스라엘을 팔고, 4:9는 시스라를 팝니다. 4:2의 손은 하솔에 도읍한 왕의 손이고, 4:9의 손은 「여인의 손」입니다."</strong></p>
+<p><strong>"「손에 팔다」(마카르 베야드)는 사사기에 다섯 번 나오고, 모두 여호와께서 파시는 분입니다. 넷은 서술자가 지나간 일로 적은 문장이고, 팔리는 쪽은 모두 이스라엘입니다. 4:9 하나만 드보라의 입에 있고, 앞일을 말하며, 팔릴 쪽이 시스라입니다."</strong></p>
+<p><strong>"두 문장은 말하는 쪽, 때, 팔리는 쪽, 손이 다릅니다. 이 네 가지를 눈으로 대조하는 데까지가 본문의 몫입니다. 두 문장을 「판 쪽을 되사신다」 같은 명제로 묶지 않습니다. 4:9 시점에 그 손의 주인은 문면에서 비어 있고, 묵상은 그 빈칸을 다음 단락에 맡깁니다."</strong></p>
+<p><strong>본문 핵심: 같은 여호와의 「팔다」가 두 번 울리지만, 둘째 것은 아직 드보라의 말이고 그 손은 이름이 없습니다.</strong></p>
+<p>(출처: <a href="./10_일상의깊은사고_사사기_4_1-12.html">10_일상의깊은사고_사사기_4_1-12</a> 주요 신학 통찰 1️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본_1-5장.md</code> · 4장)</p>
+<blockquote>
+<p>4:2 여호와께서 하솔에 도읍한 가나안 왕 야빈의 손에 그들을 파셨는데 그 군대 장관은 이방 하로셋에 거하는 시스라요<br />
+4:9 가로되 내가 반드시 너와 함께 가리라 그러나 네가 이제 가는 일로는 영광을 얻지 못하리니 이는 여호와께서 시스라를 여인의 손에 파실것임이니라 하고 드보라가 일어나 바락과 함께 게데스로 가니라</p>
+</blockquote>
+<p><strong>원문</strong> (<a href="./10_구문묵상_사사기_4_1-12.html">10_구문묵상_사사기_4_1-12</a> §2 · XML)</p>
+<blockquote>
+<p><strong>4:2</strong> וַיִּמְכְּרֵ֣ם יְהוָ֗ה בְּיַד֙ יָבִ֣ין מֶֽלֶךְ־כְּנַ֔עַן אֲשֶׁ֥ר מָלַ֖ךְ בְּחָצ֑וֹר וְשַׂר־צְבָאוֹ֙ סִֽיסְרָ֔א וְה֥וּא יוֹשֵׁ֖ב בַּחֲרֹ֥שֶׁת הַגּוֹיִֽם׃<br />
+<strong>4:9</strong> וַתֹּ֜אמֶר הָלֹ֧ךְ אֵלֵ֣ךְ עִמָּ֗ךְ אֶ֚פֶס כִּי֩ לֹ֨א תִֽהְיֶ֜ה תִּֽפְאַרְתְּךָ֗ עַל־הַדֶּ֨רֶךְ֙ אֲשֶׁ֣ר אַתָּ֣ה הוֹלֵ֔ךְ כִּ֣י בְֽיַד־אִשָּׁ֔ה יִמְכֹּ֥ר יְהוָ֖ה אֶת־סִֽיסְרָ֑א וַתָּ֧קָם דְּבוֹרָ֛ה וַתֵּ֥לֶך עִם־בָּרָ֖ק קֶֽדְשָׁה׃</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (<a href="./10_구문묵상_사사기_4_1-12.html">10_구문묵상_사사기_4_1-12</a> §3-0 표 · §3-4 · §3-7 · §4①)</p>
+<table>
+<thead>
+<tr>
+<th>칸</th>
+<th>4:2</th>
+<th>4:9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>어형</td>
+<td><code>וַיִּמְכְּרֵם</code> — 칼 wayyiqtol 3ms + 접미 3mp</td>
+<td><code>יִמְכֹּר</code> — 칼 미완료 3ms</td>
+</tr>
+<tr>
+<td>층(화자)</td>
+<td>서술자</td>
+<td>드보라 발화(<code>כִּי</code> 이유절 안)</td>
+</tr>
+<tr>
+<td>때</td>
+<td>지나간 사건의 서사 연속</td>
+<td>앞일</td>
+</tr>
+<tr>
+<td>주어</td>
+<td><code>יְהוָה</code> 기명</td>
+<td><code>יְהוָה</code> 기명</td>
+</tr>
+<tr>
+<td>목적어</td>
+<td>접미 「그들」(이스라엘 자손)</td>
+<td><code>אֶת־סִיסְרָא</code></td>
+</tr>
+<tr>
+<td>손</td>
+<td><code>בְּיַד יָבִין מֶלֶךְ־כְּנַעַן</code> + 관계절 <code>אֲשֶׁר מָלַךְ בְּחָצוֹר</code> — 이름 있는 왕</td>
+<td><code>בְיַד־אִשָּׁה</code> — 동사 앞 · 무관사 · 무명</td>
+</tr>
+<tr>
+<td>개역한글</td>
+<td>「야빈의 손에 그들을 파셨는데」</td>
+<td>「시스라를 여인의 손에 파실것임이니라」 — 목적어를 앞세워 전치구의 앞섬이 사라진다</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ 계수 기준(구문묵상 머리 2행 · §1-5 E3 · E4 · E7 · §4①): <code>מכר … בְּיַד</code>(동사 <code>מכר</code> + 전치구 「~의 손에」)는 <strong>사사기 전권 5</strong>(2:14 · 3:8 · 4:2 · 4:9 · 10:7)이고 주어는 전부 여호와다. 그 가운데 <strong>서술자 wayyiqtol + 접미 3mp 목적어가 4</strong>(2:14 · 3:8 · 4:2 · 10:7)이고, <strong>미완료 · 발화 안 · 목적 시스라는 4:9 하나</strong>다. 표제어 <code>מכר</code>(4376)는 사사기 5 · 구약 80(20권). 범위 4:1-12 안 <code>יָד</code>(3027)는 3(4:2 · 4:7 · 4:9), <code>אִשָּׁה</code>(802)는 3(4:4 둘은 드보라 · 4:9 하나는 무관사 무명)이다. 범위 안 YHWH 5 가운데 기명 주어 정동사는 서술자층 1(4:2) · 드보라 발화층 2(4:6 · 4:9)이고, 그 안의 여호와 1인칭 인용 정동사가 2(4:7)다. ⛔ 「다섯 가운데 하나」를 이 노트의 기둥으로 세우지 않는다 — 하중은 두 문장의 <strong>네 칸 대조</strong>에 둔다. ⛔ 개역 「야빈왕은」(4:3) · 「네가 이제 … 영광을 얻지 못하리니」(4:9 주어 바꿈 · 「이제」 넣음)를 원문 근거로 쓰지 않는다.</p>
+<h3>사고의 통합 — "빈칸을 빈칸으로 넘기는 읽기"</h3>
+<p>관찰은 바뀌지 않는 것에서 시작했다. 같은 동사 <code>מכר</code>, 같은 「손에」, 같은 주어 <code>יְהוָה</code>. 그 위에서 네 칸이 갈렸다 — 화자, 때, 팔리는 쪽, 손. 형상화는 그것을 명판 있는 문과 명판 빈 문으로 그렸고, 추상화는 문과 놋쇠를 걷어 내고 「층」 하나를 남겼다. 같은 「팔다」가 서술자의 층에서는 이미 적힌 일이고, 드보라의 발화 층에서는 아직 말해진 일이다. 패턴 인식은 그 꼴을 확정 기재와 예정 기재, 판결문과 진술, 본등기와 가등기에서 찾았고, 패턴 형성은 고정 칸 · 바뀐 칸 · 빈칸을 세 걸음으로 점검하는 「네 칸 층 대조표」를 만들었다. 유추는 「성명 미상」 칸을 아무 이름으로 채우지 않는 서기의 절제를 빌려 왔다.</p>
+<p>몸으로 생각하기는 그 절제가 근육의 일이라는 것을 가르쳤다 — 빈칸 위에서 멈춘 펜은 무겁다. 감정이입은 말한 드보라도 들은 바락도 4:9 시점에 그 손의 이름을 갖고 있지 않다는 것을 보여 주었고, 독자만이 뒷장의 이름을 끌어오고 싶어 한다는 것을 드러냈다. 차원적 사고는 그 빈칸이 낱말의 빈칸이 아니라 말해진 날과 적힐 날 사이의 시간의 빈칸임을 보여 주었다. 모형은 「재료의 출처」를 묻는 층 표시 카드가 되었고, 놀이는 빈칸을 채우면 4:10-12의 서사 시간이 죽는다는 것을 거꾸로 보여 주었다. 변형은 의견서 한 문단으로 「되사기」 명제를 왜 채택하지 않는지 — 근거 문면이 없다 — 를 세웠다.</p>
+<p><strong>최종 테제</strong>: 4:2와 4:9는 같은 공식 · 같은 주어로 묶이지만, 4:9는 아직 드보라의 말이고 그 손의 이름 칸은 비어 있다. 정직한 읽기는 그 빈칸을 이 단락에서 채우지 않고, 「드보라가 말했다」는 꼬리표와 함께 다음 단락으로 넘긴다. <strong>가장 생산적이었던 도구</strong>는 추상화였다 — 「왕 대 여자」와 「이스라엘에서 시스라로」를 버리는 순간, 이 씨앗을 성별 교훈과 「되사기」 명제로 끌고 가려던 두 길이 동시에 닫혔다. <strong>처음 관찰과 달라진 이해</strong>: 처음에는 네 칸 가운데 「손」이 중심인 줄 알았다. 끝에 와서 보니 나머지 칸을 묶어 세우는 것은 「화자」였고, 손의 빈칸은 그 화자가 등장인물이기 때문에 자연스럽게 남는 칸이었다.</p>
+<blockquote>
+<p><strong>"같은 하나님이 같은 동사로 두 번 파시지만, 둘째 팖은 아직 드보라의 말이다 — 성경을 정직하게 읽는 사람은 말해진 것을 적힌 것처럼 옮기지 않고, 이름 없는 손에 먼저 이름을 쓰지 않는다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "같은 주어, 다른 네 칸"</h3>
+<p>씨앗은 「네 가지가 다르다」고 했다. 그 넷을 칸으로 세우기 전에, 먼저 <strong>바뀌지 않는 것</strong>을 본다. 두 문장 모두 동사는 <code>מכר</code>, 전치사는 「~의 손에」, 주어는 기명 <code>יְהוָה</code>다. 공식의 뼈대와 주어는 그대로다.</p>
+<p>바뀌는 칸은 넷이다. 첫째, <strong>말하는 입</strong>. 4:2는 서술자의 문장이고, 4:9는 <code>וַתֹּאמֶר</code>로 열린 드보라의 말 안, 그것도 <code>אֶפֶס כִּי</code> 한정 뒤에 붙은 둘째 <code>כִּי</code> 이유절 안이다. 둘째, <strong>때</strong>. 4:2 <code>וַיִּמְכְּרֵם</code>은 wayyiqtol, 곧 지나간 사건을 사슬로 잇는 꼴이고, 4:9 <code>יִמְכֹּר</code>는 미완료로 앞일을 말한다. 셋째, <strong>팔리는 쪽</strong>. 4:2는 접미 「그들」, 4:9는 <code>אֶת־סִיסְרָא</code>다. 넷째, <strong>손</strong>. 4:2의 손에는 이름(야빈) · 직함(가나안 왕) · 관계절(하솔에서 다스린)이 셋이나 붙는다. 4:9의 손에는 관사도 이름도 없이 <code>אִשָּׁה</code> 한 낱말뿐이고, 그 전치구가 동사보다 앞에 선다.</p>
+<p>관찰을 해석에서 떼어 둔다. 「앞에 선다」는 어순 사실이고, 그 앞섬이 무엇을 강조하는지는 아직 말하지 않는다.</p>
+<blockquote>
+<p>[!insight] 갈리는 칸은 넷이지만 <strong>주어 칸은 갈리지 않는다.</strong> 두 문장의 차이를 「누가 파는가」로 읽으면 틀리고, 「누가 말하는가 · 언제 · 누구를 · 누구의 손에」로 읽어야 문면에 맞는다.</p>
+<p>[!question] 연결 질문<br />
+- 4:2의 손에는 수식이 셋, 4:9의 손에는 하나도 없다. 수식의 많고 적음은 독자의 눈을 어디로 데려가는가?<br />
+- 같은 동사가 서술자의 입과 등장인물의 입에 나뉘어 있을 때, 독자는 두 문장에 같은 무게를 주어도 되는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 네 칸의 대조를 손으로 만질 수 있는 장면으로 옮겨 본다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "확정 기재와 예정 기재"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>같은 동사 · 두 층</th>
+<th>둘째 층의 빈칸</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>회계</td>
+<td>「매출」이 원장에는 확정 기재로, 사업계획서에는 예정으로 적힌다</td>
+<td>예정 매출의 거래처 칸이 아직 공란</td>
+</tr>
+<tr>
+<td>법정</td>
+<td>판결문 「피고는 지급하였다」(인정 사실) / 증인 진술 「그가 지급할 것이라고 했다」</td>
+<td>진술 속 지급 상대가 특정되지 않음</td>
+</tr>
+<tr>
+<td>등기</td>
+<td>소유권 이전 「완료」 / 가등기(장래 이전 청구권 보전)</td>
+<td>가등기 단계에서는 본등기가 아직 없음</td>
+</tr>
+<tr>
+<td>언어</td>
+<td>직설 과거 「했다」 / 인용 속 미래 「할 것이라고 그가 말했다」</td>
+<td>인용의 미래는 화자의 시점에 묶임</td>
+</tr>
+</tbody>
+</table>
+<p>네 도메인의 공통점: 같은 동사가 쓰여도 <strong>누가 · 어느 문서 · 어느 시점에서</strong> 말하느냐가 그 문장의 효력을 정한다. 숙련된 독자는 동사보다 먼저 층을 읽는다.</p>
+<p><strong>공통 패턴 한 문장</strong>: 같은 동사가 확정의 층과 예정의 층에 나란히 설 때, 예정의 층에는 아직 채워지지 않은 칸이 남고, 그 칸을 확정의 층의 손으로 채우는 순간 문서는 위조에 가까워진다.</p>
+<p>경계: 이 표는 사사기 4:9를 「계획서」나 「가등기」로 낮추는 비유가 아니다. 4:9는 여호와께서 하실 일을 예언자가 말한 문장이고, 그 문장의 신실성은 이 노트가 의심하지 않는다. 표가 빌리는 것은 「층을 섞지 않는다」는 읽기 규칙뿐이다.</p>
+<blockquote>
+<p>[!insight] 패턴의 핵심은 「예정은 약하다」가 아니라 <strong>「예정의 칸은 예정의 칸으로 인용한다」</strong>는 규칙이다. 약속의 무게와 인용의 정직은 다른 축이다.</p>
+<p>[!question] 연결 질문<br />
+- 확정 기재와 예정 기재를 한 문단에서 섞어 쓰는 습관은 설교와 상담 어느 쪽에서 더 자주 일어나는가?<br />
+- 예정 칸을 공란으로 둔 채 보고하는 것을 사람들은 왜 「불완전한 보고」로 느끼는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 네 도메인에서 건진 규칙을 하나의 판정 도식으로 짠다.</p>
+<h3>0 유추 (Analogizing) — "성명 미상 칸"</h3>
+<p><strong>유추 1 — 세무: 조사 전 통지서와 결정 통지서.</strong> 세무서가 「귀하에게 ○○ 세액을 부과할 예정」이라고 알리는 문서와, 「부과하였다」고 결정한 문서는 같은 동사 「부과」를 쓴다. 숙련된 세무사는 고객에게 앞 문서를 뒤 문서처럼 읽어 주지 않는다. 앞 문서에 적힌 상대방 · 금액 · 근거 가운데 아직 특정되지 않은 칸이 있으면 그 칸을 짐작으로 채워 고객을 겁주거나 안심시키지 않는다. <em>새 통찰</em>: 4:9를 설교할 때도 「드보라가 말했다」는 꼬리표가 바로 이 문서 구분이다. <em>깨지는 지점</em>: 행정 예고는 바뀔 수 있지만, 이 노트는 여호와의 말씀이 「바뀔 수 있는 예고」라고 말하지 않는다. 유추가 빌리는 것은 인용 층의 구분이지, 말씀의 신뢰도가 아니다.</p>
+<p><strong>유추 2 — 법률 문서: 「성명 미상」 칸.</strong> 공소장이나 진술서에 「성명 불상의 여자」가 나올 때, 서기는 그 칸에 가장 그럴듯한 사람의 이름을 써 넣지 않는다. 그것은 기록의 범죄다. 이름은 다음 절차에서 확인될 때 그 절차의 문서에 적힌다. <em>새 통찰</em>: 4:9의 <code>בְיַד־אִשָּׁה</code>를 4:9를 다루는 자리에서 특정인으로 채우는 것은 「다음 단락의 문서」를 「이 단락의 문서」에 소급 기재하는 일이다. <em>깨지는 지점</em>: 법정의 「성명 불상」은 정보 부족이지만, 4:9의 무명은 정보 부족인지 의도된 감춤인지 본문이 말하지 않는다. 이 노트는 어느 쪽인지 정하지 않는다.</p>
+<p><strong>유추 3 — 음악: 같은 선율, 다른 성부.</strong> 한 동기가 첫 악장에서는 첼로로 완결 화음 위에 놓이고, 둘째 악장에서는 독창자의 목소리로 해결되지 않은 화음 위에 놓인다. 청중은 같은 선율을 알아듣지만, 둘째 것이 아직 해결되지 않았다는 긴장을 함께 듣는다. <em>새 통찰</em>: 4:9의 「팔다」는 4:2의 선율이 <strong>다른 목소리 · 미해결 화음</strong>으로 다시 온 것이다. <em>깨지는 지점</em>: 음악은 해결을 예고하는 화성 규칙이 있지만, 이 노트는 4:9의 해결이 어떤 모양인지 범위 안에서 말하지 않는다(봉합 13).</p>
+<blockquote>
+<p>[!insight] 세 유추가 모두 가리키는 것은 하나다 — <strong>같은 낱말이 다른 층에 올 때, 숙련된 독자의 첫 동작은 해석이 아니라 층 표시다.</strong></p>
+<p>[!question] 연결 질문<br />
+- 「성명 미상」 칸을 견디지 못하는 마음은 신앙의 열심인가, 통제의 욕구인가?<br />
+- 세무 통지서 구분처럼, 설교에서 「드보라가 말했다」를 붙이는 일이 청중의 신뢰를 오히려 높일 수 있는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 머리로 세운 이 구분을 몸의 동작으로 옮겨, 손이 먼저 그 구분을 배우게 한다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "빈칸 위에서 멈춘 펜"</h3>
+<p><strong>실천 프로토콜</strong>: 종이 한 장을 세로로 접어 두 칸을 만든다. 왼쪽 위에 「서술자」, 오른쪽 위에 「드보라」라고 쓴다. 왼쪽 칸에 4:2를 손으로 베낀다. 「여호와께서 … 야빈의 손에 그들을 파셨는데.」 펜을 끝까지 내려 쓴다. 오른쪽 칸에 4:9의 이유 마디를 베낀다. 「여호와께서 … 여인의 손에 파실것임이니라.」 그리고 그 아래에 「손의 주인: 」이라고 쓴 뒤, <strong>펜을 종이 위 한 뼘 높이에 든 채로 열을 센다.</strong> 쓰지 않는다. 그다음 펜을 내려놓고 오른쪽 칸 맨 아래에 「드보라가 말했다」라고만 적는다.</p>
+<p><strong>몸이 가르쳐 준 것</strong>: 열을 세는 동안 팔이 무거워진다. 빈칸을 채우지 않는 것이 「아무것도 하지 않는 것」이 아니라 <strong>근육을 쓰는 절제</strong>라는 것을 손목이 먼저 안다. 왼쪽 칸을 쓸 때는 펜이 끝까지 내려가고, 오른쪽 칸에서는 마지막 칸 앞에서 멈춘다 — 그 멈춤의 감각이 층의 차이를 몸에 새긴다.</p>
+<p><strong>설교 동선 아이디어</strong>: 4:2를 읽을 때는 강단 한가운데 서서 아래를 보며 읽고, 4:9를 읽을 때는 한 걸음 옆으로 옮겨 「드보라가 말했다」는 손짓(인용의 손)과 함께 읽는다. 「여인의 손」에서 손을 펴서 들되, 그 손바닥에 아무것도 올려놓지 않는다.</p>
+<blockquote>
+<p>[!insight] 빈칸을 비워 두는 일은 <strong>멈춘 펜의 무게</strong>로 배운다. 해석을 미루는 것은 게으름이 아니라 손의 절제다.</p>
+<p>[!question] 연결 질문<br />
+- 열을 세는 동안 가장 먼저 떠오른 이름은 무엇이었고, 그 이름은 4:1-12 안에서 왔는가, 밖에서 왔는가?<br />
+- 왼쪽 칸(이스라엘이 넘겨진 일)을 끝까지 내려 쓸 때의 감각은 오른쪽 칸과 무엇이 달랐는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 펜을 든 사람의 손에서, 문장 안의 사람들의 마음으로 들어간다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "말이 사건이 되기까지"</h3>
+<p><strong>확장 — 정경의 시간 축.</strong> 본문은 말하지 않지만, 정경 전체에는 하나님께서 하실 일을 예언자가 말하고 그 말이 서술자의 문장으로 확정되기까지 시간이 걸리는 자리가 많다. 신명기 18:21-22는 예언자의 말을 「그 말이 이루어지는가」로 분별하라는 규정을 두었다(요지 · 대조하지 않음). 그 규정 자체가 이미 「말해진 것」과 「일어난 것」 사이에 거리가 있음을 전제한다. 사사기 4:9는 그 거리의 앞쪽 끝에 서 있다. 이 노트는 그 거리가 4장 안에서 어떻게 메워지는지 말하지 않는다 — 그것은 단위 11의 몫이다.</p>
+<p><strong>축소 — 한 마디의 시간 축.</strong> 4:9 한 절 안에서도 시간이 흐른다. <code>הָלֹךְ אֵלֵךְ עִמָּךְ</code>(앞일 · 1인칭) → <code>לֹא תִהְיֶה תִּפְאַרְתְּךָ</code>(앞일 · 3fs) → <code>יִמְכֹּר</code>(앞일 · 3ms) → 그리고 같은 절 끝에서 서술자의 wayyiqtol <code>וַתָּקָם</code>· 「갔다」(지난 일 둘)로 돌아온다. 한 절이 발화 안 미완료 셋을 쌓고 곧장 서술자의 wayyiqtol 둘(일어남 · 함께 감)로 닫는다. 서술자가 이 절에서 확정하는 것은 드보라의 동행뿐이고, 앞일 셋은 말의 층에 남는다.</p>
+<p><strong>핵심 전복</strong>: 처음에는 4:9를 「약속된 승리의 문장」으로 읽었다. 시간 축을 늘리고 줄이자, 4:9는 <strong>승리의 문장이 아니라 「말과 사건 사이에 아직 거리가 있는」 문장</strong>으로 보인다. 그 거리 자체가 4:9의 정직한 내용이다.</p>
+<blockquote>
+<p>[!insight] 4:9의 빈칸은 한 낱말의 빈칸이 아니라 <strong>시간의 빈칸</strong>이다 — 말해진 날과 적힐 날 사이의 칸.</p>
+<p>[!question] 연결 질문<br />
+- 신자가 붙드는 약속들 가운데, 「이미 적힌 것」과 「아직 말해진 것」을 섞어 기억하고 있는 것은 무엇인가?<br />
+- 한 절 안에서 앞일 셋 뒤에 지난 일 둘이 오는 리듬은, 앞일을 말한 사람이 그다음에 무엇을 하는지 보여 주는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 이 차원 전환을 실제 읽기 현장에서 쓸 수 있는 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>실질 접점이 있는 본문</strong></p>
+<ol>
+<li><strong>신명기 18:21-22</strong> (요지 · 대조하지 않음) — 예언자의 말을 그 말의 이루어짐으로 분별하라는 규정. 이 규정은 「말해진 것」과 「일어난 것」을 구별하는 읽기를 정경 안에 이미 심어 둔다. 사사기 4:9를 드보라의 말로 인용하는 것은 이 구별을 지키는 일이다. 본문은 4:9를 이 규정과 잇지 않는다 — 연결은 이 노트가 정경 전체의 층에서 놓는 것이다.</li>
+<li><strong>고린도후서 1:20</strong> (요지 · 대조하지 않음) — 하나님의 약속은 그리스도 안에서 「예」가 된다는 고백. 본문은 말하지 않지만, 정경 전체에서 신자는 「말해진 약속」과 「이미 이루어진 일」 사이를 살아가며, 그 사이를 그리스도 안에서 확신한다. ⛔ 이 노트는 4:9의 「이름 없는 손」을 그리스도 예표로 세우지 않는다(구문묵상 C4 집계 ✕7 · 「재료 부재」 — 「이름 없는 손 → 그리스도」를 ○로 올리지 않는다). 그리스도 연결은 <strong>손의 정체</strong>가 아니라 <strong>약속과 성취 사이를 읽는 신자의 자리</strong>에서만 놓인다.</li>
+<li><strong>히브리서 11:13</strong> (요지 · 대조하지 않음) — 약속을 받고도 그것을 이루어진 것으로 받지 못한 채 멀리서 보며 살았다는 진술. 약속의 말을 붙들되 그것을 이미 이루어진 일로 소급 기재하지 않는 태도와 닿는다. (같은 장 11:32의 이름 목록은 이 노트가 바락 판정 재료로 쓰지 않는다 — 봉합 10.)</li>
+</ol>
+<p><strong>신학자 — 헤르만 바빙크, 『개혁교의학』 계시론</strong> (요지 · 대조하지 않음): 바빙크는 하나님의 계시가 말씀과 행위로 함께 주어지며, 말씀이 행위를 해석하고 행위가 말씀을 확증한다고 본다. 사사기 4:2(서술자가 적은 행위)와 4:9(예언자가 전한 말씀)는 이 두 결이 한 단락 안에 나란히 놓인 자리다. 개혁신학이 「성경의 말이 누구의 입에 놓였는지를 가려 읽는다」(구문묵상 §6③)는 것은 영감을 약화하는 일이 아니라, 영감된 본문이 스스로 구별해 둔 층을 존중하는 일이다.</p>
+<ul>
+<li>
+<p><strong>인격의 열매</strong>: 4:9를 「하나님이 원수를 여자의 손에 넘기실 것이다 — 그러니 우리 원수도」로 옮기지 않는다(구문묵상 §6④⒟). 설교는 청중을 「내 쪽」으로 돌린다 — <strong>나는 말해진 약속을 이미 이루어진 일처럼, 내가 원하는 이름을 붙여 말해 오지 않았는가.</strong> 이 물음은 고백으로 이어진다(구문묵상 §3-7 R46 판정 — 이 단위는 감사가 아니라 고백 · 결단).</p>
+</li>
+<li>
+<p><strong>교리</strong>: 이 노트의 귀결은 「빈칸을 잘 견디는 성숙한 독자가 되자」라는 도덕 훈련에서 멈추지 않는다. 빈칸을 견딜 수 있는 근거는 독자의 인내가 아니라, 말씀하신 분이 그 말을 지키시는 분이라는 신뢰다. 다만 그 신뢰는 4:9의 칸을 미리 채우는 방식이 아니라, 채워지는 자리를 본문이 적는 대로 읽는 방식으로 표현된다. ⛔ 4:2 이스라엘의 넘겨짐과 4:9 시스라의 넘겨짐 어느 쪽도 감사 · 찬양의 대상으로 삼지 않는다.</p>
+</li>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>목회 — 사사기 4장 소그룹 인도</strong><br />
+- <em>상황</em>: 소그룹에서 4:9를 읽자마자 누군가 「그 여자가 누구예요?」라고 묻고, 다른 사람이 뒷장 이름을 말하려 한다.<br />
+- <em>적용</em>: 「층 표시 카드」 5 · 6번 물음을 꺼낸다. 「오늘 우리가 읽은 4:1-12 안에서 그 이름이 나왔나요?」 — 아니라면, 그 물음을 칠판 오른쪽 위에 적어 두고 다음 주 4:13-24로 넘긴다. 바락이 「믿음이 없었느냐」는 물음이 나오면, 원문이 그 조건에 칭찬도 꾸중도 붙이지 않았다는 사실까지만 말한다.<br />
+- <em>기대 효과</em>: 다음 모임에 빈칸이 동력으로 남고, 「여자에게 진 장군」 같은 성별 이야기로 흐를 길이 처음부터 닫힌다.</p>
+<p><strong>세무 — 고객 상담: 예고 문서를 읽어 주는 자리</strong><br />
+- <em>상황</em>: 고객이 세무서에서 받은 「과세 예고」 류 문서를 들고 와 「이미 세금이 확정된 거냐」고 묻는다. 문서의 일부 칸(관련 거래 상대 등)은 특정되지 않았다.<br />
+- <em>적용</em>: 확정 문서와 예고 문서를 책상 위에 따로 놓고, 「누가 · 언제 · 무엇을 · 누구에게」 네 칸을 고객과 함께 짚는다. 특정되지 않은 칸은 짐작으로 채우지 않고 「아직 특정되지 않음」으로 적어, 다음 절차에서 확인할 목록으로 넘긴다.<br />
+- <em>기대 효과</em>: 고객이 막연한 공포나 근거 없는 안심 어느 쪽으로도 기울지 않고, 다음 절차를 준비한다. (이 비유는 읽기 습관을 빌리는 데까지다 — 4:9를 행정 예고처럼 「바뀔 수 있는 말」로 낮추지 않는다.)</p>
+<p><strong>교회 행정 — 회의록 작성</strong><br />
+- <em>상황</em>: 당회 · 제직회 회의록에 「○○ 사역은 한 분이 맡기로 한다」는 결의가 나왔으나 담당자는 아직 정해지지 않았다.<br />
+- <em>적용</em>: 회의록에 「담당자: 추후 결정」으로 적고, 서기가 회의 뒤 들은 이름을 소급해 써 넣지 않는다. 결의(말해진 것)와 시행(적힐 것)을 다른 칸에 둔다.<br />
+- <em>기대 효과</em>: 회의록이 「결정된 것」과 「결정될 것」을 섞지 않아, 뒤에 생길 오해와 책임 공방이 줄어든다.</p>
+<p><strong>개인 의사결정</strong><br />
+- <em>상황</em>: 기도 중에 받은 확신이나 누군가의 권면을, 아직 일어나지 않았는데도 일어난 일처럼 주변에 말하고 싶어진다.<br />
+- <em>적용</em>: 그 확신을 말할 때 「내가 받은 확신은 이렇다」(누구의 말인지) · 「아직 일어나지 않았다」(언제)를 붙인다. 그 일을 이룰 사람이나 방법을 내가 먼저 정해 이름 붙이지 않는다.<br />
+- <em>기대 효과</em>: 확신을 붙들되, 말해진 것과 이루어진 것을 섞지 않는 정직함이 지켜진다.</p>
+<h3>🥇 같은 공식, 같은 주어, 다른 네 칸 — 사사기 4:2 · 4:9의 층 대조</h3>
+<ul>
+<li><strong>핵심</strong>: 사사기의 <code>מכר … בְּיַד</code> 다섯은 주어가 전부 여호와이고, 4:2 · 4:9도 그렇다. 두 문장이 갈리는 것은 주어가 아니라 화자(서술자 / 드보라) · 때(wayyiqtol / 미완료) · 목적어(이스라엘 / 시스라) · 손(이름 있는 왕 / 무관사 무명의 여자)이다.</li>
+<li><strong>인격 형성</strong>: 흔한 읽기는 두 문장의 차이를 「하나님이 이번엔 반대편을 파신다」로 요약하고 곧장 「되사기」나 성별 대비로 넘어간다. 이 후보는 차이의 중심을 <strong>화자의 층</strong>에 놓아, 그 두 미끄럼길을 문면 사실로 막는다.</li>
+<li><strong>연결 고리</strong>: <a href="./10_구문묵상_사사기_4_1-12.html">10_구문묵상_사사기_4_1-12</a> · <a href="./05_생각의탄생13단계_사사기_2_6-15_한일앞에두세대의동사가갈린다.html">05_생각의탄생13단계_사사기_2_6-15_한일앞에두세대의동사가갈린다</a> (2:14 <code>מכר</code> 자리는 05가 축으로 쓰지 않음) · 「층별인용원칙」(노트 후보)</li>
+</ul>
+<h3>🥈 성명 미상 칸 — 소급 기재 금지의 해석학</h3>
+<ul>
+<li><strong>핵심</strong>: 4:9의 <code>בְיַד־אִשָּׁה</code>는 4:9 시점에 이름이 없다. 그 칸을 뒷단락의 이름으로 채우는 것은 다음 문서를 이 문서에 소급 기재하는 일이다.</li>
+<li><strong>인격 형성</strong>: 「결말을 아니까 미리 말해도 된다」는 읽기 습관이 본문의 서사 시간(4:10-12의 긴장)을 죽인다는 것을, 법률 · 회계의 기재 원칙으로 보여 준다.</li>
+<li><strong>연결 고리</strong>: <a href="./11_구문묵상_사사기_4_13-24.html">11_구문묵상_사사기_4_13-24</a> (빈칸이 넘겨지는 자리 — 관계 판정은 그 단위 몫) · 「소급기재와해석」(노트 후보) · 신 18:21-22 (요지)</li>
+</ul>
+<h3>🥉 말해진 날과 적힐 날 사이 — 약속을 인용하는 신자의 정직</h3>
+<ul>
+<li><strong>핵심</strong>: 4:9 한 절은 발화 안 미완료 셋을 쌓고 서술자의 wayyiqtol 둘로 닫힌다. 서술자가 확정하는 것은 동행뿐이다. 약속의 말은 말의 층에 남는다.</li>
+<li><strong>인격 형성</strong>: 약속을 붙드는 일과 약속을 이미 이루어진 일로 말하는 일을 구별해, 신앙의 확신과 인용의 정직이 충돌하지 않는다는 것을 보인다.</li>
+<li><strong>연결 고리</strong>: 고후 1:20 · 히 11:13 (요지) · 「약속과성취사이의빈칸」(노트 후보) · <a href="./10_일상의깊은사고_사사기_4_1-12.html">10_일상의깊은사고_사사기_4_1-12</a> 마무리 묵상(「기재되지 않은 칸이 남은 장부」)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 10 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

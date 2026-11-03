@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>어지럽힘과 굴복시킴은 다른 일이다 — 씨앗 아이디어(사사기 4:15 — הָמַם(하맘))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 11 편 &middot; 사사기 4:13-24</span>
+      <h1>어지럽힘과 굴복시킴은 다른 일이다 — 씨앗 아이디어(사사기 4:15 — הָמַם(하맘))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>11_성경적 사고와 인격 만들기</p>
+<h2>어지럽힘과 굴복시킴은 다른 일이다 — 씨앗 아이디어(사사기 4:15 — הָמַם(하맘))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./11_생각의탄생13단계_사사기_4_13-24_어지럽힘과굴복시킴은다른일이다.html">11_생각의탄생13단계_사사기_4_13-24_어지럽힘과굴복시킴은다른일이다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"4:15의 「바야함」은 「어지럽히다」이고 사사기에 이 한 번 나옵니다. 출애굽기 14:24와 여호수아 10:10도 같은 낱말로 하나님이 하신 일을 적지만, 그 문장들과의 관계는 판정하지 않습니다. 4:23의 「바야크나」는 「굴복하게 하다」입니다. 사사기에서 이 낱말은 넷인데, 셋은 굴복하는 쪽을 앞세우고 하나님이 굴복하게 하시는 꼴은 여기 하나입니다. 두 문장은 낱말이 다르지만 똑같이 「리프네」(앞에서)를 답니다."</strong></p>
+<p><strong>"개역한글은 두 낱말을 다 「패하게 하시-」로 옮겨, 진 한가운데의 소란과 그 날 왕의 꺾임을 한 일처럼 보이게 합니다."</strong></p>
+<p><strong>본문 핵심: 서술자는 하나님의 일을 두 낱말로 적었고, 두 번 다 사람을 「앞에서」 자리에 두었습니다.</strong></p>
+<p>(출처: <a href="./11_일상의깊은사고_사사기_4_13-24.html">11_일상의깊은사고_사사기_4_13-24</a> 주요 신학 통찰 1️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본_1-5장.md</code> · 4장)</p>
+<blockquote>
+<p>4:15 여호와께서 바락의 앞에서 시스라와 그 모든 병거와 그 온 군대를 칼날로 쳐서 패하게 하시매 시스라가 병거에서 내려 도보로 도망한지라<br />
+4:23 이와 같이 이 날에 하나님이 가나안 왕 야빈을 이스라엘 자손 앞에 패하게 하신지라</p>
+<p>(견줌) 4:14 드보라가 바락에게 이르되 일어나라 이는 여호와께서 시스라를 네 손에 붙이신 날이라 여호와께서 너의 앞서 행하지 아니하시느냐 이에 바락이 일만명을 거느리고 다볼산에서 내려가니</p>
+</blockquote>
+<p><strong>원문</strong> (<a href="./11_구문묵상_사사기_4_13-24.html">11_구문묵상_사사기_4_13-24</a> §2 · XML)</p>
+<blockquote>
+<p><strong>4:15</strong> וַיָּ֣הָם יְ֠הוָה אֶת־סִֽיסְרָ֨א וְאֶת־כָּל־הָרֶ֧כֶב וְאֶת־כָּל־הַֽמַּחֲנֶ֛ה לְפִי־חֶ֖רֶב לִפְנֵ֣י בָרָ֑ק וַיֵּ֧רֶד סִֽיסְרָ֛א מֵעַ֥ל הַמֶּרְכָּבָ֖ה וַיָּ֥נָס בְּרַגְלָֽיו׃</p>
+<p><strong>4:23</strong> וַיַּכְנַ֤ע אֱלֹהִים֙ בַּיּ֣וֹם הַה֔וּא אֵ֖ת יָבִ֣ין מֶֽלֶךְ־כְּנָ֑עַן לִפְנֵ֖י בְּנֵ֥י יִשְׂרָאֵֽל׃</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (<a href="./11_구문묵상_사사기_4_13-24.html">11_구문묵상_사사기_4_13-24</a> §3-0 표 · §3-2 · §3-5 · §3-9 · §4①②)</p>
+<table>
+<thead>
+<tr>
+<th>칸</th>
+<th>4:15</th>
+<th>4:23</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>동사</td>
+<td><code>וַיָּהָם</code>(바야함) — Qal wayyiqtol 3ms</td>
+<td><code>וַיַּכְנַע</code>(바야크나) — Hiphil wayyiqtol 3ms</td>
+</tr>
+<tr>
+<td>표제어</td>
+<td><code>הָמַם</code>(2000)</td>
+<td><code>כָּנַע</code>(3665)</td>
+</tr>
+<tr>
+<td>주어</td>
+<td><code>יְהוָה</code>(기명 · 서술자층)</td>
+<td><code>אֱלֹהִים</code>(기명 · 서술자층)</td>
+</tr>
+<tr>
+<td>목적어</td>
+<td>시스라 · 모든 병거 · 온 진(셋)</td>
+<td>가나안 왕 야빈(하나)</td>
+</tr>
+<tr>
+<td>붙은 말</td>
+<td><code>לְפִי־חֶרֶב</code> · <code>לִפְנֵי בָרָק</code></td>
+<td><code>בַּיּוֹם הַהוּא</code> · <code>לִפְנֵי בְּנֵי יִשְׂרָאֵל</code></td>
+</tr>
+<tr>
+<td>개역한글</td>
+<td>「칼날로 쳐서 패하게 하시매」(「쳐서」는 보충)</td>
+<td>「이와 같이 이 날에 … 패하게 하신지라」(「이와 같이」는 넣은 말 · 「그 날」을 「이 날」로)</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수 기준과 모집단</strong>: 모든 계수는 구문묵상 §1-5 · §3-2 · §3-5 · §4의 XML 계수다. ① <code>הָמַם</code>(2000)은 <strong>사사기 안 1</strong>(4:15) · <strong>구약 16(11권)</strong>이다 — 구문묵상의 경고대로 「사사기에 하나」를 희소성 논증으로 쓰지 않는다. 출 14:24 <code>וַיָּהָם</code> · 수 10:10 <code>וַיְהֻמֵּם יְהוָה לִפְנֵי יִשְׂרָאֵל</code>이 같은 표제어로 하나님을 주어로 세운다(사실까지 · 출 14:24에는 <code>לִפְנֵי</code>가 없다 · E1). ② <code>כָּנַע</code>(3665)는 <strong>사사기 안 4</strong> — 니팔 3(3:30 · 8:28 · 11:33)과 히필 1(4:23) · 구약 36(13권). 「유일한 히필」은 이 모집단(사사기 <code>כנע</code> 4) 안에서의 말이다. ③ <code>לִפְנֵי</code>(6440)는 <strong>이 단위 범위(4:13-24) 안 3</strong> — 4:14 <code>לְפָנֶיךָ</code>(드보라 발화) · 4:15 · 4:23(서술자) — 셋 다 하나님 주어 절 안이다(E1). ⛔ 계수를 기둥으로 세우지 않는다. 기둥은 <strong>서술자층 하나님 주어 정동사 둘의 표제어 · 어간이 서로 다르고, 개역한글이 그 둘을 한 역어로 옮겼다</strong>는 어형 · 역본 사실이다.</p>
+<h3>사고의 통합 — "접힌 것을 펴되 잇지 않는다"</h3>
+<p>관찰(1)은 원문이 「같은 것 하나 · 다른 것 여럿」을 주는데 역본은 「같은 것 둘」을 준다는 사실에서 시작했다. 형상화(2)에서 그 차이는 교실의 두 지면 — 같은 도장 두 번과 다른 도장 둘 — 로 감각이 되었고, 추상화(3)는 뜻 · 인과 · 의도를 모두 버린 뒤에도 「두 일이 둘로 적혀 있다」는 형식이 남는다는 것을 보였다. 그 형식은 번역만이 아니라 세무 서류철 · 회의록 · 진료 기록에서도 되풀이되는 <strong>「요약어가 사건의 수를 줄이는 일」</strong>(4)이었고, 이를 되살리는 틀 「두 칸 펼치기」(5)는 「펼치기와 잇기는 별개」라는 법칙을 낳았다. 유추(6)는 그 법칙이 「같은 이름표 · 다른 내용」에서는 통하고 「진행 · 선후」에서는 깨진다는 것을 — 깨지는 지점이 정확히 구문묵상의 봉합과 겹친다는 것을 — 보여 주었다.</p>
+<p>몸(7)은 두 낱말을 두 숨으로 읽을 때 둘째가 첫째의 메아리가 되지 않는다는 것을 가르쳤고, 감정이입(8)은 역어 겹침이 듣는 귀만이 아니라 기도하는 입에도 닿는다는 것 — 두 낱말을 펴면 감사가 4:23 한 문장으로 좁아지고, 그 좁아짐이 정직하다는 것 — 을 드러냈다. 차원적 사고(9)는 정경의 축척에서도 어간의 축척에서도 두 동사가 서로 다른 줄기에 달려 있음을 확인했다. 점검표(10)는 그 확인을 현장의 도구로 만들었고, 놀이(11)는 두 낱말을 서로 바꿔 넣을 수 없으며 두 문장이 공유하는 것은 사람의 자리(<code>לִפְנֵי</code>)뿐이라는 뜻밖의 발견을 남겼다. 시(12)로 옮겨도 「두 숨 · 비운 이음말 · 한 자리」는 살아남았다.</p>
+<p><strong>① 최종 테제</strong>: 서술자가 하나님의 일을 두 낱말로 적은 자리를 한 역어가 접어 두었다면, 읽는 이의 일은 그것을 <strong>두 낱말로 다시 펴되, 원문이 두지 않은 끈으로 다시 묶지 않는 것</strong>이다. 펼침은 차이를 돌려주고, 잇지 않음은 열린 것을 지킨다. 그 사이에서 두 문장이 똑같이 붙든 것은 사람이 선 자리 하나 — 「… 앞에서」 — 뿐이다.</p>
+<p><strong>② 가장 생산적이었던 도구</strong>: <strong>놀이(11)</strong>. 바꿔 넣기 세 판은 「두 낱말이 다르다」는 관찰을 「서로 바꿔 넣을 수 없다」는 시험으로 바꾸었고, 「앞에서」를 지우는 판에서 사람이 하나님의 두 문장 안에서 오직 그 한 낱말로만 서 있다는 사실을 드러냈다. 논리로는 지나칠 수 있는 공통 칸의 무게가 놀이에서 손에 잡혔다.</p>
+<p><strong>③ 처음 관찰과 달라진 이해</strong>: 처음에는 「역본이 차이 하나를 지웠다」는 결손의 문제로 보았다. 끝에서는 <strong>펼치는 일 자체가 또 하나의 유혹을 낳는다</strong>는 것을 알게 되었다 — 두 칸을 펴면 그 사이를 「먼저 어지럽히고 나중에 굴복시키셨다」는 단계 · 인과로 채우고 싶어진다. 역어 겹침을 푸는 일과 봉합하지 않는 일은 한 쌍으로만 정직하다.</p>
+<blockquote>
+<p><strong>"하나님의 일이 두 낱말로 적혔으면 두 낱말로 읽어라. 그러나 펼친 두 칸 사이에 원문에 없는 끈을 걸지 말라 — 두 문장이 함께 붙든 것은 사람이 선 자리 하나뿐이다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "한 역어 아래 두 표제어"</h3>
+<p>해석을 미루고, 4:15와 4:23 두 문장을 성분으로만 나란히 놓는다.</p>
+<p>첫째, <strong>꼴은 닮았다</strong>. 둘 다 wayyiqtol 3ms, 둘 다 서술자의 목소리로 하나님을 기명 주어로 세운다. 범위 안 신명 넷 가운데 서술자층은 이 둘뿐이다(나머지 둘은 4:14 드보라의 말 안 · 구문묵상 §3-7).</p>
+<p>둘째, <strong>낱말은 다르다</strong>. 4:15는 <code>הָמַם</code>, 4:23은 <code>כָּנַע</code>. 어간도 다르다 — 칼과 히필. 주어 이름도 다르다 — <code>יְהוָה</code>와 <code>אֱלֹהִים</code>(이 노트는 이 차이에 뜻을 얹지 않는다 · 사실까지).</p>
+<p>셋째, <strong>붙은 말이 칸마다 다르다</strong>. 4:15에는 목적어가 셋(시스라 · 모든 병거 · 온 진)이고, 도구 같은 구 <code>לְפִי־חֶרֶב</code>가 붙는다. 4:23에는 목적어가 하나(가나안 왕 야빈)이고, 때의 말 <code>בַּיּוֹם הַהוּא</code>가 붙는다.</p>
+<p>넷째, <strong>하나만 같다</strong> — <code>לִפְנֵי</code> + 사람의 이름. 「바락 앞에서」, 「이스라엘 자손 앞에서」.</p>
+<p>다섯째, 개역한글 지면에서는 넷째만이 아니라 동사까지 같아 보인다. 「패하게 하시매」, 「패하게 하신지라」. 원문에서 다른 두 표제어가 우리말에서는 한 어간으로 읽힌다(구문묵상 §3-9 첫 행 「한 어간으로 묶기」).</p>
+<blockquote>
+<p>[!insight] 원문은 <strong>같은 것 하나(<code>לִפְנֵי</code>)와 다른 것 여럿(낱말 · 어간 · 목적어 · 붙은 말)</strong>을 주는데, 역본은 <strong>같은 것 둘(「앞에」 · 「패하게」)</strong>을 준다. 차이가 하나 사라졌다.</p>
+<p>[!question] 연결 질문<br />
+- 두 동사가 한 역어로 읽힐 때, 독자는 4:23을 4:15의 반복 · 요약으로 듣게 되는가?<br />
+- 「앞에서」만 같고 나머지가 다 다르다면, 두 문장을 묶는 것은 무엇이고 가르는 것은 무엇인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 사라진 차이 하나가 실제로 귀와 눈에서 어떻게 사라지는지 장면으로 세운다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "한 이름으로 접힌 두 사건"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>패턴 발현</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>성경 번역</td>
+<td>4:15 <code>הָמַם</code> · 4:23 <code>כָּנַע</code> → 「패하게 하시-」. 같은 단위에서 4:24 <code>כרת</code> 히필은 「진멸」로 옮겨져 1:17 <code>חרם</code>과 한국어만 겹친다(구문묵상 §3-9 마지막 행) — 겹침이 한 단위 안에서 두 번 일어난다</td>
+</tr>
+<tr>
+<td>세무 실무</td>
+<td>불복 사건에서 「인용 결정」과 「환급 실행」은 날짜도 주체도 다른 두 사건인데, 상담 기록에 「해결됨」 한 단어로 적히면 두 날짜가 하나로 접힌다</td>
+</tr>
+<tr>
+<td>교회 행정</td>
+<td>당회 회의록의 「문제가 해결되었다」 한 줄이 「갈등이 멈춘 날」과 「합의서가 서명된 날」을 한 사건으로 만든다</td>
+</tr>
+<tr>
+<td>의학 기록</td>
+<td>「호전」이라는 한 낱말이 증상 완화와 원인 제거를 함께 덮는다</td>
+</tr>
+<tr>
+<td>일상 언어</td>
+<td>「끝났다」가 「싸움이 흩어진 순간」과 「상대가 물러선 날」을 한 말로 접는다</td>
+</tr>
+</tbody>
+</table>
+<p><strong>공통 패턴</strong>: <strong>서로 다른 두 사건을 한 요약어가 덮으면, 둘째는 첫째의 반복으로, 첫째는 둘째의 시작으로 오해된다.</strong> 요약어는 편리하지만, 날짜 · 대상 · 주체의 차이를 지운다.</p>
+<p>⛔ 표의 세무 · 행정 · 의학 행은 패턴의 닮음을 보이는 비교일 뿐, 4:15 · 4:23의 상대(시스라 · 야빈)를 오늘의 어느 기관 · 집단 자리에 두지 않는다(§6-2 오늘 집단 대입 금지).</p>
+<blockquote>
+<p>[!insight] 역어 겹침은 번역만의 문제가 아니다. <strong>요약어가 사건의 수를 줄이는 일</strong>은 기록하는 모든 자리에서 일어난다.</p>
+<p>[!question] 연결 질문<br />
+- 4:15 · 4:23을 묶는 역어와 4:24 · 1:17을 묶는 역어는 같은 종류의 겹침인가?<br />
+- 요약어가 줄인 사건의 수를 되살릴 때, 무엇을 기준으로 「둘」이라고 세는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 다섯 영역에 공통된 겹침을 되살리는 틀을 하나의 도식으로 세운다.</p>
+<h3>0 유추 (Analogizing) — "두 처분일과 한 줄 요약"</h3>
+<p><strong>유추 ① 세무 — 두 처분일 (신학↔세무 교차)</strong><br />
+조세 불복 서류철에는 날짜가 여럿이다. 결정이 내려진 날, 결정문이 송달된 날, 환급이 실행된 날. 고객의 기억에는 「이긴 날」 하나로 남지만, 실무자는 날짜마다 다른 효과를 따진다(구체적 기한 · 조문은 사안별 대조 · 요지). 한 줄 요약 「해결됨」은 그 칸들을 접는다.<br />
+- <strong>새 통찰</strong>: 4:15의 「진 한가운데」와 4:23의 「그 날 · 왕」은 날짜표의 두 칸처럼 <strong>대상과 때의 표지가 다르다</strong>. 실무자가 「해결됨」을 날짜별로 펴듯, 독자는 「패하게」를 낱말별로 편다.<br />
+- <strong>한계</strong>: 서류철의 날짜들은 법이 정한 선후와 인과를 갖지만, 4:15와 4:23의 관계는 원문이 정하지 않았다. 유추가 「4:15 → 4:23」의 절차적 선후를 들여오면 봉합을 닫는다.</p>
+<p><strong>유추 ② 음악 — 같은 화음 이름, 다른 성부</strong><br />
+악보 요약표에 두 마디가 모두 「C장조」로 적혀 있어도, 한 마디는 낮은 성부가 흔들리는 트레몰로이고 다른 마디는 높은 성부가 내려앉는 종지일 수 있다. 화음 이름은 같아도 소리는 다르다.<br />
+- <strong>새 통찰</strong>: 역어 「패하게」는 화음 이름이고, 원문의 두 동사는 성부의 움직임이다. 공통 베이스음처럼 <code>לִפְנֵי</code>가 두 마디 밑에 깔린다.<br />
+- <strong>한계</strong>: 음악은 두 마디의 진행(긴장 → 해결)을 작곡가가 정하지만, 이 본문에서 「흔들림 → 종지」의 진행을 읽어 내면 그것은 해석이 된다. 유추는 「다르다」까지만 빌린다.</p>
+<p><strong>유추 ③ 지도 — 축척이 다른 두 표시</strong><br />
+같은 「승전 표시」 기호가 하나는 골짜기 지도(진의 자리)에, 하나는 나라 지도(왕의 자리)에 찍혀 있다. 기호는 같지만 축척이 다르다.<br />
+- <strong>새 통찰</strong>: 4:15의 목적어는 진 단위(시스라 · 병거 · 진), 4:23의 목적어는 왕 하나다. <strong>같은 역어가 다른 축척의 일을 덮는다.</strong><br />
+- <strong>한계</strong>: 「골짜기 → 나라」로 축척이 커진다는 읽기는 두 일의 관계를 정하는 쪽으로 미끄러진다. 지도 유추도 「표시가 같다 · 대상이 다르다」에서 멈춘다.</p>
+<blockquote>
+<p>[!insight] 세 유추는 모두 <strong>「같은 이름표 · 다른 내용」</strong>에서는 통하고, <strong>「두 내용의 진행 · 선후」</strong>에서는 깨진다. 깨지는 지점이 정확히 구문묵상이 열어 둔 자리와 겹친다.</p>
+<p>[!question] 연결 질문<br />
+- 유추가 깨지는 지점을 미리 알면, 설교에서 그 유추를 어디까지 쓸 수 있는가?<br />
+- 세무 날짜표처럼 칸마다 「효과」를 적고 싶은 충동을, 본문 앞에서는 어떻게 참는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 머리로 세운 「두 칸」을 몸으로 겪어, 펼치기와 잇지 않기가 근육에서 어떻게 다른지 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "두 손가락 두 숨"</h3>
+<p><strong>실천 프로토콜</strong>: 히브리어 대역(또는 원문 인쇄본)을 펴고, 두 손의 검지를 각각 4:15 첫 낱말 <code>וַיָּהָם</code>과 4:23 첫 낱말 <code>וַיַּכְנַע</code> 위에 올린다. 눈을 감고 숨을 한 번 쉬며 왼쪽 손가락의 낱말 「바야함」만 소리 낸다. 숨을 끝까지 내쉰 뒤, <strong>새 숨을 들이쉬고</strong> 오른쪽 손가락의 「바야크나」를 소리 낸다. 두 낱말 사이에 「그래서」나 「이와 같이」를 입으로 넣지 않는다. 마지막으로 두 손가락을 그대로 둔 채 두 낱말 다음에 오는 같은 말 「리프네」를 각각 한 번씩 읽는다.</p>
+<p><strong>몸의 반응</strong>: 한 숨에 두 낱말을 이어 말하면 혀가 둘째를 첫째의 메아리처럼 낮춘다. 숨을 끊고 새로 들이쉬면 둘째 낱말이 첫째와 같은 높이로 선다. 두 손가락은 끝까지 서로 닿지 않는다 — <strong>펼친 채 잇지 않는 자세</strong>가 손에 남는다. 「리프네」를 두 번 읽을 때는 두 손가락이 같은 높이에 있다는 것이 느껴진다.</p>
+<p>⛔ 이 프로토콜은 낱말과 숨만 다룬다. 칼 · 진 · 말뚝을 몸짓으로 재현하지 않고, 「꺾는」 손동작이나 승리의 동작을 넣지 않는다(§7-2 · §7-5 · §6-2 통쾌함).</p>
+<blockquote>
+<p>[!insight] 두 낱말을 두 숨으로 읽으면 <strong>둘째가 첫째의 메아리가 되지 않는다</strong>. 숨의 끊김이 원문에 없는 이음말을 막는 몸의 장치다.</p>
+<p>[!question] 연결 질문<br />
+- 회중 낭독에서 4:15와 4:23 사이 여덟 절을 읽는 동안, 낭독자는 첫 숨의 「바야함」을 기억에 어떻게 붙들어 두는가?<br />
+- 두 손가락이 닿지 않는 자세는 설교 강단에서 어떤 동선으로 옮겨질 수 있는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 손가락 아래의 낱말을 실제로 옮기고 읽어야 했던 두 사람의 마음속으로 들어간다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "정경의 같은 낱말과 한 모음"</h3>
+<p><strong>확장 — 정경의 축척</strong><br />
+<code>הָמַם</code>은 구약에 16번(11권) 나오고, 출 14:24 <code>וַיָּהָם</code>과 수 10:10 <code>וַיְהֻמֵּם יְהוָה לִפְנֵי יִשְׂרָאֵל</code>이 같은 표제어로 하나님을 주어로 세운다. 삼상 7:10에도 <code>וַיְהֻמֵּם</code> · <code>בַּיּוֹם הַהוּא</code> · <code>לִפְנֵי יִשְׂרָאֵל</code>가 한 절에 있다(구문묵상 §3-2 · XML 문면 · 형태 태그 미조회). 정경을 넓게 펴면, 4:15는 <strong>같은 낱말이 놓인 몇 자리 가운데 하나</strong>로 보인다. ⛔ 여기서 멈춘다. 「출애굽의 재현」 · 「정복의 연속」처럼 관계를 정하지 않는다(봉합 3 · 선정표 §5). 넓은 축척이 주는 것은 「4:15의 낱말이 사사기 밖에도 있다」는 사실이지, 그 자리들 사이의 줄이 아니다. 출 14:24에는 <code>לִפְנֵי</code>가 없고 수 10:10에는 있다는 것도 사실로만 둔다.</p>
+<p><strong>축소 — 한 모음 · 한 어간의 축척</strong><br />
+렌즈를 낱말 안으로 들이밀면, 4:23의 히필은 <code>כנע</code> 넷 가운데 하나다. 3:30 · 8:28 · 11:33은 니팔로 굴복하는 쪽이 주어이고, 4:23만 하나님이 주어로 서서 굴복하게 하신다. 어간 하나가 주어 칸을 바꾼다. ⛔ 그러나 3:30과의 대조는 이 노트의 축이 아니다(U11 · 09 소유) — 여기서는 「모집단 넷, 히필 하나」라는 계수만 쓰고, 니팔 셋의 문장을 하나씩 견주지 않는다. 왜 이 자리만 히필인지도 열어 둔다(봉합 14).</p>
+<p><strong>핵심 전복</strong>: 넓히면 4:15는 「사사기의 유일한 낱말」에서 <strong>「정경 여러 자리의 한 낱말」</strong>로 바뀌고(희소성의 무게가 빠진다), 좁히면 4:23은 「흔한 굴복」에서 <strong>「모집단 넷 중 주어 칸이 다른 하나」</strong>로 바뀐다. 두 축척 모두에서 <strong>두 동사는 서로 다른 계보에 속해 있다</strong> — 한 역어로 묶일 근거가 축척을 바꿀수록 더 약해진다.</p>
+<blockquote>
+<p>[!insight] 축척을 넓히든 좁히든 <code>הָמַם</code>과 <code>כָּנַע</code>는 <strong>서로 다른 줄기에 달려 있다</strong>. 역어 「패하게」만이 두 줄기를 한 가지처럼 보이게 했다.</p>
+<p>[!question] 연결 질문<br />
+- 같은 낱말이 정경 여러 자리에 있다는 사실만으로, 설교자는 그 자리들을 나란히 읽어 줄 수 있는가 — 관계를 말하지 않으면서?<br />
+- 「모집단 넷 중 하나」라는 말이 무게로 바뀌지 않게 하려면 문장을 어떻게 끝내야 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 두 축척에서 확인한 「다른 줄기」를 현장에서 바로 쓸 수 있는 점검 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>1. 실질 접점이 있는 정경 본문 (층을 밝혀서)</strong></p>
+<ul>
+<li><strong>출애굽기 14:24 · 여호수아 10:10</strong> (원문 꼴만 구문묵상 §3-2 · 개역 문면 미확인) — 같은 표제어 <code>הָמַם</code>이 하나님을 주어로 세운다. 이 노트가 말할 수 있는 것은 <strong>「4:15의 낱말이 정경의 다른 자리에도 하나님의 일로 쓰인다」</strong>는 사실까지다. ⛔ 4:15가 출애굽이나 정복을 「재현」 · 「반복」한다고 말하지 않는다(봉합 3 · 선정표 §5).</li>
+<li><strong>사사기 4:14</strong> — 드보라의 물음 「여호와께서 네 앞서 나가지 않으셨느냐」(<code>הֲלֹא יְהוָה יָצָא לְפָנֶיךָ</code>). 범위 안 <code>לִפְנֵי</code> 셋 가운데 하나가 이 발화 안에 있다. ⛔ 4:15 · 4:23을 이 물음의 성취로 잇지 않는다(봉합 1 · 2). 발화층과 서술자층을 갈라 둔다.</li>
+<li><strong>정경 전체의 층</strong> — <em>본문(4:13-24)은 말하지 않지만</em>, 정경 전체에서 하나님은 사람 「앞에서」 일하시는 분으로 고백된다. 그러나 구문묵상 C4는 이 단위의 그리스도 연결을 ✕7 · 재료 부재로 판정했다. 따라서 「그 날 → 주의 날」, 「원수를 꺾으신 하나님 → 그리스도의 승리」를 4:15 · 4:23의 예표 해석으로 세우지 않는다. 그리스도 안에서의 하나님의 일은 이 단위의 해석이 아니라 <strong>정경 전체의 고백</strong>으로서만 이 노트 곁에 선다.</li>
+</ul>
+<p><strong>2. 신학자</strong>: 장 칼뱅은 『기독교 강요』 제1권에서 하나님의 섭리가 사람의 행위를 통해서도 일하되, 그것이 사람 행위의 승인과 같지 않다는 취지를 말한다(요지 · 장절 미대조). 이 구별은 구문묵상 §6③이 4:15 · 4:23의 하나님 주어 문장과 4:21 야엘의 동작을 「서술의 층이 다르다」고 갈라 둔 것과 접점을 갖는다. 두 낱말을 펼쳐 하나님의 일을 서술자가 적은 두 문장에만 두는 이 노트의 읽기는, 하나님의 일과 사람의 행위를 한 역어 안에 섞지 않는 분별로 이어진다 — 다만 칼뱅의 섭리론을 이 본문의 의도로 읽어 넣지 않는다.</p>
+<p><strong>3. 웨스트민스터 신앙고백 제5장(섭리)</strong> (요지 · 대조하지 않음) — 하나님이 제2원인들을 통해 일하시되 죄의 조성자가 아니시라는 취지. 구문묵상은 「이 단락에 관해 신앙고백서가 따로 내린 규정은 확인하지 않았다」고 적었다 — 이 노트도 고백서를 4:13-24의 해석 규정으로 쓰지 않고, 「하나님 주어 문장을 사람 행위의 승인으로 넓히지 않는다」는 읽기의 배경으로만 둔다.</p>
+<p><strong>4. 설교 적용점</strong>: 4:13-24를 설교할 때 「하나님이 시스라를 패하게 하셨다」로 4:15 · 4:23을 한 문장으로 요약하지 않는다. 두 문장을 따로 읽어 주고 — 「어지럽히셨다」, 「굴복하게 하셨다」 — 감사는 4:23과 4:14의 물음(발화층 표시)에만 묶는다. 4:15의 「칼날로」, 4:16 「하나까지」, 4:24 끊음을 승리의 통쾌함으로 낭독하지 않고, 오늘의 상대 · 집단에 옮기지 않는다(§7-2 · §6-2).</p>
+<p><strong>5. 복음 중심성 점검</strong>: 이 노트가 도덕주의로 귀결되는가? 「번역을 정밀하게 읽으라」만 남으면 성실성의 교훈이 된다. 그러나 테제의 중심은 <strong>하나님의 일을 하나님의 문장에 두고, 사람은 「앞에서」의 자리에 두는 읽기</strong>다. 사람이 하나님의 두 문장 안에서 주어도 목적어도 아니고 「앞에서」로만 서 있다는 사실은, 구원의 주어를 사람에게 넘기지 않는 은혜의 문법과 공명한다. 다만 그 공명을 4:15 · 4:23의 주장으로 만들지 않고, 정경 전체에서 확인되는 복음의 층으로 구별해 둔다.</p>
+<ul>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 원본의 복음 중심성 점검을 따라 은혜의 근거와 순종의 열매를 구별한다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>1. 고객 상담 전이 — 「해결됨」을 날짜별로 펴기</strong><br />
+- <strong>상황</strong>: 오래 끈 불복 사건이 고객 쪽으로 정리된 뒤, 고객은 「다 끝났다」 한 마디로 기억한다. 그러나 결정 통지와 환급 실행은 날짜가 다르고, 그 사이 확인할 일(환급 계좌 · 가산금 계산 등)이 남는다(구체 절차 · 기한은 사안별 대조 · 요지).<br />
+- <strong>적용(두 칸 펼치기)</strong>: 상담 기록에 「해결됨」 대신 칸을 나눈다 — 칸 A 「결정(날짜 · 결정 기관 · 문서 번호)」, 칸 B 「실행(날짜 · 금액 · 계좌)」. 두 칸 사이에 「그러므로 끝」을 적지 않고, 남은 확인 사항을 별도 줄로 둔다. 고객이 「하나님이 저쪽을 꺾으셨다」고 말해도 그 말을 고치거나 덧붙이지 않고, 칸의 날짜와 숫자만 옆에 둔다(일상의깊은사고 포인트 2와 같은 자리 · 상대 기관을 본문의 왕 자리에 두는 말에 동참하지 않는다).<br />
+- <strong>기대 효과</strong>: 「끝난 줄 알았던」 사건의 후속 누락이 줄고, 고객과 실무자가 같은 날짜표를 본다.</p>
+<p><strong>2. 조직 · 교회 행정 전이 — 회의록의 한 단어 요약 펴기</strong><br />
+- <strong>상황</strong>: 당회 회의록에 「분쟁이 해결되었다」 한 줄이 적힌다. 실제로는 「갈등이 멈춘 날(회의)」과 「합의서에 서명한 날(문서)」이 다르고, 후자가 없으면 전자는 쉽게 되살아난다.<br />
+- <strong>적용(한 역어 두 원어 점검표 1-5번)</strong>: 결과를 요약하는 낱말마다 「이 말 아래 사건이 몇 개인가」를 세고, 사건마다 날짜 · 문서를 따로 적는다. 사건 사이에 원자료에 없는 인과(「덕분에 · 그 결과」)를 넣지 않는다. 감사와 고백은 「기도」 항목에 따로 둔다.<br />
+- <strong>기대 효과</strong>: 회의록이 사실 문서로서 증거력을 갖고, 감사는 사실 서술과 섞이지 않아 더 분명해진다.</p>
+<p><strong>3. 개인 의사결정 전이 — 감사의 문장을 좁히기</strong><br />
+- <strong>상황</strong>: 어려운 일이 지나간 뒤, 「하나님이 다 이기게 하셨다」는 넓은 감사가 그 과정에서 내가 한 말 · 남이 입은 손해까지 한꺼번에 덮는다.<br />
+- <strong>적용(두 숨 감사)</strong>: 감사 기도를 한 숨에 몰아 말하지 않고, 하나님이 하셨다고 고백할 수 있는 일과 내가 아직 판정하지 못한 일을 두 숨으로 가른다. 둘째 숨은 감사가 아니라 「판정하지 않겠습니다」로 둔다(일상의깊은사고 마무리 기도의 꼴).<br />
+- <strong>기대 효과</strong>: 감사가 정직해지고, 남의 무너짐을 기뻐하는 마음이 감사의 언어에 섞이는 것을 스스로 알아챈다. ⛔ 이 습관이 「오늘 내 원수도 이렇게 꺾인다」는 기도로 미끄러지지 않도록, 둘째 숨에 상대의 이름을 넣지 않는다(§6-2 원수 처벌 직결 금지).</p>
+<h3>🥇 한 역어 · 두 원어 — 사사기 4:15 · 4:23 「패하게 하시-」의 펼침</h3>
+<ul>
+<li><strong>핵심</strong>: 서술자층 하나님 주어 정동사 둘(4:15 <code>הָמַם</code> 칼 · 4:23 <code>כָּנַע</code> 히필)은 표제어 · 어간 · 목적어 · 붙은 말이 다르고 <code>לִפְנֵי</code> + 사람 이름만 같다. 개역한글은 둘을 「패하게 하시-」 한 말로 옮겨 4:23을 4:15의 반복처럼 들리게 한다.</li>
+<li><strong>인격 형성</strong>: 「하나님이 시스라를 패하게 하셨다」는 흔한 요약이 원문의 어느 문장도 아니라는 것(4:23의 목적어는 야빈이다)을 어형으로 보여 준다 — 뜻 · 인과 · 의도 · 칼의 손은 열어 둔 채.</li>
+<li><strong>연결 고리</strong>: <a href="./11_구문묵상_사사기_4_13-24.html">11_구문묵상_사사기_4_13-24</a> §3-5 · §3-9 · <a href="./00_사사기_묵상단위_마스터.html">00_사사기_묵상단위_마스터</a> U13 · 출 14:24 · 수 10:10(사실 병행만) · 「역어 겹침 — 한 역어 아래의 두 원어」(노트 후보)</li>
+</ul>
+<h3>🥈 펼치되 잇지 않는다 — 본문 읽기와 실무 기록의 공통 규칙</h3>
+<ul>
+<li><strong>핵심</strong>: 요약어가 줄인 사건의 수를 되살리는 일(펼침)과 그 사건들 사이에 인과를 거는 일(잇기)은 별개다. 원문 · 원자료에 이음말이 없으면 칸 사이를 비워 둔다.</li>
+<li><strong>인격 형성</strong>: 성경 해석의 「봉합하지 않음」과 세무 · 행정 문서의 「원자료에 없는 인과를 쓰지 않음」이 같은 뿌리의 규칙임을 보여 준다 — 펼침이 새 봉합의 유혹을 낳는다는 경고까지 포함한다.</li>
+<li><strong>연결 고리</strong>: 「두 칸 펼치기」(노트 후보) · <a href="./09_생각의탄생13단계_사사기_3_24-31_쉰것은이스라엘이아니라땅이다.html">09_생각의탄생13단계_사사기_3_24-31_쉰것은이스라엘이아니라땅이다</a>(두 칸 결산 — 주어 칸 계열) · <a href="./11_일상의깊은사고_사사기_4_13-24.html">11_일상의깊은사고_사사기_4_13-24</a> 포인트 2</li>
+</ul>
+<h3>🥉 감사를 묶는 자리 — 하나님 주어 문장과 기도 언어의 정밀성</h3>
+<ul>
+<li><strong>핵심</strong>: 두 낱말을 펼치면 감사가 묶일 자리도 정밀해진다 — 4:23 「굴복하게 하심」과 4:14 물음(발화층)에는 묶고, 4:15 「칼날로」 · 4:16 · 4:21 · 4:24에는 묶지 않는다(구문묵상 R46).</li>
+<li><strong>인격 형성</strong>: 승리 본문으로 드리는 감사 기도가 폭력과 몰락까지 함께 삼키는 목회 현장의 문제를, 번역 · 어형의 문제와 한 자리에서 다룬다. 섭리와 승인의 구별(칼뱅 요지)과 접점을 갖되 근거 본문으로 세우지 않는다.</li>
+<li><strong>연결 고리</strong>: <a href="./11_구문묵상_사사기_4_13-24.html">11_구문묵상_사사기_4_13-24</a> §3-7 · 『기독교 강요』 1권 섭리론(요지) · 「승리 본문으로 드리는 감사 기도의 한계선」(노트 후보)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 11 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

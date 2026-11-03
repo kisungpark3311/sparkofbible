@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>동반의 말이 세 입을 지나 꼴을 바꾼다 — 씨앗 아이디어(사사기 6:12 · 6:13 · 6:16 — עִם(임))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 16 편 &middot; 사사기 6:11-24</span>
+      <h1>동반의 말이 세 입을 지나 꼴을 바꾼다 — 씨앗 아이디어(사사기 6:12 · 6:13 · 6:16 — עִם(임))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>16_성경적 사고와 인격 만들기</p>
+<h2>동반의 말이 세 입을 지나 꼴을 바꾼다 — 씨앗 아이디어(사사기 6:12 · 6:13 · 6:16 — עִם(임))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./16_생각의탄생13단계_사사기_6_11-24_동반의말이세입을지나꼴을바꾼다.html">16_생각의탄생13단계_사사기_6_11-24_동반의말이세입을지나꼴을바꾼다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"6:12 원문에는 「계시도다」에 해당하는 말이 없고 「여호와, 너와 함께」(임므카) 두 마디뿐입니다. 6:13에서 기드온은 「있다」(예쉬)를 그 자리에 놓고 「너」를 「우리」(임마누)로 바꾸며, 그 한 절에 「우리」를 일곱 번 붙입니다. 6:16은 「내가 있겠다」(에흐예)로 말하고, 다시 한 사람 「너」(임마크)를 향합니다."</strong></p>
+<p><strong>"같은 작은 말이 「있다」는 말 없는 문장에서, 「있다」를 넣은 물음으로, 「내가 있겠다」는 말씀으로 옮겨 갑니다. 받는 이도 「너」에서 「우리」로, 다시 「너」로 바뀝니다. 6:12가 사실을 알리는 말인지 인사인지, 6:13의 「계시면」을 조건으로 읽어야 하는지 원문은 정하지 않으니, 그 차이를 차이대로 들고 있으면 됩니다."</strong></p>
+<p><strong>본문 핵심: 「함께」는 한 번 선언되고 끝나는 말이 아니라, 세 입을 지나며 꼴과 받는 이가 달라지는 말로 적혀 있습니다.</strong></p>
+<p>(출처: <a href="./16_일상의깊은사고_사사기_6_11-24.html">16_일상의깊은사고_사사기_6_11-24</a> 주요 신학 통찰 1️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본.md</code> 6장에서 복사)</p>
+<blockquote>
+<p>6:12 여호와의 사자가 기드온에게 나타나 이르되 큰 용사여 여호와께서 너와 함께 계시도다<br />
+6:13 기드온이 그에게 대답하되 나의 주여 여호와께서 우리와 함께 계시면 어찌하여 이 모든 일이 우리에게 미쳤나이까 또 우리 열조가 일찍 우리에게 이르기를 여호와께서 우리를 애굽에서 나오게 하신 것이 아니냐 한 그 모든 이적이 어디 있나이까 이제 여호와께서 우리를 버리사 미디안의 손에 붙이셨나이다<br />
+6:16 여호와께서 그에게 이르시되 내가 반드시 너와 함께 하리니 네가 미디안 사람 치기를 한 사람을 치듯하리라</p>
+</blockquote>
+<p><strong>원문</strong> (WLC · <a href="./16_구문묵상_사사기_6_11-24.html">16_구문묵상_사사기_6_11-24</a> §2 문면 그대로)</p>
+<blockquote>
+<p>6:12 וַיֵּרָ֥א אֵלָ֖יו מַלְּאַ֣ךְ יְהוָ֑ה וַיֹּ֣אמֶר אֵלָ֔יו יְהוָ֥ה עִמְּךָ֖ גִּבּ֥וֹר הֶחָֽיִל׃<br />
+6:13 וַיֹּ֨אמֶר אֵלָ֤יו גִּדְעוֹן֙ בִּ֣י אֲדֹנִ֔י וְיֵ֤שׁ יְהוָה֙ עִמָּ֔נוּ וְלָ֥מָּה מְצָאַ֖תְנוּ כָּל־זֹ֑את וְאַיֵּ֣ה כָֽל־נִפְלְאֹתָ֡יו אֲשֶׁר֩ סִפְּרוּ־לָ֨נוּ אֲבוֹתֵ֜ינוּ לֵאמֹ֗ר הֲלֹ֤א מִמִּצְרַ֨יִם֙ הֶעֱלָ֣נוּ יְהוָ֔ה וְעַתָּה֙ נְטָשָׁ֣נוּ יְהוָ֔ה וַֽיִּתְּנֵ֖נוּ בְּכַף־מִדְיָֽן׃<br />
+6:16 וַיֹּ֤אמֶר אֵלָיו֙ יְהוָ֔ה כִּ֥י אֶהְיֶ֖ה עִמָּ֑ךְ וְהִכִּיתָ֥ אֶת־מִדְיָ֖ן כְּאִ֥ישׁ אֶחָֽד׃</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (<a href="./16_구문묵상_사사기_6_11-24.html">16_구문묵상_사사기_6_11-24</a> §3-0 · §3-2 · §3-3 · §1-5 E1 · §4①)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>절</th>
+<th>꼴</th>
+<th>곁의 술어 자리</th>
+<th>화자(서술자가 붙인 이름)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>עִמְּךָ</code></td>
+<td>6:12</td>
+<td>전치사 + 접미 2ms</td>
+<td>없음 — <code>יְהוָה</code> + 전치사구 명사절</td>
+<td>「여호와의 사자」</td>
+</tr>
+<tr>
+<td><code>עִמָּנוּ</code></td>
+<td>6:13</td>
+<td>전치사 + 접미 1cp</td>
+<td>존재사 <code>יֵשׁ</code>(3426)</td>
+<td>기드온</td>
+</tr>
+<tr>
+<td><code>אֶהְיֶה</code></td>
+<td>6:16</td>
+<td>칼 미완료 1cs(1961)</td>
+<td><code>כִּי</code> 절의 정동사</td>
+<td>서술자가 「여호와」라 부른 화자</td>
+</tr>
+<tr>
+<td><code>עִמָּךְ</code></td>
+<td>6:16</td>
+<td>전치사 + 휴지형 2ms(태그 Sp2fs는 오표기)</td>
+<td><code>אֶהְיֶה</code> 뒤</td>
+<td>〃</td>
+</tr>
+<tr>
+<td><code>עִמִּי</code></td>
+<td>6:17</td>
+<td>전치사 + 접미 1cs</td>
+<td>분사 <code>מְדַבֵּר</code> 뒤</td>
+<td>기드온 — 여호와가 걸린 문장 아님 · 축 밖</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ 계수 기준(모집단): <code>עִם</code>(표제어 5973)은 구문묵상 §4① · E1 실측으로 <strong>6:11-24 범위 4토막 · 사사기 59</strong>다. 축은 그 넷 가운데 <strong>여호와가 걸린 문장 셋</strong>(개관 U18 정의)이고, 6:17 <code>עִמִּי</code>는 사실로만 둔다. 6:13 「우리」 일곱은 <strong>그 한 절 안의 1cp 접미</strong>(<code>עִמָּנוּ</code> · <code>מְצָאַתְנוּ</code> · <code>לָנוּ</code> · <code>אֲבוֹתֵינוּ</code> · <code>הֶעֱלָנוּ</code> · <code>נְטָשָׁנוּ</code> · <code>וַיִּתְּנֵנוּ</code>)를 센 수다(§3-2). <code>אֶהְיֶה</code>(Vqi1cs)가 사사기에 둘(6:16 · 11:9)이라는 E6 사실은 희소성 논증에 쓰지 않는다.</p>
+<h3>사고의 통합 — "누가 동사를 지는가"</h3>
+<p>관찰에서 처음 보인 것은 같은 전치사 <code>עִם</code>이 세 번 나온다는 것이었다. 그러나 표를 세우자 반복되는 것은 낱말이고, 바뀌는 것은 낱말 곁의 술어 자리라는 것이 드러났다(1단계). 장면으로 그리자 「함께」는 한자리에 머무는 표지가 아니라 사자의 입에서 기드온의 입으로, 다시 서술자가 「여호와」라 부른 화자의 입으로 건너가는 말이 되었다(2단계). 추상화는 그 알맹이를 「술어자리」로 압축했고 — 빈칸, 존재사, 1인칭 동사 — 패턴 인식과 패턴 형성은 이 꼴이 표어 → 반문 → 1인칭 책임으로 일상 곳곳에 있다는 것과, 그 꼴을 읽을 때 칸 사이에 인과의 화살표를 긋지 말아야 한다는 제약을 함께 세웠다(3~5단계).</p>
+<p>유추에서 가장 생산적인 장면이 나왔다. 세무사의 「제가 직접 하겠습니다」는 「함께」가 책임이 되는 지점이 1인칭 동사라는 것을 선명하게 보여 주었지만, 동시에 세 유추 모두가 셋째 칸을 둘째 칸의 「해결」로 읽고 싶어 한다는 공통의 균열을 드러냈다(6단계). 몸은 그 균열을 감각으로 확인했다 — 남이 지는 1인칭 동사 앞에서 손은 머뭇거린다(7단계). 감정이입은 6:13을 믿음과 불신의 대결이 아니라 「받은 단수를 복수로 돌려준 장면」으로 다시 보게 했고, 그 돌려줌을 서술자가 판정하지 않는다는 데 머물렀다(8단계). 차원적 사고는 정경의 「함께」 약속 계보와 모음 하나의 규모를 오가며, 6:11-24가 1인칭 약속만이 아니라 동사 없는 말과 「우리」의 반문을 한 대화에 함께 적어 둔 자리라는 점을 짚었다(9단계). 카드와 놀이와 설교는 세 문장을 같게 만드는 것이 대개 우리 쪽 — 역본의 서술어, 순서 재배열, 「우리」의 단수화 — 이라는 것을 보여 주었다(10~12단계).</p>
+<p>가장 생산적이었던 도구는 <strong>놀이</strong>다. 「계시도다」를 지우고 순서를 뒤집는 장난이, 우리가 「세 번 같은 말」로 들어 온 것이 역본과 해석 습관의 산물이라는 것, 그리고 6:13의 물음이 6:16의 약속보다 먼저 적혀 있다는 단순한 순서 사실을 들추어냈기 때문이다. 처음 관찰과 달라진 이해 하나: 처음에는 「함께」의 반복을 강조로 들었다. 지금은 그 반복을 <strong>동사의 주인이 바뀌는 기록</strong>으로 듣는다 — 빈칸에서는 아무도 동사를 지지 않고, 존재사에서는 인칭 없는 있음 곁에 「어찌하여」가 붙고, 1인칭 미완료에서 비로소 말하는 쪽이 동사를 진다. 그리고 그 마지막이 앞의 물음을 지웠다는 기록은 본문에 없다.</p>
+<blockquote>
+<p><strong>"「함께」는 세 입을 지나며 곁의 동사를 바꾼다 — 동사 없는 말, 존재사에 「어찌하여」를 단 「우리」, 스스로 동사를 지는 「나」. 약속은 물음을 지우지 않고 그 곁에 적혀 있다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "술어 자리 셋"</h3>
+<p>씨앗은 세 문장을 한 줄에 세웠다. 해석을 걷고 보이는 것만 적으면 이렇다.</p>
+<table>
+<thead>
+<tr>
+<th>절</th>
+<th>「함께」 앞에 선 것</th>
+<th>동사</th>
+<th>받는 이</th>
+<th>화자</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>6:12</td>
+<td><code>יְהוָה</code></td>
+<td>없음</td>
+<td>2ms 「너」</td>
+<td>서술자가 「여호와의 사자」라 부른 이</td>
+</tr>
+<tr>
+<td>6:13</td>
+<td><code>וְיֵשׁ יְהוָה</code></td>
+<td>존재사 <code>יֵשׁ</code></td>
+<td>1cp 「우리」</td>
+<td>기드온</td>
+</tr>
+<tr>
+<td>6:16</td>
+<td><code>כִּי אֶהְיֶה</code></td>
+<td>칼 미완료 1cs</td>
+<td>휴지형 2ms 「너」</td>
+<td>서술자가 「여호와」라 부른 이</td>
+</tr>
+</tbody>
+</table>
+<p>첫째, <strong>전치사는 하나인데 그 곁의 술어 자리는 셋 모두 다르게 채워져 있다.</strong> 빈자리 → 존재사 → 1인칭 정동사. 둘째, 세 문장의 <strong>화자가 서술자 문면에서 셋 다 다르게 불린다.</strong> 셋째, 한국어로 읽으면 이 차이가 거의 들리지 않는다. 개역한글은 6:12에 「계시도다」를, 6:13에 「계시면」을, 6:16에 「반드시 … 하리니」를 써서 세 문장 모두에 서술어를 갖추어 놓았다. 그 가운데 「계시도다」는 원문에 없는 말이고, 「계시면」은 <code>וְ</code> + <code>יֵשׁ</code> 위에 조건을 얹은 풀이이며, 「반드시」는 <code>כִּי</code>를 강조로 옮긴 것이다(구문묵상 §3-9).</p>
+<p>관찰에서 걸러 낸 것도 적어 둔다. 6:17 <code>עִמִּי</code>는 넷째 <code>עִם</code>이지만 여호와가 걸린 문장이 아니다. 6:12와 6:16의 화자가 어떤 관계인지는 관찰이 답할 일이 아니다(봉합 1). 6:12가 인사인지도 관찰은 정하지 않는다(봉합 4).</p>
+<blockquote>
+<p>[!insight] 반복되는 것은 낱말이고, 바뀌는 것은 <strong>낱말 곁의 자리</strong>다. 「함께」를 세 번 읽는 사람이 놓치기 쉬운 것은 전치사가 아니라 그 앞에 무엇이 서 있느냐다.</p>
+<p>[!question] 연결 질문<br />
+- 개역한글이 6:12에 넣은 「계시도다」를 걷어 내면, 6:12와 6:16은 한국어 독자에게 얼마나 다르게 들리기 시작하는가?<br />
+- 6:13의 <code>יֵשׁ</code>는 동사가 아니라 존재사다. 「있다」를 말하는 낱말이 인칭을 갖지 않는다는 사실은 그 물음의 모양에 무엇을 남기는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 술어 자리 셋을, 한 장면 안에서 실제로 오가는 말로 그려 본다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "같은 낱말, 다른 받침"</h3>
+<p>「같은 작은 말, 바뀌는 술어」 꼴은 본문 밖에도 흔하다.</p>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>반복되는 작은 말</th>
+<th>술어 자리의 이동</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>일상 언어</td>
+<td>「같이」</td>
+<td>「같이 가요」(청유) → 「같이 간다면서 왜 혼자였어요?」(반문) → 「제가 같이 가겠습니다」(1인칭 미래)</td>
+</tr>
+<tr>
+<td>병원</td>
+<td>「곁에」</td>
+<td>「저희가 곁에 있어요」(병동 표어) → 「곁에 있다면 왜 밤새 아무도 안 왔죠?」 → 「오늘 밤은 제가 당직입니다」</td>
+</tr>
+<tr>
+<td>계약</td>
+<td>「공동」</td>
+<td>「공동 번영」(전문 문구) → 「공동이라면 왜 손실은 우리만?」(이의) → 「갑은 …을 부담한다」(의무 조항)</td>
+</tr>
+<tr>
+<td>음악</td>
+<td>동기(모티프)</td>
+<td>같은 세 음이 독주 → 합창 → 다른 악기의 독주로 옮겨 가며 화성이 바뀜</td>
+</tr>
+</tbody>
+</table>
+<p>공통 패턴: <strong>작은 연결어가 반복될 때, 그 말을 받치는 서술어가 표어 → 물음 → 1인칭 책임으로 옮겨 가면 같은 말이 다른 일을 한다.</strong></p>
+<p>다만 6:11-24는 이 표의 어느 줄과도 한 가지에서 다르다. 표의 예들은 대부분 한 기관이나 한 사람이 표어와 약속을 둘 다 말한다. 본문의 세 문장은 서술자 문면에서 <strong>세 이름의 화자</strong>에게 나뉘어 있고, 그 둘(사자 · 여호와)의 관계는 열려 있다. 패턴은 꼴까지만 빌려 온다.</p>
+<blockquote>
+<p>[!insight] 「함께」의 반복을 <strong>내용의 반복</strong>으로 듣지 않고 <strong>술어의 이동</strong>으로 들으면, 표어와 물음과 약속이 같은 낱말을 공유하면서도 서로를 대체하지 않는다는 것이 보인다.</p>
+<p>[!question] 연결 질문<br />
+- 표어(동사 없음)가 반문을 부르는 것은 일상에서 거의 법칙처럼 보인다. 본문은 6:12가 6:13을 「불렀다」고 말하는가, 나란히 둘 뿐인가?<br />
+- 패턴 표의 셋째 칸이 늘 「1인칭 책임」으로 끝나야 하는가 — 그렇게 정리하는 순간 6:16을 6:13의 답으로 읽는 셈이 되지 않는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 이 패턴을 쓸 수 있는 틀로 정제하되, 「답」의 화살표는 긋지 않는다.</p>
+<h3>0 유추 (Analogizing) — "광고 문구와 약정서"</h3>
+<p><strong>유추 ① 세무 — 수임의 세 문장.</strong> 세무 사무소 간판의 「고객과 함께합니다」는 동사 없는 6:12 꼴에 가깝다. 누가 무엇을 하겠다는 말이 없다. 가산세 고지서를 받은 고객이 묻는다. 「함께한다면서 왜 우리 회사가 이 가산세를 냅니까.」 고객은 「귀사」를 「우리」로 바꾸고 「왜」를 붙인다. 그리고 세무사가 말한다. 「이번 경정청구는 제가 직접 작성해 제출하겠습니다.」 1인칭 동사가 문장에 들어선다. <strong>새 통찰</strong>: 「함께」라는 말이 책임이 되는 지점은 형용이 아니라 <strong>1인칭 동사가 붙는 지점</strong>이다. 수임 계약서에서 쟁점이 되는 것도 전문의 문구가 아니라 「을은 …한다」 조항이다. <strong>한계</strong>: 이 유추는 세무사의 말을 고객 반문에 대한 「답」으로 놓는다. 본문은 6:16이 6:13에 답하는지 가르지 않는다(봉합 7). 또 하나님의 1인칭을 사람의 업무 약속과 같은 무게에 두지 않는다 — 유추는 꼴만 빌린다.</p>
+<p><strong>유추 ② 화학 — 같은 원소, 다른 결합.</strong> 같은 산소 원자도 무엇과 결합하느냐에 따라 물이 되고 이산화탄소가 된다. <code>עִם</code>도 빈칸 · 존재사 · 1인칭 동사와 결합해 서로 다른 문장이 된다. <strong>새 통찰</strong>: 성질은 원소에만 있지 않고 결합에 있다 — 「함께」의 뜻을 낱말 사전에서만 찾으면 세 문장이 하나로 뭉개진다(구문묵상 §4① ⛔ 「함께」 낱말 하나로 동반의 신학을 일반화하지 않는다). <strong>한계</strong>: 화학 결합은 법칙으로 예측되지만, 6:12의 성격(봉합 4)은 문법이 예측해 주지 않는다.</p>
+<p><strong>유추 ③ 음악 — 변주곡.</strong> 같은 동기가 다른 악기로 옮겨 가며 화성이 바뀐다. <strong>새 통찰</strong>: 청중은 동기를 알아들을 때가 아니라 <strong>바뀐 받침 화음을 알아들을 때</strong> 변주를 듣는다. <strong>한계</strong>: 변주곡은 한 작곡가의 설계다. 본문의 세 문장은 서술자 문면에서 세 이름의 입에 나뉘어 있고, 그 설계자를 문장 안에서 찾는 일은 이 노트의 몫이 아니다.</p>
+<blockquote>
+<p>[!insight] 세 유추가 같은 곳을 가리킨다 — <strong>「함께」의 무게는 낱말에서 오지 않고 곁에 붙는 술어에서 온다.</strong> 그리고 세 유추가 같은 곳에서 깨진다 — 모두 셋째 칸을 둘째 칸의 「해결」로 읽고 싶어 한다.</p>
+<p>[!question] 연결 질문<br />
+- 세무 상담에서 고객의 「우리」를 「귀하」로 바로잡아 주고 싶은 충동은 6:13 읽기의 어떤 실수와 닮았는가?<br />
+- 「해결로 읽고 싶은 충동」을 유추에서 걷어 내면, 6:16은 무엇으로 남는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 머리로 세운 유추를 몸의 동작으로 옮겨 시험한다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "손바닥, 둘러봄, 들음"</h3>
+<p><strong>실천 프로토콜</strong> (3분 · 혼자 또는 소그룹)</p>
+<ol>
+<li>눈을 감고 오른손바닥을 앞으로 펴 한 사람을 가리키는 자세를 한다. 동사 없이 두 마디만 말한다. 「여호와 — 너와 함께.」 말끝에 서술어를 붙이고 싶은 혀의 당김을 느껴 본다. 붙이지 않는다.</li>
+<li>손을 거두어 가슴에 대었다가, 팔을 천천히 둘러 옆 사람들 쪽으로 넓힌다. 「우리와 함께 있다면 — 어찌하여.」 「어찌하여」에서 몸이 어디로 기우는지 본다.</li>
+<li>이번에는 아무 동작도 하지 않고 선 채로, 다른 사람이 읽어 주는 「내가 너와 함께 있겠다」를 <strong>듣기만</strong> 한다. 1인칭 「나」가 내 입이 아니라 상대의 입에 있을 때, 손을 어디에 두어야 할지 몸이 머뭇거리는 것을 기록한다.</li>
+</ol>
+<p><strong>몸이 가르쳐 주는 것</strong>: 1단계에서 혀는 빈 술어 자리를 견디지 못한다 — 개역한글이 「계시도다」를 넣은 것과 같은 당김이다. 2단계에서 「너」를 「우리」로 바꾸는 순간 팔이 저절로 넓어진다. 6:13의 일곱 접미는 손가락 하나로 할 수 없는 말이다. 3단계에서 1인칭 동사는 말하는 몸이 아니라 듣는 몸에 다른 자세를 요구한다. 내가 지는 동사가 아니기 때문이다.</p>
+<p>설교 전달에 옮기면, 6:12는 손을 펴서 멈추고, 6:13은 회중 쪽으로 팔을 넓히고, 6:16은 설교자가 동작을 거두고 본문을 읽기만 하는 동선이 된다. 단, 6:16을 「6:13에 대한 답」으로 연출하지 않도록 2단계와 3단계 사이에 해결의 표정을 넣지 않는다.</p>
+<blockquote>
+<p>[!insight] 몸은 <strong>술어 자리의 주인</strong>을 금방 안다. 내가 동사를 지는 말과 남이 동사를 지는 말 앞에서 손의 위치가 다르다.</p>
+<p>[!question] 연결 질문<br />
+- 6:12를 손바닥을 편 채 서술어 없이 끝낼 때의 어색함은 원문의 문제인가, 한국어 몸의 습관인가?<br />
+- 3단계에서 머뭇거린 손은 6:13의 물음을 거둔 손인가, 아직 들고 있는 손인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 팔을 넓혀 「우리」를 말한 사람의 자리로 들어가 본다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "선언이 아니라 통과"</h3>
+<p><strong>확대 — 정경의 시간 축</strong> (층을 밝힌다: 아래는 본문이 말하는 것이 아니라 정경 전체에서 「함께」 약속이 놓인 자리들을 나란히 세운 것이다. 각 구절은 원문 · 역본을 대조하지 않았으므로 <strong>요지</strong>로만 적는다.)</p>
+<ul>
+<li>창 28:15(야곱에게 「내가 너와 함께 있어」 요지) · 출 3:12(모세에게 「내가 정녕 너와 함께 있으리라」 요지) · 수 1:5(여호수아에게 요지) · 사 41:10(「두려워 말라 내가 너와 함께 함이니라」 요지) · 마 1:23(「하나님이 우리와 함께」 이름 요지) · 마 28:20(「세상 끝날까지 너희와 항상 함께」 요지).</li>
+<li>이 가운데 출 3:12 하나만 구문묵상이 원문 겉꼴을 대조했다 — 출 3:12 <code>כִּי־אֶהְיֶה עִמָּךְ</code>과 삿 6:16 <code>כִּי אֶהְיֶה עִמָּךְ</code>은 세 낱말의 자음 · 모음 겉꼴이 같다(§3-3). 그것이 인유인지 관용인지는 열려 있다(봉합 12). 출 3:14 이름 논증으로 잇지 않는다.</li>
+</ul>
+<p>이 축 위에서 보면 「함께」 약속은 대개 <strong>1인칭 화자가 한 사람에게</strong> 건네는 꼴로 놓인다(요지 수준의 관찰 · 대조 안 함). 그 줄 가운데 6:11-24가 특이한 점은 1인칭 약속(6:16)만 있는 것이 아니라, 그 앞에 <strong>동사 없는 말(6:12)과 「우리」의 반문(6:13)이 한 대화 안에 함께 적혀 있다</strong>는 것이다. 마 1:23의 「우리와 함께」와 6:13의 <code>עִמָּנוּ</code>이 소리로 닮았다는 것은 이 노트가 논증에 쓰지 않는다 — 6:13은 약속의 이름이 아니라 기드온의 물음이다.</p>
+<p><strong>축소 — 모음 하나의 규모.</strong> 6:16 <code>עִמָּךְ</code>는 아트나흐 휴지에서 모음이 바뀐 2ms 꼴이다. 기계 자료는 이것을 여성(Sp2fs)으로 잘못 붙였다(T1). 낱말 하나의 끝 모음이 바뀌었을 뿐인데, 그것을 잘못 읽으면 받는 이의 성이 바뀐다. 「함께」의 받는 이를 정하는 것은 그렇게 작은 자리다.</p>
+<p><strong>핵심 전복: 큰 축에서 「함께」는 정경을 꿰는 약속처럼 보이지만, 6:11-24의 문면에서 그것은 한 번 선포된 정적 상태가 아니라 세 입을 통과하며 술어를 바꾸는 말이다 — 그리고 그 통과의 마지막이 앞의 물음을 지웠다는 기록은 없다.</strong></p>
+<blockquote>
+<p>[!insight] 정경의 축은 「함께」를 <strong>약속의 계보</strong>로 보게 하고, 모음 하나의 축은 그 약속이 <strong>누구에게 건네졌는지를 정하는 작은 끝</strong>을 보게 한다. 두 축 사이에서 6:13의 물음은 지워지지 않고 남는다.</p>
+<p>[!question] 연결 질문<br />
+- 정경의 「함께」 본문들 가운데 그 약속 앞에 받는 쪽의 반문이 함께 적힌 곳은 어디인가 — 요지가 아니라 원문 대조로 확인할 수 있는가?<br />
+- 출 3:12와의 겉꼴 같음을 「인유」로 정하면 6:16의 무엇이 닫히고, 「관용」으로 정하면 무엇이 닫히는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 차원을 오간 끝에 남은 구분을, 현실에서 바로 써 볼 수 있는 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>실질 접점이 있는 본문</strong> (층을 밝힌다: 아래 연결은 사사기 6장의 주장이 아니라 정경 전체에서 읽는 것이다. 사사기 밖 구절은 원문 · 역본을 대조하지 않았으므로 <strong>요지</strong>로 적는다.)</p>
+<ol>
+<li><strong>출 3:12</strong> — 보냄과 「함께」가 한 대화에 놓인 자리(요지). 구문묵상이 확인한 것은 삿 6:16 · 6:14와의 겉꼴 같음까지이고, 그 관계(인유/관용)는 열려 있다(봉합 12). 이 노트는 그 열린 자리를 닫지 않는다.</li>
+<li><strong>시편의 탄식시들(예: 시 13편 「어느 때까지니이까」 요지)</strong> — 하나님의 함께하심을 고백하는 백성이 그 함께하심을 「어찌하여 · 어느 때까지」로 묻는 기도가 정경 안에 기도로 보존되어 있다(요지). 6:13의 물음이 서술자의 꾸중 없이 적힌 것과 같은 결에서, 물음 자체가 언약 백성의 말로 정경에 들어와 있다는 접점이다. 6:13을 시편 장르로 바꾸어 읽지는 않는다.</li>
+<li>
+<p><strong>마 28:20</strong> — 보냄의 말 끝에 붙은 1인칭 「함께」(요지). 본문은 말하지 않지만, 정경 전체에서 「함께」 약속은 1인칭 화자가 스스로 동사를 지는 꼴로 여러 번 놓인다(요지 · 원문 대조 안 함). ⛔ 6:11-24의 사자를 그리스도로 확정하거나(§7-13), 6:16을 마 28:20의 예표로 세우지 않는다 — 구문묵상의 그리스도 연결 판정은 ✕7 · 재료 부재다.</p>
+</li>
+<li>
+<p><strong>신학자</strong>: 헤르만 바빙크, 『개혁교의학』 신론의 하나님의 편재와 언약적 임재 구분(요지 · 쪽수 대조 안 함): 하나님이 어디에나 계신다는 것과 하나님이 언약 백성과 「함께하신다」는 것은 같은 진술이 아니라는 취지다. 이 구분은 6:12의 동사 없는 말을 「편재의 진술」로 평평하게 만들지 말고, 세 문장의 꼴 차이를 꼴 차이대로 두게 돕는다. 다만 6:12가 진술인지 인사인지(봉합 4)를 바빙크가 정해 주지는 않는다.</p>
+</li>
+</ol>
+<p><strong>신앙고백 참고</strong> — 하이델베르크 요리문답 제1문의 「위로」(요지 · 문면 대조 안 함)는 위로를 동사 없는 표어가 아니라 「내가 … 속하였다」는 고백의 1인칭으로 진술한다. 이 단락에 관해 신앙고백서가 내린 규정은 확인하지 않았다(구문묵상 §6 ③).</p>
+<p><strong>설교 적용점 하나</strong> — 「하나님이 함께하십니다」라는 문장을 설교와 심방에서 쓸 때, 그 말이 동사 없는 6:12 꼴인지 화자의 1인칭이 붙은 6:16 꼴인지를 구별하고, 듣는 이의 6:13 꼴 반문을 고쳐 돌려주지 않는다.</p>
+<ul>
+<li>
+<p><strong>교리</strong>: 이 노트가 「반문해도 괜찮다」는 심리 위로나 「물음을 극복하라」는 도덕 훈계로 끝나면 실패다. 이 노트의 귀결은 사람의 태도가 아니라 <strong>1인칭으로 동사를 지는 말씀의 화자</strong>에 있다. 그러나 그 화자가 누구인지 사자와의 관계 속에서 판정하는 일(봉합 1)과, 그 말씀이 기드온의 물음을 「해결」했다는 판정(봉합 7)은 하지 않는다. 복음은 물음을 지우는 장치로 이 본문에 끌려오지 않는다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>① 고객 상담 전이</strong> — 상황: 세무조사 통지를 받은 고객이 「대표님 사무소가 늘 함께한다고 하셨잖아요, 그런데 왜 우리 회사가 조사를 받습니까」라고 묻는다. 적용(세 꼴 점검 카드 2·3·4번): 고객의 「우리」를 「귀사의 경우는요」로 고쳐 돌려주지 않고, 「왜」에 대한 답처럼 들리는 위로 문장을 먼저 건네지 않는다. 대신 내가 질 동사를 1인칭으로 특정한다 — 「조사 대응 자료 목록은 제가 금요일까지 정리해 드리겠습니다.」 기대 효과: 고객의 물음은 물음대로 남고, 상담자의 책임은 동사로 문장에 선다. (⛔ 이 장면을 6:16의 「재현」으로 설명하지 않는다 — 꼴만 빌린다.)</p>
+<p><strong>② 조직 · 교회 행정 전이</strong> — 상황: 교회 재정부가 「온 성도가 함께하는 건축헌금」 공고문을 쓴다. 적용(카드 1번): 공고의 「함께」가 동사 없는 표어인지, 「재정부는 매월 첫 주 집행 내역을 게시한다」 같은 1인칭(기관 주어) 의무 문장과 짝지어 있는지 점검한다. 「우리 형편에 왜 또 헌금입니까」라는 반문이 나오면 그것을 신앙 부족으로 판정하는 문구를 넣지 않는다. 기대 효과: 공동체 문서에서 「함께」가 책임의 주어를 가리지 않게 된다. (비영리법인 기부금 영수증 · 지정기부금 처리 같은 세무 쟁점은 이 본문과 무관하므로 끌어오지 않는다.)</p>
+<p><strong>③ 개인 의사결정 전이</strong> — 상황: 동역자의 사업 실패 소식에 「하나님이 함께하실 거야」라는 문자를 보내려 한다. 적용(카드 1·4번): 이 문장이 동사 없는 6:12 꼴인지, 내가 남의 1인칭을 대신 말하는 꼴인지 본다. 보내기 전에 내가 질 수 있는 1인칭 동사가 있는지 — 「다음 주 화요일 저녁에 내가 찾아갈게」 — 먼저 찾는다. 기대 효과: 위로가 표어로 끝나지 않고, 상대의 「왜」를 내 문장이 서둘러 덮지 않는다.</p>
+<h3>🥇 술어 자리의 이동 — 「함께」를 받치는 동사의 주인</h3>
+<ul>
+<li><strong>핵심</strong>: 6:12 · 6:13 · 6:16의 「함께」는 같은 전치사 <code>עִם</code>이지만 곁의 술어 자리가 빈칸 → 존재사 <code>יֵשׁ</code> → 칼 미완료 1cs <code>אֶהְיֶה</code>로 바뀐다. 반복의 무게는 낱말이 아니라 술어 자리의 주인에게 있다.</li>
+<li><strong>인격 형성</strong>: 「함께」를 세 번 나온 강조어로 읽는 통상의 설교 독법(그리고 세 문장에 모두 서술어를 갖춘 개역한글)을 넘어, 원문이 세 문장을 서로 다른 키로 적었다는 사실을 꼴로 보여 준다.</li>
+<li><strong>연결 고리</strong>: <a href="./16_구문묵상_사사기_6_11-24.html">16_구문묵상_사사기_6_11-24</a> §3-2 · §3-3 · §3-9 · 「히브리어_명사절」(노트 후보) · 「출애굽기_3_12_겉꼴병행」(노트 후보)</li>
+</ul>
+<h3>🥈 약속은 물음을 지우지 않는다 — 6:13이 6:16보다 먼저 적힌 순서</h3>
+<ul>
+<li><strong>핵심</strong>: 본문 순서에서 6:13의 「어찌하여」는 1인칭 약속보다 먼저 적혀 있고, 서술자는 그 물음을 평가하지 않으며, 6:14 이하가 그 물음에 답하는지 가르지 않는다(봉합 7).</li>
+<li><strong>인격 형성</strong>: 「약속을 듣고도 의심한 기드온」(§6-2 금지)과 「정직한 질문자의 모범」 양쪽 판정을 동시에 무너뜨리는 근거가 해석이 아니라 순서 사실이라는 점.</li>
+<li><strong>연결 고리</strong>: <a href="./16_일상의깊은사고_사사기_6_11-24.html">16_일상의깊은사고_사사기_6_11-24</a> 「본문이 남겨 둔 긴장」 · 「탄식시와_언약백성의_물음」(노트 후보) · <a href="./18_생각의탄생13단계_사사기_6_33-40_코가탄다는말이기드온의청에선다.html">18_생각의탄생13단계_사사기_6_33-40_코가탄다는말이기드온의청에선다</a>(같은 기드온 이야기의 다른 단위 — 축은 섞지 않음)</li>
+</ul>
+<h3>🥉 받은 단수를 복수로 돌려주기 — 남의 「우리」를 「너」로 고치지 않는 목회</h3>
+<ul>
+<li><strong>핵심</strong>: 6:13에서 기드온은 사자의 「너」를 「우리」로 받는다(그 한 절 1cp 접미 일곱 · 계수는 사실로만). 서술자는 이 돌려줌을 교정하지 않는다.</li>
+<li><strong>인격 형성</strong>: 위로의 말이 상대의 공동체적 물음을 개인 문제로 축소하는 습관을 본문 꼴로 비춘다 — 심리학의 「공감」 일반론이 아니라 접미 하나의 사실에서 출발한다.</li>
+<li><strong>연결 고리</strong>: 「세_꼴_점검_카드」(노트 후보) · 「심방_위로문장_점검」(노트 후보) · <a href="./16_설교스케치_사사기_6_11-24.html">16_설교스케치_사사기_6_11-24</a></li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 16 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

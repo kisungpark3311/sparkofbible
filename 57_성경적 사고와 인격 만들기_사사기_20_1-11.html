@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>하나 됨의 말이 향하는 곳이 바뀐다 — 씨앗 아이디어(사사기 20:1 · 20:8 · 20:11 — כְּאִישׁ אֶחָד(케아이쉬 에하드))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 57 편 &middot; 사사기 20:1-11</span>
+      <h1>하나 됨의 말이 향하는 곳이 바뀐다 — 씨앗 아이디어(사사기 20:1 · 20:8 · 20:11 — כְּאִישׁ אֶחָד(케아이쉬 에하드))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>57_성경적 사고와 인격 만들기</p>
+<h2>하나 됨의 말이 향하는 곳이 바뀐다 — 씨앗 아이디어(사사기 20:1 · 20:8 · 20:11 — כְּאִישׁ אֶחָד(케아이쉬 에하드))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./57_생각의탄생13단계_사사기_20_1-11_하나됨의말이향하는곳이바뀐다.html">57_생각의탄생13단계_사사기_20_1-11_하나됨의말이향하는곳이바뀐다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"개역은 세 곳을 「일제히」, 「일제히」, 「하나 같이」로 옮깁니다. 앞에 선 무리의 이름은 회중, 모든 백성, 이스라엘 모든 사람으로 세 번 다 다릅니다. (…) 원문에서 세 곳은 글자 하나 다르지 않은 한 말, 케아이쉬 에하드(「한 사람같이」)입니다. 무리가 하는 일은 모이다, 일어나다, 모여들다로 세 번 다 다릅니다. 20:1은 「여호와께, 미스바로」, 20:11은 「그 성읍으로」 향하는데, 두 곳에 같은 짧은 말 「엘」이 서고 그 뒤의 이름만 바뀝니다. 20:8에는 향하는 데가 적혀 있지 않습니다. (…) 서술자는 이 일치를 칭찬하지도 책망하지도 않습니다.</strong></p>
+<p><strong>본문 핵심: 같은 말이 세 번 서지만, 그 말에 붙은 이름과 일은 세 번 다 다르다."</strong></p>
+<p>(출처: <a href="./57_일상의깊은사고_사사기_20_1-11.html">57_일상의깊은사고_사사기_20_1-11</a> 주요 신학 통찰 1️⃣ ①·②·③ · 본문 핵심)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본.md</code> 20장)</p>
+<blockquote>
+<p>20:1 이에 모든 이스라엘 자손이 단에서부터 브엘세바까지와 길르앗 땅에서 나왔는데 그 회중이 일제히 미스바에서 여호와 앞에 모였으니<br />
+20:8 모든 백성이 일제히 일어나며 가로되 우리가 하나라도 자기 장막으로 돌아가지 아니하며 하나라도 자기 집으로 들어가지 아니하고<br />
+20:11 이와 같이 이스라엘 모든 사람이 하나 같이 합심하여 그 성읍을 치려고 모였더라</p>
+</blockquote>
+<p><strong>원문</strong> (<a href="./57_구문묵상_사사기_20_1-11.html">57_구문묵상_사사기_20_1-11</a> §2 — XML 추출 문면)</p>
+<blockquote>
+<p><strong>20:1</strong> וַיֵּצְאוּ֮ כָּל־בְּנֵ֣י יִשְׂרָאֵל֒ וַתִּקָּהֵ֨ל הָעֵדָ֜ה כְּאִ֣ישׁ אֶחָ֗ד לְמִדָּן֙ וְעַד־בְּאֵ֣ר שֶׁ֔בַע וְאֶ֖רֶץ הַגִּלְעָ֑ד אֶל־יְהוָ֖ה הַמִּצְפָּֽה׃</p>
+<p><strong>20:8</strong> וַיָּ֨קָם֙ כָּל־הָעָ֔ם כְּאִ֥ישׁ אֶחָ֖ד לֵאמֹ֑ר לֹ֤א נֵלֵךְ֙ אִ֣ישׁ לְאָהֳל֔וֹ וְלֹ֥א נָס֖וּר אִ֥ישׁ לְבֵיתֽוֹ׃</p>
+<p><strong>20:11</strong> וַיֵּֽאָסֵ֞ף כָּל־אִ֤ישׁ יִשְׂרָאֵל֙ אֶל־הָעִ֔יר כְּאִ֥ישׁ אֶחָ֖ד חֲבֵרִֽים׃ פ</p>
+</blockquote>
+<p><strong>파싱 근거</strong> (<a href="./57_구문묵상_사사기_20_1-11.html">57_구문묵상_사사기_20_1-11</a> §3-0 · §3-1 · §3-3 · §3-6 · §4 ① · E2 · E3)</p>
+<table>
+<thead>
+<tr>
+<th>절</th>
+<th>구가 붙은 동사</th>
+<th>파싱</th>
+<th>주어</th>
+<th>구 뒤에 이어지는 말</th>
+<th>개한 역어</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20:1</td>
+<td><code>וַתִּקָּהֵל</code>(바티카헬)</td>
+<td>니팔 wayyiqtol 3fs</td>
+<td><code>הָעֵדָה</code>(여성 단수 집합명사)</td>
+<td><code>לְמִדָּן … אֶל־יְהוָה הַמִּצְפָּה</code></td>
+<td>「일제히」</td>
+</tr>
+<tr>
+<td>20:8</td>
+<td><code>וַיָּקָם</code>(바야캄) — 단락의 주동사</td>
+<td>칼 wayyiqtol 3ms</td>
+<td><code>כָּל־הָעָם</code></td>
+<td><code>לֵאמֹר</code> + 1cp 결의</td>
+<td>「일제히」</td>
+</tr>
+<tr>
+<td>20:11</td>
+<td><code>וַיֵּאָסֵף</code>(바예아세프)</td>
+<td>니팔 wayyiqtol 3ms</td>
+<td><code>כָּל־אִישׁ יִשְׂרָאֵל</code></td>
+<td><code>חֲבֵרִים</code>(남성 복수 절대 「동무들」)</td>
+<td>「하나 같이」</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ 계수 기준과 모집단: 구 <code>כְּאִישׁ אֶחָד</code>(전치사 <code>כְּ</code> + 명사 <code>אִישׁ</code> 절대 + 기수 <code>אֶחָד</code>)의 <strong>꼴</strong>로 셌다 — 구약 9(민 14:15 · 삿 6:16 · 20:1 · 20:8 · 20:11 · 삼상 11:7 · 삼하 19:15 · 스 3:1 · 느 8:1) · 이 책 4 · 범위 3(구문묵상 §4 ① · Stage 0.5). 「이 책 셋」이 아니다 — 6:16이 배치 밖에 있다(마스터 제2부 §3 T24 보완). 접두 없는 <code>אִישׁ אֶחָד</code>(9:2 · 13:2 · 18:19 등)는 별개다. ⛔ 「사사기 20장에만」 · 「드물다」로 쓰지 않는다(구문묵상 W9). 표제어 <code>אִישׁ</code>(376)는 범위에 열이고 20:8 한 절에 셋이 몰린다(E2). ⛔ 셋 · 아홉 · 열이라는 수를 논증의 기둥으로 세우지 않는다 — 이 노트의 하중은 「같은 구가 붙은 문장의 나머지 칸이 무엇인가」라는 서술 사실에 둔다. ⛔ <code>אֶחָד</code>(259)는 27의 <code>אָח</code>(251)와 겉꼴만 닮은 다른 낱말이다(선정표 §6-1).</p>
+<h3>사고의 통합 — "하나 됨의 말은 나머지 칸을 대신하지 않는다"</h3>
+<p>열두 단계를 지나 하나의 그림이 남는다.</p>
+<p>구 안의 같음과 구 바깥의 다름(1 · 2), 방식의 칸(3), 서술자의 묘사라는 자리(4), 고정된 양 끝과 움직이는 가운데 셋(5), 관여만 증명하는 직인(6), 20:8의 빈 손(7), 판정을 비운 손과 빈자리를 채운 손(8), 0인 판정의 축(9), 그 0을 적는 카드(10), 읽는 이 쪽에서 생기는 평가 서사(11), 「끝까지 읽으라」는 설교(12).</p>
+<p>통합 통찰: <strong>사사기 20:1-11에서 「한 사람같이」는 세 문장을 하나의 소리로 꿰지만, 그 문장들의 주어와 동사와 향함을 대신 말해 주지 않고, 그 하나 됨을 판정하지도 않는다. 하나 됨의 말이 향하는 곳은 그 말 자체가 아니라 그 말이 붙은 문장의 나머지 칸에 적혀 있다 — 이 단락에서 그 칸은 「여호와께, 미스바로」와 「그 성읍으로」 두 번 채워지고, 한 번 비어 있다. 그리고 평가의 칸은 세 번 다 비어 있다.</strong></p>
+<p>선택 이유가 물은 「하나 되어 어디로 가는가」에, 이 통찰은 구문묵상이 그은 선 안에서 답한다 — 「어디로」는 적힌 두 자리에서만 읽고, 그 사이에 「바뀌어 갔다」는 이야기를 세우지 않는다. 물음은 오늘 「하나 되자」고 말하는 나에게 돌아온다.</p>
+<blockquote>
+<p>[!insight] 일치는 문장의 방식이지 문장의 내용이 아니다. <strong>「하나 되어 어디로 가는가」는 하나 됨의 말이 답하지 않는다 — 그 말이 붙은 동사와 전치사 목적어가 답하고, 그 답이 옳았는지는 이 열한 절이 답하지 않는다.</strong></p>
+<p>[!question] 연결 질문<br />
+- 평가의 칸이 비어 있는 본문을 정경 전체 안에서 읽을 때, 그 칸은 누가 · 언제 채우는가 — 그리고 그것을 아는 일은 지금 내가 그 칸을 비워 두는 일과 어떻게 이어지는가?<br />
+- 「하나 됨의 말」과 「그 말이 붙은 문장」을 가르는 이 읽기는, 20:12 뒤 단락들(단위 58~60)에서 같은 구가 나오지 않을 때 어떤 다른 꼴로 이어 읽어야 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 통합된 통찰을 개혁신학의 빛과 실무의 자리로 옮긴다.</p>
+<h3>0 관찰 (Observing) — "한 구, 세 줄"</h3>
+<p>씨앗은 한 말이 세 번 선다는 사실을 짚었다. 그 세 자리를 한 표에 세우면, 구 자체보다 <strong>구가 붙은 문장의 다른 칸들</strong>이 먼저 눈에 들어온다.</p>
+<table>
+<thead>
+<tr>
+<th>칸</th>
+<th>20:1</th>
+<th>20:8</th>
+<th>20:11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>구</td>
+<td><code>כְּאִישׁ אֶחָד</code></td>
+<td><code>כְּאִישׁ אֶחָד</code></td>
+<td><code>כְּאִישׁ אֶחָד</code></td>
+</tr>
+<tr>
+<td>화자 층위</td>
+<td>서술자 wayyiqtol</td>
+<td>서술자 wayyiqtol</td>
+<td>서술자 wayyiqtol</td>
+</tr>
+<tr>
+<td>구의 자리</td>
+<td>주어 뒤</td>
+<td>주어 뒤</td>
+<td>주어 뒤</td>
+</tr>
+<tr>
+<td>주어</td>
+<td><code>הָעֵדָה</code> 회중</td>
+<td><code>כָּל־הָעָם</code> 온 백성</td>
+<td><code>כָּל־אִישׁ יִשְׂרָאֵל</code> 이스라엘 모든 사람</td>
+</tr>
+<tr>
+<td>동사</td>
+<td>니팔 3fs 「모이다」</td>
+<td>칼 3ms 「일어나다」</td>
+<td>니팔 3ms 「모여들다」</td>
+</tr>
+<tr>
+<td>향함(<code>אֶל</code> 목적어)</td>
+<td><code>אֶל־יְהוָה הַמִּצְפָּה</code></td>
+<td>— (적히지 않음)</td>
+<td><code>אֶל־הָעִיר</code></td>
+</tr>
+<tr>
+<td>뒤에 이어지는 말</td>
+<td>범위 정형 <code>לְמִדָּן וְעַד־בְּאֵר שֶׁבַע</code></td>
+<td><code>לֵאמֹר</code> + 1cp 결의</td>
+<td><code>חֲבֵרִים</code></td>
+</tr>
+<tr>
+<td>개한</td>
+<td>「일제히」</td>
+<td>「일제히」</td>
+<td>「하나 같이」</td>
+</tr>
+</tbody>
+</table>
+<p>첫째, <strong>구는 한 글자도 다르지 않고, 자리(주어 뒤)와 화자 층위(서술자)도 같다.</strong> 둘째, <strong>주어 · 동사 칸은 세 번 다 다르고, 향함 칸은 두 번만 채워져 있다</strong> — 두 곳의 전치사는 같은 <code>אֶל</code>이고, 20:8의 그 자리에는 「말하기를」과 1인칭 복수 결의가 온다. 셋째, <strong>개한은 한 꼴을 두 역어로 옮겼다</strong>(구문묵상 §3-6) — 우리말 문면에는 「한 사람같이」가 한 번도 없다.</p>
+<p>20:8에는 한 가지가 더 있다. 그 한 절에 <code>אִישׁ</code>가 셋이다 — 서술자의 <code>כְּאִישׁ אֶחָד</code> 하나와, 결의 안 <code>אִישׁ לְאָהֳלוֹ</code> · <code>אִישׁ לְבֵיתוֹ</code>(「각 사람이 자기 장막으로 · 자기 집으로」) 둘이다(E2). 개한 문면에는 그 두 자리에 「하나라도」가 선다.</p>
+<blockquote>
+<p><strong>⚠ 갈림은 갈림으로만 적는다</strong>: 주어 · 동사가 바뀐다는 것은 셀 수 있는 사실이다. 그 바뀜이 무리의 성격이 변했다는 뜻인지, 서술의 변화일 뿐인지는 원문이 말하지 않는다. 20:1의 3mp(<code>וַיֵּצְאוּ</code>) → 3fs(<code>וַתִּקָּהֵל</code>) 교체도 집합명사 일치의 꼴이다 — 신학적 무게를 얹지 않는다(구문묵상 §3-1).</p>
+<p>[!insight] 일치를 말하는 구는 세 번 <strong>같은 자리에 같은 모양으로</strong> 붙는다. 그러나 그 구가 붙은 문장에서 「누가 · 무엇을 · 어디로」의 칸은 한 번도 같은 값으로 채워지지 않는다. 같음은 구 안에 있고, 다름은 구 바깥에 있다.</p>
+<p>[!question] 연결 질문<br />
+- 20:8에만 향함 칸이 비고 「말하기를」이 붙는다면, 그 자리의 「한 사람같이」는 모임의 방향이 아니라 무엇에 걸려 있는가 — 일어남인가, 말함인가, 둘 다인가?<br />
+- 같은 절에 「한 사람같이」와 「각 사람」이 함께 서 있다는 것은, 일치의 말과 배분의 말이 서로를 지우지 않는다는 뜻인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 표의 세 줄을, 같은 표지가 세 번 찍히는 장면으로 그려 본다.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "서술자의 말이지 무리의 구호가 아니다"</h3>
+<table>
+<thead>
+<tr>
+<th>도메인</th>
+<th>일치의 말</th>
+<th>누가 그 말을 쓰는가</th>
+<th>그 말 바깥에서 갈리는 칸</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>삿 20:1-11</td>
+<td><code>כְּאִישׁ אֶחָד</code> 셋</td>
+<td>서술자(wayyiqtol 절)</td>
+<td>주어 · 동사 · 향함</td>
+</tr>
+<tr>
+<td>같은 꼴 구약 다섯(민 14:15 · 삼상 11:7 · 삼하 19:15 · 스 3:1 · 느 8:1)</td>
+<td>같은 꼴</td>
+<td>이 노트는 그 다섯의 화자 · 주어 · 동사를 대조하지 않았다</td>
+<td>(꼴만 · 뜻 견줌 없음)</td>
+</tr>
+<tr>
+<td>교회 회의록</td>
+<td>「만장일치로 가결」</td>
+<td>서기가 회의 뒤에 쓴다</td>
+<td>안건마다 무엇을 · 누구에게 · 언제부터</td>
+</tr>
+<tr>
+<td>법인 의사록 · 동의서</td>
+<td>「출석 전원 찬성」</td>
+<td>작성자가 쓰고 참석자가 날인한다</td>
+<td>안건의 대상 · 금액 · 효력</td>
+</tr>
+</tbody>
+</table>
+<p>네 행에 같은 문형이 있다 — <strong>일치의 말은 대개 문장의 방식 칸에 서고, 내용은 그 바깥 칸에서 갈린다.</strong></p>
+<p>패턴은 20:1-11에서 한 군데 부러진다. 아래 두 행의 「만장일치」 · 「전원 찬성」은 <strong>그 모임 안의 누군가가 자기 모임을 두고 쓴 말</strong>이다. 20:1-11의 「한 사람같이」는 그렇지 않다. 셋 다 서술자의 wayyiqtol 절 안에 있다(구문묵상 §1-1 · §3-3). 무리의 입에서 나온 말은 20:8 결의(1cp) 하나뿐이고, 그 결의 안에 「한 사람같이」는 없다 — 결의 안에 있는 것은 「각 사람」 둘이다. 무리는 자기들이 하나라고 선언하지 않는다. 서술자가 그들을 하나처럼 움직였다고 적을 뿐이다.</p>
+<blockquote>
+<p>[!insight] 대부분의 「만장일치」는 모임이 스스로를 증언하는 말이다. 20:1-11의 「한 사람같이」는 <strong>모임 바깥의 서술자가 붙인 묘사</strong>이고, 그 서술자는 묘사만 하고 판정은 하지 않는다. 그래서 이 구는 구호처럼 읽혀서는 안 된다 — 구호의 화자가 본문에 없다.</p>
+<p>[!question] 연결 질문<br />
+- 서술자가 일치를 묘사하되 평가하지 않는 문장을, 오늘 설교자가 「보라, 하나 된 백성!」 같은 감탄으로 낭독한다면, 그 감탄은 누구의 목소리인가?<br />
+- 같은 꼴 다섯 자리를 대조하지 않은 채로는 「구약에서 이 구는 늘 ~하다」고 말할 수 없다. 그 대조를 한다면 어떤 칸(화자 · 주어 · 동사 · 향함)부터 해야 무게 논증이 되지 않는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 반복되는 문형을 칸이 있는 구조 하나로 세운다.</p>
+<h3>0 유추 (Analogizing) — "같은 직인, 다른 계약서"</h3>
+<p>사무실 금고에 법인 직인이 하나 있다. 한 달 동안 그 직인이 여러 문서에 찍힌다. 임대차 계약서, 물품 공급 계약서, 금융기관 서류, 거래처 확인서. 직인은 매번 같다. 글자 한 획 다르지 않다.</p>
+<p>그런데 세무사가 문서를 검토할 때 직인부터 보지 않는다. 직인은 「이 법인이 이 문서에 관여했다」는 표시일 뿐이다. 세무사는 각 문서의 <strong>당사자 · 목적물 · 상대방</strong>을 따로 읽는다. 같은 직인이 찍혔다고 네 문서가 같은 거래가 되지 않는다. 그리고 직인 자체는 그 거래가 잘한 거래인지 아닌지를 말하지 않는다.</p>
+<table>
+<thead>
+<tr>
+<th>법인 직인</th>
+<th>20:1-11의 「한 사람같이」</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>매번 같은 모양</td>
+<td>세 번 다 같은 글자</td>
+</tr>
+<tr>
+<td>문서마다 당사자가 다르다</td>
+<td>회중 · 온 백성 · 이스라엘 모든 사람</td>
+</tr>
+<tr>
+<td>문서마다 목적물이 다르다</td>
+<td>모이다 · 일어나다 · 모여들다</td>
+</tr>
+<tr>
+<td>문서마다 상대방이 다르다</td>
+<td>여호와께 미스바로 · (무표기) · 그 성읍으로</td>
+</tr>
+<tr>
+<td>직인은 거래의 옳고 그름을 말하지 않는다</td>
+<td>구는 일치의 옳고 그름을 말하지 않는다</td>
+</tr>
+</tbody>
+</table>
+<p><strong>유추의 한계</strong>: 직인은 법인이 <strong>스스로</strong> 찍지만, 20:1-11의 구는 서술자가 찍었다(4단계). 이 어긋남이 중요하다. 자기 날인이었다면 읽는 이는 그 증언의 진정성을 따지게 되지만, 서술자의 묘사이므로 따질 것은 <strong>서술자가 적은 칸과 적지 않은 칸</strong>이다.</p>
+<blockquote>
+<p>[!insight] 일치를 표시하는 말은 관여를 증명할 뿐 <strong>내용도, 정당성도 증명하지 않는다.</strong> 직인이 같다는 이유로 계약서를 하나로 읽지 않듯이, 구가 같다는 이유로 세 문장을 하나의 사건으로 읽지 않는다.</p>
+<p>[!question] 연결 질문<br />
+- 회의록에 「만장일치」가 안건마다 같은 문구로 반복될 때, 나는 직인을 보는가 계약서를 보는가?<br />
+- 서술자가 찍은 표시를 무리의 자기 선언으로 바꿔 읽는 습관은, 설교와 요약에서 어떤 문장으로 나타나는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 문서와 직인에서 내려와, 그 세 문장을 몸으로 지나가 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "세 번 일어서되 같은 몸짓 없이"</h3>
+<p>자리에서 세 번 움직인다. 매번 같은 소리를 낸다 — 「케아이쉬 에하드」. 그러나 몸짓은 원문의 동사를 따른다.</p>
+<ol>
+<li><strong>20:1</strong> — 앉은 채 양손을 몸 앞으로 천천히 모은다(니팔 「모이다」). 손이 모인 뒤 얼굴과 손끝을 한 방향으로 둔다(「여호와께, 미스바로」). 소리: 「케아이쉬 에하드」.</li>
+<li><strong>20:8</strong> — 자리에서 일어선다(칼 「일어나다」). 손은 어느 쪽도 가리키지 않는다 — 향함 칸이 비어 있다. 대신 입을 연다(「말하기를」). 일어선 채 「각 사람」이 두 번 들어간 결의를 한 줄씩 소리 내어 읽는다. 소리: 「케아이쉬 에하드」.</li>
+<li><strong>20:11</strong> — 선 자리에서 옆 사람 쪽으로 한 걸음 다가서고(니팔 「모여들다」 · <code>חֲבֵרִים</code> 「동무들」), 손끝을 다른 방향으로 둔다(「그 성읍으로」). 소리: 「케아이쉬 에하드」.</li>
+</ol>
+<p>소리는 세 번 같았고 몸은 세 번 다른 일을 했다. 손이 방향을 가리킨 것은 두 번뿐이고 그 둘은 달랐다. 둘째 동작에서 손을 어디에도 두지 않고 서 있던 몇 초 — 그 빈 손이 20:8의 빈 칸이다. 개역으로 읽으면 반대가 된다. 원문에서는 같은 소리가 다른 몸짓을 덮고, 개역에서는 다른 소리(「일제히 · 하나 같이」)가 같은 구를 덮는다.</p>
+<p>⚠ 이 동작은 「한 사람같이」를 구호로 외치는 연습이 아니다. 소리는 낮게, 셋 다 같은 크기로 낸다. 셋째 동작을 더 크게 하거나 둘째 동작에 힘을 주면, 몸이 서술자가 하지 않은 평가를 대신 하게 된다.</p>
+<blockquote>
+<p>[!insight] 같은 소리 아래 몸은 <strong>모으고 · 일어서고 · 다가선다.</strong> 몸으로 지나가 보면, 이 구가 하나로 묶는 것은 동작이 아니라 <strong>동작하는 방식</strong>이라는 것이 손에 남는다.</p>
+<p>[!question] 연결 질문<br />
+- 둘째 동작에서 손을 어디에도 두지 않고 서 있기가 어색했다면, 그 어색함은 본문이 비워 둔 칸을 채우고 싶은 내 손의 버릇인가?<br />
+- 원문 소리와 개역 소리를 번갈아 읽을 때, 어느 쪽이 세 문장의 갈림을 더 잘 들리게 하는가 — 아니면 서로 다른 것을 들리게 하는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 몸에 남은 빈 손에서, 그 세 문장을 다루는 사람들의 자리로 들어간다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "판정의 차원이 비어 있다"</h3>
+<p><strong>축소 — 구 하나</strong>: <code>כְּ/אִישׁ אֶחָד</code>. 전치사 + 명사 + 기수. 비교의 말이다. 「한 사람인 것처럼」. 구 자체에는 동사도, 방향도, 평가도 없다.</p>
+<p><strong>확대 1 — 문장 셋</strong>: 그 구가 세 문장에 들어가자 주어 · 동사 · 향함이 붙는다(1~5단계).</p>
+<p><strong>확대 2 — 단락의 시간 축</strong>: 세 문장을 시간 순서로 놓으면 사이가 보인다.</p>
+<pre><code>20:1-2   회중이 모인다 ── 한 사람같이 ── 여호와께, 미스바로
+20:3     베냐민 자손이 들었다(동사 하나 · 발화 0) / 이스라엘 자손의 물음
+20:4-7   레위인의 1인칭 진술 → 끝에 「말과 의논을 내라」(명령 2mp)
+20:8     온 백성이 일어난다 ── 한 사람같이 ── 「말하기를」 ← 단락의 주동사
+20:9-10  1cp 결의(「치다」 동사 0)
+20:11    이스라엘 모든 사람이 모여든다 ── 한 사람같이 ── 그 성읍으로 · 동무들
+</code></pre>
+<p>구문묵상은 주동사를 20:11(끝)이 아니라 20:8 <code>וַיָּקָם</code>로 잡았다 — 청에 대한 응답이 이 동사로 시작되고, 「마지막 자리라서 결론」이라는 위치 논증을 피했다(§3-0 · 「바뀐 판단」 1). 이 축에서 「한 사람같이」는 <strong>청 앞의 모임 · 청에 대한 응답 · 응답 뒤의 모여듦</strong>에 한 번씩 선다. 구가 묶는 것은 사건의 세 국면이다.</p>
+<p><strong>확대 3 — 책과 구약</strong>: 꼴은 이 책 4 · 구약 9다. 6:16은 YHWH의 발화 안 목적어 뒤이고(봉합 11), 나머지 다섯은 대조하지 않았다. 이 차원에는 <strong>계수만 있고 비교는 없다.</strong></p>
+<p><strong>차원 전환 — 판정의 축</strong>: 서사의 축(누가 · 무엇을 · 어디로)과 직교하는 또 하나의 축이 있다. 평가의 축이다. 이 열한 절에서 그 축 위의 값은 전부 0이다. 하나님이 정동사의 주어인 문장 0(서술자 0 · 발화 안 0 · 구문묵상 §3-4), 서술자의 평가어 0, 17:6 · 21:25 후렴 0(§6②). ⛔ 이 0으로 침묵 논증을 펴지 않는다 — 「묻지 않았으니 잘못이다」 꼴로 옮기지 않는다(구문묵상 §1-3 · 마스터 제2부 §6-2). 0은 0으로 적는다.</p>
+<blockquote>
+<p>[!insight] 「한 사람같이」는 서사의 차원에서는 세 국면을 꿰지만, <strong>판정의 차원에서는 한 칸도 움직이지 않는다.</strong> 이 단락의 하나 됨은 판정의 축이 비어 있는 평면 위에서만 움직인다. 그 빈 축을 독자가 서둘러 세우는 순간, 본문이 하지 않은 말이 본문의 말이 된다.</p>
+<p>[!question] 연결 질문<br />
+- 판정의 축이 비어 있다는 사실을 설교에서 정직하게 전하려면, 설교자는 그 단락에서 어떤 종류의 적용을 스스로 포기해야 하는가?<br />
+- 청 앞 · 응답 · 응답 뒤라는 세 국면에 같은 구가 선다는 것은, 국면이 바뀌어도 「하나처럼」이라는 방식이 유지되었다는 서술인가 — 그 이상을 말할 수 있는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 차원의 관찰을 손에 쥘 수 있는 도구 하나로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>성경 본문</strong> (⚠ 사사기 밖 인용은 원문 · 개역 문면을 대조하지 않았으므로 요지로만 적는다)</p>
+<ul>
+<li><strong>고린도전서 4:5 ↔ 삿 20:1-11</strong> — 때가 이르기 전, 주께서 오시기까지 아무것도 판단하지 말라, 그가 어둠에 감추인 것을 드러내고 마음의 뜻을 나타내실 것이라는 말씀(요지). 본문은 말하지 않지만 정경 전체에서, 9단계에서 본 「비어 있는 판정의 축」은 독자가 채울 자리가 아니라 <strong>주께 맡겨진 자리</strong>로 읽힐 수 있다. ⛔ 이것은 20장 총회가 옳았다는 뜻도, 틀렸다는 뜻도 아니다 — 판정을 내리지 않는 근거는 어디까지나 원문이 판정 문장을 두지 않았다는 사실이고(구문묵상 §6③), 이 말씀은 그 사실 앞에 선 독자의 태도를 비춘다.</li>
+<li><strong>요한복음 5:22 ↔ 삿 20:1-11</strong> — 아버지께서 아무도 심판하지 아니하시고 심판을 다 아들에게 맡기셨다는 말씀(요지). ⛔ 그리스도 연결 재료는 20:1-11 원문에 없다(구문묵상 §3-5 · C4 ○0). 이 연결은 본문의 예표가 아니라, 정경의 층에서 독자가 「판정의 칸은 누구의 것인가」를 물을 때 덧붙이는 것이다. 복음 안에서 그 칸은 비어 있는 채로 방치된 것이 아니라 아들께 맡겨져 있다.</li>
+<li>
+<p><strong>빌립보서 2:2-5 ↔ 삿 20:1-11</strong> — 마음을 같이하여 같은 사랑을 가지고 뜻을 합하여 한마음을 품되, 너희 안에 그리스도 예수의 마음을 품으라는 말씀(요지). ⛔ 「한 사람같이」를 「한마음」이나 「한 몸」으로 잇지 않는다 — 겉뜻이 닮았을 뿐 원문 재료가 이어지지 않는다(구문묵상 §6①). 여기 두는 이유는 하나다: 신약의 하나 됨 권면은 「무엇의 마음을 품으라」는 <strong>내용의 칸</strong>과 함께 온다. 3단계의 압축이 정경의 다른 자리에서도 지켜진다는 데까지가 이 연결의 범위다.</p>
+</li>
+<li>
+<p><strong>신학자</strong>: 장 칼뱅. 『기독교강요』 4권 9장의 교회 회의 논의에서 칼뱅은 요지로 이렇게 가르친다 — 회의의 권위는 모인 사람의 수나 합의 그 자체에 있지 않고, 그 회의가 그리스도의 이름으로, 곧 말씀에 매여 모였는가에 달려 있다(⚠ 라틴어 원문과 절 번호는 이 환경에서 대조하지 못했으므로 요지로만 적는다). 웨스트민스터 신앙고백 31장도 요지로 같은 방향이다 — 사도 시대 이후의 대회와 공의회는 오류를 범할 수 있으므로, 그 결정을 신앙과 행위의 규칙으로 삼지 말고 도움으로 삼으라(요지 · 항 번호 미대조). ⛔ 이 두 가르침을 20장 총회의 평가 근거로 쓰지 않는다. 닿는 곳은 오늘의 회의다 — 「만장일치」라는 직인이 결정의 정당성을 대신 증명하지 않는다(6단계).</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 이 본문을 설교할 때 세 절(20:1 · 20:8 · 20:11)을 원문의 반복이 들리게 읽는다. 개역을 쓰되 「일제히 · 일제히 · 하나 같이」가 원문에서는 같은 말이라는 것을 한 문장으로 알린다. 그리고 회중에게 묻는다 — "오늘 우리가 '하나 되자'고 말할 때, 그 말 뒤에 오는 동사는 무엇입니까? 그 동사는 어디로 향합니까?" ⚠ 이 물음은 20장의 무리를 판정하는 물음이 아니고, 회중 가운데 누구를 지목하는 물음도 아니다. 물음은 언제나 「우리」와 「나」에게 돌아온다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 낭떠러지가 셋이다. ① <strong>일치 미화 · 연합 구호</strong>: 「보라, 한 사람같이 일어선 백성!」으로 낭독하고 오늘 교회 연합의 모범으로 세우는 설교 — 서술자가 평가어를 붙이지 않았고, 20장 뒤는 동족 전쟁이다(판정 없이 사실만 · 구문묵상 §6④). ② <strong>반면교사 · 경고</strong>: 반대로 「하나 됨이 이스라엘을 내전으로 몰았다」는 경고 설교 — 봉합 1을 부정으로 닫는 일이며, 원문에 그 인과 문장이 없다. ③ <strong>침묵 논증</strong>: 「하나님께 묻지 않고 하나 되었으니 잘못이다」 — 하나님 동사 0을 근거로 의도나 심판을 단정하지 않는다(마스터 제2부 §6-2). 복음은 이 빈칸을 판정을 맡으신 분께 돌려드리는 자리에서 들린다 — 그 돌려드림을 본문 사실로 바꾸지 않는다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p><strong>① 교회 행정 — 회의록의 「만장일치」를 안건별 칸으로 풀어 적는다</strong><br />
+<em>상황</em>: 당회 · 제직회 회의록에 「만장일치 가결」이 안건마다 같은 문구로 반복되어, 몇 해 뒤에는 무엇이 · 누구에게 결정되었는지가 문구 뒤에 묻힌다.<br />
+<em>적용</em>: 10단계 카드의 2~4번 칸을 회의록 양식에 넣는다 — 안건마다 「결정 주체(누가) · 결정 내용(무엇을) · 효력 대상(어디에 · 누구에게)」을 따로 적고, 「만장일치」는 그 아래 방식 칸에만 쓴다. ⚠ 이 양식은 권징 · 치리 절차의 교본이 아니다(마스터 제2부 §7-36) — 회의 기록을 읽을 수 있게 남기는 일까지다.<br />
+<em>기대 효과</em>: 「만장일치」라는 같은 말이 다른 결정들을 하나로 덮지 않는다. 6단계의 직인 유추대로, 표시와 내용이 분리되어 기록된다.</p>
+<p><strong>② 세무 · 실무 — 의사록 · 동의서의 반복 문구 뒤에 안건 내용이 있는지 확인한다</strong><br />
+<em>상황</em>: 의뢰인이 가져온 법인 의사록이나 동의서에 「출석 전원 찬성으로 원안 가결」이 안건마다 같은 문구로 적혀 있는데, 안건 내용이 제목 한 줄뿐인 경우가 있다.<br />
+<em>적용</em>: 검토 메모에 안건별로 「무엇을 의결했는가(대상 · 금액 · 기간)」가 문서 안에 적혀 있는지만 표시한다. 적혀 있지 않으면 「문서상 미기재」라고 적고 추정으로 채우지 않는다 — 7단계의 빈 손, 10단계 카드 뒷면의 「무표기이면 채우지 않는다」를 그대로 쓴다. ⚠ 그 의사록의 법적 효력이나 세무상 효과는 이 노트에서 다루지 않는다 — 개별 사안은 사실과 법령을 따로 확인한 뒤 판단한다(마스터 제2부 §7-40 주기).<br />
+<em>기대 효과</em>: 「전원 찬성」이라는 직인이 거래 내용의 확인을 대신하지 않는다.</p>
+<p><strong>③ 개인 · 요약 습관 — 남의 결정을 옮길 때 없는 동사를 보태지 않는다</strong><br />
+<em>상황</em>: 회의 결과를 단체방에 요약해 올리거나, 들은 결정을 다른 사람에게 전할 때 「~하기로 다 같이 모였다」 · 「~하려고 합의했다」처럼 원래 말에 없던 목적을 붙이는 일이 있다.<br />
+<em>적용</em>: 8단계 번역자의 손을 거울로 삼아, 요약에 내가 보탠 「~하려고」를 찾아 지우거나 「(내 추정)」을 붙인다. 20:11 개역 「치려고」가 원문에 없다는 사실에서 나온 습관이다(구문묵상 E6).<br />
+<em>기대 효과</em>: 남의 결정이 내 말을 거치며 다른 방향을 얻지 않는다.</p>
+<h3>🥇 한 구, 세 문장 — 구는 같고 주어 · 동사 · 향함은 갈린다</h3>
+<ul>
+<li><strong>핵심</strong>: 사사기 20:1 · 20:8 · 20:11의 <code>כְּאִישׁ אֶחָד</code>는 세 번 다 글자가 같고, 세 번 다 서술자 wayyiqtol 절 안 주어 뒤에 붙는다. 갈리는 것은 주어(회중 · 온 백성 · 이스라엘 모든 사람)와 동사(니팔 <code>וַתִּקָּהֵל</code> · 칼 <code>וַיָּקָם</code> · 니팔 <code>וַיֵּאָסֵף</code>)이고, 향함은 두 번(20:1 <code>אֶל־יְהוָה הַמִּצְפָּה</code> · 20:11 <code>אֶל־הָעִיר</code>) 적히며 20:8은 무표기다(구문묵상 §3-3 표).</li>
+<li><strong>인격 형성</strong>: 반복 자체의 무게를 쓰지 않고 <strong>갈리는 칸</strong>을 중심에 세운다 — 마스터 제2부 §6-3의 「갈리는 것을 축의 중심에」를 반복 꼴에서 지킨 실례.</li>
+<li><strong>연결 고리</strong>: 삿 20:1 · 20:8 · 20:11 / 같은 꼴 구약 다섯(꼴만 · 미대조) / <a href="./57_구문묵상_사사기_20_1-11.html">57_구문묵상_사사기_20_1-11</a> §3-3 · §4 ① / 신규 「일치문장다섯칸표」(노트 후보)</li>
+</ul>
+<h3>🥈 20:8 한 절의 <code>אִישׁ</code> 셋 — 「한 사람같이」 곁의 「각 사람」 둘</h3>
+<ul>
+<li><strong>핵심</strong>: 20:8에는 서술자의 <code>כְּאִישׁ אֶחָד</code> 하나와, 1cp 결의 안 배분 꼴 <code>אִישׁ לְאָהֳלוֹ</code> · <code>אִישׁ לְבֵיתוֹ</code> 둘이 함께 선다(E2). 이 배분 꼴(<code>אִישׁ</code> + <code>לְ</code>명사 + 3ms)은 사사기 8토막 · 6절이다(E3 · 2:6 · 7:7 · 7:8 · 9:55 · 20:8 · 21:24).</li>
+<li><strong>인격 형성</strong>: 일치의 말(서술자)과 배분의 말(무리의 결의)이 한 절에서 서로를 지우지 않는다는 사실을, 해석 없이 꼴로만 세운다. ⛔ 「흩어짐의 정형이 여기서 부정된다」는 해석은 금지다 — 나머지 여섯의 화자 · 동사 · 부정어를 대조하지 않았다(구문묵상 §3-3 · 「바뀐 판단」 3). 그 대조를 해야 승격할 수 있다.</li>
+<li><strong>연결 고리</strong>: 삿 20:8 / 2:6 · 7:8 · 21:24 등(미대조) / <a href="./57_구문묵상_사사기_20_1-11.html">57_구문묵상_사사기_20_1-11</a> E2 · E3 / 신규 「한사람같이와각사람_사사기20장8절」(노트 후보)</li>
+</ul>
+<h3>🥉 역어가 지운 반복과 채운 빈자리 — 「일제히 · 일제히 · 하나 같이」와 「치려고」</h3>
+<ul>
+<li><strong>핵심</strong>: 개역한글은 한 꼴 <code>כְּאִישׁ אֶחָד</code>를 두 역어(「일제히」 · 「하나 같이」)로 옮기고, 20:11 <code>אֶל־הָעִיר</code>에 「치려고」를 보탠다. 20:9-11에 「치다」 동사는 0이다(구문묵상 §3-6 · E6).</li>
+<li><strong>인격 형성</strong>: 반복을 흐리면 축이 안 보이고, 빈자리를 채우면 평가 서사가 생긴다(8단계 · 11단계 놀이 3). ⛔ 개역 문면으로 축을 지우지도 세우지도 않는다(구문묵상 §3-6 W1).</li>
+<li><strong>연결 고리</strong>: 삿 20:1 · 20:8 · 20:9 · 20:11 / 20:10 「징계하게」(원문 <code>לַעֲשׂוֹת</code>) / <a href="./57_구문묵상_사사기_20_1-11.html">57_구문묵상_사사기_20_1-11</a> §3-6 / 신규 「역어가지운반복_사사기」(노트 후보)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 57 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

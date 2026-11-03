@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>참상의 말은 듣는 이의 숙고로 넘어간다 — 씨앗 아이디어(사사기 19:30 — עֻצוּ(우추))</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 제 56 편 &middot; 사사기 19:22-30</span>
+      <h1>참상의 말은 듣는 이의 숙고로 넘어간다 — 씨앗 아이디어(사사기 19:30 — עֻצוּ(우추))</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      <p>56_성경적 사고와 인격 만들기</p>
+<h2>참상의 말은 듣는 이의 숙고로 넘어간다 — 씨앗 아이디어(사사기 19:30 — עֻצוּ(우추))</h2>
+<blockquote>
+<p><strong>원본 근거</strong>: <a href="./56_생각의탄생13단계_사사기_19_22-30_참상의말은듣는이의숙고로넘어간다.html">56_생각의탄생13단계_사사기_19_22-30_참상의말은듣는이의숙고로넘어간다</a></p>
+<p>이 문서는 위 원본의 관찰과 한계를 보존해 성경적 사고가 구체적인 인격의 열매로 이어지도록 재구성했다. 직접 인용·어형·계수·신학자 언급은 원본에 확인된 범위 안에서만 사용한다.</p>
+<p><strong>"세 마디는 모두 여럿인 「너희」를 향합니다. 그 사이에 「가로되」 같은 새 말머리가 없어서, 세 마디를 한 쪽이 보는 자들인지 다른 쪽인지 원문은 밝히지 않습니다. 「알레하」(그 위에)의 「그」는 여자를 가리킬 때 쓰는 모양이라서 앞의 「이런 일」을 받는지 그 여자를 받는지 정해지지 않습니다. … 이 세 마디를 오늘의 행동 구호로 옮기면 원문이 정하지 않은 화자와 대상을 우리가 정하게 됩니다. 이 통찰이 남기는 것은 정해지지 않은 것을 정해지지 않은 채 들고 있는 읽기입니다.</strong></p>
+<p><strong>본문 핵심: 세 마디는 「너희」를 향하되, 말한 쪽과 「그 위에」의 대상과 말할 내용은 이 단락에서 열려 있습니다."</strong></p>
+<p>(출처: <a href="./56_일상의깊은사고_사사기_19_22-30.html">56_일상의깊은사고_사사기_19_22-30</a> 주요 신학 통찰 1️⃣)</p>
+</blockquote>
+<p><strong>개역한글</strong> (<code>tmp/사사기/_KRV88_정본.md</code> 정본 문면)</p>
+<blockquote>
+<p>19:30 그것을 보는 자가 다 가로되 이스라엘 자손이 애굽 땅에서 나온 날부터 오늘날까지 이런 일은 행치도 아니하였고 보지도 못하였도다 생각하고 상의한 후에 말하자 하니라</p>
+</blockquote>
+<p><strong>원문</strong> (<a href="./56_구문묵상_사사기_19_22-30.html">56_구문묵상_사사기_19_22-30</a> §2 · XML 추출 문면)</p>
+<blockquote>
+<p>19:30 וְהָיָ֣ה כָל־הָרֹאֶ֗ה וְאָמַר֙ לֹֽא־נִהְיְתָ֤ה וְלֹֽא־נִרְאֲתָה֙ כָּזֹ֔את לְמִיּ֞וֹם עֲל֤וֹת בְּנֵֽי־יִשְׂרָאֵל֙ מֵאֶ֣רֶץ מִצְרַ֔יִם עַ֖ד הַיּ֣וֹם הַזֶּ֑ה שִֽׂימוּ־לָכֶ֥ם עָלֶ֖יהָ עֻ֥צוּ וְדַבֵּֽרוּ׃ פ</p>
+</blockquote>
+<p><strong>직역</strong> (구문묵상 §3-5): 보는 자마다 말했다 — 「이와 같은 일은 이스라엘 자손이 애굽 땅에서 올라온 날부터 이날까지 일어나지도 않았고 보이지도 않았다. 너희는 그 위에 두라, 의논하라, 그리고 말하라.」</p>
+<p><strong>파싱 근거</strong> (<a href="./56_구문묵상_사사기_19_22-30.html">56_구문묵상_사사기_19_22-30</a> §3-0 · §3-5 · §1-5)</p>
+<table>
+<thead>
+<tr>
+<th>어형</th>
+<th>파싱</th>
+<th>표제어(Strong)</th>
+<th>이 노트에서의 쓰임</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>וְאָמַר</code></td>
+<td>칼 weqatal 3ms · 주어 <code>כָל־הָרֹאֶה</code></td>
+<td>559</td>
+<td>범위의 이 자리 유일한 말머리 — 명령 앞에 새 말머리는 0</td>
+</tr>
+<tr>
+<td><code>נִהְיְתָה</code> · <code>נִרְאֲתָה</code></td>
+<td>니팔 완료 3fs 둘 · 주어 따로 없음</td>
+<td>1961 · 7200</td>
+<td>행한 쪽을 세우지 않는 진술 · 내용은 <code>כָּזֹאת</code>이 가리킨다</td>
+</tr>
+<tr>
+<td><code>שִׂימוּ</code> + <code>לָכֶם</code> + <code>עָלֶיהָ</code></td>
+<td>칼 명령 2mp + 2mp + 3fs 접미</td>
+<td>7760</td>
+<td>첫 명령 · 목적 명사 0 · <code>עָלֶיהָ</code> 지시 판정 보류</td>
+</tr>
+<tr>
+<td><code>עֻצוּ</code></td>
+<td>칼 명령 2mp · 앞 명령과 접속사 없이</td>
+<td>5779</td>
+<td><strong>씨앗</strong> · 둘째 명령</td>
+</tr>
+<tr>
+<td><code>וְדַבֵּרוּ</code></td>
+<td>피엘 명령 2mp</td>
+<td>1696</td>
+<td>셋째 명령 · 목적어 0</td>
+</tr>
+</tbody>
+</table>
+<p>⚠ <strong>계수의 모집단</strong>(구문묵상 기재값만 옮김): ⒜ <code>עוּץ</code>(5779)는 구약 2회 — 삿 19:30 · 사 8:10(표제어 기준). ⒝ 1696 피엘 명령 2mp는 이 범위(19:22-30)에서 이 한 토막. ⒞ 범위 안 2인칭 동사 10 가운데 2mp 명령은 다섯 — 19:24 집 주인의 말 안 둘과 19:30 셋(E6). ⒟ <code>שׂים</code> 칼 명령 2mp는 구약 19토막(18절)이고, 그 절 안에 「마음」(3820/3824)이 함께 오는 것은 6토막(5절)이며 19:30에는 0(E8 · 케레 뗀 셈). ⛔ 이 수들은 「꼴이 이렇다」는 사실까지만 지고, 뜻을 확정하는 기둥으로 쓰지 않는다 — 구약 2회로 <code>עֻצוּ</code>의 뜻을 묶지 않고(봉합 13), 여섯 절의 「마음을 두라」로 19:30을 채우지 않는다(봉합 12).</p>
+<h3>사고의 통합 — "비워 둔 자리를 들고 있는 것"</h3>
+<p>1단계는 19:30이 묘사로 끝나지 않고 <strong>넘기는 문장</strong>으로 끝난다는 것을 보았다 — 말머리는 하나(<code>וְאָמַר</code>)이고, 진술(니팔 둘) 뒤에 새 말머리 없이 2mp 명령 셋이 온다. 2단계는 그 끝을 빈 줄 앞의 책상으로 그렸고, 3단계는 알맹이를 「넘겨진 숙고」로 압축했다. 4단계에서 배심·검토 의견서·사례 회의와 나란히 놓아 보니 「진술 → 넘김」은 흔한 꼴이었지만, 19:30만이 <strong>넘기는 손과 넘어가는 안건을 함께 비워 둔다</strong>는 것이 드러났다. 5단계 「진술-넘김 틀」은 채워진 칸이 잣대와 받는 쪽 둘뿐임을 보였고, 6단계 유추는 세 분야 모두 서명·진단명·해결에서 깨진다는 것, 곧 반종지처럼 매달린 끝이 이 절의 형식임을 알려 주었다.</p>
+<p>7단계에서 몸은 「두기」가 움켜쥐기가 아니라 얹기이고 빈 목적어가 열린 입의 어색함이라는 것을 배웠다. 8단계는 같은 「너희」가 설교자에게서 혼자 맺는 결론을, 듣는 이에게서 혼자 지는 짐을 거둔다는 것을 보았다. 9단계에서 가장 큰 시간 축(출애굽부터 이날까지)으로 잰 일이 가장 작은 글자(마케프)로 「너희」에게 붙어 넘어온다는 전복이 일어났고, 10단계 점검표는 이 절을 다루는 도구가 「무엇을 넣지 않을지」를 먼저 묻는다는 것을 확인했다. 11단계 놀이는 개역의 「말하자」가 봉합 2를 닫는 번역이라는 것을 찾아냈고, 12단계의 시는 세 개의 빈 칸과 「여럿이서」만 남겼다.</p>
+<p><strong>① 최종 테제</strong>: 사사기 19:30은 참상을 판정이나 교훈으로 닫지 않는다. 출애굽부터 이날까지의 잣대로 「이와 같은 일은 없었다」고 진술한 뒤, 말한 쪽을 표시하지 않은 세 명령으로 두기·의논하기·말하기를 「너희」(2인칭 복수)에게 넘기고, 그 내용의 칸은 비워 둔다. 이 절 앞에서 읽는 이가 먼저 할 일은 빈 칸을 채우는 것이 아니라, 비워 둔 자리를 여럿이서 서둘러 덮지 않고 들고 있는 것이다. 선택 이유가 연 물음 — 공동체가 참상 앞에서 무엇을 말해야 하는가 — 은 이 노트에서 <strong>물음으로 남는다.</strong> 원문이 그 답을 적지 않았기 때문이다.</p>
+<p><strong>② 가장 생산적이었던 도구 — 놀이(11단계)</strong>: 칸을 일부러 채워 보는 반사실 놀이가 개역 「말하자」의 실제 효과(화자 확정 · 「너희」의 흡수)를 드러냈다. 관찰만으로는 「역어가 인칭을 바꿨다」는 사실에 머물렀는데, 놀이가 그 바뀜이 봉합 2를 닫는 일이라는 것을 보여 주었다.</p>
+<p><strong>③ 처음 관찰과 달라진 이해</strong>: 처음에는 세 명령의 마지막 「말하라」가 이 절의 정점처럼 보였다. 다 지나고 보니 무게는 「말하라」에 있지 않고(위치 논증을 쓰지 않는다는 원칙이 그것을 막기도 했다), <strong>「말하라」 뒤에 아무것도 없다는 데</strong> 있다. 비어 있는 목적어가 이 절에서 가장 크게 말하는 자리다.</p>
+<blockquote>
+<p><strong>"참상의 말은 판정으로 닫히지 않고 「너희」의 숙고로 넘어간다 — 그러나 무엇을 말할지는 원문이 비워 두었고, 그 빈자리를 여럿이서 들고 있는 것이 이 절 앞의 첫 응답이다."</strong></p>
+</blockquote>
+<h3>0 관찰 (Observing) — "새 말머리 없는 세 마디"</h3>
+<p>19:30을 꼴 단위로 늘어놓으면 문장 층이 넷으로 갈린다.</p>
+<table>
+<thead>
+<tr>
+<th>층</th>
+<th>원문</th>
+<th>꼴</th>
+<th>비어 있는 것</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>말머리</td>
+<td><code>וְהָיָה כָל־הָרֹאֶה וְאָמַר</code></td>
+<td>weqatal 둘 · 주어 정관사 분사 ms + <code>כָל</code></td>
+<td>분사의 목적어(개역 「그것을」은 역어가 넣은 말)</td>
+</tr>
+<tr>
+<td>진술</td>
+<td><code>לֹא־נִהְיְתָה וְלֹא־נִרְאֲתָה כָּזֹאת</code></td>
+<td>니팔 완료 3fs 둘</td>
+<td>행한 쪽(주어 명사 0)</td>
+</tr>
+<tr>
+<td>잣대</td>
+<td><code>לְמִיּוֹם עֲלוֹת בְּנֵי־יִשְׂרָאֵל מֵאֶרֶץ מִצְרַיִם עַד הַיּוֹם הַזֶּה</code></td>
+<td>부정사 연계 + 시간 구</td>
+<td>—</td>
+</tr>
+<tr>
+<td>명령</td>
+<td><code>שִׂימוּ־לָכֶם עָלֶיהָ עֻצוּ וְדַבֵּרוּ</code></td>
+<td>2mp 명령 셋</td>
+<td>화자 표시 · <code>שִׂימוּ</code>의 목적 명사 · <code>וְדַבֵּרוּ</code>의 목적어</td>
+</tr>
+</tbody>
+</table>
+<p>보이는 것 셋. 첫째, <strong>말하기 동사는 앞머리 <code>וְאָמַר</code> 하나뿐이다.</strong> 진술과 명령 사이에 새 말하기 동사도 새 화자 표시도 없다(구문묵상 §3-5 · 봉합 2). 둘째, <strong>세 명령의 이음새가 고르지 않다.</strong> <code>שִׂימוּ־לָכֶם</code>은 마케프로 붙고, <code>עָלֶיהָ</code>와 <code>עֻצוּ</code> 사이에는 접속사가 없으며, 셋째 <code>וְדַבֵּרוּ</code>에만 <code>ו</code>가 붙는다. 셋째, <strong>명령마다 비어 있는 칸이 있다.</strong> 첫째는 무엇을 두는지 명사가 없고, 「그 위에」의 그가 무엇인지 정해지지 않았고, 셋째는 무엇을 말하는지 없다. 둘째 <code>עֻצוּ</code>도 사 8:10처럼 「계략을」(<code>עֵצָה</code>)이라는 짝 명사를 데리고 있지 않다.</p>
+<blockquote>
+<p>[!insight] 이 절은 참상을 묘사하는 문장이 아니라 <strong>넘기는 문장</strong>으로 끝난다. 말한 쪽은 표시되지 않고, 받는 쪽만 「너희」(2mp)로 분명하며, 받는 쪽이 할 일의 내용 칸은 비어 있다.</p>
+<p>[!question] 연결 질문<br />
+- 말한 쪽이 지워지고 받는 쪽만 남은 문장을 읽을 때, 읽는 사람은 어느 자리에 서게 되는가?<br />
+- 세 명령의 이음새(마케프 · 무접속 · <code>ו</code>)가 고르지 않다는 사실은 무엇을 보여 주는가 — 아니면 아무것도 보여 주지 않는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 이 「넘기는 문장」이 읽히는 자리를 하나의 장면으로 그려 본다 — 그 밤이 아니라, 이 절이 읽히는 자리를.</p>
+<h3>0 패턴 인식 (Recognizing Patterns) — "진술 뒤의 넘김"</h3>
+<p>3단계의 알맹이를 다른 영역에 대 본다. 기준은 셋이다 — ① 사실 진술이 먼저 온다 ② 진술한 쪽이 결론을 쓰지 않는다 ③ 숙고가 복수의 받는 쪽으로 넘어간다.</p>
+<table>
+<thead>
+<tr>
+<th>영역</th>
+<th>패턴 발현</th>
+<th>깨지는 곳</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>배심 재판(요지)</td>
+<td>판사는 증거와 쟁점을 설명하고, 평결은 배심원 여럿이 평의해 낸다</td>
+<td>판사의 이름과 권한이 분명하다 — 19:30은 화자가 미표시다</td>
+</tr>
+<tr>
+<td>세무 검토 의견서</td>
+<td>검토자는 사실관계와 쟁점을 적고, 실행 결정은 의뢰인 쪽에 남긴다</td>
+<td>의뢰인은 한 사람(또는 한 법인)이고, 결정할 내용(안건)이 문서에 적혀 있다 — 19:30은 무엇을 말할지가 비어 있다</td>
+</tr>
+<tr>
+<td>병원 사례 검토 회의</td>
+<td>발표자는 경과를 보고하고, 참석자들이 함께 원인과 대책을 논의한다</td>
+<td>논의 안건과 목적이 회의 전에 정해진다</td>
+</tr>
+<tr>
+<td>사사기 19:30</td>
+<td>「이와 같은 일은 없었다」 → 「너희는 두라, 의논하라, 말하라」</td>
+<td>화자 미표시 · <code>עָלֶיהָ</code> 미정 · 말할 내용 0</td>
+</tr>
+</tbody>
+</table>
+<p>세 영역 모두 「진술 → 넘김」의 꼴은 겹친다. 그러나 세 영역 모두 <strong>넘기는 쪽이 누구인지</strong>와 <strong>넘어가는 안건이 무엇인지</strong>가 정해져 있다. 19:30은 그 두 칸을 다 비운다. 패턴은 겹치되, 19:30의 고유함은 「넘김」 자체가 아니라 <strong>넘김의 칸을 비워 두는 방식</strong>에 있다.</p>
+<p>공통 패턴 한 문장: 사실이 진술된 뒤 결론은 진술자가 아니라 복수의 받는 쪽이 숙고하도록 넘어간다 — 사사기 19:30은 그 위에 「누가 넘기는가」와 「무엇을 말할 것인가」를 비워 둔다.</p>
+<blockquote>
+<p>[!insight] 다른 영역과 나란히 놓아 보면 19:30이 특이한 것은 「넘긴다」는 데가 아니라 <strong>넘기는 손과 넘어가는 안건이 함께 비어 있다</strong>는 데다.</p>
+<p>[!question] 연결 질문<br />
+- 넘기는 쪽이 보이지 않을 때, 받는 쪽은 그 명령의 권위를 어디에서 찾게 되는가?<br />
+- 안건이 비어 있는 의논은 무엇부터 시작되는가 — 「그 위에 두기」인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 겹치는 꼴과 갈리는 칸을 함께 담는 틀 하나로 이 패턴을 정제한다.</p>
+<h3>0 유추 (Analogizing) — "반종지"</h3>
+<p>5단계 「진술-넘김 틀」을 세 분야에 옮긴다.</p>
+<p><strong>유추 1 — 회계감사 보고서의 「강조사항」 문단(세무·회계 ↔ 신학, 요지 · 기준서 원문 미대조).</strong> 감사인은 의견과 별도로 재무제표 이용자가 주의를 기울여야 할 사항을 문단으로 짚되, 그것 때문에 의견을 바꾸지는 않는다고 알려져 있다. 「여기에 주의를 두라」는 넘김이 판정과 분리되어 있다는 점에서 <code>שִׂימוּ … עָלֶיהָ</code>와 닮았다. 새 통찰: 주의를 두게 하는 것과 결론을 내리는 것은 다른 동작이다. <strong>깨지는 지점</strong>: 감사인은 서명으로 자기를 드러낸다. 19:30은 넘기는 손이 표시되지 않는다.</p>
+<p><strong>유추 2 — 음악의 반종지(half cadence).</strong> 악절이 으뜸화음이 아니라 딸림화음에서 멈추면, 듣는 귀는 해결을 기다리며 공중에 매달린다. 「말하라」 뒤에 말이 없는 19:30의 끝이 그 매달림을 닮았다. 새 통찰: 미해결은 결함이 아니라 형식일 수 있다. <strong>깨지는 지점</strong>: 음악은 관습대로 다음 악절에서 해결된다. 20장에서 총회가 모이고 20:3에 <code>דַּבְּרוּ אֵיכָה נִהְיְתָה הָרָעָה הַזֹּאת</code>가 오지만(구문묵상 §1-4 차 · 사실만), 이 노트는 그것을 19:30의 「해결」로 판정하지 않는다(봉합 13).</p>
+<p><strong>유추 3 — 의학의 병리 소견서.</strong> 병리의는 조직에서 본 것을 적고, 치료 결정은 담당 의료진에게 넘긴다. 새 통찰: 본 것을 정확히 적는 일과 다음 일을 정하는 일을 한 사람이 다 하지 않는다. <strong>깨지는 지점</strong>: 소견서에는 진단명이 있다. 19:30의 진술은 「이와 같은 일」이라는 지시어로만 받고 이름을 붙이지 않으며, 니팔 둘로 행한 쪽도 세우지 않는다.</p>
+<blockquote>
+<p>[!insight] 세 유추가 같은 곳에서 깨진다 — 다른 분야의 넘김에는 <strong>서명·진단명·해결</strong>이 있고, 19:30에는 없다. 반종지처럼 매달린 끝이 이 절의 형식이다.</p>
+<p>[!question] 연결 질문<br />
+- 해결을 기다리는 귀와, 해결을 서둘러 만들어 내는 손은 어떻게 다른가?<br />
+- 강조사항 문단이 의견을 바꾸지 않듯, <code>שִׂימוּ … עָלֶיהָ</code>는 판정 없이 주의만 두게 하는가 — 아니면 「주의」라는 말도 원문에 없는 목적어를 채우는 것인가(봉합 12)?</p>
+</blockquote>
+<p><strong>다리</strong>: 매달린 끝을 머리가 아니라 몸으로 재 본다.</p>
+<h3>0 몸으로 생각하기 (Body Thinking) — "펴 둔 손바닥"</h3>
+<p>6단계의 「매달린 끝」을 근육으로 옮긴다. ⚠ 이것은 19:30의 명령을 수행하는 동작이 아니다. 명령을 오늘의 할 일로 옮기지 않는다는 구문묵상의 판단(바뀐 판단 5 · 10)을 그대로 둔 채, <strong>문장의 꼴을 몸으로 재 보는</strong> 연습이다. 또한 지금 이 단락을 읽을 수 없는 사람에게는 권하지 않는다(일상의깊은사고 포인트 1).</p>
+<p><strong>프로토콜</strong>: 펜과 형광펜을 책상 한쪽에 내려놓는다(일상의깊은사고 포인트 3의 몸가짐을 이어받는다). 19:30 한 절만 소리 내어 읽는다. <code>שִׂימוּ</code> — 「두라」에서 두 손바닥을 펴서 책 위에 가만히 얹는다. 쥐지 않는다. <code>עֻצוּ</code> — 「의논하라」에서 고개를 들어 맞은편 빈 의자를 한 번 본다. <code>וְדַבֵּרוּ</code> — 「말하라」에서 입을 연 채 아무 말도 하지 않고 숨을 한 번 내쉰다. <code>פ</code>에서 눈을 감고 열을 센다.</p>
+<p><strong>몸이 가르쳐 준 것</strong>: 첫째, 「그 위에 두라」를 펴 둔 손으로 하면 손이 무엇을 움켜쥐지 못한다 — <code>עָלֶיהָ</code>의 대상을 정하지 않은 채 손을 얹는 것은 대상을 손에 넣는 것과 다르다. 둘째, 「말하라」에서 입을 열고 말을 하지 않으면 턱이 어색하게 긴장한다. 그 어색함이 바로 목적어가 비어 있다는 사실의 몸 쪽 감각이다. 셋째, 빈 의자를 보는 순간 「너희」가 복수라는 것이 실감 난다 — 이 명령은 혼자 앉은 사람 한 명에게 건네진 꼴이 아니다.</p>
+<p>설교 전달로 옮긴다면: 19:30을 낭독한 뒤 강단에서 손을 펴 둔 채 몇 호흡 멈추는 정도까지다. 그 멈춤 뒤에 「그러므로 우리는 …해야 합니다」를 붙이면, 몸이 지킨 빈자리를 입이 다시 채우게 된다.</p>
+<blockquote>
+<p>[!insight] 몸으로 해 보면 「그 위에 두기」는 <strong>움켜쥐기가 아니라 얹기</strong>이고, 「말하기」의 빈 목적어는 <strong>열린 입의 어색함</strong>으로 느껴진다. 이 어색함을 견디는 것이 이 절을 읽는 몸가짐이다.</p>
+<p>[!question] 연결 질문<br />
+- 입을 열고 말하지 않을 때의 긴장을 회중 앞에서 견딜 수 있는가, 아니면 결론 문장으로 서둘러 풀고 싶어지는가?<br />
+- 빈 의자를 볼 때 떠오른 「너희」는 누구였는가 — 그 얼굴을 떠올린 것 자체가 원문이 정하지 않은 청자를 정하는 일이 되지 않는가?</p>
+</blockquote>
+<p><strong>다리</strong>: 빈 의자에 앉을 수 있는 사람들의 안쪽으로 들어가 본다 — 단, 원문이 말을 주지 않은 사람의 안쪽에는 들어가지 않는다.</p>
+<h3>0 차원적 사고 (Dimensional Thinking) — "출애굽에서 오늘까지의 잣대"</h3>
+<p><strong>확장 — 구속사의 시간 축.</strong> 19:30의 진술은 스스로 잣대를 든다 — <code>לְמִיּוֹם עֲלוֹת בְּנֵי־יִשְׂרָאֵל מֵאֶרֶץ מִצְרַיִם עַד הַיּוֹם הַזֶּה</code>. 「이스라엘 자손이 애굽 땅에서 올라온 날」은 언약 백성의 시작으로 기억되는 날이고(구문묵상 §1-3), 그 날부터 「이날」까지 전체가 「이와 같은 일」을 재는 자로 불린다. 개역은 <code>עֲלוֹת</code>을 「나온」으로 옮겨 「올라옴」의 방향을 지운다(§3-8). 정경 전체로 넓히면, 호세아 9:9 · 10:9에 「기브아의 날」이라는 겉꼴이 나온다는 사실이 있다. 그러나 그것이 이 사건을 가리키는지, 어느 쪽이 어느 쪽을 받는지는 구문묵상이 판정하지 않았고(봉합 13), 이 노트도 정하지 않는다.</p>
+<p><strong>축소 — 마케프 하나, 접속사 하나.</strong> 반대로 한 글자 단위로 좁히면, <code>שִׂימוּ־לָכֶם</code>의 마케프가 명령과 「너희를 위하여/너희에게」를 한 덩어리로 묶는다. 이 명령은 무엇보다 먼저 「너희」에게 붙어 있다. 그리고 셋째에만 붙은 <code>ו</code> 하나. 이 작은 차이에 뜻을 싣지 않되(위치 논증 금지), 넘김이 「너희」라는 받는 쪽과 문법적으로 맞붙어 있다는 것은 글자 크기에서도 보인다.</p>
+<p><strong>핵심 전복</strong>: 잣대는 출애굽부터 오늘까지 <strong>이스라엘의 시간 전체</strong>인데, 명령이 걸리는 것은 그 시간 끝의 <strong>「너희」 지금 이 자리</strong>다. 가장 큰 시간 축으로 재어진 일이, 가장 작은 글자(마케프)로 「너희」에게 붙어 넘어온다. 차원이 바뀌자 「얼마나 큰 일인가」의 물음이 「누가 지금 받는가」의 물음으로 뒤집힌다.</p>
+<p>또 하나. 이 아홉 절에 하나님의 이름은 0이다(봉합 14). 시간의 잣대가 출애굽이라는 언약의 날을 부르는데 그 날의 주체는 불리지 않는다. 이 노트는 그 0을 「하나님이 침묵하셨다」로 바꾸지 않는다(§6-2 침묵 논증 금지). 0은 사실로만 둔다.</p>
+<blockquote>
+<p>[!insight] 이 절은 <strong>가장 큰 시간 축으로 재고, 가장 작은 글자로 넘긴다.</strong> 잣대가 크다고 해서 답이 주어지지 않는다 — 잣대는 크기를 말하고, 넘김은 받는 쪽을 말할 뿐이다.</p>
+<p>[!question] 연결 질문<br />
+- 언약의 날을 잣대로 쓰면서 그 날의 주체를 부르지 않는 문장을, 오늘의 교회는 어떤 기도로 받을 수 있는가?<br />
+- 「출애굽부터 오늘까지」라는 잣대가 「오늘」의 독자인 우리에게까지 이어진다고 읽는 것은 정당한 확장인가, 원문의 「이날」을 우리 날로 바꾸는 것인가?</p>
+</blockquote>
+<p><strong>다리</strong>: 지금까지 모은 빈 칸과 채워진 칸을, 실제로 이 절을 읽고 가르칠 때 쓸 수 있는 도구로 만든다.</p>
+<h3>0 개혁신학적 조명</h3>
+<ul>
+<li><strong>성경</strong>: 원본이 연결한 관련 본문을 문맥과 한계 표시와 함께 읽는다.</li>
+</ul>
+<p><strong>1. 성경 본문 — 실질 접점 셋</strong></p>
+<ul>
+<li><strong>사사기 20:3</strong> — 미스바에 모인 이스라엘 자손이 <code>דַּבְּרוּ אֵיכָה נִהְיְתָה הָרָעָה הַזֹּאת</code>(「말하라, 이 악이 어떻게 일어났는가」)라고 한다. 19:30의 <code>וְדַבֵּרוּ</code> · <code>נִהְיְתָה</code>와 같은 동사가 다음 장에 다시 온다는 것은 사실이다(구문묵상 §1-4 차 · E7). 그러나 그것이 19:30 명령의 응답·이행인지, 그 응답이 옳았는지는 구문묵상이 판정하지 않았고(봉합 13), 이 노트도 판정하지 않는다. 20장의 총회와 그 뒤의 전쟁은 단위 57 이하의 몫이다.</li>
+<li><strong>사 8:10</strong> — <code>עֻצוּ עֵצָה … דַּבְּרוּ דָבָר</code>. 「의논하라 … 말하라」가 나란히 오는 구약의 다른 한 자리다(5779 구약 2). 다만 이사야에는 짝 명사(「계략」 · 「말」)가 있고 19:30에는 없다. 두 번의 겹침으로 뜻을 묶지 않는다(봉합 13).</li>
+<li><strong>신명기 32:46 · 학개 1:5 등 「마음을 두라」 꼴</strong> — <code>שׂים</code> 칼 명령 2mp가 마음 명사와 함께 오는 자리들(E8). 19:30은 그 명사가 없다는 점에서 <strong>대조로만</strong> 쓴다(봉합 12 · ⛔ 여섯 절로 이 절의 뜻을 확정하지 않는다).</li>
+</ul>
+<p><strong>2. 신학자 — 하이델베르크 요리문답 105-107문(여섯째 계명) 요지</strong> (원문 대조 안 함): 이웃을 해치지 말 뿐 아니라 힘닿는 대로 해로부터 지키라는 요구까지 그 계명에 든다. 구문묵상이 지적했듯 이 고백을 19장의 인물들에게 대어 누가 얼마나 어겼는지 판정하지 않는다 — 서술자가 판정하지 않는 물음이다. 다만 오늘의 교회가 이 단락을 「그 시대가 원래 그랬다」로 덮어 둘 길은 그 고백 안에서 열리지 않는다. 19:30의 진술도 「이와 같은 일은 없었다」고 말한다 — 그 시대 안에서 이미 이 일은 전례 없는 일로 진술된다.</p>
+<p><strong>3. 설교 적용점 하나</strong>: 19:30을 결론 호소의 발판으로 쓰지 않는다. 설교자가 할 수 있는 일은 이 절이 무엇을 비워 두는지를 회중과 함께 보는 데까지다. 낭독 뒤 손을 펴 둔 채 멈추는 몇 호흡이, 「그러므로 우리는 …」보다 이 절에 정직하다(7단계).</p>
+<p><strong>4. 복음 중심성 점검</strong>: 이 단위의 그리스도 연결 재료는 원어에 0이고, 구문묵상은 C4를 「재료 부재」로 적었다(○0 · 미달 5). 이 노트는 그 미달을 채우지 않는다 — 그 여자를 그리스도·교회의 예표로 읽지 않고, 열두 덩이나 칼에 상징을 덧대지 않는다. 본문은 그리스도를 말하지 않는다. 정경 전체의 층에서 말할 수 있는 것은 이 정도다: 정경은 탄식과 미해결을 담은 본문들을 버리지 않고 품고 있으며(요지), 교회는 이 단락을 복음의 언어로 서둘러 해결하지 않아도 된다. 동시에 이 노트가 도덕주의로 귀결되지 않는지 점검한다 — 「그러니 말하라 · 행동하라」로 끝나면, 19:30은 율법적 구호가 되고 원문이 열어 둔 칸은 처방으로 닫힌다. 이 노트는 그 결론을 쓰지 않았다. 이 아홉 절에 하나님의 이름이 0이라는 사실도 「하나님이 외면하셨다」로 바꾸지 않는다(봉합 14). 그래서 이 단락 앞의 기도는 감사가 아니라 탄식과 고백이다(구문묵상 §3-6).</p>
+<ul>
+<li>
+<p><strong>신학자</strong>: 원본에 확인 가능한 신학자 인용이나 사상 요약이 없어 별도의 단정을 추가하지 않는다.</p>
+</li>
+<li>
+<p><strong>교리</strong>: 원본의 복음 중심성 점검을 따라 은혜의 근거와 순종의 열매를 구별한다.</p>
+</li>
+<li>
+<p><strong>인격의 열매</strong>: 다음 적용은 원본이 제시한 실무 장면을 정직·겸손·책임·환대의 행동으로 옮기는 연습이다.</p>
+</li>
+</ul>
+<p>⚠ 경계: 아래 항목은 19:30의 명령에서 사무소나 교회가 <strong>할 일을 끌어내지 않는다</strong>(구문묵상 바뀐 판단 10 · 마스터 §7-40). 여기 적는 것은 이 노트의 관찰 — 「역어가 화자를 정했다」 · 「빈 칸을 채우지 않는다」 — 에서 나온 <strong>읽기·기록의 습관</strong>이다.</p>
+<p><strong>1. 고객 상담 전이 — 상담 기록에 고객이 하지 않은 말의 주어를 넣지 않는다</strong><br />
+- 상황: 상담 뒤 기록을 정리하다 보면, 고객이 「그런 일이 있었다」고 주어 없이 말한 것을 기록자가 「○○가 했다」로 바꿔 적기 쉽다.<br />
+- 적용: 11단계의 발견(개역 「말하자」가 화자를 확정했다)을 거울로 삼아, 기록에서 <strong>고객이 말한 문장</strong>과 <strong>기록자가 추정한 주어</strong>를 칸을 나누어 적는다. 진술의 주어가 비어 있으면 비어 있다고 적는다.<br />
+- 기대 효과: 뒤에 기록을 읽는 사람이 고객의 말과 기록자의 추정을 섞지 않는다. 특히 고객이 민감한 일을 털어놓은 경우, 털어놓은 사람의 말이 털어놓은 사람의 것으로 남는다 — 그 뜻 없이 아는 사람이 늘어나지 않게 하는 일과, 세무사가 직무상 알게 된 일을 지킬 의무(세무사법 비밀 엄수 · 요지 · 조문 원문 미대조)가 거기에 함께 걸린다.</p>
+<p><strong>2. 교회 행정 전이 — 사건 보고 문서에서 「보고」와 「결론」의 칸을 나눈다</strong><br />
+- 상황: 교회 안에서 어려운 일이 보고될 때, 보고 문서가 사실 진술과 함께 결론(누구의 잘못인가, 무엇을 할 것인가)까지 미리 적어 오는 일이 있다.<br />
+- 적용: 5단계 「진술-넘김 틀」에서 채워진 칸과 빈 칸을 구분했듯, 보고 문서도 「확인된 사실」과 「아직 정해지지 않은 것」의 칸을 나눈다. 보고자가 결론 칸을 대신 채우지 않는다. 피해를 입은 사람의 결정권에 속한 일은 그 사람의 뜻 없이 안건으로 올리지 않는다.<br />
+- 기대 효과: 서둘러 내린 결론이 사실처럼 굳어지는 일을 막는다. ⚠ 이것은 19:30의 「의논하라」를 회의 절차로 옮긴 것이 아니라, 빈 칸을 표시하는 기록 습관이다. 성폭력 등 법적 절차가 걸린 사안은 이 습관으로 대신할 수 없고, 전문가와 법이 정한 절차를 따라야 한다.</p>
+<p><strong>3. 개인 의사결정 전이 — 「말해야 한다」는 압박과 「말할 내용이 정해졌다」를 구분한다</strong><br />
+- 상황: 무거운 소식을 들은 뒤 「뭐라도 말해야 한다」는 압박이 들 때가 있다.<br />
+- 적용: 10단계 점검표 4번 줄(「말하라」의 내용을 대신 적었는가)을 자기 자신에게 대 본다. 말하고 싶은 압박이 있다는 것과, 무엇을 말할지가 정해졌다는 것은 다르다. 내용이 정해지지 않았으면 정해지지 않았다는 것을 먼저 인정한다.<br />
+- 기대 효과: 상대에게 서둘러 건네는 위로·판단·교훈이 줄어든다. 8단계의 회중석 그 사람처럼, 듣는 쪽이 「아무도 나에게 무엇을 하라고 하지 않았다」고 느낄 수 있는 여지가 생긴다.</p>
+<h3>🥇 새 말머리 없는 명령 — 화자 미표시가 받는 쪽을 앞세운다</h3>
+<ul>
+<li><strong>핵심</strong>: 19:30의 말하기 동사는 앞머리 <code>וְאָמַר</code> 하나이고, 진술 뒤 2mp 명령 셋 앞에 새 말머리가 없다. 그래서 원문이 확정해 주는 것은 받는 쪽(「너희」)뿐이고, 넘기는 손은 표시되지 않는다.</li>
+<li><strong>인격 형성</strong>: 흔히 이 절을 「보는 자들이 서로 권한 말」로 읽지만(개역 「말하자」), 원문은 그것을 정하지 않는다. 화자가 지워진 명령은 권위의 출처 대신 받는 쪽의 자리를 앞세운다 — 4단계에서 본 다른 분야의 「넘김」과 갈리는 지점이다.</li>
+<li><strong>연결 고리</strong>: <a href="./56_구문묵상_사사기_19_22-30.html">56_구문묵상_사사기_19_22-30</a> §3-5 · 봉합 2 · <a href="./57_구문묵상_사사기_20_1-11.html">57_구문묵상_사사기_20_1-11</a> (20:3 <code>דַּבְּרוּ</code> — 사실만) · <a href="./20261102_생각의탄생13단계_빌레몬서_1_15-25_명령넷은한사람을향한다.html">20261102_생각의탄생13단계_빌레몬서_1_15-25_명령넷은한사람을향한다</a> (한 사람을 향한 명령과의 대조 — 부제 겹침 회피 기록)</li>
+</ul>
+<h3>🥈 역어 「말하자」는 봉합 2를 닫는다</h3>
+<ul>
+<li><strong>핵심</strong>: 개역한글은 2mp 명령 셋을 「생각하고 상의한 후에 말하자」(1인칭 복수 청유)로 옮긴다. 그 순간 화자가 「보는 자들」로 확정되고, 청자 「너희」가 화자 안으로 흡수된다.</li>
+<li><strong>인격 형성</strong>: 역어 문제를 「인칭이 바뀌었다」는 사실 목록에서 「어떤 열린 물음을 닫았는가」로 옮겨 읽는 방법이다. 우리말 독자가 오래 읽어 온 문장이 원문보다 더 많은 것을 정해 두었다는 것을 보여 준다.</li>
+<li><strong>연결 고리</strong>: <a href="./56_구문묵상_사사기_19_22-30.html">56_구문묵상_사사기_19_22-30</a> §3-8 · <a href="./00_사사기_묵상단위_마스터.html">00_사사기_묵상단위_마스터</a> §6-2(역본 문면으로 틀을 세우기 금지) · 「역어가 닫은 열린 물음」(노트 후보)</li>
+</ul>
+<h3>🥉 목적어 없는 「말하라」 — 비워 둔 말</h3>
+<ul>
+<li><strong>핵심</strong>: <code>וְדַבֵּרוּ</code>에는 목적어가 없고, <code>שִׂימוּ</code>에는 마음 명사가 없으며, <code>עֻצוּ</code>에는 사 8:10의 짝 명사가 없다. 세 명령이 모두 내용 칸을 비운다.</li>
+<li><strong>인격 형성</strong>: 「말하라」를 「침묵하지 말라」로 바꾸는 순간 그 빈 목적어는 구호로 채워진다. 이 노트는 빈 목적어를 결함이 아니라 형식(반종지)으로 읽고, 그 빈자리를 들고 있는 것을 첫 응답으로 본다.</li>
+<li><strong>연결 고리</strong>: <a href="./56_일상의깊은사고_사사기_19_22-30.html">56_일상의깊은사고_사사기_19_22-30</a> 통찰 1 · 포인트 3 · <a href="./56_설교스케치_사사기_19_22-30.html">56_설교스케치_사사기_19_22-30</a> · 「정하지 않은 채 읽기」(노트 후보)</li>
+</ul>
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      제 56 편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글자 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
