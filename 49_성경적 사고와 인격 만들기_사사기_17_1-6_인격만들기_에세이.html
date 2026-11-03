@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>비운 자리에서 채운 자리로 건너가는 한 입의 고백</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 49편 &middot; 사사기 17:1-6</span>
+      <h1>비운 자리에서 채운 자리로 건너가는 한 입의 고백</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>잘못이나 착오가 일어났을 때 우리가 건네는 첫마디는 대개 주어가 비어 있는 문장인 경우가 많습니다. 서류가 누락되었습니다, 착오가 발생했습니다, 불편을 끼쳐 드렸습니다처럼 무슨 일이 일어났는지는 말하지만 정작 그 일을 누가 행했는지는 문장 바깥으로 밀어내곤 합니다. 사사기 17장 2절에 기록된 미가의 짧은 발화는, 행위자가 지워진 수동의 빈칸으로 말문을 열었다가 같은 입술에서 마침내 내가 그것을 취하였나이다라는 또렷한 일인칭 능동의 문장으로 닫히는 놀라운 언어의 궤적을 보여 줍니다.</p>
+<p>물론 성경의 원문은 미가가 왜 그러한 말을 하게 되었는지 동기를 설명하지 않으며, 그의 말을 참된 회개의 모범으로 치켜세우지도 않고 거짓된 고백이라고 단죄하지도 않습니다. 바로 이어지는 절들에서 그 은이 신상을 만드는 데 쓰이는 까닭에, 우리는 미가의 말을 손쉬운 도덕 교과서로 삼을 수 없습니다. 그러나 한 사람의 한 말 안에 비운 자리와 채운 자리가 함께 놓여 있다는 그 문법적 짜임 자체는, 오늘 우리의 언어생활과 인격이 어디서 멈추고 어디까지 나아가야 하는지를 깊이 성찰하게 하는 거울이 됩니다.</p>
+<h3>번역이 지워 버린 빈칸과 두 갈래로 열린 수동</h3>
+<p>사사기 17장 1절에서 6절 사이에 취하다라는 뜻을 가진 히브리어 어근 라카흐는 세 번 등장합니다. 서술자가 4절에서 어머니가 은 이백을 취하였다고 적을 때는 처음부터 주어를 분명히 명시하지만, 2절에서 미가가 어머니에게 말을 꺼낼 때는 처음과 끝의 모습이 사뭇 다릅니다. 미가의 첫마디는 네게서 취해진 그 은 천백이라는 푸알 수동형으로 시작됩니다. 가져간 사람이 누구인지 말하지 않는 빈칸입니다. 그런데 우리말 개역한글은 이를 어머니께서 은 일천일백을 잃어버리셨으므로라고 능동형으로 바꾸고 원문에 없는 인과 어미까지 덧붙였습니다. 그 바람에 누가 취했는가라는 빈칸의 물음이 사라지고, 잃어버림에서 저주로, 저주에서 자백으로 이어지는 매끄러운 인과 사슬만 남게 되었습니다.</p>
+<p>번역이 지워 버린 원문의 빈칸을 되살려 놓고 보면, 네게서 취해진 은이라는 수동형에는 두 갈래의 읽기가 모두 열려 있음을 알게 됩니다. 하나는 은을 잃어버린 어머니의 입장에서 그분이 겪은 피해 사건을 먼저 부르는 배려의 말로 읽는 길이고, 다른 하나는 은을 가져간 행위자가 아직 자기 자리를 비워 둔 유보의 말로 읽는 길입니다. 원문은 이 둘 가운데 어느 쪽인지 강요하지 않습니다. 일터의 사고 경위서나 사과문에서도 첫 문장이 상대가 겪은 일을 수동으로 세우는 것 자체는 잘못이 아닙니다. 문제는 그 첫 문장이 마지막 문장이 되어 행위자의 칸이 끝내 비어 버릴 때 일어납니다. 미가의 발화는 그 수동의 자리에서 멈추지 않고 문장의 끝을 향해 걸어갑니다.</p>
+<h3>귀에서 시작해 가슴에 닿는 일인칭의 걸음</h3>
+<p>미가의 말을 원문의 어순을 따라 소리 내어 읽으며 손짓으로 따라가 보면, 문장 안에서 나라는 일인칭이 단번에 튀어나오지 않고 몸의 바깥에서 안쪽으로 천천히 걸어 들어오는 순서를 만나게 됩니다. 네게서 취해진 은 천백이라고 말할 때와 네가 저주 혹은 맹세의 말을 했다고 할 때까지 손은 아직 상대방인 어머니 쪽을 가리킵니다. 그러다 내 귀에도 말씀하셨더니라는 대목에 이르러서야 손이 비로소 내 몸의 듣는 기관인 귀에 처음으로 닿습니다. 일인칭 접미사가 문장에 처음 발을 들이는 자리입니다.</p>
+<p>이어 보소서 그 은이 내게 있나이다라고 말할 때 두 손은 가슴 앞으로 모여 내 곁에 있는 물건의 소재를 밝히고, 마지막 두 낱말인 아니 레카흐티우, 곧 내가 그것을 취하였나이다에 이르러 손바닥은 비로소 내 가슴 한복판을 단단히 두 번 짚게 됩니다. 일인칭 대명사 나와 일인칭 동사 어미가 겹쳐지며 행위자의 빈칸이 몸의 가장 안쪽에서 채워지는 것입니다. 이 순서는 미가의 심리적 망설임을 보여 주는 시간표는 아닐지라도, 물건이 어디 있는지를 밝히는 일과 내가 그 일을 행했다고 주어를 대는 일이 결코 같은 칸이 아님을 선명하게 보여 줍니다.</p>
+<h3>정죄를 넘어 책임을 짓는 일상과 공동체의 언어</h3>
+<p>성경 전체의 넓은 지평으로 시선을 넓히면, 사사기 17장이 내리지 않는 평가 너머에서 행위자를 일인칭으로 대는 고백의 자리를 만나게 됩니다. 아간과 다윗은 내가 취하였나이다, 내가 여호와께 죄를 범하였노라고 자기를 행위자로 밝혀 아뢰었고, 웨스트민스터 신앙고백은 일반적인 회개에 머물지 않고 개별적인 잘못을 하나하나 구체적으로 고백하며 해를 입힌 형제에게도 고백하여 화해하라고 가르칩니다. 요한일서의 말씀처럼 복음은 우리가 죄를 자백할 때 그 고백이 정죄로 끝나지 않고 용서와 회복으로 이어지는 은혜의 자리를 열어 줍니다.</p>
+<p>이 성경적 사고를 오늘 우리의 인격과 실무의 자리로 옮기면 구체적인 말의 습관이 달라집니다. 교회에서 주보에 새가족 명단이 빠졌거나 심방 문자가 누락되었을 때, 공지의 첫 문장은 지난 주일 주보에 두 가정의 이름이 실리지 않았습니다라고 겪은 분들의 입장에서 쓰되, 그 문단이 끝나기 전에 제가 명단을 옮기다 빠뜨렸습니다라고 행위자를 분명히 넣는 것입니다. 세무 사무소에서 서류 누락으로 처리가 늦어졌을 때도 고객을 만나 처리가 석 달 늦어졌습니다라는 첫 문장 바로 뒤에 그 서류는 제가 빠뜨렸습니다를 다른 변명 없이 잇고, 가정에서 식구의 물건을 가져다 썼을 때도 없어졌지 대신 여기 있어, 내가 가져갔어까지 한 호흡에 말하는 연습입니다. 빈칸 뒤에 숨지 않고 내 입으로 나를 주어 자리에 세울 때, 공동체에는 불필요한 추측이 사라지고 신뢰의 토대가 다시 세워집니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 49편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

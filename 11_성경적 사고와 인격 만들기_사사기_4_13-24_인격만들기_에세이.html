@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>한 역어 아래 접힌 두 사건을 두 숨으로 펴되 그 사이를 내 말로 잇지 않다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 11편 &middot; 사사기 4:13-24</span>
+      <h1>한 역어 아래 접힌 두 사건을 두 숨으로 펴되 그 사이를 내 말로 잇지 않다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 4장 15절과 23절은 서술자가 하나님의 이름을 직접 주어로 세워 그분의 일하심을 기록한 두 기둥과 같은 문장입니다. 우리말 개역성경으로 이 두 절을 읽으면, 15절의 패하게 하시매와 23절의 패하게 하신지라가 똑같은 어간으로 겹쳐져 마치 둘째 문장이 첫째 문장의 단순한 반복이나 한 줄 요약처럼 들립니다. 게다가 23절 머리에 원문에는 없는 이와 같이라는 이음말까지 덧붙여져, 독자는 자연스럽게 기손 시내의 승리와 가나안 왕 야빈의 몰락을 하나의 동일한 사건으로 접어 넣게 됩니다.</p>
+<p>그러나 히브리어 원문의 지면을 펼치면 두 문장은 전혀 다른 표제어와 어간, 그리고 서로 다른 목적어를 품고 있습니다. 4장 15절은 칼 어간 동사 하맘을 써서 여호와께서 시스라와 모든 병거와 온 진이라는 세 목적어를 칼날로 어지럽히셨다고 적고, 4장 23절은 히필 어간 동사 카나를 써서 하나님이 그 날에 가나안 왕 야빈이라는 한 목적어를 굴복하게 하셨다고 적습니다. 원문은 리프네, 곧 앞에서라는 전치구 하나만 같게 두고 나머지 칸들을 모두 다르게 세웠는데, 번역의 요약어가 그 차이를 덮어 두 사건의 수를 하나로 줄여 버린 것입니다.</p>
+<h3>요약어가 접어 둔 두 처분일을 펼쳐 내는 읽기의 눈</h3>
+<p>서로 다른 두 사건을 하나의 요약어가 덮어 버리는 일은 성경 번역뿐 아니라 세무 실무와 교회 행정, 의학 기록과 일상의 언어에서도 자주 일어납니다. 조세 불복 사건에서 인용 결정이 내려진 날과 결정문이 송달된 날, 그리고 실제로 환급이 실행된 날은 주체도 날짜도 효과도 모두 다른 사건이지만, 상담 일지에 해결됨이라는 한 단어로 적히는 순간 그 모든 날짜와 절차의 차이는 하나로 접혀 버립니다. 당회 회의록에 적힌 문제가 해결되었다는 한 줄이 갈등이 멈춘 날과 합의서가 서명된 날을 한 사건으로 뭉뚱그려 후속 조치를 놓치게 만드는 것도 같은 이치입니다.</p>
+<p>악보 요약표에 두 마디가 모두 같은 장조 화음으로 적혀 있어도 실제 연주에서는 한 마디가 낮게 흔들리는 트레몰로이고 다른 마디가 무겁게 내려앉는 종지이듯, 골짜기 지도의 진영 표시와 나라 지도의 왕궁 표시가 축척이 다르듯, 어지럽히심과 굴복하게 하심은 서로 다른 줄기에 달린 두 일입니다. 다만 우리는 여기서 한 걸음 더 나아가, 접힌 두 칸을 다시 펴는 일이 곧장 두 일 사이에 원문이 두지 않은 인과나 단계의 끈을 거는 유혹으로 이어진다는 사실을 경계해야 합니다. 먼저 어지럽히시고 그 결과로 굴복시키셨다는 매끄러운 선후 관계를 우리가 임의로 써 넣는 순간, 차이를 되살리려던 읽기는 본문이 열어 둔 봉합을 닫아 버리는 또 하나의 왜곡이 되기 때문입니다.</p>
+<h3>두 손가락과 두 번의 숨으로 익히는 펼치되 잇지 않는 자세</h3>
+<p>이 정교한 절제를 몸으로 익히기 위해 원문 지면의 4장 15절 첫 낱말 바야함과 4장 23절 첫 낱말 바야크나 위에 두 손의 검지를 각각 올려놓아 봅니다. 눈을 감고 한 번 숨을 내쉬며 왼쪽 손가락의 바야함만을 소리 내어 읽고, 숨을 끝까지 비운 뒤 다시 새로운 숨을 깊게 들이쉬고서 오른쪽 손가락의 바야크나를 소리 내어 읽습니다. 한 숨에 두 낱말을 이어 말하면 혀는 저절로 둘째 낱말을 첫째의 메아리처럼 낮추어 버리지만, 숨을 끊고 새로 들이쉬며 그 사이에 그래서나 이와 같이라는 말을 넣지 않을 때 비로소 둘째 낱말은 첫째와 대등한 높이로 또렷이 일어섭니다.</p>
+<p>끝까지 서로 닿지 않는 두 손가락의 간격은 펼친 채 잇지 않는 해석의 자세를 손끝에 새겨 주고, 두 동사 뒤에 똑같이 따라오는 리프네를 읽을 때에야 비로소 두 손가락이 같은 높이에 서 있음을 느끼게 됩니다. 정경 전체로 눈을 넓혀 보아도 하맘이 출애굽기나 여호수아에 쓰였다는 사실만 확인할 뿐 그것을 출애굽의 재현이라는 공식으로 묶지 않고, 좁혀 보아도 카나가 사사기의 네 용례 중 유일하게 여기서만 하나님을 주어로 세운다는 어형의 사실에서 멈춥니다. 두 문장이 공유하는 유일한 자리가 사람의 이름 앞에 붙은 앞에서라는 사실은, 사람이 구원의 주어도 목적어도 아닌 오직 하나님의 일하심 앞에 서 있는 존재임을 은혜의 문법으로 조용히 증언합니다.</p>
+<h3>날짜별로 칸을 나누고 감사의 숨을 정직하게 좁히는 인격</h3>
+<p>장 칼뱅이 하나님의 섭리가 사람의 행위를 통해서도 일하시되 그것이 곧 사람 행위에 대한 도덕적 승인과 같지 않다고 구별한 것처럼, 서술자가 하나님의 이름을 세운 두 문장과 사람의 움직임만 적은 장막의 여섯 절은 서로 다른 서술의 층위에 놓여 있습니다. 그러므로 설교와 묵상에서 하나님의 일을 한 문장으로 뭉뚱그려 폭력과 몰락의 장면까지 승리의 통쾌함으로 덮어 버리지 않고, 감사의 고백을 4장 23절의 굴복하게 하심과 4장 14절의 앞서 나가심이라는 본문이 허락한 자리에만 정밀하게 묶어 두는 것이 말씀 앞에 선 신자의 성숙한 인격입니다.</p>
+<p>이러한 분별은 일터와 공동체의 기록 문화와 개인의 기도 생활을 뿌리부터 바꾸어 놓습니다. 오래 끈 불복 사건이 마무리되었을 때 세무사는 상담 기록에 해결됨이라 적는 대신 결정 칸과 실행 칸을 나누어 날짜와 금액과 계좌를 따로 적고, 고객이 하나님이 저쪽을 꺾으셨다고 말할 때에도 그 말을 고치거나 맞장구치지 않은 채 옆에 정확한 숫자와 남은 확인 사항만을 차분히 놓아둡니다. 어려운 일을 겪은 뒤 개인이 기도를 드릴 때에도 하나님이 다 이기게 하셨다는 넓은 말로 내 허물과 타인의 손해까지 한숨에 덮지 않고, 하나님께서 하셨다고 고백할 수 있는 일과 내가 판정하지 않고 내려놓아야 할 일을 두 번의 숨으로 나누어 아룁니다. 접힌 것을 정직하게 펴되 원문에 없는 끈으로 잇지 않는 그 두 번의 숨이, 우리의 감사에서 타인의 무너짐을 기뻐하는 어두운 그림자를 걷어 내고 오직 하나님 앞에서의 겸손만을 남깁니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 11편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

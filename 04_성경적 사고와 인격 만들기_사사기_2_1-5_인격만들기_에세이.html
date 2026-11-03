@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>내 언약과 맺을 언약 사이, 공식을 지우는 자리에 서는 영원</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 04편 &middot; 사사기 2:1-5</span>
+      <h1>내 언약과 맺을 언약 사이, 공식을 지우는 자리에 서는 영원</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>신앙생활을 오래 하다 보면 우리 입술에 너무나 자연스럽게 배어 나오는 대표기도의 문장들이 있습니다. 주님, 우리가 주님과 맺은 언약을 끝까지 깨뜨리지 않고 신실하게 지키게 하소서라는 다짐이 바로 그러한 예입니다. 언뜻 듣기에는 참으로 경건하고 겸손한 헌신의 고백처럼 들리지만, 사사기 이장 일절과 이절의 히브리어 원문 앞에 이 기도문을 가져다 놓으면 우리가 얼마나 많은 것들을 한꺼번에 뒤섞어 버렸는지 발견하고는 깜짝 놀라게 됩니다. 우리말 개역성경은 내가 너희에게 세운 언약을 영원히 어기지 아니하리니라는 말씀과 너희는 이 땅 거민과 언약을 세우지 말며라는 말씀을 둘 다 세우다라는 동사로 묶어 번역했습니다. 그 바람에 독자들은 이 두 구절을 하나님과 백성이 각자 자기 몫을 이행해야 하는 하나의 쌍무 계약서 양쪽 조항처럼 읽어 왔습니다.</p>
+<p>그러나 본문의 언어를 한 겹만 들여다보면, 두 문장이 공유하는 것은 언약이라는 명사 표제어 단 하나뿐이고 나머지 다섯 가지는 완전히 갈라져 있다는 사실이 선명하게 드러납니다. 일절의 언약은 일인칭 접미사가 단단히 붙은 베리티, 곧 내 언약이며, 이미 너희와 함께 있는 그 언약에 걸린 동사는 파라르의 미완료형인 아페르, 내가 깨뜨리지 않겠다는 여호와의 선언입니다. 반면에 이절의 언약은 누구의 것이라는 소유 표지가 없는 베리트이고, 그 앞에 선 동사는 카라트의 미완료형인 티크레투, 너희가 이 땅 주민들과 새로 맺지 않을 것이라는 말씀입니다. 소유도, 동작도, 주어도, 상대도, 그리고 일절 끝에만 우뚝 솟아 있는 레올람, 곧 영원히라는 시간의 부사까지도 모두 다릅니다.</p>
+<h3>공식을 세우는 세 번의 손질과 덮는 동사의 유혹</h3>
+<p>주어도 동작도 다른 이 두 문장이 어떻게 해서 우리가 언약을 지키면 하나님도 언약을 지키신다는 한 줄의 조건 공식으로 둔갑하게 되었을까요. 원문에 직접 손을 대어 그 공식을 만들어 보면 정확히 세 번의 인위적인 손질이 필요하다는 사실을 알게 됩니다. 먼저 일절의 내 언약에서 내라는 주인 표지를 떼어 내야 하고, 다음으로 이절의 맺다라는 동사를 일절의 깨다라는 동사로 통일하면서 이 땅의 주민들이라는 상대를 지워야 하며, 마지막으로 두 문장 사이에 그러니 혹은 만약이라는 조건의 이음말을 끼워 넣어야 합니다. 흥미로운 것은 그 세 번째 손질을 감행하는 순간, 일절 끝에서 빛나던 영원히라는 낱말이 설 자리를 잃고 무너져 내린다는 점입니다. 조건에 매인 계약서에는 영원이 깃들 수 없기 때문입니다.</p>
+<p>이처럼 원래 둘로 갈라져 있는 것을 하나로 합쳐 버리는 데는 세운이라는 덮는 동사 하나면 충분합니다. 덮는 동사는 결코 노골적인 거짓말이 아닙니다. 세우다라는 말도, 언약이라는 말도, 세무 상담에서 자주 쓰는 지켜야 할 규정이라는 말도 그 자체로는 틀린 말이 아닙니다. 그러나 원문이 정교하게 갈라 둔 대각선의 자리를 매끄러운 한 낱말로 덮어 버릴 때, 본문에 없던 상호 조건문이 마치 성경의 본래 말씀인 양 행세하게 됩니다. 현관 우산꽂이에 주인의 이름표가 붙은 우산을 두고 주인이 이건 내가 절대 버리지 않는다고 말한 것과, 손님에게 밖에서 다른 우산을 사 들이지 말라고 당부한 것은 똑같이 우산이라는 단어를 쓰지만 전혀 다른 차원의 이야기인 것과 같습니다.</p>
+<h3>또한 같다가 없는 조문과 방향을 바꾸는 손목</h3>
+<p>법조문을 다루는 세무의 세계와 나란히 놓아 보면 이 차이는 더욱 또렷해집니다. 국세기본법 제십오조 신의성실 조항은 납세자가 의무를 이행할 때 신의에 따라 성실하게 하여야 한다고 적은 뒤, 곧바로 세무공무원이 직무를 수행할 때에도 또한 같다라는 문장을 덧붙입니다. 법이 두 당사자의 상호 의무를 하나로 묶고 싶을 때에는 이처럼 또한 같다라는 이음말을 명시적으로 적어 넣습니다. 그러나 사사기 이장 일절과 이절 사이에는 그러한 이음말이 없습니다. 이절 머리는 그저 대명사를 앞세운 베아템, 곧 그런데 너희는이라는 한 마디로 주어를 확 돌려놓을 뿐입니다. 게다가 일절의 깨지 않겠다는 말씀은 바오마르, 내가 이미 말하였다는 과거의 발화 인용 안에 놓여 있어서, 이미 존재하는 언약에 대해 지난날 하신 말씀을 끝없는 영원으로 펼쳐 놓는 구조를 취합니다.</p>
+<p>이 문법의 결을 우리 몸으로 통과시켜 보면 왜 한 줄 공식이 굳은 손목에서 생겨나는지 금세 깨닫게 됩니다. 일절을 읽으며 손을 자기 가슴에 얹은 채 일인칭 그대로 소리 내어 읽으면, 어느새 내 몸이 문장의 주어가 되어 내가 언약을 깨지 않겠다는 나의 비장한 다짐처럼 들립니다. 그러나 원문의 인용 층을 살려 손을 몸 바깥 앞쪽으로 뻗어 말씀하시는 분을 가리키며 그분이 내 언약을 깨지 않겠다고 말씀하셨다고 읽은 뒤, 이절의 그런데 너희는을 만나는 순간 뻗었던 손을 거두어 손바닥을 내 가슴 쪽으로 돌리면 비로소 두 절 사이의 호흡이 살아납니다. 일절과 이절 사이에서 손의 방향이 바뀌지 않을 때, 하나님의 영원한 언약과 백성을 향한 고발이 한 사람의 어설픈 결단으로 접히고 마는 것입니다.</p>
+<h3>주어를 제자리에 돌려놓는 기도와 일터의 정직</h3>
+<p>개혁신학의 전통이 웨스트민스터 신앙고백 칠장에서 고백하듯, 하나님과 피조물 사이의 아득한 거리를 넘어서는 언약은 언제나 하나님 편의 자발적인 낮추심에서 먼저 시작됩니다. 물론 우리는 본문 두 절의 관찰을 서둘러 교리 체계의 은혜 언약과 행위 언약이라는 칸에 기계적으로 배정하지 않으며, 일절의 언약이 하나님의 것이니 이절의 불순종은 아무래도 상관없다는 반율법주의의 낭떠러지로 떨어지지도 않습니다. 도리어 조건의 공식이 사라진 자리에서, 일절의 영원히는 그 어떤 인간의 조건에도 흔들리지 않는 은혜의 기둥으로 우뚝 서고, 이절의 어찌하여 내 목소리를 듣지 아니하였느냐는 고발은 값싼 거래 뒤에 숨지 못한 채 온전한 제 무게로 우리 양심을 마주합니다.</p>
+<p>이러한 성경적 사고는 우리의 기도와 상담, 그리고 문서를 다루는 구체적인 인격의 열매로 여물어 갑니다. 이제 대표기도문을 준비할 때 우리는 언약이라는 낱말 앞에 누구의 것인지를 먼저 살피고, 주께서 깨뜨리지 않으시는 주의 언약과 우리가 주님 앞에서 드리는 순종의 결단을 한 문장에 뒤섞지 않고 정중히 나누어 적습니다. 세무 상담실에서도 과세관청의 의무와 납세자의 의무를 서로 규정만 잘 지키면 문제없다는 두루뭉술한 말로 묶지 않고, 법조문이 따로 적어 둔 의무는 설명할 때에도 다른 문장에 두어 고객이 헛된 조건문을 세우지 않도록 돕습니다. 판례와 예규를 요약할 때에도 원문에 없는 덮는 동사를 슬그머니 끼워 넣지 않는 정직한 손길, 그것이 하나님의 언약을 주의 언약이라 부르는 사람의 단정한 인격입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 04편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

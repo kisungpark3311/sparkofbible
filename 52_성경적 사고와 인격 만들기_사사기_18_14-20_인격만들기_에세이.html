@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>같은 서식 위의 다른 이름들, 둘레를 읽되 사람을 재지 않는 인격</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 52편 &middot; 사사기 18:14-20</span>
+      <h1>같은 서식 위의 다른 이름들, 둘레를 읽되 사람을 재지 않는 인격</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 17장 10절과 18장 19절을 나란히 펼쳐 놓으면, 한 줄기 똑같은 부름이 두 장면을 가로질러 울립니다. "아비와 제사장이 되라"고 옮겨진 히브리어 '베헤예 … 레아브 울레코헨'은 구약 성경 전체를 통틀어 오직 이 두 구절에만 나란히 등장하는 연쇄이며, 직함을 건네는 칼 명령형 동사까지 한 글자도 바뀌지 않은 한 꼴입니다. 그러나 직함을 받는 이를 가리키는 전치사 구절에서 나에게를 뜻하는 단수 '리'가 우리에게를 뜻하는 복수 '라누'로 끝소리 하나를 바꿀 때, 같아 보이던 문장의 둘레는 전혀 다른 풍경으로 갈라집니다.</p>
+<p>개역한글은 앞절의 '리'를 "나를 위하여"로, 뒷절의 '라누'를 "우리의"로 옮겨 마치 한 구문이 수혜와 소유로 갈린 것처럼 보이게 하지만, 원문의 차이는 오직 인칭 접미사 하나에 있습니다. 직함 자체는 한 글자도 바뀌지 않았으되 바뀌는 것은 전부 직함 바깥의 네 칸, 곧 받는 이의 인칭과 화자의 이름 유무, 앞에 놓인 명령의 수와 동사, 그리고 뒤에 따르는 말의 종류입니다. 같은 직함이라도 둘레까지 읽어야 비로소 그 말이 보이며, 동시에 둘레를 읽는 일은 그 둘레로 사람을 재는 일과 다르다는 성경적 사고가 바로 이 작은 끝소리의 갈림에서 시작됩니다.</p>
+<h3>물음 앞에서 사라지는 우리, 끝까지 남는 너의 자리</h3>
+<p>18장 19절 한 절 안의 문법적 무늬를 따라가 보면 인칭이 일정한 방향으로 움직이는 흐름이 눈에 들어옵니다. "잠잠하라", "네 손을 네 입 위에 얹으라", "우리와 함께 가라", "우리에게 아비와 제사장이 되라"는 네 마디 명령과 뒤이은 비교 물음에 이르기까지, 2인칭 단수인 '너'는 명령 네 번과 접미사 네 번으로 절 처음부터 끝까지 줄기차게 자리를 지킵니다. 반면 1인칭 복수인 '우리'는 18장 14절부터 20절 전체를 통틀어 오직 "우리와 함께"('임마누')와 "우리에게"('라누')라는 두 접미사 자리에만 잠깐 얼굴을 비출 뿐, 정동사로는 한 번도 나타나지 않습니다.</p>
+<p>더욱 놀라운 것은 비교 물음으로 들어서는 순간 그 '우리'마저 문장에서 사라진다는 사실입니다. "네가 한 사람의 집의 제사장이 되는 것과 이스라엘에서 한 지파와 한 가족의 제사장이 되는 것이 어느 것이 낫겠느냐"라고 물을 때, '우리'가 빠진 자리에는 미가의 이름이 지워진 "한 사람의 집"과 "지파와 가족"이라는 3인칭 명사구가 들어섭니다. 동시에 "되라"던 명령형('베헤예')은 "네가 되는 것"('헤요트카')이라는 두 번의 부정사로 바뀌어, 한 절 안에 '되다'가 세 번, '제사장'('코헨')이 세 번 서며 모든 무게를 듣는 이에게로 옮깁니다. 물론 이 분포가 화자들이 자기를 숨긴 수사인지 비교 구문이 요구한 문법인지, 또 두 항 가운데 어느 쪽이 나은지 본문은 판정하지 않은 채 열어 둡니다.</p>
+<h3>위임인 칸이 바뀐 서식과 몸이 멈추어 서는 경계</h3>
+<p>직함은 같고 둘레가 갈리는 이 짜임은 실무자들이 날마다 다루는 위임장이나 수임 계약서 서식과 닮았습니다. 서식에 인쇄된 대리인의 직무 이름은 언제나 같지만, 위임인 칸에 한 사람이 적혔는지 여럿이 적혔는지, 서명란에 이름이 명시되었는지 비어 있는지, 특약 칸에 은 열과 옷 한 벌과 먹을 것 같은 보수 약속이 적혔는지 선택을 묻는 문장이 적혔는지에 따라 그 문서는 전혀 다른 맥락에 놓입니다. 다만 서식의 세계와 달리 본문의 '나'(미가)와 '우리'는 서로 다른 사람들이고 두 말 사이에 제의물을 취한 일이 놓여 있으므로, 이 유추로 본문을 정상 거래나 범죄 거래 가운데 어느 하나로 판정해서는 안 됩니다.</p>
+<p>이 두 절을 소리 내어 읽으며 몸으로 손짓을 더해 보면 인칭의 이동이 근육의 감각으로 확인됩니다. 17장 10절의 "나와 함께 앉아 살라"와 "나에게 되라"에서는 손가락이 자기 가슴 한 점에 모이지만, 18장 19절의 "우리와 함께 가라"와 "우리에게 되라"에서는 팔이 둘레의 무리를 향해 크게 벌어졌다가 비교 물음에 이르러 두 손바닥이 듣는 이 앞으로 나란히 내밀어집니다. 그리고 18장 20절 "제사장의 마음이 좋았다"('바이이타브 레브 하코헨')에 이르면 읽는 이의 손은 멈추어야 합니다. 사람이 아니라 '마음'이 주어로 선 이 문장에서 서술자는 마음이 무엇을 좋게 여겼는지 이유를 적지 않았고, 그의 걸음 또한 앞절의 명령어인 '할라크'(가다)가 아니라 '보'(들어가다)로 적혔기 때문입니다. 본문이 손짓할 말을 주지 않는 자리에서 고개를 끄덕이거나 젓지 않고 손을 멈추는 절제가 필요합니다.</p>
+<h3>판정을 하나님께 돌려드리고 일상의 정직을 짓다</h3>
+<p>이 일곱 절에는 여호와도 엘로힘도 없으며 하나님이 주어로 행하시는 동사도 없습니다. 그러나 이 침묵을 두고 하나님이 빠진 심판의 증거로 삼거나, 레위인을 직함을 좇아 옮겨 간 거짓 제사장으로 단죄하거나, 반대로 더 넓은 사역지로 나아간 모범으로 미화하는 것은 모두 서술자가 하지 않은 판정을 강단이 대신하는 일입니다. 참 제사장이신 그리스도를 서둘러 대조하는 장식적 연결 또한 인물에 대한 단죄를 전제로 깔기 쉽습니다. 사무엘상 16장 7절과 예레미야 17장 10절의 요지처럼 마음을 감찰하시는 이는 오직 하나님이시며, 웨스트민스터 신앙고백 1장 9항의 정신대로 이름 없는 '그들'의 말을 하나님의 뜻으로 인용하지 않고 판정의 자리를 하나님께 돌려드리는 것이 이 본문 앞에 정직하게 서는 복음의 자리입니다.</p>
+<p>둘레를 읽되 사람을 재지 않는 이 훈련은 목회와 세무 현장에서 정직하고 책임 있는 인격의 열매로 이어집니다. 강단에서 18장 19절을 본문으로 설교할 때 목회자는 개역한글의 "나를 위하여"와 "우리의"가 원문에서 '나에게'와 '우리에게'라는 끝소리 하나의 차이임을 밝히고, 이 말이 서술자의 음성이 아니라 이름 없는 그들의 말임을 짚어 회중이 이를 신앙적 소유 고백으로 오용하지 않게 지켜 주어야 합니다. 또한 세무 실무에서 혼자 거래하던 의뢰인이 동업자들과 함께 찾아와 "이제 우리 장부를 맡아 달라"고 청할 때는, 한 사람이 말한 '우리'로 여러 사람의 몫을 갈음하지 않고 첫 서류를 펴기 전에 함께 온 이들에게 각자의 이름과 몫을 각자의 입으로 직접 말해 달라고 청해 듣는 신중함을 갖추어야 합니다. 오늘 우리에게 건네지는 수많은 직함과 부름 앞에서도 둘레를 바르게 읽고, 남의 빈칸을 내 짐작으로 채우지 않는 성숙한 인격으로 빚어지기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 52편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

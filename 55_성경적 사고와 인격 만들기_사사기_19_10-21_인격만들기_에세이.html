@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>탓의 칸을 비워 둔 두 문장, 까닭의 문턱에서 멈추어 서는 인격</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 55편 &middot; 사사기 19:10-21</span>
+      <h1>탓의 칸을 비워 둔 두 문장, 까닭의 문턱에서 멈추어 서는 인격</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 19장 15절과 18절은 해가 진 기브아 성읍 거리에서 벌어진 결핍을 단 하나의 표현으로 응축하여 두 번 기록합니다. 15절에서 서술자는 길손 일행이 성읍 거리에 앉았으나 그들을 집으로 거두어 유숙케 하는 사람이 없었다고 적고, 18절에서 레위인은 밭일에서 돌아오던 노인을 향해 나를 자기 집으로 영접하는 사람이 없나이다라고 말합니다. 히브리 원문에서 이 두 구절은 베에인 이시 메아세프 합바이타, 곧 집으로 거두는 사람이 없다라는 피엘 능동분사 무동사절로 똑같이 짜여 있습니다. 정동사를 세워 아무개가 그를 거두지 않았다고 행위자를 지목하는 대신, 거두는 이가 없다라는 주어 없는 부재의 문장꼴로 그 밤의 빈자리를 그려 낸 것입니다.</p>
+<p>더욱 깊은 울림을 주는 것은 해설자의 기록 층위와 당사자의 발화 층위 어느 쪽에도 왜 아무도 거두지 않았는지 그 까닭과 탓을 적는 칸이 없다는 점입니다. 흔히 이 대목을 읽으며 기브아 사람들의 차가운 냉대를 탓하거나 반대로 길손의 판단을 탓하는 문장을 보태기 쉽지만, 원문에는 이유를 설명하는 절이 전혀 없고 서술자의 평가어도 등장하지 않습니다. 레위인이 같은 말 속에서 나귀에게 먹일 짚과 여물, 빵과 포도주가 다 있어 무엇 하나 모자람이 없다고 말한 것과 맞물려, 그 밤의 결핍은 양식이나 물건이 아니라 문과 사람 사이의 한 자리, 곧 집으로 거두는 사람의 비어 있음으로 또렷이 좁혀집니다.</p>
+<h3>해설의 과거와 당사자의 현재, 두 층위를 오가는 소리의 자리</h3>
+<p>같은 분사절이 두 번 놓인 것을 처음에는 단순한 강조로 읽기 쉬우나, 문장의 차원과 몸의 자리를 바꾸어 읽어 보면 두 번의 기록은 강조가 아니라 시간과 거리의 자리 옮김임을 알게 됩니다. 정동사의 시제 표지가 없는 분사절이 서술자의 사슬 안에서는 그 밤에 있었던 지난 일로 읽히고, 노인 앞에서 건네는 레위인의 입술 위에서는 아직 지나가지 않은 지금 형편으로 읽힙니다. 개역한글 역시 이를 없었더라와 없나이다로 갈라 옮겼습니다. 또한 개역한글이 15절의 복수 목적어를 그를로 옮기며 가려졌던 원문의 복수 그들을을 되살려 보면, 서술자가 길손 무리 전체를 거리 위에 넓게 비춘 뒤 레위인이 나를이라는 일인칭 단수로 그 부재를 좁고 가깝게 받아 내는 소리의 이동이 들려옵니다. 다만 이 갈림에 원문이 적지 않은 의도를 부여하지는 않습니다.</p>
+<p>이 두 문장을 의자에 앉은 채 몸으로 직접 발화해 보면 본문이 지킨 절제의 근육이 고스란히 전해집니다. 15절의 마지막 동작이 앉았다이기에 자리에서 일어서지 않은 채, 먼저 눈을 뜨고 방 안을 둘러보며 그들을 집으로 거두어 유숙하게 할 사람이 없었다고 삼인칭으로 말할 때에는 시선이 바깥으로 퍼집니다. 이어 눈을 감고 두 손을 무릎에 올린 채 나를 집으로 거두는 사람이 없다고 일인칭으로 낮게 말하면 어깨가 안으로 모이며 기록된 사실이 누군가의 현재형으로 다가옵니다. 그리고 그 문장 끝에 왜냐하면이라는 말을 붙이려 입을 여는 순간 멈추어 서 보면, 우리 입술이 얼마나 재빨리 그 성읍이나 그 사람들의 탓을 찾으려 하는지 깨닫게 됩니다. 그 충동을 붙잡아 두는 몇 초의 침묵이 바로 본문이 까닭의 문턱에서 멈추어 선 자리입니다.</p>
+<h3>원인 칸을 비워 둔 증언과 판정을 유보하는 신학적 절제</h3>
+<p>사고 경위 보고서나 병상 인계 기록, 세무 송달 반송 서류처럼 하나의 부재가 관리자의 객관적 기록과 당사자의 일인칭 진술로 두 번 적히는 일은 일상에서도 흔히 찾아볼 수 있습니다. 그러나 실무의 문서들은 대개 마지막에 원인과 책임의 칸을 채우도록 강제하는 반면, 사사기 19장의 두 문장은 끝내 원인 칸을 만들지 않음으로써 사건 보고서가 아닌 증언으로 남습니다. 만일 여기에 까닭절 하나를 끼워 넣는 순간 증언은 곧바로 누군가를 정죄하는 판결문으로 바뀌고 맙니다. 요한복음 9장에서 날 때부터 눈먼 사람을 보고 누구의 죄 때문이냐고 묻는 제자들의 양자택일을 예수님께서 받지 않으신 일이나, 고난의 까닭을 경건의 이름으로 채워 넣다가 옳게 말하지 않았다고 책망받은 욥기 42장의 친구들 모습은, 결핍 앞에서 서둘러 탓을 확정하려는 독자의 버릇을 돌아보게 하는 정경의 다른 목소리들입니다.</p>
+<p>신학의 자리에서도 이러한 절제는 중요한 나침반이 됩니다. 15절의 사람이 없었다 바로 다음 절인 16절에 보라, 한 노인이라는 문장이 이어지지만, 이 단락에서 여호와라는 이름은 18절 레위인의 말 안에 여호와의 집이라는 속격으로 한 번 나올 뿐 하나님이 주어로 행하시는 정동사는 단 한 번도 없습니다. 장 칼뱅이 기독교 강요 제1권 17장에서 하나님의 감추어진 뜻을 사람이 경솔하게 캐묻거나 사건의 원인을 함부로 단정하지 말고 겸손과 절제로 대하라고 권면한 요지처럼, 본문이 적지 않은 하나님의 행동을 우리가 대신 단정하여 하나님이 보내신 사람이라 부르는 것은 침묵 논증에 떨어지는 일입니다. 노인을 손님 대접의 도덕적 본보기로 세우거나 기브아를 차가운 공동체로 정죄하는 길을 피하고, 본문이 말하지 않은 자리에서 감사를 꾸며 내는 대신 우리의 조급한 입술을 고백하며 빈칸을 빈칸으로 들고 서는 것이 말씀 앞의 참된 경건입니다.</p>
+<h3>탓에서 사실로, 일상과 직무의 기록을 바꾸는 인격의 열매</h3>
+<p>원인과 탓의 칸을 비워 둔 채 두 층위의 부재를 나란히 듣는 이 읽기 방식은 우리의 직무와 일상을 정직하고 겸손한 인격의 열매로 변화시킵니다. 세무 사무소에서 우편물이 수취인 부재로 반송되었는데 납세자가 통지를 받은 적이 없다고 말할 때, 상담은 자칫 주소를 왜 바꾸지 않으셨느냐는 고객 탓이나 우체국 탓으로 시작되기 쉽습니다. 이때 송달의 법적 효력 판단은 사실 확인 뒤의 절차로 남겨 두되, 상담 메모 첫 줄에는 기록상 수취인 부재로 반송됨과 고객 진술상 받은 적 없음이라는 두 층위를 같은 무게로 나란히 적고 확인되지 않은 추측은 추측 칸에 따로 가두어 둡니다. 상담의 첫 문장이 탓에서 사실 확인으로 옮겨 갈 때 고객은 자신의 말이 기록과 같은 무게로 존중받았음을 보게 됩니다.</p>
+<p>교회 행정과 개인의 대화에서도 같은 연습이 이어집니다. 교회 행사 뒤에 아무도 챙기지 못한 빈틈이 드러났을 때 회의가 누가 했어야 했느냐는 추궁으로 흐르지 않도록, 회의록에 이번에 비었던 자리라는 칸을 따로 두어 사람 이름이 아닌 마지막 정리 확인이나 귀가 확인 같은 역할 이름으로 적고 다음 행사의 같은 역할 칸에 담당자의 이름을 채웁니다. 누군가에게서 아무도 나를 돌보지 않았다는 탄식을 들을 때에도 곧바로 원인을 분석하거나 해결책을 내놓기 전에, 속으로 그에게 돌보는 사람이 없었다는 바깥 문장과 그가 나를 돌보는 사람이 없다고 말했다는 당사자 문장을 왜냐하면 없이 먼저 되뇌어 봅니다. 본문이 비워 둔 칸을 내 판결로 서둘러 메우지 않고 상대의 말을 온전한 증언으로 들어 주는 자리에서 성경적 사고는 비로소 따뜻한 인격의 열매로 맺힙니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 55편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

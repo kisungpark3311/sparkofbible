@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>남의 옛 말을 다시 부르는 문장에는 인용하는 이가 새로 단 물음의 무게가 실립니다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 30편 &middot; 사사기 9:34-45</span>
+      <h1>남의 옛 말을 다시 부르는 문장에는 인용하는 이가 새로 단 물음의 무게가 실립니다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사람 사이의 다툼에서 가장 날카로운 무기가 되는 것은 상대방이 예전에 했던 말을 다시 꺼내어 되돌려 주는 문장입니다. 사사기 9장 38절에서 성읍 장관 스불이 가알에게 던진 말이 바로 그러합니다. 스불은 가알이 28절 잔치 자리에서 외쳤던 미 아비멜렉 키 나아브덴누, 곧 아비멜렉이 누구냐 우리가 그를 섬기다니라는 네 낱말의 어구를 그대로 가져옵니다. 개역한글은 두 절의 번역을 달리하고 전에라는 부사를 덧붙여 이 정교한 겹침을 가렸지만, 히브리 원문으로 두 절을 나란히 놓으면 똑같은 어구가 잔치의 안쪽에서 성문의 문턱으로 자리를 옮겨 왔음이 한눈에 드러납니다.</p>
+<p>그러나 두 절을 더욱 깊이 대조해 보면, 겹치는 어구 하나보다 옮겨지는 사이에 달라진 다섯 가지의 갈림이 훨씬 더 크게 다가옵니다. 28절에서 가알의 말 속에 제삼자로 불리던 스불이 30절에서 말을 듣는 이를 거쳐 38절에서 인용하는 화자로 올라섰고, 누구냐고 묻던 정체의 물음은 관계절 아래로 내려갔으며, 그 머리에는 아예 에포 피카, 곧 네 입이 그러면 어디 있느냐라는 새로운 자리의 물음이 달렸습니다. 게다가 원래 가알의 말에 있던 세겜은 누구냐라는 한 구절이 빠졌고, 원래 문면에 없던 네가 업신여긴이라는 이름 붙임이 새로 더해졌으며, 아비멜렉에게 나오라던 명령이 가알에게 나가서 싸우라는 명령으로 바뀌었습니다.</p>
+<h3>인용의 네 칸표와 빠진 한 구절이 바꾸어 놓는 시선의 폭</h3>
+<p>남의 말을 다시 부르는 문장을 정확히 읽기 위해 우리는 다섯 개의 칸을 점검해 볼 수 있습니다. 그대로 옮긴 어구는 무엇인가, 원래 말에서 빠진 구절은 무엇인가, 원래 말에 없던 어떤 이름을 새로 붙였는가, 문장 머리에 새로 단 물음은 무엇인가, 그리고 그 말이 지금 누구에게 무엇을 하라고 요구하는가입니다. 사사기 6장 13절에서 기드온이 조상들의 말을 인용하며 그 모든 이적이 어디 있나이까라고 물을 때도 인용과 어디라는 의문사 아예가 한 문장에서 만나지만, 9장 38절은 상대방의 옛 말을 관계절 속에 가두고 그 입이 어디 있느냐며 화살을 말한 사람의 얼굴로 돌린다는 점에서 독특한 긴장을 낳습니다.</p>
+<p>이를 몸으로 겪어 보면 그 차이가 단박에 느껴집니다. 창밖을 가리키며 보라 저기 사람들이 내려온다고 두 번 외친 사람 앞에서, 맞은편 사람이 손가락을 들어 그의 입을 가리키며 네 입이 어디 있느냐고 묻는 동작을 해 보십시오. 바깥을 향하던 시선이 순식간에 내 입술 앞으로 좁혀집니다. 이때 원래 말에 있던 세겜은 누구냐까지 빠짐없이 인용하면 듣는 이는 자기 옆에 서 있는 세겜 사람들을 함께 의식하게 되지만, 그 한 구절을 빼고 인용하면 시선이 옆 사람에게로 가는 길이 지워져 성문 앞에 홀로 남겨진 듯한 고립감을 느끼게 됩니다. 또한 스불이 쓴 말하곤 하던이라는 미완료 동사 토마르가 한 번의 발언을 가리키는지 평소 말버릇을 가리키는지 원문이 열어 두었듯, 우리는 스불의 속내를 단정하지 않은 채 오직 문장의 칸들이 움직이는 작동 방식만을 정직하게 관찰합니다.</p>
+<h3>문답서의 인용 범위와 제9계명이 세우는 말의 울타리</h3>
+<p>지난날의 진술이 새 물음 속으로 들어오는 이 구조는 세무조사 현장의 문답서에서도 날마다 일어납니다. 조사 담당자가 지난번 확인서의 한 줄을 인용하며 그렇다면 이 내역은 어떻게 설명하시겠습니까라고 물을 때, 그 자리에는 원문 사본을 대조하고 인용 범위가 다르다고 이의를 제기할 수 있는 대리인과 제도가 있습니다. 그러나 9장 38절의 성문 앞에는 원문 사본도 대리인도 없으며, 가알은 그 뒤로 단 한 마디의 대답도 남기지 않은 채 싸움터로 나갔다가 쫓겨납니다. 서술자는 가알이 왜 나갔는지 이유를 적지 않고, 이어지는 39절부터 45절까지의 추격과 기습과 살육에도 아무런 도덕적 평가를 붙이지 않습니다.</p>
+<p>따라서 이 본문을 상대를 제압하는 통쾌한 화법으로 가르치거나 큰소리치던 자가 망한다는 응보의 교훈으로 삼는 것은 본문이 세워 둔 경계를 넘는 일입니다. 오히려 개혁신학의 전통이 하이델베르크 요리문답 112문과 웨스트민스터 대요리문답 144문에서 제9계명을 해설하며 누구의 말도 왜곡하지 말고 남의 의도와 말을 그릇 해석하지 말라고 가르치듯, 우리는 이 구절 앞에서 남의 말을 인용하는 내 입술의 책임을 돌아보아야 합니다. 옮겨진 어구는 처음 말한 사람의 것이지만, 그 어구를 담는 새 물음과 뺀 구절과 새로 붙인 이름은 온전히 인용하는 사람의 몫이기 때문입니다. 정경 전체의 빛 속에서 볼 때, 사람들이 서로의 옛 말을 꺼내어 짓는 고발의 문장도 우리를 거스르던 증서를 십자가에서 지우신 그리스도 안에서는 결코 마지막 판결문이 되지 못합니다.</p>
+<h3>갈등 중재와 세무 의견서와 일상의 전언에서 실천하는 멈춤</h3>
+<p>이 통찰은 오늘 우리의 목회와 일터, 그리고 일상의 대화를 정결하게 가꾸는 구체적인 도구가 됩니다. 교회 안의 갈등을 중재하는 자리에서 한쪽이 그때 집사님이 책임지겠다고 하셨잖아요라며 지난 말을 꺼낼 때, 중재자는 속마음을 추궁하는 대신 문장의 칸을 순서대로 물어야 합니다. 그때 하신 말씀 전체는 무엇이었는지, 책임이라는 낱말이 원래 말씀에 있던 것인지 아니면 지금 듣는 이가 붙인 이름인지를 차분히 가려 주고, 그때 무슨 뜻으로 말했는지는 본인의 입으로 직접 듣겠다고 빈칸을 남겨 두십시오. 그러면 감정 섞인 설전이 확인 가능한 문장의 대화로 바뀝니다.</p>
+<p>세무 실무에서 과세관청에 조사 대응 의견서를 제출할 때도 고객의 유리한 진술만 잘라 오지 말고 원문 사본을 첨부하며, 생략한 단서 구절은 각주에 전문을 밝혀 두십시오. 착오나 누락처럼 대리인이 붙인 판단의 낱말은 반드시 인용부호 바깥에 두어 고객의 원래 말과 섞이지 않게 해야 합니다. 나아가 가족 대화나 단톡방에서 누군가의 말을 옮길 때도, 메시지를 보내기 전에 내가 직접 들은 말인지 전해 들은 말인지를 첫 줄에 먼저 적고, 전해 들은 말이라면 따옴표를 거두어 제가 전해 듣기로는이라고 고쳐 쓰십시오. 남의 말을 내 입에 올릴 때 내가 새로 단 물음의 무게를 아는 사람, 그 신중하고 정직한 입술을 통해 공동체의 평화가 지켜집니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 30편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

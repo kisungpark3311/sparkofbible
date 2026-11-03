@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>자원함 곁에 나란히 놓인 송축의 숨결 사이로 그러니라는 다리를 놓지 않다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 12편 &middot; 사사기 5:1-11</span>
+      <h1>자원함 곁에 나란히 놓인 송축의 숨결 사이로 그러니라는 다리를 놓지 않다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 5장 2절과 9절은 드보라의 노래 서두를 여닫는 두 기둥처럼 서서, 백성의 자원함과 여호와를 향한 송축을 두 번 나란히 보여 줍니다. 두 절의 맨 끝을 장식하는 바르쿠 여호와, 곧 여호와를 송축하라라는 두 낱말은 어형과 글자 하나 다르지 않게 똑같고, 그 바로 앞에는 두 번 다 나다브의 히트파엘 어형이 자리하고 있습니다. 그러면서도 5장 2절은 전치사 틀이 붙은 부정사로 백성이 자원하는 일 자체를 말하고, 5장 9절은 정관사가 붙은 분사로 백성 가운데 자원하는 사람들을 가리키며 앞마디의 모양을 달리합니다.</p>
+<p>무엇보다 이 두 절을 원문으로 나란히 대조할 때 가장 크게 다가오는 사실은 두 절에 똑같이 없는 것, 곧 자원함과 송축 명령을 이어 주는 접속사가 단 하나도 없다는 점입니다. 원문 문면에는 자원함의 낱말 위에 문장의 큰 쉼을 뜻하는 악센트 기호 아트나흐가 놓여 있어, 낱말 대신 한 번의 깊은 쉼이 두 구절 사이를 가르고 있습니다. 반면 우리말 개역성경은 백성이 즐거이 헌신하였으니와 즐거이 헌신하였음이라라는 이유의 어미를 넣어, 원문이 비워 둔 그 쉼의 자리에 인과의 다리를 놓아 버렸습니다.</p>
+<h3>기여 칸과 송축 칸을 한 문장으로 녹이지 않는 곁의 배치</h3>
+<p>사람의 자발적인 기여와 하나님께 돌리는 송축이 아주 가까이 놓이면서도 하나의 인과 문장으로 섞이지 않는 이 곁의 배치는, 교회의 결산 보고나 음악의 후렴, 그리고 세무와 회계의 장부 원칙을 통해서도 선명하게 비춰 볼 수 있습니다. 음악에서 각 절의 사연이 바뀌어도 후렴이 그러므로라는 접속사 없이 제자리로 돌아오듯, 회계에서 대가 없이 내어놓은 기부금 수입 계정과 감사 서한이 거래의 대가 관계로 한 장부에 묶이지 않듯, 5장 2절과 9절의 송축 역시 자원함의 형태가 일에서 사람으로 바뀌어도 조금도 흔들리지 않고 여호와라는 목적어를 지킨 채 제자리로 돌아옵니다.</p>
+<p>만약 우리가 이 사이에 그러니라는 말을 집어넣으면 송축은 사람의 헌신이 있을 때만 울려 퍼지는 조건부 결과물이 되고, 반대로 순서를 바꾸거나 목적어를 사람으로 바꾸면 송축은 봉사자를 동원하는 수단이나 사람에게 지급하는 보상금으로 변질되고 맙니다. 그렇다고 해서 원문이 자원함과 송축은 아무런 관계가 없다고 무관함을 선언하는 것도 아니며, 오히려 5장 9절 앞마디에 내 마음은 이스라엘의 지휘자들에게라는 동사 없는 명사절을 따로 세워 송축과 경쟁하지 않는 별도의 칸에서 사람을 향한 따뜻한 마음을 온전히 보전합니다. 세무의 무대가성이나 법정의 사실 기재 유추가 깨어지는 지점이 바로 이음 없음을 관계 없음으로 단정하는 순간이듯, 원문이 남긴 자리는 무관도 인과도 아닌 미정의 곁입니다.</p>
+<h3>아트나흐의 빈 숨에서 멈추는 혀끝의 버릇과 한 획의 전복</h3>
+<p>이 빈 이음의 자리를 몸으로 겪어 보기 위해 의자에 조용히 앉아 눈을 감고 원문의 어순대로 백성이 자원함에까지 소리 내어 읽은 뒤, 아트나흐가 놓인 자리에서 숨을 한 번 깊게 쉬어 봅니다. 놀랍게도 그 짧은 숨이 채 끝나기도 전에 우리의 혀끝은 반사적으로 그러니나 그래서 같은 이음말을 찾아 허공을 더듬습니다. 개역성경의 하였으니는 단순한 오역이 아니라, 빈 숨을 견디지 못하고 어떻게든 앞뒤를 인과로 묶어 통제하려는 우리 몸의 오랜 버릇이 글자로 굳어진 모습임을 깨닫게 됩니다.</p>
+<p>그러나 그 혀끝의 충동을 삼키고 숨을 끝까지 비워 둔 채 여호와를 송축하라를 새로 발음하면, 그 명령은 앞마디에 종속된 결론이 아니라 온전히 새롭게 시작되는 독립된 외침으로 울려 퍼집니다. 정경 전체의 크기로 시야를 넓히면 역대상 29장이나 고린도후서 9장처럼 사람의 드림과 하나님께 돌리는 감사가 이어지는 자리도 있기에 이 노래의 비움을 성경 전체의 획일적 법칙으로 부풀리지 않게 되고, 반대로 한 획의 크기로 시야를 좁히면 앞 글자 하나가 바뀌어 자원함이 일에서 사람으로 옮겨 가도 송축의 두 낱말은 한 획도 요동하지 않는다는 문면의 단단함이 더욱 커집니다. 이 미정의 곁 안에서 자원한 이는 자기 헌신이 찬송의 대가로 소비되지 않는 자유를 얻고, 사정이 묶여 자원하지 못한 이는 송축이 헌신한 자만의 특권이 아니라는 최소한의 머묾을 얻습니다.</p>
+<h3>봉사자의 칸과 하나님의 칸을 따로 세우는 실무와 언어의 정직</h3>
+<p>하이델베르크 요리문답 제86문이 그리스도의 구속을 받은 성도가 선을 행하는 까닭을 하나님의 은혜에 감사를 드러내고 하나님이 찬양받으시게 하기 위함이라고 고백할 때, 찬양의 목적어를 오직 하나님께만 두는 그 방향 감각은 사사기 5장의 문면과 깊게 공명합니다. 다만 우리는 교리문답이 고백하는 목적의 이음조차 사사기 5장 2절과 9절의 빈칸에 소급해 집어넣지 않으며, 자원하라 그러면 노래가 시작된다는 도덕주의적 동원이나 자원하면 복을 받는다는 번영의 공식으로부터 강단을 엄격히 지킵니다. 감사의 닻은 오직 화자가 여호와께 이인칭으로 직접 아뢴 5장 4절의 행하심에만 내려집니다.</p>
+<p>이처럼 이음 칸에는 원문과 사실이 쓴 만큼만 채우고 사람을 향한 마음은 별도의 칸에 세우는 훈련은, 목회와 세무 행정과 일상의 대화를 한결 맑고 품격 있게 가꾸어 줍니다. 교회 행사를 마친 뒤 주보나 광고 글을 쓸 때 수고하신 봉사자 여러분 덕분에 하나님께 영광을 돌립니다라고 한 문장으로 섞어 쓰는 대신, 봉사자를 향한 고마움은 사람을 향한 문장으로 정성껏 따로 적고 하나님을 향한 송축은 하나님만을 목적어로 삼아 별도의 문장으로 올립니다. 비영리 단체나 교회에서 자원봉사자에게 실비나 선물을 건넬 때에도 봉사해 주셨으니 드립니다라는 말로 기여와 대가를 한 줄에 섞지 않고 실비 변상과 사례의 칸을 서류 위에서 명확히 나누며, 사무소 결산 회의에서 내 기여를 보고할 때에도 내가 이렇게 처리해서 잘 끝났으니 감사하다는 공치사 대신 처리한 사실과 감사의 고백을 두 문장으로 정직하게 가릅니다. 숨 하나를 비워 그러니라는 다리를 놓지 않는 그 절제가 사람의 수고를 대가의 계산에서 건져 내고 하나님께 돌리는 송축을 오직 하나님의 자리에 온전히 세워 줍니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 12편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

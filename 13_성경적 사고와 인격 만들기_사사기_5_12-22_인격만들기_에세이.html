@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>이름 없는 너와 이름을 앞세운 그, 판정의 자리를 비워 두는 두 물음</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 13편 &middot; 사사기 5:12-22</span>
+      <h1>이름 없는 너와 이름을 앞세운 그, 판정의 자리를 비워 두는 두 물음</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 5장 16절과 17절에는 히브리어 의문사 라마, 곧 어찌하여라는 물음이 나란히 놓여 있습니다. 개역한글성경은 네가 양의 우리 가운데 앉아서 목자의 저 부는 소리를 들음은 어찜이뇨와 단은 배에 머무름은 어찜이뇨라고 옮겨 두 물음을 비슷한 우리말 어조로 들려줍니다. 그러나 원문의 문장 꼴을 자세히 들여다보면 같은 의문사가 놓인 자리가 놀랍도록 다릅니다. 16절의 2인칭 물음 안에는 정작 지파의 이름이 없고 너라는 인칭은 앉았다는 동사 어미 안에만 들어 있으며, 르우벤이라는 이름은 그 물음을 감싼 앞뒤의 명사문에 놓여 있습니다. 반면 17절의 3인칭 물음은 단이라는 이름을 의문사보다 먼저 앞세워 누구에 대해 묻는지를 문장 머리에서 못 박습니다.</p>
+<p>마주 보고 부르는 물음에는 이름이 없고 떨어져 말하는 물음에는 이름이 앞선다는 이 문법적 사실은, 노래가 불리는 자리에서 시선과 몸의 거리로 확인됩니다. 의자를 마주 보고 반걸음 다가서서 물을 때는 눈이 이미 상대를 붙잡고 있기에 이름이 입에서 나오지 않지만, 고개를 앞쪽으로 둔 채 옆의 의자를 손으로 가리키며 물을 때는 누구를 가리키는지 알리기 위해 이름이 먼저 나와야 합니다. 이처럼 인칭의 차이는 물음의 거리를 말할 뿐, 마주 본다고 해서 더 날카로운 책망이라거나 떨어져 말한다고 해서 더 차가운 조롱이라는 법은 원문 어디에도 없습니다. 더욱이 앉고 머무는 다섯 동사는 르우벤과 길르앗과 단과 아셀 네 지파 모두에게 붙지만 물음은 오직 둘에게만 걸리며, 두 물음 뒤에는 아무런 대답도 적히지 않은 채 곧장 아셀의 머묾으로 넘어갑니다.</p>
+<h3>회신란이 없는 질의서와 측량하지 않은 지도의 빈칸</h3>
+<p>법정의 신문이나 세무 현장의 문서, 그리고 교실의 출석 확인에서도 2인칭 물음은 상대를 문장 안으로 불러들이고 3인칭 물음은 상대를 문장의 대상으로 세웁니다. 세무 실무에서 납세자 본인에게 경위를 소명하라고 묻는 질의서가 2인칭이라면, 거래 상대방에게 거래 여부를 묻는 사실확인 요청서는 3인칭입니다. 그러나 법정과 세무와 교실의 물음은 모두 대답을 받기 위해 회신 기한과 회신란을 두는 반면, 사사기 5장의 두 물음은 대답을 걷으러 다니는 장치를 문장 안에 두지 않았습니다. 노래는 묻고 지나갈 뿐이며, 질문서의 미회신 칸이 상대의 침묵을 기록한 것과 달리 노래는 누구의 침묵도 적지 않은 채 대답의 칸 자체를 비워 둡니다.</p>
+<p>이는 마치 옛 지도에서 측량하지 않은 땅을 그려 넣지 않고 비워 둔 칸이나, 으뜸화음으로 돌아가지 않고 딸림화음에서 멈춘 채 다음 악절로 넘어가는 음악과도 같습니다. 지도의 빈칸이 아무것도 없다는 뜻이 아니라 여기는 그리지 않았다는 뜻이듯, 노래가 머문 까닭을 적지 않은 것은 까닭이 없었다거나 나빴다는 뜻이 아니라 여기는 적지 않았다는 기록의 자리입니다. 만일 우리가 그 빈칸을 결함으로 여겨 상상으로 해안선을 그려 넣거나 두 물음 뒤에 대답을 지어 넣는 순간, 노래는 순식간에 재판 기록으로 변하고 읽는 우리는 판사석에 앉게 됩니다. 본문의 대답 없음이 막고 있는 것은 바로 독자가 재판관이 되는 판정의 자리입니다.</p>
+<h3>방향을 바꾸며 정경을 지나는 물음과 개혁신학의 절제</h3>
+<p>시야를 넓혀 정경 전체의 층을 바라보면, 어찌하여라는 물음은 결코 위에서 아래로 남을 추궁하는 한 방향으로만 흐르지 않습니다. 에스겔서에서 하나님은 이스라엘 족속을 마주 보시고 어찌하여 죽고자 하느냐고 물으시며 정죄의 판결문이 아니라 돌이킴을 부르십니다. 나아가 시편 22편의 시인은 어찌하여 나를 버리셨나이까라며 사람이 하나님께 묻는 방향으로 그 의문사를 들어 올리고, 마침내 그 물음은 십자가 위에 달리신 예수 그리스도의 부르짖음에 실립니다. 물론 사사기 5장의 두 물음이 십자가를 예표한다거나 십자가에서 그 지파들의 대답이 주어졌다고 억지로 닫아서는 안 되며, 사사기의 물음은 사사기 안에서 끝내 대답 없이 남습니다. 다만 정경 안에서 같은 물음이 하나님의 입과 사람의 입과 아들의 입에 모두 실려 있다는 사실은, 우리가 이 물음을 남에게 겨누는 무기로만 쓰지 못하게 막아 줍니다.</p>
+<p>헤르만 바빙크가 유기적 영감론에서 성령께서 성경 기자들의 언어와 문학 형식을 지우지 않고 그대로 쓰셨기에 그 형식 자체가 계시의 일부라고 짚었듯, 5장 16절과 17절의 인칭 차이와 대답 없음은 본문이 실제로 쓴 영감된 형식입니다. 웨스트민스터 신앙고백이 일깨우듯 하나님의 뜻은 성경에 명시되었거나 필연적인 귀결로 추론될 수 있는 것에 있는데, 지파들이 머문 까닭은 명시되지도 않았고 문장에서 필연적으로 추론되지도 않습니다. 그러므로 르우벤처럼 앉아 있지 말고 스불론처럼 목숨을 걸라는 도덕주의적 책망 설교나, 문법적 흥미에만 머무는 박제된 읽기, 혹은 섣부른 예표론적 장식을 모두 내려놓고 인칭과 빈칸을 그대로 지키는 것이 본문 앞에 선 정직한 태도입니다.</p>
+<h3>강단과 성경공부와 세무 일터에서 인칭과 빈칸을 지키는 연습</h3>
+<p>이 문장의 꼴을 지키는 훈련은 강단과 목양의 자리를 새롭게 합니다. 이 본문을 설교할 때 우리는 16절과 17절을 따로 읽되, 16절에서는 노래가 르우벤에게 이렇게 마주 보고 물었다고 꼴을 먼저 밝혀 회중이 스스로를 르우벤으로 오해하지 않게 하고, 17절에서는 옆을 가리키며 읽은 뒤 노래가 대답을 적지 않았으니 저도 적지 않겠다고 선언합니다. 성경공부 모임에서도 이야기가 요즘 나오지 않는 교인들을 향한 3인칭 뒷말로 흐르지 않도록, 노래가 누구에게 어떤 인칭으로 물었는지, 이름은 문장 어디에 있고 대답은 적혀 있는지를 첫 질문으로 삼습니다. 당회나 운영위원회 회의록을 작성할 때도 미참여 부서에 대한 출석자들의 추측을 대답란에 적지 않고 질의 제기와 회신 없음으로만 기록하여, 추측이 사실로 굳어지기 전에 2인칭의 대화로 나아갈 길을 열어 둡니다.</p>
+<p>세무 상담과 서면 작성의 현장에서도 이 분별은 고스란히 열매를 맺습니다. 결산이나 세무조사 대응 문서를 작성할 때 고객 본인에게 묻는 2인칭 질의 사항과 거래처 등 제3자에 대해 확인하는 3인칭 사실확인 사항을 한 문서에 섞지 않고 두 칸으로 명확히 나누어 씁니다. 그러면 고객이 제3자의 일까지 자기 책임으로 떠안거나 반대로 자기 몫을 남의 일로 넘기는 혼란이 사라지고, 회신이 오지 않은 칸에 상담자의 짐작을 채우지 않고 미회신으로만 남김으로써 기록의 정직함을 지키게 됩니다. 대면의 거리와 떨어짐의 거리에 등급을 매기지 않고 그 뒤의 빈칸을 내 손으로 메우지 않을 때, 물음은 남을 겨누는 칼날에서 내려와 읽는 우리 자신을 말씀 앞에 겸손히 세워 두는 거울이 됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 13편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

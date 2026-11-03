@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>귀로 묶인 소리를 입술로 가르는 일, 진술과 판결 사이의 빈칸 앞에서</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 44편 &middot; 사사기 14:20~15:8</span>
+      <h1>귀로 묶인 소리를 입술로 가르는 일, 진술과 판결 사이의 빈칸 앞에서</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사람이 자기를 변호하는 말과 상대에게 갚아 주겠다고 다짐하는 말은 종종 한 입에서 한 호흡처럼 쏟아져 나옵니다. 이번 일에는 내게 아무 잘못이 없다는 말 바로 뒤에 그러니 나도 가만있지 않겠다는 말이 따라붙을 때, 듣는 이의 귀는 그 두 문장을 자연스럽게 하나의 줄기로 묶어 버립니다. 사사기 15장 3절과 7절에서 삼손이 내뱉은 두 마디, 곧 닉케티와 닉캄티 역시 우리의 귀에는 마치 한 낱말의 변주처럼 겹쳐 들립니다.</p>
+<p>실제로 원문에서 이 두 말을 둘러싼 겉모양은 놀라울 만큼 닮아 있습니다. 삼손이 그들에게 이르되라는 도입 문장이 글자까지 똑같고, 중심이 되는 두 동사 모두 니팔 완료 1인칭 단수 형태이며, 첫 두 자음이 눈과 코프로 같고, 무엇보다 두 말 모두 여우로 곡식을 사르거나 블레셋을 치는 행동이 서술되기 바로 앞에 놓여 있습니다. 그러나 귀로 묶인 이 한 쌍을 사전과 문법의 자리에서 펼쳐 놓으면, 둘은 결코 한 줄로 합쳐질 수 없는 서로 다른 네 갈래의 길을 보여 줍니다.</p>
+<h3>같은 넷과 다른 넷, 완료형이 남겨 둔 열린 시간</h3>
+<p>닉케티의 표제어는 깨끗하다, 허물없다는 뜻의 나카이고, 닉캄티의 표제어는 갚다는 뜻의 나캄입니다. 함께 쓰인 전치사도 블레셋에게서 분리됨을 뜻하는 민과 너희에게를 향하는 베로 갈리며, 시간을 가르는 낱말 역시 앞선 때와 지금을 가르는 이번에는과 갚음 뒤를 내다보는 그 뒤에로 다릅니다. 천천히 소리 내어 발음해 보면 첫 음절에서는 혀뿌리가 같은 자리에 닿지만, 둘째 음절 끝에서 닉케티는 입술이 열린 채 끝나고 닉캄티는 입술이 한 번 굳게 닫힙니다. 귀가 하나로 묶으려 하는 소리를 우리의 입술과 사전이 둘로 정직하게 가르는 셈입니다.</p>
+<p>게다가 개역한글은 두 말을 모두 없을 것이니라와 갚은 후에야 말리라처럼 앞일로 옮겼지만, 원문은 둘 다 완료형입니다. 말한 시점에서 이미 끝난 일을 가리키는지 앞일을 확언하는지, 3절의 키 절이 내가 해를 행하니라는 이유인지 행하더라도라는 양보인지, 7절의 어구가 조건인지 맹세 꼴인지 원문은 하나로 정하지 않습니다. 번역은 불가피하게 한 칸을 고르지만 원문은 여러 칸을 열어 두며, 어느 칸을 고르더라도 이 아홉 절 안에서 서술자의 판정 칸이 비어 있다는 사실만은 변하지 않습니다.</p>
+<h3>소명서와 결정서, 비어 있는 판정란의 무게</h3>
+<p>세무 실무에서는 같은 사건을 두고 납세자가 제출하는 소명서와 과세관청이 내리는 결정 통지서가 엄격히 구별됩니다. 납세자가 소명서에 이번 건은 제게 귀책 사유가 없다고 아무리 단호하게 적어도 그것은 화자의 진술일 뿐 결정 통지가 아니며, 반대로 결정서가 아직 나오지 않았다는 사실이 곧 소명서가 거짓이라는 뜻도 아닙니다. 15장 3절의 내가 깨끗하다는 말은 소명서의 진술 자리에 놓이고, 7절의 갚고서야 그치겠다는 말은 상태 진술이 아니라 행위 예고라는 또 다른 서류철에 속합니다.</p>
+<p>결정적인 차이는 세무 절차에는 결정권자가 정해져 있지만 사사기 14장 20절부터 15장 8절까지의 아홉 절은 판정자를 세우지 않는다는 점입니다. 레위기 19장 18절의 너는 갚지 말라는 금령과 신명기 32장 35절의 갚음은 내 것이라는 여호와의 말씀이 정경 안에 함께 서 있고 하이델베르크 요리문답 제105문이 제6계명에 따라 스스로 복수하지 말 것을 일깨우지만, 사사기 본문은 이 구절들을 불러와 삼손을 단죄하지도 않고 반대로 불의에 맞선 영웅으로 승인하지도 않습니다. 비어 있는 판정란을 승인으로 채우면 폭력이 미화되고, 정죄로 채우면 읽는 내가 판사석에 앉게 되며, 하나님의 이름이 나오지 않는 것을 두고 하나님이 버리셨다고 침묵 논증을 펼치는 것 또한 본문의 경계를 넘는 일입니다.</p>
+<h3>두 서류철을 가르는 손길과 세 칸의 상담일지</h3>
+<p>그러므로 이 본문이 오늘 우리의 인격에 남기는 열매는 귀로 닮은 두 말을 두 줄로 갈라 듣고 적는 정직한 분별입니다. 교회 안의 오랜 다툼에서 누군가 이번에는 제 잘못이 없습니다라고 말한 뒤 그러니 저도 가만있지 않겠습니다라고 덧붙일 때, 목회자는 두 말을 한 줄로 묶지 않고 상태 진술 한 줄과 행위 예고 한 줄로 나누어 적어야 합니다. 첫 줄의 억울함에는 섣불리 맞다 틀리다 판정을 얹지 않은 채 그다음에 하려는 일을 차근차근 묻고, 둘째 줄의 예고가 이웃을 해치는 방향이면 첫 줄의 판정과 묶지 말고 함께 멈춰 서자고 권하는 것입니다.</p>
+<p>세무 현장에서도 조사를 받은 고객이 자신의 귀책 없음을 소명하면서 동시에 제보한 거래처를 보복 신고하겠다고 한꺼번에 말할 때, 실무자는 두 서류철을 분리하여 소명은 증빙으로 성실히 돕되 보복성 의뢰는 소명 서면에 섞지 않고 별도로 떼어 판단해야 합니다. 나아가 사무소 상담일지 양식을 고객 진술 칸과 증빙 번호가 붙은 확인된 사실 칸, 그리고 판단 주체와 날짜를 적는 판단 칸으로 나누어 기록하고, 내 마음속에 이번에는 참지 않아도 된다는 소리가 올라올 때 이 판정은 누가 하는가라는 물음 앞에 빈칸으로 멈춰 서는 것, 그것이 자기 의의 선언을 내려놓고 칭의의 주님 앞에 서는 성도의 겸손입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 44편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

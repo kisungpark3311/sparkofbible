@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>판정의 빈자리를 남겨 두는 읽기, 한 걸음 비켜서서 듣는 겸손</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 01편 &middot; 사사기 1:1-7</span>
+      <h1>판정의 빈자리를 남겨 두는 읽기, 한 걸음 비켜서서 듣는 겸손</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 1장 1절부터 7절까지의 장면을 소리 내어 읽을 때, 우리 귀에 가장 크게 울리는 문장은 단연 아도니베섹의 고백입니다. 옛적에 칠십 왕이 그 수족의 엄지가락을 찍히고 내 상 아래서 먹을 것을 줍더니 하나님이 나의 행한 대로 내게 갚으심이로다 하니라. 그러나 문장의 내용보다 먼저 그 문장이 놓인 입의 자리를 살피면 전혀 다른 풍경이 펼쳐집니다. 일곱 절 안에서 하나님의 이름이 등장하는 네 자리를 층별로 나누어 보면, 서술자 층에서 여호와가 정동사의 주어로 서는 문장은 2절의 여호와께서 가라사대와 4절의 여호와께서 가나안 사람과 브리스 사람을 그들의 손에 붙이신지라 두 곳뿐입니다. 반면 갚았다는 뜻의 히브리어 피엘 동사 쉴람은 사사기 전체에서 오직 7절 한 자리에만 나오며, 그것도 패한 가나안 왕의 입에 인용된 말 안에서 관사 없는 엘로힘을 주어로 삼고 있습니다.</p>
+<p>더욱 놀라운 것은 인용이 끝난 바로 다음 서술자의 태도입니다. 서술자는 무리가 그를 끌고 예루살렘에 이르렀더니 그가 거기서 죽었더라고 적을 뿐, 그 사이에 옳다는 동의의 문장도 틀렸다는 반박의 문장도 두지 않습니다. 처음에는 이 침묵이 단순한 판정의 누락처럼 보일지 모르나, 깊이 들여다보면 그 빈칸은 본문이 판정 문장을 쓰지 않음으로써 끝까지 지키는 경계선입니다. 화자의 층과 판정의 부착 여부를 나누는 판별표 위에서 사사기 1장 7절은 인물의 발화이면서 판정이 없는 칸, 곧 본문의 주장으로 승인해 올릴 수도 없고 본문이 반박한 틀린 말로 내릴 수도 없는 자리에 놓여 있습니다. 읽는 이의 판정은 본문이 쓴 데까지만 가야 하며, 판정의 주인을 본문에 남겨 두는 것이 성경적 사고의 출발점입니다.</p>
+<h3>원문을 되살릴수록 강해지는 유혹과 문답서의 자리</h3>
+<p>역설적이게도 히브리어 원문의 결을 되살릴수록 아도니베섹의 말은 더욱 그럴듯하고 단단한 응보의 명제처럼 들립니다. 원문 카아셰르 아시티 켄 쉴람 리 엘로힘에서 그렇게를 뜻하는 경첩 낱말 켄은 일인칭 동사 아시티와 삼인칭 동사 쉴람을 정교한 맞짝으로 묶어 내고, 6절에서 이름 없는 그들이 엄지를 끊었다는 서술자의 동사 바예카체추와 7절에서 칠십 왕이 찍혔다는 분사 메쿠차침은 카차츠라는 한 어근으로 맞물려 있습니다. 개역한글은 켄을 지우고 한 어근을 끊으매와 찍히고로 갈라 번역하여 그 대칭을 흐렸는데, 원어를 되살려 이 경첩과 맞물림을 복원할수록 설교자는 이 구절을 하나님의 응보 법칙으로 선포하고 싶은 강한 유혹을 받게 됩니다. 그러나 가장 설득력 있게 짜인 바로 그 문장이 패자의 입에 놓여 있다는 사실은, 낱말의 맞물림이 어휘적 사실일 뿐 서술자의 승인 표지가 아님을 일깨워 줍니다.</p>
+<p>정경과 일상 실무의 문서들에는 인용된 당사자의 해석과 기록자의 판정이 서로 다른 층에 놓이는 패턴이 반복됩니다. 욥기는 세 친구의 응보 해석을 길게 인용한 뒤 결말인 42장 7절에서 여호와의 말씀으로 그들의 말이 옳지 않다고 판정하고, 요한복음 9장과 누가복음 13장에서 예수께서는 고난을 죄의 직접적 보응으로 묻는 제자들과 무리의 전제를 받지 않으십니다. 세무 조사 기록에서도 납세자가 자기 일에 대해 진술한 문답서와 과세관청이 처분을 내리는 결정서는 같은 서류철에 묶여 있어도 층위가 다르며, 회의록의 위원 발언과 의결 사항, 소설 속 인물의 대사와 작가의 세계관 역시 마찬가지입니다. 그런데 이 모든 유추가 동시에 부러지는 지점이 바로 사사기 1장 7절의 고유한 자리입니다. 세무 기록에는 결국 결정서가 붙고 욥기에는 결말의 판정이 있지만, 사사기의 정경 서술자는 판정 칸을 끝내 비워 둔 채 다음 사건으로 넘어갑니다.</p>
+<h3>한 걸음 비켜서서 읽는 몸과 정경이 보존한 여러 목소리</h3>
+<p>머리로 확인한 이 층위의 구분을 몸의 감각으로 익히기 위해, 선 자세에서 1절부터 7절까지를 소리 내어 읽는 연습을 해 볼 수 있습니다. 1절부터 6절까지 서술자의 줄을 읽을 때는 제자리에서 고른 목소리로 읽되, 여호와께서 말씀하셨다는 2절과 손에 붙이셨다는 4절에서는 두 발을 바닥에 단단히 딛습니다. 그러다 아도니베섹이 가로되에 이르면 오른쪽으로 한 걸음 비켜서서 인용된 말을 읽고, 하니라에서 다시 원래 자리로 돌아와 예루살렘으로 끌려가 죽었다는 마지막 줄을 읽습니다. 옆자리에서 원래 자리로 돌아오는 순간 우리 몸은 방금 들은 그 말에 대해 맞다거나 틀렸다고 한마디 대꾸하고 싶은 강한 충동을 느끼는데, 그 충동을 삼키고 다음 동사로 넘어가는 근육의 절제가 곧 서술자의 절제를 몸으로 번역하는 일입니다.</p>
+<p>시야를 정경 전체로 넓히면 성경은 시편의 탄식과 전도서의 관찰처럼 여러 입의 말을 지우지 않고 보존하며, 시야를 켄 한 낱말로 좁히면 화자가 자기 일을 두 행위자의 대응으로 짰다는 구조가 보입니다. 장 칼뱅이 기독교 강요 섭리론에서 모든 사건을 다스리시는 하나님의 뜻이 우리에게 감추어진 경우가 많으므로 사건에서 성급히 하나님의 판정을 읽어 내려 하지 말고 겸손히 경외해야 한다고 말한 것처럼, 우리는 섭리의 근거를 이방 왕의 해석이 아니라 서술자가 기록한 말씀하심과 붙이심에서 받습니다. 원수 갚는 일을 하나님께 맡기라는 로마서 12장 19절의 권면처럼 갚음의 판단을 사람의 입에서 거두어들일 때, 우리는 타인의 고난을 정죄하는 응보주의와 본문에 없는 반박, 그리고 6절의 행위자들을 미화하거나 단죄하는 세 갈래 낭떠러지를 피하고 오직 물음에 답하신 1절과 2절의 은혜 위에 감사를 세울 수 있습니다.</p>
+<h3>진술과 판단의 칸을 나누는 정직한 인격의 열매</h3>
+<p>이처럼 본문의 소재와 층위를 지키는 사고는 목회와 세무 실무, 그리고 개인의 내면에서 정직하고 겸손한 인격의 열매로 이어집니다. 목회 현장에서 성도가 누군가의 몰락을 두고 그 사람 벌 받은 거죠라며 확인받고 싶어 할 때, 목회자는 새로운 판정 문장을 얹는 대신 세 가지 조용한 물음으로 대화를 이끕니다. 그 말은 성경 안에서 누구의 입에 있던 말이었는지, 서술자는 그 뒤에 무엇을 덧붙였는지, 그리고 그 사람은 남의 일을 말했는지 자기 일을 말했는지를 함께 살피면 성경의 판정처럼 보이던 문장이 인용된 해석이라는 제자리를 찾게 됩니다. 세무 상담 실무에서도 고객이 제가 이렇게 해서 이렇게 된 것 같아요라고 자책하거나 추측하는 진술과 세무사가 서류로 확인한 사실 판단이 한 문단에 섞이지 않도록, 상담 메모를 고객 진술 칸과 확인 및 판단 칸으로 나누어 적는 습관이 정확한 실무를 지켜 줍니다.</p>
+<p>나아가 우리 자신의 삶에서 일이 어그러졌을 때 내가 그렇게 했으니 하나님이 이렇게 갚으신 것이다라는 생각이 재빠르게 치밀어 오르는 날이 있습니다. 그때 우리는 그 문장이 아도니베섹의 말처럼 내 일에 대한 일인칭 진술임을 알아차리고, 일기장에 나의 해석이라는 머리를 붙여 적은 뒤 그 아래에 확인된 것이라는 칸을 따로 마련해 둘 수 있습니다. 내 성찰의 문장에 하나님의 판정이라는 무거운 이름을 함부로 붙이지 않고 적용을 오직 내 쪽에만 머물게 하는 것, 그리하여 사사기의 첫 단락에서 서술자가 하나님에 대해 쓴 동사가 갚다가 아니라 말씀하셨다와 주셨다였음을 기억하는 것이 말씀을 대하는 참된 경외입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 01편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

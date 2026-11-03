@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>그래서라는 접속사를 지운 자리에 나란히 선 두 줄의 기록</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 21편 &middot; 사사기 7:15-22</span>
+      <h1>그래서라는 접속사를 지운 자리에 나란히 선 두 줄의 기록</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 하루의 일과를 돌아보거나 공동체의 사역을 결산할 때마다 습관처럼 두 문장 사이에 접속사를 끼워 넣습니다. 우리가 열심히 수고했기 때문에 하나님께서 은혜를 주셨다고 말하거나, 반대로 모든 것을 하나님께서 다 하셨으므로 우리의 수고는 아무것도 아니라고 말합니다. 앞의 문장은 사람의 행위를 하나님의 일하심을 끌어내는 원인으로 만드는 공로 인과로 기울고, 뒤의 문장은 사람의 자리를 지워 버리는 정적주의로 기웁니다. 사사기 7장 21절과 22절은 우리가 당연하게 여기는 이 접속사의 자리에 성경이 무엇을 두고 있는지 보여 줍니다.</p>
+<p>처음 이 두 절을 읽을 때는 사람은 제자리에 섰고 하나님은 적진에 칼을 두셨으니 누가 무엇을 했는지 몫을 나누는 본문처럼 보이기 쉽습니다. 그러나 원문의 배열을 깊이 들여다보면 이 단락은 몫을 나누는 본문이 아니라, 같은 박자의 같은 칸에 두 문장을 접속사 없이 나란히 놓아두는 병치의 본문임이 드러납니다. 두 동사를 몫으로 나누면 차례표가 되고 거기에는 반드시 접속사가 들어가지만, 본문은 같은 칸에 두 문장을 그대로 두어 사람만 남는 읽기와 사람이 사라지는 읽기를 한꺼번에 막아 줍니다.</p>
+<h3>비어 있는 관계의 칸과 조정되지 않은 두 줄</h3>
+<p>7장 20절과 21절의 첫 사슬과 22절의 둘째 사슬을 세 박자의 표로 놓으면, 첫째 박자인 나팔을 불다와 셋째 박자인 진이 도망하다는 처음과 끝이 정확히 맞물립니다. 오직 가운데 둘째 박자만 동사가 바뀝니다. 첫 사슬의 가운데 칸에는 명시 주어 없이 그들이 각기 제 아래에 섰다는 와야아므두가 놓이고, 둘째 사슬의 가운데 칸에는 여호와께서 사람의 칼을 그 동무에게 두셨다는 와야셈이 놓입니다. 개역성경은 22절을 칼날로 치게 하시므로라고 옮기며 두다를 지우고 이유의 연결어를 넣었지만, 원문에는 두 칸 사이에 시간 부사도 인과 접속사도 없습니다. 배분의 명사 이쉬가 21절에서는 서는 쪽에, 22절에서는 칼이 놓이는 진 안에 한 번씩 쓰일 뿐, 두 칸의 관계를 적는 열은 완전히 비어 있습니다.</p>
+<p>법정의 증인 진술과 감정서, 거래처와의 장부 대사, 대위법 음악의 두 성부나 두 대의 카메라 앵글처럼 같은 대상을 두 줄로 적는 일은 다른 영역에도 있습니다. 세무 사무실에서 자료를 받아 검토하고 기한 안에 제출했다고 적는 업무일지와 관청에서 오는 처리 결과 통지서가 서로를 지우지 않는 것과 같습니다. 그러나 법정과 장부의 두 줄은 결국 차이를 조정해야 하고, 업무일지와 통지서는 제출이 먼저이고 통지가 뒤라는 시간 순서와 절차상 원인이 확정되어 있으며, 대위법은 악보가 두 성부의 동시성을 확정합니다. 반면 7장 21절과 22절의 두 줄은 동시인지 차례인지, 되풀이인지 다음 장면인지 조정되지 않은 채 정경에 남았습니다. 세 유추가 모두 서로를 지우지 않는다는 데서는 맞고 시간과 인과를 확정하는 지점에서 함께 부러진다는 사실이, 본문이 비워 둔 칸이 어디인지를 정확히 가리킵니다.</p>
+<h3>발 아래 한 뼘의 서기와 한 책에 한 번뿐인 두심</h3>
+<p>이 병치를 몸으로 통과해 보면 그 무게가 더욱 또렷해집니다. 왼손에 손전등을, 오른손에 물 한 컵을 들고 20절을 읽은 뒤, 21절의 각기 당처에 서서에서 발을 바닥에 붙이고 일 분을 그대로 서 보면 팔이 저리고 컵의 물이 흔들립니다. 두 손이 찬 채 서는 일은 힘을 놓는 쉼이 아니며, 서기 전에 이미 불고 깨고 붙들고 외쳤고 23절에서는 추격이 이어집니다. 그리고 같은 자세로 22절의 여호와께서 문장을 읽으면, 몸으로 할 동작은 없지만 21절에서 시작한 자세를 풀지도 않습니다. 둘째 문장이 첫 문장의 자세를 거두어 가지 않고 그 위에 겹쳐 놓이는 것을 읽는 몸이 먼저 겪습니다.</p>
+<p>차원을 넓혀 사사기 전체에서 두다라는 동사 스물한 토막 가운데 여호와가 주어인 절은 7장 22절 하나뿐이라는 위치 표시와, 차원을 줄여 21절의 각 사람이 선 자리가 한 사람의 발이 덮는 땅, 곧 그의 아래(타흐타브)라는 가장 작은 공간 단위를 나란히 놓아 봅니다. 접두 없는 이 표현은 구약에서 출애굽기 16장 29절의 안식일 명령과 사사기 7장 21절 두 절에 나오며, 두 절의 관계는 판정하지 않습니다. 크기를 키워 보면 22절은 한 책에 한 번뿐인 큰일 같고 21절은 발 아래 한 뼘짜리 작은 동작 같아서 큰 것은 하나님의 일, 작은 것은 사람의 일이라는 대비가 생기기 쉽습니다. 그러나 박자표에서 둘은 정확히 같은 가운데 칸에 놓여 있어, 크기 차이를 위계나 서열로 읽는 유혹을 멈추게 합니다.</p>
+<h3>접속사 지우개로 두 오독을 비켜 가는 삶의 기록술</h3>
+<p>정경 전체의 층에서 보면 출애굽기 16장 29절이나 이유 접속사로 이어진 빌립보서 2장 12절 이하, 그리고 심고 물 주는 사람의 동사와 자라나게 하시는 하나님의 동사를 한 문장에 둔 고린도전서 3장처럼 사람의 동사가 지워지지 않은 채 하나님의 동사 곁에 서는 배열이 여러 꼴로 있습니다. 칼뱅의 섭리론과 웨스트민스터 신앙고백 5장 3항이 수단의 사용과 하나님의 자유를 함께 말하듯 신학은 그 관계를 진술하지만, 사사기 7장 21절과 22절은 해설 대신 접속사 없는 병치로 그 자리를 지킵니다. 만약 22절을 지우면 기드온 승전기와 칼의 구호만 남고, 21절을 지우면 가만히 있으면 다 하신다는 정적주의가 되며, 두 줄 사이에 그래서를 넣으면 우리가 서면 하나님이 싸우신다는 공로 인과가 됩니다. 두 문장을 둘 다 들고 서서 사이의 접속사만 지울 때 이 모든 낭떠러지를 함께 비켜 갑니다.</p>
+<p>이 배열의 지혜는 설교와 목회와 세무 실무, 그리고 일상의 기록을 바꾸어 놓습니다. 강단에서는 21절을 읽고 한 자리에 멈추어 숨을 한 번 쉰 뒤 손짓 없이 22절을 처음부터 다시 읽으며, 우리가 내 일과 하나님의 일 사이에 어떤 접속사를 넣고 살아왔는지 물을 수 있습니다. 교회 행사 보고에서도 수고를 은혜의 원인으로 삼거나 감사를 수고의 지우개로 삼는 대신, 첫 줄에는 자모실과 주차장과 방송실처럼 지켜진 자리의 이름을 부르고 둘째 줄에는 감사의 문장을 접속사 없이 나란히 두는 것입니다. 세무 실무에서도 건별 기록지를 두 칸으로 나누어 왼쪽에는 우리가 자료를 받고 검토하고 제출한 동사를, 오른쪽에는 밖에서 온 문서를 적어 결과 문서 하나가 직원이 지킨 자리의 기록을 대신하지 못하게 하고, 매일 밤 하루를 돌아보는 기록에서도 내가 주어로 한 동사 뒤에 쓰고 싶어지는 그래서에 줄을 그어 지울 때, 우리는 내 발 아래 한 뼘을 성실히 지키면서도 구원의 주어를 오직 주님께만 두는 자리에서 흔들리지 않고 서게 됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 21편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>주먹 쥔 공식을 펴고 다섯 손가락의 여백으로 읽는 시간</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 07편 &middot; 사사기 3:7-11</span>
+      <h1>주먹 쥔 공식을 펴고 다섯 손가락의 여백으로 읽는 시간</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 3장 7절부터 11절을 펼치면 다섯 절마다 묵직한 사건의 요소들이 빈틈없이 한 자리씩을 차지하고 있습니다. 7절에는 여호와의 눈에 행한 그 악이 놓이고, 8절에는 여호와의 진노와 팔림과 여덟 해의 섬김이, 9절에는 부르짖음과 구원자를 일으키심이, 10절에는 여호와의 영과 다스림과 출전과 손에 주심이, 그리고 11절에는 땅의 잠잠함과 옷니엘의 죽음이 차례로 자리를 잡습니다. 우리가 이 본문을 읽을 때 흔히 사사기 순환의 완벽한 설계도를 만났다고 생각하기 쉽지만, 다섯 절에서 뽑아낸 목록이 다섯 절 안에 모두 들어 있는 것은 당연한 결과일 뿐입니다. 이 본문이 우리에게 건네는 진짜 선물은 모든 요소가 다 들어 있다는 완전함이 아니라, 사건들이 놓인 단단한 차례와 그 사이사이에 남겨진 표지 없는 이음새입니다.</p>
+<p>히브리 원문에서 이 다섯 절을 이끌어 가는 열여섯 개의 정동사는 첫 마디인 그들이 행했다는 말부터 마지막 마디인 그가 죽었다는 말에 이르기까지, 모두 그리고라는 뜻의 접두 바브가 붙은 서사형 동사로만 이어져 있습니다. 원문 안에는 왜냐하면이나 그러므로 같은 인과 접속사도 없고, 무엇을 할 때라는 시간의 종속절도 전혀 등장하지 않습니다. 우리말 번역에 들어 있는 파셨으므로, 구원하게 하시니, 임하셨으므로, 싸울 때에, 사십 년에 같은 표현들은 원문이 인과를 부정한 자리가 아니라 표지하지 않고 열어 둔 자리에 번역자가 하나의 읽기를 골라 달아 놓은 이름표입니다. 성경적 사고를 다듬어 간다는 것은 원문이 채워 놓은 칸과 원문이 이어 준 고리, 그리고 읽는 이가 달아 놓은 이름표를 정직하게 구별해 내는 데서 시작됩니다.</p>
+<h3>기록의 층위와 판단의 이름표를 가르는 눈</h3>
+<p>일어난 사건의 차례를 적는 층위와 그 일의 까닭이나 평가를 다는 층위가 나뉘어 있는 구조는 우리의 일상과 전문 실무 곳곳에서 발견됩니다. 회계 장부의 분개장이 거래를 날짜순으로 적으면 그 타당성은 검토 의견이 따로 다루고, 병원의 진료 기록이 시각별 증상과 처치를 적으면 원인 판정은 진단 소견란이 맡으며, 법원의 판결문 역시 기초 사실과 법적 판단을 엄격히 구분합니다. 세무 대리인이 쟁점 사건을 맡아 날짜순 사실관계 정리표를 만들 때에도 계약 체결과 대금 수령과 신고라는 차례를 먼저 적고, 그 대금이 계약 때문인지 별개 약정인지는 판단란에 따로 적어야 사실과 해석이 뒤섞이지 않습니다.</p>
+<p>겹쳐 쌓인 지층이 위아래의 순서는 분명히 보여 주어도 두 층 사이에 비어 있는 부정합의 세월을 스스로 말해주지 않듯, 사사기 본문 역시 7절 첫머리의 여호와의 눈에 그 악이라는 판정 구절 뒤로는 사건과 사건 사이의 이음새에 인과나 시간의 판정을 표시하지 않습니다. 세무 정리표나 지층 조사는 결국 빈칸을 측정하고 결론을 채워 넣어야 끝나지만, 성경이 비워 둔 이음새는 우리가 도구를 들고 가서 기어이 메워야 할 숙제가 아니라 열린 채로 경청해야 할 자리입니다. 엄격한 응보의 눈으로 그래서 벌을 받았다고 적는 그러므로의 공식이나, 따뜻한 위로의 마음으로 그럼에도 구원하셨다고 적는 그런데도의 공식은 방향이 정반대인 듯 보이지만, 실은 둘 다 원문이 열어 둔 고리를 사람의 말로 닫아 버린다는 점에서 똑같은 손짓임을 깨닫게 됩니다.</p>
+<h3>펴진 손의 서사와 쥔 주먹의 공식</h3>
+<p>이 문법의 차이를 머리가 아닌 몸으로 겪어 보기 위해 왼손을 가만히 펴고 엄지부터 새끼손가락까지 다섯 절의 요소들만 하나씩 짚어 봅니다. 손가락과 손가락 사이를 지날 때 아무런 연결어도 넣지 않고 조용히 숨만 한 번 내쉬면, 다섯 손가락은 한 손에 나란히 붙어 있으면서도 끝까지 펴진 채로 남습니다. 반면 손가락 사이를 지날 때마다 파셨으므로, 임하셨으므로 같은 번역의 이름표들을 소리 내어 집어넣으면, 말이 손가락 사이를 메우면서 펴졌던 손이 저절로 오므라들어 죄와 벌과 기도와 구원과 평안이라는 단단한 주먹 하나의 공식이 되고 맙니다.</p>
+<p>주먹 쥔 공식은 설교자의 손에 쥐기에는 간편하고 명쾌하지만, 그 주먹이 고난의 한복판을 지나는 회중을 향할 때에는 당신이 지금 어느 단계에 있는지를 판정하고 부르짖음이라는 조건을 채우라고 다그치는 무거운 짐이 됩니다. 사사기 2장 11절부터 19절이 이름 없는 일반 진술과 반복의 문법으로 시대를 그렸다면, 3장 7절부터 11절은 조건문이 하나도 없는 서사문으로 한 사람 옷니엘과 한 원수 구산 리사다임의 이야기를 들려줍니다. 감추어진 일은 우리 하나님 여호와께 속하였다고 고백한 신명기의 말씀과, 하나님의 섭리를 묵상할 때 감추어진 원인을 호기심으로 캐묻기보다 나타난 말씀을 겸손히 받아야 한다는 칼빈의 권면처럼, 우리는 예측과 판정의 주먹을 펴고 여호와께서 일으키시고 손에 주셨다는 분명한 두 자리의 은혜를 열린 손바닥 위에 받아 안습니다.</p>
+<h3>떼어 볼 수 있는 이름표로 빚어 가는 인격</h3>
+<p>원문이 준 차례와 내가 붙인 이름표를 가르는 이 성경적 사고는 교회의 교육과 행정, 그리고 일터와 개인의 삶을 훨씬 정직하고 따뜻하게 변화시킵니다. 성경공부 교재를 만들 때 흔히 넣곤 하던 순환 도표와 나는 지금 어느 단계인가를 묻는 빈칸을 과감히 지우고, 원문이 적은 칸과 그리고라는 고리, 그리고 번역이 단 이름표를 나란히 비교해 보게 하면 고난 겪는 지체가 섣부른 단계 판정에 상처받지 않게 됩니다. 당회나 운영위원회의 회의록을 작성할 때에도 재정 악화로 인해 사업을 보류함처럼 경과와 해석을 한 문장에 뒤섞지 않고, 안건과 발언과 결정의 차례를 먼저 적은 뒤 결정 사유는 누구의 판단인지 밝혀 따로 기록하면 훗날 당시의 해석이 사실처럼 굳어 다음 결정을 묶어 버리는 일을 막을 수 있습니다.</p>
+<p>세무 실무에서 몇 해를 끌어온 분쟁 사건의 경과를 고객에게 설명할 때에도 이 순서로 일이 있었습니다라는 사실의 층위와 저는 이것을 이렇게 봅니다라는 판단의 층위를 말로써 분명히 가르면, 고객은 대리인의 해석을 객관적 사실로 오해하지 않고 깊은 신뢰를 쌓아 가게 됩니다. 나아가 힘겨웠던 나의 지난 몇 해를 돌아보며 그때 내가 그래서 벌을 받았고 그래서 이렇게 풀렸노라고 단정하고 싶어질 때, 연도별로 일어난 일만 칸에 적고 그 사이에 붙이고 싶은 그래서라는 말은 연필로 따로 적어 내가 단 이름표임을 표시해 보십시오. 내 삶의 시간을 차가운 응보의 공식으로 재단하지 않으면서도, 우리를 위하여 구원자를 일으키시고 승리하게 하시는 하나님의 일하심 앞에 진실한 감사를 고백하는 성숙한 인격의 열매가 우리 안에 조용히 여물어 갈 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 07편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

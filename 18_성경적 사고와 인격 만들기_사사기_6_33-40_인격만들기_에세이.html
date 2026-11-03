@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>이야기꾼의 낱말이 마주 선 사람의 청원이 될 때</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 18편 &middot; 사사기 6:33-40</span>
+      <h1>이야기꾼의 낱말이 마주 선 사람의 청원이 될 때</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>세무 일터에서 다루는 문서들을 가만히 들여다보면 똑같은 낱말이 문서의 주인에 따라 전혀 다른 얼굴로 서 있는 것을 보게 됩니다. 과세관청이 보내는 결정 통지서나 고지서에서 가산세를 부과한다라는 낱말은 권한을 가진 쪽이 일어난 처분을 통지하는 삼인칭 평서문 줄에 놓입니다. 반면 그 고지서를 받아 들고 이의를 다투거나 사정을 아뢰는 납세자의 청구서에서는 바로 그 똑같은 낱말이 가산세를 부과하지 말아 주십시오라는 간곡한 청원의 문장으로 자리를 옮깁니다. 낱말은 하나이지만 권한을 행사하는 서술의 층에서 그 권한 앞에 마주 선 사람의 발화 층으로 건너간 것입니다.</p>
+<p>사사기 6장 39절에서 기드온이 두 번째 양털 요청을 열며 아뢰는 알 이하르 아프카 비, 곧 당신의 코가 내게 타지 마소서라는 구절에서 바로 이와 같은 층의 이동이 일어납니다. 사사기라는 한 책 안에서 코가 타다라는 관용구는 모두 일곱 번 등장하는데, 앞뒤의 여섯 자리는 모두 서술자가 이야기 문장으로 적은 자리이고 오직 이 한 자리만 따옴표 안 인물의 입에 들어와 있습니다. 이 문법적 이동의 의미를 정경 전체의 무늬 속에서 살피는 일은, 우리가 타인의 말투와 본문의 여백을 대하는 태도를 깊고 단단하게 다듬어 줍니다.</p>
+<h3>서술자의 평서문 여섯과 인물의 따옴표 안에 선 지시형 하나</h3>
+<p>사사기 2장 14절과 20절, 3장 8절, 10장 7절에서 여호와께서 이스라엘에게 진노하사라고 번역된 구절들을 소리 내어 읽어 보면, 우리의 목소리는 자연스럽게 평평한 이야기꾼의 속도를 띠게 됩니다. 삼인칭 주어인 여호와의 코가 앞에 서고, 이미 일어난 사건의 사슬을 전하는 바이크톨 동사가 이어지기 때문입니다. 스불이나 삼손의 노를 적은 9장 30절과 14장 19절도 마찬가지입니다. 그런데 6장 39절에 이르러 당신의 코가 내게 타지 마소서를 읽는 순간, 평평하던 목소리는 어미가 내려앉으며 저절로 속도를 늦추고 낮아집니다. 내게라는 일인칭 전치사구 속에서 말하는 사람 자신이 문장의 대상 자리에 들어가고, 삼인칭으로 멀리서 부르던 코의 주인이 당신이라는 이인칭으로 눈앞에 마주 서기 때문입니다. 옆에서 보던 얼굴을 정면으로 마주하는 자세의 변화를 우리의 혀와 몸이 먼저 알아차리는 것입니다.</p>
+<p>문법적으로도 6장 39절의 이하르는 일반 미완료가 아니라 분명한 짧은 꼴 지시형입니다. 따라서 이 첫 마디는 당신의 코가 탈 것이다라는 예측이나 확신이 아니라 타지 마소서라는 청원입니다. 다만 사사기 안에서 이 인물 발화가 단 한 번 나온다는 사실을 두고 기드온이 유독 대담했다거나 이례적인 말을 했다고 부풀려서는 안 됩니다. 시야를 정경 전체로 넓혀 창세기 18장 30절과 32절에서 아브라함이 하나님께 아뢴 말, 창세기 44장 18절에서 유다가 요셉에게 아뢴 말, 출애굽기 32장 22절에서 아론이 모세에게 아뢴 말을 나란히 세워 보면, 부정어 알과 지시형 이하르로 열리는 이 문장은 아랫사람이 윗사람이나 하나님 앞에서 말을 꺼낼 때 쓰는 정경의 정해진 청원 공손 꼴이기 때문입니다. 모집단을 사사기 한 권으로 두느냐 정경 전체로 두느냐에 따라 유일함의 뜻이 달라지기에, 우리는 희소성을 자랑하지 않고 층이 이동했다는 사실만 정확히 붙듭니다.</p>
+<h3>정죄와 승인과 영웅화의 세 낭떠러지를 비껴가는 읽기</h3>
+<p>이 문장을 시간과 층의 차원에서 재어 보면 본문이 지키는 침묵의 경계가 더욱 또렷해집니다. 시간축 위에서 6장 39절은 38절의 그대로 된지라라는 서술과 40절의 하나님이 그 밤에 그렇게 하셨다라는 서술 사이에 끼인 짧은 의지의 순간입니다. 흥미롭게도 40절은 양털만 마르고 사면 땅에는 다 이슬이 있게 해 달라는 39절 뒷부분의 낱말들은 결과로 고스란히 되받으면서도, 당신의 코가 내게 타지 마소서라는 앞부분에 대해서는 아무런 언급도 되받지 않습니다. 또한 역본층이 덧붙인 주께서나 주여라는 호칭을 걷어 내면 발화층에는 신명 없이 당신만 남고, 서술층에만 하나님이라는 신명이 네 번 자리 잡고 있습니다.</p>
+<p>웨스트민스터 신앙고백 21장 3절이 기도의 마땅한 자리와 공손한 태도를 가르치되 기도로 하나님의 뜻을 시험해 알아내는 절차를 규범으로 세우지 않듯, 개혁신학은 성경 서사에 적힌 일과 성경이 오늘 우리에게 명한 일을 엄격히 구별합니다. 이 본문 앞에는 세 갈래의 낭떠러지가 있습니다. 기드온을 하나님을 시험한 불신앙의 사람으로 몰아세우는 정죄형, 하나님은 조건 기도에 응답하신다고 일반화하는 승인형, 하나님 앞에서도 담대히 청원한 인물이라 높이는 영웅형이 그것입니다. 복음은 이 셋 중 어느 쪽으로도 기드온을 소비하지 않습니다. 본문이 남긴 것은 하나님 쪽 이야기 낱말을 빌려 그러지 마소서라고 청한 사람이 있었고 하나님이 그 밤에 그렇게 행하셨다는 서술뿐이며, 그 사이를 우리의 판정으로 메우지 않을 때 은혜는 사람의 청이 옳았기 때문이 아니라 행하신 하나님의 주권으로 온전히 남습니다.</p>
+<h3>공손한 말투와 사실의 근거를 가르고 본문의 층을 함께 읽는 인격</h3>
+<p>이 정밀한 구별은 목회 상담과 세무 실무 현장에서 흔들리지 않는 분별력을 길러 줍니다. 진로나 결혼을 앞둔 청년이 찾아와 기드온처럼 양털 조건을 걸고 기도해도 되느냐고 물을 때, 목회자는 권하지도 막지도 않는 대신 본문의 서술층과 발화층을 나란히 펼쳐 보여 줍니다. 6장 39절의 첫 마디가 정경의 청하는 사람들의 공손한 말투라는 점과, 서술자가 그 청에도 그 밤에도 옳고 그름의 평가를 쓰지 않았다는 점을 본문 그대로 함께 읽는 것입니다. 그러면 청년의 시선은 조급한 방법의 허락을 구하는 데서 본문이 적은 데까지 정직하게 말씀을 듣는 자리로 옮겨 갑니다.</p>
+<p>세무 일터에서 고객이나 거래처가 보낸 소명 자료나 사과 편지를 검토할 때에도 같은 원리가 작동합니다. 상대방이 노여워 마시고 한 번만 말씀드리겠습니다 같은 정중한 서두로 글을 시작할 때, 우리는 그 공손한 말투에 마음이 끌려 사실관계를 느슨하게 살피거나 반대로 변명이 길다며 미리 불신하기 쉽습니다. 그러나 청원서의 공손한 서두가 그 청구의 옳고 그름을 정하지 않듯, 검토 메모를 말투 칸과 증빙·일자·금액의 사실 칸으로 나누어 판단은 오직 사실 칸에서만 내리는 훈련이 필요합니다. 아울러 관청에 제출할 청원서를 작성할 때에도 정중한 서두가 청구의 실질적 이유를 대신하지 못하도록 사실의 근거 문단을 따로 탄탄히 세우는 것, 그것이 말씀의 층을 분별하며 일상의 자리를 정직하고 겸손하게 가꾸어 가는 성경적 인격의 모습입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 18편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

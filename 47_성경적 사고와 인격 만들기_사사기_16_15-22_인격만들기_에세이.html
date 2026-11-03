@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>그의 앎 밖에서 일어난 떠나심, 같은 빈칸 앞에서 겸손히 멈추는 읽기</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 47편 &middot; 사사기 16:15-22</span>
+      <h1>그의 앎 밖에서 일어난 떠나심, 같은 빈칸 앞에서 겸손히 멈추는 읽기</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>무대 위의 주인공은 아무것도 모른 채 평소처럼 힘차게 걸어 나가려 하고, 객석에 앉은 관객들의 눈앞에는 주인공만 모르는 서늘한 자막 한 줄이 떠오릅니다. 사사기 16장 20절이 그려 내는 풍경이 바로 그러합니다. 그 여자가 말했다, 그가 자기 잠에서 깼다, 그리고 그가 말했다로 숨 가쁘게 이어지던 히브리어 와이크톨 서사 사슬이 베후 로 야다, 곧 그러나 그는 알지 못했다라는 접속사와 대명사의 끼어듦으로 인해 일순간 멈추어 섭니다. 내가 번번이 하던 대로 나가서 몸을 떨치리라던 삼손의 일인칭 다짐 바로 뒤에, 서술자의 목소리가 조용히 내려앉아 사건의 흐름을 끊어 놓는 것입니다.</p>
+<p>이 한 문장 안에서 주절의 동사는 그가 알지 못했다는 부정의 상태이고, 이 단락에서 유일하게 등장하는 여호와의 이름은 그 앎의 목적절인 키절 안에서 떠나셨다는 동사 사르의 주어로 서 있습니다. 흔히 우리는 이 구절을 읽으며 삼손의 영적 무지나 둔감함을 꾸짖는 데에 마음을 쏟곤 합니다. 그러나 구문의 결을 따라가며 차분히 생각의 단계를 밟아 보면, 이 문장의 진짜 무게 중심은 단순히 한 인물의 어두움을 폭로하는 데 있지 않고 서술자와 독자와 인물이라는 세 층위 사이에 놓인 앎의 구조와 그 모두가 공유하는 빈칸에 있다는 사실을 발견하게 됩니다.</p>
+<h3>부정된 앎과 참인 사실, 세 층위가 마주한 공통의 빈칸</h3>
+<p>언어의 법칙 안에서 누군가가 어떤 사실을 알지 못했다고 말하려면, 그 문장을 말하는 화자는 목적절의 내용을 이미 참된 사실로 전제하고 있어야만 합니다. 사사기 안에서 알지 못했다는 표현이 키 목적절과 결합하는 네 자리, 곧 13장의 마노아와 14장의 삼손의 부모와 16장의 삼손과 20장의 베냐민 무리를 나란히 놓아 보면, 서술자는 언제나 인물들이 모르는 사실을 독자에게 참으로 건네주는 자리에 서 있습니다. 특히 16장 20절은 명사절이나 분사절이 아니라 여호와께서 떠나셨다는 완료형 정동사를 목적절에 세움으로써, 떠나심을 서술자가 보증하는 확고한 사실의 칸에 올려놓습니다.</p>
+<p>하지만 바로 이 지점에서 우리의 읽기를 근본적으로 뒤집는 통찰이 찾아옵니다. 독자는 서술자 덕분에 삼손보다 한 줄의 사실을 더 알게 되었지만, 정작 여호와께서 왜 떠나셨는지, 또 어느 순간에 떠나셨는지에 대한 까닭과 시점의 칸은 독자에게도 서술자의 문면에도 비어 있다는 사실입니다. 더욱이 우리말 개역한글에 번역된 이미라는 시간 부사는 원문에는 없는 단어로, 이 한 단어가 들어가면 독자는 머리털이 밀릴 때였는지 무릎에서 잠들 때였는지 시간선을 긋고 추적하는 탐정이 되고 맙니다. 원문처럼 시간 표지를 덜어 내고 나면, 모름은 삼손만의 결핍이 아니라 정도의 차이만 있을 뿐 문장 앞에 선 우리 모두에게 나뉘어 있는 한계임이 또렷이 드러납니다.</p>
+<h3>선의의 장부와 한 걸음 옆의 자리, 덧붙일수록 설명이 되는 문장</h3>
+<p>세무나 법률 실무에서 어떤 사실을 알지 못한 상태인 선의를 판단할 때, 결정서는 먼저 거래 상대방의 자료가 사실과 달랐다는 객관적 사실의 칸을 확정하고, 그다음에야 당사자가 그 사실을 알았는지를 다루는 앎의 칸을 따로 판단합니다. 다만 법의 선의는 유책과 면책을 가르기 위한 장치이지만, 성경의 16장 20절은 사실의 칸과 앎의 칸을 나누어 적을 뿐 삼손의 모름에 책임 판정을 붙이지 않습니다. 원문의 단어를 일부러 바꾸어 긍정문으로 뒤집어 보거나 인과 접속사를 넣어 보는 놀이 실험을 해 보아도, 무엇을 더하든 원문보다 더 설명적이고 교훈적인 글이 될 뿐 원문만큼 정직한 최소의 문장은 되지 못합니다.</p>
+<p>이 문장의 거리를 몸으로 직접 재어 보면 그 절제의 깊이가 더욱 실감 납니다. 의자에서 일어나 몸을 털며 내가 번번이 하던 대로 나가리라고 일인칭으로 외칠 때 다리에는 앞으로 나아가려는 힘이 실립니다. 이어서 한 걸음 옆으로 비켜서서 방금 내가 서 있던 빈자리를 바라보며 그러나 그는 알지 못했다라고 서술자의 목소리로 읽으면, 몸은 멈추어 서고 시선은 인물의 자리를 향합니다. 그리고 그 비켜선 자리에서 왜냐하면이라고 까닭을 이어 말하려 입을 여는 순간, 우리는 말문이 막히고 맙니다. 인물과 서술자 사이는 단 한 걸음이지만, 서술자의 자리에서 까닭을 아는 세 번째 자리로 건너갈 바닥은 본문 어디에도 마련되어 있지 않기 때문입니다.</p>
+<h3>섭리의 경외 앞에 멈추며 사실과 앎을 가르는 정직한 실무와 목회</h3>
+<p>정경 전체로 눈을 넓히면 사무엘상 16장 14절처럼 하나님의 영이 떠나심을 기록한 다른 본문이 있고, 고린도전서 4장 4절에서 바울은 사람이 스스로 자책할 것을 알지 못한다 해도 그것으로 의롭다 함을 얻지 못하며 판단하시는 이는 오직 주님이시라고 고백합니다. 칼빈 역시 기독교 강요에서 하나님의 섭리의 까닭이 감추어져 있을 때 억지로 캐내려 하지 말고 경외함으로 멈추라고 권면합니다. 따라서 이 본문을 영적 감지력을 길러 하나님이 떠나시는 순간을 알아채라는 도덕주의로 끌고 가거나, 눈을 잃고 맷돌을 가는 장면을 고난과 부활의 장식적 예표로 엮어 내는 길은 모두 내려놓아야 합니다.</p>
+<p>같은 빈칸 앞에서 멈추는 이 성경적 사고는 세무 실무와 교회 행정, 그리고 목회 심방의 언어에 단단한 인격의 열매를 맺게 합니다. 세무조사 소명서에 납세자가 거래처 자료가 사실과 다름을 알지 못하였다고 쓸 때, 사실 인정의 칸과 부지의 칸을 명확히 가르고 왜 몰랐는지에 대한 까닭의 칸은 확실한 증빙이 있는 것만 적으며 추정으로 채우지 않습니다. 교회 재정 착오의 경위서나 당회록을 작성할 때에도 확인된 사실과 담당자가 몰랐다는 사실, 그리고 아직 확인되지 않은 까닭을 분리하여 기록함으로써 문서가 섣부른 책임 추궁의 도구가 되지 않게 지킵니다. 심방 중에 들은 성도의 아픔을 전할 때에도 그분이 몰랐다는 사실까지만 말하고 그 이유를 제멋대로 지어 붙이지 않는 절제, 그것이 본문의 빈칸 앞에서 우리가 배운 겸손의 자리입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 47편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>메우지 않는 비대칭, 가리키지 않는 손으로 지키는 빈자리</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 14편 &middot; 사사기 5:23-31</span>
+      <h1>메우지 않는 비대칭, 가리키지 않는 손으로 지키는 빈자리</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 5장 23절과 24절은 메로스를 향한 저주와 야엘을 향한 복을 나란히 놓아 얼핏 완벽한 대칭의 짝처럼 보입니다. 그러나 해석을 미루고 두 절의 문법 성분을 나란히 놓으면 겉의 짝 안에 숨은 깊은 비대칭이 드러납니다. 23절은 저주하라는 명령형 동사 오루 두 번과 부정사 절대 아로르가 결합해 세 토막을 이루며 누군가에게 하라고 명하는 반면, 24절은 푸알 수동 미완료형 테보락 두 번이 절의 앞과 끝을 감싸며 누군가가 복을 받는다 혹은 받기를이라고 선언합니다. 더욱이 23절의 명령형 안에는 말을 듣는 2인칭 남성 복수 너희가 문법적으로 들어 있지만, 24절에는 듣는 자리도 없고 복을 주는 이의 이름도 나오지 않습니다.</p>
+<p>결정적인 차이는 까닭을 여는 히브리어 접속사 키, 곧 왜냐하면이라는 두 글자의 유무에 있습니다. 23절에는 그들이 여호와의 도움에 오지 않았다는 키 절이 분명하게 붙어 있지만, 접속사 없이 곧바로 이어지는 24절에는 왜 복을 받는지 설명하는 키 절이 아예 없습니다. 처음에는 이 차이를 저주 쪽은 자세하고 복 쪽은 간략하다는 분량의 차이로 보기 쉬우나, 깊이 들여다보면 이것은 문장 안에서 누가 무엇을 맡는가 하는 손의 배치 차이입니다. 저주 쪽에는 말하는 이와 실행할 이와 까닭이 다 있고 복 쪽에는 받는 이 하나만 이름으로 서 있는 이 비대칭을 메우지 않을 때, 저주를 매기는 손은 이름 없이 남고 읽는 우리는 그 손이 되지 않습니다.</p>
+<h3>불이익 처분 통지서와 왼손이 비어 있는 악보의 쉼표</h3>
+<p>짝을 이룬 두 판단 가운데 무게를 지우는 쪽에 근거가 붙고 무게를 덜어 주는 쪽은 근거 없이 선언되는 경향은 일상과 실무의 여러 영역에서 발견됩니다. 법정 판결에서 유죄나 패소처럼 결론의 무게가 큰 쪽에 이유가 길게 붙고, 행정이나 세무 문서에서 불이익 처분에는 근거 법령과 사유를 적는 칸이 있는 반면 신청이 받아들여진 인용 통지는 짧게 오는 경우와 같습니다. 세무 실무자가 그 짧은 인용 통지를 받아 들고 고객에게 우리가 이런 점을 잘 소명해서 받아들여진 것이라고 사유를 지어 덧붙이는 순간 통지서에 없는 판단 근거가 생겨나듯, 24절의 근거 없는 복 선언 앞에서도 읽는 이의 손이 움직여 야엘이 행했기 때문이라는 인과를 지어 붙이기 쉽습니다.</p>
+<p>그러나 오른손 선율만 적히고 왼손 칸이 비어 있는 피아노 악보에서 빈칸을 화음으로 채우면 연주자의 편곡이 되고 쉼표로 두어야 악보 그대로의 연주가 되듯, 빈칸을 비워 두는 것은 수동적인 태도가 아니라 정직한 읽기의 행위입니다. 특히 일상의 꾸중이나 행정 처분과 달리 23절의 저주는 명령형이어서 판단하는 이와 실행하는 이가 갈라져 있고, 그 무게를 실행할 손이 이름 없는 너희에게 넘어가 있습니다. 단체 대화방에 안 온 분들은 이유를 말해 달라는 공지와 오신 분들 감사하다는 인사가 나란히 올라올 때 독자 안에서 저절로 문책과 칭찬의 대조로 굳어지듯, 우리가 23절과 24절의 비대칭을 대칭으로 메우는 순간 원문에 없는 인과가 서고 이름 없는 너희 자리에 내가 앉아 남을 저주하는 손이 됩니다.</p>
+<h3>무릎 위에 편 손과 정경의 층에서 바라보는 복음의 방향</h3>
+<p>이 단위의 묵상에서 몸의 동작을 두지 않는 까닭은 23절에서 무엇을 하라는 말을 받은 이가 이름 없는 너희뿐이라 어떤 동작이든 그 수신자의 몫을 맡는 꼴이 되기 때문입니다. 대신 의자에 앉아 두 손을 무릎 위에 편 채로 23절과 24절을 소리 내어 읽으면 몸이 먼저 반응합니다. 저주하라를 읽을 때 손가락이 무언가를 가리키고 싶어지는 충동이 바로 너희의 자리에 앉으려는 몸의 움직임이며, 손을 편 채 두면 저주의 무게는 바깥의 누군가에게 가지 않고 내 무릎 위에 머뭅니다. 이어 24절의 복을 받을 것이니를 읽을 때 숨이 기대고 싶은 왜냐하면이 오지 않아 잠깐 허공에 뜨는데, 그 허공을 서둘러 메우지 않고 한 번 내쉬며 견디는 것이 비대칭을 몸으로 읽는 일입니다.</p>
+<p>거시적인 정경의 층을 돌아보면 신명기 27장과 28장이나 창세기 12장 3절처럼 저주와 복이 짝을 이루는 본문들이 있고, 신약의 로마서 12장 14절은 축복하고 저주하지 말라고 권면하며 갈라디아서 3장은 그리스도께서 우리를 위해 저주를 받으셨다고 고백합니다. 물론 사사기 5장 23절과 24절에는 그리스도와 직접 이어지는 재료가 없으므로 이 저주를 십자가의 예표로 삼거나 24절의 복을 은혜의 복음으로 둔갑시켜서는 안 됩니다. 다만 디트리히 본회퍼가 시편의 저주 기도를 성도 개인의 보복 기도로 드릴 수 없으며 심판을 하나님께 맡기는 자리라고 보았듯, 이름 없는 너희 자리에 내가 앉지 않는다는 이 절제된 읽기는 심판을 하나님께 돌리고 성도의 입에서 저주를 거두라는 정경 전체의 복음적 방향과 조용히 같은 곳을 바라봅니다.</p>
+<h3>설교 강단과 고객 상담과 공동체 행정에서 빈칸을 지키는 열매</h3>
+<p>이 성경적 사고는 설교와 실무와 일상의 언어를 구체적으로 바꿉니다. 강단에서 23절과 24절을 설교할 때 메로스는 오지 않아 저주를 받고 야엘은 행해서 복을 받았다는 두 줄 대조를 뼈대로 쓰지 않으며, 23절을 낭독할 때 회중을 손이나 눈으로 지목하지 않고 너희가 누구인지 본문은 밝히지 않는다는 문장을 반드시 넣습니다. 세무 상담에서 고객의 청구가 받아들여진 짧은 결과 통지를 전할 때도 통지에 적힌 사유와 적히지 않은 칸을 갈라서 보여 주며, 통지에 적힌 것은 여기까지이고 그 밖의 이유는 문서로 확인되지 않는다고 정직하게 말함으로써 다음 사안에서 그때 이렇게 해서 이겼다는 근거 없는 공식이 생기지 않게 합니다.</p>
+<p>교회 행정에서도 행사 뒤에 함께하지 않은 분들을 주보나 대화방에 언급하자는 의견이 나올 때, 참여한 이들에게 감사를 전하는 공지는 내되 불참자에 관한 문장은 쓰지 않으며 23절을 공지나 광고에 절대 인용하지 않습니다. 불참의 사정은 공동체가 판정할 칸이 아니라 개인 목양의 자리로 넘김으로써 빠진 사람이 다음 모임에 돌아올 길을 열어 두는 것입니다. 가정과 직장에서 꾸중의 말을 하기 전에 내 손가락이 상대를 가리키고 있는지 알아차려 손을 펴고 칭찬할 때는 상대의 동기를 지어 붙이는 대신 내가 실제로 본 것만 말하는 연습을 통해, 내 말이 상대를 재는 저울이 되지 않고 저주의 무게를 내 쪽에 두는 겸손한 인격으로 자라갑니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 14편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>모으지 않는 두 손의 여백, 맞추기 전에 이름 칸부터 읽는 순종</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 02편 &middot; 사사기 1:8-21</span>
+      <h1>모으지 않는 두 손의 여백, 맞추기 전에 이름 칸부터 읽는 순종</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 1장 8절부터 21절까지에 등장하는 마흔아홉 개의 동사 사슬을 따라가다 보면, 거침없이 흐르던 바이크톨 서술이 멈추어 서며 목적어를 문장 맨 앞으로 끌어내고 완료형 동사로 매듭짓는 특별한 자리가 두 번 나타납니다. 바로 예루살렘을 사이에 두고 마주 선 8절과 21절입니다. 8절은 그 성읍을 앞으로 내세운 뒤 유다 자손이 불에 보냈다는 쉴레후 바에쉬를 적고, 21절은 예루살렘에 사는 그 여부스 사람을 앞으로 내세운 뒤 베냐민 자손이 쫓아내지 않았다는 로 호리슈를 적습니다. 문장의 칸을 나누어 비교해 보면 대상을 앞세우는 서식과 삼인칭 복수 완료형 동사의 꼴, 그리고 누구의 자손이라는 주어의 틀까지 두 절은 놀랍도록 똑같은 서식을 공유하고 있습니다.</p>
+<p>바로 그 같은 서식 때문에 오히려 주어 칸에 적힌 두 이름, 곧 유다 자손과 베냐민 자손의 갈림이 선명하게 눈에 들어옵니다. 서술자는 이 두 문장 사이에 시기를 조율하는 부사도, 앞의 진술을 뒤집는 그러나라는 접속사도 두지 않았으며, 여호수아 15장 63절에 있는 능력 동사 야콜조차 21절에는 쓰지 않았습니다. 우리말 개역한글이 쫓아내지 못하였으므로라고 옮기며 원문에 없는 능력의 부족과 인과의 접속을 한꺼번에 들여왔을 뿐, 원문은 고치지 않은 두 문장을 나란히 세워 둘 따름입니다. 그러므로 이 본문 앞에서 읽는 이가 먼저 해야 할 순종은 정복과 실패라는 평가어로 둘을 서둘러 맞추는 것이 아니라, 두 이름을 각자의 칸에 둔 채 읽고 그 사이의 여백을 판정 보류로 남겨 두는 일입니다.</p>
+<h3>같은 서식에 적힌 다른 서명과 하나로 모으지 않는 자리</h3>
+<p>같은 대상을 같은 서식으로 기록하되 서명 칸에 다른 이름이 적혀 있고 그 사이를 인위적으로 맞추지 않은 기록은 정경과 일상의 여러 영역에서 발견됩니다. 정경 안에서는 사사기 1장 21절과 여호수아 15장 63절이 같은 문장 틀 위에 베냐민과 유다라는 다른 주어를 세워 두고 어느 쪽이 먼저인지 설명하지 않으며, 법정 조서에서는 같은 질문에 대한 두 증인의 진술을 서기가 고치지 않고 각각 기록합니다. 회계 장부에서도 두 부서가 같은 자산을 다르게 적은 대장을 대사 작업 전에는 임의로 수정하지 않고, 한 가족 안에서도 옛집에서 이사 나오던 날을 서로 다르게 기억하는 두 형제의 말을 듣는 이가 성급히 한 이야기로 합쳐 버리면 둘 중 한 사람의 목소리는 영영 사라지고 맙니다. 이 패턴의 핵심은 모순이 아니라 보관이며, 서명이 다른 두 기록을 지우지 않고 한 서랍에 넣어 두는 기록자의 정직한 몸가짐입니다.</p>
+<p>이를 세 갈래의 유추로 비추어 보면 본문의 고유한 자리가 더욱 또렷해집니다. 세무 실무에서 한 거래를 두고 매도인과 매수인이 거래 주체 칸에 서로 다른 이름을 적은 확인서를 제출했을 때 숙련된 실무자는 두 서류를 나란히 펴서 칸별로 대조하는 단계를 거치며, 천문학에서 두 관측소가 같은 별에 대해 서로 다른 관측값을 기록했을 때 관측 일지는 관측소 이름을 지우지 않고 보존하며, 음악의 대위법에서 같은 주제를 다른 성부가 이어받을 때 청자는 선율의 꼴보다 바뀐 목소리에 귀를 기울입니다. 그러나 세무 실무는 결국 귀속을 하나로 결정해야 하고, 과학은 오차를 계산해 하나의 보정값을 내며, 대위법은 마침 화음으로 성부들을 한데 모은다는 점에서 세 유추는 모두 마지막에 하나로 모으는 단계에서 부러집니다. 본문은 그 마지막 봉합의 단계를 두지 않고 단락 표지와 오늘까지라는 말만 남긴 채 멈추어 섭니다.</p>
+<h3>어깨너비로 벌린 두 손의 피로와 정경의 유기적 증언</h3>
+<p>하나로 모으지 않고 펴 두는 이 읽기를 몸으로 겪어 보기 위해, 성경을 무릎 위에 펴고 오른손 검지를 8절의 예루살렘에, 왼손 검지를 21절의 예루살렘에 얹은 채 직역 문장을 소리 내어 읽어 봅니다. 유다 자손과 베냐민 자손이라는 이름 칸과 아니라는 부정어에서 숨을 멈춘 뒤, 두 손을 가슴 앞으로 모으지 않고 손바닥을 위로 한 채 어깨너비로 벌려 삼십 초 동안 버텨 봅니다. 불과 삼십 초가 무척 길게 느껴지며 두 손을 하나로 합치고 싶은 충동이 머리보다 어깨의 피로에서 먼저 찾아온다는 것을 깨닫게 됩니다. 정리되지 않은 두 진술을 함께 들고 있는 일은 몸에 먼저 짐이 되며, 우리가 성경의 병행 본문을 서둘러 조화시키려는 마음 역시 논리적 필연성보다는 이 피로를 빨리 덜어 내고 싶은 조급함에서 나옵니다. 강단에서 설교할 때도 두 절을 읽으며 강단 양 끝에 한 번씩 서고 가운데로 돌아오지 않은 채 다음 대지로 넘어가면, 회중은 판정 대신 펼쳐진 두 자리를 눈으로 오가며 본문의 무게를 만나게 됩니다.</p>
+<p>관찰의 배율을 바꾸어 미시 차원으로 내려가면 거대한 모순처럼 보이던 것은 부정어 로 하나와 야콜의 유무 같은 몇 글자의 차이이고, 거시 차원으로 넓히면 사무엘-열왕기와 역대기, 그리고 네 복음서를 하나의 판본으로 녹이지 않고 함께 보관한 정경 공동체의 습관입니다. 난제는 본문 자체보다 연대표를 그리고 싶어 하는 독자의 중간 배율 안에 있었던 셈입니다. 디모데후서 3장 16절의 영감 고백과 헤르만 바빙크가 개혁교의학에서 말한 유기적 영감론, 그리고 성경 해석의 무오한 규칙은 성경 자체라고 한 웨스트민스터 신앙고백 1장 9항은 성경 안에 서로 다른 서명이 남아 있는 것을 억지로 지우라고 요구하지 않습니다. 여호와께서 유다와 함께 계셨다는 19절의 동반 사실에 감사를 묶어 두되, 베냐민의 실패나 마음속 여부스 사람을 몰아내라는 도덕주의 설교로 미끄러지지 않고 주어진 복수의 증언에 기대어 사는 것이 개혁신학이 가르치는 성숙한 신앙입니다.</p>
+<h3>나란히 펴 두고 서둘러 지우지 않는 실무와 일상의 인격</h3>
+<p>본문을 읽는 이 참을성 있는 몸가짐은 목회와 세무 실무, 교회 행정과 개인의 일상에서 타인의 목소리를 지우지 않는 환대와 정직의 인격으로 열매 맺습니다. 가정 상담 자리에서 부부가 같은 날의 사건을 서로 다르게 말할 때, 목회자는 누가 말했는지 서명을 적고 두 이야기 사이를 내 이음말로 채우고 있지 않은지 살피며 지금 판정할 수 없는 것을 보류 칸에 따로 적어 둠으로써 한 사람의 목소리가 성급한 봉합 속에 사라지는 일을 막습니다. 세무 상담에서도 거래 상대방의 서류와 고객의 서류가 다를 때 결론부터 내리지 않고 작성자와 작성 시점과 각 칸을 한 장의 표에 나란히 옮겨 적으며, 교회 행정에서 서기의 회의록과 참석자의 메모가 결정 주체를 다르게 적었을 때도 수정본을 바로 내기보다 두 기록을 나란히 첨부해 다음 회의 안건으로 올릴 때 공동체의 신뢰가 깊어집니다.</p>
+<p>우리 개인의 일기장을 돌아볼 때도 마찬가지입니다. 지난해 일기에는 그 일은 다 끝냈다고 적었는데 올해 일기에는 그 일이 아직 남아 있다고 적혀 있을 때, 우리는 둘 중 하나를 거짓이나 실패한 기록으로 지워 버리지 않을 수 있습니다. 본문이 부정어를 능력의 부족으로 단정하지 않았듯, 우리도 끝나지 않은 일을 무능함으로 자책하거나 변명으로 덮는 대신 각 문장이 어떤 대상과 범위를 보고 쓴 것인지를 그 옆에 조용히 적어 둡니다. 같은 꼴에 다른 이름이 섰을 때 서둘러 맞추기 전에 이름부터 읽는 그 서른 초의 벌린 손바닥이, 내 손으로 깔끔히 편집한 이야기가 아니라 하나님이 허락하신 정직한 현실의 칸들을 있는 그대로 품게 해 줄 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 02편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

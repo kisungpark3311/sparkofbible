@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>같은 형제라는 호칭 위에서 갈라지는 동사와 지켜지는 자리</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 27편 &middot; 사사기 9:1-5</span>
+      <h1>같은 형제라는 호칭 위에서 갈라지는 동사와 지켜지는 자리</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리가 일상에서 가장 따뜻하게 부르는 호칭 가운데 하나가 바로 형제나 식구, 혹은 우리 사람이라는 말입니다. 사사기 구장 일절에서 오절까지의 짧은 본문 안에도 히브리어 아흐, 곧 형제라는 낱말이 네 번이나 거듭 울려 퍼집니다. 일절과 삼절에서는 아비멜렉이 찾아가 말을 부탁하고 그 말을 세겜 사람들에게 옮긴 어머니의 형제들을 가리키고, 삼절 끝에서는 세겜 사람들이 아비멜렉을 향해 마음이 기울며 내뱉은 그는 우리 형제다라는 이유의 문장 안에 자리하며, 마침내 오절에서는 한 반석 위에서 죽임을 당한 여룹바알의 아들 칠십 명을 부르는 목적어 자리에 섭니다.</p>
+<p>이 네 자리의 분포를 누가 누구를 부르는가의 시선으로 차근차근 짚어 보면, 두 개의 서늘한 빈칸이 모습을 드러냅니다. 첫째는 정작 이절에서 세겜 사람들을 설득하는 아비멜렉 자신의 입에는 형제라는 낱말이 단 한 번도 나오지 않는다는 사실이고, 둘째는 이 다섯 절에 등장하는 어떤 인물의 입에서도 죽임당한 칠십 명을 형제라 부르는 소리가 들리지 않는다는 사실입니다. 등장인물들의 입에서 형제라는 말은 오직 아비멜렉 쪽을 부를 때만 쓰였고, 스러져 간 칠십 명에게 그의 형제들이라는 이름을 붙여 준 입은 오절의 서술자 단 한 사람뿐이었습니다.</p>
+<h3>두 개의 일인칭과 안팎을 가르지 않고 갈라지는 동사</h3>
+<p>원문의 문법을 조금 더 가까이 들여다보면, 이 다섯 절 전체에서 일인칭이 쓰인 자리는 단 두 곳뿐입니다. 하나는 이절에서 아비멜렉이 너희의 뼈와 너희의 살이 나다라고 말할 때 쓴 대명사 아니이고, 다른 하나는 삼절에서 세겜 사람들이 우리 형제라고 말할 때 명사 끝에 붙인 접미사입니다. 아비멜렉의 나는 뼈와 살이라는 몸의 명사 곁에 서고, 세겜 사람들의 우리는 형제라는 호칭 안에 섭니다. 개역한글은 뼈와 살을 골육지친이라는 한 단어로 묶고 삼절의 이유 접속사 키를 지워 버렸지만, 원문은 관계 칸에 들어갈 우리 형제라는 말 한마디가 어째서 그에게 마음을 기울였는지를 적는 사유 칸을 통째로 채워 버린 모습을 적나라하게 보여 줍니다.</p>
+<p>흔히 동문회나 지역 모임, 혹은 조직 안에서 우리 사람이라는 호칭은 안과 밖을 가르는 경계선으로 작동합니다. 우리 사람 안에 들면 보호받고 바깥에 놓이면 배제되는 식입니다. 그러나 사사기 구장 일절에서 오절은 그 익숙한 패턴마저 무너뜨립니다. 어머니의 아버지 집인 외가와 아버지의 집인 오브라 양쪽에 모두 같은 형제라는 낱말이 걸쳐 있어, 죽임을 당한 칠십 명 역시 호칭의 바깥으로 밀려난 타인이 아니라 분명히 그 호칭 안에 있던 형제들이었기 때문입니다. 이 본문의 날카로움은 호칭이 안과 밖을 가른 데 있지 않고, 똑같은 형제라는 호칭 안에서 한쪽에는 마음이 기울었다는 동사가, 다른 한쪽에는 죽였다는 동사가 나란히 얹혔다는 데 있습니다.</p>
+<h3>몸을 한 바퀴 도는 손과 묶는 말이 지키는 말이 되지 못하는 전복</h3>
+<p>이 문법적 구조를 우리 몸의 동작으로 옮겨 읽어 보면 호칭의 궤적이 손끝으로 만져집니다. 자리에서 일어나 본문을 소리 내어 읽으며 형제라는 말이 나올 때마다 손으로 방향을 가리켜 보십시오. 일절과 삼절의 그 어미의 형제들에서는 왼쪽 외가를 가리키고, 삼절의 그는 우리 형제라에서는 손을 자기 가슴 쪽으로 당겨 오며, 오절의 자기 형제 칠십인에서는 오른쪽 아버지 집을 가리킵니다. 형제라는 한 낱말을 따라가는 손은 왼쪽과 가슴과 오른쪽으로 몸을 한 바퀴 다 돕니다. 반면 이절의 뼈와 살을 읽을 때 손은 바깥의 누구도 가리키지 않은 채 자기 팔 위에만 머물고, 오절 끝 남으니라에 이르면 모든 손짓을 거두고 한 호흡 정지합니다.</p>
+<p>저녁 식탁에서 우리가 흔히 주고받는 우리 식구끼리인데 뭘이라는 다정한 인사말이, 때로는 마땅히 갖추어야 할 서류를 생략하거나 한 가족 구성원의 의견을 묻지 않고 넘어가는 구실로 쓰일 때가 있습니다. 처음에 우리는 형제라는 말이 사람과 사람을 하나로 묶는 말이니 당연히 서로를 지켜 주는 말일 것이라 기대했습니다. 그러나 본문의 차원적 이동은 묶는 말이 저절로 지키는 말이 되지는 않는다는 깊은 전복을 일깨웁니다. 호칭은 관계를 부를 뿐 그 뒤의 동사를 결정하지 못하며, 정경은 이 비극적인 간극에 즉각적인 평가를 덧붙이는 대신 구장 오십육절에 이를 때까지 판정을 미루어 두어 읽는 우리의 성급한 입술을 잠시 멈추게 합니다.</p>
+<h3>관계 칸과 사유 칸을 나누어 적는 정직과 책임의 열매</h3>
+<p>칼뱅은 기독교강요의 제육계명 해설에서 모든 사람이 하나님의 형상이요 우리의 살이므로 이웃의 몸을 해치지 않는 데서 그치지 않고 그 생명을 지키는 데까지 힘써야 한다고 가르쳤습니다. 아비멜렉이 지지를 끌어오려 썼던 뼈와 살이라는 몸의 언어를, 개혁신학은 도리어 이웃의 생명을 끝까지 보호해야 할 책임의 근거로 읽어 내는 것입니다. 물론 우리는 이 본문을 아비멜렉 같은 지도자를 색출하는 정치 풍자나 단순한 처세훈으로 전락시키지 말아야 하며, 다섯 절에 하나님 이름이 없다는 사실을 하나님의 부재로 비약해서도 안 됩니다. 다만 정경 전체의 빛 아래서, 형제라 부르기를 부끄러워하지 않으시고 형제들을 위해 자기를 내어 주신 그리스도의 자리를 조용히 우러러볼 뿐입니다.</p>
+<p>이 말씀이 오늘 우리의 실무와 일상에서 맺는 인격의 열매는 관계의 언어와 사유의 언어를 정직하게 구별하는 책임감입니다. 가족 간 금전 거래를 다루는 세무 상담에서 의뢰인이 가족끼리니까 따로 적을 게 없다고 말할 때, 상담 메모를 관계 칸과 사유 칸으로 분명히 나누어 가족이라는 말은 관계 칸에만 적고 사유를 모르면 추정 대신 미확인으로 남겨 두어 훗날 다른 가족 앞에서도 투명하게 답할 수 있는 기록을 남기십시오. 교회 직분 추천서 양식에도 우리 교회에서 자란 형제라는 말 외에 맡을 일과 관련된 추천 사유를 한 줄 이상 반드시 적게 하고 회의 발언권을 명단 순으로 고르게 돌리며, 한 주간 내 수첩에 내가 우리 사람이라는 말을 어떤 동사 앞에 이유처럼 가져다 썼는지 돌아보는 정직한 성찰이 우리 삶에 깊이 뿌리내리기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 27편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

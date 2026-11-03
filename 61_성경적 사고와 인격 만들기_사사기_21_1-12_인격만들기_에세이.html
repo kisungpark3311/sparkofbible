@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>사슬 밖에 늦게 선 말과 두 손을 든 채 멈추는 인격</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 61편 &middot; 사사기 21:1-12</span>
+      <h1>사슬 밖에 늦게 선 말과 두 손을 든 채 멈추는 인격</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 누군가와 대화를 나누거나 공동체의 회의를 진행할 때, 그때 우리가 이미 그렇게 정했잖아라는 말 한마디가 지금의 모든 선택지를 단숨에 묶어 버리는 장면을 종종 마주합니다. 사사기 21장 1절과 5절, 그리고 7절에 걸친 맹세의 기록은 바로 그렇게 뒤늦게 불려 나온 말들이 문면에 어떤 모양으로 서는지를 정밀하게 보여 줍니다. 앞선 20장의 치열한 사건 기록 속에는 단 한 번도 등장하지 않던 샤바, 곧 맹세라는 낱말이 21장에 들어서서야 세 차례 모습을 드러냅니다. 흥미로운 점은 독자가 그들이 실제로 손을 들고 맹세하는 현장을 본 적이 없으며, 오직 이미 있던 일을 알리는 배경과 명사, 그리고 회상의 꼴로만 그 말을 전해 듣는다는 사실입니다.</p>
+<p>성경을 깊이 읽어가며 성경적 사고와 인격을 빚어간다는 것은 본문이 말하지 않은 인과관계를 지어내어 그럴듯한 교훈을 뽑아내는 일이 아닙니다. 오히려 본문이 어떤 문법적 꼴로 말을 세웠는지를 차분히 관찰하고, 본문이 끝내 적어 넣지 않은 때와 무게와 결과의 빈칸 앞에서 내 판단을 멈출 줄 아는 절제를 익히는 과정입니다. 미스바의 두 맹세가 모두 사람의 입에서 불렸고 하나님은 그 맹세의 주어로 서지 않는다는 사실 앞에서, 우리는 늦게 드러난 말을 드러난 만큼만 받고 비워 둔 칸은 비워 둔 채로 마주하는 정직한 읽기의 자리로 나아갑니다.</p>
+<h3>사건의 사슬 밖에서 배경과 명사와 회상으로 선 맹세</h3>
+<p>원문의 문법 구조를 따라가 보면 21장의 맹세 세 자리는 각기 다른 꼴을 하고 있습니다. 20장 끝까지 숨 가쁘게 이어지던 이야기 동사의 사슬은 21장 1절에서 접속사와 명사 주어, 그리고 완료형 동사가 결합된 이접절로 바뀌며 사슬 밖에 섭니다. 이는 사건을 다음으로 넘기는 서술이 아니라 이미 있던 일을 뒤늦게 알리는 배경의 꼴이며, 원문은 이스라엘 사람이라는 단수 주어와 자기 딸이라는 단수 목적어를 써서 각 사람을 묶는 서약으로 첫째 맹세를 제시합니다. 반면 5절의 둘째 맹세에는 아예 맹세하다라는 동사조차 없이 그 큰 맹세가 있었다는 명사구만 덩그러니 놓여 있어, 사람의 행위가 아니라 마치 이미 놓여 있는 사물처럼 서술됩니다.</p>
+<p>이어지는 7절에 이르러서야 비로소 우리는 여호와로 맹세하였다는 1인칭 복수 회상 속에서 맹세의 대상이 처음으로 밝혀지며, 1절에서 단수로 적혔던 딸도 우리 딸들 가운데서라는 복수로 불립니다. 게다가 개역한글은 7절에 우리가 전에라는 말을 넣어 시간의 앞뒤를 만들었지만, 원문은 완료형 동사 하나로 이미 맹세했음을 말할 뿐 전에라는 낱말을 두지 않습니다. 5절의 반드시 죽임을 당하리라 역시 죽이는 주체를 비워 둔 수동형임에도 역본은 반드시 죽일 것이라며 능동의 주체를 채워 넣었습니다. 이처럼 역본이 보탠 낱말들을 걷어내고 원문의 꼴을 마주할 때, 우리는 읽는 사람이 본문의 빈칸을 얼마나 채우고 싶어 하는지를 깨닫게 되며 드러난 만큼만 받는 법을 배우게 됩니다.</p>
+<h3>어떻게 하랴와 우리는 맹세했다를 동시에 든 두 손의 자세</h3>
+<p>21장 7절 한 절 안에는 남은 자들에게 우리가 어떻게 하랴라는 물음과 그런데 우리는 여호와로 맹세했다는 진술이 접속사 하나로 나란히 묶여 있습니다. 이를 몸의 자세로 옮겨 보면, 한쪽 손은 어떻게 하랴라며 앞으로 내밀어 손바닥을 펴고 다른 쪽 손은 이미 한 맹세를 확인하듯 어깨 높이로 들고 있는 형국입니다. 두 손은 모두 우리라는 한 몸에서 나왔지만, 두 손을 동시에 들고 버티는 자세는 불편하기에 우리의 몸과 마음은 자꾸만 어느 한 손을 먼저 내리고 싶어 합니다. 오른손을 내리면 둘째 맹세로 첫째 맹세를 풀었다는 뒷이야기가 만들어지고, 왼손을 내리면 물음을 접었다는 이야기가 만들어집니다.</p>
+<p>그러나 원문은 두 문장을 같은 숨에 나란히 세워 둘 뿐 어느 손이 내려졌는지 끝내 적지 않으며, 두 맹세의 관계를 설명하는 칸을 완전히 비워 둡니다. 세무 실무에서 전임자의 서류철을 인수인계받았을 때나 법정과 가족회의에서 이미 합의했다는 주장이 나올 때는 언제 누구와 맺었는지 입증하고 효력을 판단하는 절차가 뒤따르지만, 사사기 본문에는 그 효력을 판정하는 칸이 아예 없습니다. 칼빈이 제3계명을 해설하며 하나님의 이름으로 맹세하는 일의 무게를 짚었으나, 본문이 율법 조항을 끌어와 이 맹세들의 옳고 그름을 판결하지 않았기에 우리 또한 맹세를 신중히 하라거나 끝까지 지키라는 도덕주의적 결론으로 이 본문을 소비하지 않고 두 손을 든 그 긴장의 자리에서 멈추어 섭니다.</p>
+<h3>보이는 칸과 비어 있는 칸을 나누어 적는 일상의 성숙</h3>
+<p>늦게 선 말 앞에서 멈출 자리를 아는 이 성경적 사고는 목회와 세무 실무, 그리고 일상의 의사결정 현장에서 정직하고 겸손한 인격의 열매로 이어집니다. 성경공부 모임에서 결국 맹세 때문에 이런 비극이 생긴 것이냐는 질문이 나올 때, 인도자는 섣불리 단정하는 대신 20장에는 맹세가 없었다는 사실과 21장 7절에 두 문장이 나란히 서 있다는 사실을 함께 확인하고 근거 없는 추측의 줄을 지워 나갑니다. 그리할 때 모임은 10절부터 12절까지의 아픈 장면을 섣부른 토론의 재료나 변호의 도구로 소비하지 않고 본문이 멈춘 자리에서 함께 멈추는 경외를 경험하게 됩니다.</p>
+<p>마찬가지로 세무 상담 현장에서 예전에 작성된 확인서 한 장이 뒤늦게 발견되어 현재의 업무 처리를 막는 것처럼 보일 때, 숙련된 실무자는 문서에 적힌 내용이라는 보이는 칸과 작성 경위 및 현재의 효력이라는 비어 있는 칸을 엄격히 구분합니다. 문서가 밝히지 않은 처리 주체를 짐작으로 보태어 설명하지 않고, 늦게 발견된 일과 그때 맺어진 일을 섞지 않은 채 확인할 항목을 정직하게 묻는 것입니다. 교회의 회의 자리에서도 누군가 예전에 이미 다 정한 일이라며 논의를 가로막을 때, 출처 확인 없이 현재를 묶으려 하는 말에서 막연한 시간의 표지를 걷어내고 실제 회의록의 유무를 차분히 살피는 태도가 바로 빈칸을 침범하지 않는 성숙한 인격의 모습입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 61편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

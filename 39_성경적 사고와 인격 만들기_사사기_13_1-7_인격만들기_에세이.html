@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>끝을 비워 둔 시작의 문장 앞에서 내려놓지 않는 손</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 39편 &middot; 사사기 13:1-7</span>
+      <h1>끝을 비워 둔 시작의 문장 앞에서 내려놓지 않는 손</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 13장 5절의 마지막 문장인 그가 블레셋 사람의 손에서 이스라엘을 구원하기 시작하리라를 우리말로 소리 내어 읽을 때, 우리의 귀에는 대개 구원이라는 낱말이 가장 먼저, 그리고 가장 크게 들립니다. 그러나 히브리어 원문 베후 야헬 레호쉬아의 어순과 문법 구조를 낯설게 들여다보면, 문장의 중심에서 인칭과 시제를 짊어진 정동사는 구원하다가 아니라 시작하다를 뜻하는 야헬 하나뿐입니다. 구원하다를 뜻하는 레호쉬아는 그 시작하다라는 정동사 뒤에 부정사 연계형으로 붙어 보충하는 역할을 맡고 있습니다.</p>
+<p>게다가 히브리어 동사 야헬 안에는 이미 삼인칭 단수 남성의 주어가 들어 있음에도, 문장 머리에는 그가를 뜻하는 독립 인칭대명사 베후가 따로 앞서 서서 태어날 그 아이를 가리킵니다. 약속의 무게가 무엇을 이루는가보다 어떤 모양으로 문을 여는가에 먼저 실려 있는 셈입니다. 무엇보다 이 일곱 절 안에서는 사자의 입에서만 이 문장이 한 번 발화될 뿐 여인이 남편에게 옮긴 7절의 말에는 등장하지 않으며, 단락 어디에도 그 시작이 어디서 끝나는지를 알려 주는 낱말이 없습니다.</p>
+<h3>관행의 끝이 없는 착수의 말과 나란히 선 두 구절</h3>
+<p>일의 방향과 행위자를 정하되 끝을 적지 않는 착수의 문형은 우리의 실무와 자연의 영역에서도 자주 발견됩니다. 회계 장부는 기초 잔액을 옮겨 적는 개시 분개로 열리지만 그 기의 손익 결산은 적지 않고, 계약 실무에서 오가는 착수금은 일에 손을 대는 출발을 알릴 뿐 결과의 성공이나 실패를 미리 보증하지 않으며, 대지에 심긴 씨앗의 발아는 생명이 움직이기 시작한 첫 순간을 보여 줄 뿐 가을의 열매를 직접 말하지 않습니다. 그러나 장부에는 정해진 결산일이 있고 계약서에는 잔금 조항이 있으며 씨앗에는 생물학적 성숙의 경로가 있는 반면, 사사기 13장 5절에는 그러한 관행의 끝을 암시하는 단서조차 문장 곁에 놓여 있지 않습니다.</p>
+<p>한편 모음까지 완전히 일치하는 야헬이라는 어형은 구약 전체에서 사사기 10장 18절과 13장 5절 단 두 번 나타나며, 이 정밀한 계수 기준을 조금이라도 느슨하게 하면 같은 꼴의 수가 달라집니다. 두 구절은 시작하리라라는 동사 칸 하나만 공유할 뿐, 앞선 10장 18절은 길르앗 백성이 누가 싸움을 시작할꼬라고 묻는 말이고 13장 5절은 사자가 그가 구원하기 시작하리라고 선언하는 말이어서 주어 칸과 보충 칸이 뚜렷이 갈립니다. 따라서 설교자가 땅의 물음에 하늘이 답했다는 극적인 구도로 두 본문을 잇거나, 빈 끝 칸을 견디지 못해 사무엘이나 다윗 같은 다음 주자를 미리 세워 삼손은 시작만 했다고 깎아내리는 릴레이 비유는 모두 본문에 없는 결승선을 밖에서 들여오는 일입니다.</p>
+<h3>내려놓지 않는 손의 무게와 끝을 맡기는 섭리 신앙</h3>
+<p>본문이 끝을 비워 둔 이 긴장을 몸의 감각으로 오롯이 느껴 보기 위해, 자리에서 일어나 13장 5절을 소리 내어 읽으며 시작하리라에 이르렀을 때 오른손을 앞으로 내밀어 손바닥을 위로 펴 봅니다. 문장이 끝난 뒤에도 손을 거두지 않고 눈을 감은 채 다섯 번 숨을 쉬는 동안, 팔은 점점 무거워지고 얼른 손을 내려 결론을 짓고 싶은 충동이 근육을 타고 올라옵니다. 그 상태에서 눈을 뜨고 그 문장이 빠져 있는 7절을 읽은 뒤, 주먹을 쥐거나 아래로 긋는 닫는 몸짓 없이 천천히 옆구리로 손을 내릴 때, 우리는 본문의 끝을 미리 정해 주고 싶어 하는 설교자의 조급함과 결론을 듣고 싶어 하는 회중의 갈망이 한 쌍임을 체감하게 됩니다.</p>
+<p>시야를 일곱 절 밖으로 넓혀도 본문은 삼손의 생애나 후대 역사로 이 문장의 끝을 판정하지 않으며, 사자를 성육신 전의 그리스도로 삼거나 마태복음의 수태 고지로 곧장 이어 붙이는 예표론적 재료도 이 본문 안에는 없습니다. 다만 본문 자체의 어휘가 아니라 정경 전체를 읽는 교회의 고백이라는 다른 층에서, 우리는 착한 일을 시작하신 이가 이루실 줄을 확신한다는 빌립보서의 고백과, 섭리 교리의 참된 유익은 미래를 캐내는 호기심이 아니라 하나님께 맡기는 신뢰와 겸손에 있다는 칼뱅의 가르침을 함께 듣습니다. 13장 5절 앞에서 끝을 쥐고 있는 손은 읽는 내 손이 아님을 인정하는 것, 그것이 본문의 경계를 지키는 정직한 믿음입니다.</p>
+<h3>기다림의 대화와 세무 착수 안내문에 담는 빈칸의 지혜</h3>
+<p>시작의 정동사 앞에 끝 칸을 비워 두는 성경적 사고는 목회 상담과 교회 행정, 그리고 세무 실무의 언어를 한결 정직하고 따뜻하게 다듬어 줍니다. 오랜 기도 제목을 품고 언제쯤 이 터널이 끝날까요라고 묻는 성도 앞에서, 목회자는 13장의 수태 고지를 그 성도의 개인적 결과를 보장하는 약속으로 함부로 옮기지 말아야 합니다. 대신 본문도 저도 그 끝을 대신 정하지 않겠습니다라는 경계를 부드러운 말로 건네고 그 열린 끝을 하나님께 함께 맡기는 기도로 나아갈 때, 성도는 값싼 위로 대신 자신의 아픔이 함부로 다뤄지지 않았다는 깊은 존중을 경험합니다. 교회에서 새 사역이나 공사를 시작하며 공지문을 쓸 때에도 확정되지 않은 완료일이나 다음 단계를 약속처럼 미리 적어 기대를 부풀리지 않는 절제가 필요합니다.</p>
+<p>세무사가 고객의 의뢰를 받아 업무에 착수하면서 안내문을 보낼 때에도 이 네 칸의 틀은 그대로 살아 움직입니다. 안내문에는 담당자가 누구인지, 어떤 세무 업무를 시작하는지, 어떤 범위로 진행하는지를 명확히 적되, 네 번째 끝 칸에는 결과가 아직 정해지지 않았다는 사실을 정직하게 밝혀 결과를 미리 보장하거나 반대로 미리 깎아내리는 말을 넣지 않는 것입니다. 새해나 새 계절에 개인적인 다짐을 적을 때에도 시작하겠다는 정동사로 문장을 세우고 결과로 시작의 가치를 재단하는 습관에서 한 걸음 물러설 때, 우리는 열린 끝을 주님께 맡긴 채 오늘 내게 주어진 시작의 한 걸음을 묵묵히 걸어갈 수 있습니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 39편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

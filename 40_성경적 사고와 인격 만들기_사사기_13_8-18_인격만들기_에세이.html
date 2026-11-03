@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>이름표를 비워 둔 그릇에 담긴 되물음, 고르지 않은 대답을 견디는 손</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 40편 &middot; 사사기 13:8-18</span>
+      <h1>이름표를 비워 둔 그릇에 담긴 되물음, 고르지 않은 대답을 견디는 손</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 낯선 일이나 이해할 수 없는 사건을 마주할 때마다 먼저 이름을 붙이려 애씁니다. 이름을 알아야만 장부의 어느 칸에 적을지 결정할 수 있고, 이름을 알아야만 그 일을 어떻게 대하고 기념할지 마음의 자리를 정할 수 있다고 믿기 때문입니다. 사사기 13장 17절에서 마노아 역시 사자에게 나아가 당신의 이름이 무엇이니이까, 당신의 말씀이 이룰 때에 우리가 당신을 존숭하리이다 하고 묻습니다. 마노아가 그 사람 앞에서 건넨 네 번의 말 가운데, 왜 묻는지를 밝히는 이유절을 단 물음은 오직 이것 하나뿐이었습니다. 이름표 자리를 반듯하게 파 놓은 그릇을 두 손으로 내밀며, 말씀이 이루어지는 날 당신을 높이고 싶다는 진심을 담아 이름을 청한 것입니다.</p>
+<p>그러나 돌아온 대답은 마노아가 내민 그릇에 이름표를 채워 주지 않았습니다. 사사기 13장 18절에서 여호와의 사자는 어찌하여 내 이름을 묻느냐는 되물음을 먼저 건네고, 이어 동사도 없이 대명사와 형용사만 나란히 놓인 베후 펠리, 곧 그것 혹은 그는 기이하다는 짧은 두 낱말을 내려놓습니다. 물음 셋 가운데 질문의 낱말을 대답이 그대로 되받는 자리는 이 구절 하나뿐인데, 정작 내 이름이라는 뜻의 히브리어 리쉬미는 이름을 알려 주는 문장이 아니라 되묻는 문장 안에 들어 있었습니다. 이름을 물었더니 물음이 다시 그릇에 담겨 돌아왔고, 그 곁에 어디로 분류해야 할지 표시되지 않은 기이하다는 낱말 하나가 조용히 놓인 셈입니다.</p>
+<h3>대답에서 물음 속으로 옮겨진 내 이름, 열려 있는 세 갈림길</h3>
+<p>개역한글 성경으로 어찌하여 이를 묻느냐 내 이름은 기묘니라 하는 구절을 읽으면, 마치 묻지 말아야 할 것을 물었지만 특별히 이름을 공개해 주겠다는 선언처럼 들립니다. 그러나 히브리어 원문의 어순을 따라가 보면 놀라운 전복이 일어납니다. 개역한글에서 대답 쪽에 놓여 있던 내 이름이라는 낱말이 원문에서는 되물음 안에 자리하고 있고, 대답의 꼬리에는 이름이라는 명사가 아예 없기 때문입니다. 이 한 낱말의 자리 이동이 이름을 확정해 준 문장과 판정을 열어 둔 문장을 가릅니다. 더구나 마노아의 물음인 미 쉬메카는 무엇이 아니라 사람을 묻는 의문사 미를 이름에 붙여 사람과 이름을 겹쳐 물었고, 사자의 대답 끝에 놓인 대명사 베후 역시 앞선 이름과 말하는 그 사람 사이에서 지시를 열어 둔 채 서 있습니다.</p>
+<p>이 짧은 한 절 안에는 지시대명사 제의 역할과 베후가 가리키는 대상, 그리고 구약에서 남성 단수 형용사 꼴로는 이곳에만 쓰인 펠리가 고유한 이름인지 상태를 묘사하는 술어인지라는 세 겹의 판정 보류가 정확히 자리 잡고 있습니다. 이사야 9장 6절의 명사 펠레와는 표제어부터 다르기에 이를 섣불리 메시아 칭호의 예표로 이어 붙일 수 없고, 창세기 32장 30절에서 야곱에게 건넨 되물음과도 머리는 같으나 꼬리가 갈리기에 그저 나란히 두어 바라볼 뿐입니다. 처음에는 이 구절을 이름을 알려 주지 않고 감춘 대답으로 읽기 쉬우나, 다시 원문 앞에 서면 알려 주지 않았다는 말조차 하나의 성급한 판정이었음을 깨닫게 됩니다. 성경은 물음을 묻는 이의 손에 다시 쥐여 주고, 그 옆에 한 낱말을 분류 없이 놓아두었습니다.</p>
+<h3>계정과목과 진단명을 넘어, 내민 손을 옆으로 세우는 근력</h3>
+<p>일상의 언어로 이 장면을 비추어 보면 우리에게 익숙한 비유들이 어디서 멈추는지 선명히 보입니다. 신입 직원이 전표를 들고 와 계정과목 이름을 묻는 자리나, 환자가 의사에게 병명을 묻고 관람객이 큐레이터에게 낙관 없는 그림의 작가 이름을 묻는 자리를 떠올려 봅니다. 이 세 가지 비유는 모두 이름을 알아야만 다음 처리나 치료와 감상으로 나아갈 수 있다는 마노아의 전제를 잘 보여 주지만, 결정적인 지점에서 똑같이 부러집니다. 선배나 의사나 큐레이터는 이미 정답인 이름을 알고 있으면서 잠시 대답을 미루는 것이지만, 사사기 13장 18절은 사자가 이름을 알고도 숨겼다고 말하는 문장이 아니기 때문입니다. 칼빈이 하나님에 대한 앎이란 사람이 캐내어 쥐는 것이 아니라 하나님께서 낮추어 알리시는 만큼 받는 것이라 짚었듯, 열린 대답은 결핍된 정보가 아니라 오늘 우리에게 허락된 만큼의 말씀입니다.</p>
+<p>이 열린 말씀을 머리가 아니라 몸으로 통과시켜 보면 우리의 조급함이 어디에 있는지 금세 드러납니다. 두 손을 모아 앞으로 내밀며 이름을 묻다가, 되물음 앞에서 내민 손을 천천히 가슴 쪽으로 거두어들일 때 비로소 내 물음이 내 손에 들려 있었음을 느끼게 됩니다. 그리고 그것은 기이하다는 마지막 두 낱말 앞에서 아무것도 쥐지 않은 손을 옆으로 세워 봅니다. 손바닥을 위로 뒤집으면 기묘라는 이름을 얻었다는 확신이 생기고, 손등을 보이며 아래로 내리면 거절당했다는 서운함이 생기지만, 손을 옆으로 세운 채 가만히 버티는 자세는 참으로 낯설고 불편합니다. 그러나 받은 척도 거절당한 척도 하지 않고 손을 어느 쪽으로도 돌리지 않는 그 근력이야말로, 본문이 열어 둔 봉합을 사람의 말로 닫지 않는 정직한 신앙의 자세입니다.</p>
+<h3>아직 분류하지 않은 칸을 남겨 두는 정직과 들으심의 평안</h3>
+<p>대답을 고르지 않은 본문 앞에서 우리가 맺어야 할 인격의 열매는 억지로 답을 골라내는 일이 아니라 고르지 않은 채 진실하게 전하고 머무는 일입니다. 세무 상담 창구에서 고객이 영수증을 내밀며 이건 무슨 항목으로 처리되느냐고 다급히 물을 때, 사실관계가 빠진 채 이름부터 붙여 주지 않고 어떤 일로 쓰신 것인지부터 되물어 사실의 자리를 여는 태도가 그러합니다. 이야기를 다 들은 뒤에도 판단이 곧바로 서지 않는다면 장부 메모에 아직 분류하지 않음이라는 칸을 정직하게 남겨 두고 확인 뒤에 정하는 신중함이, 이름이 사실을 앞지르지 않게 지켜 줍니다. 목회 현장과 성경 공부 자리에서도 왜 이렇게 하느냐고 묻는 새가족이나 신입 앞에서 그냥 그렇게 하는 법이라고 물음을 막지 않고, 저도 다 알지 못하니 같이 확인해 보자고 말하며 기이하다는 말씀 뒤에 두 박자의 침묵을 비워 두는 여유가 필요합니다.</p>
+<p>무엇보다 우리가 이 열린 대답 앞에서 허전함에 무너지지 않고 잠잠히 기다릴 수 있는 까닭은, 이 모든 대화의 맨 앞자리에 하나님이 마노아의 목소리를 들으셨다는 사사기 13장 9절의 문장이 먼저 서 있기 때문입니다. 들으셨다는 서술자의 선언과 네 가지 다른 꼴로 돌아온 대답 사이에는 인과의 접속사가 없기에, 대답이 내 틀과 어긋났다고 해서 기도가 거절된 것도 아니고 들으셨다고 해서 내 물음의 모양대로 대답이 와야 하는 것도 아닙니다. 매주 개인 기도 일지를 쓸 때 응답됨과 응답 안 됨이라는 두 칸의 이분법을 넘어, 그저 하나님이 들으셨다 한 줄을 적어 넣어 보시기 바랍니다. 마침내 아들 안에서 자기 이름을 밝히 알리시는 정경의 더 큰 이야기 속에서, 오늘 우리 손에 돌아온 되물음조차 들으시는 하나님 안에 있음을 믿으며 평안히 걸어가는 우리가 되기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 40편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

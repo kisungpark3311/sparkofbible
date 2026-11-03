@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>한 글자도 바뀌지 않은 평안의 두 낱말, 바뀐 이웃 앞에서 판정을 멈추다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 53편 &middot; 사사기 18:21-31</span>
+      <h1>한 글자도 바뀌지 않은 평안의 두 낱말, 바뀐 이웃 앞에서 판정을 멈추다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 18장 7절과 27절을 나란히 세워 놓고 읽으면, 거센 사건의 물결 속에서도 미동조차 하지 않는 두 낱말이 눈에 들어옵니다. 개역한글이 두 자리 모두 "한가하고 평안한"으로 옮긴 히브리어 '쇼케트 우보테아흐'는 칼 능동분사 남성 단수 두 개가 접속사로 묶인 표현으로, 구약 성경 전권을 통틀어 오직 이 두 구절에만 나란히 서 있습니다. 사사기 안의 다른 네 곳(3:11, 3:30, 5:31, 8:28)에서는 같은 어근이 "그 땅이 태평하였다"는 정동사 문장으로 쓰였으나, 유독 18장의 두 자리에서는 땅이 아니라 라이스 백성을 꾸미는 분사로 서 있습니다.</p>
+<p>놀라운 것은 7절에서 정탐꾼 다섯이 보았던 백성을 꾸미던 그 두 분사가, 27절에서 단 자손이 칼날을 들고 이르렀을 때에도 철자 한 획 바뀌지 않은 채 그대로 서 있다는 사실입니다. 처음 이 본문을 대할 때 우리는 흔히 평안을 묘사하던 말이 공격의 표적을 묘사하는 말로 변했다고 생각하기 쉽습니다. 그러나 낱말의 차원에서 두 구절은 조금도 달라지지 않았습니다. 바뀐 것은 두 분사 자체가 아니라 그 낱말을 둘러싼 문장의 이웃들이며, 서술자는 두 자리 모두에서 그 백성을 향한 어떤 평가어도 붙이지 않은 채 판정란을 비워 두고 있습니다.</p>
+<h3>낱말은 그대로인데 바깥의 이웃들이 바뀌다</h3>
+<p>두 절을 문법의 눈으로 찬찬히 견주어 보면, 움직이지 않는 두 분사 바깥에서 네 가지 이웃이 바뀐 것이 보입니다. 첫째로 꾸밈을 받는 명사 '암'(백성)에 7절에는 정관사가 붙어 있고 27절에는 관사가 없습니다. 둘째로 그 명사를 받는 앞의 동사가 7절에서는 정탐꾼들이 "보았다"('바이르우')였는데, 27절에서는 단 자손이 "이르렀다"('바야보우 알')로 바뀌었습니다. 셋째로 7절에서 두 분사 곁에 함께 서 있던 "염려 없이 거하여 시돈 사람 같이"라는 말들이 27절에서는 모두 빠졌고, 넷째로 7절에서는 그 뒤로 정동사 없는 상태 묘사가 이어진 반면 27절에서는 곧바로 "칼날로 그들을 치며 불로 그 성읍을 사르되"라는 주동사가 따라붙습니다.</p>
+<p>같은 단락 안의 7절과 28절에 글자까지 똑같이 서 있는 "아무 사람과도 상종하지 아니함이라"('베다바르 에인 라헴 임 아담', 그들에게는 사람과 거래가 없다)라는 문구도 정확히 같은 짜임을 보여 줍니다. 한 번은 정탐꾼이 본 모습의 끝에 서고, 다른 한 번은 "건질 자가 없었다"는 이유 자리에 섭니다. 다만 여기서 보이는 것과 우리가 생각한 것을 엄격히 갈라야 합니다. 정탐꾼이 본 평안이 칼날을 불렀다거나, 그들이 무방비하고 고립되어서 화를 당했다는 해석은 독자의 생각이지 본문의 관찰이 아닙니다. 18장 27절에서 문법상 없어도 문장이 성립하는 두 분사는 사건의 원인을 심판하는 낙인이 아니라, 7절과 27절을 조용히 이어 주는 문장의 끈으로 서 있을 뿐입니다.</p>
+<h3>다른 서류로 옮겨 간 상담 메모와 같은 억양으로 읽기</h3>
+<p>고쳐 쓰이지 않은 묘사어가 다른 문맥으로 옮겨 갈 때 어떤 일이 벌어지는지는 실무 현장의 유추를 통해 선명히 이해할 수 있습니다. 세무 사무소의 첫 상담 기록에 "대표자 개인 현금 여유 있음, 거래처 적음"이라고 적어 둔 메모가 있다고 해 봅시다. 처음 그 문구는 상담하며 '보았다'나 '들었다'는 동사 곁에 섰지만, 몇 해 뒤 같은 문구가 고쳐지지 않은 채 신용 심사 자료나 체납 처분 검토서로 옮겨지면 그 문구는 '검토한다'나 '청구한다'는 새로운 동사 곁에 서게 됩니다. 똑같은 선율이 다른 화음 위에서 다르게 들리고 똑같은 사진 캡션이 여행 안내서와 사건 보도에서 전혀 다른 빛깔을 띠듯, 묘사어는 자기를 받을 다음 동사를 스스로 고르지 못합니다.</p>
+<p>이 원리를 몸으로 체득하기 위해 18장 7절과 27절의 직역을 소리 내어 읽되, 두 구절의 "한가하고 평안한"을 똑같은 억양으로 읽는 연습을 해 봅니다. 7절을 읽을 때 부러운 듯 목소리를 높이지 않고, 27절을 읽을 때 뒤에 "쳤다"가 온다는 것을 미리 알고 슬프거나 비장하게 목소리를 낮추지도 않는 것입니다. 실제로 소리 내어 읽어 보면 뒤에 올 칼날을 아는 우리의 입이 앞의 두 낱말에 벌써 감정의 색깔을 입히려 한다는 것을 몸이 먼저 알아차립니다. 개역한글이 27절의 두 번째 전치사 '알'을 원문에 없는 동사 "만나"로 풀어 옮긴 것이나, 흔한 설교가 이를 "안일함의 경고"로 채색하는 것도 다 그 끌림에서 비롯됩니다. 같은 억양을 지킬 때 비로소 바뀐 것은 내 목소리가 아니라 문장의 이웃이라는 사실이 귀에 들려옵니다.</p>
+<h3>참된 평안을 주시는 이를 바라보며 기록의 윤리를 세우다</h3>
+<p>사사기 18장 21절부터 31절에는 하나님이 주어로 서는 동사가 없고, 31절의 "하나님의 집"이라는 구절에 엘로힘이 한 번 등장할 뿐입니다. 그렇다고 해서 라이스 백성을 깨어 있지 못한 도덕주의의 표본으로 삼거나, 단 지파의 폭력을 약속의 땅 성취로 정당화하거나, 28절의 "건질 자가 없었다"는 구절을 하나님의 부재나 그리스도의 반대 그림으로 억지 연결해서는 안 됩니다. 웨스트민스터 신앙고백 1장 9항과 아우구스티누스의 『기독교 교양』이 일깨우듯 더 분명히 말하는 본문이 없을 때는 판정을 열어 두어야 합니다. 다만 본문 밖 정경 전체의 층위에서 요한복음 14장 27절을 곁에 둘 때, 세상이 주는 것과 다른 참된 평안을 주시는 분은 예수 그리스도시라는 복음의 빛이 라이스 백성을 정죄하지 않으면서도 조용히 우리의 비교 축을 밝혀 줍니다.</p>
+<p>낱말의 이웃을 살피고 판정란을 비워 두는 이 성경적 사고는 목회와 세무, 일상의 기록 윤리를 새롭게 빚어 줍니다. 몇 해 전 심방 기록에 적힌 "가정 평안, 생활 안정"이라는 한 줄을 오늘 구제나 장학 심의 자료로 옮길 때, 목회자는 옛 문구를 그대로 가져와 "그때 평안했으니 지금도 괜찮을 것"이라 판정하지 않고, 당시 그 말을 적은 날짜와 관찰의 맥락을 함께 밝힌 뒤 오늘의 형편을 새로 여쭈어 적어야 합니다. 세무 사무소에서 상담 메모의 문구를 다른 업무 서류로 넘길 때에도 문구 바로 뒤에 몇 년 몇 월 상담 시 대표자 진술이라는 처음의 동사 자리를 괄호로 함께 붙여 주고, 오래된 단톡방 캡처를 다른 대화방에 전달할 때에도 처음 쓴 날짜와 맥락을 붙일 수 없으면 보내지 않는 절제를 실천해야 합니다. 본문이 비워 둔 판정란 앞에서 내 섣부른 단정을 거두고, 타인의 지난 말을 오늘의 칼날 옆에 함부로 옮겨 놓지 않는 신실한 인격으로 자라가기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 53편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

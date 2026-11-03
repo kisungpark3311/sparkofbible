@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>접힌 역어를 펴서 마주하는 두 손의 경계, 요구되는 증거와 와 있는 사람의 이름</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 23편 &middot; 사사기 8:4-9</span>
+      <h1>접힌 역어를 펴서 마주하는 두 손의 경계, 요구되는 증거와 와 있는 사람의 이름</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 8장 6절에서 숙곳 방백들은 기드온에게 세바와 살문나의 손이 지금 어찌 네 손에 있관대 우리가 네 군대에게 떡을 주겠느냐고 묻습니다. 우리말 성경으로 읽으면 손이 손에 있느냐는 말은 같은 낱말의 단순한 되풀이로 들리지만, 히브리어 원문을 펼쳐 보면 문장의 양 끝에 서로 다른 두 명사가 서 있다는 사실이 드러납니다. 앞에 놓인 세바와 살문나의 손은 손바닥을 뜻하는 카프이고, 뒤에 놓인 기드온의 손은 야드입니다. 더욱이 이 의문문의 주절에는 있느냐에 해당하는 동사가 아예 없으며, 의문 표지 하가 동사 없이 명사 카프에 곧장 붙어 지금이라는 부사 아타와 함께 무엇이 어디에 놓여 있는가라는 위치 관계를 묻습니다.</p>
+<p>문장 안의 유일한 정동사인 우리가 주겠느냐는 종속절 뒤로 밀려나 있고, 수령자는 피곤한 백성이 아니라 네 군대로 불립니다. 번역어 하나가 접어 둔 두 손을 펴서 읽으면, 이 물음이 겨누는 과녁은 네가 무엇을 했느냐라는 수고의 과정이 아니라 여기 없는 증거가 지금 네 손 안에 들어와 있느냐라는 결과의 유무임이 선명해집니다. 사사기 전체에서 카프가 쓰인 여섯 곳 가운데 연계형으로 주인 이름을 받는 네 곳은 모두 6장에서 8장 사이의 기드온 단락에 몰려 있고 전부 적의 손바닥을 가리키는데, 이 분포는 왜 두 낱말을 갈랐는지 정답을 알려 주는 대신 두 낱말을 한 낱말로 뭉뚱그려 읽지 말라고 독자를 멈춰 세우는 표지가 됩니다.</p>
+<h3>증거가 먼저 서는 물음의 구조와 갈라 적기의 한계</h3>
+<p>요구되는 부재의 증거를 앞세우고 눈앞에 와 있는 사람의 손은 그것을 담을 그릇으로만 부르며 주는 일을 확인 뒤로 미루는 이 문형은 오늘 우리의 세무와 금융, 교회 행정과 일상 대화에서도 끊임없이 반복됩니다. 세무 상담실에서 증빙 서류를 먼저 묻고, 은행 창구에서 담보와 소득 자료를 요구하며, 교회 행정에서 사역을 마치고 돌아온 이에게 식사보다 결과 보고서와 정산서를 먼저 찾고, 도움을 청한 친구에게 결과부터 보여 달라고 말하는 식입니다. 물론 세무나 금융의 증빙 요구는 법과 계약에 근거한 정당한 절차이며, 사사기 본문은 숙곳 방백들의 물음을 옳다고도 그르다고도 판정하지 않기에 문형의 같음을 정당성의 같음으로 섞어서는 안 됩니다.</p>
+<p>이 구조는 상담 책상 위의 증빙철과 그것을 들고 온 사람의 내민 손, 법정의 증거물 번호와 증인석에 선 증인, 혹은 같은 음높이를 내지만 음색이 다른 바이올린과 클라리넷의 유추로 비추어 볼 때 더욱 또렷해집니다. 만약 장부나 법정 기록에서 증빙과 상담인을 둘 다 자료라는 한 이름으로 묶어 버린다면 무엇이 부족하고 누가 지금 내 앞에 와 있는지가 동시에 지워지고 맙니다. 다만 법정의 구분에는 제도적 목적이 분명하지만 사사기 8장 6절이 왜 두 낱말을 갈랐는지는 본문에 목적이나 이유가 적혀 있지 않으므로, 우리는 갈라 적기의 사실과 구조만 가져올 뿐 그 너머의 의도는 열린 채로 남겨 두어야 합니다.</p>
+<h3>편 손바닥과 늘어뜨린 손의 감각, 그리고 먼저 주어진 은혜의 순서</h3>
+<p>머리로 확인한 두 칸의 경계를 몸의 감각으로 옮겨 보면 우리가 왜 쉽게 상대의 수고를 지우는지 깨닫게 됩니다. 눈을 감고 왼손은 손바닥이 위로 오게 활짝 펴서 요구되는 증거의 자리로 삼고, 오른손은 편안히 아래로 늘어뜨려 내 앞에 선 사람의 손으로 삼은 뒤 우리말로 손이 지금 어찌 네 손에 있관대를 읽어 보면, 두 손이 한 덩어리로 묶이며 온 신경이 무엇인가 올려놓아야 하는 왼손으로만 쏠립니다. 반대로 카프와 야드를 갈라 부르며 주의를 옮기면 아무것도 쥐지 못한 채 내 앞에 서 있는 오른손의 존재가 비로소 따로 느껴집니다. 있느냐라는 무동사 물음은 있다와 없다만 답으로 허락하기에, 추격 중이라는 과정이나 피곤하다는 몸의 사정을 문장 밖으로 밀어내는 것입니다.</p>
+<p>정경 안에서 신명기 23장 4절은 길 가는 형제를 떡과 물로 영접하지 않은 일을 책망하고, 칼뱅의 제6계명 해설과 하이델베르크 요리문답 제107문은 이웃을 해치지 않는 것을 넘어 원수에게도 선을 행하고 생명을 돌보라고 가르치며, 로마서 12장 20절은 원수가 주리거든 먹이라고 명합니다. 사사기 8장 6절 자체에는 그리스도의 예표나 직접적인 교리가 없지만, 증거가 손에 들어오기 전에는 떡이 오가지 않는 냉혹한 세상의 대화를 평가 없이 보여 줌으로써 신약의 은혜가 서야 할 자리를 비추어 줍니다. 교회가 이웃을 먹이는 일은 착한 사람이 되자는 도덕주의가 아니라, 우리 손에 아무런 증거가 쥐어지기 전에 하나님께로부터 먼저 은혜를 받았다는 고백의 응답입니다.</p>
+<h3>요구되는 것과 와 있는 사람을 다른 이름으로 부르는 인격의 열매</h3>
+<p>이 읽기를 숙곳 사람들을 비난하는 데 쓰지 않고 오늘 내 입술의 물음을 고치는 데 적용하면 세 가지 구체적인 실천이 열립니다. 첫째로 몸이 아파 장사를 쉬었다며 기장 지연을 알리고 도움을 청하는 영세 사업자에게 아직 증빙이 오지 않았더라도, 회신 초안 위에 필요한 증빙의 이름과 고객의 이름, 그리고 그분이 쓴 아팠다는 낱말을 따로 적은 뒤 첫 문장은 그 아픔의 사정에 답하고 증빙 요청은 둘째 문단에 사물의 이름으로 적는 것입니다. 확인 절차를 포기하지 않으면서도 고객이 자료 없는 사람이라는 한 낱말로 접히지 않게 하는 환대입니다.</p>
+<p>둘째로 교회 구제 위원회의 지원 신청서에서 신청 사유 및 증빙으로 합쳐진 한 칸을 신청하신 분의 말씀과 확인할 자료라는 두 칸으로 갈라, 회의 때 신청자의 사정을 먼저 소리 내어 읽은 뒤에 자료를 검토하는 것입니다. 셋째로 오랜 병상을 지킨 가족이나 늦게 돌아온 봉사팀에게 그래서 결과는 어땠느냐는 무동사 물음이 튀어나오려 할 때, 상대의 수고가 대답이 될 수 있도록 오늘 어땠어요라고 먼저 묻고 결과는 그 뒤에 묻는 것입니다. 한 역어가 접어 둔 두 손을 펴서 요구되는 증거와 내 앞에 와 있는 사람을 다른 이름으로 부를 때, 우리의 물음은 비로소 사람을 지우지 않는 인격의 자리가 됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 23편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

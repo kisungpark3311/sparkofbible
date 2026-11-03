@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>높낮이 없는 이름들 사이에서, 부르는 입과 삼는 손을 구별하다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 34편 &middot; 사사기 10:17~11:11</span>
+      <h1>높낮이 없는 이름들 사이에서, 부르는 입과 삼는 손을 구별하다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>우리는 어떤 자리를 마주할 때 습관처럼 그 이름들의 높낮이부터 헤아리곤 합니다. 사사기 10장 17절부터 11장 11절까지 이어지는 입다의 이야기를 읽을 때도, 많은 이들이 장로들이 처음에 제안한 장관이라는 직함에서 나중에 제안한 머리라는 직함으로 조건이 올라갔다고 생각하며 이를 일종의 승진 협상처럼 읽고 싶어 합니다. 그러나 히브리어 원문의 문면을 찬찬히 들여다보면, 로쉬라 불리는 머리와 카친이라 불리는 장관 사이에 위아래를 매기는 문장은 단 한 줄도 없다는 사실을 발견하게 됩니다.</p>
+<p>다섯 절에 걸쳐 거듭 등장하는 이 호칭들은 직급의 사다리를 오르는 이야기가 아닙니다. 오히려 부르는 입과 받는 인칭, 그리고 이름 앞에 붙는 작은 전치사가 계속해서 바뀌다가, 마침내 백성이 그를 머리와 장관으로 삼았다는 한 문장으로 묶이는 과정입니다. 직함을 홀로 선 명사가 아니라 동사의 보어로 읽어 내는 성경적 사고는, 어느 이름이 더 높은가를 따지던 우리의 시선을 누가 부르고 누가 그 자리에 삼는가라는 본질적인 질문으로 옮겨 놓습니다.</p>
+<h3>서열표 없는 다섯 번의 부름과 방향을 바꾸는 전치사들</h3>
+<p>본문의 다섯 고리를 나란히 세워 보면 겹치는 것보다 달라지는 것들이 먼저 눈에 들어옵니다. 말하는 이는 미스바에 모인 방백들에서 장로들로, 다시 입다에서 서술자로 네 번 바뀌고, 말을 받는 인칭 또한 아직 정해지지 않은 누군가라는 3인칭에서 당신이라는 2인칭으로, 내가라는 1인칭을 거쳐 그를이라는 3인칭 목적어로 끊임없이 움직입니다. 특히 이름 앞에 놓인 전치사의 변화는 인상적입니다. 길르앗 모든 거민에게로 시작된 말은 우리에게로 좁혀졌다가, 입다의 입에서는 너희에게로 바뀌고, 마지막 열한째 절에서는 자기들 위에로 귀결됩니다. 누구를 향한 자리인지가 문장마다 다르게 그려지는 것입니다.</p>
+<p>음악에서 피아노의 같은 건반이 조성에 따라 다르게 불리듯, 혹은 회계 실무에서 한 거래가 계약서에서는 용역 대가로, 거래처 문서에서는 자문료로, 내부 품의서에서는 외주비로 불리다가 결산 절차에서 하나의 계정으로 확정되듯, 한 자리를 부르는 여러 호칭과 그것을 확정하여 삼는 행위는 서로 다른 층위에 있습니다. 다만 회계에는 미리 정해진 분류 체계가 있고 세상의 조직에는 직급표가 있지만, 사사기 본문에는 두 직함의 위아래를 정하는 서열표가 아예 빠져 있습니다. 협상 과정에서 잠시 사라졌던 장관이라는 이름이 마지막에 백성이 삼는 자리에서 머리와 함께 다시 불린다는 사실은, 이 사슬의 핵심이 직함의 승격이 아니라 흩어진 부름들을 하나로 거두어 묶는 행위에 있음을 보여 줍니다.</p>
+<h3>되다에서 삼다로, 명사의 사다리를 넘어 동사의 주어를 보다</h3>
+<p>방 한가운데 서서 네 모퉁이에 선 사람들의 부름을 듣는 장면을 상상해 봅니다. 등 뒤에서 허공에 대고 머리가 될 사람이 누구냐고 물을 때는 내 이름이 불리지 않았기에 고개를 돌릴 곳이 없습니다. 오른쪽과 왼쪽에서 각각 장관이 되라, 머리가 되라고 부를 때는 소리 나는 쪽으로 고개가 돌아가며 목에 피로가 쌓입니다. 그러나 네 사람이 다가와 나를 둘러서며 머리와 장관을 한 번에 말할 때는 더 이상 고개를 돌릴 필요가 없습니다. 몸은 부름에는 방향이 있고 삼음에는 둘레와 무게가 있다는 것을 먼저 알아차립니다.</p>
+<p>문법의 차원에서도 정확히 같은 전복이 일어납니다. 다섯 절에 놓인 직함들은 모두 전치사 레와 함께 동사의 보어로 서 있는데, 앞의 네 절에 쓰인 동사는 모두 되다라는 뜻의 하야이고 마지막 열한째 절만 삼다라는 뜻의 심입니다. 앞의 네 문장에서는 되는 이가 입다 쪽이었으나, 마지막 문장에서는 동사의 주어가 백성으로 바뀌고 입다는 목적어가 됩니다. 그 직후 입다는 자기의 말을 다 여호와 앞에 아뢰지만, 본문은 이 순서에 인과의 옷을 입히지 않고 아뢴 말의 내용과 하나님의 응답도 열어 둡니다. 정경 전체의 시선으로 넓혀 보면, 사람의 공동체가 지도자를 삼는 문장과 하나님께서 교회의 머리를 주시는 문장은 그 주어부터 전혀 다른 층위에 서 있음을 겸손히 고백하게 됩니다.</p>
+<h3>제안된 이름과 받아들인 이름을 나누어 적는 정직한 인격</h3>
+<p>부름의 층과 삼음의 층을 구별하고 제안된 말과 받아들인 말을 섞지 않는 안목은, 오늘 우리의 목회와 실무와 일상을 바꾸는 구체적인 인격의 열매가 됩니다. 교회에서 직분자를 세울 때 몇 사람의 대화를 거쳐 누군가를 집사로 세운다는 한 줄짜리 공고문만 남기면, 뒷날 누가 정했느냐는 다툼이 생기기 쉽습니다. 추천한 모임과 추천한 직명, 그리고 공동체가 결정하여 세우는 주체와 절차를 공고문에 나누어 적을 때, 회중은 비로소 자신들이 둘러서서 삼는 자리의 책임을 분명히 알아보게 됩니다.</p>
+<p>세무와 인사 실무에서 떠났던 경력자를 다시 부르거나 승계를 상담할 때도 마찬가지입니다. 전화로는 팀을 맡아 달라 하고 문자로는 실장이라 부르며 면담에서는 또 다른 호칭을 썼다면, 어느 직함이 더 높은지 따지기 전에 그동안 건넨 이름들과 당사자가 자기 입으로 받아들인 말을 시간 순서대로 나누어 적고 계약서의 직위 칸과 맞대어 보아야 합니다. 가정과 일터와 교회에서 여러 이름으로 불리며 흔들릴 때에도, 호칭들을 높낮이로 줄 세우지 말고 누가 나를 부르는가와 누가 나를 그 자리에 삼았는가를 나누어 적어 보십시오. 화려한 명사의 사다리를 내려놓을 때, 우리는 비로소 내가 실제로 맡은 자리의 무게와 여호와 앞에 서야 할 정직한 책임을 또렷이 마주하게 됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 34편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>결과 칸을 비워 둔 문장, 두 이름을 같은 줄에 세우는 자리</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 35편 &middot; 사사기 11:12-28</span>
+      <h1>결과 칸을 비워 둔 문장, 두 이름을 같은 줄에 세우는 자리</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>누군가와 깊게 다툰 날 밤, 우리의 머릿속에는 끝없이 되풀이되는 문장 하나가 있습니다. 나는 잘못한 것이 없는데 그가 나에게 해를 끼쳤다는 억울함의 문장입니다. 사사기 11장 27절의 앞부분에서 입다가 암몬 왕에게 건네는 말도 정확히 그 구조로 시작합니다. 나는 너에게 죄를 짓지 않았다는 1인칭 대명사 구절과, 너는 나에게 해를 행하여 나와 싸우려 한다는 2인칭 대명사 구절이 날카롭게 맞섭니다. 우리가 흔히 쓰는 말버릇대로라면 그다음에는 그러므로 하나님이 내 편을 들어 너를 치실 것이라는 결론이 따라붙어야 자연스러울 것입니다.</p>
+<p>그러나 본문의 셋째 마디는 우리의 익숙한 예상을 전혀 다른 자리로 옮겨 놓습니다. 맞서던 나와 너라는 대명사가 일순간 사라지고, 여호와 그 재판하는 이가 오늘 이스라엘 자손과 암몬 자손 사이를 재판하시기를, 혹은 재판하시리라라는 문장이 들어섭니다. 처음에는 사람 사사에게 쓰이던 드문 칭호가 여호와께 붙은 구절로만 보이던 이 말씀이, 구문과 구조를 따라 깊이 읽어 나갈수록 판단의 주어를 당사자 밖으로 옮기면서 결과 칸을 깨끗이 비워 둔 놀라운 문장으로 다가옵니다.</p>
+<h3>인칭을 버리고 전치사 사이에 두 이름을 나란히 세우는 문법</h3>
+<p>사사기 전체에서 재판하다라는 어근 샤파트는 스물한 번 등장하는데, 그 가운데 여호와가 주어이거나 동격 칭호로 놓이는 자리는 11장 27절의 두 단어뿐입니다. 특히 관사가 붙은 분사 형태인 하쇼페트, 곧 그 재판하는 이는 사사기 2장 18절과 19절에서 여호와께서 세우신 사람 사사를 가리키던 말이었으나, 여기서는 여호와의 동격으로 쓰이고 이어지는 12장 7절에서는 입다가 주어가 됩니다. 본문은 이 어근이 사람 사사에서 여호와로, 다시 입다로 지나가는 길을 어떤 단정적인 해설도 없이 사실 그대로 보여 줍니다. 더욱 눈여겨볼 점은 앞의 두 마디와 셋째 마디 사이에 이유를 나타내는 접속사가 없다는 사실입니다. 개역성경의 죄를 짓지 아니하였거늘에 들어 있는 어미는 병렬로 놓인 두 대명사 절을 우리말 흐름으로 이은 것일 뿐, 원문은 내가 옳으니 그러므로 판결해 달라는 인과를 세우지 않습니다.</p>
+<p>창세기에서 사래가 아브람에게, 사무엘상에서 다윗이 사울에게 여호와께서 나와 너 사이를 판단하시기를 청할 때 그들은 끝까지 나와 너라는 인칭 대명사를 붙들었습니다. 반면 사사기 11장 27절은 바로 앞까지 나와 너로 맞서다가도, 판단을 부르는 마디에 이르러서는 인칭을 버리고 이스라엘 자손과 암몬 자손이라는 두 집단의 이름을 같은 꼴로 나란히 세웁니다. 만약 무엇과 무엇 사이라는 뜻의 전치사 짝 베인에서 한쪽 이름을 지워 버리면, 재판하시기를이라는 문장은 곧장 상대를 치시리라는 처벌 예고로 변질되고 맙니다. 판단의 문장이 아전인수의 결과 문장으로 미끄러지지 않게 막아 주는 것은 화려한 신앙적 수사가 아니라 두 이름을 나란히 세운 전치사 짝 하나였습니다.</p>
+<h3>한 걸음 물러선 발의 위치와 오늘이라는 시간의 여백</h3>
+<p>마주 놓인 두 의자 사이에 서서 이 구절을 몸으로 읽어 보면 문법이 가르쳐 준 진실이 발끝에서부터 확인됩니다. 나는 너에게 죄를 짓지 않았다고 읽으며 오른손으로 내 가슴을 짚고, 너는 나에게 해를 행하려 한다고 읽으며 맞은편 의자를 가리킨 채 그대로 서서 다음 마디를 읽으려 하면, 팔은 자연스레 내 쪽 의자로 기울어집니다. 두 의자를 같은 높이의 손과 같은 크기의 목소리로 가리키려면 반드시 두 의자를 잇는 선에서 뒤로 한 걸음 물러서야만 합니다. 판단의 주어를 옮기는 일은 머릿속 다짐이기에 앞서 내가 서 있는 발의 위치를 바꾸는 일이며, 원문 동사가 기원인지 선언인지 형태로 갈리지 않기에 재판하시기를과 재판하시리라를 어느 한쪽으로 기울지 않게 같은 힘으로 읽는 절제가 필요합니다.</p>
+<p>또한 이 절에 놓인 오늘이라는 단어 하욤은 재판관이라는 명사에 붙어 오늘의 재판관을 만드는 것이 아니라, 재판하다는 동사에 걸려 판단의 때를 가리킵니다. 판단이 놓이는 때는 오늘로 적혔지만, 정작 그 판단의 결과가 무엇인지는 이 단락 안에 적혀 있지 않습니다. 서술자는 결과 대신 암몬 왕이 듣지 않았다는 거절 한 줄만 적고 단락을 닫습니다. 조세 불복 절차에서 처분청과 대리인과 심판원의 세 자리가 나뉘듯, 편을 든 당사자가 자기 진술을 마친 뒤 판단의 자리를 제3자인 여호와께 내어놓되 결정문은 아직 주어지지 않은 시간이 바로 이 구절의 오늘입니다. 웨스트민스터 신앙고백이 하나님만이 양심의 주이시며 세상을 의로 심판하실 분임을 고백하듯, 우리는 결과를 내 손에 쥐려는 승리주의와 아무 근거도 내지 않는 회피 사이에서 판단의 자리를 비워 두는 법을 배웁니다.</p>
+<h3>회의록의 주어와 상담의 언어에서 어미를 지우는 연습</h3>
+<p>결과 칸을 비워 두고 두 이름을 같은 줄에 세우는 성경적 사고는 교회와 일터와 가정의 언어를 조용히 바꿉니다. 교회에서 두 무리의 의견이 갈린 분쟁 안건을 다룰 때, 회의록은 흔히 어느 한쪽의 문제 제기와 그에 대한 해명처럼 한쪽을 주어로, 다른 쪽을 대상으로 적곤 합니다. 이제는 안건을 열기 전에 당회원들이 먼저 우리가 범죄하였사오니라고 함께 고백하고, 회의록 첫 줄에 두 무리의 이름을 같은 꼴로 나란히 적으며, 결론란에는 결정 사항만 적을 뿐 하나님이 우리 손을 들어 주셨다는 식의 결과 해석을 덧붙이지 않는 절제가 필요합니다. 그때 회의록은 승패의 전리품이 아니라 겸손의 기록으로 남습니다.</p>
+<p>세무 불복 사건으로 찾아와 이길 수 있느냐고 묻는 의뢰인에게도, 처분청은 상대 당사자이고 대리인은 의뢰인 편에서 근거를 다 내는 사람이며 시비는 심판원과 법원이 가린다는 세 자리를 먼저 분명히 설명해 주어야 합니다. 의견서의 쟁점을 청구인 주장과 처분청 의견 두 칸으로 나란히 적되 상대 칸에 악의나 허위 같은 낙인을 찍지 않고, 결과는 장담하지 않으면서 잔금 기한을 결정일 뒤로 미루어 줄 때 의뢰인과의 신뢰는 결과에 흔들리지 않습니다. 일상에서 가족이나 동료와 다툰 뒤 속으로 되뇌던 나는 잘못이 없었거늘이라는 문장에서도 인과의 어미를 지우고, 두 사람의 이름을 나란히 적은 뒤 결과 칸은 비워 둔 채 오늘 내가 할 사실 확인이나 기다림 하나만 적어 보십시오. 판단의 자리를 비워 두는 문장의 습관이 우리 안에 평화의 여백을 만들어 줄 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 35편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>따옴표 없는 줄 위에서 남의 말을 옮기는 내 입을 살피다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 37편 &middot; 사사기 12:1-7</span>
+      <h1>따옴표 없는 줄 위에서 남의 말을 옮기는 내 입을 살피다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 12장 4절과 5절을 원문으로 천천히 따라가다 보면, 발걸음을 멈추게 하는 낯선 풍경 하나와 마주치게 됩니다. 길르앗 사람들이 에브라임을 쳐서 파한 이유를 적는 4절의 문장은 키 암루, 곧 그들이 말했으니라는 동사로 문을 여는데, 정작 그 말을 누가 했는지를 밝히는 주어 이름이 적혀 있지 않습니다. 게다가 고대 히브리어 산문에는 어디서부터 어디까지가 남의 말인지를 표시하는 따옴표조차 없습니다. 그 주어 없는 동사 바로 뒤에 브리테 에프라임, 곧 에브라임의 도망자들이라는 두 낱말이 놓여 있고, 바로 다음 절인 5절에서는 똑같은 두 낱말이 요단 나루턱에서 건너가겠다고 말하는 서술자 문장의 주어로 다시 등장합니다.</p>
+<p>우리가 익숙하게 읽어 온 개역한글 성경은 이 자리에 에브라임의 말이, 본래, 에브라임에서라는 원문에 없는 낱말들을 보충해 넣어 문장의 결을 하나로 고정했습니다. 그러나 그 보충을 걷어 내고 원문의 민낯을 마주하면, 4절의 에브라임의 도망자들은 인용된 말 안에서 길르앗을 가리키는 술어로도 읽히고, 반대로 그 말을 입에 올린 사람들의 이름으로도 읽힙니다. 첫 번째 독법을 택하면 말 속에 있던 이름이 다음 절에서 서술자의 주어로 바뀌고, 두 번째 독법을 택하면 두 절 모두 같은 주어를 가리키게 됩니다. 성경은 이 두 갈래의 길 앞에서 어느 한쪽에도 서명해 주지 않은 채, 인용의 경계를 열린 사실로 남겨 두고 있습니다.</p>
+<h3>경계를 정하면 다른 자리로 옮겨 가는 빈칸</h3>
+<p>말한 사람과 말해진 내용 사이의 경계가 비어 있는 기록은 우리의 일상과 실무 현장에서도 그리 낯선 일이 아닙니다. 교회 회의록에 자주 등장하는 어떤 의견이 있었다는 문장이나, 세무조사 현장에서 작성되는 문답서 중간에 조사자가 긴 답변을 요약하며 적어 넣는 어떤 취지로 진술함 같은 문장이 바로 그러합니다. 법정의 판결문 역시 원고의 주장 문단과 법원의 판단 문단을 엄격히 갈라, 같은 낱말이라도 주장 문단에 놓여 있을 때는 법원이 그것을 승인한 것이 아님을 분명히 표시합니다. 그러나 회의록이나 문답서, 판결문은 경계가 흐릿할 때 다시 확인받을 진술인이 있거나 서명 날인과 문단 구분이라는 고정 장치가 마련되어 있습니다.</p>
+<p>반면 사사기 12장 4절에는 다시 물어볼 진술인도, 서술자의 판결 문단도 존재하지 않으며, 더욱이 읽는 우리에게는 성경 원문의 빈자리를 오류로 보아 고쳐 쓸 권한이 없습니다. 흥미로운 점은 이 문장 안에서 따옴표의 위치를 앞뒤로 옮겨 보는 상상을 해 보면, 경계를 정하는 행위가 결코 문장의 빈칸을 없애 주지 못한다는 사실이 드러난다는 것입니다. 따옴표를 에브라임의 도망자들 앞에 두면 그 말을 한 주인이 누구인지가 빈칸으로 남고, 따옴표를 그 뒤에 두어 주어로 삼으면 정작 인용된 말의 내용이 무엇을 뜻하는지가 흐릿해집니다. 번역이나 요약이 모든 것을 명확하게 만들어 준다는 우리의 익숙한 믿음과 달리, 원문이 열어 둔 두 독법을 함께 들고 있는 것이야말로 하나를 골라 닫는 것보다 훨씬 더 많은 진실을 보존하는 해석학적 절제입니다.</p>
+<h3>두 번 쉬어 읽는 숨과 내 입을 향한 질문의 전복</h3>
+<p>이 열린 경계를 머리가 아닌 몸으로 통과해 보기 위해, 4절의 직역 어순인 그들이 말했으니, 에브라임의 도망자들, 너희, 길르앗, 에브라임 가운데, 므낫세 가운데를 종이에 적고 두 번 소리 내어 읽어 봅니다. 첫 번째 읽기에서는 말했으니 뒤에서 숨을 쉬고 오른손을 들어 남의 말을 전하는 자세로 나머지를 읽고, 두 번째 읽기에서는 에브라임의 도망자들까지 손을 내린 채 읽다가 그 뒤에서 숨을 쉬고 손을 듭니다. 손을 드는 자리를 단 한 칸 옮기고 숨을 쉬는 위치를 바꾸는 것만으로 두 낱말의 주인이 완전히 바뀌지만, 우리의 몸은 두 자세를 동시에 취할 수 없어 한 번 읽을 때마다 반드시 하나를 골라야 하는 압력을 느낍니다. 그러므로 강단에서 이 본문의 열린 자리를 정직하게 지키려면, 원문은 이렇게도 읽힙니다라는 안내와 함께 두 번 소리 내어 읽는 수고가 필요합니다.</p>
+<p>이처럼 몸으로 경계의 압력을 느끼며 차원을 바꾸어 보면, 본문을 향하던 우리의 질문은 전혀 다른 방향으로 돌아섭니다. 처음에 우리는 이 구절을 두고 옛날 그 사람들이 도대체 누구를 도망자라고 불렀는가를 밝히려는 호기심으로 접근하지만, 주인을 정하지 않는 원문의 침묵 앞에서 비로소 드러나는 것은 옛 사람들의 입이 아니라 경계를 기어이 단정하고 싶어 하는 내 입입니다. 말을 조심하지 않으면 그 말이 부메랑처럼 자기에게 돌아온다는 도덕주의적 응보 설교나, 요단 나루를 심판의 문으로 삼는 장식적 예표는 모두 원문이 정하지 않은 한쪽 독법을 강제로 전제한 위에 정죄를 얹는 일입니다. 본문 자체는 도덕 법규를 명령하지 않으나, 정경 전체의 빛 속에서 이웃에 대하여 거짓 증거하지 말라는 제9계명과 이웃의 이름과 평판을 지키라는 칼뱅의 해설을 떠올릴 때, 우리는 진리 되신 분께 속한 자의 감사로써 남의 말을 옮기는 우리의 입술을 돌아보게 됩니다.</p>
+<h3>회의록과 문답서, 그리고 일상의 말에 세우는 정직의 열매</h3>
+<p>원문이 가르지 않은 인용 경계를 내가 보탠 말로 덮지 않으려는 성경적 사고는, 오늘 우리가 몸담은 교회와 일터와 가정을 바꾸는 구체적인 인격의 열매로 이어집니다. 먼저 교회의 당회나 제직회 회의록을 작성할 때, 서기는 단순히 어떤 우려가 제기되었다는 모호한 문장으로 기록을 남겨 몇 달 뒤 그것이 특정 장로나 집사의 말로 굳어지게 해서는 안 됩니다. 발언자와 발언 요지, 그리고 서기의 정리를 세 칸으로 명확히 나누어 적고, 발언자가 확인되지 않은 의견은 발언자 미기록으로 그대로 두며, 서기가 맥락을 위해 보탠 설명은 괄호 안에 서기 주라고 밝혀 두어야 나중에 회의록을 펴는 이가 남의 말과 기록자의 정리를 갈라 읽을 수 있습니다.</p>
+<p>세무 실무 현장에서 대리인으로 세무조사에 입회하여 마지막에 문답서 서명을 앞두었을 때도 마찬가지입니다. 납세자와 함께 문답서를 한 줄씩 짚어 가며 이 줄이 사장님이 하신 말씀 그대로인지 조사관이 요약해 정리한 말인지를 묻고, 원진술과 결이 다른 요약이 있다면 정정을 요청하거나 의견 진술란에 위 답변은 요약이며 원진술은 무엇임이라고 분명히 적어 경계를 서명 시점에 고정해야 합니다. 나아가 일상에서 누군가 그러던데로 시작하는 말을 다른 이에게 옮기고 싶어질 때, 원래 말한 주인을 정확히 아는지, 내가 보탠 이유는 없는지, 그 말 끝에 누군가 대가를 치렀다는 내 판정을 붙이려 하지는 않는지 속으로 살피고, 하나라도 불분명하다면 오늘 입을 다무는 한 번의 침묵으로 이웃의 이름을 지키는 우리가 되기를 바랍니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 37편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

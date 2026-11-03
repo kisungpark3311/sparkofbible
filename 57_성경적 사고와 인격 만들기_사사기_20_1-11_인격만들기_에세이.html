@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>같은 직인이 찍힌 세 문장, 하나 됨의 말 너머 나머지 칸을 읽는 인격</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 57편 &middot; 사사기 20:1-11</span>
+      <h1>같은 직인이 찍힌 세 문장, 하나 됨의 말 너머 나머지 칸을 읽는 인격</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 20장 1절과 8절과 11절을 하나의 소리로 꿰는 씨앗 구절은 케아이쉬 에하드, 곧 한 사람같이라는 히브리 표현입니다. 구약 성경 아홉 자리, 사사기 네 자리, 그리고 이 열한 절 안에 세 번 등장하는 이 구절은 세 곳 모두 서술자의 문장 안 주어 바로 뒤에 글자 한 획 다르지 않은 같은 모양으로 서 있습니다. 개역한글 성경이 이를 일제히, 일제히, 하나 같이로 달리 옮기는 바람에 우리말 문면에서는 세 번의 반복이 가려졌지만, 원문은 청을 듣기 전의 모임과 청에 대한 응답과 응답 뒤의 모여듦이라는 세 국면을 똑같은 한 마디로 묶어 놓습니다.</p>
+<p>그러나 시선을 구절 안의 같음에서 구절 바깥의 문장 칸들로 옮기면 전혀 다른 풍경이 펼쳐집니다. 같은 구절이 붙어 있는 세 문장에서 주어는 회중 하에다, 온 백성 콜 하암, 이스라엘 모든 사람 콜 이쉬 이스라엘로 세 번 다 다르고, 동사 역시 모이다 바티카헬, 단락의 주동사인 일어나다 바야캄, 모여들다 바예아세프로 세 번 다 다릅니다. 향하는 목적지를 적는 전치사 엘의 칸도 1절에서는 여호와께 미스바로, 11절에서는 그 성읍으로 채워지는 반면, 8절에서는 비어 있는 대신 말하기를과 일인칭 복수의 결의가 이어집니다. 특히 8절 한 절 안에는 서술자의 한 사람같이와 무리의 결의 안 각 사람이 자기 장막으로, 각 사람이 자기 집으로라는 배분의 말이 나란히 서서, 일치의 말과 각 사람의 몫이 서로를 지우지 않는 문장꼴을 보여 줍니다.</p>
+<h3>모임의 구호가 아닌 서술자의 묘사, 직인과 계약서를 구분하는 눈</h3>
+<p>흔히 교회 회의록에 적히는 만장일치 가결이나 법인 의사록의 출석 전원 찬성이라는 문구는 그 모임에 참석한 내부의 누군가가 자기들의 합의를 스스로 증언하기 위해 쓴 말입니다. 그러나 사사기 20장 1절부터 11절의 한 사람같이는 무리의 입에서 나온 구호가 아닙니다. 세 번 모두 모임 바깥에 선 서술자의 문장 안에 놓여 있을 뿐, 정작 무리가 입을 열어 말한 8절의 결의 안에는 한 사람같이라는 말이 없고 각 사람이라는 말만 두 번 들어 있습니다. 무리는 스스로 하나라고 선언하지 않았고, 서술자는 그들이 하나처럼 움직였다고 묘사할 뿐 그 일치를 칭찬하지도 책망하지도 않습니다.</p>
+<p>이 문장 구조는 세무 사무실 금고에 보관된 법인 직인이 한 달 동안 임대차 계약서, 물품 공급 계약서, 금융기관 서류, 거래처 확인서에 똑같이 찍히는 것에 비유할 수 있습니다. 물론 법인 직인은 법인이 스스로 찍는 반면 본문의 구절은 서술자가 찍었다는 차이가 있지만, 직인이 매번 같다고 해서 네 문서가 같은 거래가 되지 않는다는 이치는 같습니다. 세무사가 서류를 검토할 때 직인만 보지 않고 각 계약서의 당사자와 목적물과 상대방을 따로 읽듯이, 한 사람같이라는 말은 동작의 방식만을 가리킬 뿐 누가 무엇을 하며 어디로 향하는지라는 문장의 나머지 칸을 대신 말해 주지 않으며 그 결정의 정당성도 증명하지 않습니다.</p>
+<h3>빈 손으로 서는 어색함과 비어 있는 판정의 차원, 주께 맡겨진 심판의 자리</h3>
+<p>이 세 문장을 낮은 목소리로 케아이쉬 에하드라 발음하며 몸의 동작으로 따라가 보면 빈칸의 감각이 손끝에 남습니다. 1절에서는 앉은 채 양손을 가슴 앞으로 천천히 모은 뒤 여호와께 미스바로 향하듯 손끝을 한 방향으로 두고, 8절에서는 자리에서 일어서되 향함의 칸이 비어 있으므로 손을 어디에도 두지 않은 채 입을 열어 결의를 읽으며, 11절에서는 옆 사람에게 다가서며 손끝을 다른 방향인 그 성읍 쪽으로 둡니다. 둘째 동작에서 손을 어디에도 가리키지 못하고 빈 손으로 서 있던 몇 초의 어색함이 바로 본문이 비워 둔 자리입니다. 개역한글이 11절의 그 성읍으로에 원문에 없는 치려고라는 동사를 보탠 것은 그 빈자리를 서둘러 채워 평가 서사를 만들고 싶어 하는 독자의 손버릇을 잘 보여 줍니다.</p>
+<p>서사의 차원과 직교하는 판정의 차원에서 볼 때, 이 단락은 하나님이 주어인 정동사도 없고 서술자의 평가어도 없으며 사사기 특유의 후렴구도 없습니다. 고린도전서 4장 5절이 때가 이르기 전 주께서 오시기까지 아무것도 판단하지 말라고 권면하고 요한복음 5장 22절이 심판을 다 아들에게 맡기셨다고 증언하듯, 비어 있는 판정의 축은 독자가 연합의 미화나 내전의 경고 혹은 하나님께 묻지 않았다는 침묵 논증으로 메울 자리가 아니라 주께 맡겨진 자리입니다. 빌립보서 2장이 그리스도 예수의 마음이라는 내용의 칸과 함께 하나 됨을 말하고, 장 칼뱅이 기독교강요 제4권 9장에서 교회 회의의 권위가 다수의 합의가 아니라 말씀에 매여 있는가에 달려 있다고 가르치며 웨스트민스터 신앙고백 제31장이 공의회의 한계를 짚은 요지처럼, 오늘 우리는 우리가 하나 되자고 말할 때 그 말 뒤에 오는 동사가 어디로 향하는지를 스스로에게 물어야 합니다.</p>
+<h3>만장일치 뒤에 숨은 칸을 풀어 적는 정직, 행정과 실무에서 맺는 인격의 열매</h3>
+<p>표시와 내용을 구분하고 빈칸을 추정으로 채우지 않는 이 성경적 사고는 교회 행정과 세무 실무, 일상의 대화에서 구체적인 인격의 열매로 이어집니다. 당회나 제직회 회의록에 만장일치 가결이라는 같은 문구만 안건마다 반복되어 몇 해가 지난 뒤 무엇이 누구에게 결정되었는지 묻혀 버리지 않도록, 회의록 양식에 결정 주체와 결정 내용과 효력 대상을 따로 적는 칸을 두고 만장일치는 방식 칸에만 기록합니다. 이는 치리 절차의 교본을 삼으려는 것이 아니라, 같은 직인이 다른 결정들을 하나로 덮지 못하도록 기록을 투명하게 남기는 정직한 습관입니다.</p>
+<p>세무 실무에서도 의뢰인이 가져온 법인 의사록이나 동의서에 출석 전원 찬성으로 원안 가결이라는 문구만 반복되고 정작 안건 내용이 제목 한 줄뿐일 때에는, 검토 메모에 의결 대상과 금액과 기간이 문서 안에 적혀 있는지만 확인하고 적혀 있지 않으면 추정으로 채우지 않은 채 문서상 미기재라고 명확히 적습니다. 의사록의 법적 효력이나 세무상 효과는 사실관계와 법령을 따로 확인하여 판단하되, 전원 찬성이라는 문구가 내용 확인을 대신하지 못하게 하는 것입니다. 나아가 회의 결과를 단체방에 요약하거나 타인의 결정을 전할 때에도, 원문에 없던 치려고를 보탠 번역자의 손을 거울삼아 원래 말에 없던 목적을 임의로 덧붙이지 않거나 내 추정임을 분명히 밝힘으로써 타인의 결정이 내 입술을 거치며 왜곡되지 않게 지키는 성숙한 인격을 세워 갑니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 57편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

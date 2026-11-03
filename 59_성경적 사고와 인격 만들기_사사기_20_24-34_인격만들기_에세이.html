@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>길어진 탄식을 영수증으로 바꾸지 않고 무릎 위에 내려놓는 두 손</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 59편 &middot; 사사기 20:24-34</span>
+      <h1>길어진 탄식을 영수증으로 바꾸지 않고 무릎 위에 내려놓는 두 손</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 20장 23절과 26절을 나란히 놓고 읽으면, 그들이 울었다는 히브리 원어 바이브쿠는 두 절에서 글자 하나 바뀌지 않고 똑같이 서 있습니다. 바뀐 것은 울음이라는 동사 자체가 아니라 그 울음을 둘러싼 자리입니다. 23절에서는 올라가 여호와 앞에서 저물도록 울고 물었을 뿐이기에 물음 앞에 놓인 동사가 두 개였으나, 26절에서는 온 이스라엘 자손과 온 백성이 올라가고, 벧엘에 이르고, 울고, 앉고, 금식하고, 번제와 화목제를 드리는 여섯 개의 동사 사슬이 물음 앞에 길게 늘어섭니다. 그리고 23절에서 울음에 바로 붙어 있던 저녁까지라는 꼬리표는, 26절에 이르러 울음에서 떨어져 나와 금식 뒤로 자리를 옮깁니다.</p>
+<p>처음 이 본문을 마주할 때 우리는 흔히 첫날보다 행동이 여섯 가지로 늘어났으니 백성의 회개가 한층 깊어졌고, 그 깊어진 정성 덕분에 마침내 승리의 약속을 받아 냈다는 상승의 서사로 읽고 싶어 합니다. 그러나 성경적 사고가 세우는 인격은 기록하는 일과 값을 매기는 일을 엄격히 분리하는 데서 출발합니다. 본문은 탄식이 행위의 사슬로 자라난 길이를 숨기지 않고 꼼꼼히 적지만, 그 길이에 값을 매기는 문장은 단 한 줄도 두지 않습니다. 두 사슬은 모두 여호와께 물었다는 동사에서 끝나며, 답은 묻는 이의 사슬이 아니라 말씀하시는 여호와의 입에서 나옵니다. 길어진 사슬을 영수증이나 성적표로 바꾸지 않고 주목의 대상으로만 남겨 두는 눈이 여기서 열립니다.</p>
+<h3>여섯 고리로 길어진 사슬과 끝이 있는 하루로 적힌 그날 저녁까지</h3>
+<p>두 절의 사슬을 표로 맞대어 보면 변화의 결이 한층 뚜렷해집니다. 주어는 이스라엘 자손에서 온 이스라엘 자손과 온 백성으로 넓어지고, 이름 없던 자리는 벧엘이라는 이름을 얻습니다. 23절의 바이브쿠 뒤에는 여호와 앞에서와 저녁까지가 바로 붙어 있었으나, 26절의 바이브쿠 뒤에는 아무런 보어도 붙지 않은 채 곧장 앉았다는 동사가 이어집니다. 여호와 앞에라는 말이 앞선 울음까지 걸치는지는 원문이 정해 주지 않으므로 열어 두더라도, 저녁까지라는 표지가 울음에서 금식으로 옮겨 갔다는 위치의 사실만은 선명하게 남습니다. 또한 26절 첫머리의 올라갔다와 끝머리의 드렸다는 자음과 모음점까지 같은 바야알루로 서서 사슬의 양 끝을 이루고, 그 사슬은 27절의 물음 동사로 이어집니다.</p>
+<p>차원적 사고로 이 단락의 시간 축을 살펴보면 중요한 전복이 일어납니다. 둘째 날과 그날, 그 날들에와 내일, 셋째 날에 이르기까지 단락 안에는 때를 가리키는 낱말들이 촘촘히 놓여 있습니다. 그 가운데 저녁까지를 뜻하는 아드 하에레브는 23절에도 26절에도 똑같이 하루의 끝을 가리킵니다. 길어진 사슬을 점점 더 많이, 점점 더 오래 바쳐야 하는 투자로 읽으면 탄식은 끝없이 늘려야 하는 고행이 되고 맙니다. 그러나 원문의 시간 표지는 늘어나지 않았습니다. 늘어난 것은 고리의 수이지 끝의 시각이 아니며, 사슬이 여섯으로 자라났어도 탄식의 하루는 여전히 저녁이 되면 끝나는 하루로 적혀 있습니다. 그리고 내일이라는 새 시간은 사람의 사슬 안이 아니라 여호와의 말씀 속에 자리합니다.</p>
+<h3>업무일지와 밤샘의 시간을 넘어 여섯 손가락을 펴고 내려놓는 연습</h3>
+<p>길이가 기록되는 세상의 자리들을 돌아보면, 세무 사무실의 업무일지나 중환자실 앞의 밤샘, 교회의 연속 기도회 모두 시간을 기록하지만 사람은 거의 언제나 그 옆의 값 칸을 채우려 합니다. 업무일지는 시간제 계약서가 값을 잇고, 기도회는 며칠간 부르짖으면 응답이 온다는 광고 문구가 값을 잇고, 병상 곁의 밤샘은 가족의 마음이 아침에 들려오는 의사의 말과 밤샘의 길이를 그러므로로 잇고 싶어 합니다. 그러나 세무 실무에서 밤늦게까지 검토한 업무일지의 길이는 성실의 흔적일 뿐 과세관청이나 심판 기관의 결정을 내리는 주체가 아니며, 악보의 늘임표가 다른 음 위로 옮겨 갔듯 26절은 길이를 적되 값 칸은 비워 둡니다. 만약 26절의 사슬과 28절의 답 사이에 억지로 그러므로를 끼워 넣으려면, 그 사이에 놓인 27절의 물음 동사와 언약궤 및 비느하스의 괄호, 그리고 싸우리이까 말리이까라는 물음의 내용을 통째로 지워야만 문장이 성립합니다. 승리 공식은 본문에 무엇을 더해서가 아니라 본문을 잘라 내어야만 만들어지는 왜곡입니다.</p>
+<p>이 진실을 몸으로 익히기 위해 성경을 소리 내어 읽으며 손가락을 움직여 봅니다. 23절을 읽을 때 왼손 검지를 저물도록 울며의 울며 위에 올려 두었다가, 26절로 넘어가 올라가서, 이르러, 울며, 앉고, 금식하고, 드리고라는 여섯 동사를 읽을 때마다 오른손 다섯 손가락과 왼손 엄지까지 여섯 손가락을 차례로 폅니다. 금식하고에 이르면 울며 위에 있던 왼손 검지를 떼어 금식하고 위로 옮깁니다. 손가락 여섯을 다 펴는 동안 손은 바쁘게 움직이며 이만큼이나 했다는 느낌을 만들지만, 27절과 28절로 넘어갈 때에는 두 손을 조용히 무릎 위에 내려놓고 그러므로라는 말을 입 밖으로 내지 않은 채 숨만 한 번 고르고 다음 줄을 읽습니다. 손가락을 다 편 다음에 남는 일은 셈하는 것이 아니라 무릎 위에 내려놓는 것임을 몸이 먼저 배웁니다.</p>
+<h3>공식주의와 허무주의를 넘어서는 개혁신학의 절제와 일터의 분별</h3>
+<p>우리가 금식하였는데 왜 보지 않으십니까 따지던 이사야 58장의 백성이나, 옷이 아니라 마음을 찢고 하나님의 자비하심에 기대어 돌아오라던 요엘 2장의 부르심, 사람에게 보이려고 금식하지 말라 하신 마태복음 6장의 가르침과 금식을 공로나 하나님의 마음을 사는 행위로 여기는 미신을 경계한 칼뱅의 통찰은 모두 이 빈 값 칸을 지키는 울타리입니다. 울음과 금식과 제사를 더하면 승리가 온다는 공식주의는 은혜를 거래로 바꾸어 지금 아무것도 할 수 없는 이를 셈의 바깥으로 밀어내고, 반대로 인과가 없으니 탄식이 무의미하다는 허무주의는 본문이 여섯 동사로 꼼꼼히 적은 기록의 무게를 지워 버리며, 둘째 날의 패배를 하나님이 낮추시려 허락하신 연단이라 단정하는 서두른 신정론은 원문에 없는 말을 보탭니다. 복음은 탄식을 지우지 않되 탄식을 값으로 바꾸지 않으며, 설교자는 26절에서 28절로 건너뛰지 않고 27절의 물음과 괄호를 다 읽은 뒤 여호와께서 그 물음에 말씀하셨다는 그 한 가지 사실에만 감사를 묶습니다.</p>
+<p>이 절제된 시선은 목회와 행정, 세무 일터에서 따뜻한 환대와 정직한 책임으로 열매 맺습니다. 상실을 겪은 성도가 예배 중에 울 때 목회자는 원문의 바이브쿠에 보어가 없음을 기억하며 회개의 눈물이라거나 주님이 만지신다는 이름을 서둘러 붙이지 않고, 왜 우느냐 묻는 대신 조용히 곁에 앉아 울음을 그 사람의 것으로 남겨 둡니다. 교회의 기도회 광고문을 쓸 때에는 기간과 장소라는 기록 칸만 적고 응답을 보장하는 값 칸의 문구는 지워, 참석하지 못하는 이가 소외되지 않고 기도회가 거래가 아닌 물음의 자리로 남게 합니다. 세무 상담에서도 이만큼 자료를 내고 밤늦게까지 보셨으니 잘 되겠지요 묻는 의뢰인에게, 무엇을 성실히 검토했는가 하는 기록과 결정이 내려지는 주체를 다른 문장으로 분리하여 말함으로써 내 수고를 영수증처럼 내밀지 않는 정직한 실무자로 서게 됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 59편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

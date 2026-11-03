@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>같은 글자 위에 남겨 둔 읽는 이의 서명과 판정 보류의 자리</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 32편 &middot; 사사기 10:1-5</span>
+      <h1>같은 글자 위에 남겨 둔 읽는 이의 서명과 판정 보류의 자리</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 10장 4절은 길르앗 사람 야일에게 아들 삼십이 있어 어린 나귀 삼십을 탔고 성읍 삼십을 두었었는데 그 성들은 길르앗 땅에 있고 오늘까지 하봇야일이라 칭하더라고 전합니다. 우리말 성경을 읽는 독자에게 어린 나귀와 성읍은 의심의 여지 없이 전혀 다른 두 낱말로 다가옵니다. 하지만 히브리어 원문 성경을 펼쳐 이 구절을 다섯 개의 층으로 나누어 살펴보면 놀라운 사실 하나와 마주하게 됩니다. 맨 아래의 마소라 자음 층도, 그 위의 모음 층도, 현대의 형태소 분석 태그도 앞의 어린 나귀와 뒤의 성읍 자리를 똑같은 한 낱말 아야림으로 보고 있으며, 오직 강세 부호만 미세하게 다를 뿐입니다. 다섯 층 가운데 두 토막을 서로 다른 두 낱말로 가르는 층은 개역한글이라는 번역본 층 하나뿐입니다.</p>
+<p>게다가 역본은 같은 글자를 둘로 가르면서 원문의 무동사절 자리에 두었었는데라는 동사를 보태고, 그들에게라는 대명사 자리에 그 성들은이라는 주어까지 덧붙여 문장을 매끄럽게 다듬었습니다. 물론 번역자가 두 번째 아야림을 성읍으로 읽은 데에는 충분한 이유가 있습니다. 절의 반분을 나타내는 기호 바로 뒷부분에서 그것들이 하봇야일이라는 이름을 얻고 길르앗 땅에 있다는 관계절이 이어지기 때문에, 문맥과 사전을 따라 성읍이라는 뜻의 이르 복수형 독법을 택한 것입니다. 여기서 우리가 주목하려는 것은 번역이 맞았느냐 틀렸느냐가 아닙니다. 원문에는 애초에 차이가 표기되지 않았는데 읽는 이가 문맥을 근거로 차이를 만들면서, 정작 그 판단의 흔적은 본문 안에서 지워졌다는 사실입니다.</p>
+<h3>흔적 없는 가름과 세법 조항처럼 남겨야 할 근거</h3>
+<p>같은 모양의 낱말이나 기호가 두 번 놓일 때 그것을 하나로 묶을지 둘로 가를지 결정해야 하는 일은 일상과 전문 영역 곳곳에서 일어납니다. 부동산 등기부에서 동명이인 두 사람이 나오면 담당자는 생년월일과 주소라는 다른 칸을 확인해 근거를 남기고, 악보에서 같은 높이의 음표 둘이 나란히 놓이면 작곡가는 붙임줄이라는 기호로 한 소리로 이을지 다시 칠지를 표시합니다. 세법 실무에서도 주택이나 거주자처럼 같은 낱말이 개별 세법마다 다른 범위로 정의될 때, 실무자는 낱말이 같다는 이유만으로 묶지 않고 어느 법령의 몇 조 몇 항인지를 먼저 적어 추적 가능한 판단으로 남깁니다. 회계 장부 역시 같은 계정과목 아래 성격이 다른 거래가 들어올 때 적요 칸에 그 이유를 남겨야 다음 사람이 다시 따져 볼 수 있습니다.</p>
+<p>문제는 가름 자체가 아니라 흔적 없는 가름입니다. 판단의 결과만 본문 안에 남기고 판단의 이유와 흔적을 본문 밖으로 치워 버리면, 나중에 읽는 사람은 그것이 처음부터 원래 그랬던 사실인 줄로만 알게 됩니다. 다만 등기부의 규격 칸이나 세법의 정의 조항이나 악보의 붙임줄과 달리, 히브리어 본문에는 여기서부터 낱말의 뜻이 달라진다고 확정해 주는 규격화된 기호가 없습니다. 만약 둘 다 나귀로 옮기면 뒷문장이 삐걱거리고, 둘 다 성읍으로 옮기면 앞문장이 삐걱거리며, 아야림이라는 소리 그대로 적어 두면 그 삐걱거림의 무게가 고스란히 독자에게로 넘어갑니다. 결국 판단의 무게는 사라지지 않고 번역자와 문장과 독자 사이를 옮겨 다닐 뿐이기에, 정직한 읽기란 같은 글자로 돌아갈 수 있도록 판단의 서명을 남겨 두는 일입니다.</p>
+<h3>두 손가락 사이의 충동을 견디는 몸과 시간의 지층</h3>
+<p>개역한글 10장 4절을 펴 놓고 어린 나귀 위에 왼손 검지를, 성읍 위에 오른손 검지를 얹은 채 눈을 감고 숨을 세 번 쉬어 보면 판정 보류가 무엇인지 몸으로 느낄 수 있습니다. 두 자리가 원문에서 같은 글자라는 사실을 떠올리는 순간, 손가락을 하나로 모으고 싶은 충동이 일고 동시에 문맥이 다르니 더 벌리고 싶은 충동도 함께 일어납니다. 모으려는 충동도 판단이고 벌리려는 충동도 판단입니다. 그 두 충동을 동시에 느끼면서 두 손가락을 모으지도 벌리지도 않은 채 제자리에 가만히 두는 감각이 바로 판정 보류의 자세입니다. 반대로 오른손 검지를 그 성들은이라는 자리로 밀어 보면 손끝에 아무런 저항도 느껴지지 않는데, 역본이 보탠 말은 이처럼 매끄러워서 의식하지 않으면 너무나 쉽게 지나쳐 버리게 됩니다.</p>
+<p>차원을 넓혀 시간의 축 위에서 바라보면, 한 낱말을 둘로 가른 일은 어느 한 번역자의 우발적인 사건이 아니라 오랜 세월 동안 문면 위에 판단이 겹겹이 쌓여 온 지층의 한 단면입니다. 서술자가 오늘까지 하봇야일이라 부른다고 적었던 그 시점부터 시작해, 자음 본문 위에 모음과 강세 부호가 얹히고 사전과 번역의 층이 쌓여 오늘 우리 손에 이른 것입니다. 원문 표기를 다시 꺼내어 보여 주는 일은 그동안 쌓인 번역의 수고를 허무는 일이 아니라, 맨 아래가 문면이고 그 위가 판단이라는 층의 순서를 제자리로 되돌려 놓는 일입니다. 강단에서 이 구절을 낭독할 때에도 성읍에서 잠시 멈추어 앞서 읽은 어린 나귀 쪽을 손으로 한 번 가리켰다가 돌아오는 작은 몸짓 하나로, 청중에게 두 자리가 원문에서 한 꼴이었다는 신호를 조용히 건넬 수 있습니다.</p>
+<h3>번역의 존중과 원문의 정직이 만나는 인격의 열매</h3>
+<p>느헤미야 8장에서 율법책을 낭독할 때 그 뜻을 풀어 깨닫게 하는 일이 함께 있었고 사도행전 8장에서 에디오피아 내시에게 빌립의 지도함이 필요했듯, 웨스트민스터 신앙고백과 헤르만 바빙크의 성경론은 히브리어 원본이 최종 호소의 대상임과 동시에 모든 백성이 읽을 수 있도록 번역되어야 함을 함께 고백합니다. 따라서 우리는 원문을 아는 사람만 성경을 바로 읽는다는 원어 우월주의도, 우리 성경에 성읍이라 적혔으니 무조건 성읍이라는 역본 절대화도, 나귀 탄 아들들을 나귀 타신 왕 그리스도께 억지로 잇는 장식적 연결도 모두 내려놓아야 합니다. 구원의 도리와 상관없는 이 작은 자리에서 해석의 갈림을 정직하게 표시하는 것이야말로 오히려 성경의 명료성과 신뢰를 굳게 지키는 길입니다.</p>
+<p>이러한 태도는 목회와 일터의 실무에서 구체적인 인격의 습관으로 자라납니다. 교회 구역 공과 교재를 만들 때 여백 한 칸에 10장 4절의 성읍은 원문에서 앞의 어린 나귀와 같은 낱말이며 우리 성경이 문맥을 보고 옮겼다는 한 줄 설명을 정답 칸 없이 실어 주면, 성도들은 사실과 판단을 구별해 읽으며 원문의 글자가 여전히 거기 남아 있다는 데서 깊은 안도를 얻습니다. 세무 상담을 기록할 때에도 상담자가 분류한 1주택 양도라는 결과만 적지 않고, 기록지를 두 칸으로 나누어 왼쪽에는 고객이 실제로 쓴 말을 그대로 적고 오른쪽에는 내가 분류한 결과와 근거를 적되 확인되지 않은 것은 판단 보류로 남겨 둘 수 있습니다. 교회 회계 장부에서 선교비처럼 같은 계정과목이 반복될 때마다 적요 칸에 묶은 근거를 한 줄로 남기는 작은 실천들이 모일 때, 우리의 삶과 공동체는 흔적 없는 단정 대신 투명하고 겸손한 신뢰 위에 서게 됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 32편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

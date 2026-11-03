@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>답 칸이 비어 있는 시험지, 버팀이 아니라 대조로 서는 길과 계명</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 06편 &middot; 사사기 2:16~3:6</span>
+      <h1>답 칸이 비어 있는 시험지, 버팀이 아니라 대조로 서는 길과 계명</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>살아가면서 감당하기 벅찬 시련이나 아픔을 만날 때 우리는 흔히 이것이 하나님께서 주시는 시험이니 잘 견뎌야 한다는 말을 건네곤 합니다. 그 말속에서 시험은 곧 고난을 끝까지 버텨 내는 인내력의 측정으로 이해됩니다. 그러나 사사기 이장 이십이절과 삼장 일절, 삼장 사절에 나란히 등장하는 세 번의 시험하다라는 낱말 앞에 서면, 성경이 말하는 시험의 정체가 우리가 생각하던 것과 전혀 다른 자리에 놓여 있음을 발견하게 됩니다. 히브리어 원문에서 이 세 자리는 모두 피엘 부정사 연계형인 낫소트라는 똑같은 꼴을 취하고 있으며, 세 번 모두 도구 자리에는 밤, 곧 남겨 둔 열국을 두고 대상 자리에는 에트 이스라엘을 똑같이 배치합니다.</p>
+<p>더욱 흥미로운 것은 세 마디 모두 부정사로 적혀 있어서, 그 마디 안에는 시험을 행하는 주어가 명시적으로 적혀 있지 않다는 점입니다. 이장 이십이절은 여호와의 직접 발화 안에 놓여 화자이신 여호와께 닿고, 삼장 일절은 여호와께서 남겨 두셨다는 관계절의 목적어로 이어지지만, 삼장 사절에 이르면 문장의 문법적 주어는 남겨 둔 열국이 되어 그들이 이스라엘을 시험하는 데 있었다라고 적힐 뿐입니다. 우리말 개역성경 삼장 사절이 여호와께서 알고자 하셨더라라고 매끄럽게 주어를 채워 넣었지만, 원문에는 그 주어가 비어 있습니다. 감독관의 이름이 인쇄되지 않은 세 장의 시험지를 나란히 놓고 볼 때, 세 줄을 구별해 주며 시험의 진짜 알맹이를 밝혀 주는 유일한 칸은 도구가 아니라 그 뒤에 따라붙는 두 개의 물음 칸입니다.</p>
+<h3>도구와 물음의 분리, 세무조사의 버팀과 장부의 대조</h3>
+<p>교육 평가나 회계감사, 그리고 세무조사의 현장을 떠올려 보면 시험의 도구와 시험의 물음이 왜 엄격히 분리되어야 하는지 단번에 이해할 수 있습니다. 세무조사 통지서를 받아 든 고객이 상담실에 찾아와 가장 먼저 묻는 말은 대개 몇 주 동안이나 이 조사를 버티면 끝나느냐는 것입니다. 조사 기간이나 자료 제출 요구, 현장 확인 같은 조건들을 잘 견뎌 내는 것이 조사의 전부라고 착각하기 때문입니다. 그러나 그것은 조사의 도구일 뿐, 세무조사가 실제로 묻는 물음은 통지된 세목과 과세기간에 대하여 신고 내용이 장부 및 증빙과 정확히 일치하는가라는 대조의 물음입니다. 시간 압박이나 자료 요구를 아무리 잘 버텨 내어도 장부와 증빙이 기준에 맞지 않으면 조사를 통과할 수 없습니다.</p>
+<p>사사기 본문에서는 시험의 도구가 열국이라는 사람들이기 때문에, 그 사람들 곁에서 겪는 괴로움을 견뎌 내는 것이 시험의 내용인 것처럼 착각하기가 더욱 쉽습니다. 하지만 이장 이십이절과 삼장 사절이 내놓는 물음의 목적어에는 열국이라는 단어가 아예 등장하지 않습니다. 이장 이십이절은 그들이 여호와의 길을 지켜 걷는가, 아닌가를 묻고, 삼장 사절은 그들이 여호와의 계명들을 듣는가를 묻습니다. 만약 이 물음 칸에 고난을 잘 견디는가라는 말을 집어넣어 문장을 다시 써 보면, 그 순간 여호와의 길과 여호와의 계명들이라는 목적어가 문장 밖으로 밀려나 사라지고 맙니다. 시험의 정체를 도구에서 찾으면 열국 이야기가 되지만, 물음에서 찾으면 비로소 여호와의 길과 계명 이야기가 되는 것입니다.</p>
+<h3>발을 멈추어 표지를 더듬는 몸과 뒤에 놓인 기준의 시간</h3>
+<p>이 두 물음이 요구하는 태도가 버팀이 아니라 대조라는 사실은 우리 몸의 근육으로도 선명하게 확인할 수 있습니다. 두 물음은 모두 몸의 구체적인 동작으로 이루어져 있는데, 하나는 지켜 걷는 발의 동작이고 다른 하나는 계명을 듣는 귀의 동작입니다. 눈을 감고 갈림길 앞에 서서 한 발을 내딛기 직전에 멈추어 발끝으로 길의 표지를 더듬어 보거나, 고개를 기울여 소리에 귀를 열어 보면, 우리 몸은 방향을 찾고 기준에 맞추려는 부드러운 긴장 상태에 놓입니다. 반면에 누군가 위에서 어깨를 짓누른다고 상상하며 이를 악물고 버티는 자세를 취해 보면, 온몸의 근육이 딱딱하게 굳어 버려 발끝으로 표지를 더듬을 수도, 귀를 기울여 말씀을 들을 수도 없게 됩니다. 견딤을 시험의 내용으로 삼는 순간, 몸은 정작 물음에 답할 자세를 잃어버리고 마는 것입니다.</p>
+<p>시간의 차원에서도 놀라운 전복이 일어납니다. 우리는 흔히 시험이라고 하면 앞으로 다가올 미래의 성패를 가늠하는 일로 여기지만, 본문의 두 물음이 제시하는 대조의 기준은 둘 다 과거, 곧 뒤에 놓여 있습니다. 이장 이십이절은 그 조상들이 지킨 대로라는 기준을 뒤에 두고, 삼장 사절은 모세의 손으로 그들의 조상들에게 명령한 계명이라는 기준을 뒤에 둡니다. 새로운 과제를 내어 성적을 매기는 시험이 아니라, 이미 뒤에 주어진 길과 계명에 지금의 걸음을 대어 보는 물음인 셈입니다. 그리고 이 모든 물음은 히브리어 의문사 하라는 글자 하나 위에 아슬아슬하게 서 있습니다. 그 한 글자를 떼어 내면 문장은 곧바로 단정적인 서술로 굳어 버리지만, 성경은 그 한 글자로 단정을 물음으로 바꾸어 놓고 삼장 오절과 육절로 넘어갈 때에도 그러므로라는 정답 표시를 끝내 적지 않습니다.</p>
+<h3>아픈 이웃에게 시험을 말하지 않는 심방과 물음 칸을 먼저 적는 감사</h3>
+<p>칼뱅이 기독교 강요 일권에서 하나님의 섭리를 다루며 섭리 교리를 하나님의 숨은 뜻을 캐내는 호기심이 아니라 겸손과 신뢰의 자리로 삼아야 한다고 강조했듯, 우리 역시 하나님께서 왜 열국을 남겨 두셨는가라는 신정론의 판정을 내리려 하기보다 본문이 내놓은 물음 앞에 겸손히 귀를 기울입니다. 동시에 우리는 길을 지키면 시험에 합격한다는 도덕주의의 낭떠러지와, 인생의 모든 어려움을 하나님의 테스트로 둔갑시키는 고난 신비화의 낭떠러지를 함께 경계합니다. 물음 칸을 빼 버린 채 시험이라는 낱말만 앞세우면, 질병과 실직과 관계의 아픔 속에서 더 이상 버틸 힘이 없는 성도를 믿음의 시험에서 떨어진 낙제생으로 만들게 되기 때문입니다.</p>
+<p>그리하여 이 깊은 성경적 사고는 목회와 일터의 언어를 바꾸는 따뜻한 인격의 열매가 됩니다. 목회자는 고통받는 성도를 심방하거나 상담할 때 이것은 하나님의 시험이니 잘 견디십시오라는 말을 입에 올리지 않고, 아픔은 온전히 아픔으로 함께 들어 주며 본문의 물음을 무거운 짐으로 얹지 않습니다. 세무조사를 앞두고 불안해하는 고객을 만날 때에도 얼마나 버텨야 하는가라는 막연한 두려움에서 벗어나도록, 조사 기간과 자료 요구라는 도구 칸과 장부 및 증빙의 일치 여부라는 물음 칸을 종이 위에 나누어 적어 주며 준비의 중심을 버팀에서 대조로 옮겨 줍니다. 교회의 재정 감사를 진행할 때조차 서류 분량과 시간을 견디는 행사로 만들지 않고 감사표 맨 위에 집행이 예산과 규정대로인가라는 물음 칸을 먼저 적어 두고 답 칸은 끝까지 비워 두는 태도, 그것이 답 칸이 빈 시험지 앞에서 오늘을 걷는 신자의 지혜입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 06편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

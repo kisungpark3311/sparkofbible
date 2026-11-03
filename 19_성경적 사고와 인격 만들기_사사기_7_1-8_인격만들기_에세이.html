@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>괄호에 갇힌 자랑을 넘어 수단의 칸에 이름을 남기다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 19편 &middot; 사사기 7:1-8</span>
+      <h1>괄호에 갇힌 자랑을 넘어 수단의 칸에 이름을 남기다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>하루의 일과를 마치고 돌아오는 저녁, 우리의 머릿속에는 내가 해냈다거나 내가 못 했다는 문장이 습관처럼 남곤 합니다. 성과의 날에는 자부심이, 실패의 날에는 자책이 문장의 맨 앞자리를 독점하는 까닭은 두 문장 모두 주어가 나로 고정되어 있기 때문입니다. 사사기 7장 2절과 7절은 우리가 일상과 사역 현장에서 끊임없이 작성하는 이 결과 보고서의 문법을 뿌리부터 다시 들여다보게 합니다.</p>
+<p>처음 사사기 7장 2절을 읽을 때는 공을 가로채지 말라는 도덕적 금지나 사람을 향한 꾸짖음으로 읽기 쉽습니다. 그러나 본문의 문장 층위를 한 겹씩 벗겨 보면, 하나님께서 하신 일은 사람을 막으신 것이 아니라 문장에 대한 정교한 처치였음이 드러납니다. 사람이 구원하다의 주어 칸에 앉는 문장은 여호와의 말씀 속 목적절 안에 가정 인용으로만 갇혀 있고, 여호와께서 친히 그 칸에 서시는 문장은 주절의 일인칭 직설로 활짝 열립니다.</p>
+<h3>접속사 하나가 가둔 자랑과 뒤집힌 문법</h3>
+<p>7장 2절의 문장 층위를 자세히 관찰하면 자랑의 동사가 어디에 서 있는지 선명히 보입니다. 스스로 빛내다는 뜻의 히트파엘 재귀 동사 이트파에르는 그리하지 않게 하려고라는 뜻의 목적 접속사 펜 뒤에 놓여 있습니다. 만약 이 두 글자짜리 접속사 펜이 빠지면 이스라엘이 나를 거슬러 스스로 빛낼 것이라는 예고가 되지만, 이 접속사 하나가 예고를 막힘의 문장으로 바꾸어 놓습니다. 더구나 내 손이 나를 구원하였다는 말은 1절부터 8절까지 어디에서도 이스라엘의 입으로 직접 서술되지 않으며, 오직 여호와의 말씀 안에 괄호처럼 가정으로 인용되어 있을 뿐입니다. 그 괄호 속 완료형 동사 호시아 끝의 여성 어미는 문법적 주어를 나라는 사람 전체가 아니라 여성 명사인 내 손으로 정합니다. 사람은 주어 자리를 자기 몸의 한 부분인 손에 내주고 정작 자신은 나를 위해라는 자리에 선 형국입니다.</p>
+<p>구약에서 이트파에르가 무엇을 거슬러라는 전치사 알을 받을 때는 이사야 10장 15절에서 도끼가 찍는 이를 거슬러 스스로 빛내겠느냐는 물음으로 서거나, 사사기 7장 2절처럼 막힘의 목적절로만 등장할 뿐 평서 직설로 서지 못합니다. 반면 무엇 안에서라는 전치사 베를 받는 이사야 44장 23절과 49장 3절에서는 여호와께서 이스라엘 안에서 스스로 빛나시는 주어가 되십니다. 물론 이 분포에서 어느 본문이 어느 본문을 내다보았는지는 세우지 않습니다. 다만 7장 2절의 인용 속 완료형과 7장 7절의 내가 너희를 구원하리라는 주절의 일인칭 미완료 오시아를 나란히 놓으면, 주어와 층위와 시상이 함께 뒤집힙니다. 자랑은 이미 끝난 일로 셈하려는 막힌 완료에 갇히고, 구원은 아직 오지 않은 약속의 열린 미완료로 선포됩니다.</p>
+<h3>수단의 칸에 이름이 남는다는 것의 위로</h3>
+<p>그렇다면 주어 자리를 하나님께 비워 드릴 때 사람의 손은 지워지는 것일까요. 세무 신고서 서식을 떠올려 보면 그렇지 않다는 사실이 분명해집니다. 신고서에는 납세의무자가 서명하는 칸과 서류를 대신 작성한 세무대리인이 확인하는 칸이 따로 있습니다. 대리인의 이름이 납세의무자 칸에 들어가면 서류가 왜곡되지만, 자기 칸인 작성자란에 이름이 남는 것은 지워짐이 아니라 정확한 기록입니다. 무거운 돌을 들어 올리는 지렛대가 클수록 지렛대가 들었다는 문장이 그럴듯해지나 힘을 준 팔이 주체이며, 협주곡 악보 첫 줄에 작곡자의 이름이 고정되어 있어도 아래 편성표에 독주 악기가 정확히 적히는 이치와 같습니다. 물론 세무나 물리나 음악의 연장은 스스로 말하지 못하지만 7장 2절의 손은 스스로 말하려는 사람의 몸이라는 점에서 유추가 깨지나, 수단의 칸에 이름이 남는 것이 결코 지워짐이 아니라는 통찰만은 세 유추가 한자리에서 증언합니다.</p>
+<p>칼뱅이 기독교 강요에서 섭리와 중간 원인의 관계를 다루며 수단은 쓰이되 섭리의 주체 자리에 오르지 않는다고 한 요지나, 웨스트민스터 신앙고백 5장 3항이 하나님은 통상 섭리에서 수단을 쓰시되 수단 없이도 일하실 자유가 있다고 고백한 요지도 여기서 신학의 언어를 보탭니다. 7장 7절은 삼백 명으로라는 수단의 전치사 베를 동사 앞에 세워 사람의 손을 당당히 남기십니다. 책상 앞에 앉아 오른손을 주먹 쥐어 가슴에 올리고 내 손이 나를 구원했다고 말할 때 근육의 방향은 자기 안으로 모이지만, 왼손 검지를 세워 그 주먹 앞을 가로막은 뒤 주먹을 천천히 펴서 손바닥이 위로 가게 내려놓으면 손은 사라지지 않은 채 방향만 위를 향해 열립니다. 6장 14절의 부르심이나 6장 36절 이하의 조건문, 그리고 8장 22절의 칭송과 7장 2절 사이의 풀리지 않는 긴장은 본문이 정하지 않으므로 열린 채로 두되, 손을 없애는 것이 아니라 자기에게 향하던 손을 열어 수단의 칸으로 옮기는 감각만은 우리 몸에 또렷이 남습니다.</p>
+<h3>보고서의 주어를 고쳐 쓰는 정직과 겸손의 일상</h3>
+<p>이 문법의 전환은 공을 하나님께 돌리면 이긴다는 도덕주의나, 적은 수가 영적이라는 숫자 신학, 혹은 본문에서 한마디도 말하지 않는 기드온을 겸손이나 교만의 표본으로 판정하려는 시도를 모두 비켜 갑니다. 정경이 더한 신약의 층에서 바울이 고린도전서 1장과 고린도후서 12장을 통해 어떤 육체도 자랑하지 못하게 하시려는 뜻과 약함 위에 머무는 그리스도의 능력을 말한 것처럼, 복음은 손을 지우지 않고 주어 칸을 여호와께 돌려 드린 자리에서 손을 다시 수단으로 부릅니다. 이때 막힘의 접속사 펜은 고발이 아니라 우리를 교만에서 지키는 선제적 보호이며, 이야기를 움직이는 동기가 됩니다.</p>
+<p>이제 우리의 일터와 교회에서 문장의 칸을 정직하게 옮기는 인격의 연습을 시작할 수 있습니다. 세무조정 결과나 절세 효과를 고객에게 보고할 때 사실 확인 없는 세액을 적지 않고, 저희 사무소가 세금을 줄였습니다라는 문장 대신 고객이 모아 둔 증빙과 실무 직원의 검토와 제도가 허용한 범위가 어떻게 함께 일했는지를 수단의 칸에 정직하게 적어 넣는 것입니다. 연말 공동의회나 제직회 사역 보고에서도 인원을 줄여야 영적이라는 오해 없이, 우리 부서가 이뤘습니다 대신 하나님께서 어느 집사님과 교사들의 손으로 이 일을 이루셨습니다라고 문장 순서를 바꾸어 수단의 칸에 성도들의 이름을 오히려 더 많이 불러 주는 것입니다. 하루를 마감하는 저녁마다 주먹을 쥐었다가 펴며 그날의 결과 문장을 하나님께서 누구를 통해 하셨다는 순서로 다시 말할 때, 성과의 날에는 자랑이 괄호에 갇히고 실패의 날에는 자책이 주어 칸을 독점하지 않으며 우리의 손은 내일도 쓰임받을 은혜의 자리에 평안히 남을 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 19편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

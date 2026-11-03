@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>닫힌 단락 너머를 가리키는 한 음절의 자리와 숨 한 번의 여백</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 38편 &middot; 사사기 12:8-15</span>
+      <h1>닫힌 단락 너머를 가리키는 한 음절의 자리와 숨 한 번의 여백</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 12장 7절부터 15절까지 이어지는 네 기록의 세 경계를 원문으로 찬찬히 짚어 보면, 경계마다 한결같이 되풀이되는 정교한 문장의 이음매가 눈에 들어옵니다. 입다와 입산과 엘론의 기록은 각각 죽었다를 뜻하는 와야마트와 마지막 동사인 묻혔다를 뜻하는 와이카베르, 그리고 마지막 낱말인 장사지 이름으로 끝을 맺습니다. 그 직후에는 마소라 본문의 단락 표지인 페가 놓여 앞선 기록의 문을 닫고, 바로 다음 절은 다스렸다, 그의 뒤에를 뜻하는 바이쉬포트 아하라우라는 두 낱말로 새롭게 열립니다.</p>
+<p>같은 사사기 안에서도 10장 1절은 아비멜렉의 뒤에라며 앞사람의 이름을 직접 적지만, 12장의 세 경계에서 앞사람이 다음 기록의 첫 문장에 들어오는 모양은 이름도, 혈연도, 공과에 대한 요약도 아닌 삼인칭 단수 남성 접미사 하나뿐입니다. 그의 뒤에라는 말 속의 그의라는 단 한 음절이 이미 닫힌 단락 표지 너머에 있는 앞사람을 조용히 가리킵니다. 처음에는 짧은 기록 셋을 단순히 늘어놓은 목록처럼 보였던 이 여덟 절이, 실은 첫 문장마다 바로 앞의 끝을 가리키는 고리로 촘촘히 꿰어진 사슬임이 드러나는 순간입니다.</p>
+<h3>금액 없는 이월과 건넴의 장면이 없는 잇달음</h3>
+<p>앞의 것이 끝난 자리에 다음 것의 첫 줄이 앞을 가리키는 장치를 달고 시작하는 문형은 세무와 법무, 문학의 영역에서도 어렵지 않게 찾아볼 수 있습니다. 회계에서 한 해의 장부가 결산 마감으로 닫히면 다음 해 장부의 첫 줄은 앞 장부의 결과를 받아 적는 전기이월로 열리고, 법인 등기부 역시 대표이사가 바뀔 때 누구의 업적이 뛰어난지 평가하지 않은 채 퇴임 등기와 취임 등기를 차례대로 적습니다. 그러나 회계의 전기이월 줄에는 반드시 넘어온 금액이 적히고, 등기부에는 퇴임 사유의 갈래와 취임을 결의한 기관이 명시되는 반면, 사사기 12장의 세 기록에는 무엇이 넘어갔는지, 누가 세웠는지를 밝히는 낱말이 단 하나도 없습니다.</p>
+<p>유추가 일제히 부러지는 바로 이 지점에서, 계승이란 앞사람이 쥐고 있던 것을 다음 사람의 손에 직접 넘겨주는 건넴의 장면이어야 한다는 우리의 고정관념이 뒤집힙니다. 원문에서 만약 접미사 대신 앞사람의 이름을 다시 불렀다면 이미 닫힌 기록을 다시 여는 셈이 되었겠지만, 접미사 하나는 앞 기록을 닫힌 채로 두면서 정확히 가리키는 균형을 이룹니다. 이 정형이 기록하는 잇달음은 물건을 건네는 장면이 아니라 끝난 사람을 가리키며 시작하는 문장이며, 무엇이 넘어갔는지 지어내지 않는 그 빈자리는 기록의 결핍이 아니라 본문이 스스로 지키는 정직한 범위입니다.</p>
+<h3>단락 표지를 호흡하는 숨 한 번과 정경의 절제</h3>
+<p>머리로 확인한 이 사슬의 구조를 몸으로 체득하기 위해 12장 7절부터 15절까지를 소리 내어 읽으며, 장사되었더라로 끝나는 절마다 입을 다문 채 코로 숨을 한 번 깊게 들이쉬고 내쉬어 봅니다. 그 한 번의 숨이 곧 단락 표지 페의 자리이며, 숨을 다 내쉰 뒤에만 그의 뒤에는을 읽으면서 검지로 바로 앞 절의 장사되었더라를 짚어 봅니다. 숨을 쉬지 않고 이어 읽으면 묻혔다와 다스렸다가 한 호흡에 들러붙어 두 사람이 한 장면에 선 것처럼 들리지만, 같은 길이의 침묵과 숨 한 번이 들어가면 비로소 앞 기록이 닫히는 소리가 나고 손가락은 매번 사슬 전체가 아닌 바로 한 칸 위의 끝난 사람을 가리키게 됩니다.</p>
+<p>이 여덟 절에는 여호와라는 이름이 한 번도 등장하지 않지만, 개혁주의 성경 읽기는 사사기 2장의 총괄 진술을 억지로 끌어와 이 본문의 입에 넣지도 않고, 반대로 하나님의 이름이 없다는 사실을 하나님 없는 다스림이라는 부정적 평가로 바꾸지도 않습니다. 칼뱅이 섭리론에서 역사의 숨은 원인을 캐는 사변 대신 겸손과 평안을 강조했듯, 또한 히브리서와 디모데후서가 인도자들을 기억하고 들은 바 말씀을 충성된 사람들에게 부탁하라고 권면하듯, 우리는 끝을 잘 맺어야 후임이 잘 선다는 도덕주의나 베들레헴과 나귀를 억지로 엮는 장식적 예표를 내려놓고 어제나 오늘이나 영원토록 같으신 주님께 소망을 둡니다.</p>
+<h3>첫 주보와 전기이월 장부, 그리고 떠나는 자리의 인계서</h3>
+<p>앞사람의 끝을 지우지 않으면서도 내 첫 문장을 앞사람의 말로 채우지 않는 성경적 사고는, 목회와 세무 실무와 개인의 이임 현장에서 성숙한 인격의 열매로 구현됩니다. 전임 목회자가 은퇴하거나 소천한 뒤 후임 목회자가 첫 주일을 맞을 때, 첫 주보의 첫 줄에는 어느 목사님의 뒤를 이어라는 한 구절만 담백하게 넣으면 됩니다. 거기에 전임자의 업적 요약이나 아쉬움, 혹은 떠나셨으므로 같은 인과의 어미를 덧붙이지 않을 때, 전임자를 아끼던 교인은 그 이름이 지워지지 않았음을 확인하고 새 출발을 기다리던 교인은 첫 문장이 앞사람의 그림자로 채워지지 않았음을 보게 됩니다.</p>
+<p>세무 실무에서 다른 세무사가 맡던 기장 고객을 넘겨받아 첫 결산을 할 때도, 전기이월 줄에 전임자 처리 오류 의심 같은 평가 메모를 먼저 달지 말고 앞 장부의 마감 숫자와 작성 출처만 정확히 적은 뒤, 검토가 필요한 항목은 별도 메모에 확인된 사실과 내 짐작으로 나누어 적어야 합니다. 나아가 내가 몸담았던 직분이나 부서를 떠날 때에도 긴 인계서로 다음 사람의 첫해를 미리 규정하려 하지 말고, 진행 중인 일과 연락처와 마감일을 적은 사실 목록만 건네며 내 바람을 적은 종이는 후임이 청할 때만 내어주고 마지막 날의 기록을 이임 한 줄로 닫는 것, 그것이 내 첫 문장 안에 한 음절로 남아 있는 앞사람을 존중하고 다음 사람의 빈 첫 줄을 지켜 주는 길입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 38편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>열린 입이 두 문장으로 갈릴 때, 평가 칸을 비워 두는 읽기</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 36편 &middot; 사사기 11:29-40</span>
+      <h1>열린 입이 두 문장으로 갈릴 때, 평가 칸을 비워 두는 읽기</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 11장 35절과 36절을 나란히 펼쳐 놓으면, 마치 거울을 마주 세운 것처럼 똑같은 구절 하나가 아버지와 딸의 입을 차례로 지나가는 것을 보게 됩니다. 아버지 입다는 내가 여호와를 향하여 입을 열었다고 말하고, 딸은 아버지께서 여호와를 향하여 입을 여셨다고 말합니다. 히브리어 원문에서도 동사 파차와 목적어 페, 그리고 여호와를 향하여라는 전치사구가 정확히 겹치며, 두 사람이 가리키는 열린 입은 오직 하나, 아버지의 입입니다. 얼핏 보면 딸이 아버지의 말을 그대로 메아리처럼 되받아 복창한 것처럼 보입니다.</p>
+<p>그러나 문자 단위로 두 문장의 앞뒤를 살피는 순간, 이 두 절이 단순한 메아리나 동의의 대화가 아니라 한 말이 두 입을 지나며 전혀 다른 두 문장으로 갈라지는 자리임이 드러납니다. 가운데 놓인 구절은 같지만 그 앞에 선 말과 뒤에 붙은 꼬리가 완전히 다르고, 무엇보다 성경의 서술자는 그 두 문장 어디에도 옳고 그름의 평가절을 달지 않았습니다. 말한 이의 문장과 들은 이의 문장을 하나로 뭉개지 않고 나란히 세워 읽는 성경적 사고는, 타인의 비극을 손쉬운 교훈담으로 소비하려는 우리의 오랜 습관을 멈추어 세웁니다.</p>
+<h3>가운데만 같고 양 끝이 다른 두 문장, 메아리가 아닌 그녀의 말</h3>
+<p>두 절의 겉꼴을 나란히 대조해 보면 세밀한 차이가 선명하게 떠오릅니다. 서른다섯째 절에서 아버지는 동사 어미에 이미 1인칭이 들어 있는데도 그 앞에 그리고 나는이라는 독립 대명사 아노키를 한 번 더 세워 바로 앞의 너는이라는 대명사와 맞서게 합니다. 반면 서른여섯째 절에서 딸은 내 아버지라는 호격 아비로 문장을 엽니다. 구절 뒤에 붙은 꼬리는 더 크게 갈립니다. 아버지는 그리고 내가 능히 돌이키지 못하리로다라는 1인칭 부정문으로 자기의 불가능을 말하며 멈추지만, 딸은 접속사도 없이 곧바로 내게 행하라라는 2인칭 명령문을 놓고 당신의 입에서 나간 것 같이라는 비교절과 여호와께서 원수를 갚으신 뒤에라는 시간절을 덧붙입니다.</p>
+<p>산에서 외친 메아리는 소리를 그대로 돌려줄 뿐 아무것도 덧붙이지 않으며, 법정이나 가정에서 상대의 옛 약속을 되받아 말하는 이들은 대개 그 말로 무언가를 얻어 내려는 자리에 서 있습니다. 그러나 입다의 딸은 그 말로 얻을 것이 전혀 없는 자리, 오히려 그 말 아래 자기 생애가 걸린 자리에서 아버지의 입을 세 번이나 가리키며 이 단락이 줄곧 써 온 나가다라는 동사 야차로 그 말을 부릅니다. 그렇기에 딸의 문장은 아버지 말의 반향도, 따옴표 속의 인용도 아닌 2인칭 평서문으로 선 그녀 자신의 고유한 문장입니다. 개역성경은 두 구절 모두에 열었으니, 여셨으니라는 이유 어미를 넣고 시간절도 이니이다로 옮겼으나, 원문은 구절과 꼬리 사이에 필연적인 인과의 접속사를 두지 않습니다.</p>
+<h3>한 말이 지나간 세 입과 교훈담을 막아 서는 빈 평가 칸</h3>
+<p>내가 예전에 누군가에게 했던 약속 하나를 떠올려 내 입으로 내가 그때 그렇게 말했다고 소리 내어 읽을 때와, 다른 사람이 내 앞에서 당신이 그때 그렇게 말했습니다라고 2인칭으로 들려줄 때 우리 몸의 어깨와 목이 느끼는 무게는 전혀 다릅니다. 내 입에서 나올 때는 어쩔 수 없다는 한계의 변명으로 흘러가기 쉽지만, 타인의 입을 통해 2인칭으로 들려올 때는 내가 감당해야 할 행위의 요구로 다가옵니다. 단락 전체의 시간 축으로 넓혀 보면, 서른째 절에서 처음 적힌 서원의 내용은 서른다섯째 절의 아버지 입과 서른여섯째 절의 딸의 입, 그리고 서른아홉째 절의 서술자의 입을 지나는 동안 단 한 번도 그 구체적인 내용이 되풀이되지 않고 오직 입을 연 일, 입에서 나간 것, 그가 서원한 서원이라는 행위의 이름으로만 불립니다.</p>
+<p>만약 서술자가 이 두 절 뒤에 딸이 이같이 순종하였더라거나 입다가 서원을 신실히 지켰더라, 혹은 그가 경솔히 입을 열었더라 같은 평가절 한 줄만 적어 넣었더라도 이 본문은 곧장 깔끔한 도덕 교훈담이 되었을 것입니다. 웨스트민스터 신앙고백이 하나님 말씀이 금하는 것이나 이행할 수 없는 서원을 경계하듯, 이 본문은 한 번 한 말은 무조건 지켜야 한다는 서원 교본으로도, 반대로 함부로 말하지 말라는 처세훈으로도 줄일 수 없습니다. 딸의 순종을 미화하거나 하나뿐인 딸을 억지로 그리스도의 예표로 장식하는 일 역시 본문에 없는 평가 칸을 우리 손으로 채우는 일입니다. 서술자가 비워 둔 평가 칸은 해설의 부족이 아니라, 한 사람의 생애를 다른 이들의 표어로 소비하지 못하게 막는 정경의 엄중한 배치입니다.</p>
+<h3>설교와 상담과 실무에서 들은 이의 문장을 지우지 않는 인격</h3>
+<p>말한 이의 문장과 들은 이의 문장을 각각 그 입의 것으로 남기고 평가 칸을 비워 두는 훈련은, 설교와 목회 상담과 일상의 실무를 정직하게 빚어 줍니다. 설교를 준비하며 사사기 11장 35절과 36절을 다룰 때는 두 절을 반드시 함께 읽되, 원고에서 인용문 앞뒤에 습관처럼 붙인 순종, 헌신, 신실, 경솔 같은 평가 형용사와 명사들을 찾아 원문과 대조하며 지워 나가야 합니다. 낭독할 때에도 두 절 사이에 숨 한 번의 쉼을 두고 비장함이나 찬미의 색채를 덧입히지 않은 채 문장 그대로 읽어 내려갈 때, 회중은 강단이 만든 판정 대신 성경이 남긴 질문 앞에 서게 됩니다.</p>
+<p>가족 상담 자리에서 그때 그렇게 말씀하셨잖아요라는 되받은 말이 터져 나올 때도, 상담자는 처음 말한 사람의 긴 해명만 적고 들은 이의 말을 한 줄로 요약해 버리는 일을 멈추어야 합니다. 말한 이가 붙인 꼬리와 들은 이가 붙인 꼬리를 기록지의 다른 칸에 줄이지 않고 그대로 적어 두되, 아직 그 일을 입 밖에 낼 수 없는 사람에게는 어떤 질문지도 내밀지 않는 배려가 필요합니다. 가족 명의의 서류를 둘러싼 세무 실무에서도, 생애가 걸린 본문과의 무게 차이를 분명히 인정하면서 상담 기록지를 두 칸으로 나누어 서명한 당사자 본인의 말과 그 서명을 근거로 가족이 전하는 말을 섞지 않고 따로 적어야 합니다. 본인이 없는 자리에서 들은 설명으로 본인 칸을 채우지 않고 직접 들을 때까지 비워 두는 그 작은 기록의 정직함이, 결정의 자리에서 빠진 목소리를 우리의 설명으로 덮어 버리지 않는 성경적 인격의 시작입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 36편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

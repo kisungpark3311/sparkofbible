@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>일보다 먼저 홀로 선 이름, 사다리를 놓지 않는 또한의 문법</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 사사기 제 05편 &middot; 사사기 2:6-15</span>
+      <h1>일보다 먼저 홀로 선 이름, 사다리를 놓지 않는 또한의 문법</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<p>사사기 이장 칠절과 십절은 여호수아의 세대와 그 뒤에 일어난 다른 세대를 나란히 세워 보여주는 거울 같은 두 구절입니다. 칠절의 장로들은 여호와께서 이스라엘을 위하여 행하신 모든 큰 일을 본 자들이라 불리고, 십절의 다른 세대는 여호와를 알지 못하며 여호와께서 이스라엘을 위하여 행하신 일도 알지 못한 자들이라 불립니다. 두 구절을 칸으로 나누어 한 줄씩 맞대어 보면, 관계사 아쉐르와 칼 완료 삼인칭 복수라는 동사의 문법적 형태, 마아세 곧 일이라는 명사, 그리고 그분이 이스라엘을 위하여 행하셨다는 꼬리 문구까지 네 가지 요소가 놀랍도록 똑같이 포개집니다. 반면에 보다와 알다라는 동사의 뜻, 부정어 로의 유무, 목적어의 개수, 그리고 일에 붙은 수식어 네 가지는 날카롭게 갈라집니다.</p>
+<p>그런데 이 정교한 대조표 한복판에서 우리의 시선을 단번에 사로잡는 자리 이동 하나가 일어납니다. 칠절에서 여호와라는 이름은 여호와의 모든 큰 일이라는 연계형 구문 안에 들어가 일이라는 명사를 꾸며 주는 자리에 접혀 있었습니다. 하지만 십절로 넘어오자 여호와라는 이름은 일이라는 명사 바깥으로 걸어 나와 목적격 표지 에트를 홀로 달고 알지 못했다는 동사의 맨 첫 번째 목적어 자리에 우뚝 섭니다. 원문은 알지 못했다는 동사를 딱 한 번만 쓰고, 그 뒤에 여호와를, 그리고 베감 곧 또한 그 일을이라는 순서로 두 목적어를 나란히 매달아 놓았습니다. 만약 본문이 깔끔한 대칭의 거울을 만들고 싶었다면 첫 목적어인 여호와를 빼 버리면 그만이었을 텐데, 성경은 굳이 대칭의 거울을 깨뜨리면서까지 그분의 이름을 맨 앞에 홀로 세운 것입니다.</p>
+<h3>봄과 앎의 대비를 넘어 목적어의 자리로 읽다</h3>
+<p>처음 이 본문을 대할 때 우리는 흔히 눈으로 직접 본 세대와 알지 못한 세대라는 동사의 대비에 마음을 빼앗기곤 합니다. 그러나 병행 본문인 여호수아 이십사장 삼십일절을 펼쳐 보면, 거기서는 장로들에게도 보았다는 라우 대신 알았다는 야데우를 쓰고 있음을 발견하게 됩니다. 즉 보다와 알지 못하다의 대비는 사사기 본문 안에서만 성립하는 특징일 뿐입니다. 하지만 여호수아서로 읽든 사사기로 읽든 결코 흔들리지 않는 단단한 사실 하나가 남는데, 장로들을 설명하는 문장에서는 언제나 여호와의 이름이 일이라는 명사 안에 접혀 있는 반면, 오직 알지 못했다는 십절의 문장에서만 그 이름이 일과 분리되어 첫 번째 목적어로 홀로 선다는 점입니다.</p>
+<p>이 구조를 일상의 유추로 옮겨 보면 선물 꾸러미 안에 들어 있는 물품 목록과 그 선물을 보낸 사람의 관계, 혹은 연주자들이 연주한 악보와 그 곡을 쓴 작곡가의 관계와 닮아 있습니다. 세무 실무에서 고객의 사실 확인서를 받을 때에도 한 동사에 그 거래처 대표자를, 또한 그가 행한 거래를 알지 못한다고 두 목적어를 걸어 두면, 실무자는 대표자를 모른다는 말이 얼굴을 본 적이 없다는 뜻인지 거래 관계가 없다는 뜻인지 반드시 되묻게 됩니다. 다만 확인서는 진술자 본인의 고백인 반면 사사기 이장 십절은 서술자의 객관적 기록이며, 선물이나 악보의 비유 역시 목록을 보면 보낸 이를 자연히 알게 된다는 인과관계를 몰래 끌어들일 때 본문과 어긋나고 맙니다. 본문은 두 목적어 사이에 오직 또한이라는 덧붙임의 낱말만 두었을 뿐, 하나에서 다른 하나로 건너가는 인과의 다리를 놓지 않았기 때문입니다.</p>
+<h3>이름 하나에 다 쓰이는 첫 숨과 차례를 방법으로 바꾸지 않는 절제</h3>
+<p>번역본이 만든 문장의 결을 넘어 원문의 호흡을 우리 몸과 목소리로 직접 통과시켜 보면 이 차이는 한층 생생하게 다가옵니다. 칠절의 관계절은 여호와께서 이스라엘을 위하여 행하신 모든 큰 일을 본 자라는 긴 목적어 한 덩어리가 한 번의 긴 숨에 실려 흐릅니다. 반면 십절을 원문 어순 그대로 소리 내어 읽으면, 알지 못한, 여호와를에서 첫 번째 숨이 오롯이 그분의 이름 하나에 다 쓰이고, 잠깐 숨을 고른 뒤 또한 그 일을, 그분이 이스라엘을 위하여 하신이라는 둘째 숨이 이어집니다. 우리말 개역성경은 알지 못하며와 알지 못하였더라로 동사를 두 번이나 늘려 번역했고, 그 결과 낭독자의 목소리는 두 번째 알지 못하였더라에서 자연스레 누군가를 꾸짖듯 무겁게 내려앉으며 정작 맨 앞에 홀로 서 있던 여호와의 이름은 두 동사 사이에 묻히고 맙니다.</p>
+<p>차원을 넓혀 생각해 보면, 우리는 이 구절 앞에서 끊임없이 교육의 방법론이라는 사다리를 세우고 싶어 합니다. 다음 세대에게 하나님의 기적과 업적을 부지런히 보여 주어야 그 일을 통해 하나님을 알게 된다거나, 반대로 일을 가르치지 않아서 하나님을 모르게 되었다는 식의 사다리입니다. 그러나 십절의 어순은 일에서 이름으로 올라가는 사다리와 정반대로 이름이 먼저이고 일이 다음이며, 그 둘을 잇는 베감은 그래서나 통하여가 아니라 단순한 덧붙임일 뿐입니다. 우리가 본문에서 캐내고 싶어 하는 것은 어떻게 하면 알게 되는가라는 방법이지만, 본문이 정직하게 적어 놓은 것은 무엇이 먼저 적혔는가라는 차례입니다. 차례를 방법으로 바꾸는 순간, 우리는 성경이 쓰지 않은 그래서라는 말을 성경의 행간에 몰래 밀어 넣게 됩니다.</p>
+<h3>꾸중 대신 이름을 들려주는 강단과 말을 늘리지 않는 실무</h3>
+<p>장 칼뱅이 기독교 강요 일권 첫머리에서 하나님을 아는 지식과 창조 및 섭리의 일들을 구분하여 논하고, 웨스트민스터 신앙고백 일장 일절이 하나님의 일들만으로는 구원에 이르는 지식을 얻기에 충분하지 않다고 고백한 전통은, 일과 그분의 이름을 나란히 분리해 세운 사사기 이장 십절의 문면과 조화를 이룹니다. 물론 우리는 이 신학적 통찰을 빌려와 십절의 세대가 왜 하나님을 알지 못했는지 그 봉합된 이유를 설명하려 들지 않으며, 본문을 다음 세대 위기론이라는 세대 도덕주의나 보면 안다는 경험주의의 표어로 소비하지도 않습니다. 알지 못함의 문장 한가운데서 가장 또렷하게 빛나는 것은 그 세대의 결함이 아니라 홀로 우뚝 선 여호와의 이름이기 때문입니다.</p>
+<p>이 깨달음은 강단과 일터, 그리고 개인의 신앙 고백을 다듬는 구체적인 인격의 훈련으로 이어집니다. 목회자는 회중 앞에서 십절을 낭독할 때 두 번째 알지 못하였더라에 꾸짖는 억양을 싣지 않고, 원문이 동사를 한 번만 쓰며 여호와를 맨 앞에 두었다는 사실을 차분히 풀어 준 뒤 왜 그들이 몰랐을까라는 헛된 추궁 대신 그 이름 앞에서 설교를 멈출 줄 압니다. 세무 실무에서 고객의 진술서를 작성할 때에도 고객이 한 동사에 두 목적어를 묶어 말한 것을 임의로 늘리거나 속뜻을 짐작해 채우지 않고, 고객이 쓴 동사의 수와 목적어의 순서를 정직하게 보존합니다. 나아가 내 삶의 간증을 돌아볼 때에도 내 문장의 첫 목적어가 늘 내가 겪은 일에만 머물러 있지는 않은지, 그분의 이름이 어디에 서 있는지 조용히 살피는 겸손한 눈을 갖게 됩니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      사사기 제 05편
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
