@@ -150,9 +150,25 @@
   }
 
   /* ---------- figure ---------- */
-  figure{margin:18px 0 28px}
+  figure{margin:18px 0 26px}
   .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
   .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
 
   .night{
     background:
@@ -296,52 +312,59 @@
 
   <figure>
     <div class="photo">
-      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="서재 책상과 기록물 (사진 자리)">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="무거운 하중을 가득 실은 수레와 깊게 패인 바퀴 자국">
         <defs>
-          <linearGradient id="gRoom" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#2a2d34"/>
-            <stop offset="0.55" stop-color="#3c3a37"/>
-            <stop offset="1" stop-color="#231f1d"/>
+          <linearGradient id="gCartSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#231f20"/>
+            <stop offset="0.55" stop-color="#4a3525"/>
+            <stop offset="1" stop-color="#8c583a"/>
           </linearGradient>
-          <radialGradient id="gLamp" cx="0.5" cy="0.08" r="0.65">
-            <stop offset="0" stop-color="#f7f2e4" stop-opacity="0.55"/>
-            <stop offset="0.45" stop-color="#d8ceb8" stop-opacity="0.18"/>
-            <stop offset="1" stop-color="#2a2d34" stop-opacity="0"/>
+          <linearGradient id="gCartGround" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2c221b"/>
+            <stop offset="1" stop-color="#17120e"/>
+          </linearGradient>
+          <radialGradient id="gCartGlow" cx="0.72" cy="0.28" r="0.55">
+            <stop offset="0" stop-color="#f3c88b" stop-opacity="0.45"/>
+            <stop offset="1" stop-color="#231f20" stop-opacity="0"/>
           </radialGradient>
         </defs>
-        <rect width="674" height="160" fill="url(#gRoom)"/>
-        <rect width="674" height="160" fill="url(#gLamp)"/>
-        <rect x="210" y="10" width="254" height="5" rx="2.5" fill="#fffdf7" opacity="0.92"/>
-        <rect x="200" y="8" width="274" height="9" rx="4" fill="#fffdf7" opacity="0.18"/>
-        <polygon points="0,126 674,126 674,160 0,160" fill="#4a382b"/>
-        <line x1="0" y1="126" x2="674" y2="126" stroke="#7b6554" stroke-width="1.2"/>
-        <g transform="translate(118,54)">
-          <rect x="0" y="56" width="128" height="16" fill="#8b7d6b" stroke="#2c2520" stroke-width="1"/>
-          <rect x="6" y="59" width="116" height="10" fill="#efe8dc"/>
-          <rect x="4" y="40" width="122" height="16" fill="#5c4638" stroke="#2c2520" stroke-width="1"/>
-          <rect x="10" y="43" width="110" height="10" fill="#f3ede2"/>
-          <rect x="2" y="24" width="118" height="16" fill="#9a4a2e" stroke="#2c2520" stroke-width="1"/>
-          <rect x="8" y="27" width="106" height="10" fill="#efe8dc"/>
-          <rect x="10" y="10" width="112" height="14" fill="#68635c" stroke="#2c2520" stroke-width="1"/>
-          <rect x="15" y="13" width="102" height="8" fill="#f5efe6"/>
+        <rect width="674" height="160" fill="url(#gCartSky)"/>
+        <rect width="674" height="160" fill="url(#gCartGlow)"/>
+        <!-- 지평선 언덕과 눌린 대지 -->
+        <path d="M0 112 Q180 104 340 116 T674 108 L674 160 L0 160 Z" fill="url(#gCartGround)"/>
+        <!-- 깊게 패인 수레바퀴 자국 -->
+        <path d="M40 156 Q190 132 320 128" fill="none" stroke="#110d0a" stroke-width="5" stroke-linecap="round"/>
+        <path d="M40 155 Q190 131 320 127" fill="none" stroke="#6e4f3a" stroke-width="1.2" opacity="0.6"/>
+        <path d="M95 160 Q225 138 345 132" fill="none" stroke="#110d0a" stroke-width="4" stroke-linecap="round"/>
+        <!-- 겹겹이 쌓인 무거운 단과 장부 더미 (수레 상부) -->
+        <g transform="translate(230, 26)">
+          <!-- 곡식 단/짐 더미 레이어 -->
+          <path d="M22 62 Q85 12 156 58 Z" fill="#7a5230" stroke="#2b1d12" stroke-width="1.2"/>
+          <rect x="28" y="48" width="118" height="15" rx="3" fill="#a47142" stroke="#2b1d12" stroke-width="1"/>
+          <rect x="18" y="34" width="136" height="16" rx="3" fill="#8b5a32" stroke="#2b1d12" stroke-width="1"/>
+          <rect x="30" y="20" width="114" height="15" rx="3" fill="#b8844f" stroke="#2b1d12" stroke-width="1"/>
+          <rect x="44" y="7" width="88" height="14" rx="3" fill="#9a4a2e" stroke="#2b1d12" stroke-width="1"/>
+          <!-- 묶은 밧줄과 하중 압박선 -->
+          <line x1="62" y1="7" x2="54" y2="64" stroke="#2b1d12" stroke-width="2"/>
+          <line x1="114" y1="7" x2="122" y2="64" stroke="#2b1d12" stroke-width="2"/>
+          <!-- 수레 적재함 프레임 (무게에 휘어진 형상) -->
+          <path d="M8 64 Q88 73 168 62 L160 78 Q88 86 16 78 Z" fill="#4e3422" stroke="#1f140d" stroke-width="1.5"/>
+          <!-- 길게 뻗은 수레 채 -->
+          <line x1="162" y1="72" x2="248" y2="92" stroke="#5c3d28" stroke-width="4.5" stroke-linecap="round"/>
+          <!-- 무거운 나무 바퀴 -->
+          <circle cx="88" cy="86" r="28" fill="none" stroke="#3a2518" stroke-width="6"/>
+          <circle cx="88" cy="86" r="25" fill="none" stroke="#c89d6c" stroke-width="1" opacity="0.5"/>
+          <circle cx="88" cy="86" r="6" fill="#9a4a2e" stroke="#1f140d" stroke-width="1.5"/>
+          <line x1="88" y1="58" x2="88" y2="114" stroke="#3a2518" stroke-width="2.5"/>
+          <line x1="60" y1="86" x2="116" y2="86" stroke="#3a2518" stroke-width="2.5"/>
+          <line x1="68" y1="66" x2="108" y2="106" stroke="#3a2518" stroke-width="2"/>
+          <line x1="108" y1="66" x2="68" y2="106" stroke="#3a2518" stroke-width="2"/>
         </g>
-        <g transform="translate(264,44)">
-          <rect x="0" y="66" width="138" height="16" fill="#4f4842" stroke="#26211d" stroke-width="1"/>
-          <rect x="6" y="69" width="126" height="10" fill="#ede5d8"/>
-          <rect x="5" y="50" width="130" height="16" fill="#7a6855" stroke="#26211d" stroke-width="1"/>
-          <rect x="11" y="53" width="118" height="10" fill="#f5efe6"/>
-          <rect x="2" y="34" width="132" height="16" fill="#3b424c" stroke="#26211d" stroke-width="1"/>
-          <rect x="8" y="37" width="120" height="10" fill="#ebe3d5"/>
-          <rect x="8" y="18" width="124" height="16" fill="#8c5840" stroke="#26211d" stroke-width="1"/>
-          <rect x="14" y="21" width="112" height="10" fill="#f5efe6"/>
-        </g>
-        <polygon points="432,134 522,131 534,148 442,152" fill="#f7f2e8" opacity="0.92"/>
-        <line x1="445" y1="138" x2="508" y2="136" stroke="#9a4a2e" stroke-width="1.6"/>
-        <line x1="447" y1="143" x2="515" y2="141" stroke="#7a7068" stroke-width="1"/>
-        <line x1="538" y1="130" x2="578" y2="147" stroke="#d8d0c6" stroke-width="2.4" stroke-linecap="round"/>
-        <circle cx="538" cy="130" r="1.8" fill="#9a4a2e"/>
+        <!-- 땅이 갈라지는 압박 크랙 -->
+        <path d="M318 140 L302 152 M318 140 L335 155 M318 140 L288 144" stroke="#c9956b" stroke-width="1.3" opacity="0.65"/>
       </svg>
     </div>
+    <figcaption class="cut-caption"><span>▲ 무거운 하중을 가득 실은 수레와 깊게 패인 바퀴 자국</span><span>아모스 2장 13절 · ‘곡식 단을 가득히 실은 수레가 흙을 누름 같으니’</span></figcaption>
   </figure>
 
   <div class="body">
@@ -358,7 +381,51 @@
   <header class="runhead"><b>도피의 길이 끊어진 자리에서 두 손을 내려놓다</b><span>02 / 03</span></header>
 
   <figure style="margin-top:26px">
-    <div class="photo night" role="img" aria-label="밤하늘과 적막한 창가 (사진 자리)"><div class="moon"></div></div>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="끊어진 도피의 길과 땅에 내려놓인 부러진 활과 방패">
+        <defs>
+          <linearGradient id="gFlightSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#161b26"/>
+            <stop offset="0.5" stop-color="#2e3440"/>
+            <stop offset="1" stop-color="#6b3e2e"/>
+          </linearGradient>
+          <linearGradient id="gCliff" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#3b322c"/>
+            <stop offset="1" stop-color="#181412"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gFlightSky)"/>
+        <!-- 먼 산맥과 폭풍 구름 -->
+        <path d="M0 95 L110 68 L210 88 L330 58 L430 92 L430 160 L0 160 Z" fill="#222630" opacity="0.7"/>
+        <!-- 절벽으로 끊어진 길 (도피의 소멸) -->
+        <polygon points="0,110 390,104 422,160 0,160" fill="url(#gCliff)"/>
+        <polygon points="520,118 674,112 674,160 495,160" fill="#1e1916"/>
+        <!-- 끊어진 협곡 아래의 심연 안개 -->
+        <rect x="385" y="104" width="140" height="56" fill="#12151e" opacity="0.65"/>
+        <!-- 절벽 끝까지 이어지다 끊긴 길의 흔적 -->
+        <path d="M30 158 Q180 126 388 108" fill="none" stroke="#8c7a6b" stroke-width="2" stroke-dasharray="6 4" opacity="0.75"/>
+        <!-- 땅에 버려진 청동 방패 -->
+        <g transform="translate(175, 108)">
+          <ellipse cx="42" cy="22" rx="36" ry="13" fill="#7c5036" stroke="#241710" stroke-width="2"/>
+          <ellipse cx="42" cy="20" rx="28" ry="9" fill="none" stroke="#d4af7a" stroke-width="1.2" opacity="0.7"/>
+          <circle cx="42" cy="19" r="5" fill="#d4af7a"/>
+        </g>
+        <!-- 부러진 활과 흩어진 화살 -->
+        <g transform="translate(268, 96)">
+          <path d="M10 34 Q38 4 68 24" fill="none" stroke="#c89d6c" stroke-width="3" stroke-linecap="round"/>
+          <path d="M74 28 Q94 38 106 20" fill="none" stroke="#c89d6c" stroke-width="3" stroke-linecap="round"/>
+          <line x1="12" y1="34" x2="58" y2="28" stroke="#e5dec9" stroke-width="1" stroke-dasharray="3 2" opacity="0.8"/>
+          <line x1="25" y1="42" x2="88" y2="16" stroke="#d8d0c6" stroke-width="1.8"/>
+          <polygon points="88,16 80,16 84,22" fill="#9a4a2e"/>
+        </g>
+        <!-- 절벽 끝에 멈춰 선 작은 실루엣 -->
+        <g transform="translate(366, 72)">
+          <circle cx="8" cy="6" r="4.5" fill="#e5dec9"/>
+          <path d="M3 13 L13 13 L15 34 L1 34 Z" fill="#e5dec9"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 끊어진 도피의 길과 땅에 내려놓인 활·방패</span><span>‘너희가 명하였다’</span></figcaption>
   </figure>
 
   <div class="body">
@@ -376,29 +443,42 @@
 
   <figure style="margin-top:26px">
     <div class="photo">
-      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="서재 창문으로 스며드는 새벽빛 (사진 자리)">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="언덕 위 십자가와 수직의 은총 빛 아래 내려놓은 두 손">
         <defs>
-          <linearGradient id="gDawn" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#1f2842"/>
-            <stop offset="0.48" stop-color="#52586c"/>
-            <stop offset="0.78" stop-color="#c9956b"/>
-            <stop offset="1" stop-color="#f3dfc1"/>
+          <linearGradient id="gCrossSky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#141c2e"/>
+            <stop offset="0.6" stop-color="#2c3545"/>
+            <stop offset="1" stop-color="#59463a"/>
           </linearGradient>
-          <linearGradient id="gBeam" x1="1" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#fff6e0" stop-opacity="0.45"/>
-            <stop offset="1" stop-color="#fff6e0" stop-opacity="0"/>
+          <linearGradient id="gGraceBeam" x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0" stop-color="#fff6dc" stop-opacity="0.55"/>
+            <stop offset="0.7" stop-color="#e8c382" stop-opacity="0.22"/>
+            <stop offset="1" stop-color="#e8c382" stop-opacity="0"/>
           </linearGradient>
         </defs>
-        <rect width="674" height="160" fill="url(#gDawn)"/>
-        <path d="M0 128 Q140 104 280 118 T560 108 L674 115 L674 160 L0 160 Z" fill="#2b2628" opacity="0.65"/>
-        <polygon points="420,0 674,0 674,160 220,160" fill="url(#gBeam)"/>
-        <rect x="0" y="0" width="18" height="160" fill="#24201d" opacity="0.78"/>
-        <rect x="656" y="0" width="18" height="160" fill="#24201d" opacity="0.78"/>
-        <rect x="334" y="0" width="6" height="160" fill="#24201d" opacity="0.48"/>
-        <rect x="0" y="77" width="674" height="5" fill="#24201d" opacity="0.38"/>
-        <rect x="0" y="148" width="674" height="12" fill="#24201d" opacity="0.88"/>
+        <rect width="674" height="160" fill="url(#gCrossSky)"/>
+        <!-- 하늘에서 수직으로 내리비치는 은총의 빛기둥 -->
+        <polygon points="295,0 379,0 445,160 229,160" fill="url(#gGraceBeam)"/>
+        <!-- 먼 골고다 언덕 실루엣 -->
+        <path d="M0 132 Q190 118 337 102 Q484 118 674 134 L674 160 L0 160 Z" fill="#1e1a18"/>
+        <!-- 언덕 위 십자가 -->
+        <g transform="translate(325, 38)">
+          <rect x="9" y="0" width="6" height="68" rx="1" fill="#3a281e"/>
+          <rect x="-8" y="16" width="40" height="5.5" rx="1" fill="#3a281e"/>
+          <rect x="10" y="0" width="2" height="68" fill="#f5e1b5" opacity="0.45"/>
+        </g>
+        <!-- 전면 책상/제단 위에 조용히 펼쳐 내려놓은 두 손과 정직한 장부 한 권 -->
+        <rect x="0" y="138" width="674" height="22" fill="#2b211b"/>
+        <line x1="0" y1="138" x2="674" y2="138" stroke="#8a6f5a" stroke-width="1"/>
+        <!-- 펼쳐진 노트(장부) -->
+        <polygon points="274,132 398,132 412,148 260,148" fill="#f7f2e7"/>
+        <line x1="336" y1="132" x2="336" y2="148" stroke="#b8ab99" stroke-width="1.2"/>
+        <!-- 양옆에 힘을 빼고 내려놓은 두 손의 온화한 실루엣 -->
+        <path d="M212 142 Q232 128 254 136 Q262 140 252 146 L210 146 Z" fill="#d8b496" opacity="0.9"/>
+        <path d="M462 142 Q442 128 420 136 Q412 140 422 146 L464 146 Z" fill="#d8b496" opacity="0.9"/>
       </svg>
     </div>
+    <figcaption class="cut-caption"><span>▲ 언덕 위 십자가의 머묾과 빛 아래 내려놓은 두 손</span><span>마 27:42 · ‘저가 남을 구원하였으되 자기는 구원할 수 없도다’</span></figcaption>
   </figure>
 
   <div class="body">
