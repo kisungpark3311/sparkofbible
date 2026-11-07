@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>[ican-write 1~5단계 설계기록] 한 알의 밀알, 궁멀에 묻힌 사랑 — 군산 선교사 묘역에서 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 14px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- figure ---------- */
+  figure{margin:18px 0 26px}
+  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  .body{
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- 모바일 반응형 호환 ---------- */
+  @media (max-width: 820px){
+    #top-toolbar{padding:0 14px}
+    .toolbar-left{display:none}
+    .toolbar-right{width:100%; justify-content:center}
+    .page{
+      width:calc(100% - 24px);
+      min-height:auto;
+      margin:0 auto 24px;
+      padding:32px 24px 24px;
+    }
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">[ican-write 1~5단계 설계기록] 한 알의 밀알, 궁멀에 묻힌 사랑 — 군산 선교사 묘역에서</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>[ican-write 1~5단계 설계기록] 한 알의 밀알, 궁멀에 묻힌 사랑 — 군산 선교사 묘역에서</b><span>01 · 2026년 11월 07일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">[ican-write 1~5단계 설계기록] 한 알의 밀알, 궁멀에 묻힌 사랑 — 군산 선교사 묘역에서</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="십자가 아래 땅에 떨어진 한 알의 밀알과 궁멀 땅에 피어난 황금빛 이삭들">
+        <defs>
+          <linearGradient id="gMillSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1c1917"/>
+            <stop offset="0.5" stop-color="#442b1d"/>
+            <stop offset="1" stop-color="#9a6b3b"/>
+          </linearGradient>
+          <radialGradient id="gSeedGlow" cx="0.5" cy="0.72" r="0.45">
+            <stop offset="0" stop-color="#fde68a" stop-opacity="0.65"/>
+            <stop offset="1" stop-color="#1c1917" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gMillSky)"/>
+        <rect width="674" height="160" fill="url(#gSeedGlow)"/>
+        <!-- 버지니아 고향의 흙과 조선 궁멀의 흙이 하나로 합쳐진 대지 단면 -->
+        <path d="M0 112 Q190 102 337 112 T674 106 L674 160 L0 160 Z" fill="#291d16"/>
+        <path d="M0 124 Q220 116 337 124 T674 118 L674 160 L0 160 Z" fill="#1c130e"/>
+        <!-- 중앙 흙 속에 묻혀 빛을 발하는 한 알의 밀알 -->
+        <ellipse cx="337" cy="128" rx="9" ry="5.5" transform="rotate(-18 337 128)" fill="#fbbf24" stroke="#fef3c7" stroke-width="1.5"/>
+        <!-- 밀알에서 뻗어 올라온 줄기와 무수한 황금빛 밀 이삭들 (구암교회·영명학교·예수병원·3.5 만세운동 상징) -->
+        <g stroke="#f59e0b" stroke-width="1.8" fill="none" stroke-linecap="round">
+          <path d="M337 122 L337 32"/>
+          <path d="M337 122 Q305 88 272 44"/>
+          <path d="M337 122 Q369 88 402 44"/>
+          <path d="M337 122 Q275 96 224 58"/>
+          <path d="M337 122 Q399 96 450 58"/>
+        </g>
+        <g fill="#fde68a">
+          <ellipse cx="337" cy="28" rx="4" ry="7"/><ellipse cx="331" cy="40" rx="3.5" ry="6"/><ellipse cx="343" cy="40" rx="3.5" ry="6"/>
+          <ellipse cx="272" cy="40" rx="4" ry="7"/><ellipse cx="266" cy="52" rx="3.5" ry="6"/><ellipse cx="278" cy="52" rx="3.5" ry="6"/>
+          <ellipse cx="402" cy="40" rx="4" ry="7"/><ellipse cx="396" cy="52" rx="3.5" ry="6"/><ellipse cx="408" cy="52" rx="3.5" ry="6"/>
+          <ellipse cx="224" cy="54" rx="4" ry="6.5"/><ellipse cx="450" cy="54" rx="4" ry="6.5"/>
+        </g>
+        <!-- 좌측 언덕 위 십자가 실루엣 -->
+        <g stroke="#e7e5e4" stroke-width="2.2" opacity="0.75">
+          <line x1="112" y1="42" x2="112" y2="104"/>
+          <line x1="94" y1="60" x2="130" y2="60"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 십자가 아래 땅에 떨어져 죽은 한 알의 밀알과 궁멀의 흙 위에 피어난 무수한 생명의 이삭</span><span>요한복음 12장 24절 · ‘비정한 부모’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">---</p>
+    <p class="essay-p">## [1단계] 글감 발견과 생각 확장 (1강 STEP 1~2)</p>
+    <p class="essay-p">### 1-1. 주체적 글감 확정 메모 * **구체적 글감 1문장**: 2026년 늦가을 온누리교회 선교팀과 찾은 군산 구암동산 선교사 묘역에서 전킨(전위렴) 선교사 발치에 나란히 누운 세 아기(생후 8개월·2개월·20일)의 작은 묘석을 마주하며, 세상 눈에는 비정한 부모처럼 보였을 자리에서 주님께 드린 온전한 사랑과 항복, 그리고 오늘 내 일상의 삶을 돌아본 경험. * **출발점**: `현장 답사 관찰 + 신앙적 고백 + 성찰` * **지금 하고 싶은 말 3가지**: 1. 구암동산 묘역의 큰 화강암 비석 발치에 누운 조지·시드니·프랜시스의 짧은 생몰 연대(8개월, 2개월, 20일) 앞에서 부모의 단장(斷腸)의 아픔이 먹먹하게 다가왔다. 2. 세 아기를 잃고도 고향으로 돌아가지 않은 것은 세상이 오해하듯 ‘비정한 부모’여서가 아니라, 주권자 하나님 앞에 가장 소중한 것까지 내려놓은 ‘사랑과 항복’이자 모든 장벽을 넘어 조선의 흙이 된 ‘성육신적 사랑’이었다. 3. 온누리교회 선교팀과 선교역사관 계단에서 찍은 밝은 미소 뒤편에는 130년 전 밀알들의 희생이 놓여 있으며, 오늘 내 일터와 가정에서 내 고집을 내려놓고 곁의 사람을 섬김으로 그 생명을 이어가야 한다.</p>
+    <p class="pull essay-p">### 1-2. 신학·선교학 학술 재료 및 성경 본문 연결 | 구분 | 참고 자료 (저자·연도 / 성경) | 핵심 개념 및 발견 | 내 글감과의 연결 및 발전한 생각 | | :--- | :--- | :--- | :--- | | **신학적 렌즈** | 디트리히 본회퍼 (Dietrich Bonhoeffer, 1937), *The Cost of Discipleship (나를 따르라)* | **값비싼 제자도 (Costly Discipleship)와 자기 비움(Kenosis)**: 은혜를 값싼 위안으로 소비하지 않고, 십자가 앞에서 가장 소중한 것까지 주님의 주권에 내어맡기는 복종 | 세 아이를 묻고도 궁멀을 떠나지 않은 전킨 부부의 선택이 ‘비정함’이 아니라 주님 앞에 드린 처절한 ‘사랑과 항복’임을 밝혀 주는 신학적 렌즈 | | **선교학적 렌즈** | 데이비드 보쉬 (David J. Bosch, 1991), *Transforming Mission (변화하고 있는 선교)* | **성육신적 선교 (Incarnational Mission)**: 우월한 위치에서 베푸는 시혜가 아니라 언어·문화·질병·죽음의 장벽을 넘어 그 땅의 사람과 흙이 되는 선교 | “나는 궁멀 전씨다. 군산 궁멀에 묻어달라”는 유언과 버지니아 고향 흙·군산 흙의 합장을 ‘장애를 뛰어넘은 성육신적 사랑’으로 해석 | | **성경적 렌즈** | 요한복음 12장 24절 (묘역 기념비 말씀) | **한 알의 밀알**: 땅에 떨어져 죽지 아니하면 한 알 그대로 있고, 죽으면 많은 열매를 맺음 | 구암교회, 영명학교(제일고), 멜볼딘여학교(영광여고), 예수병원, 군산 3·5 만세운동으로 이어진 생명의 역사와 오늘 우리의 빚진 자 의식을 하나로 묶는 중심 성구 |</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 1~5단계 설계기록] 한 알의 밀알, 궁멀에 묻힌 사랑 — 군산 선교사 묘역에서</b><span>02 / 04</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="군산 구암동산 선교사 묘역의 큰 화강암 비석과 발치에 나란히 누운 세 아기의 작은 묘석">
+        <defs>
+          <linearGradient id="gGuamSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1e293b"/>
+            <stop offset="0.55" stop-color="#334155"/>
+            <stop offset="1" stop-color="#b48a5a"/>
+          </linearGradient>
+          <linearGradient id="gGuamTurf" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#4d5e43"/>
+            <stop offset="1" stop-color="#293524"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gGuamSky)"/>
+        <!-- 먼 군산 앞바다와 구암동산 언덕 능선 -->
+        <path d="M0 96 Q180 78 360 92 T674 84 L674 160 L0 160 Z" fill="#2c3a2f" opacity="0.82"/>
+        <path d="M0 108 Q250 96 490 106 T674 102 L674 160 L0 160 Z" fill="url(#gGuamTurf)"/>
+        <!-- 전킨(전위렴) 선교사 부부의 회색 화강암 비석 -->
+        <g transform="translate(155, 32)">
+          <rect x="0" y="72" width="76" height="10" rx="1" fill="#78716c" stroke="#292524" stroke-width="1.2"/>
+          <path d="M8 72 L8 14 Q38 4 68 14 L68 72 Z" fill="#a8a29e" stroke="#292524" stroke-width="1.4"/>
+          <!-- 비석 십자가 각인 -->
+          <line x1="38" y1="22" x2="38" y2="42" stroke="#44403c" stroke-width="2"/>
+          <line x1="30" y1="29" x2="46" y2="29" stroke="#44403c" stroke-width="2"/>
+          <line x1="20" y1="52" x2="56" y2="52" stroke="#57534e" stroke-width="1.2"/>
+          <line x1="24" y1="59" x2="52" y2="59" stroke="#57534e" stroke-width="1.2"/>
+          <!-- 비석 앞 흰 국화 한 송이 -->
+          <circle cx="38" cy="74" r="4.5" fill="#fef3c7" stroke="#d97706" stroke-width="0.8"/>
+          <path d="M26 76 L34 75 M42 75 L50 77" stroke="#3f6212" stroke-width="1.5" stroke-linecap="round"/>
+        </g>
+        <!-- 발치 잔디밭에 나란히 누운 조지·시드니·프랜시스의 작은 평면 묘석 3기 -->
+        <g transform="translate(278, 108)">
+          <!-- 첫째 조지 (생후 8개월) -->
+          <polygon points="0,16 56,12 64,26 8,30" fill="#d6d3d1" stroke="#44403c" stroke-width="1.3"/>
+          <line x1="16" y1="19" x2="46" y2="17" stroke="#57534e" stroke-width="1.2"/>
+          <line x1="20" y1="24" x2="42" y2="22" stroke="#78716c" stroke-width="1"/>
+          <!-- 둘째 시드니 (생후 2개월) -->
+          <polygon points="84,16 140,12 148,26 92,30" fill="#d6d3d1" stroke="#44403c" stroke-width="1.3"/>
+          <line x1="100" y1="19" x2="130" y2="17" stroke="#57534e" stroke-width="1.2"/>
+          <line x1="104" y1="24" x2="126" y2="22" stroke="#78716c" stroke-width="1"/>
+          <!-- 셋째 프랜시스 (생후 20일) -->
+          <polygon points="168,16 224,12 232,26 176,30" fill="#d6d3d1" stroke="#44403c" stroke-width="1.3"/>
+          <line x1="184" y1="19" x2="214" y2="17" stroke="#57534e" stroke-width="1.2"/>
+          <line x1="188" y1="24" x2="210" y2="22" stroke="#78716c" stroke-width="1"/>
+        </g>
+        <!-- 가을바람에 흩날리는 노란 은행잎들 -->
+        <g fill="#eab308" opacity="0.88">
+          <path d="M480 44 C486 38 494 42 490 50 L482 48 Z"/>
+          <path d="M525 66 C531 60 539 64 535 72 L527 70 Z"/>
+          <path d="M350 96 C356 90 364 94 360 102 L352 100 Z"/>
+          <path d="M430 136 C436 130 444 134 440 142 L432 140 Z"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 늦가을 구암동산 묘역의 큰 비석 발치에 나란히 누운 조지·시드니·프랜시스의 세 작은 묘석</span><span>군산 구암동산 선교사 묘역 · 단장(斷腸)의 세월을 품은 세 아기의 묘비</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">---</p>
+    <span class="break"></span>
+    <p class="essay-p">## [2단계] 핵심 메시지 정립과 독자 중심 목차 설계</p>
+    <p class="essay-p">### 2-1. 핵심 메시지 한 문장 &gt; **&quot;세 아이를 이국땅에 묻고도 ‘궁멀 전씨’로 죽기를 자처했던 전킨 선교사 부부의 선택은 비정함이 아니라 주님 앞에 드린 온전한 사랑과 항복이었으며, 그 땅에 떨어져 죽은 한 알의 밀알을 기억하는 우리는 오늘 일상의 자리에서 나를 부인하는 사랑으로 그 생명을 살아내야 한다.&quot;**</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 1~5단계 설계기록] 한 알의 밀알, 궁멀에 묻힌 사랑 — 군산 선교사 묘역에서</b><span>03 / 04</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="가을 햇살이 비치는 군산선교역사관 화강암 계단과 표지석">
+        <defs>
+          <linearGradient id="gMemSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1e293b"/>
+            <stop offset="0.5" stop-color="#475569"/>
+            <stop offset="1" stop-color="#d97706"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gMemSky)"/>
+        <!-- 구암동산 붉은 벽돌 선교역사관 아치 창과 지붕 실루엣 -->
+        <g transform="translate(230, 16)">
+          <polygon points="0,34 107,4 214,34" fill="#7c2d12" stroke="#431407" stroke-width="1.5"/>
+          <rect x="14" y="34" width="186" height="54" fill="#9a3412" stroke="#431407" stroke-width="1.2"/>
+          <path d="M52 72 L52 48 A12 12 0 0 1 76 48 L76 72 Z" fill="#fef3c7" opacity="0.85"/>
+          <path d="M95 72 L95 46 A12 12 0 0 1 119 46 L119 72 Z" fill="#fef3c7" opacity="0.85"/>
+          <path d="M138 72 L138 48 A12 12 0 0 1 162 48 L162 72 Z" fill="#fef3c7" opacity="0.85"/>
+        </g>
+        <!-- 계단과 좌측 '군산선교역사관' 화강암 표지석 -->
+        <g fill="#cbd5e1" stroke="#475569" stroke-width="1.2">
+          <rect x="190" y="102" width="294" height="12"/>
+          <rect x="170" y="114" width="334" height="14"/>
+          <rect x="150" y="128" width="374" height="14"/>
+          <rect x="130" y="142" width="414" height="18"/>
+        </g>
+        <g transform="translate(138, 82)">
+          <rect x="0" y="0" width="42" height="58" rx="3" fill="#e2e8f0" stroke="#334155" stroke-width="1.5"/>
+          <line x1="12" y1="12" x2="30" y2="12" stroke="#334155" stroke-width="2"/>
+          <line x1="12" y1="22" x2="30" y2="22" stroke="#334155" stroke-width="2"/>
+          <line x1="12" y1="32" x2="30" y2="32" stroke="#334155" stroke-width="2"/>
+        </g>
+        <!-- 따스한 늦가을 햇살 광선 -->
+        <polygon points="520,0 674,0 674,160 360,160" fill="#fde68a" opacity="0.18"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 가을 햇살이 내려앉은 군산선교역사관 계단과 130년 전 밀알의 터전 위로 이어지는 발걸음</span><span>요 12:24 · ‘나는 궁멀 전씨다’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">### 2-2. 확정 제목 및 4장 12절 목차 (상세설계도 기준) * **최종 제목**: **한 알의 밀알, 궁멀에 묻힌 사랑 — 군산 선교사 묘역에서** * **1장. 잔디밭 위에 누운 세 개의 작은 돌** (1절 군산선교역사관 뒤편 언덕 / 2절 전킨 발치의 세 묘석 조지·시드니·프랜시스 / 3절 낯선 조선 땅에 자식을 묻은 단장지애) * **2장. 비정한 부모인가, 주님 앞의 온전한 항복인가** (1절 왜 고향으로 돌아가지 않았는가 / 2절 세상이 던지는 날카로운 시선 / 3절 십자가 앞에 드린 완전한 항복 `[Bonhoeffer, 1937]`) * **3장. “나는 궁멀 전씨다” — 장애를 뛰어넘은 더 큰 사랑** (1절 마흔셋에 남긴 마지막 유언 / 2절 모든 장애를 뛰어넘은 성육신적 사랑 `[Bosch, 1991]` / 3절 한 알의 밀알이 맺은 무수한 열매 `[요 12:24]`) * **4장. 빚진 자의 일상, 기억함으로 이어가는 삶** (1절 2026년 늦가을 군산선교역사관 계단에서 온누리교회 선교팀과 남긴 사진 / 2절 거저 받은 복음과 자유의 무게 / 3절 일상에서 그 역사를 살아내는 가치 있는 삶)</p>
+    <p class="essay-p">---</p>
+    <p class="essay-p">## [3단계] 초고용 상세설계도 및 지면별 본문 연동 컷 설계 * **Page 001 (`gunsan_junkin_three_stones`)**: 늦가을 구암동산 묘역의 큰 화강암 비석 앞 흰 국화 한 송이와 발치 잔디밭에 나란히 누운 조지·시드니·프랜시스의 작은 평면 묘석 3기 * **Page 002 (`junkin_wheat_grain_incarnation`)**: 십자가 아래 버지니아와 궁멀의 흙 속에 떨어져 죽은 한 알의 밀알과 그 위에서 솟아오른 무수한 황금빛 밀 이삭들(구암교회·영명학교·예수병원·3·5 만세운동) * **Page 003 (`gunsan_memorial_steps_prayer`)**: 가을 햇살이 내려앉은 군산선교역사관 붉은 벽돌 예배당과 표지석 계단</p>
+  </div>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 1~5단계 설계기록] 한 알의 밀알, 궁멀에 묻힌 사랑 — 군산 선교사 묘역에서</b><span>04 / 04</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="언덕 위 십자가와 수직의 은총 빛 아래 내려놓은 두 손">
+        <defs>
+          <linearGradient id="gCrossSky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#141c2e"/>
+            <stop offset="0.6" stop-color="#2c3545"/>
+            <stop offset="1" stop-color="#59463a"/>
+          </linearGradient>
+          <linearGradient id="gGraceBeam" x1="0.5" y1="0" x2="0.5" y2="1">
+            <stop offset="0" stop-color="#fff6dc" stop-opacity="0.55"/>
+            <stop offset="0.7" stop-color="#e8c382" stop-opacity="0.22"/>
+            <stop offset="1" stop-color="#e8c382" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gCrossSky)"/>
+        <!-- 하늘에서 수직으로 내리비치는 은총의 빛기둥 -->
+        <polygon points="295,0 379,0 445,160 229,160" fill="url(#gGraceBeam)"/>
+        <!-- 먼 골고다 언덕 실루엣 -->
+        <path d="M0 132 Q190 118 337 102 Q484 118 674 134 L674 160 L0 160 Z" fill="#1e1a18"/>
+        <!-- 언덕 위 십자가 -->
+        <g transform="translate(325, 38)">
+          <rect x="9" y="0" width="6" height="68" rx="1" fill="#3a281e"/>
+          <rect x="-8" y="16" width="40" height="5.5" rx="1" fill="#3a281e"/>
+          <rect x="10" y="0" width="2" height="68" fill="#f5e1b5" opacity="0.45"/>
+        </g>
+        <!-- 전면 책상/제단 위에 조용히 펼쳐 내려놓은 두 손과 정직한 장부 한 권 -->
+        <rect x="0" y="138" width="674" height="22" fill="#2b211b"/>
+        <line x1="0" y1="138" x2="674" y2="138" stroke="#8a6f5a" stroke-width="1"/>
+        <!-- 펼쳐진 노트(장부) -->
+        <polygon points="274,132 398,132 412,148 260,148" fill="#f7f2e7"/>
+        <line x1="336" y1="132" x2="336" y2="148" stroke="#b8ab99" stroke-width="1.2"/>
+        <!-- 양옆에 힘을 빼고 내려놓은 두 손의 온화한 실루엣 -->
+        <path d="M212 142 Q232 128 254 136 Q262 140 252 146 L210 146 Z" fill="#d8b496" opacity="0.9"/>
+        <path d="M462 142 Q442 128 420 136 Q412 140 422 146 L464 146 Z" fill="#d8b496" opacity="0.9"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 언덕 위 십자가의 머묾과 빛 아래 내려놓은 두 손</span><span>모든 수단이 그친 자리에서 기다리는 주님의 일인칭</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">---</p>
+    <p class="essay-p">## [4단계] 초고 1 집필 및 [5단계] `(독자)`·`(내 마음)` 이중 점검 및 5대 지표 변증법적 퇴고</p>
+    <p class="essay-p">### 5-1. 초고 1에 남긴 `(독자)`와 `(내 마음)` 메모 및 전후 교정 대조표</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">| 문단 | 초고 1 원문 (교정 전) | `(독자)` / `(내 마음)` 점검 메모 | 5단계 최종 탈고 문장 (교정 후) | | :--- | :--- | :--- | :--- | | **2문단** | 그곳 잔디밭 위에는 조지, 시드니, 프랜시스라는 이름이 새겨진 세 개의 작은 평면 묘석이 나란히 누워 있었다. | **(내 마음 · 구체적 동작 복원)** 서서 내려다본 것처럼 적으면 그날의 먹먹함이 덜 전해집니다. 땅바닥과 거의 같은 높이로 누운 평면 묘석이라 무릎을 굽히고 허리를 숙여야만 세 아기의 이름과 짧은 날짜를 읽을 수 있었던 몸의 동작을 복원했습니다. | 그곳 잔디밭에는 땅바닥과 거의 같은 높이로 누운 세 개의 작은 평면 묘석이 나란히 박혀 있었다. 무릎을 굽히고 허리를 숙여야만 비로소 조지, 시드니, 프랜시스라는 세 아기의 이름이 눈에 들어왔다. | | **3~4문단** | 세상 사람들의 눈에는 자식을 셋이나 사지로 몰아넣고 방치한 ‘비정한 부모’처럼 보였을지도 모른다... 그러나 그 자리는 비정함의 자리가 아니라, 십자가 앞에 드린 온전한 항복의 자리였다. | **(독자 · 징검다리 보완)** ‘비정한 부모’라는 세상의 시선에서 곧바로 ‘십자가 앞의 항복’으로 넘어가면 독자가 감정의 간극을 느낄 수 있습니다. 부모로서 어찌 밤마다 가슴을 치는 단장(斷腸)의 고통이 없었겠느냐는 인간적 슬픔을 먼저 짚어 준 뒤 항복으로 이어지도록 징검다리를 놓았습니다. | “너희가 믿는 신이 과연 자식을 이렇게 빼앗아 가느냐”는 안팎의 냉소 속에서, 그들 자신도 밤마다 가슴을 치며 무너져 내렸을 것이다. 부모에게 어찌 단장(斷腸)의 고통이 없었겠는가. 그러나 그 자리는 비정함의 자리가 아니라, 십자가 앞에 드린 온전한 항복의 자리였다. | | **5~6문단** | 그는 “나는 궁멀 전씨다. 내가 죽으면 군산 궁멀에 묻어달라”는 말을 남겼다... 영명학교와 멜볼딘여학교를 통해 인재들이 자라났으며 | **(독자 · 지명 및 역사 맥락 보완)** 오늘날 독자에게 생소할 수 있는 ‘궁멀’이 구암동의 옛 이름이며 이를 자신의 본관(궁멀 전씨)으로 삼았다는 설명을 보태고, 영명학교(현 군산제일고)·멜볼딘여학교(현 군산영광여고)·예수병원의 현재적 연결을 명시했습니다. | 구암동의 옛 이름인 ‘궁멀’을 자신의 본관으로 삼아 조선 사람으로 죽기를 자처한 것이다... 구암교회가 일어섰고, 영명학교(현 군산제일고)와 멜볼딘여학교(현 군산영광여고)의 교실마다 조선의 다음 세대가 자라났으며, 병든 이들을 돌보는 예수병원의 치유 사역이 뻗어 나갔다. | | **8문단** | 거창한 구호를 외치는 대신, 내가 서 있는 일터와 가정에서 나를 부인하고 내 곁의 사람을 묵묵히 섬기는 것이야말로 이 시대의 밀알로 사는 길일 것이다. | **(내 마음 · 추상화·보편화 제거)** ‘이 시대의 밀알로 사는 길’이라는 일반론적 서술을, 내 일터와 가정에서 ‘내 몫의 손해를 기꺼이 감수하며 곁에 있는 한 사람을 품어내는 것’이라는 구체적 삶의 태도와 1인칭 기도로 여운 있게 갈무리했습니다. | 거창한 구호를 외치지 않더라도, 내게 맡겨진 일터와 가정에서 내 몫의 손해를 기꺼이 감수하며 곁에 있는 한 사람을 품어내는 것이 오늘 내가 감당할 작은 밀알의 걸음일 것이다. |</p>
+  </section>
+
+  <footer class="foot"><span>004</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+  });
+</script>
+</body>
+</html>
