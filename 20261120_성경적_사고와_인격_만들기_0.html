@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>위로하는 손의 재료는 하나님께 받는 수동태로 적힌다 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 14px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- figure ---------- */
+  figure{margin:18px 0 26px}
+  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  .body{
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- 모바일 반응형 호환 ---------- */
+  @media (max-width: 820px){
+    #top-toolbar{padding:0 14px}
+    .toolbar-left{display:none}
+    .toolbar-right{width:100%; justify-content:center}
+    .page{
+      width:calc(100% - 24px);
+      min-height:auto;
+      margin:0 auto 24px;
+      padding:32px 24px 24px;
+    }
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">위로하는 손의 재료는 하나님께 받는 수동태로 적힌다</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>위로하는 손의 재료는 하나님께 받는 수동태로 적힌다</b><span>01 · 2026년 11월 20일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">위로하는 손의 재료는 하나님께 받는 수동태로 적힌다</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="금이 간 질그릇 틈새로 새어 나오는 보배의 빛">
+        <defs>
+          <linearGradient id="gVesselBg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#121824"/>
+            <stop offset="0.5" stop-color="#242b38"/>
+            <stop offset="1" stop-color="#3d2e24"/>
+          </linearGradient>
+          <radialGradient id="gTreasureGlow" cx="0.5" cy="0.54" r="0.46">
+            <stop offset="0" stop-color="#fff4cc" stop-opacity="0.75"/>
+            <stop offset="0.45" stop-color="#f5b95f" stop-opacity="0.28"/>
+            <stop offset="1" stop-color="#121824" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gVesselBg)"/>
+        <rect width="674" height="160" fill="url(#gTreasureGlow)"/>
+        <!-- 빛살 광선 -->
+        <polygon points="337,84 210,0 255,0" fill="#fff3c4" opacity="0.22"/>
+        <polygon points="337,84 420,0 468,0" fill="#fff3c4" opacity="0.22"/>
+        <polygon points="337,84 540,40 560,82" fill="#fff3c4" opacity="0.16"/>
+        <rect x="0" y="132" width="674" height="28" fill="#1b1613"/>
+        <!-- 투박한 토기 질그릇 실루엣 -->
+        <g transform="translate(285, 28)">
+          <path d="M32 8 L72 8 L66 24 C92 38 96 78 74 104 L30 104 C8 78 12 38 38 24 Z" fill="#6e4730" stroke="#2b1a10" stroke-width="2"/>
+          <ellipse cx="52" cy="8" rx="20" ry="4.5" fill="#4a2e1e" stroke="#2b1a10" stroke-width="1.5"/>
+          <!-- 질그릇의 균열(금)에서 뿜어져 나오는 황금빛 보배 -->
+          <path d="M48 26 L56 46 L44 64 L58 84 L50 100" fill="none" stroke="#fff9db" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M56 46 L72 56 M44 64 L28 74" fill="none" stroke="#ffd875" stroke-width="2" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 금이 간 질그릇의 틈새로 밝게 새어 나오는 보배의 빛</span><span>고린도후서 1장 3절 · ‘위임장’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">세무대리인으로서 고객의 과세전적부심사나 경정청구를 대리할 때, 내가 과세관청에 제출할 수 있는 주장의 범위는 납세자에게서 받은 &#x27;위임장&#x27;이 정하고, 장부에 비용을 계상할 수 있는 자격은 그 지출이 어디서 왔는지를 입증하는 &#x27;적격증빙&#x27;이 정한다. 상담실 탁자에서 고객에게 건네는 세무 판단 역시 내 개인의 감이나 입담에서 나오는 것이 아니라 법령과 예규, 판례라는 &#x27;받은 근거&#x27; 위에 서야만 효력을 얻는다. 그런데 실무가 바빠지다 보면 상담 메모지에 내가 고객에게 건넨 결론만 적어 두고 정작 그 판단의 출처 조항을 비워 두는 날이 생기는데, 출처가 빠진 조언은 언제든 내 역량의 과시나 부정확한 확언으로 미끄러지기 일쑤다.</p>
+    <p class="essay-p">고린도후서 1장 3절부터 7절까지의 헬라어 본문(147낱말)을 펴면, &#x27;위로&#x27;를 가리키는 명사 &#x27;파라클레시스&#x27;(6회)와 동사 &#x27;파라칼레오&#x27;(4회)가 한 뿌리에서 열 토막이나 쏟아져 나오며 고린도후서 전체 용례(29토막)의 34.5퍼센트가 이 짧은 단락에 모인다. 그중에서도 1장 4절 한 절(26낱말)을 원문 어순대로 뜯어보면, 같은 동사 뿌리가 세 번 모습을 바꾸면서 행위의 주체가 두 번 교대하는 3층 구조가 나타난다. 첫째 층은 1장 3절의 하나님과 동격을 이루는 현재 능동 분사 &#x27;호 파라칼론 헤마스&#x27;(우리를 위로하시는 이)이고, 둘째 층은 우리로 하여금 모든 환난 중에 있는 자들을 능히 위로하게 하신다는 관사 부정사 구문 &#x27;에이스 토 뒤나스타이 헤마스 파라칼레인&#x27;이며, 셋째 층은 그 위로의 도구를 규정하는 관계절 속의 현재 수동태 직설법 1인칭 복수 &#x27;파라칼루메타&#x27;(우리가 위로를 받는다)다.</p>
+    <p class="essay-p">처음 이 절을 읽을 때는 &quot;위로는 받는 꼴로 먼저 온다&quot;는 말을 단순한 시간 순서—먼저 위로를 받고 난 뒤에 나중에 남을 위로한다—로 이해하기 쉽다. 그러나 원문 문면의 어순을 보면 수동태 정동사인 &#x27;파라칼루메타&#x27;는 세 층 가운데 맨 마지막에 놓여 있다(개역개정이 1장 5절을 &quot;우리가 받는 위로도&quot;라고 옮긴 것은 원문 속격 구문 &#x27;헤 파라클레시스 헤몬&#x27;에 역어를 보충한 것이므로, 원문에서 수동태로 적힌 자리는 1장 4절과 6절 두 곳뿐이며 이 여덟 글자 고정 어형은 신약 27권 137,554토막 가운데 이 두 토막이 유일하다). 받는 꼴이 &#x27;먼저&#x27;인 까닭은 어순 때문이 아니라 구문 때문이다. 우리가 능동으로 행하는 둘째 층의 위로(&#x27;파라칼레인&#x27;)는 앞쪽에서 우리를 목적어(&#x27;헤마스&#x27;)로 삼는 하나님의 능동 분사에 둘러싸여 있고, 뒤쪽에서는 그 위로의 수단인 &#x27;디아 테스 파라클레세오스&#x27;(위로로써)가 관계대명사 &#x27;헤스&#x27;를 통해 수동태 정동사 &#x27;파라칼루메타 아우토이 휘포 투 테우&#x27;(우리 자신이 하나님께 받는)에 단단히 묶여 있다.</p>
+    <p class="pull essay-p">이 구문의 진가는 1장 4절에서 마지막 관계절(&quot;하나님께 받는 위로로써&quot;) 하나를 지워 보는 사고 실험을 할 때 가장 날카롭게 드러난다. 만일 그 관계절을 지워 버리면, 문장은 문법적으로 무너지지 않는 대신 &quot;하나님이 우리를 위로하셔서 우리로 하여금 환난 당한 자들을 위로할 수 있는 역량을 갖추게 하셨다&quot;는 식의 &#x27;상담 역량 강화&#x27; 문장으로 바뀌고 만다. 은혜의 문장과 역량의 문장을 가르는 경계선이 바로 관계대명사 &#x27;헤스&#x27;가 이끄는 그 수동태 관계절 하나에 걸려 있는 것이다. 이 단락은 사람이 위로하는 행위(&#x27;파라칼레인&#x27;) 자체를 지우지 않되, 그 행위가 내 숙련도나 자기 자원에서 나왔다는 &#x27;자기 출처&#x27;를 지운다.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>위로하는 손의 재료는 하나님께 받는 수동태로 적힌다</b><span>02 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="마주 놓인 두 의자와 따뜻한 찻잔과 펼쳐진 성경">
+        <defs>
+          <linearGradient id="gStudyWarm" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#231f1d"/>
+            <stop offset="0.6" stop-color="#3d322a"/>
+            <stop offset="1" stop-color="#6e503b"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gStudyWarm)"/>
+        <rect x="0" y="128" width="674" height="32" fill="#1c1613"/>
+        <!-- 원목 탁자 -->
+        <rect x="235" y="102" width="204" height="8" rx="2" fill="#8c6239"/>
+        <rect x="260" y="110" width="8" height="34" fill="#5c3d22"/>
+        <rect x="406" y="110" width="8" height="34" fill="#5c3d22"/>
+        <!-- 펼쳐진 성경과 두 찻잔 -->
+        <polygon points="302,94 372,94 378,102 296,102" fill="#f7f2e7"/>
+        <rect x="262" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <rect x="398" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <!-- 양옆에 마주 서 있는 원목 의자 실루엣 -->
+        <path d="M168 58 L168 142 M168 106 L214 106 L214 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+        <path d="M506 58 L506 142 M506 106 L460 106 L460 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 따뜻한 찻잔을 사이에 두고 마주 놓인 두 의자와 펼쳐진 성경</span><span>고린도후서 1장 3-7절 · ‘파라칼레이테’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">신약 성경의 다른 자리들과 대조해 보면 이 수동태와 출처 표기의 무게가 한층 더 분명해진다. 데살로니가전서 4장 18절에는 같은 동사의 명령법(&#x27;파라칼레이테&#x27;, &quot;서로 위로하라&quot;)이 실제로 쓰이지만, 고린도후서 1장 3-7절에는 명령법과 접속법과 희구법이 모두 0개이고 우리가 위로하는 일은 오직 능력을 나타내는 관사 부정사(&#x27;에이스 토 뒤나스타이&#x27;)로만 적혀 있다. 또한 마태복음 2장 18절에서 라헬이 &quot;위로받기를 거절하였도다&quot;(&#x27;파라클레테나이&#x27;)라고 할 때나, 누가복음 6장 24절의 화 선언에서 &quot;너희는 너희의 위로를 이미 받았도다&quot;(&#x27;파라클레신&#x27;)라고 할 때처럼, 정경 안에서 &#x27;받는 꼴&#x27;은 거절이나 심판의 자리에도 쓰인다. 따라서 고린도후서 1장 4절의 받음을 복된 구원의 자리로 만드는 것은 수동태라는 문법 꼴 자체가 아니라, 그 끝에 명시된 행위자 &#x27;휘포 투 테우&#x27;(하나님에 의하여)와 1장 3절의 호칭 &#x27;테오스 파세스 파라클레세오스&#x27;(모든 위로의 하나님)라는 출처다.</p>
+    <span class="break"></span>
+    <p class="essay-p">정신분석학자 도널드 위니콧(Donald Winnicott, 1960)은 『성숙 과정과 촉진적 환경(The Maturational Processes and the Facilitating Environment)』에서, 한 사람이 타인의 고통과 불안을 섣불리 통제하려 들지 않고 있는 그대로 견뎌 주는 &#x27;안아주기(holding)&#x27;의 능력은 상담 기법의 숙련에서 나오는 것이 아니라 자신이 먼저 신뢰할 수 있는 환경 안에서 안전하게 붙들려 본 수동적 경험의 내면화에서 비롯된다고 밝혔다. 위니콧의 임상 이론을 고린도후서 1장 4절의 구문과 나란히 놓아 보면, 바울이 위로의 조건을 인간의 훈련이나 숙련도가 아니라 &#x27;하나님께 받는 위로로써&#x27;라는 출처에 못 박은 통찰이 몸의 감각으로 다가온다. 물론 위니콧의 심리적 환경과 달리 1장 4절의 행위자는 송축받으시는 하나님이시지만, 받은 것이 건넴의 재료가 된다는 순서만큼은 정확히 맞닿아 있다.</p>
+    <p class="essay-p">의자에 앉아 무릎 위에 두 손바닥을 위로 펴고 1장 4절을 소리 내어 읽으면서 이 구문을 몸으로 따라가 보면, 받는 손과 건네는 손이 서로 다른 근육을 쓰지 않는다는 사실을 알게 된다. &quot;우리를 위로하사&quot;를 읽을 때 위로 폈던 빈 손바닥을, &quot;능히 위로하게&quot;를 읽을 때 주먹을 쥐지 않은 채 편 그대로 몸 옆으로 천천히 돌려 옆자리로 내밀고, &quot;하나님께 받는 위로로써&quot;에서 다시 무릎 위 원래 자리로 돌려놓아 보면 손바닥의 각도는 처음부터 끝까지 똑같다. 장 칼뱅이 『고린도후서 주석』에서 위로의 원천을 인간의 자질이 아니라 자비의 아버지이신 하나님의 성품에 두었듯, 복음은 우리를 위로하는 사람으로 세우되 언제나 &#x27;먼저 받는 사람&#x27;으로 세운다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>위로하는 손의 재료는 하나님께 받는 수동태로 적힌다</b><span>03 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="광야를 흐르는 공의의 강물과 회복된 장막">
+        <defs>
+          <linearGradient id="gRiverSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#162436"/>
+            <stop offset="0.5" stop-color="#2b4c66"/>
+            <stop offset="1" stop-color="#d49a6a"/>
+          </linearGradient>
+          <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#93c5fd"/>
+            <stop offset="1" stop-color="#1d4ed8"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gRiverSky)"/>
+        <!-- 광야 언덕 -->
+        <path d="M0 106 Q190 88 360 108 T674 98 L674 160 L0 160 Z" fill="#3a2d24"/>
+        <!-- 굽이쳐 흐르는 공의의 강물 -->
+        <path d="M350 106 Q290 122 330 138 Q380 150 240 160 L430 160 Q450 142 395 128 Q360 116 385 106 Z" fill="url(#gWater)" opacity="0.88"/>
+        <!-- 언덕 위에 다시 세워진 따뜻한 빛의 장막 -->
+        <polygon points="480,104 522,68 564,104" fill="#d97706" stroke="#2b1d12" stroke-width="1.5"/>
+        <polygon points="510,104 522,82 534,104" fill="#fef3c7"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 메마른 광야를 가르고 흐르는 공의의 강물과 다시 세워진 장막</span><span>‘위로받았으니 이제 의무감으로 위로하라’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">이로써 우리가 설교단이나 심방 자리에서 피해야 할 세 가지 낭떠러지가 또렷해진다. 첫째는 주절 정동사가 0개인 단락 끝에 &quot;위로받았으니 이제 의무감으로 위로하라&quot;는 명령을 덧붙이는 도덕주의이고, 둘째는 &quot;받기만 하면 된다&quot;며 1장 4절의 &#x27;헤마스 파라칼레인&#x27;(우리가 위로하는 일)을 지워 버리는 정적주의이며, 셋째는 &quot;남을 위로하려면 반드시 큰 고난을 겪어야 한다&quot;며 고난을 자격증처럼 미화하는 일이다. 1장 5절이 못 박듯 위로가 넘쳐 흐르는 통로는 사람의 고난이 아니라 &#x27;디아 투 크리스투&#x27;(그리스도로 말미암아)다. 세무 대리인이 위임받지 않은 사항을 대리 신고할 수 없고 적격증빙 없는 지출을 비용으로 인정받을 수 없듯, 내가 오늘 누군가에게 건네는 위로의 그릇 밑바닥에는 내 이름이 아니라 &#x27;하나님께 받은 것&#x27;이라는 출처 꼬리표가 붙어 있어야 한다.</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">오늘 저녁부터는 서재 책상 위 하루 기록장과 심방 준비 노트의 첫 칸을 바꾸어, 하루를 마감하는 수첩 첫 줄에는 &#x27;오늘 내가 한 일&#x27; 대신 &#x27;오늘 내가 받은 것&#x27;을 먼저 적고 그 아래 줄에만 &#x27;그중 오늘 옆으로 흘려보낸 것&#x27;을 적으려 한다. 내일 세무 상담 메모를 작성할 때도 &#x27;건넨 판단&#x27; 옆에 &#x27;근거 법령·예규 출처&#x27; 칸을 먼저 채워 출처가 빈 조언은 확정해 말하지 않기로 하며, 이번 주 심방 준비표의 &#x27;이번 주 내가 받은 위로&#x27; 칸이 비어 있는 날에는 억지 권면 문장을 지우고 손바닥을 위로 편 채 성도 곁에 조용히 앉아 있는 시간만 늘릴 생각이다.</p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+  });
+</script>
+</body>
+</html>

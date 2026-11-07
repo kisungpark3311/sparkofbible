@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>장부에 적히지 않는 갈라진 몸과 돌이키지 않으시는 음성 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 14px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- figure ---------- */
+  figure{margin:18px 0 26px}
+  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  .body{
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- 모바일 반응형 호환 ---------- */
+  @media (max-width: 820px){
+    #top-toolbar{padding:0 14px}
+    .toolbar-left{display:none}
+    .toolbar-right{width:100%; justify-content:center}
+    .page{
+      width:calc(100% - 24px);
+      min-height:auto;
+      margin:0 auto 24px;
+      padding:32px 24px 24px;
+    }
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">장부에 적히지 않는 갈라진 몸과 돌이키지 않으시는 음성</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>장부에 적히지 않는 갈라진 몸과 돌이키지 않으시는 음성</b><span>01 · 2026년 11월 04일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">장부에 적히지 않는 갈라진 몸과 돌이키지 않으시는 음성</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="마주 놓인 두 의자와 따뜻한 찻잔과 펼쳐진 성경">
+        <defs>
+          <linearGradient id="gStudyWarm" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#231f1d"/>
+            <stop offset="0.6" stop-color="#3d322a"/>
+            <stop offset="1" stop-color="#6e503b"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gStudyWarm)"/>
+        <rect x="0" y="128" width="674" height="32" fill="#1c1613"/>
+        <!-- 원목 탁자 -->
+        <rect x="235" y="102" width="204" height="8" rx="2" fill="#8c6239"/>
+        <rect x="260" y="110" width="8" height="34" fill="#5c3d22"/>
+        <rect x="406" y="110" width="8" height="34" fill="#5c3d22"/>
+        <!-- 펼쳐진 성경과 두 찻잔 -->
+        <polygon points="302,94 372,94 378,102 296,102" fill="#f7f2e7"/>
+        <rect x="262" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <rect x="398" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <!-- 양옆에 마주 서 있는 원목 의자 실루엣 -->
+        <path d="M168 58 L168 142 M168 106 L214 106 L214 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+        <path d="M506 58 L506 142 M506 106 L460 106 L460 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 따뜻한 찻잔을 사이에 두고 마주 놓인 두 의자와 펼쳐진 성경</span><span>아모스 1장 9절 · ‘가독성(legibility)의 폭력’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">법인 가결산 서류를 검토하느라 늦은 오후까지 세무사 사무실 책상 앞을 떠나지 못했다. 모니터에 띄워 둔 유형자산 취득 명세서와 손익계산서에는 올해 새로 넓힌 물류창고 면적과 전년도보다 훌쩍 뛴 매출액이 한 치의 오차도 없이 집계되어 있었다. 그러나 그 숫자를 맞추려고 몇 달 동안 현장에서 교대 없이 서 있었던 사람들의 피로와 갈라진 시간은 재무제표 어느 칸에도 적히지 않는다. 회계의 서식은 늘어난 경계와 수량만 선명하게 기록할 뿐, 그 경계를 넓히느라 치른 몸의 값은 기록할 란을 두지 않는다.</p>
+    <p class="essay-p">정치학자 제임스 스콧(James C. Scott, 1998)은 『국가처럼 보기(Seeing Like a State)』에서 근대 행정과 회계 장부가 세상을 다루는 방식을 ‘가독성(legibility)의 폭력’이라고 분석했다. 국가와 거대 조직은 관리와 징수를 수월하게 하려고 복잡한 삶의 맥락과 고통을 지워 버리고, 오직 숫자로 환산 가능한 면적과 머릿수만 남긴다는 것이다. 아모스 1장 9절부터 15절까지 이어지는 두로와 에돔과 암몬의 신탁을 읽다가 내 눈길이 오래 머문 곳도 바로 그 서식의 바깥이었다. 세 이웃 나라가 서로에게 저지른 일은 각각 거래와 기질과 영토 확장의 언어로 고발되는데, 하나님의 법정 기록에는 인간의 장부가 지워 버린 것들이 하나도 빠짐없이 올라와 있었다.</p>
+    <p class="pull essay-p">두로를 향한 1장 9절의 고발 머리에는 히스기람 갈루트 셸레마 레에돔(הַסְגִּירָם גָּלוּת שְׁלֵמָה לֶאֱדוֹם), 곧 사로잡은 무리를 한 덩어리로 묶어 에돔에 넘긴 인신 거래가 놓여 있다. 형제의 조약(בְּרִית אַחִים, 베리트 아힘)을 기억하지 않았다는 사유가 그 뒤에 붙지만, 본문이 맨 앞에 세운 것은 사람을 통째로 수량화해 넘긴 행위 자체다. 아모스 전권에서 ‘조약’이나 ‘언약’을 뜻하는 베리트(בְּרִית)가 등장하는 유일한 자리가 여기인데, 놀랍게도 그것은 하나님과의 언약이 아니라 열방 상호간의 조약이다. 이익 앞에서 신의를 지우고 사람을 물량으로 셈한 거래를 이스라엘의 하나님이 직접 심리하신다.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>장부에 적히지 않는 갈라진 몸과 돌이키지 않으시는 음성</b><span>02 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="서재 창문으로 스며드는 새벽빛">
+        <defs>
+          <linearGradient id="gDawn" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f2842"/>
+            <stop offset="0.48" stop-color="#52586c"/>
+            <stop offset="0.78" stop-color="#c9956b"/>
+            <stop offset="1" stop-color="#f3dfc1"/>
+          </linearGradient>
+          <linearGradient id="gBeam" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff6e0" stop-opacity="0.45"/>
+            <stop offset="1" stop-color="#fff6e0" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gDawn)"/>
+        <path d="M0 128 Q140 104 280 118 T560 108 L674 115 L674 160 L0 160 Z" fill="#2b2628" opacity="0.65"/>
+        <polygon points="420,0 674,0 674,160 220,160" fill="url(#gBeam)"/>
+        <rect x="0" y="0" width="18" height="160" fill="#24201d" opacity="0.78"/>
+        <rect x="656" y="0" width="18" height="160" fill="#24201d" opacity="0.78"/>
+        <rect x="334" y="0" width="6" height="160" fill="#24201d" opacity="0.48"/>
+        <rect x="0" y="77" width="674" height="5" fill="#24201d" opacity="0.38"/>
+        <rect x="0" y="148" width="674" height="12" fill="#24201d" opacity="0.88"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 서재 창문 너머로 어둠을 밀어내며 스며드는 새벽빛</span><span>‘자기 지경을 넓히고자 하여’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">암몬 자손을 고발하는 1장 13절은 아모스 1장과 2장의 여덟 신탁 가운데 유일하게 범행의 동기를 명시한다. 레마안 하르히브 에트 게불람(לְמַעַן הַרְחִיב אֶת־גְּבוּלָם), “자기 지경을 넓히고자 하여”라는 목적절이다. 그들이 넓힌 대상은 땅의 경계(גְּבוּל, 게불)였고, 그 경계를 넓히려고 가른 것(בִּקְעָם, 비크암)은 길르앗의 아이 밴 이들(הָרוֹת הַגִּלְעָד, 하로트 하길아드)이었다. 열왕기하의 유사 구절들과 달리 아모스 원문에는 개역한글이 보충한 ‘여인’이나 ‘배’라는 낱말조차 없이, 땅 이름에 묶인 피해자와 넓어진 경계가 차갑게 맞붙어 선다. 나는 본문보다 묘사를 늘리지 않은 채 그 간결한 세 낱말 앞에 멈춘다. 세상의 결산서는 넓어진 면적만 자산으로 올리지만, 하나님의 법정은 그 면적 아래 갈라진 생명을 고발장에 올린다.</p>
+    <span class="break"></span>
+    <p class="essay-p">두로와 암몬이 복수형으로 호명되는 것과 달리, 에돔을 다루는 1장 11절은 이 단위의 세 신탁 가운데 홀로 단수로 서서 여덟 번이나 단수 표지를 찍는다. 여기서는 거래나 영토가 아니라 안에서 자라난 기질의 어휘들이 사슬처럼 이어진다. 형제를 칼로 쫓고 긍휼을 버렸으며, 노가 찢고 분을 끝없이(נֶצַח, 네차흐) 지켰다는 고발이다. 아모스 전체에서 ‘지키다’를 뜻하는 동사 샤마르(שָׁמַר)는 단 두 번 쓰이는데, 2장 4절에서 유다는 지켜야 할 율례를 지키지 않고, 1장 11절에서 에돔은 지키지 말아야 할 자기 분을 지킨다. 구약 43회의 네차흐 중 사람의 분노에 붙은 유일한 이 자리에서, 내가 마음 깊은 금고에 무엇을 간직하고 있는지가 그대로 고발의 품목이 된다.</p>
+    <p class="essay-p">이 세 고발을 관통하는 판결은 로 아쉬베누(לֹא אֲשִׁיבֶנּוּ), “내가 그것을 돌이키지 아니하리라”는 1인칭 선언이다. 구약에서 ‘셋’과 ‘넷’을 한 절에 함께 쓴 36절 가운데 지혜 문학은 놀라운 것들을 열거하려고 그 수사를 쓰지만, 아모스는 철회하지 않겠다고 선언하는 데 쓴다. 게다가 여덟 신탁의 사유구는 예외 없이 전치사 알(עַל) 뒤에 부정사를 붙여 사건의 연대나 왕명 대신 행위 자체를 고발한다. 무엇보다 이 선언에서 ‘그것’을 받는 목적어 명사가 본문에는 하나도 없다. 개역한글은 빈자리에 ‘그 벌’을 보충했으나 원문은 무엇을 돌이키지 않는지 적지 않고, 어디로 되돌리는지 목표 전치사도 달지 않는다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>장부에 적히지 않는 갈라진 몸과 돌이키지 않으시는 음성</b><span>03 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="광야를 흐르는 공의의 강물과 회복된 장막">
+        <defs>
+          <linearGradient id="gRiverSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#162436"/>
+            <stop offset="0.5" stop-color="#2b4c66"/>
+            <stop offset="1" stop-color="#d49a6a"/>
+          </linearGradient>
+          <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#93c5fd"/>
+            <stop offset="1" stop-color="#1d4ed8"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gRiverSky)"/>
+        <!-- 광야 언덕 -->
+        <path d="M0 106 Q190 88 360 108 T674 98 L674 160 L0 160 Z" fill="#3a2d24"/>
+        <!-- 굽이쳐 흐르는 공의의 강물 -->
+        <path d="M350 106 Q290 122 330 138 Q380 150 240 160 L430 160 Q450 142 395 128 Q360 116 385 106 Z" fill="url(#gWater)" opacity="0.88"/>
+        <!-- 언덕 위에 다시 세워진 따뜻한 빛의 장막 -->
+        <polygon points="480,104 522,68 564,104" fill="#d97706" stroke="#2b1d12" stroke-width="1.5"/>
+        <polygon points="510,104 522,82 534,104" fill="#fef3c7"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 메마른 광야를 가르고 흐르는 공의의 강물과 다시 세워진 장막</span><span>히 9:15 · ‘그들의 왕’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">1장 9절부터 15절의 돌이키지 않으신다는 선언과 9장 14절의 사로잡힌 것을 돌이키리라는 약속은 같은 어근과 같은 1인칭 주어에서 나오되 어간과 부정어 하나로 갈린다. 나는 두 진술을 억지로 잇지 않고, 1장 15절의 말캄(מַלְכָּם)이 ‘그들의 왕’인지 고유명인지도 판정하지 않은 채 본문의 긴장 그대로 둔다. 다만 이 일곱 절에 ‘이스라엘’이 한 번도 나오지 않는 사실을 안전이나 면제로 읽을 수는 없다. 곧이어 2장 6절에서 같은 공식이 이스라엘에게 임하고, 3장 2절은 선택을 보응의 근거로 삼으며, 9장 7절은 이스라엘을 구스 족속과 나란히 세우기 때문이다. 이 침묵을 면제가 아닌 유예로 읽을 때, 정경이 그 위에 더한 새 언약의 중보자(히 9:15)와 남의 몸을 가른 셈법 대신 자기 몸을 예비하신 분(히 10:5)의 자리가 선명해진다.</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">무엇을 돌이키지 않으시는지 본문이 비워 두었으니, 지금 내 몫은 빈칸을 내 말로 메우거나 이미 벌어진 일을 내 손으로 되돌리려 허둥대는 것이 아니다. 보내는 이도, 불을 지르는 이도, 돌이키지 않는 이도 내가 아니라 여호와이시다. 이번 주 거래처 가결산 파일을 덮기 전에, 늘어난 매출액 옆 빈 여백에 그 숫자를 만들려고 직원들이 더 서 있었던 연장근로 시간을 연필로 따로 세어 한 줄로 적어 두려 한다. 그리고 오늘 저녁 집으로 돌아가면, 에돔처럼 내 마음 서랍에 가장 오래 보관해 둔 서운함 하나를 가족 앞에서 소리 내어 이름 붙여 말할 것이다.</p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+  });
+</script>
+</body>
+</html>

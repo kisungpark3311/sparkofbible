@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>증빙 서류 봉투를 내려놓고 읽히는 사람 앞에 서다 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 14px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- figure ---------- */
+  figure{margin:18px 0 26px}
+  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  .body{
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- 모바일 반응형 호환 ---------- */
+  @media (max-width: 820px){
+    #top-toolbar{padding:0 14px}
+    .toolbar-left{display:none}
+    .toolbar-right{width:100%; justify-content:center}
+    .page{
+      width:calc(100% - 24px);
+      min-height:auto;
+      margin:0 auto 24px;
+      padding:32px 24px 24px;
+    }
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">증빙 서류 봉투를 내려놓고 읽히는 사람 앞에 서다</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>증빙 서류 봉투를 내려놓고 읽히는 사람 앞에 서다</b><span>01 · 2026년 11월 25일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">증빙 서류 봉투를 내려놓고 읽히는 사람 앞에 서다</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="걷힌 수건과 빛을 비추는 마음판의 서신">
+        <defs>
+          <linearGradient id="gVeilSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#192236"/>
+            <stop offset="0.55" stop-color="#344966"/>
+            <stop offset="1" stop-color="#c9956b"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gVeilSky)"/>
+        <rect x="0" y="130" width="674" height="30" fill="#211d1a"/>
+        <!-- 좌측: 차가운 두 돌판 -->
+        <g transform="translate(150, 46)">
+          <path d="M0 20 A22 20 0 0 1 44 20 L44 84 L0 84 Z" fill="#525b66" stroke="#2b3138" stroke-width="1.5"/>
+          <path d="M48 20 A22 20 0 0 1 92 20 L92 84 L48 84 Z" fill="#606a75" stroke="#2b3138" stroke-width="1.5"/>
+        </g>
+        <!-- 우측: 바람에 걷혀 올라가는 반투명 수건과 빛나는 열린 서신 -->
+        <polygon points="365,58 495,58 512,130 348,130" fill="#fffaf0" stroke="#c89d6c" stroke-width="1.5"/>
+        <path d="M350 62 Q430 14 540 28 Q490 54 460 72 Z" fill="#e2e8f0" opacity="0.45"/>
+        <circle cx="430" cy="40" r="26" fill="#fff6d6" opacity="0.35"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 돌판과 먹물이 아닌 마음판에 새겨진 편지와 걷힌 수건의 빛</span><span>고린도후서 3장 1절</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">월말 결산을 마친 저녁이면 세무사 사무실 책상 위에는 한 달 치 영수증 묶음과 거래처에 보낼 실적 보고서, 그리고 각종 자격 증빙 사본이 수북이 쌓인다. 서류 모서리를 맞추어 무거운 쇠 집게로 물리면서 나는 습관처럼 숫자를 헤아린다. 지난달보다 처리 건수가 얼마나 늘었는지, 이 봉투 안에 담긴 종이들이 내 유능함과 성실함을 얼마나 빈틈없이 입증해 줄 수 있는지를 따져 보는 것이다. 목회 현장으로 걸음을 옮겨도 손버릇은 크게 다르지 않다. 외부 사역이나 행정을 준비할 때면 이력서와 추천서, 그간 해온 사역의 결과물들을 반듯한 문서로 묶어 앞세우고 싶어진다. 종이 위에 인쇄된 직인과 숫자가 없으면 내 존재의 무게마저 가벼워질 것 같은 불안이 서류 봉투를 쥔 손끝에 늘 묻어 있었다.</p>
+    <p class="essay-p">고린도후서 3장 1절에서 6절을 원문 어형과 함께 천천히 읽어 내려가던 밤, 사도 바울이 던지는 두 개의 물음표가 내 서류철 위에 멈추어 섰다. 자천을 다시 시작하겠느냐, 우리가 어떤 사람들처럼 추천서를 너희에게 부치거나 받을 필요가 있느냐는 두 문장은 모두 물음표로 닫힌다. 놀라운 것은 바울이 그 질문 뒤에 추천서 제도를 단순히 폐기 처분하지 않는다는 점이다. 대신 2절에서 증빙의 자리에 서류 봉투가 아니라 살아 있는 사람을 갖다 놓는다. 너희는 우리의 편지라, 우리 마음에 썼고 뭇 사람이 알고 읽는 바라. 이 여섯 절 안에는 책이나 성경이나 예언자를 가리키는 명사가 단 한 토막도 등장하지 않고 구약 인용을 들여오는 상투구조차 없는데, 정작 읽는다는 동사는 선명하게 놓여 있고 그 읽히는 대상이 문서가 아니라 수신자 자신으로 적혀 있다.</p>
+    <p class="essay-p">더 깊이 들여다보면 이 편지가 무엇으로, 어디에 쓰였는지를 밝히는 문법의 배치가 유독 한곳에 쏠려 있다. 여섯 절 전체 백세 토막 가운데 수단과 바탕과 처소를 나타내는 여격 어형 아홉 개가 오직 2절과 3절 두 절에만 백 퍼센트 모여 있고, 나머지 네 절에는 단 한 토막도 나오지 않는다. 아홉 개의 여격이 묻는 질문은 단 하나, 무엇을 재료로 삼았고 무엇을 바탕으로 삼았는가이다. 원문은 검은 먹(`μέλαν`, 멜란)과 살아 계신 하나님의 영(`πνεῦμα`, 프뉴마)을 재료의 짝으로 마주 세우고, 차가운 돌판(`πλάξ`, 플락스)과 부드러운 살의 마음판을 바탕의 짝으로 나란히 놓는다. 먹은 마르면 글자를 남기고 돌은 파낸 자국을 오래 붙들지만, 본문은 어느 재료가 더 오래 버티는가를 겨루지 않고 글자가 새겨지는 바탕을 문제 삼는다.</p>
+    <p class="pull essay-p">여기서 역본과 원문 사이의 미묘한 긴장 하나가 눈에 띈다. 개역개정은 3절에서 쓴 것이라는 말을 네 번 되풀이하고 개역한글은 쓴 것과 한 것을 번갈아 놓지만, 헬라어 원문에는 완료 수동태 분사(`ἐγγεγραμμένη`, 엥게그람메네) 단 한 토막이 우뚝 서서 먹과 영, 돌판과 마음판이라는 네 구절을 한꺼번에 지배한다. 게다가 이 단락에 나오는 분사 일곱 토막 가운데 하나님을 수식하는 살아 계신 하나를 뺀 여섯 토막이 모두 수동태, 곧 받는 쪽으로 적혀 있다. 편지인 사람도, 그 편지를 시중든 사도도 스스로 글자를 판 주인이 아니다. 굳은 돌을 깨뜨려 살의 마음판으로 바꾸고 거기에 생명의 획을 새긴 손은 처음부터 사람의 손이 아니었다.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>증빙 서류 봉투를 내려놓고 읽히는 사람 앞에 서다</b><span>02 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="끊어진 도피의 길과 땅에 내려놓인 부러진 활과 방패">
+        <defs>
+          <linearGradient id="gFlightSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#161b26"/>
+            <stop offset="0.5" stop-color="#2e3440"/>
+            <stop offset="1" stop-color="#6b3e2e"/>
+          </linearGradient>
+          <linearGradient id="gCliff" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#3b322c"/>
+            <stop offset="1" stop-color="#181412"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gFlightSky)"/>
+        <!-- 먼 산맥과 폭풍 구름 -->
+        <path d="M0 95 L110 68 L210 88 L330 58 L430 92 L430 160 L0 160 Z" fill="#222630" opacity="0.7"/>
+        <!-- 절벽으로 끊어진 길 (도피의 소멸) -->
+        <polygon points="0,110 390,104 422,160 0,160" fill="url(#gCliff)"/>
+        <polygon points="520,118 674,112 674,160 495,160" fill="#1e1916"/>
+        <!-- 끊어진 협곡 아래의 심연 안개 -->
+        <rect x="385" y="104" width="140" height="56" fill="#12151e" opacity="0.65"/>
+        <!-- 절벽 끝까지 이어지다 끊긴 길의 흔적 -->
+        <path d="M30 158 Q180 126 388 108" fill="none" stroke="#8c7a6b" stroke-width="2" stroke-dasharray="6 4" opacity="0.75"/>
+        <!-- 땅에 버려진 청동 방패 -->
+        <g transform="translate(175, 108)">
+          <ellipse cx="42" cy="22" rx="36" ry="13" fill="#7c5036" stroke="#241710" stroke-width="2"/>
+          <ellipse cx="42" cy="20" rx="28" ry="9" fill="none" stroke="#d4af7a" stroke-width="1.2" opacity="0.7"/>
+          <circle cx="42" cy="19" r="5" fill="#d4af7a"/>
+        </g>
+        <!-- 부러진 활과 흩어진 화살 -->
+        <g transform="translate(268, 96)">
+          <path d="M10 34 Q38 4 68 24" fill="none" stroke="#c89d6c" stroke-width="3" stroke-linecap="round"/>
+          <path d="M74 28 Q94 38 106 20" fill="none" stroke="#c89d6c" stroke-width="3" stroke-linecap="round"/>
+          <line x1="12" y1="34" x2="58" y2="28" stroke="#e5dec9" stroke-width="1" stroke-dasharray="3 2" opacity="0.8"/>
+          <line x1="25" y1="42" x2="88" y2="16" stroke="#d8d0c6" stroke-width="1.8"/>
+          <polygon points="88,16 80,16 84,22" fill="#9a4a2e"/>
+        </g>
+        <!-- 절벽 끝에 멈춰 선 작은 실루엣 -->
+        <g transform="translate(366, 72)">
+          <circle cx="8" cy="6" r="4.5" fill="#e5dec9"/>
+          <path d="M3 13 L13 13 L15 34 L1 34 Z" fill="#e5dec9"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 끊어진 도피의 길과 땅에 내려놓인 활·방패</span><span>다섯 번의 ‘할 수 없으며’가 멈춰 선 자리</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">정치철학자 마이클 샌델(Michael Sandel, 2020)은 『공정하다는 착각』에서 현대 능력주의 사회가 사람들에게 끊임없이 자기 자격을 스스로 입증하라고 다그치며, 그 결과 성취를 이룬 이는 모든 것이 자기 손에서 난 것처럼 오만해지고 빈손인 이는 자기 존재 자체를 무자격으로 여겨 무너진다고 진단했다. 세무 장부의 숫자와 목회 이력의 추천서를 움켜쥐던 내 불안 역시 내 자격을 내 안에서 길어 올려야 한다는 능력주의적 셈법에서 비롯된 것이었다. 몸이 굳어 움직임이 더뎌지거나 당장 내보일 숫자가 없는 날이면 밤마다 내가 과연 이 일을 감당할 자격이 있는지를 되물으며 스스로를 깎아내리곤 했다.</p>
+    <span class="break"></span>
+    <p class="essay-p">사도는 그 밤의 셈법을 4절부터 6절의 정교한 구문으로 조용히 끊어 낸다. 이 여섯 절에서 1인칭 복수로 끝맺는 동사는 모두 네 번 나오는데, 1절의 두 번은 의문문 안에 갇혀 있고 5절의 한 번은 우리에게서 난 것 같이 스스로 만족할 것이 아니라는 부정어 아래 놓인다. 의문도 부정도 없이 온점으로 닫히는 유일한 1인칭 긍정 서술은 4절의 `Πεποίθησιν τοιαύτην ἔχομεν`(페포이테신 토이아우텐 에코멘), 곧 우리가 그리스도로 말미암아 하나님을 향하여 이같은 확신이 있다는 한 문장뿐이다. 사도가 긍정으로 내놓는 단 하나의 목적어는 화려한 실적이나 자격증이 아니라 그리스도를 통과해 하나님께로 향하는 신뢰였다.</p>
+    <p class="essay-p">이어지는 5절과 6절에서는 신약 스물일곱 권 전체에서 오직 이 장에만 두 절 안에 나란히 모이는 한 뿌리의 세 품사, 곧 만족한이라는 형용사와 만족이라는 명사와 만족하게 하셨다는 동사가 한 방향으로 흐른다. 형용사는 우리에게서 난 것이 아니라고 부정되고, 명사는 그 출처를 하나님께 돌리며, 부정과거 동사는 하나님을 가리키는 관계대명사를 주어로 삼아 우리를 새 언약의 일꾼 되기에 합당하게 통과시키셨다고 선언한다. 본문은 우리에게 까다로운 자격 심사표를 내밀지 않고, 이미 우리를 통과시켜 주신 분의 손길만을 지나간 일의 어형으로 적어 둘 뿐이다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>증빙 서류 봉투를 내려놓고 읽히는 사람 앞에 서다</b><span>03 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="마주 놓인 두 의자와 따뜻한 찻잔과 펼쳐진 성경">
+        <defs>
+          <linearGradient id="gStudyWarm" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#231f1d"/>
+            <stop offset="0.6" stop-color="#3d322a"/>
+            <stop offset="1" stop-color="#6e503b"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gStudyWarm)"/>
+        <rect x="0" y="128" width="674" height="32" fill="#1c1613"/>
+        <!-- 원목 탁자 -->
+        <rect x="235" y="102" width="204" height="8" rx="2" fill="#8c6239"/>
+        <rect x="260" y="110" width="8" height="34" fill="#5c3d22"/>
+        <rect x="406" y="110" width="8" height="34" fill="#5c3d22"/>
+        <!-- 펼쳐진 성경과 두 찻잔 -->
+        <polygon points="302,94 372,94 378,102 296,102" fill="#f7f2e7"/>
+        <rect x="262" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <rect x="398" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <!-- 양옆에 마주 서 있는 원목 의자 실루엣 -->
+        <path d="M168 58 L168 142 M168 106 L214 106 L214 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+        <path d="M506 58 L506 142 M506 106 L460 106 L460 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 따뜻한 찻잔을 사이에 두고 마주 놓인 두 의자와 펼쳐진 성경</span><span>판단보다 경청이 먼저 머무는 상담과 심방의 자리</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">마지막 6절에서 죽이는 일과 살리는 일이 신약 전체에서 유일하게 한 절 안에 나란히 놓일 때도, 본문은 그 두 동사의 주어로 사람을 쓰지 않는다. 개역개정이 율법 조문으로, 개역한글이 의문으로 옮긴 `τὸ γράμμα`(토 그람마)와 `τὸ πνεῦμα`(토 프뉴마)는 둘 다 중성 단수 주격이어서 어느 특정 민족이나 집단 이름을 그 주어 자리에 집어넣어 정죄할 길을 문법적으로 원천 차단한다. 이 책 전체에 율법을 뜻하는 `νόμος`(노모스)가 단 한 토막도 쓰이지 않았다는 사실까지 겹쳐 보면, 이 절은 남을 판정하거나 미래를 보장하는 공식이 아니라 살리는 일의 임자가 사람 바깥에 있음을 밝히는 자리다. 심지어 이 여섯 절에는 감사나 찬양 어휘조차 한 토막도 들어 있지 않고 기명으로 선 신적 주어도 끝맺는 동사를 직접 잡지 않아, 내 기도는 섣부른 감사 대신 내 성과의 이름을 내 것으로 달았던 일을 아뢰는 고백으로만 머문다.</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">오늘 저녁에는 사무실 책상 위에서 내 자격을 입증하려던 서류 봉투를 한쪽으로 밀어 두고, 세 가지 작은 몸짓으로 이 말씀 앞에 머물려 한다. 먼저 책상 모서리에 놓인 무거운 쇠 문진의 무게를 손으로 들지 않은 채 눈으로만 가만히 가늠해 보고, 이어 한 달 치 영수증 스무 장을 쇠 집게 하나에 물리며 그 두께가 내 능력의 자랑이 아니라 통과해 온 시간의 부피임을 확인하겠다. 그리고 이번 주 예배당과 사무실 문을 여닫을 때 삐걱거리던 녹슨 서랍 경첩에 기름 한 방울을 떨어뜨리고, 밤에 집에 돌아가서는 부엌 돌절구에 굵은 소금 한 줌을 넣어 천천히 으깨려 한다. 내 손으로 자격을 증명하려는 셈을 멈추고, 살의 마음판에 일하시는 영의 손길을 기다리는 내 이번 주의 첫 동작이다.</p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+  });
+</script>
+</body>
+</html>

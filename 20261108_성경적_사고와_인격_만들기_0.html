@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>문패를 떼어 낸 빈자리에 남는 이름과 이력서 첫 줄의 무게 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 14px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- figure ---------- */
+  figure{margin:18px 0 26px}
+  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  .body{
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- 모바일 반응형 호환 ---------- */
+  @media (max-width: 820px){
+    #top-toolbar{padding:0 14px}
+    .toolbar-left{display:none}
+    .toolbar-right{width:100%; justify-content:center}
+    .page{
+      width:calc(100% - 24px);
+      min-height:auto;
+      margin:0 auto 24px;
+      padding:32px 24px 24px;
+    }
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">문패를 떼어 낸 빈자리에 남는 이름과 이력서 첫 줄의 무게</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>문패를 떼어 낸 빈자리에 남는 이름과 이력서 첫 줄의 무게</b><span>01 · 2026년 11월 08일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">문패를 떼어 낸 빈자리에 남는 이름과 이력서 첫 줄의 무게</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="무거운 하중을 가득 실은 수레와 깊게 패인 바퀴 자국">
+        <defs>
+          <linearGradient id="gCartSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#231f20"/>
+            <stop offset="0.55" stop-color="#4a3525"/>
+            <stop offset="1" stop-color="#8c583a"/>
+          </linearGradient>
+          <linearGradient id="gCartGround" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2c221b"/>
+            <stop offset="1" stop-color="#17120e"/>
+          </linearGradient>
+          <radialGradient id="gCartGlow" cx="0.72" cy="0.28" r="0.55">
+            <stop offset="0" stop-color="#f3c88b" stop-opacity="0.45"/>
+            <stop offset="1" stop-color="#231f20" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gCartSky)"/>
+        <rect width="674" height="160" fill="url(#gCartGlow)"/>
+        <!-- 지평선 언덕과 눌린 대지 -->
+        <path d="M0 112 Q180 104 340 116 T674 108 L674 160 L0 160 Z" fill="url(#gCartGround)"/>
+        <!-- 깊게 패인 수레바퀴 자국 -->
+        <path d="M40 156 Q190 132 320 128" fill="none" stroke="#110d0a" stroke-width="5" stroke-linecap="round"/>
+        <path d="M40 155 Q190 131 320 127" fill="none" stroke="#6e4f3a" stroke-width="1.2" opacity="0.6"/>
+        <path d="M95 160 Q225 138 345 132" fill="none" stroke="#110d0a" stroke-width="4" stroke-linecap="round"/>
+        <!-- 겹겹이 쌓인 무거운 단과 장부 더미 (수레 상부) -->
+        <g transform="translate(230, 26)">
+          <!-- 곡식 단/짐 더미 레이어 -->
+          <path d="M22 62 Q85 12 156 58 Z" fill="#7a5230" stroke="#2b1d12" stroke-width="1.2"/>
+          <rect x="28" y="48" width="118" height="15" rx="3" fill="#a47142" stroke="#2b1d12" stroke-width="1"/>
+          <rect x="18" y="34" width="136" height="16" rx="3" fill="#8b5a32" stroke="#2b1d12" stroke-width="1"/>
+          <rect x="30" y="20" width="114" height="15" rx="3" fill="#b8844f" stroke="#2b1d12" stroke-width="1"/>
+          <rect x="44" y="7" width="88" height="14" rx="3" fill="#9a4a2e" stroke="#2b1d12" stroke-width="1"/>
+          <!-- 묶은 밧줄과 하중 압박선 -->
+          <line x1="62" y1="7" x2="54" y2="64" stroke="#2b1d12" stroke-width="2"/>
+          <line x1="114" y1="7" x2="122" y2="64" stroke="#2b1d12" stroke-width="2"/>
+          <!-- 수레 적재함 프레임 (무게에 휘어진 형상) -->
+          <path d="M8 64 Q88 73 168 62 L160 78 Q88 86 16 78 Z" fill="#4e3422" stroke="#1f140d" stroke-width="1.5"/>
+          <!-- 길게 뻗은 수레 채 -->
+          <line x1="162" y1="72" x2="248" y2="92" stroke="#5c3d28" stroke-width="4.5" stroke-linecap="round"/>
+          <!-- 무거운 나무 바퀴 -->
+          <circle cx="88" cy="86" r="28" fill="none" stroke="#3a2518" stroke-width="6"/>
+          <circle cx="88" cy="86" r="25" fill="none" stroke="#c89d6c" stroke-width="1" opacity="0.5"/>
+          <circle cx="88" cy="86" r="6" fill="#9a4a2e" stroke="#1f140d" stroke-width="1.5"/>
+          <line x1="88" y1="58" x2="88" y2="114" stroke="#3a2518" stroke-width="2.5"/>
+          <line x1="60" y1="86" x2="116" y2="86" stroke="#3a2518" stroke-width="2.5"/>
+          <line x1="68" y1="66" x2="108" y2="106" stroke="#3a2518" stroke-width="2"/>
+          <line x1="108" y1="66" x2="68" y2="106" stroke="#3a2518" stroke-width="2"/>
+        </g>
+        <!-- 땅이 갈라지는 압박 크랙 -->
+        <path d="M318 140 L302 152 M318 140 L335 155 M318 140 L288 144" stroke="#c9956b" stroke-width="1.3" opacity="0.65"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 무거운 하중을 가득 실은 수레와 깊게 패인 바퀴 자국</span><span>아모스 3장 9절 · ‘사업장 주소와 함께 닫히는 것’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">폐업을 결심하고 세무사 사무실을 찾아오는 고객들 가운데는 &quot;사장님, 이제 사업자등록증을 반납하고 가게 문을 닫으면 그동안 밀린 세금이나 소명 문제도 다 함께 끝나는 것 아닙니까&quot;라고 묻는 분들이 적지 않다. 세무조사의 착수 통지서가 사업장 소재지로 날아오고 모든 과세 자료가 그 가게 주소지에 쌓이다 보니, 사업장 간판을 내리면 그 안에 쌓인 책임의 몫도 함께 증발할 것이라 여기는 것이다. 그때마다 나는 연습장 한 장을 꺼내 가운데 세로줄을 긋고, 왼쪽 칸에는 &#x27;사업장 주소와 함께 닫히는 것&#x27;을, 오른쪽 칸에는 &#x27;가게 문이 닫힌 뒤에도 납세자 이름을 끝까지 따라가는 몫&#x27;을 나누어 적어 보여 준다.</p>
+    <p class="essay-p">아모스 3장 9절부터 15절까지에서 &#x27;궁궐&#x27;을 뜻하는 히브리어 아르몬(אַרְמוֹן)의 분포와 형태 변화를 따라가다 보면, 바로 그 주소와 이름의 엄중한 법칙이 문법의 결 위에 그대로 드러난다. 이 단락의 앞 세 절(9~11절)에서 아르몬은 네 번 등장하며 매번 그 끝에 붙는 인칭 접미사를 바꾼다. 9절의 두 토막은 아무 소유 표지도 붙지 않은 복수 절대형(아르메노트)으로 전치사 알(עַל) 뒤에 서서 아스돗과 애굽의 건물들을 증인으로 부른다. 이어지는 10절에서는 3인칭 남성 복수 접미사가 붙은 베아르메노테헴(그들의 궁궐에)이 되어 포학과 겁탈을 쌓아 올리는 분사(하오츠림, 쌓는 자들)의 범행 현장을 가리킨다. 그리고 11절에 이르면 인칭이 갑자기 2인칭 여성 단수 접미사로 좁혀진 아르메노타이크(너의 궁궐)가 되어 성읍 코앞으로 바짝 다가선다.</p>
+    <p class="pull essay-p">더욱 눈에 띄는 것은 문장 안에서의 역할 변화다. 9절과 10절에서 전치사 뒤에 놓인 장소(주소)에 불과했던 궁궐이, 11절에서 비로소 문장의 주어로 올라서는데 그 술어가 수동태(니팔) 동사 베나봇주(וְנָבֹזּוּ, 약탈되리라)다. 자기 이름을 걸고 주어로 선 첫 문장이 곧 약탈당한다는 선고문이며, 그 선고를 끝으로 12절부터 15절까지 아르몬이라는 낱말은 단 한 번도 등장하지 않는다. 물론 아모스 전체 17개 단락 가운데 아르몬이 없는 단락이 열두 곳이나 되므로 &#x27;0회&#x27;라는 숫자 자체를 과장할 수는 없다. 이 부재가 묵직한 관찰거리가 되는 것은 바로 앞 세 절에 네 번이나 몰려 있었고, 우리말 개역 성경이 15절의 보통명사 베트(집) 네 토막을 모두 &#x27;궁&#x27;으로 번역해 덧씌운 문패를 걷어 낼 때 비로소 그 단절의 경계가 선명히 보이기 때문이다.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>문패를 떼어 낸 빈자리에 남는 이름과 이력서 첫 줄의 무게</b><span>02 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="광야를 흐르는 공의의 강물과 회복된 장막">
+        <defs>
+          <linearGradient id="gRiverSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#162436"/>
+            <stop offset="0.5" stop-color="#2b4c66"/>
+            <stop offset="1" stop-color="#d49a6a"/>
+          </linearGradient>
+          <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#93c5fd"/>
+            <stop offset="1" stop-color="#1d4ed8"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gRiverSky)"/>
+        <!-- 광야 언덕 -->
+        <path d="M0 106 Q190 88 360 108 T674 98 L674 160 L0 160 Z" fill="#3a2d24"/>
+        <!-- 굽이쳐 흐르는 공의의 강물 -->
+        <path d="M350 106 Q290 122 330 138 Q380 150 240 160 L430 160 Q450 142 395 128 Q360 116 385 106 Z" fill="url(#gWater)" opacity="0.88"/>
+        <!-- 언덕 위에 다시 세워진 따뜻한 빛의 장막 -->
+        <polygon points="480,104 522,68 564,104" fill="#d97706" stroke="#2b1d12" stroke-width="1.5"/>
+        <polygon points="510,104 522,82 534,104" fill="#fef3c7"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 메마른 광야를 가르고 흐르는 공의의 강물과 다시 세워진 장막</span><span>‘고발장은 주소를 적고 판결문은 사람을 부른다’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">처음에는 이 흐름을 두고 &quot;고발장은 주소를 적고 판결문은 사람을 부른다&quot;는 법정 문서의 패턴으로만 이해했다. 그러나 14절과 15절에서 1인칭 동사 둘(우파카드티, 베힉케티)이 치는 대상 역시 &#x27;벧엘의 제단들&#x27;과 &#x27;겨울 집·여름 집·상아 집들&#x27;이라는 장소가 아니냐는 반문에 부딪히면서 생각이 한 걸음 더 깊어졌다. 사라진 것은 공간 자체가 아니라 공간을 부르는 방식이었다. 사람은 자기가 쌓아 올린 요새에 &#x27;궁궐&#x27;이라는 거창한 이름을 붙였지만, 벌하시는 날의 발화자는 그 이름을 다시 불러 주는 대신 예배하던 제단과 계절마다 옮겨 다니던 살림의 집들을 그 쓰임과 재료와 수량으로 직시하여 호명하신다. 이름을 붙이고 거두는 권한이 쌓은 사람에게 있지 않고 부르시는 하나님께 있다는 뜻이다.</p>
+    <span class="break"></span>
+    <p class="essay-p">장 칼뱅(Jean Calvin, 1559)이 『기독교 강요』에서 예배의 외형이 아무리 화려해도 이웃을 향한 포학이 그 제단을 무너뜨린다고 보아 십계명의 두 돌판을 결코 분리하지 않았듯, 아모스 3장은 10절의 궁궐에 쌓인 겁탈과 14절의 벧엘 제단 뿔이 꺾이는 사건을 한 선언 안에 묶어 둔다. 또한 사회학자 어빙 고프먼(Erving Goffman, 1961)이 『수용소(Asylums)』에서 분석한 것처럼, 인간이 자신의 사회적 지위와 안전을 입증하기 위해 걸치고 있던 외적 소유물과 직함(Identity Kit)이 벗겨질 때, 그 외피에 정체성을 위탁했던 자아는 가장 깊은 실존적 침묵과 낯섦 앞에 서게 된다.</p>
+    <p class="essay-p">개역한글 성경 3장 9절부터 15절을 펴 놓고 &#x27;궁&#x27;이나 &#x27;궁궐&#x27;이라는 글자가 나올 때마다 오른손 검지로 짚어 보면 손가락은 마지막 15절까지 여덟 번 내내 바쁘게 움직인다. 그러나 히브리어 원문 어휘를 따라 아르몬 네 곳만 짚으며 읽어 내려가면, 11절의 &quot;네 궁궐을 약탈하리라&quot;를 짚은 뒤 12절부터는 내 검지가 허공에 들린 채 짚을 글자를 잃어버린다. 들린 손가락이 갈 곳을 찾지 못해 머뭇거리는 그 몇 초간의 어색함이 바로, 내가 평생 쌓아 올린 소속과 직함과 자산의 이름이 호명되지 않는 날의 무게를 근육으로 미리 겪어 보는 시간이다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>문패를 떼어 낸 빈자리에 남는 이름과 이력서 첫 줄의 무게</b><span>03 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="금이 간 질그릇 틈새로 새어 나오는 보배의 빛">
+        <defs>
+          <linearGradient id="gVesselBg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#121824"/>
+            <stop offset="0.5" stop-color="#242b38"/>
+            <stop offset="1" stop-color="#3d2e24"/>
+          </linearGradient>
+          <radialGradient id="gTreasureGlow" cx="0.5" cy="0.54" r="0.46">
+            <stop offset="0" stop-color="#fff4cc" stop-opacity="0.75"/>
+            <stop offset="0.45" stop-color="#f5b95f" stop-opacity="0.28"/>
+            <stop offset="1" stop-color="#121824" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gVesselBg)"/>
+        <rect width="674" height="160" fill="url(#gTreasureGlow)"/>
+        <!-- 빛살 광선 -->
+        <polygon points="337,84 210,0 255,0" fill="#fff3c4" opacity="0.22"/>
+        <polygon points="337,84 420,0 468,0" fill="#fff3c4" opacity="0.22"/>
+        <polygon points="337,84 540,40 560,82" fill="#fff3c4" opacity="0.16"/>
+        <rect x="0" y="132" width="674" height="28" fill="#1b1613"/>
+        <!-- 투박한 토기 질그릇 실루엣 -->
+        <g transform="translate(285, 28)">
+          <path d="M32 8 L72 8 L66 24 C92 38 96 78 74 104 L30 104 C8 78 12 38 38 24 Z" fill="#6e4730" stroke="#2b1a10" stroke-width="2"/>
+          <ellipse cx="52" cy="8" rx="20" ry="4.5" fill="#4a2e1e" stroke="#2b1a10" stroke-width="1.5"/>
+          <!-- 질그릇의 균열(금)에서 뿜어져 나오는 황금빛 보배 -->
+          <path d="M48 26 L56 46 L44 64 L58 84 L50 100" fill="none" stroke="#fff9db" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M56 46 L72 56 M44 64 L28 74" fill="none" stroke="#ffd875" stroke-width="2" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 금이 간 질그릇의 틈새로 밝게 새어 나오는 보배의 빛</span><span>창세기 11장 4절 · ‘쌓지 말라’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">성경은 창세기 11장 4절에서 성과 탑을 쌓아 자기 이름을 내자고 하던 사람들의 언어와, 이사야 62장 2절 및 요한계시록 2장 17절에서 여호와의 입이 정하실 새 이름을 받는 자들의 언어를 긴 구속사의 양 끝에 세워 둔다. 아모스 3장 자체는 그 새 이름의 약속까지 직접 말하지 않으며, 우리는 &quot;쌓지 말라&quot;는 도덕주의나 &quot;이스라엘은 끝났다&quot;는 단죄나 &quot;곧 새 이름을 주신다&quot;는 값싼 위로로 본문의 12절(두 다리와 귀 조각의 구출)과 15절(많은 집의 파멸) 사이의 긴장을 섣불리 닫아서는 안 된다. 다만 쌓은 터의 이름을 거두시는 바로 그분께서 스스로 아무것도 쌓지 않는 가난한 자리로 내려오셨다는 고린도후서 8장 9절의 복음을 정경이 더한 은혜로 함께 붙들 뿐이다.</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">이번 주 주일 설교 원고와 당회 회의록 첫머리를 열기 전에, 먼저 내 서재 책상에 앉아 내 이력서와 명함 맨 윗줄에 적힌 &#x27;목사&#x27;와 &#x27;세무사&#x27;라는 두 직함 위를 왼손 검지로 가만히 덮어 가린다. 내가 쌓아 온 경력과 직함의 문패가 불리지 않는 자리에서도 내가 하나님 앞에서 누구로 서 있는지 백지 위에 만년필로 단 한 문장만 적어 보고, 이번 분기 교회 운영위원회 회의록의 건물 관리 안건 옆에는 &#x27;소유&#x27;가 아니라 &#x27;예배와 구제의 쓰임&#x27;이라는 단어를 내 손으로 직접 고쳐 적는다.</p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+  });
+</script>
+</body>
+</html>

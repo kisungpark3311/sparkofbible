@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>꾸밈말에서 빠져나와 우리를 부르는 이름이 된 향기와 그 임자 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 14px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- figure ---------- */
+  figure{margin:18px 0 26px}
+  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  .body{
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- 모바일 반응형 호환 ---------- */
+  @media (max-width: 820px){
+    #top-toolbar{padding:0 14px}
+    .toolbar-left{display:none}
+    .toolbar-right{width:100%; justify-content:center}
+    .page{
+      width:calc(100% - 24px);
+      min-height:auto;
+      margin:0 auto 24px;
+      padding:32px 24px 24px;
+    }
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">꾸밈말에서 빠져나와 우리를 부르는 이름이 된 향기와 그 임자</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>꾸밈말에서 빠져나와 우리를 부르는 이름이 된 향기와 그 임자</b><span>01 · 2026년 11월 24일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">꾸밈말에서 빠져나와 우리를 부르는 이름이 된 향기와 그 임자</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="금이 간 질그릇 틈새로 새어 나오는 보배의 빛">
+        <defs>
+          <linearGradient id="gVesselBg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#121824"/>
+            <stop offset="0.5" stop-color="#242b38"/>
+            <stop offset="1" stop-color="#3d2e24"/>
+          </linearGradient>
+          <radialGradient id="gTreasureGlow" cx="0.5" cy="0.54" r="0.46">
+            <stop offset="0" stop-color="#fff4cc" stop-opacity="0.75"/>
+            <stop offset="0.45" stop-color="#f5b95f" stop-opacity="0.28"/>
+            <stop offset="1" stop-color="#121824" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gVesselBg)"/>
+        <rect width="674" height="160" fill="url(#gTreasureGlow)"/>
+        <!-- 빛살 광선 -->
+        <polygon points="337,84 210,0 255,0" fill="#fff3c4" opacity="0.22"/>
+        <polygon points="337,84 420,0 468,0" fill="#fff3c4" opacity="0.22"/>
+        <polygon points="337,84 540,40 560,82" fill="#fff3c4" opacity="0.16"/>
+        <rect x="0" y="132" width="674" height="28" fill="#1b1613"/>
+        <!-- 투박한 토기 질그릇 실루엣 -->
+        <g transform="translate(285, 28)">
+          <path d="M32 8 L72 8 L66 24 C92 38 96 78 74 104 L30 104 C8 78 12 38 38 24 Z" fill="#6e4730" stroke="#2b1a10" stroke-width="2"/>
+          <ellipse cx="52" cy="8" rx="20" ry="4.5" fill="#4a2e1e" stroke="#2b1a10" stroke-width="1.5"/>
+          <!-- 질그릇의 균열(금)에서 뿜어져 나오는 황금빛 보배 -->
+          <path d="M48 26 L56 46 L44 64 L58 84 L50 100" fill="none" stroke="#fff9db" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M56 46 L72 56 M44 64 L28 74" fill="none" stroke="#ffd875" stroke-width="2" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 금이 간 질그릇의 틈새로 밝게 새어 나오는 보배의 빛</span><span>고린도후서 2장 14절</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">세무사 사무실에서 부가가치세 신고 서류를 검토할 때 세금계산서의 품목 및 적요란과 공급받는 자의 명의란을 엄격하게 구분해 보는 습관이 있다. 장부의 적요란에 아무리 우량 거래처나 고급 자재 같은 화려한 꾸밈말이 적혀 있어도, 세무조사에서 실제 거래의 귀속과 적격 여부를 결정하는 것은 명의란에 찍힌 정확한 상호와 사업자등록번호다. 적요란의 성질 표시가 명의란의 당사자 등록을 대신할 수는 없기 때문이다. 며칠 전 교회의 새해 표어 시안으로 올라온 그리스도의 향기를 날리는 성도라는 문구를 책상 위에 올려놓고 보았을 때도, 나는 세금계산서의 두 칸을 대조하듯 그 문장의 성질 수식어와 소속 명의를 가만히 들여다보았다.</p>
+    <p class="essay-p">교회 안에서 향기로운 예배나 향기로운 섬김이라는 말은 해마다 자연스럽게 쓰이지만, 어느 순간 그 향기라는 낱말이 성도들의 헌신도를 평가하는 성적표나 남에게 좋은 인상을 주어야 한다는 도덕적 숙제로 바뀌어 있는 경우를 자주 본다. 고린도후서 2장 14절부터 16절까지의 말씀을 처음 읽을 때만 해도 나는 15절의 우리는 그리스도의 향기니라는 선언을 사도 일행의 드높은 영적 자기 규정으로 이해했다. 그러나 신약성경 안에서 냄새(오스메)와 향기(유오디아)라는 두 낱말이 만나는 통사적 격(case)의 이동을 정밀하게 따라가 보았을 때, 그 문장은 인간의 성취를 자랑하는 자기 규정이 아니라 바치는 물건에서 떨어진 이름표가 사람에게 얹히되 주인의 자리는 비워지는 사건임을 알게 되었다.</p>
+    <p class="pull essay-p">신약 스물일곱 권에서 오스메(ὀσμή)와 유오디아(εὐωδία)가 한 절에 나란히 등장하는 다른 두 곳인 에베소서 5장 2절과 빌립보서 4장 18절을 보면, 두 낱말은 언제나 오스멘 유오디아스(ὀσμὴν εὐωδίας), 곧 향기로운 냄새라는 한 구로 굳게 묶여 있다. 거기서 유오디아스는 속격 어미(-ς)를 달고 대격 명사 오스멘을 뒤에서 꾸미는 형용적 수식어로 복무하며, 그 구절 바로 곁에는 사람이 하나님께 바치는 제물과 헌물이 놓인다. 그런데 고린도후서 2장 14절부터 16절은 그 익숙한 관용구를 해체하여 두 낱말을 세 절에 각각 떼어 놓는다. 14절에서 오스메는 대격 목적어가 되고, 15절에서 유오디아는 속격 어미 한 글자(-ς)를 떨어뜨린 채 신약 전권에 단 한 번뿐인 주격 단수(유오디아)로 올라서며, 16절에서 오스메는 동사 없는 문장의 두 주격 머리로 선다.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>꾸밈말에서 빠져나와 우리를 부르는 이름이 된 향기와 그 임자</b><span>02 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="마주 놓인 두 의자와 따뜻한 찻잔과 펼쳐진 성경">
+        <defs>
+          <linearGradient id="gStudyWarm" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#231f1d"/>
+            <stop offset="0.6" stop-color="#3d322a"/>
+            <stop offset="1" stop-color="#6e503b"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gStudyWarm)"/>
+        <rect x="0" y="128" width="674" height="32" fill="#1c1613"/>
+        <!-- 원목 탁자 -->
+        <rect x="235" y="102" width="204" height="8" rx="2" fill="#8c6239"/>
+        <rect x="260" y="110" width="8" height="34" fill="#5c3d22"/>
+        <rect x="406" y="110" width="8" height="34" fill="#5c3d22"/>
+        <!-- 펼쳐진 성경과 두 찻잔 -->
+        <polygon points="302,94 372,94 378,102 296,102" fill="#f7f2e7"/>
+        <rect x="262" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <rect x="398" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <!-- 양옆에 마주 서 있는 원목 의자 실루엣 -->
+        <path d="M168 58 L168 142 M168 106 L214 106 L214 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+        <path d="M506 58 L506 142 M506 106 L460 106 L460 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 따뜻한 찻잔을 사이에 두고 마주 놓인 두 의자와 펼쳐진 성경</span><span>판단보다 경청이 먼저 머무는 상담과 심방의 자리</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">꾸미는 말이던 유오디아가 꾸밈을 벗고 우리는 ~이다(에스멘)라는 동사의 주격 서술보어로 올라서는 순간, 문법과 인격의 풍경이 동시에 바뀐다. 물건의 성질을 꾸미는 적요란에 있을 때는 그것이 누구의 것인지 따로 물을 필요가 없지만, 그 낱말이 명의란으로 옮겨 와 우리가 무엇인지를 가리키는 호칭(이름)이 되면 반드시 이 이름은 누구에게 속한 것인가라는 등록 표시가 필요해진다. 본문 15절은 그 빈자리를 관사 없는 속격 크리스투(Χριστοῦ), 곧 그리스도의라는 한 낱말로 채운다. 향기가 다른 낱말을 꾸미는 일을 멈추고 우리를 부르는 이름이 되었으되, 그 이름의 소유권은 우리에게 주어지지 않고 오직 그리스도께 귀속된 것이다.</p>
+    <span class="break"></span>
+    <p class="essay-p">기독교 철학자 니콜라스 월터스토프(Nicholas Wolterstorff, 2008)는 『정의와 권리(Justice: Rights and Wrongs)』에서 인간의 근원적 존엄과 정체성이 각자가 성취해 낸 도덕적 품성이나 능력이라는 내재적 성질(적요)에서 나오는 것이 아니라, 하나님께서 그를 누구의 것으로 부르시고 사랑하시는가 하는 관계적 귀속(명의)에 의해 부여된다고 논증한 바 있다. 내가 향기로운 품성을 갈고닦아 향기를 뿜어내야만 비로소 가치가 증명되는 구조라면, 우리는 타인의 칭찬 한마디에 우쭐했다가도 다음 날의 작은 실수에 곧장 무너지고 만다. 그러나 14절에서 냄새를 각처에 드러내시는 능동 분사 파네룬티(φανεροῦντι)는 여격 기명인 하나님께 걸려 있고, 우리는 오직 우리를 통하여(디 헤몬)라는 전치사구로만 놓인다. 냄새를 드러내는 손이 내 손이 아닌 것이다.</p>
+    <p class="essay-p">더 나아가 15절의 무관사 속격 크리스투(그리스도의)를 문장에서 잠시 지워 보면, 이 속격 하나가 다음 절인 16절의 동사 공백을 어떻게 지키고 있는지가 선명하게 드러난다. 만약 15절이 우리는 향기다로만 끝났다면, 동사가 한 토막도 없이 사망에서 사망에 이르는 냄새와 생명에서 생명에 이르는 냄새라는 도착점만 적힌 16절의 빈 동사 자리에 곧바로 우리가 사람을 사망과 생명에 이르게 한다라는 인간의 작위가 밀고 들어왔을 것이다. 15절에 그리스도의라는 임자 표시가 박혀 있기에 16절은 동사 없이 서 있을 수 있고, 우리는 구원받는 이들과 망하는 이들을 내 손으로 선별하고 심판하려는 오만에서 풀려난다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>꾸밈말에서 빠져나와 우리를 부르는 이름이 된 향기와 그 임자</b><span>03 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="서재 책상과 기록물">
+        <defs>
+          <linearGradient id="gRoom" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2a2d34"/>
+            <stop offset="0.55" stop-color="#3c3a37"/>
+            <stop offset="1" stop-color="#231f1d"/>
+          </linearGradient>
+          <radialGradient id="gLamp" cx="0.5" cy="0.08" r="0.65">
+            <stop offset="0" stop-color="#f7f2e4" stop-opacity="0.55"/>
+            <stop offset="0.45" stop-color="#d8ceb8" stop-opacity="0.18"/>
+            <stop offset="1" stop-color="#2a2d34" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gRoom)"/>
+        <rect width="674" height="160" fill="url(#gLamp)"/>
+        <rect x="210" y="10" width="254" height="5" rx="2.5" fill="#fffdf7" opacity="0.92"/>
+        <rect x="200" y="8" width="274" height="9" rx="4" fill="#fffdf7" opacity="0.18"/>
+        <polygon points="0,126 674,126 674,160 0,160" fill="#4a382b"/>
+        <line x1="0" y1="126" x2="674" y2="126" stroke="#7b6554" stroke-width="1.2"/>
+        <g transform="translate(118,54)">
+          <rect x="0" y="56" width="128" height="16" fill="#8b7d6b" stroke="#2c2520" stroke-width="1"/>
+          <rect x="6" y="59" width="116" height="10" fill="#efe8dc"/>
+          <rect x="4" y="40" width="122" height="16" fill="#5c4638" stroke="#2c2520" stroke-width="1"/>
+          <rect x="10" y="43" width="110" height="10" fill="#f3ede2"/>
+          <rect x="2" y="24" width="118" height="16" fill="#9a4a2e" stroke="#2c2520" stroke-width="1"/>
+          <rect x="8" y="27" width="106" height="10" fill="#efe8dc"/>
+          <rect x="10" y="10" width="112" height="14" fill="#68635c" stroke="#2c2520" stroke-width="1"/>
+          <rect x="15" y="13" width="102" height="8" fill="#f5efe6"/>
+        </g>
+        <g transform="translate(264,44)">
+          <rect x="0" y="66" width="138" height="16" fill="#4f4842" stroke="#26211d" stroke-width="1"/>
+          <rect x="6" y="69" width="126" height="10" fill="#ede5d8"/>
+          <rect x="5" y="50" width="130" height="16" fill="#7a6855" stroke="#26211d" stroke-width="1"/>
+          <rect x="11" y="53" width="118" height="10" fill="#f5efe6"/>
+          <rect x="2" y="34" width="132" height="16" fill="#3b424c" stroke="#26211d" stroke-width="1"/>
+          <rect x="8" y="37" width="120" height="10" fill="#ebe3d5"/>
+          <rect x="8" y="18" width="124" height="16" fill="#8c5840" stroke="#26211d" stroke-width="1"/>
+          <rect x="14" y="21" width="112" height="10" fill="#f5efe6"/>
+        </g>
+        <polygon points="432,134 522,131 534,148 442,152" fill="#f7f2e8" opacity="0.92"/>
+        <line x1="445" y1="138" x2="508" y2="136" stroke="#9a4a2e" stroke-width="1.6"/>
+        <line x1="447" y1="143" x2="515" y2="141" stroke="#7a7068" stroke-width="1"/>
+        <line x1="538" y1="130" x2="578" y2="147" stroke="#d8d0c6" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="538" cy="130" r="1.8" fill="#9a4a2e"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 형광등 불빛 아래 성벽처럼 쌓인 장부와 서류철</span><span>숫자와 기록이 마주하는 조사실의 책상</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">장 칼뱅의 주석 전통이 복음의 냄새가 왜 두 끝으로 갈리는지 씨름해 왔듯, 이 본문이 우리에게 허락하는 어형적 사실은 향기가 그리스도의 것 하나뿐이라는 점과 16절의 갈림에는 냄새를 변질시키는 인간의 동작 동사가 적히지 않는다는 점까지다. 따라서 우리는 명령법이 0토막이고 정동사가 에스멘(~이다)뿐인 이 본문을 향기로운 삶을 살라는 도덕주의 숙제로 바꾸거나, 제물 어휘가 없는 곳에 향기로운 헌물을 바치자는 공로 신학을 덧씌우거나, 복수 관계사로만 적힌 16절을 가지고 우리 교회와 저들을 가르는 선별의 오만에 빠지지 말아야 한다. 향기는 일하지 않고 불리며, 불린 사람은 그 향기의 주인이 되지 않는다.</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">손바닥에 원두나 마른 허브 한 꼬집을 쥐었다가 접시에 다 털어 내고 나면, 손안의 물건은 사라졌어도 빈손에는 여전히 냄새가 배어 남아 있다. 손이 향기를 소유한 것이 아니라 향기가 손에 밴 것이다. 이번 주 나는 세무 의견서와 장부를 정리할 때 적요란의 성질 수식어와 명의란의 사업자 등록 표시를 엄격히 갈라 적고, 서재에서는 손바닥의 원두를 접시에 털어 낸 뒤 빈손을 가슴에 얹고 나의라는 말을 뺀 채 우리는 그리스도의 향기입니다라고 소리 내어 읽어 보는 첫 동작을 실행할 것이다.</p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+  });
+</script>
+</body>
+</html>

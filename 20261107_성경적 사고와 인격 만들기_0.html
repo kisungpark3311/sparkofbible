@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>철회되지 않는 앎과 마카프 하나 건너에 선 부르심 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 14px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- figure ---------- */
+  figure{margin:18px 0 26px}
+  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  .body{
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- 모바일 반응형 호환 ---------- */
+  @media (max-width: 820px){
+    #top-toolbar{padding:0 14px}
+    .toolbar-left{display:none}
+    .toolbar-right{width:100%; justify-content:center}
+    .page{
+      width:calc(100% - 24px);
+      min-height:auto;
+      margin:0 auto 24px;
+      padding:32px 24px 24px;
+    }
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">철회되지 않는 앎과 마카프 하나 건너에 선 부르심</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>철회되지 않는 앎과 마카프 하나 건너에 선 부르심</b><span>01 · 2026년 11월 07일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">철회되지 않는 앎과 마카프 하나 건너에 선 부르심</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="마주 놓인 두 의자와 따뜻한 찻잔과 펼쳐진 성경">
+        <defs>
+          <linearGradient id="gStudyWarm" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#231f1d"/>
+            <stop offset="0.6" stop-color="#3d322a"/>
+            <stop offset="1" stop-color="#6e503b"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gStudyWarm)"/>
+        <rect x="0" y="128" width="674" height="32" fill="#1c1613"/>
+        <!-- 원목 탁자 -->
+        <rect x="235" y="102" width="204" height="8" rx="2" fill="#8c6239"/>
+        <rect x="260" y="110" width="8" height="34" fill="#5c3d22"/>
+        <rect x="406" y="110" width="8" height="34" fill="#5c3d22"/>
+        <!-- 펼쳐진 성경과 두 찻잔 -->
+        <polygon points="302,94 372,94 378,102 296,102" fill="#f7f2e7"/>
+        <rect x="262" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <rect x="398" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <!-- 양옆에 마주 서 있는 원목 의자 실루엣 -->
+        <path d="M168 58 L168 142 M168 106 L214 106 L214 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+        <path d="M506 58 L506 142 M506 106 L460 106 L460 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 따뜻한 찻잔을 사이에 두고 마주 놓인 두 의자와 펼쳐진 성경</span><span>아모스 3장 1절 · ‘미처 몰랐습니다’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">오랫동안 기장을 맡아 온 고객의 성실신고 확인서에 서명하고 도장을 찍을 때마다 손끝에 묵직한 긴장이 머문다. 몇 해 동안 그 사업장의 자금 흐름과 대표의 거래 습관을 속속들이 보아 왔다는 사실은, 사후 검증 자리에서 &quot;미처 몰랐습니다&quot;라고 항변할 퇴로를 가장 좁게 만든다. 세무 실무에서도, 수십 년 함께 신앙생활을 해 온 교회 당회의 재정 결산 자리에서도, 관계가 깊고 오래되었다는 사실은 확인 절차를 생략해도 좋다는 면죄부가 아니라 누구보다 먼저 증빙을 갖추어 검증대 앞에 서야 하는 근거가 된다.</p>
+    <p class="essay-p">아모스 3장 1절과 2절의 히브리어 구문은 그 관계와 책임의 고리를 단 네 개의 동사와 하나의 접속 표지로 또렷하게 세운다. 1절은 이 단락의 유일한 의지형 명령인 쉼우(שִׁמְעוּ, 들으라)로 시작하고, 출애굽의 구원 사건인 헤엘레티(הֶעֱלֵיתִי, 내가 올려 인도하였다)는 아셰르(אֲשֶׁר) 관계절 안에 종속되어 배경을 이룬다. 그리고 2절의 주절에 두 개의 1인칭 공성 단수 동사가 마주 선다. 앞마디의 완료형 야다티(יָדַעְתִּי, 내가 알았다)와 뒷마디의 미완료형 에프코드(אֶפְקֹד, 내가 돌아보아 벌하리라)다. 이 두 동사 사이를 잇는 것은 마카프(줄표) 하나로 묶인 지시 불변화사 알-켄(עַל־כֵּן, 그러므로)뿐이다.</p>
+    <p class="pull essay-p">구약 전권에서 단언 불변화사 라크(רַק, 오직 ~만)와 동사 야다(יָדַע, 알다)가 한 절에 함께 쓰인 곳은 일곱 절뿐인데, 신명기의 네 절에서 라크가 사물이나 행위를 한정하는 것과 달리 사람을 직접 한정하여 &quot;오직 너희만(רַק אֶתְכֶם)&quot;이라고 부르는 곳은 아모스 3장 2절이 유일하다. 처음 이 구절을 읽을 때는 &quot;너희만 알았으니 복을 주리라&quot;는 기대를 깨고 &quot;보응하리라&quot;로 넘어가는 결론의 반전에만 눈이 갔다. 그러나 접속사와 대상을 하나씩 바꾸어 보는 구문 대조를 거치며 깨달은 진짜 무게는 다른 데 있었다. 하나님은 이스라엘을 벌하시기 위해 &quot;너희를 알았던 일을 취소한다&quot;고 말씀하지 않으신다. 완료형으로 선언된 그 앎(야다티)은 철회되지 않은 채, 마카프 하나 건너에 있는 미완료형 보응(에프코드)의 바닥으로 그대로 남아 있다.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>철회되지 않는 앎과 마카프 하나 건너에 선 부르심</b><span>02 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="감옥 창살 너머 등불과 사슬 옆에 펼쳐진 서신">
+        <defs>
+          <linearGradient id="gPrisonBg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#141821"/>
+            <stop offset="0.55" stop-color="#262936"/>
+            <stop offset="1" stop-color="#4a3728"/>
+          </linearGradient>
+          <radialGradient id="gCandleGlow" cx="0.64" cy="0.48" r="0.45">
+            <stop offset="0" stop-color="#ffdfa0" stop-opacity="0.6"/>
+            <stop offset="0.5" stop-color="#d99b52" stop-opacity="0.2"/>
+            <stop offset="1" stop-color="#141821" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gPrisonBg)"/>
+        <rect width="674" height="160" fill="url(#gCandleGlow)"/>
+        <!-- 좌측 석조 감옥 창살과 새어드는 빛 -->
+        <rect x="58" y="14" width="110" height="92" rx="4" fill="#1e2433" stroke="#3b4254" stroke-width="2"/>
+        <line x1="86" y1="14" x2="86" y2="106" stroke="#11151f" stroke-width="4"/>
+        <line x1="113" y1="14" x2="113" y2="106" stroke="#11151f" stroke-width="4"/>
+        <line x1="140" y1="14" x2="140" y2="106" stroke="#11151f" stroke-width="4"/>
+        <polygon points="86,106 140,106 260,160 120,160" fill="#f3c88b" opacity="0.12"/>
+        <!-- 석조 책상 상판 -->
+        <rect x="0" y="122" width="674" height="38" fill="#231c18"/>
+        <line x1="0" y1="122" x2="674" y2="122" stroke="#6e5644" stroke-width="1.2"/>
+        <!-- 풀려 내려놓인 철사슬 고리 (데스모스) -->
+        <g transform="translate(215, 118)" fill="none" stroke="#8c96a6" stroke-width="3">
+          <ellipse cx="18" cy="14" rx="14" ry="7"/>
+          <ellipse cx="38" cy="16" rx="14" ry="7"/>
+          <ellipse cx="58" cy="13" rx="14" ry="7"/>
+        </g>
+        <!-- 펼쳐진 양피지 서신과 갈대펜 -->
+        <polygon points="310,114 468,110 484,142 298,146" fill="#f5ebd6" stroke="#8c6d46" stroke-width="1"/>
+        <line x1="330" y1="122" x2="442" y2="120" stroke="#7a5838" stroke-width="1.4"/>
+        <line x1="326" y1="129" x2="450" y2="127" stroke="#9c7e5e" stroke-width="1"/>
+        <line x1="322" y1="136" x2="418" y2="134" stroke="#9c7e5e" stroke-width="1"/>
+        <line x1="452" y1="92" x2="496" y2="138" stroke="#c89d6c" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- 등잔과 따뜻한 불꽃 -->
+        <ellipse cx="545" cy="116" rx="22" ry="8" fill="#9a6b3e"/>
+        <path d="M545 92 Q553 104 545 112 Q537 104 545 92 Z" fill="#ffd97d"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 감옥 창살 너머 스며드는 등불과 사슬 옆에 펼쳐진 간구의 서신</span><span>아모스 3장 2절 · ‘특권에는 책임이 따른다’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">흔히 이 구절을 두고 &quot;특권에는 책임이 따른다&quot;거나 &quot;많이 아는 신자가 더 큰 책임을 진다&quot;고 요약하곤 한다. 신탁 재산을 맡은 수탁자의 선관주의 의무나 집 열쇠를 쥔 사람의 문단속 책임에 비유하는 것도 같은 맥락이다. 그러나 그러한 일상적 유추들을 원문에 대어 보면 결정적인 지점에서 한 걸음씩 모자란다. 세무 대리인이나 주치의나 수탁자의 경우에는 &#x27;앎&#x27;의 주어가 책임을 지는 사람 자신이지만, 아모스 3장 2절에서 앎의 주어는 보응하시는 하나님(1인칭)이고 이스라엘은 그 앎을 받은 목적어(에트켐)이기 때문이다. &quot;너희가 많이 알았으니&quot;가 아니라 &quot;내가 너희를 알았으니&quot;다.</p>
+    <span class="break"></span>
+    <p class="essay-p">장 칼뱅(Jean Calvin, 1559)이 『기독교 강요』 제1권 1장 서두에서 하나님을 아는 지식과 우리 자신을 아는 지식이 서로 얽혀 있다고 통찰했듯, 하나님께 가까이 아신 바 되었다는 사실은 자신의 모든 죄악이 빛 아래 드러나는 자리와 결코 분리되지 않는다. 또한 현대 도덕철학자 티머시 스캔런(T. M. Scanlon, 1998)이 『우리가 서로에게 지는 의무(What We Owe to Each Other)』에서 분석한 것처럼, 도덕적·계약적 책임의 무게는 추상적 규칙이 아니라 당사자들이 맺고 있는 구체적 관계의 역사(Relational Standings)가 호명될 때 비로소 피할 수 없는 답변의 의무로 성립한다. 아모스 3장 1절의 출애굽 역사와 2절의 보응 선언이 알-켄 하나로 묶여 있다는 사실은, 이 심판이 언약 밖의 낯선 법정이 아니라 언약 관계 안의 가장 진지한 호명임을 보여 준다.</p>
+    <p class="essay-p">여러 사람이 모인 자리에서 낯선 이름들이 불릴 때는 몸이 느슨하게 기대어 있다가도, 내 이름이 호명되는 순간 그것이 칭찬 때문인지 추궁 때문인지 따지기도 전에 고개가 먼저 들리고 등이 펴진다. 하나님께 &quot;아신 바 되었다&quot;는 것은 바로 그렇게 맨 앞줄로 이름이 불려 나가는 일이다. 뒷줄에 숨어 &quot;다 아는 사이니 괜찮겠지&quot;라고 뭉갤 수 없는 자리, 두 손바닥을 펴서 무릎 위에 올리고 다음 말씀을 기다려야 하는 자리다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>철회되지 않는 앎과 마카프 하나 건너에 선 부르심</b><span>03 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="성벽과 수직으로 드리워진 다림줄">
+        <defs>
+          <linearGradient id="gPlumbSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1e293b"/>
+            <stop offset="1" stop-color="#475569"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gPlumbSky)"/>
+        <!-- 약간 기울어진 돌벽 -->
+        <polygon points="180,22 310,22 296,160 166,160" fill="#645b53" stroke="#2c2623" stroke-width="1.5"/>
+        <!-- 수직 다림줄 -->
+        <line x1="348" y1="0" x2="348" y2="112" stroke="#f8fafc" stroke-width="1.8"/>
+        <polygon points="340,112 356,112 348,132" fill="#d97706" stroke="#fffbeb" stroke-width="1"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 기울어진 돌담 앞에 수직으로 드리워진 다림줄</span><span>아모스 3장 2절 · ‘너희 모든 죄악(칼-아보노테켐)’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">물론 방향을 고쳐 다시 점검표를 쓴다 해도 2절 끝이 선언하는 &quot;너희 모든 죄악(칼-아보노테켐)&quot;의 무게가 사람의 수고로 덜어지는 것은 아니다. 아모스 3장 2절은 앎을 받은 대상과 보응을 받는 대상이 똑같이 &quot;너희&quot;로 겹쳐 있는 상태에서 그 보응이 어떻게 감당될지 빈칸으로 남겨 둔다. 그 열린 칸 너머에서, 요한복음 10장 14절과 15절의 선한 목자가 &quot;나는 내 양을 알고 양도 나를 아는 것&quot;이라는 똑같은 앎의 언어를 받아, 보응을 양에게 지우는 대신 &quot;나는 양을 위하여 목숨을 버리노라&quot;며 자기 몸으로 그 보응의 자리를 감당하신다. 아모스의 엄중한 문법을 지우지 않고 정경 전체가 그 위에 더해 준 복음의 자리다.</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">오늘 오후 거래처 대표와 마주하는 세무 상담 자리에서 &quot;오래 거래한 사이니 알아서 처리해 달라&quot;는 요청이 나오면, 오히려 오래 알아 온 대리인이기에 증빙 서류 한 장을 더 꼼꼼히 확인해야 두 사람 모두 안전하다는 원칙을 정중히 설명한다. 그리고 밤에는 내 개인 수첩을 펼쳐 왼쪽 칸에 &#x27;오래 다닌 연수와 익숙한 직분&#x27;을 적고, 가운데 칸에 습관처럼 적어 두었던 &#x27;이 정도면 괜찮다&#x27;는 문장을 두 줄로 그어 지운 뒤, 오른쪽 칸에 이번 주 미루어 두었던 사과와 정정의 연락 한 건을 또렷이 적어 넣는다.</p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+  });
+</script>
+</body>
+</html>
