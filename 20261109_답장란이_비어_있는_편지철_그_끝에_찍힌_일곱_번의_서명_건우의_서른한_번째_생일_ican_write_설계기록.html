@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 아들 건우의 서른한 번째 생일을 축복하며 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 14px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- figure ---------- */
+  figure{margin:18px 0 26px}
+  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(253, 224, 71, 0.58) 58%, transparent 58%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 3px;
+    border-radius:3px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.42) 60%, transparent 60%);
+    color:#fef08a;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] figure{margin:14px 0 20px}
+  body[data-view="mobile"] .photo{height:clamp(124px, 34vw, 160px); border-radius:4px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:normal;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) figure{margin:14px 0 20px}
+    body:not([data-view="a4"]) .photo{height:clamp(116px, 34vw, 156px); border-radius:4px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:normal;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 아들 건우의 서른한 번째 생일을 축복하며</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 아들 건우의 서른한 번째 생일을 축복하며</b><span>01 · 2026년 11월 09일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 아들 건우의 서른한 번째 생일을 축복하며</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="다섯 번 비어 있는 답장란 뒤에 일곱 번 찍힌 붉은 인장 네움 여호와와 불에서 건져낸 나무 조각">
+        <defs>
+          <linearGradient id="gAmos4Bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1b1917"/>
+            <stop offset="0.55" stop-color="#2e2621"/>
+            <stop offset="1" stop-color="#433024"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gAmos4Bg)"/>
+        <!-- 좌측~중앙: 겹쳐진 다섯 통의 편지철과 하얗게 비어 있는 회신란 -->
+        <g transform="translate(56, 18)">
+          <rect x="0" y="10" width="230" height="114" rx="4" fill="#e5dccb" opacity="0.45"/>
+          <rect x="10" y="5" width="230" height="114" rx="4" fill="#efe6d5" opacity="0.72"/>
+          <rect x="20" y="0" width="236" height="118" rx="4" fill="#fbf7ef" stroke="#8c7355" stroke-width="1.5"/>
+          <!-- 발신 문장 흔적 -->
+          <line x1="38" y1="22" x2="188" y2="22" stroke="#6e5a44" stroke-width="2"/>
+          <line x1="38" y1="34" x2="218" y2="34" stroke="#9c8870" stroke-width="1.4"/>
+          <line x1="38" y1="46" x2="198" y2="46" stroke="#9c8870" stroke-width="1.4"/>
+          <!-- 하얗게 비어 있는 수신인 답장란(회신란) 박스 5칸 -->
+          <rect x="38" y="62" width="154" height="36" rx="3" fill="#ffffff" stroke="#b45309" stroke-width="1.3" stroke-dasharray="4 3"/>
+          <!-- 회신란 바로 옆과 아래에 일곱 번 찍힌 발신인의 붉은 친필 인장(네움 여호와) -->
+          <g fill="#b91c1c" opacity="0.88">
+            <circle cx="214" cy="30" r="7"/><circle cx="232" cy="30" r="7"/>
+            <circle cx="214" cy="50" r="7"/><circle cx="232" cy="50" r="7"/>
+            <circle cx="214" cy="70" r="7"/><circle cx="232" cy="70" r="7"/>
+            <circle cx="223" cy="94" r="9.5" fill="#991b1b" stroke="#fde68a" stroke-width="1.2"/>
+          </g>
+        </g>
+        <!-- 우측: 불붙는 가운데서 누군가의 손에 의해 건져 올려진 나무 조각(무차르) -->
+        <g transform="translate(390, 22)">
+          <!-- 아래쪽 사그라드는 불꽃 -->
+          <path d="M40 126 Q58 92 74 114 Q92 82 110 112 Q128 90 144 126 Z" fill="#ea580c" opacity="0.55"/>
+          <path d="M56 126 Q76 100 94 116 Q112 96 128 126 Z" fill="#facc15" opacity="0.65"/>
+          <!-- 타다 남은 그을린 나무 조각 -->
+          <path d="M48 76 L142 54 L148 68 L54 90 Z" fill="#3b281e" stroke="#f59e0b" stroke-width="1.2"/>
+          <circle cx="144" cy="61" r="4" fill="#fb923c"/>
+          <!-- 위에서 뻗어 내려와 나무 조각을 감싸 쥐는 구원의 손길과 대면의 빛 -->
+          <path d="M88 0 L88 46 Q88 58 76 62 M88 46 Q98 58 108 56" fill="none" stroke="#fde68a" stroke-width="3.2" stroke-linecap="round"/>
+          <circle cx="88" cy="52" r="28" fill="#fde68a" opacity="0.16"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 다섯 번 비어 있던 회신란 끝에 일곱 번 찍힌 발신인의 친필 서명(‘네움 여호와’)과 불에서 건져낸 나무 조각</span><span>아모스 4:6-12  · ‘벨로-샤브템 아다이’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">본 문서는 진행·집필 전담 에이전트(<mark class="hl"><strong>`ican-drafter`</strong></mark>)와 독립 평가·선택안 결정 전담 에이전트(<mark class="hl"><strong>`ican-evaluator`</strong></mark>)가 분리 운영되며, 특히 <mark class="hl"><strong>2단계(목차), 3단계(상세설계도), 5단계(내 글화·5대 지표 퇴고)에서 단 1회에 끝내지 않고 각 3라운드(`Round 1 → Round 2 → Round 3`)에 걸쳐 평가·비평·수정을 주고받으며 원고를 벼려 낸 전 과정</strong></mark>을 기록한 문서입니다.</p>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
+    <p class="essay-p"><mark class="hl"><strong>## [1단계] 글감 발견과 생각 확장 (`ican-drafter` 후보 도출 ⇄ `ican-evaluator` Gate 1 결정)</strong></mark></p>
+    <p class="pull essay-p">### 1-1. `ican-drafter` 글감 후보 3안 및 학술·성경 자료 후보 4종 제출 * <mark class="hl"><strong>글감 후보 A안 (경험·성찰 및 부자 서신 통합형)</strong></mark>: 서른한 번째 생일을 맞은 아들 건우의 아침, 청풍호 산책길에 수북이 내려앉은 갈색 솔잎을 밟으며, 다섯 번의 침묵(‘벨로-샤브템 아다이’) 끝에도 ‘네 하나님’이라는 호칭을 거두지 않고 일곱 번 친필 서명(‘네움 여호와’)을 찍으신 아모스 4장의 하나님이 내 예순 해의 빈칸을 어떻게 기다리셨는지 고백하고 아들을 ‘하나님의 친구(출 33:11)’로 축복하는 이야기. * <mark class="hl"><strong>글감 후보 B안 (세무 실무 은유·본문 주해 중심형)</strong></mark>: 세무서에서 보낸 소명 안내문 봉투를 끝내 뜯지 않아 비어 있던 납세자의 회신란을 떠올리며, 아모스 4장의 다섯 번 무응답과 일곱 번의 서명이 어떻게 대면의 초청장(“네 하나님 만나기를 예비하라”)으로 역전되는지 밝히는 글. * <mark class="hl"><strong>글감 후보 C안 (자연 관조·인생 후반전 묵상형)</strong></mark>: 어제 청풍호반에서 고강도 열정을 내려놓는 평강을 묵상한 데 이어, 오늘 아침 다시 걸은 호숫가 솔숲의 낙엽을 보며 내 인생의 무응답과 타다 남은 나무 조각 같은 한계를 인정하고 하나님 앞에 조용히 서는 법을 성찰하는 에세이. * <mark class="hl"><strong>학술·성경 자료 후보 4종</strong></mark>: 1. <mark class="hl"><strong>마르틴 부버(Martin Buber), 『나와 너(Ich und Du, 1923)』</strong></mark>: ‘부르심과 응답(Anrede und Antwort)’ 및 사건 너머에서 인격적 ‘너(Du)’를 부르시는 하나님. 2. <mark class="hl"><strong>아브라함 조슈아 헤셸(Abraham Joshua Heschel), 『예언자들(The Prophets, 1962)』</strong></mark>: ‘하나님의 파토스(Divine Pathos)’ — 인간의 외면에 가장 깊이 아파하시며 끝까지 구애하시는 아버지. 3. <mark class="hl"><strong>아모스 4:6-12 히브리어 원어 구문 4종</strong></mark>: `벨로-샤브템 아다이`(5회 무응답), `네움 여호와`(7회 명사구 서명), 호팔 수동 분사 `무차르`(불붙는 데서 건져 올려진 나무 조각), 2인칭 단수 소유격 `엘로헤이카`(네 하나님). 4. <mark class="hl"><strong>출애굽기 33:11 히브리어 원문</strong></mark>: `파님 엘 파님`(얼굴과 얼굴을 마주하여)과 회막을 떠나지 아니한 젊은 수종자 여호수아.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 아들 건우의 서른한 번째 생일을 축복하며</b><span>02 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="청풍호 아침 물안개와 산책로 데크 위에 수북이 내려앉은 갈색 솔잎 두 바늘">
+        <defs>
+          <linearGradient id="gPineSky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#223843"/>
+            <stop offset="0.55" stop-color="#4a6b7c"/>
+            <stop offset="1" stop-color="#cbd5e1"/>
+          </linearGradient>
+          <linearGradient id="gPineDeck" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#4a3525"/>
+            <stop offset="0.6" stop-color="#6b4c35"/>
+            <stop offset="1" stop-color="#3d2b1f"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="92" fill="url(#gPineSky)"/>
+        <!-- 아침 물안개 낀 청풍호 먼 산능선 -->
+        <path d="M0 92 L0 62 Q110 38 220 64 Q330 35 450 60 Q560 40 674 56 L674 92 Z" fill="#334e58" opacity="0.72"/>
+        <rect x="0" y="76" width="674" height="20" fill="#e2e8f0" opacity="0.38"/>
+        <!-- 호숫가 나무 데크와 흙길 산책로 -->
+        <polygon points="0,92 674,92 674,160 0,160" fill="url(#gPineDeck)"/>
+        <line x1="0" y1="108" x2="674" y2="108" stroke="#2b1d12" stroke-width="1.2" opacity="0.65"/>
+        <line x1="0" y1="128" x2="674" y2="128" stroke="#2b1d12" stroke-width="1.2" opacity="0.65"/>
+        <line x1="0" y1="148" x2="674" y2="148" stroke="#2b1d12" stroke-width="1.2" opacity="0.65"/>
+        <!-- 발밑에 수북이 쌓인 갈색 솔잎 양탄자 질감 -->
+        <g stroke="#b47b44" stroke-width="1.4" stroke-linecap="round" opacity="0.78">
+          <line x1="42" y1="115" x2="68" y2="122"/><line x1="42" y1="115" x2="70" y2="117"/>
+          <line x1="95" y1="134" x2="125" y2="129"/><line x1="95" y1="134" x2="123" y2="136"/>
+          <line x1="158" y1="118" x2="188" y2="125"/><line x1="158" y1="118" x2="190" y2="119"/>
+          <line x1="215" y1="142" x2="246" y2="136"/><line x1="215" y1="142" x2="248" y2="143"/>
+          <line x1="280" y1="122" x2="312" y2="128"/><line x1="280" y1="122" x2="310" y2="121"/>
+          <line x1="520" y1="132" x2="554" y2="126"/><line x1="520" y1="132" x2="552" y2="134"/>
+          <line x1="575" y1="116" x2="608" y2="122"/><line x1="575" y1="116" x2="610" y2="115"/>
+        </g>
+        <!-- 우측 전면 클로즈업: 밑동(뿌리)이 하나로 묶인 갈색 솔잎 두 바늘 -->
+        <g transform="translate(345, 52)">
+          <ellipse cx="78" cy="64" rx="88" ry="32" fill="#1f140e" opacity="0.32"/>
+          <!-- 솔잎 밑동 집(근원) -->
+          <rect x="18" y="58" width="14" height="7" rx="2.5" transform="rotate(-14 18 58)" fill="#5c3a21" stroke="#d9a05b" stroke-width="1"/>
+          <!-- 한 뿌리에서 뻗어 나온 두 바늘 -->
+          <path d="M30 57 Q95 36 168 24" fill="none" stroke="#eab368" stroke-width="3" stroke-linecap="round"/>
+          <path d="M30 60 Q98 54 174 52" fill="none" stroke="#d99343" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="18" cy="60" r="3" fill="#f3c88b"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 청풍호 아침 산책로에 수북이 내려앉은 갈색 솔잎들과 밑동이 하나로 묶인 솔잎 두 바늘</span><span>아모스 4:6-12  · ‘세무 행정을 활용한 성경 강해’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">### 1-2. `ican-evaluator` [Gate 1] 비교 심사 및 최종 선택 결정 * <mark class="hl"><strong>글감 심사 판정</strong></mark>: * <mark class="hl"><strong>B안 기각</strong></mark>: 과세 예고·독촉장·체납 처분 절차와 일대일로 대응시키는 발상은 구조적 명쾌함은 있으나, 글이 ‘세무 행정을 활용한 성경 강해’로 굳어져 오늘 아침 청풍호 산책과 아들 건우의 31번째 생일이라는 고유한 실존적 체온이 반감됨. * <mark class="hl"><strong>C안 기각</strong></mark>: 어제(11월 8일) 묵상과 변별력이 약해지며, 아모스 4장의 서늘한 긴장감과 부자(父子) 세대 계승의 역동성이 약화됨. * <mark class="hl"><strong>최종 채택 (글감 A안)</strong></mark>: ① 구체적 시공간의 감각(청풍호 산책로 발밑의 갈색 솔잎 두 바늘), ② 텍스트의 낯선 발견(다섯 번 비어 있는 답장란 뒤에 일곱 번 찍힌 ‘네움 여호와’ 서명과 수동 분사 ‘무차르’), ③ 실존적 수신인의 현존(오늘 서른한 살 생일을 맞은 아들 건우[建友, 출 33:11 ‘하나님의 친구’])이 하나의 유기적 질문으로 맞물려 있어 최우수안으로 채택. * <mark class="hl"><strong>학술·성경 자료 4종 활용 수위 결정</strong></mark>: * <mark class="hl"><strong>아모스 4:6-12 히브리어 원어 4종 &amp; 출애굽기 33:11</strong></mark>: 전면 채택 (본 에세이의 주해적 물증 및 성경 내적 가교). * <mark class="hl"><strong>마르틴 부버 『나와 너』 &amp; 아브라함 헤셸 『예언자들』</strong></mark>: 조건부 채택 — 본문에서 철학·신학 강의처럼 길게 설명하지 말고, 각각 ‘미개봉 소명 안내문’ 비유 및 ‘책상을 도장 찍듯 누르며 말을 삼킬 때의 뻐근한 턱 근육 감각’과 결합해 1문장으로 압축 용해할 것.</p>
+    <span class="break"></span>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
+    <p class="essay-p"><mark class="hl"><strong>## [2단계] 핵심 메시지 정립과 독자 중심 목차 설계 (3라운드 반복 제련: `v1 → v2 → v3`)</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 아들 건우의 서른한 번째 생일을 축복하며</b><span>03 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="회막의 따뜻한 등불 아래 솔잎 두 바늘이 끼워진 성경책과 만년필로 답장을 적는 묵상 노트">
+        <defs>
+          <linearGradient id="gTentBg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#172536"/>
+            <stop offset="0.52" stop-color="#2b3d4f"/>
+            <stop offset="1" stop-color="#5c4328"/>
+          </linearGradient>
+          <radialGradient id="gTentWarmth" cx="0.32" cy="0.42" r="0.48">
+            <stop offset="0" stop-color="#fde68a" stop-opacity="0.52"/>
+            <stop offset="0.55" stop-color="#f59e0b" stop-opacity="0.18"/>
+            <stop offset="1" stop-color="#172536" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gTentBg)"/>
+        <rect width="674" height="160" fill="url(#gTentWarmth)"/>
+        <!-- 좌측: 친구와 대면하여 말씀하시던 회막(출 33:11)의 드리운 휘장과 따뜻한 등불 -->
+        <g transform="translate(68, 16)">
+          <path d="M78 6 L16 124 L140 124 Z" fill="#33261d" stroke="#d9a05b" stroke-width="1.6"/>
+          <path d="M78 34 L48 124 L108 124 Z" fill="#f59e0b" opacity="0.35"/>
+          <circle cx="78" cy="76" r="10" fill="#fef08a"/>
+        </g>
+        <!-- 중앙~우측: 펼쳐진 성경책(솔잎 두 바늘 책갈피)과 만년필로 적는 아버지의 묵상 노트 답장란 -->
+        <g transform="translate(262, 34)">
+          <!-- 펼쳐진 성경책 -->
+          <polygon points="0,84 150,76 164,108 10,116" fill="#f8f1e5" stroke="#785c3a" stroke-width="1.4"/>
+          <line x1="78" y1="80" x2="86" y2="112" stroke="#a68a64" stroke-width="1.5"/>
+          <!-- 성경책 갈피에 나란히 끼워진 갈색 솔잎 두 바늘 -->
+          <path d="M72 86 Q105 56 148 44" fill="none" stroke="#d97706" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M72 88 Q108 66 154 60" fill="none" stroke="#b45309" stroke-width="2.4" stroke-linecap="round"/>
+          <rect x="66" y="84" width="8" height="4" rx="1.5" fill="#451a03"/>
+          <!-- 옆에 놓인 묵상 노트(회신란)와 만년필 -->
+          <polygon points="184,78 326,72 340,108 194,114" fill="#fffdf9" stroke="#64748b" stroke-width="1.3"/>
+          <line x1="204" y1="88" x2="298" y2="84" stroke="#334155" stroke-width="1.6"/>
+          <line x1="208" y1="98" x2="284" y2="95" stroke="#b45309" stroke-width="1.8"/>
+          <!-- 만년필 실루엣 -->
+          <line x1="286" y1="94" x2="338" y2="48" stroke="#e2e8f0" stroke-width="3.2" stroke-linecap="round"/>
+          <polygon points="282,97 288,91 291,95" fill="#fbbf24"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 출애굽기 33장 11절 회막의 등불 아래 솔잎 두 바늘이 끼워진 성경책과 만년필로 적는 아버지의 답장</span><span>아모스 4:12 · ‘청풍호 산책로에 쌓인 갈색 솔잎’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">### [Round 1] 초기 목차(`v1`) 도출 및 `ican-evaluator` 1차 심사 (독자 질문 및 빠진 징검다리 지적) * <mark class="hl"><strong>`ican-drafter` 초기 제출안(`v1`)</strong></mark>: 목차 A안(경험·서신형 4장 12절) vs 목차 B안(주해·논증형 4장 12절). * <mark class="hl"><strong>`ican-evaluator` [Gate 2 - Round 1 심사 지시]</strong></mark>: 1. <mark class="hl"><strong>기본 틀</strong></mark>: 아침 산책의 감각에서 출발해 부자(父子)의 서신으로 수렴하는 <mark class="hl"><strong>목차 A안</strong></mark>을 기본 뼈대로 채택함. 2. <mark class="hl"><strong>[결함 1 — 빠진 징검다리 (1장 → 2장 비약)]</strong></mark>: ‘청풍호 산책로에 쌓인 갈색 솔잎’에서 ‘아모스 4장의 다섯 번 재앙과 세무서 미회신 우편물’로 넘어갈 때 매개가 빠져 있음. <mark class="hl"><strong>‘켜켜이 쌓인 솔잎의 두께 = 오랫동안 뜯지 않고 쌓아 둔 미개봉 통지서·편지철의 두께’</strong></mark>라는 연상 고리를 명시할 것. 3. <mark class="hl"><strong>[결함 2 — 모호한 전환 논리 (3장 → 4장 비약)]</strong></mark>: 아모스 4:12(“네 하나님 만나기를 예비하라”)은 본래 심판 경고문인데 곧바로 아들의 생일 축복으로 넘어가면 작위적으로 보일 수 있음. 3장 말미에 <mark class="hl"><strong>‘심판 법정의 호출장을 대면의 초청장으로 뒤집는 하나님의 호칭(“네 하나님, 엘로헤이카”)’</strong></mark>을 먼저 배치하여 신학적 전환을 완성할 것.</p>
+    <p class="essay-p">### [Round 2] 수정 목차(`v2`) 제출 및 `ican-evaluator` 2차 심사 (목차 3대 속성 정밀 점검) * <mark class="hl"><strong>`ican-drafter` 수정 제출안(`v2`)</strong></mark>: ‘솔잎 두께 → 미개봉 편지철’ 징검다리 및 ‘아모스 4:12(엘로헤이카) → 출 33:11(파님 엘 파님)’ 전환 고리를 보강한 수정 2단 목차 제출. * <mark class="hl"><strong>`ican-evaluator` [Gate 2 - Round 2 심사 지시]</strong></mark>: 1. <mark class="hl"><strong>[연결성·설득성 조율 — 절 제목의 원어 노출 절제]</strong></mark>: `v2`의 절 제목에 히브리어 음차(`벨로-샤브템 아다이`, `네움 여호와`, `무차르`, `엘로헤이카`)가 과다 노출되어 학술 논문 같은 거리감을 줌. 절 제목에서는 원어를 걷어내고 감각적인 한국어 어휘로 정제할 것. 2. <mark class="hl"><strong>[논리성 조율 — 은혜의 문법 순서 확정]</strong></mark>: ‘다섯 번의 빈칸(3문단)’ 직후에 <mark class="hl"><strong>‘일곱 번 찍힌 아버지의 서명 네움 여호와(4문단)’</strong></mark>가 바로 맞물려야 대조의 충격파가 극대화됨. 그 서명의 아픔을 확인한 뒤 <mark class="hl"><strong>‘불붙는 데서 빼낸 나무 조각 무차르(5문단)’</strong></mark>로 내 자부심이 허물어지고, 이어 <mark class="hl"><strong>‘네 하나님을 만나라(6문단)’</strong></mark>는 대면 초청으로 나아가도록 순서를 확정할 것.</p>
+    <p class="essay-p">### [Round 3] 최종 목차(`v3`) 확정 및 Gate 2 최종 승인 * <mark class="hl"><strong>확정 제목</strong></mark>: <mark class="hl"><strong>`답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 청풍호의 솔잎 위에서 아모스 4장과 출애굽기 33장으로 아들 건우의 서른한 번째 생일을 축복하며`</strong></mark> * <mark class="hl"><strong>확정 2단 목차 (`v3`, 4장 12절)</strong></mark>: * <mark class="hl"><strong>제1장. 청풍호의 갈색 솔잎과 아들의 서른한 번째 생일 아침</strong></mark> (1-1. 어제 호숫가에서 배운 평강에 이어 오늘 아침 발밑에 푹신하게 밟힌 갈색 솔잎의 두께 / 1-2. 계절 내내 내려앉은 솔잎과 서른한 살 생일을 맞은 아들 건우를 떠올리며 펼친 아모스 4장 / 1-3. 다섯 번이나 부르심의 언어를 바꾸셨으나 토씨 하나 바뀌지 않은 백성의 침묵) * <mark class="hl"><strong>제2장. 답장란이 비어 있는 편지철과 삼켜진 말의 무게</strong></mark> (2-1. 세무서 시절 보았던 미회신 소명 안내문 철과 내 예순 해의 빈칸 / 2-2. 빈칸 직후마다 동사도 없이 도장처럼 일곱 번 찍힌 발신인의 친필 서명 / 2-3. 책상을 오른손으로 누르고 입을 벌린 채 말을 삼켜 보며 확인한 턱 근육의 뻐근함) * <mark class="hl"><strong>제3장. 타다 남은 나무 조각을 여전히 ‘네 하나님’이라 부르시는 은혜</strong></mark> (3-1. 내 힘으로 걸어 나온 줄 알았던 여정, 실상은 불붙는 데서 건져 올려진 나무 조각 / 3-2. 세무 행정의 직권 처분 통지서와 달리 끝내 ‘네 하나님’이라는 호칭을 거두지 않으시는 부르심 / 3-3. “네 하나님 만나기를 예비하라”—추궁의 법정이 아니라 얼굴과 얼굴을 마주하자는 대면의 초청장) * <mark class="hl"><strong>제4장. ‘하나님의 친구’ 건우에게, 오늘 아버지가 먼저 적는 답장 한 줄</strong></mark> (4-1. 출애굽기 33장 11절, 네 이름 ‘건우(하나님의 친구)’에 담긴 회막의 대면과 젊은 여호수아 / 4-2. 완벽한 성취의 소명서가 아니라 “제가 여기 있습니다”라는 솔직한 눈맞춤으로 서른한 살을 걸어가기를 / 4-3. 아모스 4장 여백에 청풍호 솔잎 두 바늘을 끼워 넣으며 아버지가 먼저 적어 올리는 늦은 답장)</p>
+  </div>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 아들 건우의 서른한 번째 생일을 축복하며</b><span>04 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="서재 책상과 기록물">
+        <defs>
+          <linearGradient id="gRoom" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2a2d34"/>
+            <stop offset="0.55" stop-color="#3c3a37"/>
+            <stop offset="1" stop-color="#231f1d"/>
+          </linearGradient>
+          <radialGradient id="gLamp" cx="0.5" cy="0.08" r="0.65">
+            <stop offset="0" stop-color="#f7f2e4" stop-opacity="0.55"/>
+            <stop offset="0.45" stop-color="#d8ceb8" stop-opacity="0.18"/>
+            <stop offset="1" stop-color="#2a2d34" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gRoom)"/>
+        <rect width="674" height="160" fill="url(#gLamp)"/>
+        <rect x="210" y="10" width="254" height="5" rx="2.5" fill="#fffdf7" opacity="0.92"/>
+        <rect x="200" y="8" width="274" height="9" rx="4" fill="#fffdf7" opacity="0.18"/>
+        <polygon points="0,126 674,126 674,160 0,160" fill="#4a382b"/>
+        <line x1="0" y1="126" x2="674" y2="126" stroke="#7b6554" stroke-width="1.2"/>
+        <g transform="translate(118,54)">
+          <rect x="0" y="56" width="128" height="16" fill="#8b7d6b" stroke="#2c2520" stroke-width="1"/>
+          <rect x="6" y="59" width="116" height="10" fill="#efe8dc"/>
+          <rect x="4" y="40" width="122" height="16" fill="#5c4638" stroke="#2c2520" stroke-width="1"/>
+          <rect x="10" y="43" width="110" height="10" fill="#f3ede2"/>
+          <rect x="2" y="24" width="118" height="16" fill="#9a4a2e" stroke="#2c2520" stroke-width="1"/>
+          <rect x="8" y="27" width="106" height="10" fill="#efe8dc"/>
+          <rect x="10" y="10" width="112" height="14" fill="#68635c" stroke="#2c2520" stroke-width="1"/>
+          <rect x="15" y="13" width="102" height="8" fill="#f5efe6"/>
+        </g>
+        <g transform="translate(264,44)">
+          <rect x="0" y="66" width="138" height="16" fill="#4f4842" stroke="#26211d" stroke-width="1"/>
+          <rect x="6" y="69" width="126" height="10" fill="#ede5d8"/>
+          <rect x="5" y="50" width="130" height="16" fill="#7a6855" stroke="#26211d" stroke-width="1"/>
+          <rect x="11" y="53" width="118" height="10" fill="#f5efe6"/>
+          <rect x="2" y="34" width="132" height="16" fill="#3b424c" stroke="#26211d" stroke-width="1"/>
+          <rect x="8" y="37" width="120" height="10" fill="#ebe3d5"/>
+          <rect x="8" y="18" width="124" height="16" fill="#8c5840" stroke="#26211d" stroke-width="1"/>
+          <rect x="14" y="21" width="112" height="10" fill="#f5efe6"/>
+        </g>
+        <polygon points="432,134 522,131 534,148 442,152" fill="#f7f2e8" opacity="0.92"/>
+        <line x1="445" y1="138" x2="508" y2="136" stroke="#9a4a2e" stroke-width="1.6"/>
+        <line x1="447" y1="143" x2="515" y2="141" stroke="#7a7068" stroke-width="1"/>
+        <line x1="538" y1="130" x2="578" y2="147" stroke="#d8d0c6" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="538" cy="130" r="1.8" fill="#9a4a2e"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 형광등 불빛 아래 성벽처럼 쌓인 장부와 서류철</span><span>숫자와 기록이 마주하는 조사실의 책상</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">---</p>
+    <p class="essay-p"><mark class="hl"><strong>## [3단계] A4 상세설계도와 재료 보강 (3라운드 반복 제련: `v1 → v2 → v3`)</strong></mark></p>
+    <p class="essay-p">### [Round 1] 초기 상세설계도(`v1`) 심사 및 3곳 재료 보강 지시 * <mark class="hl"><strong>`ican-evaluator` [Gate 3 - Round 1 심사 지시]</strong></mark>: 1. <mark class="hl"><strong>[보강 1 — 2장 1절(3문단) 직업적 경험의 구체화]</strong></mark>: 세무 행정 경험을 ‘소명 안내 등기우편, 봉투조차 열지 않은 미개봉 상태, 하얗게 비어 있는 서류철의 회신란’이라는 구체적 실무 사물로 시각화하고, 이를 ‘예순 해 동안 바쁘다는 핑계로 미뤄 둔 내 영혼의 미회신 구간’으로 끌어안으라. 2. <mark class="hl"><strong>[보강 2 — 2장 3절~3장 1절(4~5문단) 신체 감각과 원어 문법의 결합]</strong></mark>: ‘네움 여호와’가 동사 없는 명사구로 7회 찍힌다는 사실을 독자가 체감하도록 <mark class="hl"><strong>오른손으로 책상을 도장 찍듯 누른 채 말을 삼킬 때 턱 근육과 어금니가 뻐근해지는 신체 경험</strong></mark>을 `ㅇ메모`에 정밀 배치하고, 5문단에서 수동 분사 `무차르`를 통해 ‘내 판단과 성실함으로 위기를 넘겼다는 자부심’이 허물어지는 과정을 구체화하라. 3. <mark class="hl"><strong>[보강 3 — 4장 3절(8문단) 솔잎 두 바늘의 수미상관]</strong></mark>: 1문단에서 주운 <mark class="hl"><strong>‘밑동이 하나로 묶인 갈색 솔잎 두 바늘’</strong></mark>이 8문단에서 아모스 4장 성경책 갈피에 끼워지며 <mark class="hl"><strong>‘예순 해를 건너온 아버지와 서른한 살을 시작하는 아들 건우가 하나님 안에서 한 묶음으로 마주 서는 풍경’</strong></mark>으로 수미상관을 이루게 하라.</p>
+  </div>
+
+  <footer class="foot"><span>004</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 아들 건우의 서른한 번째 생일을 축복하며</b><span>05 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="백향목 그루터기와 봉인된 예언자의 두루마리">
+        <defs>
+          <linearGradient id="gCedarSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1d2625"/>
+            <stop offset="0.6" stop-color="#35423c"/>
+            <stop offset="1" stop-color="#5e3a2c"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gCedarSky)"/>
+        <path d="M0 124 L674 124 L674 160 L0 160 Z" fill="#231d19"/>
+        <!-- 거대한 백향목/상수리나무 그루터기와 드러난 뿌리 -->
+        <g transform="translate(120, 18)">
+          <path d="M40 106 L52 30 L88 30 L100 106 Z" fill="#3a2b22"/>
+          <path d="M18 118 Q45 102 52 96 M122 118 Q95 102 88 96 M70 106 L70 126" stroke="#5c4333" stroke-width="5" stroke-linecap="round"/>
+          <ellipse cx="70" cy="30" rx="18" ry="5" fill="#8c6d53"/>
+        </g>
+        <!-- 돌단 위에 놓인 엎질러진 잔과 붉은 끈으로 묶인(침묵당한) 두루마리 -->
+        <g transform="translate(350, 78)">
+          <rect x="0" y="34" width="170" height="16" fill="#4a443f"/>
+          <!-- 두루마리 -->
+          <rect x="28" y="20" width="84" height="14" rx="7" fill="#efe6d5" stroke="#2c2520" stroke-width="1.2"/>
+          <rect x="64" y="18" width="12" height="18" fill="#9a4a2e"/>
+          <!-- 엎어진 포도주 잔 -->
+          <path d="M128 32 L146 22 L146 34 Z" fill="#b89768"/>
+          <ellipse cx="156" cy="34" rx="10" ry="3" fill="#7a2822" opacity="0.85"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 뿌리째 흔들리는 백향목과 침묵을 강요당한 예언자의 두루마리</span><span>출애굽기 33장 11절</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">### [Round 2] 재료 보강안(`v2`) 전후 비교 심사 및 과잉 이론 절제 지시 * <mark class="hl"><strong>`ican-evaluator` [Gate 3 - Round 2 심사 지시]</strong></mark>: * <mark class="hl"><strong>설득력이 높아진 곳</strong></mark>: 등기우편과 빈 회신란, 턱 근육의 뻐근함, 솔잎 두 바늘의 수미상관으로 글의 물성과 체온이 비약적으로 살아남. * <mark class="hl"><strong>과해져서 내 이야기를 가린 곳 (절제 지시 2건)</strong></mark>: 1. <mark class="hl"><strong>[학술 개념의 과잉 노출 절제]</strong></mark>: `v2`에서 마르틴 부버(『나와 너』의 `Es/Du` 존재론)와 아브라함 헤셸(『예언자들』의 반(反)아파테이아 논증) 설명이 길어져 아버지의 고백록이 신학 강의록처럼 딱딱해짐. 부버와 헤셸은 각각 한 문장 안에서 방향을 잡아주는 등대처럼만 언급하고, 글쓴이의 성찰과 신체 감각을 전면 배치할 것. 2. <mark class="hl"><strong>[7문단 아들 축복 대목의 훈계조 경계]</strong></mark>: 서른한 살 아들에게 건네는 당부가 도덕적 훈계로 흐르지 않도록, ‘아버지는 예순 해를 돌고 돌아서야 빈 회신란 앞에 멈춰 섰지만’이라는 아버지의 부끄러운 고백을 먼저 깔아 눈높이를 맞출 것.</p>
+    <p class="essay-p">### [Round 3] 최종 상세설계도(`v3`) 및 A4 3개 지면 연동 컷 일러스트 최종 승인 * <mark class="hl"><strong>Page 001 확정 컷 (`cheongpungho_pine_needles_morning`)</strong></mark>: 안개 낀 청풍호 산책로에 수북이 내려앉은 갈색 솔잎들과 밑동이 하나로 묶인 솔잎 두 바늘 클로즈업 * <mark class="hl"><strong>Page 002 확정 컷 (`amos4_blank_reply_seven_seals`)</strong></mark>: 다섯 번 비어 있던 회신란(`벨로-샤브템 아다이`) 끝에 일곱 번 찍힌 발신인의 붉은 서명(`네움 여호와`)과 불에서 건져낸 나무 조각(`무차르`) * <mark class="hl"><strong>Page 003 확정 컷 (`geonwoo_31_tent_of_meeting_reply`)</strong></mark>: 출애굽기 33장 11절 회막의 빛 아래 솔잎 두 바늘이 꽂힌 성경책과, 서른한 살 생일을 맞은 아들 건우를 축복하며 만년필로 적는 아버지의 늦은 답장 한 줄</p>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>005</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 아들 건우의 서른한 번째 생일을 축복하며</b><span>06 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="광야를 흐르는 공의의 강물과 회복된 장막">
+        <defs>
+          <linearGradient id="gRiverSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#162436"/>
+            <stop offset="0.5" stop-color="#2b4c66"/>
+            <stop offset="1" stop-color="#d49a6a"/>
+          </linearGradient>
+          <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#93c5fd"/>
+            <stop offset="1" stop-color="#1d4ed8"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gRiverSky)"/>
+        <!-- 광야 언덕 -->
+        <path d="M0 106 Q190 88 360 108 T674 98 L674 160 L0 160 Z" fill="#3a2d24"/>
+        <!-- 굽이쳐 흐르는 공의의 강물 -->
+        <path d="M350 106 Q290 122 330 138 Q380 150 240 160 L430 160 Q450 142 395 128 Q360 116 385 106 Z" fill="url(#gWater)" opacity="0.88"/>
+        <!-- 언덕 위에 다시 세워진 따뜻한 빛의 장막 -->
+        <polygon points="480,104 522,68 564,104" fill="#d97706" stroke="#2b1d12" stroke-width="1.5"/>
+        <polygon points="510,104 522,82 534,104" fill="#fef3c7"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 메마른 광야를 가르고 흐르는 공의의 강물과 다시 세워진 장막</span><span>아모스 5·9장 · 마르지 않는 하수같이 흐르는 정의와 회복</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p"><mark class="hl"><strong>## [4단계 &amp; 5단계] `ican-evaluator` Gate 4 정밀 진단 및 Gate 5 3라운드(`초고 1 → v1 → v2 → v3`) 변증법적 퇴고 대조표</strong></mark></p>
+    <p class="essay-p">### 1. Gate 4 (`초고 1` 정밀 진단) &amp; Gate 5 Round 1 역점검 (1차 퇴고안 `v1`에 새로 유입된 AI 상투어 적발) * <mark class="hl"><strong>Gate 4 진단</strong></mark>: `ican-drafter`의 `초고 1`(2,176자)에서 독자가 막연하게 느끼는 <mark class="hl"><strong>`(독자)` 메모 3곳</strong></mark>(3문단 `행정 문서들/여러 사정으로`, 4문단 턱 근육 감각과 깨달음 사이의 징검다리 누락, 8문단 추상적 결말 동작)과 내 실제 마음보다 추상화·과장·보편화된 <mark class="hl"><strong>`(내 마음)` 메모 3곳</strong></mark>(3문단 `숱한 신호들/우연이나 일상의 긴장`, 5문단 `내 삶의 모든 성취는`, 7문단 말미 `인생의 승패를 결정짓는 유일한 열쇠`라는 상투적 설교 클리셰)을 적시하여 1차 퇴고를 지시함. * <mark class="hl"><strong>Gate 5 - Round 1 역점검</strong></mark>: `ican-drafter`가 제출한 `1차 퇴고안(v1)`을 재심사한 결과, Gate 4 지적은 반영되었으나 <mark class="hl"><strong>교정 과정에서 새로 끼어든 AI식 신파·교리 상투어·번역투 추상어 3곳</strong></mark>을 적발하여 2차 재수정을 지시함: 1. <mark class="hl"><strong>4문단(`v1`) 적발</strong></mark>: `하나님의 심정은 오죽하셨을까 하는 탄식이 절로 터져 나왔다` → 신파적 관용구 삭제, 절제된 내면의 울림으로 재수정 지시. 2. <mark class="hl"><strong>5문단(`v1`) 적발</strong></mark>: `하나님의 불가항력적인 은총이 남긴 기적의 흔적이었다` → 새로 유입된 교리적 상투어(`불가항력적인 은총`, `기적`) 삭제, 앞 문장의 나무 조각 비유와 직결되는 ‘뜨거운 불길 속으로 손을 뻗어 나를 건져 올리신 하나님의 손길’로 복원 지시. 3. <mark class="hl"><strong>7문단 말미(`v1`) 적발</strong></mark>: `부르실 때 언제든 돌아서서 마주 보는 그 진실한 실존의 시선 하나면 충분하기 때문이다` → 철학 번역투(`진실한 실존의 시선`) 삭제, 아버지의 육성인 <mark class="hl"><strong>‘고개를 돌려 마주 보는 그 따뜻한 눈맞춤 하나면 충분하기 때문이다’</strong></mark>로 복원 지시.</p>
+    <p class="essay-p">### 2. <mark class="hl"><strong>구절별 3단(`초고 1` → `1차 퇴고안 v1` → `최종 승인본 v2/v3`) 변증법적 퇴고 대조표</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>006</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 답장란이 비어 있는 편지철, 그 끝에 찍힌 일곱 번의 서명 — 아들 건우의 서른한 번째 생일을 축복하며</b><span>07 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="서재 창문으로 스며드는 새벽빛">
+        <defs>
+          <linearGradient id="gDawn" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f2842"/>
+            <stop offset="0.48" stop-color="#52586c"/>
+            <stop offset="0.78" stop-color="#c9956b"/>
+            <stop offset="1" stop-color="#f3dfc1"/>
+          </linearGradient>
+          <linearGradient id="gBeam" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff6e0" stop-opacity="0.45"/>
+            <stop offset="1" stop-color="#fff6e0" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gDawn)"/>
+        <path d="M0 128 Q140 104 280 118 T560 108 L674 115 L674 160 L0 160 Z" fill="#2b2628" opacity="0.65"/>
+        <polygon points="420,0 674,0 674,160 220,160" fill="url(#gBeam)"/>
+        <rect x="0" y="0" width="18" height="160" fill="#24201d" opacity="0.78"/>
+        <rect x="656" y="0" width="18" height="160" fill="#24201d" opacity="0.78"/>
+        <rect x="334" y="0" width="6" height="160" fill="#24201d" opacity="0.48"/>
+        <rect x="0" y="77" width="674" height="5" fill="#24201d" opacity="0.38"/>
+        <rect x="0" y="148" width="674" height="12" fill="#24201d" opacity="0.88"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 서재 창문 너머로 어둠을 밀어내며 스며드는 새벽빛</span><span>고통의 밤을 지나 일상의 자리로 스며드는 빛</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">| 구간 | 4단계 `초고 1` (진단 전) | Gate 5 `1차 퇴고안(v1)` (1차 교정 및 역점검 대상) | Gate 5 `최종 승인 완성본(v2/v3)` (내 표현 완전 복원) | | :--- | :--- | :--- | :--- | | <mark class="hl"><strong>3문단</strong></mark>&lt;br&gt;`(독자 #1)`&lt;br&gt;`(내 마음 #1)` | 과세 관청에서 소명 안내문을 여러 차례 보내도 수신인이 &lt;u&gt;여러 사정으로&lt;/u&gt; 봉투를 열지 않으면 (...) 내 삶의 구비마다 찾아왔던 &lt;u&gt;숱한 신호들을 그저 우연이나 일상의 긴장으로 치부한 채&lt;/u&gt; | 과세 관청에서 소명 안내 <mark class="hl"><strong>등기 우편</strong></mark>을 여러 차례 보내도 수신인이 <mark class="hl"><strong>당장 눈앞의 생업이 바쁘다는 이유로, 혹은 봉투 안의 무거운 질문을 마주하기가 두려워</strong></mark> 끝내 봉투를 열지 않으면 (...) <mark class="hl"><strong>예기치 않게 찾아왔던 몸의 고단함이나 관계의 막막함, 계획대로 풀리지 않던 일터의 멈춤 신호들을 그저 지나가야 할 계절의 피로쯤으로 여긴 채</strong></mark> | *(v1의 구체적 성취 확정 유지)* <mark class="hl"><strong>과세 관청에서 소명 안내 등기 우편을 여러 차례 보내도 수신인이 당장 눈앞의 생업이 바쁘다는 이유로, 혹은 봉투 안의 무거운 질문을 마주하기가 두려워 끝내 봉투를 열지 않으면</strong></mark> (...) <mark class="hl"><strong>예기치 않게 찾아왔던 몸의 고단함이나 관계의 막막함, 계획대로 풀리지 않던 일터의 멈춤 신호들을 그저 지나가야 할 계절의 피로쯤으로 여긴 채</strong></mark> | | <mark class="hl"><strong>4문단</strong></mark>&lt;br&gt;`(독자 #2)`&lt;br&gt;`[Round 1 역점검]` | 이내 턱 근육이 뻐근해져 왔다. &lt;u&gt;*(징검다리 누락)*&lt;/u&gt; 다섯 번의 침묵 뒤에 일곱 번 찍힌 ‘네움 여호와’는 위엄 있는 심판관의 냉정한 관인이 아니었다. | 이내 턱 근육이 뻐근해져 왔다. 단 한 번 말을 삼키며 버티는 내 턱 근육도 이토록 뻐근하고 진이 빠지는데, 다섯 번이나 거절당하면서도 끝내 파기 선고를 삼키신 &lt;u&gt;하나님의 심정은 오죽하셨을까 하는 탄식이 절로 터져 나왔다.&lt;/u&gt; *(신파적 과잉)* | 이내 턱 근육이 뻐근해져 왔다. <mark class="hl"><strong>잠시 말을 꾹 삼키며 버티는 일만으로도 내 턱이 이토록 쉽게 지치는데, 다섯 번의 외면 앞에서도 끝내 절교의 말을 삼키신 아버지의 침묵은 얼마나 묵직했을까.</strong></mark> 다섯 번의 침묵 뒤에 일곱 번 찍힌 ‘네움 여호와’는 위엄 있는 심판관의 냉정한 관인이 아니었다. | | <mark class="hl"><strong>5문단</strong></mark>&lt;br&gt;`(내 마음 #2)`&lt;br&gt;`[Round 1 역점검]` | 돌아보니 &lt;u&gt;내 삶의 모든 성취는&lt;/u&gt; 내가 이룬 것이 아니라 불붙는 자리에서 나를 빼내신 하나님의 손길이 남긴 구원의 흔적이었다. | 돌아보니 내가 내 힘으로 버텨 내고 일구어 냈다고 믿었던 그 자리들조차, 실은 뜨거운 불길 속에서 나를 건져 올리신 &lt;u&gt;하나님의 불가항력적인 은총이 남긴 기적의 흔적이었다.&lt;/u&gt; *(교리적 상투어 유입)* | 돌아보니 <mark class="hl"><strong>내가 내 힘으로 버텨 내고 일구어 냈다고 믿었던 그 자리들조차, 실은 뜨거운 불길 속으로 손을 뻗어 나를 건져 올리신 하나님의 손길이 남긴 구원의 흔적이었다.</strong></mark> | | <mark class="hl"><strong>7문단 말미</strong></mark>&lt;br&gt;`(내 마음 #3)`&lt;br&gt;`[Round 1 역점검]` | &lt;u&gt;그렇게 하나님과 날마다 대면하는 습관만이 모든 인생의 승패를 결정짓는 유일한 열쇠이기 때문이다.&lt;/u&gt; *(전형적 보편화·설교 클리셰)* | 우리가 하나님 앞에서 끝내 지켜야 할 것은 무결점의 성적표가 아니라, 부르실 때 언제든 돌아서서 마주 보는 &lt;u&gt;그 진실한 실존의 시선&lt;/u&gt; 하나면 충분하기 때문이다. *(번역투 추상어 유입)* | <mark class="hl"><strong>우리가 하나님 앞에서 끝내 지켜야 할 것은 무결점의 성적표가 아니라, 부르실 때 언제든 고개를 돌려 마주 보는 그 따뜻한 눈맞춤 하나면 충분하기 때문이다.</strong></mark> | | <mark class="hl"><strong>8문단 말미</strong></mark>&lt;br&gt;`(독자 #3)`&lt;br&gt;`[Round 2 호흡조율]` | 오랫동안 하얗게 비어 있던 &lt;u&gt;내 회신란에 오늘 아침 아버지가 먼저 늦은 답장 한 줄을 적어 올린다.&lt;/u&gt; | 오랫동안 하얗게 비어 있던 내 회신란을 떠올리며, <mark class="hl"><strong>성경책 옆에 펼쳐 둔 내 묵상 노트의 하얀 여백에 만년필을 들어 내 이름 석 자와 함께 늦은 답장 한 줄을 또박또박 적어 올린다.</strong></mark> | <mark class="hl"><strong>오랫동안 하얗게 비어 있던 내 회신란을 대신하여, 성경책 옆에 펼쳐 둔 묵상 노트의 빈 여백에 만년필로 내 이름 석 자와 함께 늦은 답장 한 줄을 또박또박 적어 내려간다.</strong></mark> |</p>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
+  </div>
+  <section class="address">
+    <p class="essay-p">## [Gate 5 - Round 3] 김익한 5대 평가지표 최종 감리 총평 1. <mark class="hl"><strong>수월성 (Pass)</strong></mark>: 청풍호 아침 산책의 갈색 솔잎 두 바늘에서 출발하여 세무 서류철의 빈 회신란, 책상을 누르며 말을 삼키는 턱 근육의 감각, 타다 남은 나무 조각을 거쳐 아들의 서른한 번째 생일 축복과 만년필 답장으로 이어지는 8문단 전체가 막힘없이 읽힘. 2. <mark class="hl"><strong>주체성 (Pass)</strong></mark>: 마르틴 부버와 아브라함 헤셸, 히브리어 원어 구문 4종이 글쓴이를 압도하지 않고, 예순 해를 살아온 아버지이자 세무 실무가인 화자의 고유한 성찰 도구로 완벽히 체화됨. 3. <mark class="hl"><strong>논리성 (Pass)</strong></mark>: `[솔잎의 두께 → 다섯 통의 미개봉 등기 우편(‘벨로-샤브템 아다이’ 5회) → 빈칸 뒤에 찍힌 아버지의 서명(‘네움 여호와’ 7회) → 건져내심의 수동태(‘무차르’) → 직권 처분 대신 대면으로 부르시는 ‘엘로헤이카’ → 서른한 살 여호수아의 회막과 아들 건우(‘하나님의 친구’)]`의 인과적·신학적 필연성이 빈틈없이 맞물림. 4. <mark class="hl"><strong>선명성 (Pass)</strong></mark>: ‘밑동이 하나로 묶인 갈색 솔잎 두 바늘’, ‘하얗게 비어 있는 서류철의 회신란’, ‘오른손으로 책상을 도장 찍듯 누른 채 말을 삼킬 때 뻐근해지는 턱 근육’, ‘묵상 노트 여백에 만년필로 적어 내려가는 이름 석 자’ 등 구체적 사물과 신체 감각이 선명히 살아남. 5. <mark class="hl"><strong>감응성 (Pass)</strong></mark>: 아모스 4장이라는 무거운 본문 속에서 끝내 관계를 포기하지 못하시는 아버지의 서명을 발견하고, 그 마음으로 서른한 살 아들의 생일을 축복하는 부자(父子)의 서사가 깊은 신앙적·인간적 울림을 전함.</p>
+  </section>
+
+  <footer class="foot"><span>007</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>
