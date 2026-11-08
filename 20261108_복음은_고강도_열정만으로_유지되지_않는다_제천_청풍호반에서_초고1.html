@@ -195,7 +195,7 @@
     filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
   }
 
-  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
   .body{
     font-size:var(--body-size);
     transition:font-size .2s ease;
@@ -213,6 +213,26 @@
     font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
   }
   .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(253, 224, 71, 0.58) 58%, transparent 58%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 3px;
+    border-radius:3px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.42) 60%, transparent 60%);
+    color:#fef08a;
+    font-weight:700;
+  }
 
   /* 결미 단락 */
   .address{
@@ -265,17 +285,111 @@
     transform:translateX(-50%) translateY(0); opacity:1;
   }
 
-  /* ---------- 모바일 반응형 호환 ---------- */
-  @media (max-width: 820px){
-    #top-toolbar{padding:0 14px}
-    .toolbar-left{display:none}
-    .toolbar-right{width:100%; justify-content:center}
-    .page{
-      width:calc(100% - 24px);
-      min-height:auto;
-      margin:0 auto 24px;
-      padding:32px 24px 24px;
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] figure{margin:14px 0 20px}
+  body[data-view="mobile"] .photo{height:clamp(124px, 34vw, 160px); border-radius:4px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:normal;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
     }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) figure{margin:14px 0 20px}
+    body:not([data-view="a4"]) .photo{height:clamp(116px, 34vw, 156px); border-radius:4px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:normal;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
   }
 
   @media print{
@@ -283,13 +397,13 @@
     body{background:#fff !important; color:#000 !important; padding:0}
     #book{zoom:1 !important}
     #top-toolbar,.zoom,#toast{display:none !important}
-    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
   }
 </style>
 </head>
 <body>
 
-<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
 <header id="top-toolbar">
   <div class="toolbar-left">
     <span class="current-section-title" id="currentSectionTitle">복음은 고강도 열정만으로 유지되지 않는다 — 제천 청풍호반에서 마주한 상처 치유와 평강의 좌표</span>
@@ -298,6 +412,7 @@
     <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
     <span id="fontScaleDisplay">100%</span>
     <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
     <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
     <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
     <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
@@ -356,9 +471,9 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">충북 제천의 산자락을 따라 굽이치는 길을 돌아서자, 겹겹이 포개진 능선 사이로 내륙의 바다라 불리는 청풍호가 시야 가득 펼쳐졌다. 바람조차 숨을 고른 듯 잔잔한 수면은 하늘과 산의 그림자를 소리 없이 받아안고 있었다. 늘 시간을 분 단위로 쪼개어 쓰며 처리해야 할 숫자와 서류, 그리고 마주해야 할 사람들의 사연 속에서 앞만 보고 달려오던 걸음이 물가에서 저절로 느려졌다. 호수를 마주하고 서는 것만으로도 그동안 내 안을 가득 채우고 있던 조급한 말들과 분주한 생각들이 물 밑의 모래알처럼 서서히 가라앉기 시작했다.</p>
-    <p class="essay-p">철학자 한병철은 현대인이 외적 강제가 아니라 스스로를 끊임없이 채찍질하는 과잉활동과 과잉각성 속에서 깊은 피로에 잠식되어 간다고 진단했다(Han, 2010). 멈추어 바라보는 사색적 삶의 능력을 잃어버린 채, 무엇인가를 계속 해내야만 안도하는 시대의 공기가 내 삶에도 예외 없이 스며들어 있었던 것이다. 그러나 눈앞에 펼쳐진 청풍호의 푸른 수면은 감각을 자극하는 화려한 볼거리를 내세우는 대신, 시선을 아득한 수평선 너머로 놓아주며 마음의 긴장을 풀어주었다. 그 깊고 넓은 물결은 지친 어깨를 가볍게 두드리는 일시적인 위로를 넘어, 삶의 무게중심을 다시 세우는 진중하고 평강한 삶으로 들어오라고 나를 조용히 초청하는 것만 같았다.</p>
-    <p class="pull essay-p">호숫가의 고요 속에 오래 머물수록, 그동안 바쁘다는 핑계로 외면해 두었던 내면의 생채기들이 하나둘 수면 위로 모습을 드러냈다. 일터에서 마주하는 냉정한 현실의 책임과 강단에서 감당해야 하는 목양의 무게 사이에서, 내 마음에도 어느덧 날카롭게 긁힌 상처와 설명하기 어려운 피로가 쌓여 있었다. 소란한 일상 속에서는 미처 알아채지 못했던 마음의 바닥이, 호수처럼 내면이 잔잔해지고 나서야 비로소 또렷하게 들여다보였다. 상처는 소음 속에서 덮어둔다고 사라지는 것이 아니라, 고요한 성찰의 빛 아래에서 정직하게 마주할 때 비로소 치유의 자리를 찾아간다는 사실을 새삼 깨닫게 되었다.</p>
+    <p class="dc essay-p">충북 제천의 산자락을 따라 굽이치는 길을 돌아서자, 겹겹이 포개진 능선 사이로 내륙의 바다라 불리는 청풍호가 시야 가득 펼쳐졌다. 바람조차 숨을 고른 듯 잔잔한 수면은 하늘과 산의 그림자를 소리 없이 받아안고 있었다. 늘 시간을 분 단위로 쪼개어 쓰며 처리해야 할 숫자와 서류, 그리고 마주해야 할 사람들의 사연 속에서 앞만 보고 달려오던 걸음이 물가에서 저절로 느려졌다. <mark class="hl"><strong>호수를 마주하고 서는 것만으로도 그동안 내 안을 가득 채우고 있던 조급한 말들과 분주한 생각들이 물 밑의 모래알처럼 서서히 가라앉기 시작했다.</strong></mark></p>
+    <p class="essay-p">철학자 한병철은 현대인이 외적 강제가 아니라 스스로를 끊임없이 채찍질하는 과잉활동과 과잉각성 속에서 깊은 피로에 잠식되어 간다고 진단했다(Han, 2010). 멈추어 바라보는 사색적 삶의 능력을 잃어버린 채, 무엇인가를 계속 해내야만 안도하는 시대의 공기가 내 삶에도 예외 없이 스며들어 있었던 것이다. 그러나 눈앞에 펼쳐진 청풍호의 푸른 수면은 감각을 자극하는 화려한 볼거리를 내세우는 대신, 시선을 아득한 수평선 너머로 놓아주며 마음의 긴장을 풀어주었다. 그 깊고 넓은 물결은 지친 어깨를 가볍게 두드리는 일시적인 위로를 넘어, <mark class="hl"><strong>삶의 무게중심을 다시 세우는 진중하고 평강한 삶으로 들어오라고 나를 조용히 초청하는 것만 같았다.</strong></mark></p>
+    <p class="pull essay-p">호숫가의 고요 속에 오래 머물수록, 그동안 바쁘다는 핑계로 외면해 두었던 내면의 생채기들이 하나둘 수면 위로 모습을 드러냈다. 일터에서 마주하는 냉정한 현실의 책임과 강단에서 감당해야 하는 목양의 무게 사이에서, 내 마음에도 어느덧 날카롭게 긁힌 상처와 설명하기 어려운 피로가 쌓여 있었다. 소란한 일상 속에서는 미처 알아채지 못했던 마음의 바닥이, 호수처럼 내면이 잔잔해지고 나서야 비로소 또렷하게 들여다보였다. 상처는 소음 속에서 덮어둔다고 사라지는 것이 아니라, <mark class="hl"><strong>고요한 성찰의 빛 아래에서 정직하게 마주할 때 비로소 치유의 자리를 찾아간다는 사실을 새삼 깨닫게 되었다.</strong></mark></p>
   </div>
 
   <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
@@ -409,10 +524,10 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">청풍호가 저토록 맑고 잔잔한 수면을 유지하는 비결은 상류에서 흘러드는 거친 물줄기를 거부하는 데 있지 않다. 비가 내린 뒤 사방의 계곡에서 쏟아져 들어오는 흙탕물과 부유물까지도 마다하지 않고 깊은 수심으로 넉넉히 받아안아, 시간을 들여 침전시키고 정화해 내는 데 있다. 그 넉넉한 품을 바라보며 나는 우리의 내면 또한 삶의 상처를 치유할 평강의 좌표를 본래 보유하고 있음을 생각했다. 상처받지 않는 단단한 껍질을 두르는 것이 성숙이 아니라, 아픔의 파도를 흡수하고 다시 잔잔한 수면으로 되돌아갈 수 있는 내면의 담수량과 기준점을 간직하는 것이 진정한 회복의 힘이기 때문이다.</p>
+    <p class="dc essay-p">청풍호가 저토록 맑고 잔잔한 수면을 유지하는 비결은 상류에서 흘러드는 거친 물줄기를 거부하는 데 있지 않다. 비가 내린 뒤 사방의 계곡에서 쏟아져 들어오는 흙탕물과 부유물까지도 마다하지 않고 깊은 수심으로 넉넉히 받아안아, 시간을 들여 침전시키고 정화해 내는 데 있다. <mark class="hl"><strong>그 넉넉한 품을 바라보며 나는 우리의 내면 또한 삶의 상처를 치유할 평강의 좌표를 본래 보유하고 있음을 생각했다.</strong></mark> 상처받지 않는 단단한 껍질을 두르는 것이 성숙이 아니라, 아픔의 파도를 흡수하고 다시 잔잔한 수면으로 되돌아갈 수 있는 내면의 담수량과 기준점을 간직하는 것이 진정한 회복의 힘이기 때문이다.</p>
     <span class="break"></span>
-    <p class="essay-p">이 고요한 물가의 성찰은 자연스레 내가 붙들고 살아온 신앙의 결을 돌아보게 했다. 우리는 흔히 신앙의 생명력을 뜨거움의 강도로 측정하곤 한다. 늘 가슴이 벅차오르고, 쉼 없이 사역의 현장을 누비며, 고강도의 열정을 불태워야만 복음에 합당한 삶을 살고 있다고 믿기 쉽다. 열정이 조금이라도 잦아들면 믿음 전체가 식어버린 것처럼 불안해하며 스스로를 몰아세우는 것이다. 그러나 청풍호의 깊고 서늘한 물빛 앞에서 나는 조용히 고백하지 않을 수 없었다. 복음은 결코 고강도 열정만으로 유지되는 것이 아니라는 사실을 말이다.</p>
-    <p class="essay-p">성경 속 엘리야 선지자의 걸음도 그러했다. 갈멜산에서 하늘의 불을 내리며 바알의 선지자들과 맞섰던 그 뜨거운 열정의 사람도, 극심한 탈진과 두려움 끝에 로뎀나무 아래에 쓰러져 죽기를 구했다. 그때 호렙산에서 그를 다시 일으켜 세운 하나님의 현존은 산을 가르고 바위를 부수는 강한 바람이나 지진이나 타오르는 불 가운데 있지 않았다. 모든 소란이 지나간 뒤 찾아온 세미한 음성, 히브리어 원문의 표현대로라면 부서질 듯 얇은 침묵의 소리(콜 드마마 다카) 가운데 하나님이 계셨다(왕상 19:11-12). 월터 브루그만이 안식을 가리켜 끊임없는 성취와 열정을 강요하는 세상 체제에 맞서는 신앙적 저항이라 불렀듯(Brueggemann, 2014), 하나님 앞에서 잠잠히 멈추어 서는 고요는 열정의 부재가 아니라 복음의 가장 깊은 신뢰가 작동하는 방식이다.</p>
+    <p class="essay-p">이 고요한 물가의 성찰은 자연스레 내가 붙들고 살아온 신앙의 결을 돌아보게 했다. 우리는 흔히 신앙의 생명력을 뜨거움의 강도로 측정하곤 한다. 늘 가슴이 벅차오르고, 쉼 없이 사역의 현장을 누비며, 고강도의 열정을 불태워야만 복음에 합당한 삶을 살고 있다고 믿기 쉽다. 열정이 조금이라도 잦아들면 믿음 전체가 식어버린 것처럼 불안해하며 스스로를 몰아세우는 것이다. 그러나 청풍호의 깊고 서늘한 물빛 앞에서 나는 조용히 고백하지 않을 수 없었다. <mark class="hl"><strong>복음은 결코 고강도 열정만으로 유지되는 것이 아니라는 사실을 말이다.</strong></mark></p>
+    <p class="essay-p">성경 속 엘리야 선지자의 걸음도 그러했다. 갈멜산에서 하늘의 불을 내리며 바알의 선지자들과 맞섰던 그 뜨거운 열정의 사람도, 극심한 탈진과 두려움 끝에 로뎀나무 아래에 쓰러져 죽기를 구했다. 그때 호렙산에서 그를 다시 일으켜 세운 하나님의 현존은 산을 가르고 바위를 부수는 강한 바람이나 지진이나 타오르는 불 가운데 있지 않았다. 모든 소란이 지나간 뒤 찾아온 세미한 음성, 히브리어 원문의 표현대로라면 부서질 듯 얇은 침묵의 소리(콜 드마마 다카) 가운데 하나님이 계셨다(왕상 19:11-12). 월터 브루그만이 안식을 가리켜 끊임없는 성취와 열정을 강요하는 세상 체제에 맞서는 신앙적 저항이라 불렀듯(Brueggemann, <mark class="hl"><strong>2014), 하나님 앞에서 잠잠히 멈추어 서는 고요는 열정의 부재가 아니라 복음의 가장 깊은 신뢰가 작동하는 방식이다.</strong></mark></p>
   </div>
 
   <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
@@ -461,10 +576,10 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">이사야 선지자는 돌이켜 조용히 있어야 구원을 얻을 것이요 잠잠하고 신뢰하여야 힘을 얻을 것이라 증언했다(사 30:15). 빠르게 타오르는 불꽃은 당장은 눈부시지만 금세 재를 남기고 사그라들기 마련이다. 반면 낮고 깊은 곳에 고여 일정한 온도를 지키는 호수의 물은 소리 없이 주변의 숲을 적시고 생명을 길러낸다. 복음이 우리 삶을 끝까지 지탱하는 힘 또한 자극적인 열기의 반복에 있는 것이 아니라, 세상이 줄 수 없는 하나님의 평강이라는 깊은 수심 속에 뿌리를 내리는 데 있다. 열정이 우리를 출발선에서 뛰게 하는 동력이라면, 고요하고 진중한 평강은 그 긴 여정을 중도에 쓰러지지 않고 완주하게 하는 영적 호흡이다.</p>
+    <p class="dc essay-p">이사야 선지자는 돌이켜 조용히 있어야 구원을 얻을 것이요 잠잠하고 신뢰하여야 힘을 얻을 것이라 증언했다(사 30:15). 빠르게 타오르는 불꽃은 당장은 눈부시지만 금세 재를 남기고 사그라들기 마련이다. 반면 낮고 깊은 곳에 고여 일정한 온도를 지키는 호수의 물은 소리 없이 주변의 숲을 적시고 생명을 길러낸다. 복음이 우리 삶을 끝까지 지탱하는 힘 또한 자극적인 열기의 반복에 있는 것이 아니라, 세상이 줄 수 없는 하나님의 평강이라는 깊은 수심 속에 뿌리를 내리는 데 있다. <mark class="hl"><strong>열정이 우리를 출발선에서 뛰게 하는 동력이라면, 고요하고 진중한 평강은 그 긴 여정을 중도에 쓰러지지 않고 완주하게 하는 영적 호흡이다.</strong></mark></p>
   </div>
   <section class="address">
-    <p class="essay-p">해 질 녘이 되자 청풍호의 수면 위로 잔잔한 금빛 윤슬이 번져 나갔다. 이제 산자락을 내려가면 다시 숫자와 문장, 사람과 책임이 교차하는 분주한 일상이 나를 기다리고 있을 것이다. 그러나 호숫가를 떠나는 발걸음은 처음 도착했을 때보다 한결 차분하고 단단해졌다. 삶의 파도가 일렁이고 관계의 생채기가 쓰라려 올 때마다, 나는 억지로 열정을 쥐어짜는 대신 내 안에 새겨진 평강의 좌표로 조용히 마음을 돌이킬 것이다. 제천 청풍호반이 건넨 그 무언의 초청처럼, 고강도 열정의 강박을 내려놓고 깊고 고요한 평강의 사람으로 오늘의 자리를 진중하게 살아내고 싶다.</p>
+    <p class="essay-p">해 질 녘이 되자 청풍호의 수면 위로 잔잔한 금빛 윤슬이 번져 나갔다. 이제 산자락을 내려가면 다시 숫자와 문장, 사람과 책임이 교차하는 분주한 일상이 나를 기다리고 있을 것이다. 그러나 호숫가를 떠나는 발걸음은 처음 도착했을 때보다 한결 차분하고 단단해졌다. 삶의 파도가 일렁이고 관계의 생채기가 쓰라려 올 때마다, 나는 억지로 열정을 쥐어짜는 대신 내 안에 새겨진 평강의 좌표로 조용히 마음을 돌이킬 것이다. <mark class="hl"><strong>제천 청풍호반이 건넨 그 무언의 초청처럼, 고강도 열정의 강박을 내려놓고 깊고 고요한 평강의 사람으로 오늘의 자리를 진중하게 살아내고 싶다.</strong></mark></p>
   </section>
 
   <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
@@ -526,6 +641,35 @@
       localStorage.setItem('ait_html_theme', next);
     } catch(e) {}
     showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
   }
 
   function sermonText() {
@@ -592,6 +736,13 @@
         applyFontSize(Number(savedSize));
       }
     } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
   });
 </script>
 </body>

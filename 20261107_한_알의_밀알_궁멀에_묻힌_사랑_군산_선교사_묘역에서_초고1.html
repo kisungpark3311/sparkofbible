@@ -195,7 +195,7 @@
     filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
   }
 
-  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
   .body{
     font-size:var(--body-size);
     transition:font-size .2s ease;
@@ -213,6 +213,26 @@
     font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
   }
   .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(253, 224, 71, 0.58) 58%, transparent 58%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 3px;
+    border-radius:3px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.42) 60%, transparent 60%);
+    color:#fef08a;
+    font-weight:700;
+  }
 
   /* 결미 단락 */
   .address{
@@ -265,17 +285,111 @@
     transform:translateX(-50%) translateY(0); opacity:1;
   }
 
-  /* ---------- 모바일 반응형 호환 ---------- */
-  @media (max-width: 820px){
-    #top-toolbar{padding:0 14px}
-    .toolbar-left{display:none}
-    .toolbar-right{width:100%; justify-content:center}
-    .page{
-      width:calc(100% - 24px);
-      min-height:auto;
-      margin:0 auto 24px;
-      padding:32px 24px 24px;
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] figure{margin:14px 0 20px}
+  body[data-view="mobile"] .photo{height:clamp(124px, 34vw, 160px); border-radius:4px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:normal;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
     }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) figure{margin:14px 0 20px}
+    body:not([data-view="a4"]) .photo{height:clamp(116px, 34vw, 156px); border-radius:4px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:normal;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
   }
 
   @media print{
@@ -283,13 +397,13 @@
     body{background:#fff !important; color:#000 !important; padding:0}
     #book{zoom:1 !important}
     #top-toolbar,.zoom,#toast{display:none !important}
-    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
   }
 </style>
 </head>
 <body>
 
-<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
 <header id="top-toolbar">
   <div class="toolbar-left">
     <span class="current-section-title" id="currentSectionTitle">한 알의 밀알, 궁멀에 묻힌 사랑 — 군산 선교사 묘역에서</span>
@@ -298,6 +412,7 @@
     <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
     <span id="fontScaleDisplay">100%</span>
     <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
     <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
     <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
     <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
@@ -369,9 +484,9 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">군산선교역사관 뒤편으로 난 완만한 오르막을 따라 걸음을 옮기면 늦가을의 고요가 내려앉은 구암동산 묘역이 나타난다. 옛 구암교회 터전 위에 복원된 이곳에는 구한말 호남 땅에 복음의 첫 씨앗을 뿌린 네 가문의 선교사 부부들이 나란히 잠들어 있다. 투박한 회색 화강암 비석 앞에는 누군가 다녀가며 놓고 간 흰 국화 한 송이가 묵묵히 놓여 있었고, 서늘한 가을바람이 불 때마다 노란 은행잎들이 소리 없이 잔디밭 위로 흩날렸다.</p>
-    <p class="essay-p">발걸음을 멈추고 전킨(William M. Junkin, 한국명 전위렴) 선교사 부부의 비석 앞에 섰을 때, 시선은 자연스레 큰 비석 아래 발치로 향했다. 그곳 잔디밭 위에는 조지, 시드니, 프랜시스라는 이름이 새겨진 세 개의 작은 평면 묘석이 나란히 누워 있었다. 1893년에 태어나 이듬해 숨진 첫째 조지는 생후 8개월, 1899년의 둘째 시드니는 생후 2개월, 그리고 1903년의 셋째 프랜시스는 태어난 지 불과 스무 날 만에 세상을 떠났다. 전기도 제대로 된 약도 없던 시절, 거친 갯벌 바람과 풍토병 속에서 차례로 품 안의 핏줄을 차가운 이국의 흙에 묻어야 했던 부모의 피눈물이 짧은 숫자들 너머로 먹먹하게 전해졌다.</p>
-    <p class="pull essay-p">세 개의 작은 돌 앞에서 한동안 자리를 뜨지 못한 채 스스로에게 물었다. 왜 그들은 고향으로 돌아가지 않았을까. 첫째 아기가 숨을 거두었을 때만 해도 짐을 쌀 이유는 충분했고, 둘째를 잃었을 때는 누구도 그들의 귀국을 탓할 수 없었을 것이다. 그러나 그들은 셋째 아기마저 스무 날 만에 땅에 묻고도 끝내 조선 땅 궁멀을 떠나지 않았다. 세상 사람들의 눈에는 자식을 셋이나 사지로 몰아넣고 방치한 ‘비정한 부모’처럼 보였을지도 모른다. “너희가 믿는 신이 과연 자식을 이렇게 빼앗아 가느냐”는 안팎의 냉소 속에서 그들이 견뎌야 했을 영적 고독은 가늠하기조차 어렵다.</p>
+    <p class="dc essay-p">군산선교역사관 뒤편으로 난 완만한 오르막을 따라 걸음을 옮기면 늦가을의 고요가 내려앉은 구암동산 묘역이 나타난다. 옛 구암교회 터전 위에 복원된 이곳에는 구한말 호남 땅에 복음의 첫 씨앗을 뿌린 네 가문의 선교사 부부들이 나란히 잠들어 있다. 투박한 회색 화강암 비석 앞에는 누군가 다녀가며 놓고 간 흰 국화 한 송이가 묵묵히 놓여 있었고, 서늘한 가을바람이 불 때마다 <mark class="hl"><strong>노란 은행잎들이 소리 없이 잔디밭 위로 흩날렸다.</strong></mark></p>
+    <p class="essay-p">발걸음을 멈추고 전킨(William M. Junkin, 한국명 전위렴) 선교사 부부의 비석 앞에 섰을 때, 시선은 자연스레 큰 비석 아래 발치로 향했다. 그곳 잔디밭 위에는 조지, 시드니, 프랜시스라는 이름이 새겨진 세 개의 작은 평면 묘석이 나란히 누워 있었다. 1893년에 태어나 이듬해 숨진 첫째 조지는 생후 8개월, 1899년의 둘째 시드니는 생후 2개월, 그리고 1903년의 셋째 프랜시스는 태어난 지 불과 스무 날 만에 세상을 떠났다. 전기도 제대로 된 약도 없던 시절, <mark class="hl"><strong>거친 갯벌 바람과 풍토병 속에서 차례로 품 안의 핏줄을 차가운 이국의 흙에 묻어야 했던 부모의 피눈물이 짧은 숫자들 너머로 먹먹하게 전해졌다.</strong></mark></p>
+    <p class="pull essay-p">세 개의 작은 돌 앞에서 한동안 자리를 뜨지 못한 채 스스로에게 물었다. 왜 그들은 고향으로 돌아가지 않았을까. 첫째 아기가 숨을 거두었을 때만 해도 짐을 쌀 이유는 충분했고, 둘째를 잃었을 때는 누구도 그들의 귀국을 탓할 수 없었을 것이다. 그러나 그들은 셋째 아기마저 스무 날 만에 땅에 묻고도 끝내 조선 땅 궁멀을 떠나지 않았다. 세상 사람들의 눈에는 자식을 셋이나 사지로 몰아넣고 방치한 <mark class="hl"><strong>‘비정한 부모’</strong></mark>처럼 보였을지도 모른다. <mark class="hl"><strong>“너희가 믿는 신이 과연 자식을 이렇게 빼앗아 가느냐”는 안팎의 냉소 속에서 그들이 견뎌야 했을 영적 고독은 가늠하기조차 어렵다.</strong></mark></p>
   </div>
 
   <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
@@ -426,10 +541,10 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">그러나 그 자리는 비정함의 자리가 아니라, 십자가 앞에 드린 온전한 항복의 자리였다. 독일의 신학자 디트리히 본회퍼는 그리스도를 따르는 길을 값싼 감상이 아닌, 자신의 가장 소중한 것까지 제단에 올려놓는 ‘값비싼 제자도(Costly Discipleship)’라 불렀다(Bonhoeffer, 1937). 전킨 선교사 부부가 조선을 떠나지 못한 까닭은 자식에 대한 사랑이 모자라서가 아니었다. 억장이 무너지는 단장(斷腸)의 슬픔 한복판에서도, 주권자이신 하나님 앞에 무릎을 꿇고 자신들의 삶과 아픔까지 통째로 내어맡긴 절대적인 사랑과 항복이 그들을 붙들고 있었던 것이다.</p>
+    <p class="dc essay-p">그러나 그 자리는 비정함의 자리가 아니라, 십자가 앞에 드린 온전한 항복의 자리였다. 독일의 신학자 디트리히 본회퍼는 그리스도를 따르는 길을 값싼 감상이 아닌, <mark class="hl"><strong>자신의 가장 소중한 것까지 제단에 올려놓는 ‘값비싼 제자도(Costly Discipleship)’라 불렀다(Bonhoeffer, 1937).</strong></mark> 전킨 선교사 부부가 조선을 떠나지 못한 까닭은 자식에 대한 사랑이 모자라서가 아니었다. 억장이 무너지는 단장(斷腸)의 슬픔 한복판에서도, 주권자이신 하나님 앞에 무릎을 꿇고 자신들의 삶과 아픔까지 통째로 내어맡긴 절대적인 사랑과 항복이 그들을 붙들고 있었던 것이다.</p>
     <span class="break"></span>
-    <p class="essay-p">그 항복의 깊이는 전킨 선교사가 마흔셋의 젊은 나이로 생을 마감하며 남긴 마지막 유언에서 더욱 선명히 드러난다. 1908년 1월, 과로와 장티푸스로 전주에서 숨을 거두며 그는 “나는 궁멀 전씨다. 내가 죽으면 군산 궁멀에 묻어달라”는 말을 남겼다. 유언에 따라 전주에서 군산까지 운구된 아버지의 시신은 먼저 묻힌 세 아들의 곁에 나란히 누웠다. 남아프리카의 선교학자 데이비드 보쉬가 말했듯, 참된 선교란 높은 자리에서 시혜를 베푸는 것이 아니라 언어와 문화, 질병과 죽음의 장벽을 뛰어넘어 그 땅의 사람과 하나가 되는 ‘성육신적 선교(Incarnational Mission)’이다(Bosch, 1991). 미국 버지니아 고향의 흙과 군산 궁멀의 흙을 함께 담아 안장한 오늘날의 묘비는, 이방인으로 왔으나 조선의 흙이 되기를 자처했던 그 큰 사랑을 증언하고 있다.</p>
-    <p class="essay-p">묘역 한가운데 서 있는 기념비에는 요한복음 12장 24절 말씀이 깊이 새겨져 있다. “내가 진실로 진실로 너희에게 이르노니 한 알의 밀이 땅에 떨어져 죽지 아니하면 한 알 그대로 있고 죽으면 많은 열매를 맺느니라.” 궁멀의 차가운 땅속에 떨어져 죽은 네 부자의 밀알은 결코 헛되지 않았다. 그들이 흘린 눈물과 땀방울 위에서 구암교회가 세워졌고, 영명학교와 멜볼딘여학교를 통해 인재들이 자라났으며, 병든 이들을 고치는 치유의 역사가 시작되었다. 그리고 마침내 그 생명의 씨앗은 한강 이남 최초의 3·5 만세운동이라는 거대한 함성으로 피어났다.</p>
+    <p class="essay-p">그 항복의 깊이는 전킨 선교사가 마흔셋의 젊은 나이로 생을 마감하며 남긴 마지막 유언에서 더욱 선명히 드러난다. 1908년 1월, 과로와 장티푸스로 전주에서 숨을 거두며 그는 <mark class="hl"><strong>“나는 궁멀 전씨다. 내가 죽으면 군산 궁멀에 묻어달라”</strong></mark>는 말을 남겼다. 유언에 따라 전주에서 군산까지 운구된 아버지의 시신은 먼저 묻힌 세 아들의 곁에 나란히 누웠다. 남아프리카의 선교학자 데이비드 보쉬가 말했듯, 참된 선교란 높은 자리에서 시혜를 베푸는 것이 아니라 언어와 문화, <mark class="hl"><strong>질병과 죽음의 장벽을 뛰어넘어 그 땅의 사람과 하나가 되는 ‘성육신적 선교(Incarnational Mission)’이다(Bosch, 1991).</strong></mark> 미국 버지니아 고향의 흙과 군산 궁멀의 흙을 함께 담아 안장한 오늘날의 묘비는, 이방인으로 왔으나 조선의 흙이 되기를 자처했던 그 큰 사랑을 증언하고 있다.</p>
+    <p class="essay-p">묘역 한가운데 서 있는 기념비에는 요한복음 12장 24절 말씀이 깊이 새겨져 있다. <mark class="hl"><strong>“내가 진실로 진실로 너희에게 이르노니 한 알의 밀이 땅에 떨어져 죽지 아니하면 한 알 그대로 있고 죽으면 많은 열매를 맺느니라.” 궁멀의 차가운 땅속에 떨어져 죽은 네 부자의 밀알은 결코 헛되지 않았다.</strong></mark> 그들이 흘린 눈물과 땀방울 위에서 구암교회가 세워졌고, 영명학교와 멜볼딘여학교를 통해 인재들이 자라났으며, 병든 이들을 고치는 치유의 역사가 시작되었다. 그리고 마침내 그 생명의 씨앗은 한강 이남 최초의 3·5 만세운동이라는 거대한 함성으로 피어났다.</p>
   </div>
 
   <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
@@ -478,10 +593,10 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">2026년 늦가을, 함께 구암동산을 찾은 온비아 BEE 찻사찻 일행과 ‘군산선교역사관’ 표지석이 놓인 계단에 둘러서서 한 장의 사진을 남겼다. 따스한 가을 햇살 아래 환하게 미소 짓는 우리들의 모습 뒤편으로, 130년 전 선교사들의 무덤이 말없이 우리 발밑을 떠받치고 있었다. 오늘 우리가 당연하게 누리는 신앙의 자유와 배움의 기회, 그리고 풍요로운 삶의 터전이 실은 누군가의 자식들이 흘린 피눈물 위에 세워졌다는 사실 앞에서 거룩한 부끄러움이 밀려왔다.</p>
+    <p class="dc essay-p">2026년 늦가을, 함께 구암동산을 찾은 온비아 BEE 찻사찻 일행과 <mark class="hl"><strong>‘군산선교역사관’</strong></mark> 표지석이 놓인 계단에 둘러서서 한 장의 사진을 남겼다. 따스한 가을 햇살 아래 환하게 미소 짓는 우리들의 모습 뒤편으로, 130년 전 선교사들의 무덤이 말없이 우리 발밑을 떠받치고 있었다. 오늘 우리가 당연하게 누리는 신앙의 자유와 배움의 기회, <mark class="hl"><strong>그리고 풍요로운 삶의 터전이 실은 누군가의 자식들이 흘린 피눈물 위에 세워졌다는 사실 앞에서 거룩한 부끄러움이 밀려왔다.</strong></mark></p>
   </div>
   <section class="address">
-    <p class="essay-p">비장한 순교의 시대는 지났을지라도, 빚진 자로서 그 역사를 기억하며 살아내는 일은 오늘 우리의 몫으로 남아 있다. 거창한 구호를 외치는 대신, 내가 서 있는 일터와 가정에서 나를 부인하고 내 곁의 사람을 묵묵히 섬기는 것이야말로 이 시대의 밀알로 사는 길일 것이다. 은행잎이 흩날리는 구암동산을 내려오며 마음속으로 나직한 기도를 올렸다. 주님 앞에 내 고집과 욕심을 항복하고, 그들이 남긴 밀알의 생명을 오늘 내 일상에서 가치 있게 살아내게 하소서.</p>
+    <p class="essay-p">비장한 순교의 시대는 지났을지라도, 빚진 자로서 그 역사를 기억하며 살아내는 일은 오늘 우리의 몫으로 남아 있다. 거창한 구호를 외치는 대신, 내가 서 있는 일터와 가정에서 나를 부인하고 내 곁의 사람을 묵묵히 섬기는 것이야말로 이 시대의 밀알로 사는 길일 것이다. 은행잎이 흩날리는 구암동산을 내려오며 마음속으로 나직한 기도를 올렸다. <mark class="hl"><strong>주님 앞에 내 고집과 욕심을 항복하고, 그들이 남긴 밀알의 생명을 오늘 내 일상에서 가치 있게 살아내게 하소서.</strong></mark></p>
   </section>
 
   <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
@@ -543,6 +658,35 @@
       localStorage.setItem('ait_html_theme', next);
     } catch(e) {}
     showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
   }
 
   function sermonText() {
@@ -609,6 +753,13 @@
         applyFontSize(Number(savedSize));
       }
     } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
   });
 </script>
 </body>

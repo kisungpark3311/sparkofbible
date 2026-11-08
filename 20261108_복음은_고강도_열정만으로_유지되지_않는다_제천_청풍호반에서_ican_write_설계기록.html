@@ -195,7 +195,7 @@
     filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
   }
 
-  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
   .body{
     font-size:var(--body-size);
     transition:font-size .2s ease;
@@ -213,6 +213,26 @@
     font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
   }
   .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(253, 224, 71, 0.58) 58%, transparent 58%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 3px;
+    border-radius:3px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.42) 60%, transparent 60%);
+    color:#fef08a;
+    font-weight:700;
+  }
 
   /* 결미 단락 */
   .address{
@@ -265,17 +285,111 @@
     transform:translateX(-50%) translateY(0); opacity:1;
   }
 
-  /* ---------- 모바일 반응형 호환 ---------- */
-  @media (max-width: 820px){
-    #top-toolbar{padding:0 14px}
-    .toolbar-left{display:none}
-    .toolbar-right{width:100%; justify-content:center}
-    .page{
-      width:calc(100% - 24px);
-      min-height:auto;
-      margin:0 auto 24px;
-      padding:32px 24px 24px;
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] figure{margin:14px 0 20px}
+  body[data-view="mobile"] .photo{height:clamp(124px, 34vw, 160px); border-radius:4px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:normal;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
     }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) figure{margin:14px 0 20px}
+    body:not([data-view="a4"]) .photo{height:clamp(116px, 34vw, 156px); border-radius:4px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:normal;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
   }
 
   @media print{
@@ -283,13 +397,13 @@
     body{background:#fff !important; color:#000 !important; padding:0}
     #book{zoom:1 !important}
     #top-toolbar,.zoom,#toast{display:none !important}
-    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
   }
 </style>
 </head>
 <body>
 
-<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
 <header id="top-toolbar">
   <div class="toolbar-left">
     <span class="current-section-title" id="currentSectionTitle">[ican-write 이원화 에이전트 설계·평가 기록] 복음은 고강도 열정만으로 유지되지 않는다 — 제천 청풍호반에서</span>
@@ -298,6 +412,7 @@
     <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
     <span id="fontScaleDisplay">100%</span>
     <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
     <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
     <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
     <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
@@ -352,10 +467,10 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">본 문서는 진행·집필 전담 에이전트(**`ican-drafter`**)가 생성한 단계별 복수 선택안(A/B/C안) 및 초고 1과, 분리된 독립 평가·결정 전담 에이전트(**`ican-evaluator`**)가 수행한 **Gate 1 ~ Gate 5 비교 심사 및 최종 선택 결정** 전 과정을 기록한 문서입니다.</p>
-    <p class="essay-p">---</p>
-    <p class="essay-p">## [1단계] 글감 발견과 생각 확장 (`ican-drafter` 후보 도출 ⇄ `ican-evaluator` Gate 1 결정)</p>
-    <p class="pull essay-p">### 1-1. `ican-drafter` 글감 후보 3안 및 학술·신학 자료 후보 4종 제출 * **글감 후보 A안 (관찰·성찰 중심)**: &quot;충북 제천 청풍호반의 흔들림 없는 수면을 마주하며, 소란한 일상을 잠시 멈추고 진중하고 고요한 평강의 삶으로 건너가는 내면의 시간을 성찰한다.&quot; * **글감 후보 B안 (고강도 열정과 복음의 지속성 질문 중심)**: &quot;청풍호의 깊고 고요한 물결 앞에서, 쉼 없이 타오르는 고강도 열정만으로 신앙과 삶을 지탱하려 했던 조급함을 내려놓고 복음이 지닌 고요한 지속성과 평강의 좌표를 성찰한다.&quot; * **글감 후보 C안 (상처 치유와 평강의 좌표 중심)**: &quot;삶의 생채기와 피로를 안고 찾은 제천 청풍호반에서, 상처 입은 마음을 다독이고 다시 살아갈 힘을 회복하게 하는 내면의 평강 좌표를 탐색한다.&quot; * **학술·신학 자료 후보 4종**: 1. **한병철, 『피로사회』(2010)**: 자기 착취적 과잉활동(Hyperactivity)과 사색적 삶(vita contemplativa)의 상실 2. **월터 브루그만, 『안식일은 저항이다』(2014)**: 끊임없는 성취·열정 강박 체제에 맞서는 신앙적 저항으로서의 안식 3. **월리스 니콜스, 『블루 마인드』(2014) &amp; 카플란 주의회복이론(1989)**: 블루 스페이스가 뇌의 통제된 주의력 피로를 낮추는 효과 4. **열왕기상 19:11-12 &amp; 이사야 30:15**: 갈멜산의 불길 뒤 탈진한 엘리야에게 임한 호렙산의 ‘세미한 음성(콜 드마마 다카)’과 잠잠한 신뢰</p>
+    <p class="dc essay-p">본 문서는 진행·집필 전담 에이전트(<mark class="hl"><strong>`ican-drafter`</strong></mark>)가 생성한 단계별 복수 선택안(A/B/C안) 및 초고 1과, 분리된 독립 평가·결정 전담 에이전트(<mark class="hl"><strong>`ican-evaluator`</strong></mark>)가 수행한 <mark class="hl"><strong>Gate 1 ~ Gate 5 비교 심사 및 최종 선택 결정</strong></mark> 전 과정을 기록한 문서입니다.</p>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
+    <p class="essay-p"><mark class="hl"><strong>## [1단계] 글감 발견과 생각 확장 (`ican-drafter` 후보 도출 ⇄ `ican-evaluator` Gate 1 결정)</strong></mark></p>
+    <p class="pull essay-p">### 1-1. `ican-drafter` 글감 후보 3안 및 학술·신학 자료 후보 4종 제출 * <mark class="hl"><strong>글감 후보 A안 (관찰·성찰 중심)</strong></mark>: &quot;충북 제천 청풍호반의 흔들림 없는 수면을 마주하며, 소란한 일상을 잠시 멈추고 진중하고 고요한 평강의 삶으로 건너가는 내면의 시간을 성찰한다.&quot; * <mark class="hl"><strong>글감 후보 B안 (고강도 열정과 복음의 지속성 질문 중심)</strong></mark>: &quot;청풍호의 깊고 고요한 물결 앞에서, 쉼 없이 타오르는 고강도 열정만으로 신앙과 삶을 지탱하려 했던 조급함을 내려놓고 복음이 지닌 고요한 지속성과 평강의 좌표를 성찰한다.&quot; * <mark class="hl"><strong>글감 후보 C안 (상처 치유와 평강의 좌표 중심)</strong></mark>: &quot;삶의 생채기와 피로를 안고 찾은 제천 청풍호반에서, 상처 입은 마음을 다독이고 다시 살아갈 힘을 회복하게 하는 내면의 평강 좌표를 탐색한다.&quot; * <mark class="hl"><strong>학술·신학 자료 후보 4종</strong></mark>: 1. <mark class="hl"><strong>한병철, 『피로사회』(2010)</strong></mark>: 자기 착취적 과잉활동(Hyperactivity)과 사색적 삶(vita contemplativa)의 상실 2. <mark class="hl"><strong>월터 브루그만, 『안식일은 저항이다』(2014)</strong></mark>: 끊임없는 성취·열정 강박 체제에 맞서는 신앙적 저항으로서의 안식 3. <mark class="hl"><strong>월리스 니콜스, 『블루 마인드』(2014) &amp; 카플란 주의회복이론(1989)</strong></mark>: 블루 스페이스가 뇌의 통제된 주의력 피로를 낮추는 효과 4. <mark class="hl"><strong>열왕기상 19:11-12 &amp; 이사야 30:15</strong></mark>: 갈멜산의 불길 뒤 탈진한 엘리야에게 임한 호렙산의 ‘세미한 음성(콜 드마마 다카)’과 잠잠한 신뢰</p>
   </div>
 
   <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
@@ -404,10 +519,10 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">### 1-2. `ican-evaluator` [Gate 1] 비교 심사 및 최종 선택 결정 * **글감 심사 판정**: * **A안 기각**: 풍경의 서정성은 좋으나 일반 기행 수필에서도 흔히 볼 수 있는 구도여서 통념을 깨뜨리는 날카로운 질문이 부족함. * **C안 기각**: 심리적 치유에만 머물 경우 ‘복음은 고강도 열정만으로 유지되지 않는다’는 독창적 신학 성찰까지 끌고 가기에는 추동력이 약함. * **최종 채택 (B안 + C안의 ‘상처 치유’ 결합)**: &gt; **&quot;충북 제천 청풍호의 깊고 고요한 물결 앞에서, 쉼 없이 타오르는 고강도 열정만으로 신앙과 삶을 지탱하려 했던 조급함을 내려놓고 상처를 품어 정화하는 복음의 고요한 지속성과 평강의 좌표를 성찰한다.&quot;** * **학술·신학 자료 채택 결정 (3종 채택 / 1종 본문 제외)**: * **채택**: ① 한병철 『피로사회』(2010), ② 열왕기상 19:11-12(콜 드마마 다카) &amp; 이사야 30:15, ③ 월터 브루그만 『안식일은 저항이다』(2014). * **본문 실명 인용 제외**: 월리스 니콜스 『블루 마인드』 &amp; 카플란 주의회복이론 — 짧은 에세이에 뇌과학·환경심리학 용어까지 실명으로 나열하면 현학적으로 변질되므로, 이론 명칭 없이 1·4문단의 호수 묘사 감각으로만 녹여내도록 결정.</p>
+    <p class="dc essay-p">### 1-2. `ican-evaluator` [Gate 1] 비교 심사 및 최종 선택 결정 * <mark class="hl"><strong>글감 심사 판정</strong></mark>: * <mark class="hl"><strong>A안 기각</strong></mark>: 풍경의 서정성은 좋으나 일반 기행 수필에서도 흔히 볼 수 있는 구도여서 통념을 깨뜨리는 날카로운 질문이 부족함. * <mark class="hl"><strong>C안 기각</strong></mark>: 심리적 치유에만 머물 경우 ‘복음은 고강도 열정만으로 유지되지 않는다’는 독창적 신학 성찰까지 끌고 가기에는 추동력이 약함. * <mark class="hl"><strong>최종 채택 (B안 + C안의 ‘상처 치유’ 결합)</strong></mark>: &gt; <mark class="hl"><strong>&quot;충북 제천 청풍호의 깊고 고요한 물결 앞에서, 쉼 없이 타오르는 고강도 열정만으로 신앙과 삶을 지탱하려 했던 조급함을 내려놓고 상처를 품어 정화하는 복음의 고요한 지속성과 평강의 좌표를 성찰한다.&quot;</strong></mark> * <mark class="hl"><strong>학술·신학 자료 채택 결정 (3종 채택 / 1종 본문 제외)</strong></mark>: * <mark class="hl"><strong>채택</strong></mark>: ① 한병철 『피로사회』(2010), ② 열왕기상 19:11-12(콜 드마마 다카) &amp; 이사야 30:15, ③ 월터 브루그만 『안식일은 저항이다』(2014). * <mark class="hl"><strong>본문 실명 인용 제외</strong></mark>: 월리스 니콜스 『블루 마인드』 &amp; 카플란 주의회복이론 — 짧은 에세이에 뇌과학·환경심리학 용어까지 실명으로 나열하면 현학적으로 변질되므로, 이론 명칭 없이 1·4문단의 호수 묘사 감각으로만 녹여내도록 결정.</p>
     <span class="break"></span>
-    <p class="essay-p">---</p>
-    <p class="essay-p">## [2단계] 핵심 메시지 정립과 독자 중심 목차 설계 (`ican-drafter` 대안 설계 ⇄ `ican-evaluator` Gate 2 결정)</p>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
+    <p class="essay-p"><mark class="hl"><strong>## [2단계] 핵심 메시지 정립과 독자 중심 목차 설계 (`ican-drafter` 대안 설계 ⇄ `ican-evaluator` Gate 2 결정)</strong></mark></p>
   </div>
 
   <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
@@ -462,9 +577,9 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">### 2-1. `ican-drafter` 핵심 메시지 3안 · 제목 3안 · 목차 2안 제출 * **핵심 메시지 후보**: A안(성찰·초청형) / B안(고강도 열정을 넘어 평강의 좌표 위에서 지속되는 복음과 삶) / C안(상처 치유와 회복형) * **제목 후보**: * A안: `청풍호반에서 마주한 고요의 깊이 — 분주한 일상을 멈추고 진중한 평강의 삶으로 건너가는 시간` * B안: `복음은 고강도 열정만으로 유지되지 않는다 — 제천 청풍호반에서 마주한 상처 치유와 평강의 좌표` * C안: `내 안에 고요한 호수 하나를 품는 일 — 뜨거운 열정의 시대를 건너는 이들을 위한 평강의 좌표` * **목차 후보**: 목차 A안(경험·성찰형 4장 8절) vs 목차 B안(경험·성찰 + 철학·신학 해석 결합형 4장 12절)</p>
-    <p class="essay-p">### 2-2. `ican-evaluator` [Gate 2] 비교 심사 및 최종 선택 결정 * **핵심 메시지 확정 (B안 + C안 결합)**: &gt; **&quot;참된 삶과 복음의 생명력은 쉼 없이 타오르는 고강도 열정만으로 유지되는 것이 아니라, 삶의 상처를 넉넉히 품어 침전시키고 고요한 신뢰 속에서 자리를 지키는 내면의 ‘평강 좌표’ 위에서 비로소 지속된다.&quot;** * **최종 제목 확정 (B안 채택)**: &gt; **`복음은 고강도 열정만으로 유지되지 않는다 — 제천 청풍호반에서 마주한 상처 치유와 평강의 좌표`** * **2단 목차 확정 (목차 B안 4장 12절 채택)**: * 린다 플라워의 독자 중심 원칙 및 목차 3대 속성(연결성·논리성·설득성) 심사 결과, 단순 감상 나열인 목차 A안보다 **경험(청풍호 수면) → 진단(피로사회) → 전환(수심의 침전과 평강 좌표) → 신학적 논증(엘리야의 세미한 음성과 안식의 저항) → 일상의 귀환**으로 이어지는 목차 B안의 인과 구조가 월등히 설득력 있으므로 최종 채택.</p>
-    <p class="essay-p">---</p>
+    <p class="dc essay-p">### 2-1. `ican-drafter` 핵심 메시지 3안 · 제목 3안 · 목차 2안 제출 * <mark class="hl"><strong>핵심 메시지 후보</strong></mark>: A안(성찰·초청형) / B안(고강도 열정을 넘어 평강의 좌표 위에서 지속되는 복음과 삶) / C안(상처 치유와 회복형) * <mark class="hl"><strong>제목 후보</strong></mark>: * A안: `청풍호반에서 마주한 고요의 깊이 — 분주한 일상을 멈추고 진중한 평강의 삶으로 건너가는 시간` * B안: `복음은 고강도 열정만으로 유지되지 않는다 — 제천 청풍호반에서 마주한 상처 치유와 평강의 좌표` * C안: `내 안에 고요한 호수 하나를 품는 일 — 뜨거운 열정의 시대를 건너는 이들을 위한 평강의 좌표` * <mark class="hl"><strong>목차 후보</strong></mark>: 목차 A안(경험·성찰형 4장 8절) vs 목차 B안(경험·성찰 + 철학·신학 해석 결합형 4장 12절)</p>
+    <p class="essay-p">### 2-2. `ican-evaluator` [Gate 2] 비교 심사 및 최종 선택 결정 * <mark class="hl"><strong>핵심 메시지 확정 (B안 + C안 결합)</strong></mark>: &gt; <mark class="hl"><strong>&quot;참된 삶과 복음의 생명력은 쉼 없이 타오르는 고강도 열정만으로 유지되는 것이 아니라, 삶의 상처를 넉넉히 품어 침전시키고 고요한 신뢰 속에서 자리를 지키는 내면의 ‘평강 좌표’ 위에서 비로소 지속된다.&quot;</strong></mark> * <mark class="hl"><strong>최종 제목 확정 (B안 채택)</strong></mark>: &gt; <mark class="hl"><strong>`복음은 고강도 열정만으로 유지되지 않는다 — 제천 청풍호반에서 마주한 상처 치유와 평강의 좌표`</strong></mark> * <mark class="hl"><strong>2단 목차 확정 (목차 B안 4장 12절 채택)</strong></mark>: * 린다 플라워의 독자 중심 원칙 및 목차 3대 속성(연결성·논리성·설득성) 심사 결과, 단순 감상 나열인 목차 A안보다 <mark class="hl"><strong>경험(청풍호 수면) → 진단(피로사회) → 전환(수심의 침전과 평강 좌표) → 신학적 논증(엘리야의 세미한 음성과 안식의 저항) → 일상의 귀환</strong></mark>으로 이어지는 목차 B안의 인과 구조가 월등히 설득력 있으므로 최종 채택.</p>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
   </div>
 
   <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
@@ -509,9 +624,9 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">## [3단계] A4 상세설계도 및 본문 연동 컷 설계 (`ican-drafter` 작성 ⇄ `ican-evaluator` Gate 3 승인)</p>
-    <p class="essay-p">* **제1장. 청풍호반의 초청: 과잉각성의 시간을 멈추고 마주한 고요** (1-1절 제천 산세와 청풍호 수면 / 1-2절 피로사회의 과잉활동과 사색적 삶 / 1-3절 진중하고 평강한 삶으로 부르는 초청장) * **Page 001 확정 컷 (`cheongpungho_mirror_invitation`)**: 옥순봉·구담봉 능선과 거울처럼 잔잔한 청풍호 수면, 물가 데크에 멈추어 선 고요한 뒷모습 * **제2장. 평강의 좌표: 삶의 상처를 삼키고 정화하는 내면의 담수량** (2-1절 세무의 책상과 목양의 강단 사이에서 긁힌 상처 직면 / 2-2절 거친 물줄기와 부유물을 깊은 수심으로 침전시키는 호수의 치유 원리 / 2-3절 영혼의 영점을 조율하는 평강의 좌표) * **Page 002 확정 컷 (`cheongpungho_shalom_coordinates`)**: 거친 물줄기를 깊은 수심으로 침전시키는 청풍호와 동심원 수면 위에 겹쳐진 평강의 좌표 * **제3장. 열정의 역설: 복음은 고강도 열정만으로 유지되지 않는다** (3-1절 뜨거움의 강도로 믿음을 증명하려던 피로 / 3-2절 갈멜산의 불길 뒤편 호렙산의 ‘세미한 음성(콜 드마마 다카)’ / 3-3절 안식의 저항과 잠잠한 신뢰) * **제4장. 일상의 귀환: 진중한 평강을 삶의 체질로 새기며** (4-1절 불꽃의 열기에서 깊은 물의 영성으로 / 4-2절 삶의 파도 앞에서 내면의 청풍호반으로 돌아가는 멈춤 / 4-3절 해 질 녘 금빛 윤슬과 평강의 다짐) * **Page 003 확정 컷 (`cheongpungho_whisper_golden_ripples`)**: 호렙산의 세미한 음성처럼 해 질 녘 청풍호의 잔잔한 수면 위로 번져 나가는 금빛 윤슬</p>
-    <p class="essay-p">---</p>
+    <p class="dc essay-p"><mark class="hl"><strong>## [3단계] A4 상세설계도 및 본문 연동 컷 설계 (`ican-drafter` 작성 ⇄ `ican-evaluator` Gate 3 승인)</strong></mark></p>
+    <p class="essay-p">* <mark class="hl"><strong>제1장. 청풍호반의 초청: 과잉각성의 시간을 멈추고 마주한 고요</strong></mark> (1-1절 제천 산세와 청풍호 수면 / 1-2절 피로사회의 과잉활동과 사색적 삶 / 1-3절 진중하고 평강한 삶으로 부르는 초청장) * <mark class="hl"><strong>Page 001 확정 컷 (`cheongpungho_mirror_invitation`)</strong></mark>: 옥순봉·구담봉 능선과 거울처럼 잔잔한 청풍호 수면, 물가 데크에 멈추어 선 고요한 뒷모습 * <mark class="hl"><strong>제2장. 평강의 좌표: 삶의 상처를 삼키고 정화하는 내면의 담수량</strong></mark> (2-1절 세무의 책상과 목양의 강단 사이에서 긁힌 상처 직면 / 2-2절 거친 물줄기와 부유물을 깊은 수심으로 침전시키는 호수의 치유 원리 / 2-3절 영혼의 영점을 조율하는 평강의 좌표) * <mark class="hl"><strong>Page 002 확정 컷 (`cheongpungho_shalom_coordinates`)</strong></mark>: 거친 물줄기를 깊은 수심으로 침전시키는 청풍호와 동심원 수면 위에 겹쳐진 평강의 좌표 * <mark class="hl"><strong>제3장. 열정의 역설: 복음은 고강도 열정만으로 유지되지 않는다</strong></mark> (3-1절 뜨거움의 강도로 믿음을 증명하려던 피로 / 3-2절 갈멜산의 불길 뒤편 호렙산의 ‘세미한 음성(콜 드마마 다카)’ / 3-3절 안식의 저항과 잠잠한 신뢰) * <mark class="hl"><strong>제4장. 일상의 귀환: 진중한 평강을 삶의 체질로 새기며</strong></mark> (4-1절 불꽃의 열기에서 깊은 물의 영성으로 / 4-2절 삶의 파도 앞에서 내면의 청풍호반으로 돌아가는 멈춤 / 4-3절 해 질 녘 금빛 윤슬과 평강의 다짐) * <mark class="hl"><strong>Page 003 확정 컷 (`cheongpungho_whisper_golden_ripples`)</strong></mark>: 호렙산의 세미한 음성처럼 해 질 녘 청풍호의 잔잔한 수면 위로 번져 나가는 금빛 윤슬</p>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
   </div>
 
   <footer class="foot"><span>004</span><span>1단 / 18px · 1.8</span></footer>
@@ -549,10 +664,10 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">## [4단계 &amp; 5단계] `ican-evaluator` Gate 4 정밀 진단 및 Gate 5 변증법적 퇴고 대조표</p>
+    <p class="dc essay-p"><mark class="hl"><strong>## [4단계 &amp; 5단계] `ican-evaluator` Gate 4 정밀 진단 및 Gate 5 변증법적 퇴고 대조표</strong></mark></p>
   </div>
   <section class="address">
-    <p class="essay-p">| 구간 | `ican-drafter` 4단계 초고 1 (교정 전) | `ican-evaluator` [Gate 4] `(독자)` / `(내 마음)` 진단 및 지시 | [Gate 5] 최종 승인 완성 원고 (교정 후) | | :--- | :--- | :--- | :--- | | **1·3문단** | 늘 시간을 분 단위로 쪼개어 쓰며 처리해야 할 &lt;u&gt;숫자와 서류&lt;/u&gt;... / &lt;u&gt;일터에서 마주하는 냉정한 현실의 책임&lt;/u&gt;과 강단에서 감당해야 하는 목양의 무게 사이에서 | **(내 마음 #1 · 구체적 동작 및 경험 복원)** 호숫가에 도착했을 때의 첫 신체 동작과 촉각을 보완하고, ‘숫자와 서류’, ‘냉정한 현실의 책임’이라는 추상 명사를 글쓴이 고유의 구체적 삶의 자리(세무의 책상과 목양의 강단)로 복원할 것. | **물가 나무 데크 난간에 두 손을 얹고 서늘한 물안개를 깊이 들이마시자**, 늘 시간을 분 단위로 쪼개어 쓰며 달려오던 걸음이 비로소 그 자리에 멈추어 섰다. / **오차 없는 숫자와 법리로 시비를 가려야 하는 세무의 책상과, 상한 영혼들의 눈물 섞인 기도제목을 품어야 하는 목양의 강단 사이를 오가며**... | | **2문단** | &lt;u&gt;철학자 한병철은 현대인이 외적 강제가 아니라 스스로를 끊임없이 채찍질하는 과잉활동과 과잉각성 속에서 깊은 피로에 잠식되어 간다고 진단했다(Han, 2010).&lt;/u&gt; | **(독자 #1 · 학술 인용 돌출 방지 징검다리)** 1문단의 서정적 몰입 직후 2문단 첫머리에 학술 인용이 불쑥 나오면 거리감이 생김. 먼저 걸음을 멈추었을 때 밀려오는 내면의 불안을 자각하는 징검다리 문장을 앞에 둘 것. | **잠시 걸음을 멈추었을 뿐인데도 마음 한구석이 불안해지는 것을 보며, 내가 얼마나 오랜 시간 쉼을 잃어버린 채 살아왔는지를 새삼 깨달았다.** 철학자 한병철이 『피로사회』에서 진단했듯, 외적 강제가 아니라 스스로를 끊임없이 채찍질하는 과잉활동과 과잉각성 속에서 나 또한 깊은 피로에 잠식되어 있었던 것이다(Han, 2010). | | **4문단** | 그 넉넉한 품을 바라보며 &lt;u&gt;나는 우리의 내면 또한 삶의 상처를 치유할 평강의 좌표를 본래 보유하고 있음을 생각했다.&lt;/u&gt; | **(내 마음 #2 · 보편 명제의 1인칭 실존화)** ‘우리의 내면 또한 ~ 보유하고 있음을 생각했다’는 제3자적 해설문 어투를 걷어내고, 상처를 조급히 털어내려 애쓰지 않아도 된다는 1인칭 실존의 안도와 발견으로 벼려 낼 것. | 그 넉넉한 수심을 들여다보며 나는 비로소 안도할 수 있었다. **내 안에 남은 상처와 아픔을 조급하게 털어내려 애쓰지 않아도, 하나님이 주신 내면의 깊은 호수 아래로 조용히 가라앉힐 때 다시 맑은 눈으로 삶을 바라볼 ‘평강의 좌표’가 내 안에도 자리하고 있음을 발견했기 때문이다.** | | **5·6문단** | 복음은 결코 고강도 열정만으로 유지되는 것이 아니라는 사실을 말이다. / 성경 속 엘리야 선지자의 걸음도 그러했다. | **(독자 #2 · 예상 반문 해소)** 성실히 헌신해 온 독자가 ‘열정 자체를 부정하는가?’라고 오해하지 않도록, 뜨거운 헌신의 가치를 인정하되 ‘고요히 머무는 자리를 잃고 열정의 강도만을 척도로 삼을 때의 탈진’을 경계하는 문장을 보완할 것. | 복음은 결코 고강도 열정만으로 유지되는 것이 아니라는 사실을 말이다. **물론 주님을 향한 뜨거운 헌신은 귀한 은혜이지만, 고요히 머무는 자리를 잃어버린 채 열정의 강도만을 신앙의 척도로 삼을 때 영혼은 머지않아 바닥을 드러내고 만다.** / 성경 속 엘리야 선지자의 걸음이 이를 여실히 보여준다. |</p>
+    <p class="essay-p">| 구간 | `ican-drafter` 4단계 초고 1 (교정 전) | `ican-evaluator` [Gate 4] `(독자)` / `(내 마음)` 진단 및 지시 | [Gate 5] 최종 승인 완성 원고 (교정 후) | | :--- | :--- | :--- | :--- | | <mark class="hl"><strong>1·3문단</strong></mark> | 늘 시간을 분 단위로 쪼개어 쓰며 처리해야 할 &lt;u&gt;숫자와 서류&lt;/u&gt;... / &lt;u&gt;일터에서 마주하는 냉정한 현실의 책임&lt;/u&gt;과 강단에서 감당해야 하는 목양의 무게 사이에서 | <mark class="hl"><strong>(내 마음 #1 · 구체적 동작 및 경험 복원)</strong></mark> 호숫가에 도착했을 때의 첫 신체 동작과 촉각을 보완하고, ‘숫자와 서류’, ‘냉정한 현실의 책임’이라는 추상 명사를 글쓴이 고유의 구체적 삶의 자리(세무의 책상과 목양의 강단)로 복원할 것. | <mark class="hl"><strong>물가 나무 데크 난간에 두 손을 얹고 서늘한 물안개를 깊이 들이마시자</strong></mark>, 늘 시간을 분 단위로 쪼개어 쓰며 달려오던 걸음이 비로소 그 자리에 멈추어 섰다. / <mark class="hl"><strong>오차 없는 숫자와 법리로 시비를 가려야 하는 세무의 책상과, 상한 영혼들의 눈물 섞인 기도제목을 품어야 하는 목양의 강단 사이를 오가며</strong></mark>... | | <mark class="hl"><strong>2문단</strong></mark> | &lt;u&gt;철학자 한병철은 현대인이 외적 강제가 아니라 스스로를 끊임없이 채찍질하는 과잉활동과 과잉각성 속에서 깊은 피로에 잠식되어 간다고 진단했다(Han, 2010).&lt;/u&gt; | <mark class="hl"><strong>(독자 #1 · 학술 인용 돌출 방지 징검다리)</strong></mark> 1문단의 서정적 몰입 직후 2문단 첫머리에 학술 인용이 불쑥 나오면 거리감이 생김. 먼저 걸음을 멈추었을 때 밀려오는 내면의 불안을 자각하는 징검다리 문장을 앞에 둘 것. | <mark class="hl"><strong>잠시 걸음을 멈추었을 뿐인데도 마음 한구석이 불안해지는 것을 보며, 내가 얼마나 오랜 시간 쉼을 잃어버린 채 살아왔는지를 새삼 깨달았다.</strong></mark> 철학자 한병철이 『피로사회』에서 진단했듯, 외적 강제가 아니라 스스로를 끊임없이 채찍질하는 과잉활동과 과잉각성 속에서 나 또한 깊은 피로에 잠식되어 있었던 것이다(Han, 2010). | | <mark class="hl"><strong>4문단</strong></mark> | 그 넉넉한 품을 바라보며 &lt;u&gt;나는 우리의 내면 또한 삶의 상처를 치유할 평강의 좌표를 본래 보유하고 있음을 생각했다.&lt;/u&gt; | <mark class="hl"><strong>(내 마음 #2 · 보편 명제의 1인칭 실존화)</strong></mark> ‘우리의 내면 또한 ~ 보유하고 있음을 생각했다’는 제3자적 해설문 어투를 걷어내고, 상처를 조급히 털어내려 애쓰지 않아도 된다는 1인칭 실존의 안도와 발견으로 벼려 낼 것. | 그 넉넉한 수심을 들여다보며 나는 비로소 안도할 수 있었다. <mark class="hl"><strong>내 안에 남은 상처와 아픔을 조급하게 털어내려 애쓰지 않아도, 하나님이 주신 내면의 깊은 호수 아래로 조용히 가라앉힐 때 다시 맑은 눈으로 삶을 바라볼 ‘평강의 좌표’가 내 안에도 자리하고 있음을 발견했기 때문이다.</strong></mark> | | <mark class="hl"><strong>5·6문단</strong></mark> | 복음은 결코 고강도 열정만으로 유지되는 것이 아니라는 사실을 말이다. / 성경 속 엘리야 선지자의 걸음도 그러했다. | <mark class="hl"><strong>(독자 #2 · 예상 반문 해소)</strong></mark> 성실히 헌신해 온 독자가 ‘열정 자체를 부정하는가?’라고 오해하지 않도록, 뜨거운 헌신의 가치를 인정하되 ‘고요히 머무는 자리를 잃고 열정의 강도만을 척도로 삼을 때의 탈진’을 경계하는 문장을 보완할 것. | 복음은 결코 고강도 열정만으로 유지되는 것이 아니라는 사실을 말이다. <mark class="hl"><strong>물론 주님을 향한 뜨거운 헌신은 귀한 은혜이지만, 고요히 머무는 자리를 잃어버린 채 열정의 강도만을 신앙의 척도로 삼을 때 영혼은 머지않아 바닥을 드러내고 만다.</strong></mark> / 성경 속 엘리야 선지자의 걸음이 이를 여실히 보여준다. |</p>
   </section>
 
   <footer class="foot"><span>005</span><span>1단 / 18px · 1.8</span></footer>
@@ -614,6 +729,35 @@
       localStorage.setItem('ait_html_theme', next);
     } catch(e) {}
     showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
   }
 
   function sermonText() {
@@ -680,6 +824,13 @@
         applyFontSize(Number(savedSize));
       }
     } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
   });
 </script>
 </body>

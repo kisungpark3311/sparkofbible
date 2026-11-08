@@ -195,7 +195,7 @@
     filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
   }
 
-  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
   .body{
     font-size:var(--body-size);
     transition:font-size .2s ease;
@@ -213,6 +213,26 @@
     font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
   }
   .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(253, 224, 71, 0.58) 58%, transparent 58%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 3px;
+    border-radius:3px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.42) 60%, transparent 60%);
+    color:#fef08a;
+    font-weight:700;
+  }
 
   /* 결미 단락 */
   .address{
@@ -265,17 +285,111 @@
     transform:translateX(-50%) translateY(0); opacity:1;
   }
 
-  /* ---------- 모바일 반응형 호환 ---------- */
-  @media (max-width: 820px){
-    #top-toolbar{padding:0 14px}
-    .toolbar-left{display:none}
-    .toolbar-right{width:100%; justify-content:center}
-    .page{
-      width:calc(100% - 24px);
-      min-height:auto;
-      margin:0 auto 24px;
-      padding:32px 24px 24px;
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] figure{margin:14px 0 20px}
+  body[data-view="mobile"] .photo{height:clamp(124px, 34vw, 160px); border-radius:4px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:normal;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
     }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) figure{margin:14px 0 20px}
+    body:not([data-view="a4"]) .photo{height:clamp(116px, 34vw, 156px); border-radius:4px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:normal;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
   }
 
   @media print{
@@ -283,13 +397,13 @@
     body{background:#fff !important; color:#000 !important; padding:0}
     #book{zoom:1 !important}
     #top-toolbar,.zoom,#toast{display:none !important}
-    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
   }
 </style>
 </head>
 <body>
 
-<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
 <header id="top-toolbar">
   <div class="toolbar-left">
     <span class="current-section-title" id="currentSectionTitle">숙성된 옹기들의 합창 — 익산 고스락 산책길에서</span>
@@ -298,6 +412,7 @@
     <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
     <span id="fontScaleDisplay">100%</span>
     <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
     <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
     <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
     <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
@@ -383,9 +498,9 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">익산 이화동산의 문을 나서자 너른 정원이 눈앞에 열렸다. 오늘 산책에는 동행을 두지 않았다. 온전히 혼자만의 사색에 잠기고 싶어 천천히 걸음을 옮겼다. 이곳의 또 다른 이름은 ‘고스락’이다. 으뜸이나 꼭대기를 뜻하는 순우리말이라지만, 정작 마당에 들어서면 무엇 하나 높은 체하며 위세를 부리는 것이 없다. 잘 가꾸어진 푸른 잔디밭 위로 낮은 바람이 소리 없이 지나갈 뿐이다.</p>
-    <p class="essay-p">구두 밑창 너머로 잔디의 폭신한 탄력이 전해지자, 아침 내내 서재 책상 앞에서 원고와 밀린 일들을 헤아리느라 굳어 있던 어깨가 조금씩 내려앉았다. 환경심리학자 스티븐 캐플런은 자연이 건네는 이러한 잔잔한 자극을 ‘부드러운 매혹(Soft Fascination)’이라 불렀다(Kaplan, 1995). 억지로 무언가에 집중하느라 지친 마음이 풀빛과 바람결에 시선을 맡길 때, 비로소 머릿속의 소음이 가라앉고 자기 안을 들여다보는 성찰의 자리가 열린다는 뜻이다. 솔숲 사이로 불어오는 바람에 호흡을 맞추며 걷는 사이, 시야가 탁 트이면서 수천 개의 검붉은 항아리들이 대지를 가득 메운 장관이 나타났다.</p>
-    <p class="pull essay-p">산책로를 따라 걸어가다 잔디밭 끝자락에서 뜻밖의 풍경과 마주쳤다. 수천 개의 옹기 군락 너머에 실물의 사분의 일 크기로 축소해 놓은 첨성대가 서 있었다. 처음에는 장독대 정원에 웬 신라의 천문대인가 싶어 낯설었다. 그러나 걸음을 멈추고 첨성대 꼭대기 우물 정(井)자 돌이 우러르는 하늘과, 그 아래 오천여 개 옹기 뚜껑들이 일제히 이고 있는 하늘을 번갈아 바라보자 비로소 고개가 끄덕여졌다. 별의 길을 읽던 옛 돌탑과 햇살을 받아 장을 익히는 오늘의 독들이 한 하늘 아래서 시간을 나누어 맡고 있었던 것이다.</p>
+    <p class="dc essay-p">익산 이화동산의 문을 나서자 너른 정원이 눈앞에 열렸다. 오늘 산책에는 동행을 두지 않았다. 온전히 혼자만의 사색에 잠기고 싶어 천천히 걸음을 옮겼다. 이곳의 또 다른 이름은 <mark class="hl"><strong>‘고스락’</strong></mark>이다. 으뜸이나 꼭대기를 뜻하는 순우리말이라지만, 정작 마당에 들어서면 무엇 하나 높은 체하며 위세를 부리는 것이 없다. <mark class="hl"><strong>잘 가꾸어진 푸른 잔디밭 위로 낮은 바람이 소리 없이 지나갈 뿐이다.</strong></mark></p>
+    <p class="essay-p">구두 밑창 너머로 잔디의 폭신한 탄력이 전해지자, 아침 내내 서재 책상 앞에서 원고와 밀린 일들을 헤아리느라 굳어 있던 어깨가 조금씩 내려앉았다. <mark class="hl"><strong>환경심리학자 스티븐 캐플런은 자연이 건네는 이러한 잔잔한 자극을 ‘부드러운 매혹(Soft Fascination)’이라 불렀다(Kaplan, 1995).</strong></mark> 억지로 무언가에 집중하느라 지친 마음이 풀빛과 바람결에 시선을 맡길 때, 비로소 머릿속의 소음이 가라앉고 자기 안을 들여다보는 성찰의 자리가 열린다는 뜻이다. 솔숲 사이로 불어오는 바람에 호흡을 맞추며 걷는 사이, 시야가 탁 트이면서 수천 개의 검붉은 항아리들이 대지를 가득 메운 장관이 나타났다.</p>
+    <p class="pull essay-p">산책로를 따라 걸어가다 잔디밭 끝자락에서 뜻밖의 풍경과 마주쳤다. 수천 개의 옹기 군락 너머에 실물의 사분의 일 크기로 축소해 놓은 첨성대가 서 있었다. 처음에는 장독대 정원에 웬 신라의 천문대인가 싶어 낯설었다. 그러나 걸음을 멈추고 첨성대 꼭대기 우물 정(井)자 돌이 우러르는 하늘과, <mark class="hl"><strong>그 아래 오천여 개 옹기 뚜껑들이 일제히 이고 있는 하늘을 번갈아 바라보자 비로소 고개가 끄덕여졌다.</strong></mark> 별의 길을 읽던 옛 돌탑과 햇살을 받아 장을 익히는 오늘의 독들이 한 하늘 아래서 시간을 나누어 맡고 있었던 것이다.</p>
   </div>
 
   <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
@@ -446,10 +561,10 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">첨성대는 하늘의 별자리를 살피고 사계절의 흐름을 읽어내던 과거의 시간이다. 그 곁에 늘어선 오천여 개의 옹기들은 하늘이 내려준 그 햇살과 바람을 받아 지금 이 순간에도 묵묵히 장을 익혀내는 현재의 시간이다. 유구한 역사는 박물관의 유리관 속에 멈춰 있지 않고, 오늘도 살아 움직이는 발효의 시간과 한 마당에서 숨을 나누고 있었다. 김수환과 데이비드 후 연구팀이 규명했듯, 전통 옹기가 음식을 썩지 않게 하고 깊은 맛으로 숙성시키는 비밀은 벽면에 뚫린 무수한 미세 숨구멍에 있다(Kim &amp; Hu, 2023). 유리나 플라스틱처럼 안팎을 완전히 걸어 잠그면 내용물은 안에서 부패한다. 오직 보이지 않는 숨구멍으로 바깥의 공기와 바람을 받아들이고 내쉬어야만 유익한 미생물이 자라나 깊은 장맛을 빚어낸다. 하늘의 때를 읽는 지혜와 땅의 바람을 호흡하는 그릇이 잔디밭 위에서 하나로 이어지고 있었다.</p>
+    <p class="dc essay-p">첨성대는 하늘의 별자리를 살피고 사계절의 흐름을 읽어내던 과거의 시간이다. 그 곁에 늘어선 오천여 개의 옹기들은 하늘이 내려준 그 햇살과 바람을 받아 지금 이 순간에도 묵묵히 장을 익혀내는 현재의 시간이다. 유구한 역사는 박물관의 유리관 속에 멈춰 있지 않고, 오늘도 살아 움직이는 발효의 시간과 한 마당에서 숨을 나누고 있었다. 김수환과 데이비드 후 연구팀이 규명했듯, 전통 옹기가 음식을 썩지 않게 하고 깊은 맛으로 숙성시키는 비밀은 벽면에 뚫린 무수한 미세 숨구멍에 있다(Kim &amp; Hu, 2023). 유리나 플라스틱처럼 안팎을 완전히 걸어 잠그면 내용물은 안에서 부패한다. <mark class="hl"><strong>오직 보이지 않는 숨구멍으로 바깥의 공기와 바람을 받아들이고 내쉬어야만 유익한 미생물이 자라나 깊은 장맛을 빚어낸다.</strong></mark> 하늘의 때를 읽는 지혜와 땅의 바람을 호흡하는 그릇이 잔디밭 위에서 하나로 이어지고 있었다.</p>
     <span class="break"></span>
-    <p class="essay-p">항아리들이 줄지어 선 사잇길로 깊숙이 걸어 들어갔다. 지난 수십 년 동안 전국 각지에서 하나둘 모여든 항아리들은 생김새도 빛깔도 저마다 달랐다. 배가 넉넉하게 부른 항아리 옆에 허리가 잘록한 단지가 서 있고, 짙은 갈색 옹기 곁에 세월의 더께가 내려앉은 거친 독이 어깨를 나란히 하고 있었다. 그중에는 한국전쟁 당시 날아든 총탄 자국을 몸통에 그대로 품은 채 살아남은 항아리도 있었다. 파인 자리에 손끝을 가까이 대어보니 불길과 총성을 견뎌낸 흙결이 거칠게 살아 있었다. 모진 땡볕과 눈보라, 시대의 상흔까지 맨몸으로 받아내며 깨지지 않고 버텨온 그릇들이었다.</p>
-    <p class="essay-p">가만히 서서 그 행렬을 바라보노라니, 그것들은 더 이상 흙으로 구운 그릇으로 보이지 않았다. 모진 세월을 말없이 견뎌낸 사람들의 모습이었다. 심리학자 리처드 테데스키와 로런스 칼훈은 인간이 삶의 거센 풍파와 고통을 통과하며 이전보다 훨씬 더 깊고 단단한 내면을 갖게 되는 과정을 ‘시련 후 성장(Posttraumatic Growth)’이라 설명했다(Tedeschi &amp; Calhoun, 2004). 상처 입은 자리마다 깊어진 속내를 간직한 사람들처럼, 수천 개의 옹기들은 각자의 자리에서 침묵으로 속을 익히고 있었다. 솔바람이 독과 독 사이의 좁은 골목을 빠져나가며 둥근 어깨들을 스칠 때마다, 낮게 ‘우웅—’ 하고 울리는 공명음이 번져 나왔다. 화려한 소리를 내세우지 않아도, 세월의 무게를 견뎌낸 존재들이 서로의 곁을 지키며 빚어내는 무언의 화음이었다.</p>
+    <p class="essay-p">항아리들이 줄지어 선 사잇길로 깊숙이 걸어 들어갔다. 지난 수십 년 동안 전국 각지에서 하나둘 모여든 항아리들은 생김새도 빛깔도 저마다 달랐다. 배가 넉넉하게 부른 항아리 옆에 허리가 잘록한 단지가 서 있고, 짙은 갈색 옹기 곁에 세월의 더께가 내려앉은 거친 독이 어깨를 나란히 하고 있었다. 그중에는 한국전쟁 당시 날아든 총탄 자국을 몸통에 그대로 품은 채 살아남은 항아리도 있었다. 파인 자리에 손끝을 가까이 대어보니 불길과 총성을 견뎌낸 흙결이 거칠게 살아 있었다. <mark class="hl"><strong>모진 땡볕과 눈보라, 시대의 상흔까지 맨몸으로 받아내며 깨지지 않고 버텨온 그릇들이었다.</strong></mark></p>
+    <p class="essay-p">가만히 서서 그 행렬을 바라보노라니, 그것들은 더 이상 흙으로 구운 그릇으로 보이지 않았다. 모진 세월을 말없이 견뎌낸 사람들의 모습이었다. 심리학자 리처드 테데스키와 로런스 칼훈은 인간이 삶의 거센 풍파와 고통을 통과하며 이전보다 훨씬 더 깊고 단단한 내면을 갖게 되는 과정을 <mark class="hl"><strong>‘시련 후 성장(Posttraumatic Growth)’</strong></mark>이라 설명했다(Tedeschi &amp; Calhoun, 2004). 상처 입은 자리마다 깊어진 속내를 간직한 사람들처럼, 수천 개의 옹기들은 각자의 자리에서 침묵으로 속을 익히고 있었다. 솔바람이 독과 독 사이의 좁은 골목을 빠져나가며 둥근 어깨들을 스칠 때마다, 낮게 <mark class="hl"><strong>‘우웅—’</strong></mark> 하고 울리는 공명음이 번져 나왔다. <mark class="hl"><strong>화려한 소리를 내세우지 않아도, 세월의 무게를 견뎌낸 존재들이 서로의 곁을 지키며 빚어내는 무언의 화음이었다.</strong></mark></p>
   </div>
 
   <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
@@ -502,10 +617,10 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">합창이 울려 퍼지는 산책로 한가운데서 문득 내 삶의 시간을 돌아보았다. 나는 그동안 얼마나 조급하게 결과를 재촉하며 살아왔던가. 한 편의 글을 쓰고 한 줄의 문장을 묵상하면서도, 내 안에서 생각과 인격이 묵묵히 삭아들 시간을 견디지 못해 서둘러 독 뚜껑을 열어보듯 조바심을 내곤 했다. 때로는 상처받지 않겠다며 마음의 문을 유리병처럼 단단히 걸어 잠근 채, 밖에서 불어오는 시련의 바람을 원망하기만 했다.</p>
+    <p class="dc essay-p">합창이 울려 퍼지는 산책로 한가운데서 문득 내 삶의 시간을 돌아보았다. 나는 그동안 얼마나 조급하게 결과를 재촉하며 살아왔던가. 한 편의 글을 쓰고 한 줄의 문장을 묵상하면서도, 내 안에서 생각과 인격이 묵묵히 삭아들 시간을 견디지 못해 서둘러 독 뚜껑을 열어보듯 조바심을 내곤 했다. <mark class="hl"><strong>때로는 상처받지 않겠다며 마음의 문을 유리병처럼 단단히 걸어 잠근 채, 밖에서 불어오는 시련의 바람을 원망하기만 했다.</strong></mark></p>
   </div>
   <section class="address">
-    <p class="essay-p">고스락의 옹기들은 온몸의 숨구멍으로 비바람을 받아들이며 오늘도 조금씩 깊어지고 있다. 잔디밭을 가로질러 불어오는 바람을 맞으며 다시 천천히 정문 쪽으로 걸음을 옮겼다. 오늘 산책을 마치고 서재로 돌아가면, 유리병처럼 닫아두었던 마음의 창을 조금쯤 열어두어야겠다. 서두르지 않고 내게 주어진 세월의 바람을 기꺼이 호흡하며 익어가다 보면, 언젠가 내 삶도 저 숙성된 옹기들의 행렬 한구석에서 깊고 그윽한 화음 한 줄을 보탤 수 있으리라 조용히 소망해 본다.</p>
+    <p class="essay-p">고스락의 옹기들은 온몸의 숨구멍으로 비바람을 받아들이며 오늘도 조금씩 깊어지고 있다. 잔디밭을 가로질러 불어오는 바람을 맞으며 다시 천천히 정문 쪽으로 걸음을 옮겼다. 오늘 산책을 마치고 서재로 돌아가면, 유리병처럼 닫아두었던 마음의 창을 조금쯤 열어두어야겠다. 서두르지 않고 내게 주어진 세월의 바람을 기꺼이 호흡하며 익어가다 <mark class="hl"><strong>보면, 언젠가 내 삶도 저 숙성된 옹기들의 행렬 한구석에서 깊고 그윽한 화음 한 줄을 보탤 수 있으리라 조용히 소망해 본다.</strong></mark></p>
   </section>
 
   <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
@@ -567,6 +682,35 @@
       localStorage.setItem('ait_html_theme', next);
     } catch(e) {}
     showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
   }
 
   function sermonText() {
@@ -633,6 +777,13 @@
         applyFontSize(Number(savedSize));
       }
     } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
   });
 </script>
 </body>
