@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — 아모스 5:1–6 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 14px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- figure ---------- */
+  figure{margin:18px 0 26px}
+  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(253, 224, 71, 0.58) 58%, transparent 58%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 3px;
+    border-radius:3px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.42) 60%, transparent 60%);
+    color:#fef08a;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] figure{margin:14px 0 20px}
+  body[data-view="mobile"] .photo{height:clamp(124px, 34vw, 160px); border-radius:4px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:normal;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) figure{margin:14px 0 20px}
+    body:not([data-view="a4"]) .photo{height:clamp(116px, 34vw, 156px); border-radius:4px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:normal;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — 아모스 5:1–6</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — 아모스 5:1–6</b><span>01 · 2026년 11월 10일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — 아모스 5:1–6</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="벧엘 길갈 브엘세바로 기울던 발을 멈추고 정면의 여호와를 향해 고개를 들어 숨을 내쉬는 신체 묵상">
+        <defs>
+          <linearGradient id="gAmos5Bg2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#172a24"/>
+            <stop offset="0.5" stop-color="#213c34"/>
+            <stop offset="1" stop-color="#12211c"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gAmos5Bg2)"/>
+        <!-- 좌·우·하단: 금지된 세 성소 방향과 발을 떼기 직전의 정지선 -->
+        <g transform="translate(30, 18)">
+          <!-- 왼쪽: 길갈 -->
+          <rect x="0" y="44" width="108" height="40" rx="5" fill="#1e293b" stroke="#64748b" stroke-dasharray="3,3"/>
+          <text x="54" y="62" font-family="serif" font-size="11" fill="#94a3b8" text-anchor="middle">← 길갈 (5:5)</text>
+          <text x="54" y="77" font-family="serif" font-size="9.5" fill="#f87171" text-anchor="middle">들어가지 말라 (לֹא)</text>
+          <!-- 오른쪽: 벧엘 -->
+          <rect x="276" y="44" width="118" height="40" rx="5" fill="#1e293b" stroke="#ef4444" stroke-dasharray="3,3"/>
+          <text x="335" y="62" font-family="serif" font-size="11" fill="#fca5a5" text-anchor="middle">벧엘 (בֵּית־אֵל) →</text>
+          <text x="335" y="77" font-family="serif" font-size="9.5" fill="#f87171" text-anchor="middle">찾지 말라 (אַל 지시형)</text>
+          <!-- 아래쪽: 브엘세바 -->
+          <rect x="132" y="96" width="124" height="32" rx="5" fill="#1e293b" stroke="#64748b" stroke-dasharray="3,3"/>
+          <text x="194" y="116" font-family="serif" font-size="10" fill="#94a3b8" text-anchor="middle">↓ 브엘세바 (나아가지 말라)</text>
+          <!-- 중앙 정면: 여호와 자신을 향한 회전과 고개 듦 -->
+          <circle cx="194" cy="64" r="24" fill="#2d4f43" stroke="#fbbf24" stroke-width="2"/>
+          <path d="M194 40 L194 12" stroke="#fbbf24" stroke-width="3"/>
+          <polygon points="194,4 187,15 201,15" fill="#fbbf24"/>
+          <rect x="118" y="-10" width="152" height="22" rx="4" fill="#b45309"/>
+          <text x="194" y="5" font-family="serif" font-size="10.5" fill="#fffbeb" text-anchor="middle" font-weight="bold">정면 목적어: אֶת־יְהוָה (주님 자신)</text>
+          <text x="194" y="68" font-family="serif" font-size="10" fill="#fef3c7" text-anchor="middle" font-weight="bold">몸의 회전</text>
+        </g>
+        <!-- 우측 패널: 고개를 들고 쉬는 들숨과 날숨, 칼뱅의 이중 은혜 -->
+        <g transform="translate(448, 22)">
+          <rect width="202" height="116" rx="6" fill="#1d352e" stroke="#d97706" stroke-width="1.4"/>
+          <text x="101" y="24" font-family="serif" font-size="11.5" fill="#fde68a" text-anchor="middle" font-weight="bold">“여호와를 찾으라, 그리고 살라”</text>
+          <path d="M24 54 Q62 34 101 54 T178 54" fill="none" stroke="#6ee7b7" stroke-width="2.2"/>
+          <path d="M24 68 Q62 48 101 68 T178 68" fill="none" stroke="#fbbf24" stroke-width="1.6" opacity="0.85"/>
+          <text x="101" y="90" font-family="serif" font-size="10" fill="#e2e8f0" text-anchor="middle">숨은 고개를 든 보상이 아니라</text>
+          <text x="101" y="105" font-family="serif" font-size="10" fill="#fcd34d" text-anchor="middle" font-weight="bold">분부를 받아 내쉬는 생명의 동작</text>
+        </g>
+        </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 세 성소(벧엘·길갈·브엘세바)로 기울던 발을 멈추어 정면의 여호와께 고개를 들고 내쉬는 생명의 호흡</span><span>아모스 5:4 · ‘그리하면’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">본 문서는 진행·집필 전담 에이전트(<mark class="hl"><strong>`ican-drafter`</strong></mark>)와 독립 평가·선택안 결정 전담 에이전트(<mark class="hl"><strong>`ican-evaluator`</strong></mark>)가 분리 운영되며, 특히 <mark class="hl"><strong>2단계(목차), 3단계(상세설계도), 5단계(내 글화·5대 지표 퇴고)에서 단 1회에 끝내지 않고 각 3라운드(`Round 1 → Round 2 → Round 3`)에 걸쳐 평가·비평·수정을 주고받으며 원고를 벼려 낸 전 과정</strong></mark>을 기록한 문서입니다.</p>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
+    <p class="essay-p"><mark class="hl"><strong>## [1단계] 글감 발견과 생각 확장 (`ican-drafter` 후보 도출 ⇄ `ican-evaluator` Gate 1 결정)</strong></mark></p>
+    <p class="pull essay-p">### 1-1. `ican-drafter` 글감 후보 3안 및 학술·성경 자료 후보 4종 제출 * <mark class="hl"><strong>글감 후보 A안 (문법·신앙 거래 장부 성찰 중심)</strong></mark>: 개역한글 아모스 5:4·6의 ‘그리하면’이라는 조건의 칸을 걷어내고, 히브리어 원문이 접속사 `וְ`(브, ‘그리고’) 단 한 글자로 나란히 세운 두 개의 명령형(`디르슈니 비흐유` — 나를 찾으라, 그리고 살라!)을 마주하며 내 안의 거래 장부를 덮는 성찰. * <mark class="hl"><strong>글감 후보 B안 (신체 감각·찾음의 목적어 분별 중심)</strong></mark>: 서재 방 한가운데서 세 성소(벧엘·길갈·브엘세바)로 기울던 몸을 발을 떼기 직전에 멈추어 정면으로 돌려 세우고, 6절에서 고개를 들어 날숨을 내쉬며 문법 구조보다 무서운 것이 첫째 명령의 목적어(‘벧엘’이 아닌 ‘여호와 자신’)임을 깨닫는 성찰. * <mark class="hl"><strong>글감 후보 C안 (원문 문법 + 몸의 회전 + 세무·목회·다이어리 실무 통합안)</strong></mark>: A안의 원문 발견과 B안의 신체 호흡을 품고, 이를 폐업 위기 사업자와 마주 앉은 세무 상담실의 두 줄 권면, 교회 주보·집회 공지 문안의 수정, 아침 서재 다이어리 첫 줄의 기록으로 일관되게 관통시키는 통합 성찰. * <mark class="hl"><strong>학술·성경 자료 후보 4종</strong></mark>: 1. <mark class="hl"><strong>히브리어 원문 구문 분석</strong></mark>: 아모스 5:4·6의 `다라시`+`하야` 칼 명령형 2인칭 남성 복수 병렬, 구약 전체 7절 중 둘 다 명령형인 곳은 본문 2절뿐, 5:1–6 전체 79단어·105형태소 중 조건 표지 0개, 5:5 `베알-티드레슈 베트엘`(`אַל`+지시형) 목적어 금지. 2. <mark class="hl"><strong>장 칼뱅(John Calvin), 『기독교강요(1559)』 제3권 11·16장</strong></mark>: ‘이중 은혜(duplex gratia)’ — 칭의와 성화의 불가분리성 및 비조건성. 3. <mark class="hl"><strong>존 오스틴(J. L. Austin), 『화행론(1962)』</strong></mark>: ‘수행적 발화(Performative Utterance)’ — 미래 조건부 예측이 아니라 발화 순간 생명의 호흡을 개시하게 하는 명령. 4. <mark class="hl"><strong>요한복음 5:39–40 &amp; 요한계시록 1:18</strong></mark>: 성소와 문자를 넘어 찾음의 유일한 목적어이신 주님과, 애가의 자리(암 5:2)에서 “살라”고 명하시는 살아 계신 그리스도.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — 아모스 5:1–6</b><span>02 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="세무 상담실과 교회 공지 문안과 아침 다이어리에 나란히 적힌 그리고의 두 줄 분부">
+        <defs>
+          <linearGradient id="gAmos5Bg3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#231f20"/>
+            <stop offset="0.5" stop-color="#362f2d"/>
+            <stop offset="1" stop-color="#1f1b1a"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gAmos5Bg3)"/>
+        <!-- 카드 1: 세무 상담실의 두 줄 -->
+        <g transform="translate(18, 20)">
+          <rect width="204" height="120" rx="6" fill="#faf8f5" stroke="#d97706" stroke-width="1.5"/>
+          <rect width="204" height="25" rx="6" fill="#78350f"/>
+          <text x="102" y="17" font-family="serif" font-size="10.5" fill="#fef3c7" text-anchor="middle" font-weight="bold">1. 세무 상담실의 두 줄 (암 5:3-4)</text>
+          <text x="14" y="48" font-family="serif" font-size="10.5" fill="#1e293b" font-weight="bold">① 오늘 장부를 정직히 정리하십시오.</text>
+          <text x="14" y="70" font-family="serif" font-size="11" fill="#b45309" font-weight="bold">② 그리고 내일 가게 문을 여십시오.</text>
+          <line x1="14" y1="84" x2="190" y2="84" stroke="#cbd5e1" stroke-width="1"/>
+          <text x="102" y="104" font-family="serif" font-size="9.5" fill="#475569" text-anchor="middle">섣부른 조건문 대신 오늘의 분부</text>
+        </g>
+        <!-- 카드 2: 교회 공지 문안의 두 줄 -->
+        <g transform="translate(235, 20)">
+          <rect width="204" height="120" rx="6" fill="#faf8f5" stroke="#0f766e" stroke-width="1.5"/>
+          <rect width="204" height="25" rx="6" fill="#115e59"/>
+          <text x="102" y="17" font-family="serif" font-size="10.5" fill="#ccfbf1" text-anchor="middle" font-weight="bold">2. 목회 공지 문안의 두 줄 (암 5:5-6)</text>
+          <text x="14" y="48" font-family="serif" font-size="10.5" fill="#1e293b" font-weight="bold">① 장소가 아닌 주님을 찾읍시다.</text>
+          <text x="14" y="70" font-family="serif" font-size="11" fill="#0f766e" font-weight="bold">② 그리고 한 주간을 살아냅시다.</text>
+          <line x1="14" y1="84" x2="190" y2="84" stroke="#cbd5e1" stroke-width="1"/>
+          <text x="102" y="104" font-family="serif" font-size="9.5" fill="#475569" text-anchor="middle">도덕주의 우월감과 정죄감 해소</text>
+        </g>
+        <!-- 카드 3: 아침 다이어리 맨 윗줄 -->
+        <g transform="translate(452, 20)">
+          <rect width="204" height="120" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.8"/>
+          <rect width="204" height="25" rx="6" fill="#92400e"/>
+          <text x="102" y="17" font-family="serif" font-size="10.5" fill="#fef3c7" text-anchor="middle" font-weight="bold">3. 아침 다이어리 첫 줄 (오늘의 숨)</text>
+          <text x="14" y="48" font-family="serif" font-size="10.5" fill="#1e293b" font-weight="bold">1. 오늘도 주님 자신을 찾는다.</text>
+          <text x="14" y="70" font-family="serif" font-size="11" fill="#b45309" font-weight="bold">2. 그리고 오늘 하루를 살아낸다.</text>
+          <line x1="14" y1="84" x2="190" y2="84" stroke="#fcd34d" stroke-width="1"/>
+          <text x="102" y="104" font-family="serif" font-size="9.5" fill="#78350f" text-anchor="middle" font-weight="bold">보수가 아닌 거룩한 분부로 출발</text>
+        </g>
+        </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 세무 상담실·목회 공지·아침 다이어리에서 ‘그러면’을 지우고 ‘그리고’로 나란히 적는 두 줄의 분부</span><span>요 5:39–40  · ‘이중 은혜’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">### 1-2. `ican-evaluator` [Gate 1] 비교 심사 및 최종 선택 결정 * <mark class="hl"><strong>글감 심사 판정</strong></mark>: * <mark class="hl"><strong>A안·B안 단독 채택 보류</strong></mark>: A안만으로는 생활 현장의 구체적 변화가 약하고, B안만으로는 원문 문법 발견의 충격파가 반감됨. * <mark class="hl"><strong>최종 채택 (글감 C안 통합형)</strong></mark>: 새벽 서재의 원문 발견(`וְ` 한 글자와 두 명령형) → 방 한가운데서 세 성소로 기울던 발을 멈추고 쉬는 숨 → 세무 상담실·목회 공지·아침 다이어리로 이어지는 C안을 최종 채택. * <mark class="hl"><strong>학술·성경 자료 4종 노출 수위 결정</strong></mark>: * <mark class="hl"><strong>히브리어 구문 분석 &amp; 요 5:39–40 · 계 1:18</strong></mark>: 전면 채택. * <mark class="hl"><strong>장 칼뱅 『기독교강요』 3권 ‘이중 은혜’</strong></mark>: 채택하되 교리사 강의처럼 길어지지 않도록 ‘태양의 빛과 열’ 비유를 중심으로 1문장 내에 녹여낼 것. * <mark class="hl"><strong>존 오스틴 『화행론』 ‘수행적 발화’</strong></mark>: <mark class="hl"><strong>조건부 채택 (학자명·전문용어 직접 노출 금지)</strong></mark> — 에세이 본문에 ‘존 오스틴’이나 ‘수행적 발화’라는 번역투 학술 개념어를 날것으로 노출하면 문학적 감응이 식으므로, 설계도 밑바탕에만 두고 본문에서는 ‘멈춘 가슴에 다시 첫 숨을 불어넣는 살려 내는 분부’ 등 우리말 고유 감각으로 치환할 것.</p>
+    <span class="break"></span>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
+    <p class="essay-p"><mark class="hl"><strong>## [2단계] 핵심 메시지 정립과 독자 중심 목차 설계 (3라운드 반복 제련: `v1 → v2 → v3`)</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — 아모스 5:1–6</b><span>03 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="그리하면의 조건 거래식을 지우고 접속사 브 한 글자로 나란히 선 디르슈니 비흐유 두 명령">
+        <defs>
+          <linearGradient id="gAmos5Bg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1c252c"/>
+            <stop offset="0.55" stop-color="#2b3842"/>
+            <stop offset="1" stop-color="#192126"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gAmos5Bg1)"/>
+        <!-- 좌측: 흐릿하게 취소선이 그어진 인간의 조건 거래 장부 -->
+        <g transform="translate(22, 22)">
+          <rect width="192" height="116" rx="6" fill="#26313a" stroke="#475569" stroke-width="1"/>
+          <text x="96" y="22" font-family="serif" font-size="10.5" fill="#94a3b8" text-anchor="middle">인간의 거래 장부 (조건문 오독)</text>
+          <rect x="18" y="34" width="156" height="22" rx="3" fill="#1e293b"/>
+          <text x="96" y="49" font-family="serif" font-size="10" fill="#cbd5e1" text-anchor="middle">1. 찾으라 (내가 치를 값)</text>
+          <text x="96" y="72" font-family="serif" font-size="11" fill="#f87171" text-anchor="middle" font-weight="bold">➔ [그리하면 : 조건 표지 0] ➔</text>
+          <rect x="18" y="82" width="156" height="22" rx="3" fill="#1e293b"/>
+          <text x="96" y="97" font-family="serif" font-size="10" fill="#cbd5e1" text-anchor="middle">2. 살리라 (미래의 보상)</text>
+          <line x1="14" y1="68" x2="178" y2="68" stroke="#ef4444" stroke-width="2"/>
+        </g>
+        <!-- 중앙: 두 명령을 동등하게 이어 주는 히브리어 접속사 וְ(브, 그리고) -->
+        <g transform="translate(234, 20)">
+          <circle cx="52" cy="60" r="34" fill="#3b2f1e" stroke="#f59e0b" stroke-width="2"/>
+          <text x="52" y="64" font-family="serif" font-size="24" fill="#fde68a" text-anchor="middle" font-weight="bold">וְ</text>
+          <text x="52" y="82" font-family="serif" font-size="10" fill="#fcd34d" text-anchor="middle">‘그리고’ (1글자)</text>
+          <text x="52" y="112" font-family="serif" font-size="9.5" fill="#e2e8f0" text-anchor="middle">79단어 · 105형태소</text>
+          <text x="52" y="126" font-family="serif" font-size="9.5" fill="#fbbf24" text-anchor="middle">조건 접속사 = 0개</text>
+        </g>
+        <!-- 우측: 똑같은 높이와 굵기로 나란히 선 두 개의 칼 명령형 카드 -->
+        <g transform="translate(356, 20)">
+          <rect x="0" y="0" width="142" height="120" rx="6" fill="#f8fafc" stroke="#f59e0b" stroke-width="2"/>
+          <rect x="0" y="0" width="142" height="24" rx="6" fill="#b45309"/>
+          <text x="71" y="16" font-family="serif" font-size="10" fill="#fffbeb" text-anchor="middle" font-weight="bold">첫째 분부 (칼 명령 2mp)</text>
+          <text x="71" y="54" font-family="serif" font-size="17" fill="#1e293b" text-anchor="middle" font-weight="bold">דִּרְשׁוּנִי</text>
+          <text x="71" y="76" font-family="serif" font-size="12" fill="#7c2d12" text-anchor="middle" font-weight="bold">“나를 찾으라”</text>
+          <text x="71" y="98" font-family="serif" font-size="9.5" fill="#475569" text-anchor="middle">목적어: 주님 자신(5:4·6)</text>
+
+          <rect x="156" y="0" width="142" height="120" rx="6" fill="#f8fafc" stroke="#f59e0b" stroke-width="2"/>
+          <rect x="156" y="0" width="142" height="24" rx="6" fill="#b45309"/>
+          <text x="227" y="16" font-family="serif" font-size="10" fill="#fffbeb" text-anchor="middle" font-weight="bold">둘째 분부 (칼 명령 2mp)</text>
+          <text x="227" y="54" font-family="serif" font-size="17" fill="#1e293b" text-anchor="middle" font-weight="bold">וִחְיוּ</text>
+          <text x="227" y="76" font-family="serif" font-size="12" fill="#7c2d12" text-anchor="middle" font-weight="bold">“그리고 살라!”</text>
+          <text x="227" y="98" font-family="serif" font-size="9.5" fill="#475569" text-anchor="middle">보상이 아닌 오늘의 분부</text>
+        </g>
+        </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ ‘그리하면’이라는 거래의 칸을 지우고 접속사 וְ(그리고) 한 글자로 나란히 선 두 줄의 명령(암 5:4·6)</span><span>아모스 5:4·6 · 조건 표지 0개, 똑같은 칼 명령형 2인칭 남성 복수로 나란히 선 ‘찾으라(다라시)’와 ‘살라(하야)’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">### [Round 1] 초기 목차(`v1`) 도출 및 `ican-evaluator` 1차 심사 (독자 반문 및 유추의 한계선 지적) * <mark class="hl"><strong>`ican-drafter` 초기 제출안(`v1`)</strong></mark>: 목차 A안(구문·교리·적용 순차형) vs 목차 B안(삶의 탄식·몸의 감각·실무 통합 서사형). * <mark class="hl"><strong>`ican-evaluator` [Gate 2 - Round 1 심사 지시]</strong></mark>: 1. <mark class="hl"><strong>기본 틀</strong></mark>: 새벽 성경 밑줄의 탄식에서 출발해 몸의 회전과 세무·목회 실무로 흘러가는 <mark class="hl"><strong>목차 B안</strong></mark>을 기본 틀로 선택함. 2. <mark class="hl"><strong>[결함 1 — 독자의 잠재적 반문 누락]</strong></mark>: 독자가 “‘살리라’라는 약속이 아니라 ‘살라’라는 명령이라면, 가뜩이나 버거운 삶이 또 하나의 무거운 의무가 되는 것 아닌가?”라고 되물을 수 있음. 이를 풀어 줄 징검다리를 보강할 것. 3. <mark class="hl"><strong>[결함 2 — 세무 실무 유추의 한계선 미비]</strong></mark>: “사업자 등록을 하십시오, 그리고 영업하십시오”라는 유추에는 ‘미등록 가산세’ 같은 법적 요건이 따르지만, 아모스 5장의 두 명령에는 자격 요건도 세부 행동 수칙도 없다는 <mark class="hl"><strong>‘유추가 깨지는 결정적 차이’</strong></mark>를 명시할 것.</p>
+    <p class="essay-p">### [Round 2] 수정 목차(`v2`) 제출 및 `ican-evaluator` 2차 심사 (목차 3대 속성 정밀 조율) * <mark class="hl"><strong>`ican-drafter` 수정 제출안(`v2`)</strong></mark>: 세무 실무 유추의 한계선(‘세부 조항 없는 명령’)과 서재 방 한가운데에서의 날숨 체험을 연결한 수정 2단 목차 제출. * <mark class="hl"><strong>`ican-evaluator` [Gate 2 - Round 2 심사 지시]</strong></mark>: 1. <mark class="hl"><strong>[연결성 보완 — 2장과 3장 사이]</strong></mark>: 몸을 멈추어 정면으로 돌아선 자리에서 발견한 것이 바로 <mark class="hl"><strong>‘문법 구조보다 무서운 첫째 명령의 목적어(벧엘이 아닌 여호와 자신)’</strong></mark>임을 밝혀 인과 고리를 조일 것. 2. <mark class="hl"><strong>[논리성·설득성 보완 — 4장 내 세 현장의 점층 배치]</strong></mark>: 세무 상담실·교회 공지·아침 다이어리가 평면적 나열로 읽히지 않도록 <mark class="hl"><strong>‘타인의 무너진 장부 앞(세무 상담실) → 공동체를 부르는 문장 앞(목회 공지) → 내 하루를 여는 첫 줄 앞(서재 다이어리)’</strong></mark>으로 바깥 일터에서 자기 내면으로 좁혀 들어오는 점층 순서를 확립할 것.</p>
+    <p class="essay-p">### [Round 3] 최종 목차(`v3`) 확정 및 Gate 2 최종 승인 * <mark class="hl"><strong>확정 제목</strong></mark>: <mark class="hl"><strong>`살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — ‘그리하면’의 거래 장부를 덮고 ‘그리고’의 호흡으로 읽는 아모스 5장`</strong></mark> * <mark class="hl"><strong>확정 2단 목차 (`v3`, 4장 12절 — 본문 8문단 매핑)</strong></mark>: * <mark class="hl"><strong>제1장. ‘그리하면’이라는 거래의 칸이 없는 두 줄의 명령</strong></mark> (1-1. 성경 여백에 그어 둔 줄과 오래된 거래 장부 / 1-2. 구약 전체에서 단 두 번뿐인 나란한 명령형과 접속사 `וְ` 한 글자 / 1-3. 의사·부모·세무사·재활 병동의 두 명령과 아모스 5장의 결정적 차이) * <mark class="hl"><strong>제2장. 발을 떼기 직전에 멈추어 돌아서는 몸의 호흡과 찾음의 목적어</strong></mark> (2-1. 방 한가운데서 세 성소로 기울던 몸을 멈추어 세우다 / 2-2. 고개를 들고 내쉬는 깊고 긴 숨과 “벧엘을 찾으라, 그리고 살라”의 위험성 / 2-3. 첫째 명령의 목적어이신 ‘나를, 곧 여호와를’) * <mark class="hl"><strong>제3장. 엎드러진 애가의 자리에서 생명을 개시하는 주님의 목소리</strong></mark> (3-1. 칼뱅의 ‘이중 은혜’와 떼어 놓을 수 없는 두 부르심 / 3-2. 처녀 이스라엘이 엎드러졌다는 애가(5:2)와 살아 계신 분(계 1:18)의 살려 내는 분부 / 3-3. 천 명이 나가 백 명만 남는 현실(5:3)과 세무 상담실의 떨리는 질문) * <mark class="hl"><strong>제4장. ‘그러면’을 ‘그리고’로 고쳐 쓰는 세무 상담실·목회 공지·아침 다이어리</strong></mark> (4-1. 세무 상담실에서 건네는 조건 없는 두 줄의 분부 / 4-2. 교회 행정과 목회 공지 문안의 성찰 / 4-3. 내 아침 다이어리 맨 윗줄의 두 문장과 오늘을 살아내는 숨결)</p>
+  </div>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — 아모스 5:1–6</b><span>04 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="광야를 흐르는 공의의 강물과 회복된 장막">
+        <defs>
+          <linearGradient id="gRiverSky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#162436"/>
+            <stop offset="0.5" stop-color="#2b4c66"/>
+            <stop offset="1" stop-color="#d49a6a"/>
+          </linearGradient>
+          <linearGradient id="gWater" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#93c5fd"/>
+            <stop offset="1" stop-color="#1d4ed8"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gRiverSky)"/>
+        <!-- 광야 언덕 -->
+        <path d="M0 106 Q190 88 360 108 T674 98 L674 160 L0 160 Z" fill="#3a2d24"/>
+        <!-- 굽이쳐 흐르는 공의의 강물 -->
+        <path d="M350 106 Q290 122 330 138 Q380 150 240 160 L430 160 Q450 142 395 128 Q360 116 385 106 Z" fill="url(#gWater)" opacity="0.88"/>
+        <!-- 언덕 위에 다시 세워진 따뜻한 빛의 장막 -->
+        <polygon points="480,104 522,68 564,104" fill="#d97706" stroke="#2b1d12" stroke-width="1.5"/>
+        <polygon points="510,104 522,82 534,104" fill="#fef3c7"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 메마른 광야를 가르고 흐르는 공의의 강물과 다시 세워진 장막</span><span>아모스 5:1–6  · ‘발바닥이 바닥에서 떨어지기 직전 멈추어 서는 긴장’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">---</p>
+    <p class="essay-p"><mark class="hl"><strong>## [3단계] A4 상세설계도와 재료 보강 (3라운드 반복 제련: `v1 → v2 → v3`)</strong></mark></p>
+    <p class="essay-p">### [Round 1] 초기 상세설계도(`v1`) 심사 및 3곳 재료 보강 지시 * <mark class="hl"><strong>`ican-evaluator` [Gate 3 - Round 1 심사 지시]</strong></mark>: 1. <mark class="hl"><strong>[보강 1 — 1~2문단 원문 계량 수치 명시]</strong></mark>: 아모스 5:1–6 전체 <mark class="hl"><strong>79단어·105형태소 중 조건 표지가 0개</strong></mark>라는 점과, 구약 전체에서 `다라시`와 `하야`가 한 절에서 만나는 <mark class="hl"><strong>7구절 중 두 동사 모두 명령형인 곳은 5:4·6 단 2구절뿐</strong></mark>이라는 정확한 수치를 제시할 것. 2. <mark class="hl"><strong>[보강 2 — 3~4문단 신체 프로토콜 및 부정 명령 대조 구체화]</strong></mark>: 방 한가운데서 수행한 동작을 <mark class="hl"><strong>정면(주님)·오른쪽(벧엘)·왼쪽(길갈)·뒤쪽(브엘세바)</strong></mark>의 공간 배치와 <mark class="hl"><strong>‘발바닥이 바닥에서 떨어지기 직전 멈추어 서는 긴장’</strong></mark>으로 세밀화하고, 4문단에서 `베알-티드레슈 베트엘`(강한 금지) 및 요 5:39–40과 직접 연결할 것. 3. <mark class="hl"><strong>[보강 3 — 5~6문단 애가(5:2) 및 10% 잔존율(5:3)과 폐업 위기 상담실 결합]</strong></mark>: 아모스 5:2의 애가와 5:3의 냉혹한 숫자(1,000명→100명, 100명→10명)를 구겨진 영수증 뭉치를 들고 세무 상담실을 찾아온 폐업 위기 사업자의 현실과 정면으로 포갤 것.</p>
+  </div>
+
+  <footer class="foot"><span>004</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — 아모스 5:1–6</b><span>05 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="마주 놓인 두 의자와 따뜻한 찻잔과 펼쳐진 성경">
+        <defs>
+          <linearGradient id="gStudyWarm" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#231f1d"/>
+            <stop offset="0.6" stop-color="#3d322a"/>
+            <stop offset="1" stop-color="#6e503b"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gStudyWarm)"/>
+        <rect x="0" y="128" width="674" height="32" fill="#1c1613"/>
+        <!-- 원목 탁자 -->
+        <rect x="235" y="102" width="204" height="8" rx="2" fill="#8c6239"/>
+        <rect x="260" y="110" width="8" height="34" fill="#5c3d22"/>
+        <rect x="406" y="110" width="8" height="34" fill="#5c3d22"/>
+        <!-- 펼쳐진 성경과 두 찻잔 -->
+        <polygon points="302,94 372,94 378,102 296,102" fill="#f7f2e7"/>
+        <rect x="262" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <rect x="398" y="90" width="14" height="12" rx="2" fill="#d9c3b0"/>
+        <!-- 양옆에 마주 서 있는 원목 의자 실루엣 -->
+        <path d="M168 58 L168 142 M168 106 L214 106 L214 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+        <path d="M506 58 L506 142 M506 106 L460 106 L460 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 따뜻한 찻잔을 사이에 두고 마주 놓인 두 의자와 펼쳐진 성경</span><span>아모스 5:2  · ‘칼 명령형 2인칭 남성 복수’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">### [Round 2] 재료 보강안(`v2`) 전후 비교 심사 및 과잉 이론 절제 지시 * <mark class="hl"><strong>`ican-evaluator` [Gate 3 - Round 2 심사 지시]</strong></mark>: 1. <mark class="hl"><strong>[절제 1 — 히브리어 문법 분류어 및 화행론 용어 압축]</strong></mark>: `v2` 설계도에 히브리어 접속사 바브의 세분화된 문법 용어와 오스틴 화행론의 학술 설명이 불어나 서재의 성찰적 어조를 방해함. 문법 설명은 ‘칼 명령형 2인칭 남성 복수’와 ‘접속사 `וְ`(브) 한 글자’로만 남기고 화행론 학술 용어는 덜어낼 것. 2. <mark class="hl"><strong>[절제 2 — 칼뱅 『기독교강요』 인용의 체화]</strong></mark>: 제3권 11·16장 설명이 신학 각주처럼 분리되지 않도록 ‘태양의 빛과 열’ 비유 한 줄로 응축하여 아모스 5:2 및 요한계시록 1:18과 한 호흡으로 이어지게 할 것.</p>
+    <p class="essay-p">### [Round 3] 최종 상세설계도(`v3`) 및 A4 3개 지면 연동 컷 일러스트 최종 승인 * <mark class="hl"><strong>Page 001 확정 컷 (`amos5_two_imperatives_vav`)</strong></mark>: ‘그리하면’이라는 거래의 칸을 지우고 접속사 `וְ`(그리고) 한 글자로 나란히 선 두 줄의 명령(`דִּרְשׁוּנִי וִחְיוּ`) * <mark class="hl"><strong>Page 002 확정 컷 (`amos5_turn_from_bethel_breathe`)</strong></mark>: 세 성소(벧엘·길갈·브엘세바)로 기울던 발을 멈추어 정면의 여호와께 고개를 들고 내쉬는 생명의 호흡 * <mark class="hl"><strong>Page 003 확정 컷 (`amos5_counseling_and_diary_two_lines`)</strong></mark>: 세무 상담실·목회 공지·아침 다이어리에서 ‘그러면’을 지우고 ‘그리고’로 나란히 적는 두 줄의 분부</p>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>005</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — 아모스 5:1–6</b><span>06 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="서재 창문으로 스며드는 새벽빛">
+        <defs>
+          <linearGradient id="gDawn" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f2842"/>
+            <stop offset="0.48" stop-color="#52586c"/>
+            <stop offset="0.78" stop-color="#c9956b"/>
+            <stop offset="1" stop-color="#f3dfc1"/>
+          </linearGradient>
+          <linearGradient id="gBeam" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff6e0" stop-opacity="0.45"/>
+            <stop offset="1" stop-color="#fff6e0" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gDawn)"/>
+        <path d="M0 128 Q140 104 280 118 T560 108 L674 115 L674 160 L0 160 Z" fill="#2b2628" opacity="0.65"/>
+        <polygon points="420,0 674,0 674,160 220,160" fill="url(#gBeam)"/>
+        <rect x="0" y="0" width="18" height="160" fill="#24201d" opacity="0.78"/>
+        <rect x="656" y="0" width="18" height="160" fill="#24201d" opacity="0.78"/>
+        <rect x="334" y="0" width="6" height="160" fill="#24201d" opacity="0.48"/>
+        <rect x="0" y="77" width="674" height="5" fill="#24201d" opacity="0.38"/>
+        <rect x="0" y="148" width="674" height="12" fill="#24201d" opacity="0.88"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 서재 창문 너머로 어둠을 밀어내며 스며드는 새벽빛</span><span>고통의 밤을 지나 일상의 자리로 스며드는 빛</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p"><mark class="hl"><strong>## [4단계 &amp; 5단계] `ican-evaluator` Gate 4 정밀 진단 및 Gate 5 3라운드(`초고 1 → v1 → v2 → v3`) 변증법적 퇴고 대조표</strong></mark></p>
+    <p class="essay-p">### 1. Gate 4 (`초고 1` 정밀 진단) &amp; Gate 5 Round 1 역점검 (1차 퇴고안 `v1`에 새로 유입된 AI 미사여구 적발) * <mark class="hl"><strong>Gate 4 진단</strong></mark>: `ican-drafter`의 `초고 1`(2,250자)에서 <mark class="hl"><strong>`(독자)` 메모 3곳</strong></mark>(1문단 `경건의 시간` 상투적 범주어, 4문단 `종교적 업적` 추상어, 5문단 말미 `창조적이고 수행적인 발화다`라는 번역투 학술어)과 <mark class="hl"><strong>`(내 마음)` 메모 3곳</strong></mark>(1문단 말미 문법 발견 직후의 내면 호흡 누락, 7문단 말미 `모든 성도는... 완벽하게 일치시키며... 온전히 완수하게 된다`라는 전칭 과장 클리셰, 8문단 결미 `조건의 계산식을 완전히 버리고 주님의 명령에 절대적으로 순종할 때, 우리의 모든 날은 마침내 흔들리지 않는 생명의 기적으로 가득 차게 될 것이다`라는 <mark class="hl"><strong>본문 스스로가 금기시한 조건문 클리셰로의 치명적 미끄러짐</strong></mark>)을 적시하여 1차 퇴고를 지시함. * <mark class="hl"><strong>Gate 5 - Round 1 역점검</strong></mark>: `1차 퇴고안(v1)`을 재심사한 결과, 기존 결함은 제거되었으나 <mark class="hl"><strong>교정 과정에서 새로 끼어든 신파적 감정 과장·추상 한자어·교계 상투어 4곳</strong></mark>을 적발하여 2차 재수정을 지시함: 1. <mark class="hl"><strong>1문단 말미(`v1`) 적발</strong></mark>: `가슴을 치는 뜨거운 눈물이 하염없이 쏟아졌다` → 없는 눈물 창작 삭제, 오랜 거래 장부가 소리 없이 덮이던 고요한 내면의 감각으로 절제 지시. 2. <mark class="hl"><strong>5문단 말미(`v1`) 적발</strong></mark>: `초월적 생명력의 선언이자 창조적 사건이다` → 새로 유입된 추상 한자어 삭제, 쓰러진 자의 멈춘 가슴에 다시 첫 숨을 불어넣는 <mark class="hl"><strong>‘주님의 살려 내는 분부다’</strong></mark>로 복원 지시. 3. <mark class="hl"><strong>7문단 말미(`v1`) 적발</strong></mark>: `진정한 공동체적 영성의 회복과 일상의 성화를 깊이 경험하게 된다` → 교계 상투어 삭제, 새벽 예배당 의자에 앉은 교우와 일터·부엌에서 아침을 여는 교우의 어깨에서 조건의 짐이 덜어지기를 바라는 목회자의 진심으로 복원 지시. 4. <mark class="hl"><strong>8문단 결미(`v1`) 적발</strong></mark>: `놀라운 평강과 생명의 은총이 영원한 찬송처럼 울려 퍼진다` → 감상적 미사여구 삭제, 다이어리를 덮고 책상 스탠드 불을 끄고 방문을 여는 구체적 첫 동작과 수미상관으로 복원 지시.</p>
+    <p class="essay-p">### 2. <mark class="hl"><strong>구절별 3단(`초고 1` → `1차 퇴고안 v1` → `최종 승인본 v2/v3`) 변증법적 퇴고 대조표</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>006</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>[ican-write 이원화·다회차(Round 1~3) 설계·평가 기록] 살아내는 일도 주님께로부터 받은 거룩한 분부입니다 — 아모스 5:1–6</b><span>07 / 07</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="감옥 창살 너머 등불과 사슬 옆에 펼쳐진 서신">
+        <defs>
+          <linearGradient id="gPrisonBg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#141821"/>
+            <stop offset="0.55" stop-color="#262936"/>
+            <stop offset="1" stop-color="#4a3728"/>
+          </linearGradient>
+          <radialGradient id="gCandleGlow" cx="0.64" cy="0.48" r="0.45">
+            <stop offset="0" stop-color="#ffdfa0" stop-opacity="0.6"/>
+            <stop offset="0.5" stop-color="#d99b52" stop-opacity="0.2"/>
+            <stop offset="1" stop-color="#141821" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gPrisonBg)"/>
+        <rect width="674" height="160" fill="url(#gCandleGlow)"/>
+        <!-- 좌측 석조 감옥 창살과 새어드는 빛 -->
+        <rect x="58" y="14" width="110" height="92" rx="4" fill="#1e2433" stroke="#3b4254" stroke-width="2"/>
+        <line x1="86" y1="14" x2="86" y2="106" stroke="#11151f" stroke-width="4"/>
+        <line x1="113" y1="14" x2="113" y2="106" stroke="#11151f" stroke-width="4"/>
+        <line x1="140" y1="14" x2="140" y2="106" stroke="#11151f" stroke-width="4"/>
+        <polygon points="86,106 140,106 260,160 120,160" fill="#f3c88b" opacity="0.12"/>
+        <!-- 석조 책상 상판 -->
+        <rect x="0" y="122" width="674" height="38" fill="#231c18"/>
+        <line x1="0" y1="122" x2="674" y2="122" stroke="#6e5644" stroke-width="1.2"/>
+        <!-- 풀려 내려놓인 철사슬 고리 (데스모스) -->
+        <g transform="translate(215, 118)" fill="none" stroke="#8c96a6" stroke-width="3">
+          <ellipse cx="18" cy="14" rx="14" ry="7"/>
+          <ellipse cx="38" cy="16" rx="14" ry="7"/>
+          <ellipse cx="58" cy="13" rx="14" ry="7"/>
+        </g>
+        <!-- 펼쳐진 양피지 서신과 갈대펜 -->
+        <polygon points="310,114 468,110 484,142 298,146" fill="#f5ebd6" stroke="#8c6d46" stroke-width="1"/>
+        <line x1="330" y1="122" x2="442" y2="120" stroke="#7a5838" stroke-width="1.4"/>
+        <line x1="326" y1="129" x2="450" y2="127" stroke="#9c7e5e" stroke-width="1"/>
+        <line x1="322" y1="136" x2="418" y2="134" stroke="#9c7e5e" stroke-width="1"/>
+        <line x1="452" y1="92" x2="496" y2="138" stroke="#c89d6c" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- 등잔과 따뜻한 불꽃 -->
+        <ellipse cx="545" cy="116" rx="22" ry="8" fill="#9a6b3e"/>
+        <path d="M545 92 Q553 104 545 112 Q537 104 545 92 Z" fill="#ffd97d"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 감옥 창살 너머 스며드는 등불과 사슬 옆에 펼쳐진 간구의 서신</span><span>아모스 5:1–6 · ‘그리고’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">| 점검 구간 | 4단계 `초고 1` (진단 전) | Gate 5 `1차 퇴고안(v1)` (1차 교정 및 역점검 대상) | Gate 5 `최종 승인 완성본(v2/v3)` (내 표현 완전 복원) | | :--- | :--- | :--- | :--- | | <mark class="hl"><strong>1문단 중반·말미</strong></mark>&lt;br&gt;`(독자 #1)`&lt;br&gt;`(내 마음 #1)`&lt;br&gt;`[Round 1 역점검]` | 주님을 찾는 &lt;u&gt;경건의 시간&lt;/u&gt;을 값으로 꼬박꼬박 치르면 (...) 그 둘 사이를 잇는 것은 ‘그리고’를 뜻하는 접속사 ‘브’(וְ) 단 한 글자뿐이었다. &lt;u&gt;*(내면 호흡 누락)*&lt;/u&gt; | 정해 둔 성경 장수를 넘기고 새벽 기도 시간을 값으로 꼬박꼬박 치르면 (...) 그 작은 글자 하나가 들어오는 순간 &lt;u&gt;가슴을 치는 뜨거운 눈물이 하염없이 쏟아졌다.&lt;/u&gt; *(신파적 감정 과장 적발)* | <mark class="hl"><strong>정해 둔 성경 장수를 채우고 새벽 무릎의 시간을 값으로 꼬박꼬박 치르면</strong></mark> (...) 그 둘 사이를 잇는 것은 ‘그리고’를 뜻하는 접속사 ‘브’(וְ) 단 한 글자뿐이었다. <mark class="hl"><strong>손톱만 한 그 글자 하나 앞에서, 내가 오랫동안 주님 앞에 펴 놓았던 조건부 거래 장부가 소리 없이 덮이고 있었다.</strong></mark> | | <mark class="hl"><strong>4문단 중반</strong></mark>&lt;br&gt;`(독자 #2)` | 정작 하나님 자신이 아니라 성소라는 장소와 &lt;u&gt;예배라는 형식, 내가 쌓아 올린 종교적 업적&lt;/u&gt;을 찾음의 목적어로 삼았다. | 정작 하나님 자신이 아니라 성소라는 장소와 내가 채운 성경 통독 표와 새벽 출석 도장 같은 종교적 이력을 찾음의 목적어로 삼았다. | 정작 하나님 자신이 아니라 성소라는 장소와 <mark class="hl"><strong>예배의 횟수, 내가 채운 출석 도장과 종교적 이력</strong></mark>을 찾음의 목적어로 삼았다. | | <mark class="hl"><strong>5문단 말미</strong></mark>&lt;br&gt;`(독자 #3)`&lt;br&gt;`[Round 1 역점검]` | 말씀이 들려오는 지금 이 순간 쓰러진 자의 호흡을 다시 시작하게 만드는 &lt;u&gt;창조적이고 수행적인 발화다.&lt;/u&gt; *(번역투 학술어)* | 말씀이 들려오는 지금 이 순간 쓰러진 자의 호흡을 다시 시작하게 만드는 &lt;u&gt;초월적 생명력의 선언이자 창조적 사건이다.&lt;/u&gt; *(추상 한자어 유입)* | 말씀이 들려오는 지금 이 순간 <mark class="hl"><strong>쓰러진 자의 멈춘 가슴에 다시 첫 숨을 불어넣어 일으켜 세우시는 주님의 살려 내는 분부다.</strong></mark> | | <mark class="hl"><strong>7문단 말미</strong></mark>&lt;br&gt;`(내 마음 #2)`&lt;br&gt;`[Round 1 역점검]` | &lt;u&gt;그렇게 문장을 고쳐 쓸 때, 모든 성도는 예배당 안팎의 모든 공간에서 신앙과 일상을 완벽하게 일치시키며 참된 그리스도인의 사명을 온전히 완수하게 된다.&lt;/u&gt; *(전칭 과장 클리셰)* | 그렇게 문장을 고쳐 쓸 때, 성도들은 예배당 안팎에서 &lt;u&gt;진정한 공동체적 영성의 회복과 일상의 성화를 깊이 경험하게 된다.&lt;/u&gt; *(교계 상투어 유입)* | <mark class="hl"><strong>그렇게 문장을 고쳐 적어 놓고 나면, 새벽 예배당 의자에 앉은 교우의 어깨에서도, 삶의 무거운 형편 때문에 그 시각 일터와 부엌에서 아침을 여는 교우의 마음에서도 조건의 짐이 한 겹 덜어지기를 조용히 바라게 된다.</strong></mark> | | <mark class="hl"><strong>8문단 결미</strong></mark>&lt;br&gt;`(내 마음 #3)`&lt;br&gt;`[Round 1 역점검]` | &lt;u&gt;우리가 성경 여백과 일터의 장부, 그리고 매일의 삶에서 조건의 계산식을 완전히 버리고 주님의 명령에 절대적으로 순종할 때, 우리의 모든 날은 마침내 흔들리지 않는 생명의 기적으로 가득 차게 될 것이다.&lt;/u&gt; *(조건문·기적 클리셰)* | 다이어리를 덮고 일어서는 내 발걸음마다 주님이 주시는 &lt;u&gt;놀라운 평강과 생명의 은총이 영원한 찬송처럼 울려 퍼진다.&lt;/u&gt; *(감상적 미사여구 유입)* | <mark class="hl"><strong>두 줄의 문장을 나란히 적어 놓은 다이어리를 덮고 책상 스탠드 불을 끈다. 창밖으로 밝아 오는 아침 공기를 가슴 깊이 들이쉬며, 나는 오늘도 주님을 찾고, 그리고 내게 맡겨진 오늘 하루를 살아내러 방문을 연다.</strong></mark> |</p>
+    <p class="essay-p"><mark class="hl"><strong>---</strong></mark></p>
+  </div>
+  <section class="address">
+    <p class="essay-p">## [Gate 5 - Round 3] 김익한 5대 평가지표 최종 감리 총평 1. <mark class="hl"><strong>수월성 (Pass)</strong></mark>: 아모스 5:1–6의 히브리어 원문 계량 분석(79단어·105형태소 중 조건 표지 0개, 구약 7절 중 유일한 이중 명령형 2절)과 칼뱅의 이중 은혜, 성경신학적 정점(요 5:39–40, 계 1:18)이 학술적 과시 없이 목회자·세무사의 일상 서사 속에 물 흐르듯 용해됨. 2. <mark class="hl"><strong>주체성 (Pass)</strong></mark>: Gate 4와 Gate 5 Round 1~2를 거치며 AI식 전칭 과장어(`모든`, `완벽하게`, `완전히`, `절대적으로`)와 당위적 조건문 결미를 철저히 도려내고, 글쓴이 자신이 감당할 수 있는 정직한 고백과 구체적 첫 동작(다이어리를 덮고 스탠드 불을 끄고 방문을 여는 동작)으로 온전히 복원됨. 3. <mark class="hl"><strong>논리성 (Pass)</strong></mark>: ‘그리하면’의 통념 해체(1문단) → 일상·세무 유추와 그 한계선(2문단) → 세 방향 신체 멈춤과 정면 날숨(3문단) → 목적어 분별(4문단) → 이중 은혜와 살려 내는 분부(5문단) → 세무 상담실·목회 공지·아침 다이어리(6~8문단)로 이어지는 8문단 인과 사슬에 비약이 없음. 4. <mark class="hl"><strong>선명성 (Pass)</strong></mark>: 번역투 개념어(‘창조적이고 수행적인 발화’)와 추상 한자어(‘초월적 생명력의 선언’)를 걷어내고 ‘쓰러진 자의 멈춘 가슴에 다시 첫 숨을 불어넣어 일으켜 세우시는 주님의 살려 내는 분부’로 벼려 내어 주제가 단번에 각인됨. 5. <mark class="hl"><strong>감응성 (Pass)</strong></mark>: 구겨진 영수증 뭉치를 든 폐업 위기 사업자에게 건네는 두 줄의 문장과, 새벽 스탠드를 켜며 시작해 스탠드 불을 끄고 방문을 열며 끝맺는 수미상관의 호흡이 깊은 울림과 위로를 남김.</p>
+  </section>
+
+  <footer class="foot"><span>007</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>
