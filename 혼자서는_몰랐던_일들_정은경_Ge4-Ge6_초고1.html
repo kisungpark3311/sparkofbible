@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>다섯 손가락이 가르쳐 준 공존의 문법: ‘다름’이라는 문턱을 넘어 ‘함께’라는 성전으로 (초고 1) — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 14px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- figure ---------- */
+  figure{margin:18px 0 26px}
+  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.85;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(253, 224, 71, 0.58) 58%, transparent 58%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 3px;
+    border-radius:3px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.42) 60%, transparent 60%);
+    color:#fef08a;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] figure{margin:14px 0 20px}
+  body[data-view="mobile"] .photo{height:clamp(124px, 34vw, 160px); border-radius:4px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:normal;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) figure{margin:14px 0 20px}
+    body:not([data-view="a4"]) .photo{height:clamp(116px, 34vw, 156px); border-radius:4px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:normal;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">다섯 손가락이 가르쳐 준 공존의 문법: ‘다름’이라는 문턱을 넘어 ‘함께’라는 성전으로 (초고 1)</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>다섯 손가락이 가르쳐 준 공존의 문법: ‘다름’이라는 문턱을 넘어 ‘함께’라는 성전으로 (초고 1)</b><span>01 · 2026-11-11</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">다섯 손가락이 가르쳐 준 공존의 문법: ‘다름’이라는 문턱을 넘어 ‘함께’라는 성전으로 (초고 1)</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="대차대조표와 다섯 손가락·열 손가락의 만남">
+        <defs>
+          <linearGradient id="gBg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1e242b"/>
+            <stop offset="0.45" stop-color="#35312d"/>
+            <stop offset="1" stop-color="#6b4c35"/>
+          </linearGradient>
+          <radialGradient id="gWarmGlow1" cx="0.68" cy="0.52" r="0.45">
+            <stop offset="0" stop-color="#fde68a" stop-opacity="0.55"/>
+            <stop offset="0.6" stop-color="#f59e0b" stop-opacity="0.18"/>
+            <stop offset="1" stop-color="#6b4c35" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gBg1)"/>
+        <rect width="674" height="160" fill="url(#gWarmGlow1)"/>
+        <rect x="0" y="132" width="674" height="28" fill="#171412"/>
+        <!-- 좌측: 덮어 둔 대차대조표 장부와 내려놓은 계산기 -->
+        <g transform="translate(56, 44)">
+          <rect x="0" y="24" width="110" height="64" rx="4" fill="#cbd5e1" opacity="0.78" stroke="#475569" stroke-width="1.5"/>
+          <line x1="55" y1="24" x2="55" y2="88" stroke="#64748b" stroke-width="1.2"/>
+          <line x1="12" y1="40" x2="46" y2="40" stroke="#64748b" stroke-width="1.2"/>
+          <line x1="12" y1="54" x2="46" y2="54" stroke="#64748b" stroke-width="1.2"/>
+          <line x1="64" y1="40" x2="98" y2="40" stroke="#64748b" stroke-width="1.2"/>
+          <line x1="64" y1="54" x2="98" y2="54" stroke="#64748b" stroke-width="1.2"/>
+          <rect x="124" y="42" width="42" height="46" rx="4" fill="#334155" stroke="#94a3b8" stroke-width="1.2"/>
+          <rect x="130" y="48" width="30" height="10" rx="1.5" fill="#94a3b8" opacity="0.7"/>
+        </g>
+        <!-- 중앙: 지그재그 스티치 빛의 궤적 -->
+        <polyline points="245,102 270,74 295,100 320,70 348,96 376,68" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-dasharray="4 3" opacity="0.85"/>
+        <!-- 우측: 다섯 손가락의 온기와 작은 아기 양말, 확장되는 가족의 울타리 원 -->
+        <circle cx="475" cy="80" r="56" fill="none" stroke="#fde68a" stroke-width="1.4" stroke-dasharray="6 4" opacity="0.65"/>
+        <circle cx="475" cy="80" r="40" fill="#fef3c7" opacity="0.16"/>
+        <!-- 작은 아기 양말 실루엣 -->
+        <path d="M458,52 L482,52 L482,86 C482,96 502,96 502,108 C502,116 488,118 470,118 L458,118 C452,118 450,112 450,104 L458,52 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+        <polyline points="458,66 476,72 458,78 476,84 458,90" fill="none" stroke="#b45309" stroke-width="1.6"/>
+        <!-- 따뜻하게 감싸는 다섯 개의 빛줄기(다섯 손가락의 상징) -->
+        <circle cx="422" cy="64" r="4.5" fill="#fde68a"/>
+        <circle cx="430" cy="48" r="4.5" fill="#fde68a"/>
+        <circle cx="445" cy="38" r="4.5" fill="#fde68a"/>
+        <circle cx="463" cy="34" r="4.5" fill="#fde68a"/>
+        <circle cx="481" cy="37" r="4.5" fill="#fde68a"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 세무사의 대차대조표를 넘어, 다섯 손가락의 엄마와 열 손가락의 아기가 만나는 지그재그 양말의 온기</span><span>『혼자서는 몰랐던 일들』 p.5 · p.109 · p.114 · 다섯 손가락과 열 손가락이 맞추어 가는 삶의 퍼즐</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">세무사인 내 책상 위에는 차변과 대변이 오차 없이 맞아야 하는 대차대조표가 늘 놓여 있다. 기준에 모자란 숫자를 결손으로 분류하듯, 나 또한 사람의 삶까지 백 퍼센트의 완결성이라는 잣대로 재단하곤 했다. 그러다 한쪽 팔꿈치 아래가 없이 태어난 정은경 작가의 『혼자서는 몰랐던 일들』(나녹, 2025)을 펼쳤을 때, 자신을 <mark class="hl"><strong>‘다섯 손가락으로 태어난 사람’</strong></mark>(p.5)이라 부르는 목소리에 시선이 멈추었다. 칠백 일간 블로그에 쓴 일기를 묶으며 원래 <mark class="hl"><strong>‘다섯 손가락’</strong></mark>이라는 가제를 품었던 이 책은 영웅담이 아니었다. <mark class="hl"><strong>&lt;mark class=&quot;hl&quot;&gt;&lt;strong&gt;“가장 나답게 세상을 당당하게 살 수 있었던 이유는 좋은 멘토를 많이 만났기 때문이다”&lt;/strong&gt;&lt;/mark&gt;(p.5)라는 고백은 홀로 완벽해야 한다는 내 강박을 조용히 허물어뜨렸다.</strong></mark></p>
+    <p class="essay-p">내 마음을 깊이 흔든 대목은 아들의 탄생과 양말 신는 법을 돌아보는 장면이다. 시누이가 배냇저고리를 제치며 <mark class="hl"><strong>“열 손가락이야!”</strong></mark>(p.109)라고 외쳤을 때, 저자는 자신이 다섯 손가락인 것이 시댁 식구들에게 얼마나 큰 걱정이었을지를 처음 깨닫고 아들에게 더 고마웠다고 적는다. 엄마가 못 하던 작은 손동작을 해내는 아이에게서 삶의 퍼즐이 맞춰지는 희열을 느끼며, 저자는 아들이 <mark class="hl"><strong>“나의 부족함을 메우는 존재”</strong></mark>(p.114)임을 알게 된다. <mark class="hl"><strong>혼자 키웠다면 아이도 엄마처럼 한 손으로 지그재그로 양말 신는 법만 배웠겠지만, &lt;mark class=&quot;hl&quot;&gt;&lt;strong&gt;남편과 부모님이라는 가족 테두리 안에서 아이가 더 넓은 세계를 배웠고 자신도 “내 삶의 경계를 다시 그릴 수 있었다”&lt;/strong&gt;&lt;/mark&gt;(출판사 리뷰 본문)는 성찰은 함께할 때 열리는 세계를 보여 준다.</strong></mark></p>
+    <p class="pull essay-p">물론 저자의 걸음이 처음부터 평탄했던 것은 아니다. <mark class="hl"><strong>“길이 안 보이면 그냥 내가 만들며 가면 된다”</strong></mark>(p.30)고 다짐한 저자는 장애인 학력에 대한 편견을 깨고자 대학원 석사과정에 진학해 당당함의 증거를 얻었다(p.54). 동굴 속에 숨은 이들에게 희망을 주는 강사가 되고자 <mark class="hl"><strong>“열 손가락 있는 사람들보다 두 배 이상 노력해야 한다는 간절함”</strong></mark>(p.69)으로 달릴 때, 누군가는 그 분투를 ‘열등의식’이라 불렀다. <mark class="hl"><strong>&lt;mark class=&quot;hl&quot;&gt;&lt;strong&gt;“정말 치열하게 살아가는 나를 보고 열등의식이 있다고 하다니.</strong></mark> 그냥 열심히 한다고 해주면 안 되나?”&lt;/strong&gt;&lt;/mark&gt;(p.76)라고 반문하며 그 말을 연료 삼아 첫 공모전 우수상을 받고, 메타버스 강사가 되어 아바타의 열 손가락을 처음 보며 눈물 흘린 사연은 깊은 울림을 준다.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>다섯 손가락이 가르쳐 준 공존의 문법: ‘다름’이라는 문턱을 넘어 ‘함께’라는 성전으로 (초고 1)</b><span>02 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="스스로 개척한 길과 기어가는 아이를 기다리는 시선">
+        <defs>
+          <linearGradient id="gBg2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#17202a"/>
+            <stop offset="0.5" stop-color="#2c3e50"/>
+            <stop offset="1" stop-color="#b45309"/>
+          </linearGradient>
+          <linearGradient id="gPath2" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#f59e0b"/>
+            <stop offset="1" stop-color="#fef08a"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gBg2)"/>
+        <!-- 좌측: 어두운 동굴 실루엣을 뚫고 열리는 황금빛 개척로 -->
+        <path d="M0,0 L165,0 Q135,80 185,160 L0,160 Z" fill="#11171d" opacity="0.82"/>
+        <path d="M90,160 Q210,120 310,92 T540,56" fill="none" stroke="url(#gPath2)" stroke-width="5" stroke-linecap="round"/>
+        <!-- 중앙: 가상세계 화면 속 열 손가락의 빛나는 창 -->
+        <g transform="translate(268, 28)">
+          <rect x="0" y="0" width="96" height="58" rx="6" fill="#1e293b" stroke="#93c5fd" stroke-width="1.6" opacity="0.9"/>
+          <circle cx="26" cy="29" r="12" fill="#60a5fa" opacity="0.25"/>
+          <circle cx="70" cy="29" r="12" fill="#60a5fa" opacity="0.25"/>
+          <line x1="18" y1="34" x2="18" y2="20" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+          <line x1="22" y1="34" x2="22" y2="17" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+          <line x1="26" y1="34" x2="26" y2="16" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+          <line x1="30" y1="34" x2="30" y2="18" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+          <line x1="34" y1="34" x2="34" y2="22" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+          <line x1="62" y1="34" x2="62" y2="22" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+          <line x1="66" y1="34" x2="66" y2="18" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+          <line x1="70" y1="34" x2="70" y2="16" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+          <line x1="74" y1="34" x2="74" y2="17" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+          <line x1="78" y1="34" x2="78" y2="20" stroke="#e0f2fe" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <!-- 우측: 낮은 언덕 위에서 기어가는 아이와 눈높이를 맞추어 기다리는 따뜻한 등불 -->
+        <path d="M0,136 Q240,118 460,128 T674,116 L674,160 L0,160 Z" fill="#231c16"/>
+        <circle cx="508" cy="108" r="7" fill="#fde68a"/>
+        <path d="M492,124 Q505,112 520,122" fill="none" stroke="#fde68a" stroke-width="3.5" stroke-linecap="round"/>
+        <circle cx="572" cy="82" r="9" fill="#fef3c7"/>
+        <path d="M562,122 L572,94 L584,122" fill="#d97706" opacity="0.9"/>
+        <circle cx="545" cy="96" r="28" fill="#fef3c7" opacity="0.18"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ ‘열등의식’이라는 낙인을 뚫고 스스로 낸 길과, 기어가는 아이의 이유를 믿어 주는 기다림의 시선</span><span>『혼자서는 몰랐던 일들』 p.30 · p.69 · p.76 · p.135 · ‘길이 안 보이면 내가 만들며 간다’와 기다림의 모성</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">세상은 남다른 노력을 병리적 낙인으로 왜곡하곤 하지만, 저자 곁에는 다른 이름을 불러 준 멘토가 있었다. 얼굴이 사람마다 다르듯 손가락 수도 다른 것일 뿐이라 일러 준 어머니의 한마디는, 목회 현장에서 남다른 속도로 위축된 성도들을 마주하는 내게 큰 성찰을 준다. 우리는 타인의 느린 걸음을 쉽게 다그치지만, 저자는 아들을 보며 전혀 다른 다짐을 남긴다. <mark class="hl"><strong>&lt;mark class=&quot;hl&quot;&gt;&lt;strong&gt;“인생이란 기어갈 때도 있고, 걸어갈 때도 있고, 뛰어갈 때도 있다.</strong></mark> 나는 기어간다고 다그치기보다는, 기어가는 데는 그만한 이유가 있을 것이라고 믿어주는 엄마가 되고 싶다”&lt;/strong&gt;&lt;/mark&gt;(p.135)는 문장은 결과로만 사람을 재던 내 시선을 기다림의 자리로 이끌었다.</p>
+    <span class="break"></span>
+    <p class="essay-p">그러나 시선의 문턱은 가족 안에도, 사별의 슬픔 뒤에도 높게 서 있었다. 장애가 있는 남편과의 결혼 앞에서 아버지가 <mark class="hl"><strong>“우리 집에 장애인은 너 하나로 족하다”</strong></mark>(p.145)라고 반대했을 때, 저자는 <mark class="hl"><strong>“그렇다면 우리는 어디서도 인정받지 못한다는 말인가”</strong></mark>(p.145)라며 아픈 물음을 삼켜야 했다. 물리치료사였던 남편을 도운 치료실은 ‘인생 학교’(4장 목차)였고 남편은 말없는 멘토였으나, <mark class="hl"><strong>남편이 뇌출혈로 쓰러져 세상을 떠났을 때 저자는 장애인이라 무시당할까 두려워 그 죽음을 팔 년 동안 말하지 못했다.</strong></mark> &lt;mark class=&quot;hl&quot;&gt;&lt;strong&gt;슬픔조차 드러내지 못하게 만들었던 팔 년의 침묵은, 상한 영혼의 탄식을 들어 주어야 할 우리 공동체가 과연 안전한 피난처였는지 묻게 한다.&lt;/strong&gt;&lt;/mark&gt;</p>
+    <p class="essay-p"><mark class="hl"><strong>이 지점에서 저자는 “장애, 잘못된 것이 아니라 다른 것이다”(5장 제목)라며 장애의 자리를 몸에서 사회로 옮겨 놓는다.</strong></mark> &lt;mark class=&quot;hl&quot;&gt;&lt;strong&gt;<mark class="hl"><strong>“내게 장애가 있다면, 그건 내 몸이 아니라 나를 보는 세상의 시선이다. 내가 살고 있는 구조, 내가 마주치는 문턱과 계단, 나를 의심하는 말과 표정이 곧 나의 ‘장애’였다”</strong></mark>&lt;/strong&gt;&lt;/mark&gt;(p.184)는 통찰은, 신체 손상과 사회적 배제를 구분한 마이클 올리버의 <mark class="hl"><strong>‘장애의 사회적 모델’</strong></mark>을 삶으로 체현한 증언이다. 세무사로서 기업들이 장애인 채용 대신 벌금 납부를 택하는 계산서를 볼 때마다, 그 뉴스에 절망하며 익숙해질 시간이 필요하다고 한 저자의 탄식이 겹쳐진다. ‘정상인’ 대신 ‘비장애인’으로, ‘장애를 갖는’ 대신 ‘장애가 있는’으로 말을 고치는 일은 시선의 문턱을 낮추는 첫걸음이다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>다섯 손가락이 가르쳐 준 공존의 문법: ‘다름’이라는 문턱을 넘어 ‘함께’라는 성전으로 (초고 1)</b><span>03 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="높은 문턱과 계단이 경사로로 이어져 함께 오르는 성전">
+        <defs>
+          <linearGradient id="gBg3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1f2429"/>
+            <stop offset="0.5" stop-color="#3d312a"/>
+            <stop offset="1" stop-color="#854d27"/>
+          </linearGradient>
+          <linearGradient id="gRamp3" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#b45309"/>
+            <stop offset="1" stop-color="#fde68a"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gBg3)"/>
+        <rect x="0" y="138" width="674" height="22" fill="#181411"/>
+        <!-- 좌측: 높고 각진 회색 계단과 문턱 (사회의 구조적 장벽 p.184) -->
+        <g fill="#475569" stroke="#1e293b" stroke-width="1.4">
+          <rect x="38" y="114" width="38" height="24"/>
+          <rect x="76" y="92" width="38" height="46"/>
+          <rect x="114" y="70" width="38" height="68"/>
+          <rect x="152" y="48" width="26" height="90"/>
+        </g>
+        <!-- 중앙: 계단의 모서리를 덮으며 부드럽게 이어지는 황금빛 경사로(Ramp) -->
+        <polygon points="178,138 470,68 470,138" fill="url(#gRamp3)" opacity="0.9"/>
+        <line x1="178" y1="138" x2="470" y2="68" stroke="#fef3c7" stroke-width="3"/>
+        <!-- 경사로 위를 나란히 걸어 오르는 두 사람 -->
+        <circle cx="310" cy="86" r="6.5" fill="#fef3c7"/>
+        <line x1="310" y1="93" x2="310" y2="112" stroke="#fef3c7" stroke-width="3"/>
+        <circle cx="342" cy="78" r="7.5" fill="#fde68a"/>
+        <line x1="342" y1="86" x2="342" y2="106" stroke="#fde68a" stroke-width="3.2"/>
+        <line x1="310" y1="98" x2="342" y2="92" stroke="#fef3c7" stroke-width="2.2"/>
+        <!-- 우측: 문턱 없이 활짝 열린 따뜻한 빛의 성전 아치 -->
+        <g transform="translate(470, 24)">
+          <rect x="0" y="20" width="128" height="94" rx="4" fill="#78350f" stroke="#fde68a" stroke-width="1.8"/>
+          <polygon points="-10,22 64,-8 138,22" fill="#b45309" stroke="#fde68a" stroke-width="1.6"/>
+          <path d="M38,114 L38,60 A26,26 0 0,1 90,60 L90,114 Z" fill="#fef3c7"/>
+          <line x1="64" y1="8" x2="64" y2="28" stroke="#fef3c7" stroke-width="2.2"/>
+          <line x1="55" y1="16" x2="73" y2="16" stroke="#fef3c7" stroke-width="2.2"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 팔 년 침묵의 높은 문턱과 계단이 완만한 경사로로 낮아져, 서로의 빈자리를 메우며 함께 오르는 성전</span><span>『혼자서는 몰랐던 일들』 p.145 · p.184 · 요 9:1-3 · 고전 12:22-26 · 잠 16:9 · 시선의 문턱을 넘어 함께 세우는 성전</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">어린 시절 저자가 들었던 <mark class="hl"><strong>“얼굴은 이쁜데”</strong></mark>, <mark class="hl"><strong>“부모가 잘못해서”</strong></mark>라는 말들은 날 때부터 보지 못하는 이를 두고 누구의 죄 때문이냐고 묻던 제자들의 폭력적 인과율과 닮아 있다. 예수께서는 죄와 장애를 잇는 사슬을 끊으시고 그에게서 하나님의 하시는 일이 드러날 것이라 선언하셨다(요 9:1-3). 또한 사도 바울은 눈이 손더러 쓸데없다 할 수 없고, &lt;mark class=&quot;hl&quot;&gt;&lt;strong&gt;몸의 더 약하게 보이는 지체가 도리어 요긴하며 한 지체가 고통받으면 모든 지체가 함께 고통받는다고 증언한다(고전 12:21-26).&lt;/strong&gt;&lt;/mark&gt; 다섯 손가락의 엄마와 열 손가락의 아들이 서로의 부족함을 메웠듯, <mark class="hl"><strong>교회와 사회도 완전한 자들의 집합소가 아니라 서로 기대어 서는 한 몸으로 부름받았다.</strong></mark></p>
+  </div>
+  <section class="address">
+    <p class="essay-p">저자가 인터뷰에서 인용한 <mark class="hl"><strong>“사람이 마음으로 자기의 길을 계획할지라도 그의 걸음을 인도하시는 이는 여호와시니라”</strong></mark>(잠 16:9)라는 말씀은, <mark class="hl"><strong>“길이 안 보이면 그냥 내가 만들며 가면 된다”</strong></mark>(p.30)는 다짐을 하나님의 섭리 안에 따뜻하게 품어 준다. 완벽한 숫자를 증명하느라 타인의 느린 걸음을 재촉하던 세무사의 계산기를 내려놓고, 이제 나는 우리 예배당과 일터의 문턱부터 다시 살피려 한다. 곁에서 기어가는 이가 있다면 그만한 이유가 있을 것이라 믿어 주며, 말없는 슬픔 곁에 머무는 멘토가 되고 싶다. &lt;mark class=&quot;hl&quot;&gt;&lt;strong&gt;‘다름’을 가두던 문턱을 넘어 서로의 빈자리를 메우며 함께 걸어갈 때, <mark class="hl"><strong>혼자서는 몰랐던 은혜의 지평이 우리 삶 위에 성전처럼 세워질 것이다.&lt;/strong&gt;&lt;/mark&gt;</strong></mark></p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>
