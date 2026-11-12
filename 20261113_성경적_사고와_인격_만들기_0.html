@@ -143,31 +143,74 @@
     letter-spacing:1px; color:var(--rust);
   }
   h1{
-    margin:12px 0 14px;
+    margin:12px 0 16px;
     font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
     color:var(--ink);
     word-break:keep-all;
   }
 
-  /* ---------- figure ---------- */
-  figure{margin:18px 0 26px}
-  .photo{position:relative; height:160px; overflow:hidden; background:#ede6da; border-radius:2px}
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 우측 상단 · 폭 1/2 정교한 컷) ---------- */
+  figure, figure.cut-top-right{
+    float:right;
+    width:50%;
+    max-width:337px;
+    margin:4px 0 14px 22px;
+    padding:6px;
+    background:var(--paper);
+    border:1px solid var(--rule);
+    border-radius:4px;
+    box-shadow:0 3px 12px rgba(0,0,0,.07);
+  }
+  .photo{
+    position:relative;
+    height:148px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+    border:1px solid rgba(154, 74, 46, 0.25);
+  }
   .photo svg{display:block; width:100%; height:100%}
   .cut-caption{
     margin-top:6px;
+    padding:2px 2px 0;
     font-family:'Pretendard', sans-serif;
-    font-size:11.5px;
+    font-size:10.5px;
+    line-height:1.38;
     color:var(--mute);
-    letter-spacing:.02em;
+    letter-spacing:.01em;
     display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:12px;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
   }
   .cut-caption span:last-child{
     font-style:italic;
-    opacity:0.85;
-    white-space:nowrap;
+    opacity:0.88;
+    white-space:normal;
   }
 
   .night{
@@ -195,10 +238,16 @@
     filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
   }
 
-  /* ---------- body (AI-HTML 서체·굵기·크기·행간 100% 동일) ---------- */
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
   .body{
+    display:block;
     font-size:var(--body-size);
     transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
   }
   .body p{
     margin:0 0 24px 0;
@@ -213,6 +262,26 @@
     font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
   }
   .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(253, 224, 71, 0.58) 58%, transparent 58%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 3px;
+    border-radius:3px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.42) 60%, transparent 60%);
+    color:#fef08a;
+    font-weight:700;
+  }
 
   /* 결미 단락 */
   .address{
@@ -265,17 +334,115 @@
     transform:translateX(-50%) translateY(0); opacity:1;
   }
 
-  /* ---------- 모바일 반응형 호환 ---------- */
-  @media (max-width: 820px){
-    #top-toolbar{padding:0 14px}
-    .toolbar-left{display:none}
-    .toolbar-right{width:100%; justify-content:center}
-    .page{
-      width:calc(100% - 24px);
-      min-height:auto;
-      margin:0 auto 24px;
-      padding:32px 24px 24px;
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{float:right; width:50%; max-width:300px; margin:4px 0 12px 16px; padding:5px}
+  body[data-view="mobile"] .photo{height:clamp(112px, 28vw, 144px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:2px;
+    font-size:10px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:normal;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
     }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{float:right; width:50%; max-width:290px; margin:4px 0 12px 16px; padding:5px}
+    body:not([data-view="a4"]) .photo{height:clamp(108px, 28vw, 142px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      font-size:10px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:normal;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{width:48%; margin:2px 0 10px 12px; padding:4px}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
   }
 
   @media print{
@@ -283,13 +450,13 @@
     body{background:#fff !important; color:#000 !important; padding:0}
     #book{zoom:1 !important}
     #top-toolbar,.zoom,#toast{display:none !important}
-    .page{width:794px; min-height:1123px; margin:0; background:#fff !important; color:#000 !important; box-shadow:none; break-after:page}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
   }
 </style>
 </head>
 <body>
 
-<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 음영변화 🌓, 복사, 공유) -->
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
 <header id="top-toolbar">
   <div class="toolbar-left">
     <span class="current-section-title" id="currentSectionTitle">배당의 앞줄이 책임의 앞줄로 바뀔 때와 그 머리에 먼저 서신 분</span>
@@ -298,6 +465,7 @@
     <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
     <span id="fontScaleDisplay">100%</span>
     <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
     <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
     <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
     <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
@@ -311,6 +479,64 @@
   <h1 id="doc-title">배당의 앞줄이 책임의 앞줄로 바뀔 때와 그 머리에 먼저 서신 분</h1>
 
   <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="세무 상담실과 교회 공지 문안과 아침 다이어리에 나란히 적힌 그리고의 두 줄 분부">
+        <defs>
+          <linearGradient id="gAmos5Bg3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#231f20"/>
+            <stop offset="0.5" stop-color="#362f2d"/>
+            <stop offset="1" stop-color="#1f1b1a"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gAmos5Bg3)"/>
+        <!-- 카드 1: 세무 상담실의 두 줄 -->
+        <g transform="translate(18, 20)">
+          <rect width="204" height="120" rx="6" fill="#faf8f5" stroke="#d97706" stroke-width="1.5"/>
+          <rect width="204" height="25" rx="6" fill="#78350f"/>
+          <text x="102" y="17" font-family="serif" font-size="10.5" fill="#fef3c7" text-anchor="middle" font-weight="bold">1. 세무 상담실의 두 줄 (암 5:3-4)</text>
+          <text x="14" y="48" font-family="serif" font-size="10.5" fill="#1e293b" font-weight="bold">① 오늘 장부를 정직히 정리하십시오.</text>
+          <text x="14" y="70" font-family="serif" font-size="11" fill="#b45309" font-weight="bold">② 그리고 내일 가게 문을 여십시오.</text>
+          <line x1="14" y1="84" x2="190" y2="84" stroke="#cbd5e1" stroke-width="1"/>
+          <text x="102" y="104" font-family="serif" font-size="9.5" fill="#475569" text-anchor="middle">섣부른 조건문 대신 오늘의 분부</text>
+        </g>
+        <!-- 카드 2: 교회 공지 문안의 두 줄 -->
+        <g transform="translate(235, 20)">
+          <rect width="204" height="120" rx="6" fill="#faf8f5" stroke="#0f766e" stroke-width="1.5"/>
+          <rect width="204" height="25" rx="6" fill="#115e59"/>
+          <text x="102" y="17" font-family="serif" font-size="10.5" fill="#ccfbf1" text-anchor="middle" font-weight="bold">2. 목회 공지 문안의 두 줄 (암 5:5-6)</text>
+          <text x="14" y="48" font-family="serif" font-size="10.5" fill="#1e293b" font-weight="bold">① 장소가 아닌 주님을 찾읍시다.</text>
+          <text x="14" y="70" font-family="serif" font-size="11" fill="#0f766e" font-weight="bold">② 그리고 한 주간을 살아냅시다.</text>
+          <line x1="14" y1="84" x2="190" y2="84" stroke="#cbd5e1" stroke-width="1"/>
+          <text x="102" y="104" font-family="serif" font-size="9.5" fill="#475569" text-anchor="middle">도덕주의 우월감과 정죄감 해소</text>
+        </g>
+        <!-- 카드 3: 아침 다이어리 맨 윗줄 -->
+        <g transform="translate(452, 20)">
+          <rect width="204" height="120" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.8"/>
+          <rect width="204" height="25" rx="6" fill="#92400e"/>
+          <text x="102" y="17" font-family="serif" font-size="10.5" fill="#fef3c7" text-anchor="middle" font-weight="bold">3. 아침 다이어리 첫 줄 (오늘의 숨)</text>
+          <text x="14" y="48" font-family="serif" font-size="10.5" fill="#1e293b" font-weight="bold">1. 오늘도 주님 자신을 찾는다.</text>
+          <text x="14" y="70" font-family="serif" font-size="11" fill="#b45309" font-weight="bold">2. 그리고 오늘 하루를 살아낸다.</text>
+          <line x1="14" y1="84" x2="190" y2="84" stroke="#fcd34d" stroke-width="1"/>
+          <text x="102" y="104" font-family="serif" font-size="9.5" fill="#78350f" text-anchor="middle" font-weight="bold">보수가 아닌 거룩한 분부로 출발</text>
+        </g>
+        </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 세무 상담실·목회 공지·아침 다이어리에서 ‘그러면’을 지우고 ‘그리고’로 나란히 적는 두 줄의 분부</span><span>아모스 6장 1절 · ‘하는 자(능동 분사)’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">법인 체납 세액이 쌓인 뒤 과점주주로서 출자자의 제2차 납세의무 통지서를 받아 들고 세무 상담실을 찾아오는 대표들은 대개 억울함부터 토로한다. 회사가 어려워진 것만도 막막한데 왜 내 개인 재산으로 법인의 세금을 메워야 하느냐는 항변이다. 그럴 때 나는 세법 조문의 지분 비율이나 권리 행사 요건을 따지기 전에 먼저 자리에 관한 설명부터 건넨다. &quot;대표님은 회사가 이익을 내고 배당과 의결을 결정하던 줄에서 맨 앞자리에 서 계셨습니다. <mark class="hl"><strong>국세기본법은 그 줄이 반대로 돌아서서 책임을 지는 행렬이 될 때도 똑같이 그 맨 앞자리를 봅니다.&quot;</strong></mark></p>
+    <p class="essay-p">아모스 6장 1절부터 7절까지를 원문의 분사 형태소 태그(morphhb WLC 기준)를 따라 &#x27;하는 자(능동 분사)&#x27;와 &#x27;된 자(수동 분사)&#x27; 두 칸으로 갈라 세워 보면, 법전의 논리와 놀랍도록 닮은 자리의 문법이 드러난다. 아모스 전권에서 능동 분사는 여든 토막이고 수동 분사는 다섯 토막뿐인데, 한 절 안에 두 꼴이 짝을 이루어 나란히 선 자리는 책 전체에 세 번뿐이며 그 셋이 모두 이 단락의 양끝과 한가운데인 1절, 4절, 7절에 몰려 있다. 바로 앞 단락(5:7-17)이 능동 분사 열한 개만 줄지어 세운 것과 달리, 이 단락은 첫째 절에 &#x27;의지하는 자들(브하보트힘)&#x27;과 전권 수동 분사 중 유일한 연계형인 &#x27;지명된 자들(네쿠베)&#x27;, 정확한 중앙인 넷째 절에 &#x27;눕는 자들·먹는 자들(하쇼크빔·브오클림)&#x27;과 &#x27;자기 침상에 뻗은 자들(우세루힘)&#x27;, <mark class="hl"><strong>마지막 일곱째 절에 &#x27;끌려가는 자들(골림)&#x27;과 &#x27;뻗은 자들(세루힘)&#x27;을 짝지어 세운다.</strong></mark></p>
+    <p class="pull essay-p">이 세 짝이 수렴하는 7절의 선고 문장은 한 표제어 갈라(גָּלָה, 옮겨 가다·사로잡혀 가다)를 단락의 유일한 주절 주동사 이글루(יִגְלוּ, 그들이 끌려가리라)와 능동 분사 골림(גֹּלִים, 끌려가는 자들) 두 꼴로 세우고, 그 사이를 브로쉬(בְּרֹאשׁ, 머리에·맨 앞에)라는 위치어로 잇는다. 골림이라는 능동 분사 복수 꼴은 이 표제어가 구약 27권에 백여든여섯 번 쓰이는 동안 오직 여기 한 번만 나타나는 꼴이다. 개역한글은 세 자리의 수동 분사를 &quot;우승하여 유명하므로(6:1)&quot;, &quot;기지개 켜며(6:4)&quot;, &quot;기지개 켜는 자(6:7)&quot;라는 행위 꼴로 옮기고, 정작 능동 분사인 골림은 &quot;사로잡히는 자&quot;라는 수동 울림으로 옮겨 원문의 태(態) 짝이 문면에서 엇갈리고 평평해졌다. <mark class="hl"><strong>칠십인역 또한 이 분사 짝을 분사로 남기지 않아, 이 정교한 대칭은 마소라 본문(MT) 문면 위에서만 선명히 확인된다.</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>배당의 앞줄이 책임의 앞줄로 바뀔 때와 그 머리에 먼저 서신 분</b><span>02 / 03</span></header>
+
+  <figure style="margin-top:26px">
     <div class="photo">
       <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="마주 놓인 두 의자와 따뜻한 찻잔과 펼쳐진 성경">
         <defs>
@@ -335,61 +561,14 @@
         <path d="M506 58 L506 142 M506 106 L460 106 L460 142" fill="none" stroke="#a47551" stroke-width="5" stroke-linecap="round"/>
       </svg>
     </div>
-    <figcaption class="cut-caption"><span>▲ 따뜻한 찻잔을 사이에 두고 마주 놓인 두 의자와 펼쳐진 성경</span><span>아모스 6장 1절 · ‘하는 자(능동 분사)’</span></figcaption>
+    <figcaption class="cut-caption"><span>▲ 따뜻한 찻잔을 사이에 두고 마주 놓인 두 의자와 펼쳐진 성경</span><span>판단보다 경청이 먼저 머무는 상담과 심방의 자리</span></figcaption>
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">법인 체납 세액이 쌓인 뒤 과점주주로서 출자자의 제2차 납세의무 통지서를 받아 들고 세무 상담실을 찾아오는 대표들은 대개 억울함부터 토로한다. 회사가 어려워진 것만도 막막한데 왜 내 개인 재산으로 법인의 세금을 메워야 하느냐는 항변이다. 그럴 때 나는 세법 조문의 지분 비율이나 권리 행사 요건을 따지기 전에 먼저 자리에 관한 설명부터 건넨다. &quot;대표님은 회사가 이익을 내고 배당과 의결을 결정하던 줄에서 맨 앞자리에 서 계셨습니다. 국세기본법은 그 줄이 반대로 돌아서서 책임을 지는 행렬이 될 때도 똑같이 그 맨 앞자리를 봅니다.&quot;</p>
-    <p class="essay-p">아모스 6장 1절부터 7절까지를 원문의 분사 형태소 태그(morphhb WLC 기준)를 따라 &#x27;하는 자(능동 분사)&#x27;와 &#x27;된 자(수동 분사)&#x27; 두 칸으로 갈라 세워 보면, 법전의 논리와 놀랍도록 닮은 자리의 문법이 드러난다. 아모스 전권에서 능동 분사는 여든 토막이고 수동 분사는 다섯 토막뿐인데, 한 절 안에 두 꼴이 짝을 이루어 나란히 선 자리는 책 전체에 세 번뿐이며 그 셋이 모두 이 단락의 양끝과 한가운데인 1절, 4절, 7절에 몰려 있다. 바로 앞 단락(5:7-17)이 능동 분사 열한 개만 줄지어 세운 것과 달리, 이 단락은 첫째 절에 &#x27;의지하는 자들(브하보트힘)&#x27;과 전권 수동 분사 중 유일한 연계형인 &#x27;지명된 자들(네쿠베)&#x27;, 정확한 중앙인 넷째 절에 &#x27;눕는 자들·먹는 자들(하쇼크빔·브오클림)&#x27;과 &#x27;자기 침상에 뻗은 자들(우세루힘)&#x27;, 마지막 일곱째 절에 &#x27;끌려가는 자들(골림)&#x27;과 &#x27;뻗은 자들(세루힘)&#x27;을 짝지어 세운다.</p>
-    <p class="pull essay-p">이 세 짝이 수렴하는 7절의 선고 문장은 한 표제어 갈라(גָּלָה, 옮겨 가다·사로잡혀 가다)를 단락의 유일한 주절 주동사 이글루(יִגְלוּ, 그들이 끌려가리라)와 능동 분사 골림(גֹּלִים, 끌려가는 자들) 두 꼴로 세우고, 그 사이를 브로쉬(בְּרֹאשׁ, 머리에·맨 앞에)라는 위치어로 잇는다. 골림이라는 능동 분사 복수 꼴은 이 표제어가 구약 27권에 백여든여섯 번 쓰이는 동안 오직 여기 한 번만 나타나는 꼴이다. 개역한글은 세 자리의 수동 분사를 &quot;우승하여 유명하므로(6:1)&quot;, &quot;기지개 켜며(6:4)&quot;, &quot;기지개 켜는 자(6:7)&quot;라는 행위 꼴로 옮기고, 정작 능동 분사인 골림은 &quot;사로잡히는 자&quot;라는 수동 울림으로 옮겨 원문의 태(態) 짝이 문면에서 엇갈리고 평평해졌다. 칠십인역 또한 이 분사 짝을 분사로 남기지 않아, 이 정교한 대칭은 마소라 본문(MT) 문면 위에서만 선명히 확인된다.</p>
-  </div>
-
-  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
-</article>
-
-<article class="page">
-  <header class="runhead"><b>배당의 앞줄이 책임의 앞줄로 바뀔 때와 그 머리에 먼저 서신 분</b><span>02 / 03</span></header>
-
-  <figure style="margin-top:26px">
-    <div class="photo">
-      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="금이 간 질그릇 틈새로 새어 나오는 보배의 빛">
-        <defs>
-          <linearGradient id="gVesselBg" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#121824"/>
-            <stop offset="0.5" stop-color="#242b38"/>
-            <stop offset="1" stop-color="#3d2e24"/>
-          </linearGradient>
-          <radialGradient id="gTreasureGlow" cx="0.5" cy="0.54" r="0.46">
-            <stop offset="0" stop-color="#fff4cc" stop-opacity="0.75"/>
-            <stop offset="0.45" stop-color="#f5b95f" stop-opacity="0.28"/>
-            <stop offset="1" stop-color="#121824" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-        <rect width="674" height="160" fill="url(#gVesselBg)"/>
-        <rect width="674" height="160" fill="url(#gTreasureGlow)"/>
-        <!-- 빛살 광선 -->
-        <polygon points="337,84 210,0 255,0" fill="#fff3c4" opacity="0.22"/>
-        <polygon points="337,84 420,0 468,0" fill="#fff3c4" opacity="0.22"/>
-        <polygon points="337,84 540,40 560,82" fill="#fff3c4" opacity="0.16"/>
-        <rect x="0" y="132" width="674" height="28" fill="#1b1613"/>
-        <!-- 투박한 토기 질그릇 실루엣 -->
-        <g transform="translate(285, 28)">
-          <path d="M32 8 L72 8 L66 24 C92 38 96 78 74 104 L30 104 C8 78 12 38 38 24 Z" fill="#6e4730" stroke="#2b1a10" stroke-width="2"/>
-          <ellipse cx="52" cy="8" rx="20" ry="4.5" fill="#4a2e1e" stroke="#2b1a10" stroke-width="1.5"/>
-          <!-- 질그릇의 균열(금)에서 뿜어져 나오는 황금빛 보배 -->
-          <path d="M48 26 L56 46 L44 64 L58 84 L50 100" fill="none" stroke="#fff9db" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M56 46 L72 56 M44 64 L28 74" fill="none" stroke="#ffd875" stroke-width="2" stroke-linecap="round"/>
-        </g>
-      </svg>
-    </div>
-    <figcaption class="cut-caption"><span>▲ 금이 간 질그릇의 틈새로 밝게 새어 나오는 보배의 빛</span><span>‘높던 자가 낮아지는 역전’</span></figcaption>
-  </figure>
-
-  <div class="body">
-    <p class="dc essay-p">흔히 이 선고를 &#x27;높던 자가 낮아지는 역전&#x27;으로 읽곤 하지만, 원문이 찍어 주는 알맹이는 역전이 아니다. 1절에서 누가 지명했는지 적히지 않은 채 &#x27;열국의 으뜸(레쉬트, 머리)&#x27;으로 불리던 자들이, 7절의 선고에서도 여전히 행렬의 &#x27;머리(로쉬)&#x27;에 선다. 만약 본문이 &#x27;머리&#x27; 대신 &#x27;끝&#x27;이나 &#x27;꼬리&#x27;를 썼다면 선고는 역전의 위로로 녹아들었을 것이다. 그러나 본문은 그들의 앞자리를 빼앗아 맨 뒤로 보내지 않고, 자리를 그대로 둔 채 행렬의 성격만 잔치 행렬에서 포로 행렬로 바꾸어 버린다.</p>
+    <p class="dc essay-p">흔히 이 선고를 &#x27;높던 자가 낮아지는 역전&#x27;으로 읽곤 하지만, 원문이 찍어 주는 알맹이는 역전이 아니다. 1절에서 누가 지명했는지 적히지 않은 채 &#x27;열국의 으뜸(레쉬트, 머리)&#x27;으로 불리던 자들이, 7절의 선고에서도 여전히 행렬의 &#x27;머리(로쉬)&#x27;에 선다. 만약 본문이 &#x27;머리&#x27; 대신 &#x27;끝&#x27;이나 &#x27;꼬리&#x27;를 썼다면 선고는 역전의 위로로 녹아들었을 것이다. <mark class="hl"><strong>그러나 본문은 그들의 앞자리를 빼앗아 맨 뒤로 보내지 않고, 자리를 그대로 둔 채 행렬의 성격만 잔치 행렬에서 포로 행렬로 바꾸어 버린다.</strong></mark></p>
     <span class="break"></span>
-    <p class="essay-p">더욱 주목할 사실은 이 일곱 절 안에 하나님을 주어로 세운 1인칭 동사도, &#x27;여호와의 말씀이니라&#x27; 같은 발화 공식도 단 한 토막조차 적혀 있지 않다는 점이다. 양옆 단락(5:27, 6:8)에는 하나님의 이름이 또렷이 서 있는데, 골짜기 같은 이 일곱 절은 선고하는 입을 침묵 속에 두고 오직 선고받는 자가 서게 될 위치만 정밀하게 기록한다. 실제로 바닥이나 소파에 등을 대고 누워 팔다리를 길게 뻗은 채 1절부터 6절까지를 소리 내어 읽어 보면, 호격을 받는 주절 정동사가 하나도 없는 여섯 절 동안 몸은 일어날 이유를 얻지 못한다. 그러다 7절의 &quot;그러므로 이제 저희가 앞서 사로잡히리니(이글루)&quot;에 이르러서야 비로소 자기가 고르지 않은 첫 동사를 얻어 방문 앞에 서게 되고, 1절에서 정면으로 바라보던 사람들의 줄을 이제는 무거운 등으로 느끼게 된다.</p>
-    <p class="essay-p">법철학자 토니 오노레(Tony Honoré, 1999)는 『책임과 잘못(Responsibility and Fault)』에서 인간이 어떤 지위나 결정권의 혜택을 누리는 앞자리에 설 때, 설령 모든 파국적 결과를 스스로 의도하거나 선택하지 않았더라도 그 위치에 수반되는 결과적 부담까지 자기 몫으로 인수해야 하는 &#x27;결과 책임(outcome responsibility)&#x27;의 구조를 규명했다. 배당과 의전의 행렬에서 선두에 선 자는 행렬의 방향이 무너지는 줄로 바뀔 때도 그 맨 앞자리의 무게를 피할 수 없다는 원리다.</p>
+    <p class="essay-p">더욱 주목할 사실은 이 일곱 절 안에 하나님을 주어로 세운 1인칭 동사도, &#x27;여호와의 말씀이니라&#x27; 같은 발화 공식도 단 한 토막조차 적혀 있지 않다는 점이다. 양옆 단락(5:27, 6:8)에는 하나님의 이름이 또렷이 서 있는데, 골짜기 같은 이 일곱 절은 선고하는 입을 침묵 속에 두고 오직 선고받는 자가 서게 될 위치만 정밀하게 기록한다. 실제로 바닥이나 소파에 등을 대고 누워 팔다리를 길게 뻗은 채 1절부터 6절까지를 소리 내어 읽어 보면, 호격을 받는 주절 정동사가 하나도 없는 여섯 절 동안 몸은 일어날 이유를 얻지 못한다. 그러다 7절의 &quot;그러므로 이제 저희가 앞서 사로잡히리니(이글루)&quot;에 이르러서야 비로소 자기가 고르지 않은 첫 동사를 얻어 방문 앞에 서게 되고, <mark class="hl"><strong>1절에서 정면으로 바라보던 사람들의 줄을 이제는 무거운 등으로 느끼게 된다.</strong></mark></p>
+    <p class="essay-p">법철학자 토니 오노레(Tony Honoré, 1999)는 『책임과 잘못(Responsibility and Fault)』에서 인간이 어떤 지위나 결정권의 혜택을 누리는 앞자리에 설 때, 설령 모든 파국적 결과를 스스로 의도하거나 선택하지 않았더라도 그 위치에 수반되는 결과적 부담까지 자기 몫으로 인수해야 하는 &#x27;결과 책임(outcome responsibility)&#x27;의 구조를 규명했다. <mark class="hl"><strong>배당과 의전의 행렬에서 선두에 선 자는 행렬의 방향이 무너지는 줄로 바뀔 때도 그 맨 앞자리의 무게를 피할 수 없다는 원리다.</strong></mark></p>
   </div>
 
   <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
@@ -439,10 +618,10 @@
   </figure>
 
   <div class="body">
-    <p class="dc essay-p">호송 행렬의 선두 차량 운전자는 스스로 그 자리를 고르지만, 6장 7절의 사람들은 스스로 고르지 않은 채 끌려가는 줄의 머리에 세워진다. 아모스는 여기서 멈추지만, 정경은 선고자의 입이 비어 있고 위치만 적힌 이 자리 위에 그 줄의 맨 앞을 스스로 고르신 한 분을 더해 적는다. 누가복음 23장 26절이 &quot;저희가 예수를 끌고 갈 때에&quot;라고 적고 요한복음 19장 17절이 &quot;예수께서 자기의 십자가를 지시고… 나오시니&quot;라고 적을 때, 세워짐과 고름의 두 꼴이 한 분 안에서 맞물린다. 하이델베르크 요리문답 제37문이 고백하듯, 가장 부요하신 분이 낮아지사(고후 8:9) 인류의 죄에 대한 하나님의 진노를 몸과 영혼에 짊어지시고 성문 밖 고난의 줄 맨 앞으로 앞서 가셨다(히 6:20, 13:12-13). 이 복음은 우리의 앞자리를 값싸게 면제해 주는 것이 아니라, 우리가 선 앞줄의 방향을 영문 밖 그분 뒤를 따르는 자리로 돌려세운다.</p>
+    <p class="dc essay-p">호송 행렬의 선두 차량 운전자는 스스로 그 자리를 고르지만, 6장 7절의 사람들은 스스로 고르지 않은 채 끌려가는 줄의 머리에 세워진다. 아모스는 여기서 멈추지만, 정경은 선고자의 입이 비어 있고 위치만 적힌 이 자리 위에 그 줄의 맨 앞을 스스로 고르신 한 분을 더해 적는다. 누가복음 23장 26절이 &quot;저희가 예수를 끌고 갈 때에&quot;라고 적고 요한복음 19장 17절이 &quot;예수께서 자기의 십자가를 지시고… 나오시니&quot;라고 적을 때, 세워짐과 고름의 두 꼴이 한 분 안에서 맞물린다. 하이델베르크 요리문답 제37문이 고백하듯, 가장 부요하신 분이 낮아지사(고후 8:9) 인류의 죄에 대한 하나님의 진노를 몸과 영혼에 짊어지시고 성문 밖 고난의 줄 맨 앞으로 앞서 가셨다(히 6:20, 13:12-13). <mark class="hl"><strong>이 복음은 우리의 앞자리를 값싸게 면제해 주는 것이 아니라, 우리가 선 앞줄의 방향을 영문 밖 그분 뒤를 따르는 자리로 돌려세운다.</strong></mark></p>
   </div>
   <section class="address">
-    <p class="essay-p">오늘 저녁 교회 행정실의 요람 초안을 열어 직분자 명단 옆에 교우의 재난과 깨어짐(6:6, 셰베르 요세프)이 발생했을 때 가장 먼저 연락받고 현장으로 달려갈 책임 순번을 영예의 순번과 똑같은 순서로 나란히 적어 넣는다. 그리고 밤에 잠들기 전 방바닥에 등을 대고 누워 아모스 6장 1절부터 6절까지를 읽다가 7절 첫머리에서 일어나 방문 바로 앞에 서 본 뒤, 책상 위 노트에 &quot;오늘 나는 어느 줄의 맨 앞에 섰는가, 고른 자리인가 세워진 자리인가&quot; 한 줄을 적는다.</p>
+    <p class="essay-p">오늘 저녁 교회 행정실의 요람 초안을 열어 직분자 명단 옆에 교우의 재난과 깨어짐(6:6, 셰베르 요세프)이 발생했을 때 가장 먼저 연락받고 현장으로 달려갈 책임 순번을 영예의 순번과 똑같은 순서로 나란히 적어 넣는다. 그리고 밤에 잠들기 전 방바닥에 등을 대고 누워 아모스 6장 1절부터 6절까지를 읽다가 7절 첫머리에서 일어나 방문 바로 앞에 서 본 뒤, <mark class="hl"><strong>책상 위 노트에 &quot;오늘 나는 어느 줄의 맨 앞에 섰는가, 고른 자리인가 세워진 자리인가&quot; 한 줄을 적는다.</strong></mark></p>
   </section>
 
   <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
@@ -504,6 +683,35 @@
       localStorage.setItem('ait_html_theme', next);
     } catch(e) {}
     showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
   }
 
   function sermonText() {
@@ -570,6 +778,13 @@
         applyFontSize(Number(savedSize));
       }
     } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
   });
 </script>
 </body>
