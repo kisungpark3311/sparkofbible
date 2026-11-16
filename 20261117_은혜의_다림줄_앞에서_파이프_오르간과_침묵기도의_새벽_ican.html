@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>은혜의 다림줄 앞에서 — 파이프 오르간과 침묵기도의 새벽 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 16px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 상단 전폭 컷 일러스트) ---------- */
+  figure{
+    margin:18px 0 26px;
+    width:100%;
+  }
+  .photo{
+    position:relative;
+    height:160px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+  }
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.88;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    display:block;
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 (은은한 웜 골드 톤) */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(250, 204, 21, 0.24) 46%, transparent 46%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 2px;
+    border-radius:2px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.22) 46%, transparent 46%);
+    color:#fef3c7;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{
+    margin:14px 0 18px;
+    width:100%;
+    float:none;
+    max-width:none;
+    padding:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+  }
+  body[data-view="mobile"] .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:nowrap;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{
+      margin:14px 0 18px;
+      width:100%;
+      float:none;
+      max-width:none;
+      padding:0;
+      border:none;
+      box-shadow:none;
+      background:transparent;
+    }
+    body:not([data-view="a4"]) .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:baseline;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:nowrap;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{margin:12px 0 16px; width:100%; float:none}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">은혜의 다림줄 앞에서 — 파이프 오르간과 침묵기도의 새벽</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>은혜의 다림줄 앞에서 — 파이프 오르간과 침묵기도의 새벽</b><span>01 · 2026년 11월 17일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">은혜의 다림줄 앞에서 — 파이프 오르간과 침묵기도의 새벽</h1>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="새벽 예배당의 은빛 파이프 오르간과 은혜의 다림줄">
+        <defs>
+          <linearGradient id="gOrganBg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#0f172a"/>
+            <stop offset="0.55" stop-color="#1e293b"/>
+            <stop offset="1" stop-color="#451a03"/>
+          </linearGradient>
+          <linearGradient id="gPipeSilver" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#64748b"/>
+            <stop offset="0.5" stop-color="#f1f5f9"/>
+            <stop offset="1" stop-color="#475569"/>
+          </linearGradient>
+          <radialGradient id="gSanctuaryGlow" cx="0.5" cy="0.3" r="0.5">
+            <stop offset="0" stop-color="#fde68a" stop-opacity="0.45"/>
+            <stop offset="0.6" stop-color="#f59e0b" stop-opacity="0.14"/>
+            <stop offset="1" stop-color="#0f172a" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gOrganBg1)"/>
+        <rect width="674" height="160" fill="url(#gSanctuaryGlow)"/>
+        <rect x="0" y="138" width="674" height="22" fill="#090d16"/>
+        <!-- 중앙: 위에서 아래까지 곧게 뻗어 내린 은빛 파이프 오르간 수직 관들의 숲 -->
+        <g transform="translate(210, 12)">
+          <rect x="0" y="34" width="10" height="86" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="14" y="22" width="10" height="98" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="28" y="12" width="12" height="108" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="44" y="4" width="14" height="116" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="62" y="0" width="16" height="120" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="82" y="4" width="14" height="116" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="100" y="12" width="12" height="108" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="116" y="22" width="10" height="98" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="130" y="34" width="10" height="86" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="154" y="28" width="10" height="92" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="168" y="16" width="12" height="104" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="184" y="6" width="14" height="114" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="202" y="16" width="12" height="104" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="218" y="28" width="10" height="92" rx="2" fill="url(#gPipeSilver)"/>
+          <rect x="-12" y="118" width="252" height="10" rx="2" fill="#78350f" stroke="#d97706" stroke-width="1"/>
+        </g>
+        <!-- 파이프 정중앙과 한 몸처럼 겹쳐진 금빛 은혜의 다림줄 -->
+        <line x1="280" y1="0" x2="280" y2="112" stroke="#fde047" stroke-width="2.2" stroke-dasharray="4 2"/>
+        <polygon points="272,112 288,112 280,130" fill="#fbbf24" stroke="#fef3c7" stroke-width="1.2"/>
+        <!-- 좌측: 예배당 의자에서 고개를 들어 올려다보는 기도자의 실루엣 -->
+        <g transform="translate(88, 92)">
+          <rect x="0" y="32" width="46" height="6" fill="#78350f"/>
+          <circle cx="22" cy="8" r="7" fill="#fef3c7"/>
+          <path d="M12,32 L16,16 L28,16 L32,32 Z" fill="#cbd5e1" opacity="0.88"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 새벽 예배당 전면 벽면에 수직으로 뻗어 내린 은빛 파이프 오르간 관들과 포개진 ‘은혜의 다림줄’</span><span>아모스 7:7–8 · 심판의 추가 아니라 기울고 흔들리는 내 삶의 중심을 곧게 붙들어 세우시는 은혜의 기준선</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">아직 어둠이 채 가시지 않은 오늘 새벽, 고요한 예배당 자리에 앉아 침묵기도의 시간을 맞이하며 무심코 고개를 들어 앞을 바라보았다. 지난 며칠간 내 눈앞에 어른거리던 아모스 7장의 성벽 위 다림줄이, 예배당 전면 벽면을 가득 채운 채 위에서 아래까지 곧게 뻗어 내린 수십 개의 은빛 파이프 오르간 수직선들과 한 장면처럼 포개어졌다. 은은한 새벽 조명 아래서 조금의 뒤틀림도 없이 하늘을 향해 수직으로 서 있는 그 금속 관들은 마치 보이지 않는 하나님의 손이 드리우신 거대한 다림줄의 숲처럼 보였다. <mark class="hl"><strong>늘 익숙하게 바라보던 예배당 전면의 풍경이 오늘따라 내 삶의 기울기를 조용히 비추어 보는 거룩한 수직선으로 다가와 내 시선을 오래도록 붙잡았다.</strong></mark></p>
+    <p class="essay-p">그동안 내가 읽었던 아모스서의 다림줄은 무너진 성벽의 금 간 곳을 가려내어 허물어뜨리는 두려운 심판의 추에 가까웠다. 세무사로서 숫자의 오차를 찾아내고 법리의 잣대로 시비를 가려야 하는 일상에 익숙한 탓인지, 나는 하나님의 기준선 앞에서도 늘 불합격 판정을 받을까 봐 몸을 움츠리곤 했다. 그러나 새벽의 적막 속에서 은빛 파이프 오르간과 겹쳐진 다림줄은 나를 정죄하여 무너뜨리려는 차가운 쇠추가 아니었다. <mark class="hl"><strong>그것은 세상의 무게에 눌려 이리저리 기울고 흔들리던 내 삶의 중심을 다시금 제자리로 맞추어 곧게 붙들어 세워 주시는 따뜻한 은혜의 기준선이었다.</strong></mark></p>
+    <p class="pull essay-p">낮게 흐르는 오르간 선율에 귀를 기울이다가, 나는 저 수많은 은빛 관들이 소리를 내는 원리를 새삼스럽게 떠올렸다. 파이프 오르간의 관은 스스로의 힘으로 소리를 쥐어짜 내거나 자기 안을 무언가로 가득 채워서 음악을 만들지 않는다. 오직 속을 텅 비운 채 흔들림 없는 수직으로 서서, 보이지 않는 곳에서 불어오는 바람을 온전히 받아들여 자기 몸을 통과시킬 때 비로소 깊고 맑은 울림이 깨어난다. <mark class="hl"><strong>내 안이 온갖 계산과 염려의 말들로 꽉 막혀 있으면 그 어떤 하늘의 숨결도 통과할 수 없음을, 텅 빈 속으로 새벽 예배당을 울리는 은빛 파이프들이 내게 말없이 일러 주고 있었다.</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>은혜의 다림줄 앞에서 — 파이프 오르간과 침묵기도의 새벽</b><span>02 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="속을 비운 파이프를 통과하는 바람과 오르간 선율에 얹어 드린 아픈 삶">
+        <defs>
+          <linearGradient id="gOrganBg2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#17202a"/>
+            <stop offset="0.5" stop-color="#273746"/>
+            <stop offset="1" stop-color="#5c3a21"/>
+          </linearGradient>
+          <linearGradient id="gWindWave" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#93c5fd" stop-opacity="0.2"/>
+            <stop offset="0.5" stop-color="#fde68a" stop-opacity="0.85"/>
+            <stop offset="1" stop-color="#f59e0b" stop-opacity="0.2"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gOrganBg2)"/>
+        <rect x="0" y="138" width="674" height="22" fill="#11161d"/>
+        <!-- 좌측: 내려놓은 말과 서류 조각들 -->
+        <g transform="translate(54, 72)">
+          <rect x="0" y="28" width="76" height="28" rx="3" fill="#94a3b8" opacity="0.55" stroke="#cbd5e1" stroke-width="1"/>
+          <line x1="10" y1="37" x2="54" y2="37" stroke="#e2e8f0" stroke-width="1.2" stroke-dasharray="6 3"/>
+          <line x1="10" y1="46" x2="42" y2="46" stroke="#e2e8f0" stroke-width="1.2" stroke-dasharray="4 4"/>
+        </g>
+        <!-- 중앙: 속을 텅 비운 세 개의 은빛 파이프 단면과 그 안을 통과해 올라가는 황금빛 숨결 -->
+        <g transform="translate(270, 18)">
+          <rect x="0" y="14" width="22" height="102" rx="3" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+          <rect x="42" y="0" width="26" height="116" rx="3" fill="none" stroke="#fef3c7" stroke-width="2.2"/>
+          <rect x="88" y="18" width="22" height="98" rx="3" fill="none" stroke="#e2e8f0" stroke-width="2"/>
+          <path d="M11,110 Q11,64 11,18" stroke="#fde68a" stroke-width="3" stroke-dasharray="4 3"/>
+          <path d="M55,112 Q55,58 55,4" stroke="#fbbf24" stroke-width="4"/>
+          <path d="M99,108 Q99,64 99,22" stroke="#fde68a" stroke-width="3" stroke-dasharray="4 3"/>
+        </g>
+        <!-- 오르간의 부드러운 음파 곡선을 타고 하늘로 스며드는 탄식의 빛방울들 -->
+        <path d="M140,106 Q230,82 325,94 T520,62 T640,44" fill="none" stroke="url(#gWindWave)" stroke-width="3"/>
+        <path d="M140,118 Q240,96 335,106 T530,76 T640,58" fill="none" stroke="url(#gWindWave)" stroke-width="1.8"/>
+        <circle cx="430" cy="78" r="4.5" fill="#fef3c7"/>
+        <circle cx="485" cy="64" r="5.5" fill="#fde68a"/>
+        <circle cx="545" cy="52" r="4" fill="#fef3c7"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 속을 비운 은빛 관을 통과하는 바람처럼, 말을 멈추고 아픈 삶의 현장을 오르간 선율과 침묵 위에 얹어 드리다</span><span>안드레아 가스파리노의 침묵기도 · 조리 있는 문장을 내려놓고 상처 입은 자리 그대로 주님 발 앞에 놓는 시간</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">그 깨달음 앞에서 나는 하나님께 올려 드릴 그럴듯하고 조리 있는 기도 문장을 머릿속으로 고르던 오랜 습관을 가만히 멈추었다. 세무사의 책상에서는 빈틈없는 소명서와 논리로 의뢰인을 대변해야 했고 목회의 자리에서는 늘 정돈된 언어로 누군가를 위로해야 했기에, 나는 기도의 자리에서조차 잘 다듬어진 말을 만들어 내려 애쓰고 있었다. 그러나 은혜의 다림줄처럼 서 있는 파이프 오르간 앞에서, 나는 내 입술의 분주한 설명들을 하나씩 내려놓았다. <mark class="hl"><strong>속을 비운 한 줄기 파이프처럼 내 마음의 통로를 비워 내고 그저 주님의 숨결이 내 안을 스쳐 지나가기를 기다리자, 비로소 말 이전의 깊은 침묵이 내 호흡 속으로 찾아왔다.</strong></mark></p>
+    <span class="break"></span>
+    <p class="essay-p">말을 멈추고 은혜의 다림줄 아래 고요히 서자, 그동안 괜찮은 척 그리고 단단한 척하며 애써 가려 두었던 나 자신의 아픈 삶의 현장이 그 곧은 빛 아래 있는 그대로 드러났다. 타인의 무거운 짐을 상담하고 숫자의 매듭을 풀어 주는 일에는 익숙하면서도, 정작 치열한 삶의 현장에서 부딪히고 긁히며 소리 없이 지쳐 가던 내 속살의 상처는 누구에게도 쉽게 꺼내 놓지 못했었다. 너무 아파서 어디서부터 어떻게 말해야 할지조차 몰라 긴 문장으로 설명할 수 없었던 시간들이 가슴 한복판에 고여 있었다. <mark class="hl"><strong>하지만 나를 허물지 않고 곧게 세우시는 은혜의 다림줄 앞에서는 더 이상 강한 체할 필요도, 내 상처를 그럴싸한 신앙의 언어로 포장할 필요도 없었다.</strong></mark></p>
+    <p class="essay-p">영성가 안드레아 가스파리노는 침묵기도란 말을 줄이고 하나님의 시선 앞에 내 삶의 사실을 있는 그대로 가져다 놓는 것이라 일깨워 주었다. 나는 설명할 힘조차 남아 있지 않은 내 아픈 삶의 조각들을 있는 그대로 두 손에 모아, 잔잔히 흐르는 파이프 오르간의 선율과 침묵기도 위에 가만히 얹어 주님 발 앞으로 가져갔다. 왜 이토록 힘겨운지 따져 묻거나 해답을 재촉하는 대신, 그저 상처 입은 자리 그대로를 주님의 눈길 아래 펼쳐 놓았을 뿐이다. <mark class="hl"><strong>차마 문장이 되지 못한 내 탄식이 오르간의 낮은 울림에 실려 은빛 관을 타고 하늘로 스며들자, 오래도록 가슴 한복판을 누르던 무거운 응어리가 조용히 풀려 나갔다.</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>은혜의 다림줄 앞에서 — 파이프 오르간과 침묵기도의 새벽</b><span>03 / 03</span></header>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="수직 파이프들의 공명과 마음에 은빛 다림줄을 품고 일터로 나가는 걸음">
+        <defs>
+          <linearGradient id="gOrganBg3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1e293b"/>
+            <stop offset="0.5" stop-color="#334155"/>
+            <stop offset="1" stop-color="#b45309"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gOrganBg3)"/>
+        <rect x="0" y="136" width="674" height="24" fill="#141820"/>
+        <!-- 좌측: 길이가 서로 다른 파이프들이 똑같이 수직을 지키며 울리는 동심원 공명(Resonance) -->
+        <g transform="translate(76, 26)">
+          <rect x="0" y="36" width="8" height="72" rx="1.5" fill="#cbd5e1"/>
+          <rect x="14" y="18" width="9" height="90" rx="1.5" fill="#e2e8f0"/>
+          <rect x="29" y="4" width="10" height="104" rx="1.5" fill="#f8fafc"/>
+          <rect x="45" y="22" width="9" height="86" rx="1.5" fill="#e2e8f0"/>
+          <rect x="60" y="42" width="8" height="66" rx="1.5" fill="#cbd5e1"/>
+          <circle cx="34" cy="56" r="36" fill="none" stroke="#fde68a" stroke-width="1.2" opacity="0.65"/>
+          <circle cx="34" cy="56" r="54" fill="none" stroke="#fde68a" stroke-width="1" stroke-dasharray="4 3" opacity="0.45"/>
+        </g>
+        <!-- 중앙: 위로 흘러가는 아픔과 아래로 스며드는 평강의 쌍방향 교류 곡선 -->
+        <path d="M190,104 C250,104 280,52 350,52" fill="none" stroke="#93c5fd" stroke-width="2.2" stroke-dasharray="4 3"/>
+        <path d="M350,68 C280,68 250,116 190,116" fill="none" stroke="#fde68a" stroke-width="2.5"/>
+        <!-- 우측: 새벽빛이 밝아 오는 일터로 걸어 나가며 가슴 한가운데 은빛 다림줄을 품은 사람 -->
+        <circle cx="520" cy="78" r="46" fill="#fef3c7" opacity="0.16"/>
+        <g transform="translate(465, 58)">
+          <circle cx="24" cy="12" r="8" fill="#fef3c7"/>
+          <path d="M12,78 L16,24 L32,24 L36,78 Z" fill="#334155" stroke="#e2e8f0" stroke-width="1.2"/>
+          <!-- 가슴 한가운데 흔들림 없이 서 있는 은빛 다림줄 -->
+          <line x1="24" y1="22" x2="24" y2="62" stroke="#fde047" stroke-width="2.4"/>
+          <polygon points="20,62 28,62 24,70" fill="#fbbf24"/>
+        </g>
+        <!-- 우측 배경: 밝아 오는 도시 일터의 아침 실루엣 -->
+        <rect x="548" y="84" width="28" height="52" fill="#1e293b" opacity="0.7"/>
+        <rect x="582" y="68" width="34" height="68" fill="#1e293b" opacity="0.7"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 길이가 다른 수직 파이프들이 하나의 화음으로 공명하듯 침묵 속에서 나눈 대화와, 마음에 다림줄을 품고 나서는 걸음</span><span>말 너머로 오가는 주님의 평강과 내 마음 한가운데 흔들림 없이 세워진 은빛 다림줄</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">바로 그때, 내가 말을 멈춘 침묵의 빈자리에서 주님과 마주 앉아 숨을 나누는 깊고 고요한 대화가 시작되었다. 길이가 서로 다른 수십 개의 파이프들이 각자의 높이에서 똑같이 수직을 지킬 때 하나의 온전한 화음으로 공명하듯, 내 아픈 삶이 은혜의 다림줄 앞에 나란히 서자 내면의 거친 불협화음이 잦아들었다. 내가 입을 다물자 내 안의 아픔은 소리 없이 주님께로 흘러가고, 주님의 세미한 위로와 평강은 빈 관을 채우는 바람처럼 내 깊은 곳으로 스며들었다. <mark class="hl"><strong>단 한마디의 음성도 들리지 않았으나 내 아픔을 다 아시는 주님과 얼굴을 마주하고 가장 내밀한 대화를 나누었다는 조용한 믿음이 내 안에 차올랐다.</strong></mark></p>
+  </div>
+  <section class="address">
+    <p class="essay-p">기도를 마치고 자리에서 일어설 때, 내가 돌아가야 할 일터의 무게나 삶의 숙제가 단숨에 사라진 것은 아니었다. 그러나 예배당 문을 나서는 내 걸음은 새벽에 들어올 때와 전혀 다른 평안과 든든함으로 채워져 있었다. 홀로 이 악물고 버텨야 했던 아픈 삶의 현장이 이제는 주님과 침묵으로 대화를 나눈 은혜의 자리가 되었기 때문이다. <mark class="hl"><strong>오늘도 치열한 세상의 소음 속으로 걸어 들어가지만, 내 마음 한가운데에는 나를 곧게 붙들어 세우시는 은빛 다림줄 하나와 텅 빈 침묵을 통과해 울려 퍼지는 오르간의 화음이 흔들림 없이 서 있다.</strong></mark></p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>
