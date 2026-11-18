@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>눈과 귀를 뺀 자리에 들어서는 재판 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 16px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 상단 전폭 컷 일러스트) ---------- */
+  figure{
+    margin:18px 0 26px;
+    width:100%;
+  }
+  .photo{
+    position:relative;
+    height:160px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+  }
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.88;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    display:block;
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 (은은한 웜 골드 톤) */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(250, 204, 21, 0.24) 46%, transparent 46%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 2px;
+    border-radius:2px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.22) 46%, transparent 46%);
+    color:#fef3c7;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{
+    margin:14px 0 18px;
+    width:100%;
+    float:none;
+    max-width:none;
+    padding:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+  }
+  body[data-view="mobile"] .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:nowrap;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{
+      margin:14px 0 18px;
+      width:100%;
+      float:none;
+      max-width:none;
+      padding:0;
+      border:none;
+      box-shadow:none;
+      background:transparent;
+    }
+    body:not([data-view="a4"]) .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:baseline;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:nowrap;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{margin:12px 0 16px; width:100%; float:none}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">눈과 귀를 뺀 자리에 들어서는 재판</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>눈과 귀를 뺀 자리에 들어서는 재판</b><span>01 · 2026년 12월 23일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">눈과 귀를 뺀 자리에 들어서는 재판</h1>
+  <h2 class="subhead"><span class="subhead-num">Ⅰ.</span>눈과 귀가 먼저 닿는 자리에서 밀리는 사람</h2>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox='0 0 674 160' width='100%' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='bg23_1' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='#263342'/><stop offset='55%' stop-color='#485766'/><stop offset='100%' stop-color='#cdd5de'/></linearGradient><linearGradient id='desk23_1' x1='0%' y1='0%' x2='100%' y2='0%'><stop offset='0%' stop-color='#4d3c2e'/><stop offset='100%' stop-color='#78624f'/></linearGradient><radialGradient id='win23_1' cx='32%' cy='20%' r='45%'><stop offset='0%' stop-color='#eef2f6' stop-opacity='0.45'/><stop offset='100%' stop-color='#263342' stop-opacity='0'/></radialGradient></defs><rect width='674' height='160' fill='url(#bg23_1)'/><rect width='674' height='160' fill='url(#win23_1)'/><g fill='#1e2733' opacity='0.48'><circle cx='215' cy='52' r='11'/><path d='M196 116 L202 68 C204 62 226 62 228 68 L234 116 Z'/><circle cx='252' cy='46' r='12'/><path d='M232 116 L237 62 C240 55 264 55 267 62 L272 116 Z'/><circle cx='292' cy='54' r='10.5'/><path d='M275 116 L280 70 C282 64 302 64 304 70 L309 116 Z'/><circle cx='330' cy='49' r='11.5'/><path d='M311 116 L317 65 C320 58 340 58 343 65 L349 116 Z'/></g><g transform='translate(572, 34)' fill='#32404f' opacity='0.78'><circle cx='18' cy='14' r='9'/><path d='M4 86 L9 32 C11 25 25 25 27 32 L32 86 Z'/></g><polygon points='0,114 450,114 495,160 0,160' fill='url(#desk23_1)'/><line x1='0' y1='114' x2='450' y2='114' stroke='#2c2118' stroke-width='1.5'/><g transform='translate(72, 92)'><polygon points='0,34 150,24 176,48 24,58' fill='#d7d2c7' stroke='#5e584f' stroke-width='1.1'/><polygon points='4,29 152,19 178,43 28,53' fill='#ede9df' stroke='#5e584f' stroke-width='1.1'/><polygon points='8,24 154,14 180,38 32,48' fill='#faf8f2' stroke='#5e584f' stroke-width='1.2'/><path d='M26 24 L42 23 C45 23 45 27 42 27 L30 28' fill='none' stroke='#8b95a1' stroke-width='1.6' stroke-linecap='round'/><line x1='46' y1='32' x2='132' y2='26' stroke='#b8b2a6' stroke-width='1'/><line x1='52' y1='39' x2='118' y2='34' stroke='#c8c2b6' stroke-width='1'/></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 얇은 서류 너머에 밀린 자리</span><span>웅성거리는 그림자와 책상 위 얇은 서류철</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">세무사 사무실 책상 위에 경력 칸이 얇은 이력서나 일용 근로 내역만 몇 줄 적힌 서류가 올라올 때가 있습니다. 종이 두세 장을 넘기다 보면 나도 모르게 서류의 두께로 그 사람의 시간까지 짐작하려 듭니다. 퇴근길 단체 대화방에 앞뒤가 잘린 캡처 한 장과 소문 한마디가 올라올 때도 사정은 비슷합니다. 판정이 가장 먼저 보이는 것과 가장 크게 들리는 것에 걸릴수록, <mark class="hl"><strong>정작 그 자리에 없거나 자기 사정을 말로 풀어내기 서툰 사람이 먼저 밀려납니다.</strong></mark></p>
+    <p class="essay-p">이사야 11장 3절과 4절은 바로 그 눈과 귀의 판정을 건드립니다. 3절을 직역하면 &quot;그의 눈이 보는 것을 따라 심판하지 않고, 그의 귀가 듣는 것을 따라 판단하지 않는다&quot;입니다. 원문은 두 줄 모두 부정의 말(&#x27;아니&#x27;)을 앞세워 눈과 귀, 그리고 동사를 똑같은 틀로 묶어 놓습니다. 특히 귀 쪽에 쓰인 &#x27;들리는 것&#x27;(מִשְׁמָע)은 구약 전체에서 이 한 자리에만 나올 만큼, <mark class="hl"><strong>들려오는 평판에 기대는 판정을 빼는 자리에 서 있습니다.</strong></mark></p>
+    <p class="pull essay-p">그런데 눈여겨볼 대목은 바로 다음 절입니다. 4절은 3절에 쓰였던 똑같은 두 동사(&#x27;심판하다·판단하다&#x27;)를 이번에는 &#x27;아니&#x27; 없이 다시 꺼내 놓습니다. 눈과 귀를 뺐으니 아무 판단도 하지 않겠다는 뜻이 아닙니다. <mark class="hl"><strong>빠진 자리에 무엇이 들어가고 그 재판이 누구를 향하는지를 곧바로 이어 적습니다.</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>눈과 귀를 뺀 자리에 들어서는 재판</b><span>02 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅱ.</span>빼기만 하지 않고, 의가 띠가 되어 가난한 자를 향하다</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox='0 0 674 160' width='100%' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='bg23_2' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='#151e30'/><stop offset='58%' stop-color='#27344d'/><stop offset='100%' stop-color='#b58747'/></linearGradient><radialGradient id='glow23_2' cx='56%' cy='58%' r='36%'><stop offset='0%' stop-color='#ffe29c' stop-opacity='0.48'/><stop offset='65%' stop-color='#c99342' stop-opacity='0.14'/><stop offset='100%' stop-color='#151e30' stop-opacity='0'/></radialGradient><linearGradient id='sash23_2' x1='0%' y1='0%' x2='100%' y2='0%'><stop offset='0%' stop-color='#cfa14e'/><stop offset='50%' stop-color='#f7dc94'/><stop offset='100%' stop-color='#b57f31'/></linearGradient></defs><rect width='674' height='160' fill='url(#bg23_2)'/><rect width='674' height='160' fill='url(#glow23_2)'/><path d='M0 108 Q160 88 320 102 T674 96 L674 160 L0 160 Z' fill='#141b29' opacity='0.78'/><line x1='0' y1='128' x2='674' y2='128' stroke='#493c2d' stroke-width='1' opacity='0.6'/><g transform='translate(72, 68) rotate(-14)' opacity='0.68'><line x1='45' y1='4' x2='45' y2='54' stroke='#7d7263' stroke-width='2.4'/><line x1='10' y1='18' x2='80' y2='8' stroke='#8f8270' stroke-width='2.2'/><path d='M10 18 L2 40 M10 18 L18 40' stroke='#8f8270' stroke-width='1'/><path d='M2 40 Q10 46 18 40 Z' fill='#6b6154'/><path d='M80 8 L72 30 M80 8 L88 30' stroke='#8f8270' stroke-width='1'/><path d='M72 30 Q80 36 88 30 Z' fill='#6b6154'/></g><g transform='translate(245, 76)'><polygon points='14,54 32,20 96,12 154,22 174,54' fill='#525c69' stroke='#262e38' stroke-width='1.3'/><polygon points='32,20 96,12 104,34 40,36' fill='#6c7785' stroke='#262e38' stroke-width='1'/><path d='M10 42 C45 28 135 28 178 44 C194 49 208 55 218 58 L210 66 C192 60 176 54 160 50 C118 40 58 41 18 52 Z' fill='url(#sash23_2)' stroke='#754e1a' stroke-width='1.2'/><g stroke='#8c6023' stroke-width='0.9' opacity='0.65'><line x1='48' y1='34' x2='54' y2='45'/><line x1='70' y1='32' x2='76' y2='43'/><line x1='92' y1='31' x2='98' y2='42'/><line x1='114' y1='32' x2='120' y2='43'/><line x1='136' y1='34' x2='142' y2='45'/></g></g><g transform='translate(498, 98)'><path d='M0 14 Q26 22 52 14 L44 32 Q26 37 8 32 Z' fill='#9a7656' stroke='#402d1e' stroke-width='1.3'/><ellipse cx='26' cy='14' rx='26' ry='5.5' fill='#4a3625' stroke='#2e2014' stroke-width='1.2'/></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 반석 위에 놓인 의의 허리띠</span><span>치워진 저울대와 직조된 황금빛 띠, 작은 빈 그릇</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">우리는 흔히 이 대목을 &quot;겉모습으로 판단하지 말라&quot;는 교훈으로 읽고 지나갑니다. 하지만 3절의 빼기만 떼어 놓고 4절을 보지 않으면 문제가 생깁니다. 근거를 빼기만 한 채 새 기준을 넣지 않으면 판결이 나지 않고, <mark class="hl"><strong>판결이 미뤄진 공백 속에서 가장 먼저 버려지는 쪽이 힘없고 억울한 사람이기 때문입니다.</strong></mark></p>
+    <span class="break"></span>
+    <p class="essay-p">그렇다면 그 빈자리는 아무 편도 들지 않는 중립으로 채워질까요. 시장 저울은 눈대중 대신 무게라는 기준을 세우지만 누구 편도 들지 않고, 이름을 접어 둔 채점은 편견을 줄이지만 답안지 주인이 누구인지 가려 버립니다. 반면 이사야 11장 4절이 빼는 것은 사람이 아니라 사람에게 덧씌워진 겉모습일 뿐, 재판의 근거로는 &#x27;공의&#x27;와 &#x27;정직&#x27;을 넣고 상대로는 처음부터 &#x27;가난한 자&#x27;와 &#x27;세상의 겸손한 자&#x27;를 짚어 적습니다. 게다가 같은 절 끝의 &quot;입의 막대기로 세상을 치며 악인을 죽일 것이며&quot;도 지우지 않습니다. 상한 갈대를 꺾지 않는 온유한 재판을 그린 이사야 42장 3절과 거리가 있어 보이지만, <mark class="hl"><strong>본문은 두 그림을 억지로 맞추지 않은 채 함께 둡니다.</strong></mark></p>
+    <p class="essay-p">5절에 이르면 무게중심이 한층 또렷해집니다. 우리말 성경은 &quot;공의로 그의 허리띠를 삼으며&quot;라 옮겼지만, 원문의 주어는 &#x27;그&#x27;가 아니라 &#x27;의&#x27;입니다. <mark class="hl"><strong>&quot;의가 그의 허리의 띠가 되리라&quot;입니다.</strong></mark> 게다가 11장 1절부터 9절 전체에는 명령문이 단 하나도 없습니다. 이 본문은 나더러 사람 속을 꿰뚫어 보는 재판관이 되라는 훈계가 아니라, 의가 친히 허리띠가 되어 가난한 자를 세우시는 그분의 재판이 반드시 온다는 약속입니다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>눈과 귀를 뺀 자리에 들어서는 재판</b><span>03 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅲ.</span>재판관 자리를 비우고 한 번 더 묻는 몫</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox='0 0 674 160' width='100%' xmlns='http://www.w3.org/2000/svg'><defs><linearGradient id='bg23_3' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='#f4ede0'/><stop offset='56%' stop-color='#dce0d2'/><stop offset='100%' stop-color='#8b967d'/></linearGradient><radialGradient id='lamp23_3' cx='72%' cy='24%' r='52%'><stop offset='0%' stop-color='#fff6d6' stop-opacity='0.92'/><stop offset='45%' stop-color='#f2ca85' stop-opacity='0.34'/><stop offset='100%' stop-color='#dce0d2' stop-opacity='0'/></radialGradient></defs><rect width='674' height='160' fill='url(#bg23_3)'/><rect width='674' height='160' fill='url(#lamp23_3)'/><g transform='translate(88, 66)' opacity='0.52' fill='#4d5948'><ellipse cx='58' cy='24' rx='44' ry='10'/><rect x='54' y='34' width='8' height='36'/><ellipse cx='58' cy='70' rx='24' ry='5'/><path d='M-2 20 L10 20 L12 68 L6 68 L6 44 L-2 44 Z'/><path d='M118 20 L106 20 L104 68 L110 68 L110 44 L118 44 Z'/><circle cx='58' cy='-22' r='3'/><line x1='58' y1='-66' x2='58' y2='-25' stroke='#4d5948' stroke-width='1.3'/><path d='M44 -14 L72 -14 L64 -24 L52 -24 Z'/></g><path d='M250 116 L674 116 L674 160 L210 160 Z' fill='#7c5f46' opacity='0.32'/><line x1='248' y1='116' x2='674' y2='116' stroke='#5e4733' stroke-width='1.2' opacity='0.55'/><g transform='translate(510, 0)'><line x1='0' y1='0' x2='0' y2='24' stroke='#5a4534' stroke-width='1.5'/><path d='M-24 40 L24 40 L14 24 L-14 24 Z' fill='#d6a656' stroke='#5a4534' stroke-width='1.2'/><polygon points='-24,40 24,40 88,136 -88,136' fill='#fff6d4' opacity='0.22'/></g><g transform='translate(345, 76)'><polygon points='0,28 118,12 132,66 14,82' fill='#e6dfd0' stroke='#5a4f42' stroke-width='1.1'/><polygon points='118,12 232,16 218,74 132,66' fill='#f8f4ea' stroke='#5a4f42' stroke-width='1.2'/><polygon points='4,24 118,10 130,64 16,78' fill='#fdfaf2' stroke='#5a4f42' stroke-width='1.2'/><g stroke='#d1c8b8' stroke-width='0.9'><line x1='24' y1='34' x2='104' y2='24'/><line x1='26' y1='45' x2='106' y2='35'/><line x1='28' y1='56' x2='108' y2='46'/></g><g transform='translate(148, 22) rotate(24)'><rect x='0' y='0' width='7' height='58' rx='2.5' fill='#283645' stroke='#18222c' stroke-width='0.9'/><polygon points='0,58 7,58 3.5,69' fill='#e0b462'/><rect x='1' y='16' width='5' height='3' fill='#e0b462'/></g></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 서류를 덮기 전의 멈춤</span><span>따뜻한 등불 아래 펼쳐진 서류와 만년필, 둥근 식탁</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">11장 1절부터 9절에 명령문이 하나도 없다는 사실을 확인하고 나니, 스스로 재판관 자리에 올라앉아 있던 마음이 슬그머니 자리를 비우게 됩니다. <mark class="hl"><strong>나는 사람 속을 꿰뚫어 보는 재판관이 아니라, 어제까지도 눈과 귀가 건네는 첫인상으로 상대를 성급히 판정해 온 사람입니다.</strong></mark> 그 자각이 서류를 덮으려던 내 손을 한 번 멈춰 세웁니다.</p>
+    <p class="essay-p">오늘 사무실 책상에 얇은 서류가 올라오면, 서류를 덮기 전에 포스트잇 한 귀퉁이에 한 줄을 먼저 적습니다. <mark class="hl"><strong>&#x27;이 사람의 말은 끝까지 들렸는가.&#x27;</strong></mark> 정해진 서류 기준을 임의로 무너뜨리지는 않되, 종이에 다 적히지 않은 사정을 한 가지라도 직접 묻고 듣는 데까지가 내 몫입니다. 단톡방에서 앞뒤 잘린 이야기를 보더라도, 확인할 길이 없으면 옮기지 않고 판단을 미뤄 둡니다.</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">주일 점심 식탁에서도 같은 멈춤을 연습합니다. 새로 온 교인에 대해 &quot;그 집 좀 그렇다더라&quot;는 말이 들려오면 그 말을 판단의 근거에서 빼고, 그 자리에 없는 당사자의 얼굴을 떠올립니다. 돌아오는 주일에는 식판을 들고 그분 곁 자리에 앉아 먼저 이 말부터 건네려 합니다. <mark class="hl"><strong>&quot;지난주에 처음 오셨지요, 교회 오시는 길은 불편하지 않으셨나요?&quot;</strong></mark></p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>

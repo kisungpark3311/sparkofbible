@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>무기는 손목이 알고, 행선지는 귀로 듣는다 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 16px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 상단 전폭 컷 일러스트) ---------- */
+  figure{
+    margin:18px 0 26px;
+    width:100%;
+  }
+  .photo{
+    position:relative;
+    height:160px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+  }
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.88;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    display:block;
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 (은은한 웜 골드 톤) */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(250, 204, 21, 0.24) 46%, transparent 46%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 2px;
+    border-radius:2px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.22) 46%, transparent 46%);
+    color:#fef3c7;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{
+    margin:14px 0 18px;
+    width:100%;
+    float:none;
+    max-width:none;
+    padding:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+  }
+  body[data-view="mobile"] .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:nowrap;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{
+      margin:14px 0 18px;
+      width:100%;
+      float:none;
+      max-width:none;
+      padding:0;
+      border:none;
+      box-shadow:none;
+      background:transparent;
+    }
+    body:not([data-view="a4"]) .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:baseline;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:nowrap;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{margin:12px 0 16px; width:100%; float:none}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">무기는 손목이 알고, 행선지는 귀로 듣는다</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>무기는 손목이 알고, 행선지는 귀로 듣는다</b><span>01 · 2026년 12월 09일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">무기는 손목이 알고, 행선지는 귀로 듣는다</h1>
+  <h2 class="subhead"><span class="subhead-num">Ⅰ.</span>「사로잡아」와 「유인하는」 뒤에 숨은 같은 동작</h2>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="좌우로 마주 선 두 개의 문간을 잇는 한 가닥 실과 그 위를 비추는 작은 등불"><defs><linearGradient id="c09_1_bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#161b26"/><stop offset="0.5" stop-color="#1f2636"/><stop offset="1" stop-color="#181c26"/></linearGradient><radialGradient id="c09_1_lamp" cx="0.5" cy="0.24" r="0.44"><stop offset="0" stop-color="#fbbf24" stop-opacity="0.38"/><stop offset="0.55" stop-color="#b45309" stop-opacity="0.12"/><stop offset="1" stop-color="#161b26" stop-opacity="0"/></radialGradient><pattern id="c09_1_etch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#ffffff" stroke-opacity="0.028" stroke-width="1"/></pattern></defs><rect width="674" height="160" fill="url(#c09_1_bg)"/><rect width="674" height="160" fill="url(#c09_1_etch)"/><rect width="674" height="160" fill="url(#c09_1_lamp)"/><line x1="0" y1="138" x2="674" y2="138" stroke="#475569" stroke-width="1.2"/><g transform="translate(122, 34)"><path d="M0 104 L0 36 C0 14, 18 0, 40 0 C62 0, 80 14, 80 36 L80 104 Z" fill="#0f141e" stroke="#94a3b8" stroke-width="1.6"/><path d="M12 104 L12 40 C12 24, 24 12, 40 12 C56 12, 68 24, 68 40 L68 104" fill="none" stroke="#475569" stroke-width="1.1"/><line x1="40" y1="0" x2="40" y2="104" stroke="#334155" stroke-width="0.9" stroke-dasharray="3,3"/></g><g transform="translate(472, 34)"><path d="M0 104 L0 36 C0 14, 18 0, 40 0 C62 0, 80 14, 80 36 L80 104 Z" fill="#0f141e" stroke="#94a3b8" stroke-width="1.6"/><path d="M12 104 L12 40 C12 24, 24 12, 40 12 C56 12, 68 24, 68 40 L68 104" fill="none" stroke="#475569" stroke-width="1.1"/><line x1="40" y1="0" x2="40" y2="104" stroke="#334155" stroke-width="0.9" stroke-dasharray="3,3"/></g><path d="M202 88 C268 106, 406 106, 472 88" fill="none" stroke="#e11d48" stroke-width="2.2" stroke-linecap="round"/><circle cx="202" cy="88" r="3.5" fill="#fb7185"/><circle cx="472" cy="88" r="3.5" fill="#fb7185"/><g transform="translate(337, 16)"><line x1="0" y1="-16" x2="0" y2="6" stroke="#94a3b8" stroke-width="1.2"/><path d="M-14 14 C-14 6, 14 6, 14 14 L18 20 L-18 20 Z" fill="#451a03" stroke="#f59e0b" stroke-width="1.2"/><circle cx="0" cy="25" r="6" fill="#fef3c7"/><circle cx="0" cy="25" r="15" fill="#fbbf24" opacity="0.28"/></g><line x1="337" y1="46" x2="337" y2="138" stroke="#64748b" stroke-width="1" stroke-dasharray="2,4" opacity="0.55"/></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 마주 선 두 개의 문간을 잇는 한 가닥 실과 위에서 비추는 등불</span><span>고린도후서 10:5 · 같은 말의 두 입구 앞에서 비추는 분별의 빛</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">진료실 의사가 건네는 &quot;이 약은 꼭 드셔야 합니다&quot;와 공원 앞 천막 판매원의 &quot;이건 꼭 드셔야 합니다&quot;는 말만 떼어 보면 다르지 않다. 은행 앱 알림과 사기 문자의 &quot;지금 바로 확인하세요&quot;도, 일을 나누려는 선배와 몫을 떠넘기는 동료의 &quot;팀을 위해서&quot;도 같다. <mark class="hl"><strong>생각을 데려가려는 입술은 어느 편이든 좋은 행선지를 내세운다.</strong></mark></p>
+    <p class="essay-p">고린도후서 10장 5절의 &quot;모든 생각을 사로잡아&quot;(`αἰχμαλωτίζοντες`)를 원어 노트로 따라가다 발이 묶였다. 디모데후서 3장 6절에서 남의 집에 가만히 들어가 어리석은 여자를 「유인하는 자들」이라 할 때도 한 원문 편집본에서는 똑같은 낱말 꼴이 놓여 있었다. 디모데후서 자리에는 사본마다 <mark class="hl"><strong>글자가 다른 표시가 붙어 다른 사본 전통은 다른 동사를 적지만, 우리말로 남남처럼 보이는 두 말 뒤에 같은 모양의 동작이 서 있었던 셈이다.</strong></mark></p>
+    <p class="pull essay-p">10장 3~6절 한 문장의 주동사는 3절 「싸운다」 하나이고, 무너뜨림과 사로잡음과 벌할 준비가 거기 걸린다. 바울이 붙인 표지는 둘이다. <mark class="hl"><strong>육신에 속하지 않은 무기</strong></mark>와 <mark class="hl"><strong>그리스도의 순종(`ὑπακοή`)이라는 행선지</strong></mark>다. 그런데 5절의 &#x27;복종하게&#x27;는 원문에서 이름씨 &#x27;순종&#x27;이며, &#x27;그리스도의&#x27;가 누구의 순종인지도 열려 있다. 더구나 속이는 이도 좋은 데로 간다고 말하고, 겉모양만 보고는 그 무기가 육신에 속한 것인지 단번에 가리기 어렵다. 그러니 두 표지만으로는 남을 가르는 공식이 서지 않는다.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>무기는 손목이 알고, 행선지는 귀로 듣는다</b><span>02 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅱ.</span>손목이 먼저 아는 무기, 순종이라는 행선지</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="손목을 꽉 쥔 손과 손등에 가만히 얹은 손의 대비, 그리고 앞을 향해 열린 빛의 문"><defs><linearGradient id="c09_2_bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1a1721"/><stop offset="0.5" stop-color="#23202a"/><stop offset="1" stop-color="#1f2421"/></linearGradient><radialGradient id="c09_2_door" cx="0.5" cy="0.38" r="0.34"><stop offset="0" stop-color="#fde68a" stop-opacity="0.36"/><stop offset="0.6" stop-color="#d97706" stop-opacity="0.1"/><stop offset="1" stop-color="#23202a" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#c09_2_bg)"/><rect width="674" height="160" fill="url(#c09_2_door)"/><path d="M284 148 L320 76 L354 76 L390 148 Z" fill="#fef3c7" fill-opacity="0.08"/><path d="M314 76 L314 34 C314 20, 324 12, 337 12 C350 12, 360 20, 360 34 L360 76 Z" fill="#fef3c7" fill-opacity="0.88" stroke="#f59e0b" stroke-width="1.5"/><path d="M284 148 L320 76 M390 148 L354 76" stroke="#d6c7a9" stroke-width="1.2" opacity="0.55"/><g transform="translate(52, 48)"><path d="M0 54 L86 44 C102 42, 114 48, 122 54 L132 62 C126 68, 110 70, 94 68 L0 76 Z" fill="#3f3547" stroke="#94a3b8" stroke-width="1.3"/><path d="M52 24 C66 20, 82 26, 84 40 L84 68 C82 76, 64 78, 56 70 L52 44 Z" fill="#6b2137" stroke="#fda4af" stroke-width="1.4"/><line x1="62" y1="34" x2="76" y2="34" stroke="#fda4af" stroke-width="1.2"/><line x1="62" y1="46" x2="76" y2="46" stroke="#fda4af" stroke-width="1.2"/><line x1="62" y1="58" x2="76" y2="58" stroke="#fda4af" stroke-width="1.2"/></g><g transform="translate(454, 48)"><path d="M168 68 L74 60 C58 58, 44 62, 34 68 L24 74 C32 80, 48 82, 66 80 L168 88 Z" fill="#4b5c50" stroke="#d6e6d9" stroke-width="1.3"/><path d="M126 30 C102 32, 82 42, 66 56 C62 60, 66 66, 74 64 C90 58, 108 54, 128 54 Z" fill="#8c6d46" stroke="#fde68a" stroke-width="1.4"/></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 손목을 움켜쥔 손과 손등에 얹은 손의 대비 너머 트인 빛의 문</span><span>고린도후서 10:4-5 · 무기는 손목이 알고, 행선지는 귀로 듣는다</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">두 표지로도 다 가려지지 않는다면 분별 자체를 접어야 하는가. 아이에게 &quot;낯선 어른이 좋은 데 가자 해도 따라가지 마라&quot; 가르치지만 부모도 병원 가며 &quot;좋은 데 간다&quot;고 말한다. 아이 교육은 &#x27;아는 사람만 따라가라&#x27;는 공식을 주지만, 디모데후서 3장 6절은 그들이 낯선 이인지 아는 이인지 적지 않는다. 내비게이션 목적지가 바르게 찍혀도 길이 안전한지 보증되지 않으니 행선지와 함께 가는 방식을 봐야 한다. <mark class="hl"><strong>다만 내비게이션 목적지는 운전자가 고르지만, 10장 5절의 행선지는 장소나 내 이김이 아니라 &#x27;순종&#x27;이라는 이름이다.</strong></mark></p>
+    <span class="break"></span>
+    <p class="essay-p">나 역시 설교나 세무 상담에서 옳은 결론으로 데려간다는 명분 아래 말투로 상대 손목을 비틀듯 밀어붙이던 기억이 적지 않다. 집에서 눈을 감고 가족에게 손목을 맡겨 걸어 보니 몸이 먼저 알았다. 손목을 꽉 쥐고 빠르게 끌자 어깨부터 굳었고, 손등에 손을 가만히 얹고 이끌자 발이 따라 나갔다. 눈을 감은 몸은 <mark class="hl"><strong>행선지는 귀로 듣지만 무기는 손목의 뻐근함으로 먼저 안다.</strong></mark> 본문에서 사로잡는 쪽은 &#x27;우리&#x27;이지만, 끌려가는 자리에 서 보니 두 표지가 몸에 다르게 닿는 결이 또렷해졌다. 칼뱅도 『고린도후서 주석』 10장 4절(영문 번역 경유, 영역자·라틴어 원문 미확인)에서 &quot;싸움은 무기의 종류에 걸맞다&quot;며 영적 무기를 말했으나, 칼뱅 역시 사람을 가르는 공식을 주지 않는다.</p>
+    <p class="essay-p">누가복음 21장 24절의 사로잡혀 감과 로마서 7장 23절의 &quot;다른 법이 나를 사로잡는다&quot;를 보면, 사람은 데려가는 쪽에도 사로잡히는 쪽에도 선다. 바울은 &#x27;육신을 따르지 않는&#x27;(로마서 8장 4절) 싸움을 말하고 무너뜨리려가 아니라 세우려고 권세를 받았다면서도, 6절에 「모든 복종하지 않는 것을 벌하려고 준비하는 중에 있노라」를 남긴다. 이 싸움은 무조건 고분고분하자는 처세술이 아니다. 다만 그 단호함마저 상대를 꺾고 이기는 승리의 동사가 아니라, <mark class="hl"><strong>「누가 누구를 어떤 무기로 어디로 데려가는가」</strong></mark>를 내 입과 손목에 먼저 대는 거울이다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>무기는 손목이 알고, 행선지는 귀로 듣는다</b><span>03 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅲ.</span>책상의 숫자와 밤 화면 앞, 내 이김을 멈추는 자리</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="어두운 밤 스탠드 불빛 아래 책상 위에 놓인 서류 한 장과 엎어 둔 휴대폰, 빈 수첩"><defs><linearGradient id="c09_3_bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#11151f"/><stop offset="0.5" stop-color="#1a202e"/><stop offset="1" stop-color="#121620"/></linearGradient><radialGradient id="c09_3_lamp" cx="0.5" cy="0.2" r="0.52"><stop offset="0" stop-color="#fbbf24" stop-opacity="0.34"/><stop offset="0.55" stop-color="#d97706" stop-opacity="0.1"/><stop offset="1" stop-color="#11151f" stop-opacity="0"/></radialGradient><linearGradient id="c09_3_desk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2c24"/><stop offset="1" stop-color="#241b16"/></linearGradient><linearGradient id="c09_3_doc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8fafc"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient></defs><rect width="674" height="160" fill="url(#c09_3_bg)"/><rect width="674" height="160" fill="url(#c09_3_lamp)"/><rect x="0" y="108" width="674" height="52" fill="url(#c09_3_desk)"/><line x1="0" y1="108" x2="674" y2="108" stroke="#6b5344" stroke-width="1.3"/><g transform="translate(337, 8)"><path d="M-36 30 L36 30 L24 8 L-24 8 Z" fill="#451a03" stroke="#f59e0b" stroke-width="1.2"/><line x1="0" y1="-8" x2="0" y2="8" stroke="#94a3b8" stroke-width="1.5"/><circle cx="0" cy="32" r="4" fill="#fef3c7"/></g><g transform="translate(132, 62)"><rect x="0" y="0" width="116" height="66" rx="3" fill="url(#c09_3_doc)" stroke="#94a3b8" stroke-width="1.2"/><line x1="16" y1="16" x2="98" y2="16" stroke="#64748b" stroke-width="2"/><line x1="16" y1="30" x2="86" y2="30" stroke="#94a3b8" stroke-width="1.4"/><line x1="16" y1="42" x2="96" y2="42" stroke="#94a3b8" stroke-width="1.4"/><line x1="16" y1="54" x2="78" y2="54" stroke="#b45309" stroke-width="2.2"/></g><g transform="translate(292, 88)"><rect x="0" y="0" width="92" height="42" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1.4"/><rect x="10" y="8" width="18" height="12" rx="3" fill="#0f172a" stroke="#475569" stroke-width="1"/><circle cx="15" cy="14" r="2" fill="#334155"/><circle cx="23" cy="14" r="2" fill="#334155"/></g><g transform="translate(428, 60)"><rect x="0" y="0" width="124" height="70" rx="4" fill="#faf5eb" stroke="#9a8265" stroke-width="1.3"/><line x1="62" y1="2" x2="62" y2="68" stroke="#cbd5e1" stroke-width="1"/><line x1="14" y1="24" x2="52" y2="24" stroke="#cbd5e1" stroke-width="1.1"/><line x1="14" y1="42" x2="52" y2="42" stroke="#cbd5e1" stroke-width="1.1"/><line x1="72" y1="28" x2="112" y2="28" stroke="#9f1239" stroke-width="2.2" stroke-linecap="round"/><line x1="72" y1="46" x2="112" y2="46" stroke="#cbd5e1" stroke-width="1.1" stroke-dasharray="3,3"/></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 밤 스탠드 아래 정갈한 서류, 엎어 둔 휴대폰, 빈 줄이 그어진 수첩</span><span>고린도후서 10:5-6 · 내 이김을 내려놓고 순종 앞에 멈추는 밤</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">세무사 사무실 책상에서 자문 보고서를 쓰다 보면, 내 안을 통과시키려고 불리한 세무 리스크 하나를 뒷장 각주로 슬쩍 빼고 싶어진다. 출력 전 작은 포스트잇에 두 질문을 적어 모니터 옆에 붙였다. <mark class="hl"><strong>불리한 숫자를 감춰 읽는 이의 손목을 비틀지 않았는지, 이 안이 고객을 위한 길인지 내 말싸움에서 이기려는 자리인지 먼저 따져 보았다.</strong></mark></p>
+    <p class="essay-p">가족 대화방에 근거 빈약한 건강 영상이 올라올 때도, 예전 같으면 팩트 체크 링크를 던지며 &quot;이런 걸 왜 믿느냐&quot;고 핀잔부터 얹었을 것이다. <mark class="hl"><strong>그때 올라오는 것은 진리 열심이 아니라 가족을 논리로 꺾고 싶은 조급함이었다.</strong></mark> 알려야 할 위험은 10장 6절의 단호함처럼 흐리지 않고 남기되, 비웃음으로 손목을 비틀던 말투만 걷어 냈다.</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">잠들기 전 추천 영상에 끌려 한 시간을 보내던 밤에도 나는 사로잡히는 쪽에 서 있었다. 휴대폰을 뒤집어 놓고 수첩에 <mark class="hl"><strong>&quot;방금 이 화면들은 내 생각을 어디로 데려갔는가&quot;</strong></mark> 한 줄을 적었다. 이런 점검이 말투와 습관을 다듬는 자기 훈육에 머문다면 도덕주의일 뿐이다. 생각을 데려가는 사람도 행선지의 주인이 아니다. 불리한 숫자를 다시 꺼내고 큰소리를 접는 자리에서, 내가 내 이김을 내려놓고 마주 서는 이름은 <mark class="hl"><strong>「그리스도의 순종」</strong></mark>이다.</p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>

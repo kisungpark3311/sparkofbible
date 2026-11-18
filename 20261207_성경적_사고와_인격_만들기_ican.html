@@ -1,0 +1,709 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>정산표에 적히지 않는 동사 하나 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 16px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 상단 전폭 컷 일러스트) ---------- */
+  figure{
+    margin:18px 0 26px;
+    width:100%;
+  }
+  .photo{
+    position:relative;
+    height:160px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+  }
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.88;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    display:block;
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 (은은한 웜 골드 톤) */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(250, 204, 21, 0.24) 46%, transparent 46%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 2px;
+    border-radius:2px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.22) 46%, transparent 46%);
+    color:#fef3c7;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{
+    margin:14px 0 18px;
+    width:100%;
+    float:none;
+    max-width:none;
+    padding:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+  }
+  body[data-view="mobile"] .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:nowrap;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{
+      margin:14px 0 18px;
+      width:100%;
+      float:none;
+      max-width:none;
+      padding:0;
+      border:none;
+      box-shadow:none;
+      background:transparent;
+    }
+    body:not([data-view="a4"]) .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:baseline;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:nowrap;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{margin:12px 0 16px; width:100%; float:none}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">정산표에 적히지 않는 동사 하나</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>정산표에 적히지 않는 동사 하나</b><span>01 · 2026년 12월 07일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">정산표에 적히지 않는 동사 하나</h1>
+  <h2 class="subhead"><span class="subhead-num">Ⅰ.</span>숫자의 줄 옆에 남는 동사 하나</h2>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="정산표의 세로선에서 풀려 나와 두루마리 끝자락을 비추는 따뜻한 등불"><defs><linearGradient id="c07_1_bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a2232"/><stop offset="0.55" stop-color="#232c3d"/><stop offset="1" stop-color="#2d2226"/></linearGradient><radialGradient id="c07_1_glow" cx="0.78" cy="0.46" r="0.34"><stop offset="0" stop-color="#fbbf24" stop-opacity="0.42"/><stop offset="0.5" stop-color="#b45309" stop-opacity="0.16"/><stop offset="1" stop-color="#2d2226" stop-opacity="0"/></radialGradient><linearGradient id="c07_1_scroll" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f5efe4"/><stop offset="1" stop-color="#e4d5be"/></linearGradient><pattern id="c07_1_hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="8" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/></pattern></defs><rect width="674" height="160" fill="url(#c07_1_bg)"/><rect width="674" height="160" fill="url(#c07_1_hatch)"/><rect width="674" height="160" fill="url(#c07_1_glow)"/><g opacity="0.88"><rect x="34" y="22" width="210" height="116" rx="4" fill="#131924" stroke="#475569" stroke-width="1.2"/><line x1="78" y1="22" x2="78" y2="138" stroke="#334155" stroke-width="1"/><line x1="154" y1="22" x2="154" y2="138" stroke="#334155" stroke-width="1"/><line x1="34" y1="46" x2="244" y2="46" stroke="#475569" stroke-width="1"/><line x1="34" y1="70" x2="244" y2="70" stroke="#334155" stroke-width="0.8"/><line x1="34" y1="94" x2="244" y2="94" stroke="#334155" stroke-width="0.8"/><line x1="34" y1="118" x2="244" y2="118" stroke="#334155" stroke-width="0.8"/><circle cx="56" cy="58" r="2.2" fill="#64748b"/><circle cx="56" cy="82" r="2.2" fill="#64748b"/><circle cx="56" cy="106" r="2.2" fill="#64748b"/><line x1="92" y1="58" x2="138" y2="58" stroke="#64748b" stroke-width="2" stroke-linecap="round"/><line x1="92" y1="82" x2="130" y2="82" stroke="#64748b" stroke-width="2" stroke-linecap="round"/><line x1="92" y1="106" x2="142" y2="106" stroke="#64748b" stroke-width="2" stroke-linecap="round"/><circle cx="180" cy="58" r="2.5" fill="#94a3b8"/><circle cx="192" cy="58" r="2.5" fill="#94a3b8"/><circle cx="204" cy="58" r="2.5" fill="#94a3b8"/><circle cx="180" cy="82" r="2.5" fill="#94a3b8"/><circle cx="192" cy="82" r="2.5" fill="#94a3b8"/><circle cx="180" cy="106" r="2.5" fill="#94a3b8"/><circle cx="192" cy="106" r="2.5" fill="#94a3b8"/><circle cx="204" cy="106" r="2.5" fill="#94a3b8"/><circle cx="216" cy="106" r="2.5" fill="#94a3b8"/></g><path d="M258 80 C295 80, 320 80, 354 80" stroke="#64748b" stroke-width="1.2" stroke-dasharray="3,5" opacity="0.55"/><g transform="translate(382, 34)"><path d="M16 14 C16 6, 24 0, 34 0 L198 0 C208 0, 214 6, 214 14 L214 82 C214 90, 208 96, 198 96 L24 96 C12 96, 4 88, 4 76 Z" fill="url(#c07_1_scroll)" stroke="#9a7b56" stroke-width="1.4"/><ellipse cx="204" cy="48" rx="10" ry="48" fill="#d6c1a3" stroke="#8b6b45" stroke-width="1.2"/><path d="M12 76 C12 66, 26 66, 26 76 C26 86, 12 86, 12 76 Z" fill="#c8b08e" stroke="#8b6b45" stroke-width="1.1"/><line x1="42" y1="24" x2="174" y2="24" stroke="#a89070" stroke-width="1.4" opacity="0.55"/><line x1="42" y1="40" x2="174" y2="40" stroke="#a89070" stroke-width="1.4" opacity="0.55"/><line x1="42" y1="56" x2="162" y2="56" stroke="#a89070" stroke-width="1.4" opacity="0.55"/><line x1="42" y1="74" x2="148" y2="74" stroke="#9f1239" stroke-width="3.2" stroke-linecap="round"/></g><g transform="translate(534, 42)"><circle cx="0" cy="32" r="40" fill="#fbbf24" opacity="0.14"/><circle cx="0" cy="32" r="24" fill="#fde68a" opacity="0.22"/><path d="M-14 36 C-14 22, 14 22, 14 36 L10 46 L-10 46 Z" fill="#78350f" stroke="#f59e0b" stroke-width="1.3"/><path d="M0 10 C5 18, 6 24, 0 28 C-6 24, -5 18, 0 10 Z" fill="#fef3c7"/><circle cx="0" cy="22" r="3.5" fill="#f59e0b"/></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 정갈한 세로 장부 격자선 너머 두루마리 끝자락을 비추는 따뜻한 원형 등불</span><span>고린도후서 9:7 · ‘하나님은 즐겨 내는 자를 사랑하시느니라’</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">세무사 사무실 책상에서 기부금 영수증 명세표를 훑다 보면, 애써 건넨 나눔도 결국 날짜와 금액 두 줄의 숫자로 남는다. 모임 회비 정산표에 총무가 따로 적어 보낸 &quot;늘 먼저 챙겨 주셔서 고마워요&quot;라는 말은 엑셀 합계에 들어가지 않는다. <mark class="hl"><strong>얼마를 따지는 줄과 사람을 부르는 말은 한 장 위에서도 서로를 지우지 않는다.</strong></mark></p>
+    <p class="essay-p">고린도후서 9장 1~7절을 읽다가 낯선 사실 앞에서 멈췄다. 일곱 절에서 움직이는 이는 대개 바울과 형제들, 심는 사람이다. 원어 노트로 이 140개 낱말을 세어 보니, 하나님이 주어로 선 동사는 끝 문장 <mark class="hl"><strong>「사랑하신다」(`ἀγαπᾷ`)</strong></mark> 단 하나였다. 7절에서 범위를 자른 셈이고 8절에서 하나님은 다시 주어로 서시지만, 적어도 이 일곱 절이 하나님께 돌린 일은 지금 사랑하신다는 동사뿐이다.</p>
+    <p class="pull essay-p">그 동사가 향하는 자리는 우리가 낸 돈이 아니라 <mark class="hl"><strong>즐거운 주는 이</strong></mark>라는 사람이다. 두 낱말이 신약에 한 번씩만 나와 단어만으로 뜻을 못 박지는 못해도, 시선이 물건이 아닌 사람에게 간다는 뼈대는 분명하다. 바로 앞 &quot;각각 그 마음에 정한 대로 할 것이요 … 하지 말지니&quot;에는 원문에 주된 동사가 없고, &#x27;할 것이요&#x27;와 &#x27;하지 말지니&#x27;는 번역이 넣은 말이다. &quot;그렇다고 명령이 아니라는 뜻은 아니다&quot;라는 유보를 남긴 채, 원문은 마음의 정함과 슬픔·강요의 부정을 적고 &#x27;~이기 때문이다&#x27;로 하나님의 사랑하심을 잇는다.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>정산표에 적히지 않는 동사 하나</b><span>02 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅱ.</span>비례와 명령 사이, 채우지 않는 세 빈칸</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="나란히 흐르는 두 길 사이에 단정히 비워진 세 개의 작은 여백 창"><defs><linearGradient id="c07_2_bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1b2621"/><stop offset="0.5" stop-color="#223029"/><stop offset="1" stop-color="#27241c"/></linearGradient><linearGradient id="c07_2_gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d97706" stop-opacity="0.35"/><stop offset="0.5" stop-color="#fbbf24" stop-opacity="0.85"/><stop offset="1" stop-color="#fde68a" stop-opacity="0.45"/></linearGradient><linearGradient id="c07_2_sage" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4d7c5b" stop-opacity="0.4"/><stop offset="0.5" stop-color="#86efac" stop-opacity="0.78"/><stop offset="1" stop-color="#6ee7b7" stop-opacity="0.35"/></linearGradient><pattern id="c07_2_grid" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M 16 0 L 0 0 0 16" fill="none" stroke="#ffffff" stroke-opacity="0.03" stroke-width="0.8"/></pattern></defs><rect width="674" height="160" fill="url(#c07_2_bg)"/><rect width="674" height="160" fill="url(#c07_2_grid)"/><path d="M24 38 C170 30, 320 46, 650 34" fill="none" stroke="url(#c07_2_sage)" stroke-width="3" stroke-linecap="round"/><g fill="#86efac" opacity="0.72"><ellipse cx="110" cy="31" rx="7" ry="3" transform="rotate(-25 110 31)"/><ellipse cx="138" cy="39" rx="7" ry="3" transform="rotate(20 138 39)"/><ellipse cx="520" cy="31" rx="7" ry="3" transform="rotate(-22 520 31)"/><ellipse cx="548" cy="39" rx="7" ry="3" transform="rotate(18 548 39)"/></g><path d="M24 126 C180 134, 340 116, 650 124" fill="none" stroke="url(#c07_2_gold)" stroke-width="3.2" stroke-linecap="round"/><circle cx="145" cy="128" r="3.5" fill="#fde68a" opacity="0.7"/><circle cx="337" cy="122" r="4" fill="#fef3c7" opacity="0.85"/><circle cx="525" cy="122" r="3.5" fill="#fde68a" opacity="0.7"/><g transform="translate(148, 56)"><rect x="0" y="0" width="96" height="48" rx="4" fill="#141c18" fill-opacity="0.65" stroke="#d6c7a9" stroke-width="1.5" stroke-dasharray="5,4"/><rect x="6" y="6" width="84" height="36" rx="2" fill="none" stroke="#94a3b8" stroke-opacity="0.28" stroke-width="0.9"/><rect x="140" y="0" width="96" height="48" rx="4" fill="#141c18" fill-opacity="0.65" stroke="#fbbf24" stroke-width="1.6" stroke-dasharray="5,4"/><rect x="146" y="6" width="84" height="36" rx="2" fill="none" stroke="#fde68a" stroke-opacity="0.28" stroke-width="0.9"/><rect x="280" y="0" width="96" height="48" rx="4" fill="#141c18" fill-opacity="0.65" stroke="#d6c7a9" stroke-width="1.5" stroke-dasharray="5,4"/><rect x="286" y="6" width="84" height="36" rx="2" fill="none" stroke="#94a3b8" stroke-opacity="0.28" stroke-width="0.9"/></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 충돌 없이 나란히 흐르는 두 길과 단정히 비워 둔 세 개의 여백 창</span><span>고린도후서 9:6-7 · 비례와 사랑을 맞세우지 않고 남긴 세 빈칸</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">그렇다면 얼마를 내든 상관없고, 바로 앞 6절의 심고 거둠은 틀렸다는 말인가. 6절의 「거두리라」는 앞으로 일어날 일을 말하는 꼴이며 무엇을 거두는지 적지 않았다. &#x27;많이&#x27;(`ἐπ’ εὐλογίαις`) 역시 5절 &#x27;연보&#x27;와 같은 말로, 양인지 복이 되는 방식인지 열려 있다. 아이가 모은 용돈으로 엄마 생일 머리끈을 사 와 안길 때 엄마는 값을 묻지 않고 아이를 안는다. 동네 축구 교실에서 연습한 만큼 공을 잘 차는 비례가 있어도, 코치는 골 넣은 아이와 함께 끝까지 즐겁게 뛴 아이 이름을 부른다. 다만 유추는 여기서 멈춘다. 엄마의 사랑은 선물보다 먼저 있었으나 본문은 사랑이 줌보다 <mark class="hl"><strong>먼저인지 줌 때문인지 말하지 않고, 축구는 실력이 정해져 있으나 6절은 거둘 것을 적지 않았다.</strong></mark></p>
+    <span class="break"></span>
+    <p class="essay-p">성경의 다른 자리를 곁에 두면 이 멈춤이 선명해진다. 신명기 15장 10절은 가난한 형제에게 반드시 주라는 명령과 아끼지 않는 마음, 복의 약속을 한 절에 둔다. 고린도전서 16장 2절에서는 바울이 같은 모금을 매주 첫날 수입에 따라 모으라고 명령 꼴로 지시한다. 또 잠언 22장 8절의 그리스어 옛 번역에 덧붙은 한 줄은 &#x27;즐거운&#x27;, &#x27;주는 이&#x27;, &#x27;하나님&#x27;을 같이 쓰면서 동사만 「복 주신다」로 적고, 칼뱅도 『고린도후서 주석』 9장 7절(영문 번역 경유, 라틴어 원문 미대조)에서 자원하지 않은 제사는 하나님께 기쁘지 않다고 썼다. &#x27;기쁘지 않다&#x27;는 칼뱅의 말이고 본문은 &#x27;사랑하신다&#x27;다. 어느 쪽이 먼저인지 판정하지 않고 나란히 두면, <mark class="hl"><strong>「사랑하신다」는 비례나 복의 약속을 지우는 말이 아니라 그 곁에 서는 말</strong></mark>이다.</p>
+    <p class="essay-p">그래서 본문 앞에는 끝내 채워지지 않는 <mark class="hl"><strong>세 개의 빈칸</strong></mark>이 남는다. 6절에서 무엇을 누가 거두게 하는지, 7절 앞 마디가 명령인지, 그리고 지금 당장 낼 것이 없는 사람을 하나님이 어떻게 보시는지다. 이 세 칸을 내 짐작이나 번영의 공식으로 메우지 않고 빈칸으로 두어야 본문의 자리가 흐려지지 않는다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>정산표에 적히지 않는 동사 하나</b><span>03 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅲ.</span>손바닥 위의 동전과 지우지 않은 메모 두 줄</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="꽉 쥔 주먹과 스스로 편 손바닥 위의 동전 세 개, 그리고 나란한 두 줄 메모지"><defs><linearGradient id="c07_3_bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#261e1a"/><stop offset="0.55" stop-color="#332620"/><stop offset="1" stop-color="#1e1a18"/></linearGradient><radialGradient id="c07_3_sun" cx="0.62" cy="0.42" r="0.42"><stop offset="0" stop-color="#f59e0b" stop-opacity="0.28"/><stop offset="1" stop-color="#1e1a18" stop-opacity="0"/></radialGradient><linearGradient id="c07_3_paper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#faf5eb"/><stop offset="1" stop-color="#ebe0cc"/></linearGradient></defs><rect width="674" height="160" fill="url(#c07_3_bg)"/><rect width="674" height="160" fill="url(#c07_3_sun)"/><line x1="0" y1="134" x2="674" y2="134" stroke="#574337" stroke-width="1.2"/><g transform="translate(72, 48)"><path d="M16 58 L16 32 C16 20, 26 14, 38 14 L62 14 C72 14, 78 22, 78 32 L78 52 C78 62, 70 68, 58 68 L28 68 C20 68, 16 64, 16 58 Z" fill="#4a372d" stroke="#a88b76" stroke-width="1.6"/><path d="M30 14 L30 34 M44 14 L44 36 M58 14 L58 34" stroke="#291d17" stroke-width="1.5"/><path d="M22 44 C34 38, 52 38, 66 44" fill="none" stroke="#8c705d" stroke-width="1.4"/></g><path d="M190 82 L252 82" stroke="#a16207" stroke-width="1.4" stroke-dasharray="4,4" opacity="0.75"/><polygon points="258,82 250,77 250,87" fill="#d97706" opacity="0.8"/><g transform="translate(278, 54)"><path d="M12 46 C28 58, 66 64, 102 58 C126 54, 146 42, 158 32 C162 28, 156 22, 148 26 C132 35, 114 40, 92 40 L64 40 C48 40, 34 34, 20 26 C12 22, 6 38, 12 46 Z" fill="#6b4e3d" stroke="#e5c7a8" stroke-width="1.5"/><ellipse cx="76" cy="28" rx="13" ry="6" fill="#fbbf24" stroke="#92400e" stroke-width="1.2"/><ellipse cx="98" cy="22" rx="13" ry="6" fill="#fde68a" stroke="#92400e" stroke-width="1.2"/><ellipse cx="116" cy="30" rx="11" ry="5" fill="#f59e0b" stroke="#92400e" stroke-width="1.2"/></g><g transform="translate(486, 26)"><rect x="0" y="0" width="124" height="102" rx="5" fill="url(#c07_3_paper)" stroke="#9a8265" stroke-width="1.4"/><line x1="18" y1="24" x2="106" y2="24" stroke="#cbd5e1" stroke-width="1"/><line x1="18" y1="46" x2="96" y2="46" stroke="#64748b" stroke-width="2.6" stroke-linecap="round"/><line x1="18" y1="70" x2="90" y2="70" stroke="#9f1239" stroke-width="3.2" stroke-linecap="round"/><line x1="18" y1="86" x2="106" y2="86" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3"/></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 꽉 쥔 주먹에서 스스로 편 손바닥의 동전과 나란히 그어진 메모 두 줄</span><span>고린도후서 9:7 · 손바닥 위의 동전과 메모장의 두 줄</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">지난주 후원 요청서를 책상 위에 두고 망설이다가, 서랍 속 동전 몇 개를 오른손에 쥐어 보았다. 주먹을 꽉 쥐니 손가락 마디와 손목이 뻐근했다. 왼손으로 억지로 손가락을 펴 동전을 떨어뜨릴 땐 손목이 당겼다. 스스로 천천히 손을 펴 손바닥을 위로 두니 어깨가 내려앉았다. 세 번 다 동전은 떠났지만 몸은 셋을 가른다. <mark class="hl"><strong>손바닥 위에 놓인 것은 동전이지 사랑하심이 아니었다.</strong></mark> 그 동사는 내 손의 대가가 아니라 하나님이 하시는 일이다.</p>
+    <p class="essay-p">사무실에서 경조사 모금표가 돌면 앞사람 금액이 먼저 눈에 박힌다. 볼펜을 잡기 전 책상 밑에서 손을 한 번 쥐었다 펴 보며, 체면 때문에 올라오는 긴장을 알아차린다. 그러고는 눈치 보지 않고 내가 정한 액수만 적는다. <mark class="hl"><strong>내가 표를 돌릴 차례엔 금액 칸을 빼고 참여 여부만 묻는다.</strong></mark></p>
+  </div>
+  <section class="address">
+    <p class="essay-p">오늘 월급날 저녁에도 메모장에 이번 달 드릴 몫을 적으며, 그 옆에 은근히 기대하는 말을 보탰다. &#x27;이만큼 드렸으니 다음 달 일도 막히지 않겠지&#x27; 하는 속내를 지우지 않고 두었다. 그 아랫줄에 9장 7절의 <mark class="hl"><strong>「사랑하신다」</strong></mark>를 적었다. 주머니가 얇아 아무 숫자도 적기 버거운 달엔 그 칸을 비워 둘 작정이다. 기대의 줄과 「사랑하신다」를 한 화면에 나란히 두고, 본문이 비운 칸까지 내 계산으로 먼저 채우지 않은 채 오늘의 정산표를 덮는다.</p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>
