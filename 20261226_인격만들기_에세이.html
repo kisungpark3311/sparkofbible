@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>끊는 말이 원수에서 내 것으로 넘어갈 때 — 다음 줄까지 읽는 사람의 성찰</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 12월 26일 &middot; 미가 5:2-15</span>
+      <h1>끊는 말이 원수에서 내 것으로 넘어갈 때 — 다음 줄까지 읽는 사람의 성찰</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h3>한 절 사이에 바깥에서 안쪽으로 옮겨 가는 과녁</h3>
+<p>억울하거나 답답한 일을 겪을 때 우리의 눈길은 자연스레 바깥을 향합니다. 나를 힘들게 하는 외부의 문제와 상대방의 잘못이 먼저 정리되기를 바라는 마음은 누구나 마찬가지입니다. 구약성경 미가 5장 9절도 바로 그런 말로 문을 엽니다. "네 손이 네 대적들 위에 들려서 네 모든 원수를 진멸하기를 바라노라." 그런데 성경 읽기가 진짜 나의 인격을 빚는 자리로 나아가려면, 내 속을 시원하게 해 주는 그 구절에서 멈추지 않고 <strong>바로 다음 줄을 한 줄 더 읽어 내려가는 눈</strong>이 필요합니다.</p>
+<p>9절 바로 뒤에 이어지는 10절부터 13절까지는 전혀 예상치 못한 목록이 펼쳐집니다. "그 날에 이르러는 내가 네 군마를 네 가운데에서 멸절하며 네 병거를 부수며, 네 땅의 성읍들을 멸하며, 내가 또 복술(앞일을 점치는 일)을 네 손에서 끊으리니, 내가 네가 새긴 우상과 주상을 너희 가운데에서 멸절하리니." 우리말 개역개정 성경은 '진멸하기를', '멸절하며', '멸하며', '끊으리니', '멸절하리니'라는 서로 다른 말로 옮겼지만, 히브리어 원문을 펴 보면 이 다섯 절에는 <strong>'카라트(כרת, 끊다)'라는 똑같은 한 동사</strong>가 한 절에 한 번씩 총 다섯 번 연달아 나옵니다.</p>
+<p>원문에서 낱말이 쓰인 꼴을 살펴보면 그 전환이 더욱 또렷해집니다. 9절에서 원수가 끊어지는 것은 원수들이 주어로 놓인 '당하는 꼴(수동)'이어서 끊는 이가 누구인지 그 절에 적혀 있지 않은 반면, 10절부터 이어지는 네 번의 '끊다'는 모두 여호와께서 <strong>"내가 끊으리라"</strong>고 직접 말씀하시는 '끊게 하는 꼴'입니다. 그리고 끊어지는 대상마다 '네 군마', '네 땅의 성읍', '네 손에서', '네 새긴 우상들'(13절의 '너희'도 원문은 단수인 '네'입니다)처럼 어김없이 '네'가 붙습니다. 바깥의 원수를 향하던 한 동사의 과녁이 단 한 절 사이에 말씀을 듣는 사람의 안쪽으로 옮겨 간 것입니다.</p>
+<h3>메모지 일곱 장을 뒤집던 내 손과, 본문에서 실제로 일하시는 하나님의 손</h3>
+<p>바깥을 향한 말 바로 다음 줄에 같은 무게의 말이 안쪽을 향하는 이러한 짜임은 우리 일상에서도 종종 볼 수 있습니다. 진료실에서 의사가 "염증은 약으로 잡읍시다"라고 한 뒤 곧바로 "그리고 밤늦은 야식은 끊으세요"라고 말하거나, 축구 경기 하프타임에 "상대 공격수를 둘이서 묶자"고 한 뒤 "우리 쪽 무리한 긴 패스는 끊자"고 하는 장면과 닮았습니다. 여기서 눈여겨볼 점은 다음 줄이 나왔다고 해서 앞줄이 취소되지는 않는다는 사실입니다. 미가 본문에서도 나는 처음에 10절을 원수 대신 나를 치시는 반전으로 읽었지만, 다시 읽어 보니 '대신'이 아니라 9절의 원수가 끊어지리라는 앞줄과 15절의 순종하지 않은 나라에 갚으리라는 끝줄을 그대로 세워 둔 채 <strong>'바로 뒤에'</strong> 내가 기대던 것들을 다루고 있었습니다.</p>
+<p>이 말씀을 몸으로 확인해 보려고 책상 위에 메모지 일곱 장을 놓고 10절부터 14절까지 끊기고 부서지고 뽑히는 '네 것' 일곱 가지(군마, 병거, 성읍, 견고한 성, 복술, 새긴 우상과 주상, 아세라 목상)를 한 장에 하나씩 적어 보았습니다. 그리고 한 절을 소리 내어 읽을 때마다 메모지를 한 장씩 뒤집었습니다. 일곱 번 뒤집는 동안 책상 위가 점점 비어 갔고, 마지막 빈 종이에는 13절 끝마디인 "다시는 섬기지 아니하리라"를 적었습니다. 그런데 뒤집힌 종이 위에 손바닥을 얹어 보던 순간, 제 몸 실험이 본문과 어긋나는 결정적인 자리 하나가 보였습니다. 메모지를 뒤집은 손은 제 손이었지만, 본문에서 이 목록을 끊고 비우시는 분은 '너'가 아니라 오직 <strong>'나', 곧 여호와 하나님</strong>이셨다는 점입니다.</p>
+<p>그 어긋남을 짚고 나서야 이 단락을 "네가 기대던 것을 스스로 내려놓아라, 그러면 하나님이 지켜 주신다"는 도덕적 숙제나 거래로 읽던 제 오랜 버릇이 눈에 들어왔습니다. 구약성경 신명기 7장 5절에서는 이스라엘 백성이 '그들의' 주상과 아세라와 새긴 우상을 부수라는 말씀을 들었지만, 미가 5장에서는 어느새 '네 것'이 되어 버린 그 세 가지를 하나님께서 "내가 친히 끊으리라"며 1인칭으로 가져가십니다. 아이 자전거의 보조 바퀴를 떼어 내는 손이 아이의 손이 아니듯, 본문에서 거두어 가시는 손은 기대던 사람의 손이 아닙니다. 그리고 '너'가 주어로 서는 동사는 단 하나, "네가 네 손으로 만든 것을 다시는 섬기지 아니하리라"는 한 줄뿐입니다.</p>
+<h3>남 탓의 목록을 지우지 않은 채 그 아래 한 줄을 더 적는 용기</h3>
+<p>끊으시는 분도 하나님이시고, 같은 단락 앞머리(5:4)에서 스스로의 칼이 아니라 여호와의 능력으로 서서 백성을 먹이실 이를 약속하시는 분도 하나님이십니다. 이 성경적 사고를 하루의 살림에 비추어 보면 일터에서 문제를 마주하는 눈이 달라집니다. 일이 꼬인 주간 회의에서 화이트보드에 '거래처가 늦었다', '다른 부서가 자료를 안 줬다'는 바깥 탓의 목록이 길게 적힐 때, 본문의 순서를 빌려 그 목록을 지우지 않은 채 바로 아래 한 줄에 '우리가 당연하게 기대던 것'을 함께 적어 보는 것입니다. 늘 한 사람의 야근에 기대던 일정이나 "지난번에도 됐으니까"라는 안이한 짐작 같은 우리 쪽 목록이 그때 비로소 눈에 들어옵니다.</p>
+<p>교회 구역 모임에서 미가 5장을 읽을 때도 베들레헴 이야기(5:2)에서만 멈추지 말고, 9절부터 13절까지의 '진멸·멸절·멸·끊다'를 같은 색 형광펜으로 칠해 보며 네 가지 우리말 뒤에 숨은 한 말씀을 함께 나누어 보십시오. 또한 다음 주 일이 걱정되는 밤에 잠들기 전 날씨 앱이나 통장 잔액을 몇 번이고 다시 열어 본다면, 본문이 앱이나 통장을 우상이라 말하지는 않더라도 앞일을 미리 쥐려던 내 손이 무엇을 붙들고 있었는지 메모지에 이름을 적어 책상에 엎어 두고 12절과 13절을 읽어 보십시오. <strong>앞줄을 지우지 않으면서도 바로 다음 줄에서 내 기대의 목록을 정직하게 마주하고, 그것을 비우시는 이가 내가 아님을 기억하는 사람</strong>으로 오늘 밤 조용히 잠자리에 듭니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 12월 26일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

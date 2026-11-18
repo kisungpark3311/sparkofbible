@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>말의 맛을 재는 저울을 내려놓고 내 발걸음을 묻는 자리</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 12월 19일 &middot; 미가 2:1-13</span>
+      <h1>말의 맛을 재는 저울을 내려놓고 내 발걸음을 묻는 자리</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h3>예언과 선지자라는 번역 뒤에 숨은 흘리다라는 한 동사</h3>
+<p>하루 동안 수많은 말을 듣고 건네는 자리에서, 우리는 듣기에 반가운 말과 귀에 거슬리는 말 사이를 오가며 어떤 말이 좋은 말인지를 가려내려 애씁니다. 저는 처음에 미가 2장 6절과 11절을 읽을 때만 해도 이 본문을 그저 "달콤한 말을 조심하라"는 경고로만 읽었습니다. 그러나 우리말 성경에서 "예언"과 "선지자"로 갈라져 있는 낱말들이 구약 원어인 히브리어 본문에서는 모두 "흘리다(תַּטִּפוּ · 나타프)"라는 한 동사로 묶여 있다는 사실을 마주하면서, <strong>말의 맛을 재던 자리에서 내 발걸음을 묻는 자리로 시선이 옮겨 가는 경험</strong>을 하게 되었습니다.</p>
+<p>구약 성경 전체에서 사전에 오르는 기본 꼴로 열여덟 번 나오는 이 "흘리다"라는 동사는, 그중 히브리어 동사의 일곱 꼴 가운데 하나인 히필 꼴로 아홉 번 쓰였는데 미가 2장 안에만 다섯 번(6절에 세 번, 11절에 두 번)이나 몰려 있습니다. 반면 흔히 선지자로 옮기는 원어 낱말(נָבִיא)은 이 열세 절 안에 한 번도 나오지 않습니다. 6절의 "너희는 예언하지 말라"는 실은 "흘리지 말라"이고, 11절에서 사실이 아닌 일을 가정하는 말(לוּ)로 시작해 "내가 포도주와 독주에 대하여 네게 예언하리라"고 한 뒤 "이 백성의 선지자가 되리로다"라고 한 말도 원문 그대로 옮기면 "네게 흘리리라", "이 백성의 흘리는 자(분사 꼴)가 되리라"입니다. 말을 막는 쪽과 달콤한 말을 바라는 쪽이 똑같은 동사 위에 서 있는 것입니다.</p>
+<p>그리고 그 두 절 한가운데인 2장 7절 끝에 말을 재는 잣대가 놓여 있습니다. 개역개정이 "나의 말이 정직하게 행하는 자에게 유익하지 아니하냐"라고 옮긴 구절을 원어 낱말 순서대로 따라 읽으면 "내 말들이 바르게 걷는 이와 함께 좋게 하지 않느냐"가 됩니다. 여기서 7절의 "바르게 걷는 이"와 11절의 "바람과 거짓을 따라 걷는 사람"은 둘 다 지금 걷고 있는 사람을 가리키는 똑같은 문법 꼴(분사 · הוֹלֵךְ)을 함께 씁니다. 듣는 쪽에도 말하는 쪽에도 모두 걸음이 붙어 있는 셈입니다.</p>
+<h3>손가락이 머문 시간을 재는 화면과 타일 줄을 따라 걷는 발바닥</h3>
+<p>일상의 세 자리에서 생각해 보면 반가운 말과 걸음을 보는 말은 서로 원수가 아니라 서로 다른 곳을 바라봅니다. 건강검진 상담에서 "크게 걱정하실 건 없어요"라는 말과 "저녁을 늦게 드시는 것부터 줄여 보세요"라는 말, 늦은 퇴근길 옆자리 사람의 "이 길 맞아"라는 말과 내비게이션의 "경로를 벗어났습니다"라는 안내, 등산길에서 내려오던 이의 "거의 다 왔어요"라는 인사와 "저 갈림길에서 왼쪽이에요, 돌이 미끄러워요"라는 말 가운데 반가운 말이 꼭 틀린 말은 아닙니다. 다만 걸음을 보는 말은 듣는 사람이 다음에 디딜 자리를 함께 본다는 점이 다릅니다. 퇴근길 지하철에서 켠 영상 앱이 내 걸음이 아니라 내 손가락이 머문 시간을 재어 반가운 화면만 줄지어 띄워 주는 것이나, 김장 날 배춧속 간을 보며 "딱 좋네" 하는 말과 "이대로면 일찍 시어져, 소금 조금 더" 하는 말의 차이와도 비슷합니다. 물론 영상 앱은 11절처럼 속여 말하는 사람이 아니고 김치는 결국 맛으로 판정하지만 본문의 잣대는 맛이 아니라 걸음이라는 점에서 이 비유들은 본문 앞에서 멈춥니다.</p>
+<p>이 차이를 다리와 발바닥으로 느껴 보기 위해 거실 바닥의 타일 줄 하나를 골라 눈을 감고 열 걸음을 걸어 봅니다. 처음 열 걸음 동안 옆 사람에게 "잘 걷고 있어"라는 말만 해 달라고 하면 어깨의 긴장이 풀리지만, 다음 열 걸음 동안 발이 줄에서 벗어날 때마다 "오른쪽으로 반 발"처럼 말해 달라고 하면 발바닥의 감각이 깨어납니다. 똑바로 걸을 생각이 있는 발에게 말은 함께 일하는 짝이 됩니다. 더구나 7절의 "좋게 하지 않느냐"라는 동사의 주어는 내가 아니라 "내 말들"입니다. 이 문장 구조를 깨닫는 순간, <strong>내가 저울을 들고 말씀을 심판하는 자리에서 내려와 말씀이 일하는 곁에서 내가 바르게 걷고 있는지를 묻는 자리</strong>로 서게 됩니다. 단 말을 조심하라는 말을 뒤집어 "쓴 말이 좋은 말이다"라고 해 보아도 그것 역시 맛을 재는 잣대일 뿐입니다. 같은 동사가 아모스 7장 16절에서는 말을 막는 데 쓰이지만 아모스 9장 13절에서는 회복의 날 산이 단 포도주를 흘리는 데 쓰이고 욥기 29장 22절에서는 사람의 말이 떨어지는 데도 쓰이므로, 낱말이나 말의 맛만 보고 판정할 수는 없습니다.</p>
+<h3>누가 말했는지 흐려진 자리에서 더욱 또렷해지는 걸음의 잣대</h3>
+<p>시야를 좁혀 2장 6절 한 절을 들여다보면, 원문에는 "그들이 말하기를"이라는 말도 없고 첫 마디의 동사 꼴도 미래형과 생김새가 같아서 앞에 붙은 작은 부정어(אַל) 하나에 기대어 금지로 읽을 뿐입니다. 저는 처음에 6절을 백성이 예언자의 입을 막은 장면으로 쉽게 단정했으나, 6절의 말하는 이나 7절에서 "내 말들"이라고 하는 "나"가 예언자인지 여호와인지는 정하려 할수록 오히려 흐려집니다. 대신 누가 말했는지보다 <strong>무엇으로 말의 좋음을 재는지라는 걸음의 잣대는 더욱 또렷하게 남습니다</strong>.</p>
+<p>칼뱅의 『소선지서 주석』 85강은 직접 열어 보지 못했고 성경의 권위가 사람의 판단에 달리지 않았다는 『기독교 강요』 1권 7장의 요지(원문 미대조) 역시 해석 근거로 삼지는 않지만, "흘리지 말라"는 태도가 말씀의 내용을 듣는 이가 정하게 만든다는 물음 곁에 조용히 놓아 둡니다. 무엇보다 이 묵상이 "바르게 걸어야 말씀이 좋게 들린다"는 도덕주의로 끝나지 않도록 경계합니다. 이 단락에서 하나님이 정동사의 주어로 서신 유일한 일은 2장 3절에서 반갑지 않은 재앙의 말씀을 하셨다는 것이며, 걸음의 잣대는 내가 쌓는 공로가 아니라 말씀하시는 분 앞에서 듣는 자리이기 때문입니다.</p>
+<p>이제 이 걸음의 잣대를 내일의 일상 세 자리로 가져갑니다. 일터의 주간 회의에서 내 일이 하루 밀린 줄 알면서도 반갑게 들리도록 "네, 괜찮습니다" 하고 넘기는 대신, "목요일은 어렵고 금요일 오전이면 됩니다"처럼 팀이 다음 발을 디딜 자리를 주는 말로 바꾸어 말하려 합니다. 주일 점심 자리에 구역 식구가 "이직하기로 했는데 잘한 거죠?" 하고 물어올 때도 내가 저울이 되어 "잘했어요"나 "글쎄요"로 재단하기보다 "거기서 어떤 하루를 살고 싶어요?" 하고 그 사람의 걸음과 함께하는 질문을 건네고 싶습니다. 퇴근길 지하철에서 추천 영상을 넘기다 내릴 역을 지나칠 뻔할 때도 휴대폰 메모장에 <strong>이것을 본 다음 내 걸음은 어디로 가나</strong> 한 줄 적어 보며, 말의 맛이 아니라 오늘 내 발걸음을 정직하게 묻는 하루를 살아가겠습니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 12월 19일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

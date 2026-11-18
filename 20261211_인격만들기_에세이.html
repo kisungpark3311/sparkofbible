@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>여럿이 모여 한 사람으로 서는 자리: 바깥에서 재지 않고 너희 안에 서는 인격</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 12월 11일 &middot; 고린도후서 11:1-10</span>
+      <h1>여럿이 모여 한 사람으로 서는 자리: 바깥에서 재지 않고 너희 안에 서는 인격</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h3>복수인 너희와 단수인 한 처녀가 만나는 수의 어긋남</h3>
+<p>모임에서 성경을 함께 읽거나 누군가의 설교를 들을 때, 우리는 자기도 모르게 그 말씀의 그림 바깥으로 한 걸음 물러서서 다른 사람들을 재곤 합니다. 특히 고린도후서 11장 2절의 내가 너희를 정결한 처녀로 한 남편인 그리스도께 드리려고 중매함이로다라는 구절을 마주할 때면, 정결한 처녀라는 말에 이끌려 개인의 도덕적인 순결을 떠올리거나 심지어 교회 안의 젊은 여성들의 옷차림과 몸가짐을 평가하는 말로 흘러가기도 합니다. 여럿인 우리가 한 처녀로 그려질 때, 나는 과연 그 그림의 어디에 서 있는 것일까요. 이 질문을 붙들고 헬라어 원문의 문법 형태를 찬찬히 살펴보면 우리가 서야 할 자리가 전혀 다른 곳에 있음이 드러납니다.</p>
+<p>원문에서 바울은 이 한 절 안에 너희라는 말을 두 번 씁니다. 열심을 내는 대상으로 한 번, 중매한 대상으로 또 한 번 쓰는데, 둘 다 여럿을 가리키는 복수 형태입니다. 그런데 바로 그 여럿인 너희를 두고 설명하듯 따라붙는 정결한 처녀라는 말은 단 한 사람을 가리키는 단수 형태로 적혀 있습니다. 여럿을 가리키는 말과 하나를 가리키는 말이 같은 사람들에게 나란히 붙는 이 수의 어긋남은 글쓴이의 실수가 아니라 의도된 한 폭의 그림입니다. 처음에 저는 이 어긋남을 그저 독특한 문법의 결로만 보았지만, 단수인 한 처녀를 복수인 처녀들로 바꾸어 읽어 보고서야 깜짝 놀랐습니다. 복수로 바꾸자마자 곧바로 누가 더 정결한 처녀인지 서로 견주고 줄을 세우는 자리가 생겨났기 때문입니다. 바울이 여럿인 교회를 단 한 사람의 처녀로 그린 까닭은 누구 하나를 따로 떼어 내어 견줄 자리를 없애고, <strong>읽는 나 자신을 그림 바깥의 심판자가 아니라 그 한 사람 안에 함께 선 너희 가운데 하나로 세우려는 것</strong>이었습니다.</p>
+<h3>한 이름 뒤의 세 자리와 모은 손을 내미는 팔의 떨림</h3>
+<p>여럿이 한 이름으로 불리는 일은 우리의 일상에서도 낯설지 않습니다. 합창단 마흔 명의 목소리가 지휘자의 손끝 아래 연주회 무대에서 한 소리로 불리고, 운동회 줄다리기에 나선 열 명이 선생님이 짜 준 청팀이라는 한 이름으로 맞은편 줄 앞에 서며, 조별 과제를 맡은 네 학생이 반 친구들 앞에서 3조 발표 하나로 섭니다. 이 모든 자리에는 공통된 꼴이 있습니다. 여럿을 한 이름으로 부르는 말은 각자를 뿔뿔이 떼어 내지 않고 전체를 두고 하는 말이 되며, 그 한 이름 뒤에는 그 이름을 세운 사람과 그 이름이 서게 될 자리가 함께 있다는 점입니다. 두 사람을 소개해 준 친구가 결혼 날짜가 잡힌 뒤에도 두 사람이 앞으로 잘 지낼지 마음을 졸이고, 석 달 동안 가르친 신입 사원 다섯 명을 현장 부서에 올해 동기들이라는 한 이름으로 넘기는 교육 담당자가 끝까지 눈길을 떼지 못하는 것과 같습니다. 이어 준 사람은 이은 뒤에도 그 자리를 쉽게 떠나지 못하지만, 그렇다고 결과까지 자기 손에 쥐고 있지는 못합니다.</p>
+<p>이 마음은 눈을 감고 의자에 앉아 두 손으로 직접 해 보면 몸으로 고스란히 전해집니다. 두 손을 펴고 열 손가락을 하나씩 따로 느껴 보다가, 두 손을 포개어 물을 뜨는 그릇처럼 오므려 봅니다. 방금까지 열 개였던 손가락이 그릇 하나가 됩니다. 그 상태로 그릇이 된 두 손을 천천히 앞으로 내밀고 열을 세어 보면, 내민 팔은 금세 묵직해지고 손가락 하나만 조금 벌어져도 물이 새어 나갈 것 같은 긴장이 찾아옵니다. 모으는 일과 내미는 일이 한 자세 안에 함께 있고, 내미는 동안 팔이 가늘게 떨립니다. 저는 그 팔의 떨림이 바로 11장 3절에서 바울이 고백한 두려움에 맞닿아 있다고 읽습니다. 더욱이 한 절 안의 시간을 좁혀 보면 중매한 일은 이미 일어난 과거이고, 열심과 두려움은 지금 겪는 현재이며, 그리스도께 드리는 일은 목적을 여는 부정사 꼴로 놓여 있습니다. 원문에서 한 남편에게라는 말은 중매했다에 걸리고 그리스도께는 드리려고에 걸려 서로 떨어져 있기에 두 말의 관계를 섣불리 닫지 않고, 드리는 때가 언제인지도 본문은 비워 둡니다.</p>
+<h3>목적과 약속을 갈라 적고 너희 안에서 내 몫을 감당하는 하루</h3>
+<p>성경의 다른 자리로 시야를 넓혀 보면 드리다(세우다, 파리스테미)라는 같은 동사에 서로 다른 세 주어가 걸려 있는 모습이 보입니다. 여기 고린도후서 11장 2절에서는 바울이 교회를 드리려 하지만, 같은 편지 4장 14절에서는 주 예수를 다시 살리신 하나님이 우리를 너희와 함께 세우시리라고 하여 중매자인 바울 자신도 너희와 함께 세워지는 쪽에 서 있습니다. 또 에베소서 5장 27절에서는 그리스도께서 친히 교회를 자기 앞에 영광스러운 교회로 세우신다고 합니다. 세 자리를 억지로 하나로 합치지 않고 나란히 놓아 보자 중요한 전복 하나가 일어났습니다. <strong>11장 2절에서 바울이 말한 드림은 그가 품은 간절한 목적으로 적혔을 뿐, 그가 자기 힘으로 반드시 해낼 약속으로 적힌 것이 아니라는 사실</strong>입니다. 목적은 약속이 아니기에 그 곁에 두려움이 설 자리가 있고, 이 단락 안에 교회를 향한 명령형 동사가 하나도 없이 오직 그리스도께로 향해 있는가를 묻는 질문만 남는 이유도 여기에 있습니다.</p>
+<p>이제 그림 밖에서 남을 재던 걸음을 거두어 너희 안으로 들어와 오늘 하루를 살아가려 합니다. 월요일 회의에서 부장에게 이번 분기 우리 팀 자료가 늦었다고 한 이름으로 꾸중을 들었을 때, 누가 늦었는지 눈짓하며 남의 탓으로 줄을 세우기 전에 우리 팀이라는 한 이름 안에 내 자리를 먼저 표시합니다. 팀 이름으로 들은 말을 내 몫으로도 받아들여 내가 고칠 일 한 가지를 수첩에 적으면 동료를 겨누는 가시 돋친 말이 한마디 줄어듭니다. 구역 모임에서 고린도후서 11장을 함께 읽다가 이야기가 슬그머니 요즘 젊은 자매들 옷차림으로 흘러갈 때면, 여기 나오는 처녀는 우리 모두를 가리키는 말이래요, 저도 그 안에 들어가고요라고 부드럽게 한마디 건네어 이야기를 제자리로 돌려놓습니다. 그때 구석에서 고개를 숙이던 이가 비로소 고개를 들 숨통이 트이고, 말씀은 남을 재는 자에서 우리가 함께 서는 자리로 돌아옵니다.</p>
+<p>만약 내가 다니는 회사에 소개해 준 친구가 요즘 부쩍 지쳐 보여서 소개한 내가 무엇이라도 해야 하나 밤마다 마음이 쓰인다면, 내가 그 친구를 이어 준 일과 그 친구가 거기서 잘 지내는 일을 수첩에 나란히 갈라 적어 봅니다. 앞의 것은 내가 이미 한 일이고, 뒤의 것은 내가 간절히 바란 목적이지 내 손으로 보증할 수 있는 약속이 아님을 인정하는 것입니다. 그 구분이 서면 지나친 죄책감으로 상대를 다그치거나 반대로 무관심하게 손을 떼는 대신, 떨리는 팔로 그릇을 내밀듯 요즘 어때라는 따뜻한 안부 한마디로 내 걱정을 건넬 수 있습니다. 내가 쌓은 공로로 차지한 자리가 아니라 누군가 이어 주어 서게 된 그 한 사람 안에서, 오늘도 함께 부름받은 이들의 손을 마주 잡고 서기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 12월 11일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>품절된 진열대에 남은 이름표처럼, 덮지 않고 견주어 부르는 이름</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 12월 29일 &middot; 미가 7:1-6</span>
+      <h1>품절된 진열대에 남은 이름표처럼, 덮지 않고 견주어 부르는 이름</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h3>동사 없는 문장 속에 두 번 불린 이름, '정직한 자'</h3>
+<p>하루를 마치고 돌아오는 길에 뉴스 알림을 보거나 일터의 어수선한 회의를 떠올리며 "요즘은 정말 정직한 사람이 없어" 하고 중얼거릴 때가 있습니다. 그렇게 없다고 단정해 버린 뒤에도 우리가 그 '정직'이라는 이름을 다시 입에 올리게 될 때, 그 말을 섣부른 희망이나 남을 깎아내리는 비꼼으로 덮지 않고 어떻게 정직하게 들고 있을 수 있을까요. 미가 7장 2절과 4절에 두 번 등장하는 <strong>'정직한 자'(יָשָׁר, 야샤르)</strong>라는 히브리어 원문 낱말은 이 물음 앞에 깊은 생각의 길을 열어 줍니다.</p>
+<p>원문의 낱말과 꼴을 차근차근 살펴보면 흥미로운 사실이 드러납니다. 7장 2절은 "정직한 자가 사람들 가운데 없도다"로 끝이 나는데, 히브리어 원문에서 이 문장에는 움직임을 나타내는 동사가 없고 그저 "없다"라는 한 낱말로 단호하게 닫힙니다. 그런데 불과 두 절 뒤인 4절에서 똑같은 꼴의 '정직한 자'가 다시 불립니다. 이번에도 동사는 없으며, 앞줄의 '그들의 선한 자'에 붙어 있던 '그들의'라는 말조차 없이 "가시 울타리보다"라는 표현 곁에 덩그러니 놓입니다. 우리가 흔히 읽는 개역개정 성경은 이를 "가장 정직한 자라도 찔레 울타리보다 더하도다"라고 옮겼지만, '가장'과 '더하다'는 우리말 번역이 문맥을 매끄럽게 하려고 채워 넣은 말입니다. 번역이 채운 '가장'이라는 한 낱말을 빼고 원문 그대로 읽어 보면, 누군가를 비꼬는 말로만 들리던 문장이 정직하다고 불리는 사람들을 가리키는 것인지 정직 그 자체가 가시 울타리처럼 되었다는 것인지 두 갈래로 열리게 됩니다.</p>
+<h3>빈자리를 메우지 않고 빈자리의 모양을 보여 주는 이름표</h3>
+<p>나는 처음에 2절에서 없다고 선언한 이름을 4절에서 다시 부르는 것을 보며, 탄식 속에 숨겨진 작은 희망의 실마리로 읽고 싶었습니다. 그러나 본문을 좁혀 들여다보니 동사도 없고 누구의 것이라는 표시도 없는 그 두 낱말은 문제를 해결하는 아무런 행동도 하지 않았습니다. <strong>다시 불린 이름은 구원의 구조 신호가 아니라, 정직이 사라진 자리를 손에 닿을 듯 생생하게 느끼게 하는 '견줌'이었습니다.</strong> 우리 일상에서도 없다고 한 이름이 지워지지 않고 다시 불릴 때 빈자리의 모양이 오히려 또렷해지는 순간들이 있습니다. 이제 버스가 서지 않는다는 안내문이 붙은 정류장에 공사 가림막 옆으로 정류장 이름 표지판이 그대로 서 있을 때, 혹은 전학 간 아이가 이제 우리 반에 없는데 새 출석부가 오기 전 아침에 그 이름이 한 번 더 불려 교실이 조용해질 때가 그렇습니다.</p>
+<p>이 모습을 동네 편의점의 품절 칸과 시골길의 탱자나무 울타리에 빗대어 생각해 볼 수 있습니다. 편의점 진열대의 우유 칸이 텅 비어 있는데 그 아래 가격표와 이름표가 그대로 붙어 있으면, 우리는 그 이름표 덕분에 무엇이 비어 있는지를 한눈에 알아봅니다. 물론 편의점은 내일이면 새 물건이 들어온다는 것을 알지만, 미가 7장 1절부터 6절까지는 빈자리가 채워지는 날을 말하지 않는다는 점에서 이 비유는 멈춰 서야 합니다. 거기에 우리가 임의로 '입고 예정'이라는 쪽지를 붙이는 순간 본문의 탄식은 지워지고 맙니다. 또한 멀리서 보면 푸른 담장 같지만 가까이 다가가 손을 대면 가시에 찔리는 탱자나무 울타리처럼, 4절의 견줌은 정직이라는 이름에 다가가는 우리 손의 감각을 바꿉니다.</p>
+<p>이 감각을 몸으로 직접 겪어 보면 우리 안의 조급함이 금세 드러납니다. 눈을 감고 서서 2절의 "정직한 자가 사람들 가운데 없도다"를 소리 내어 말한 뒤, 오른손을 앞으로 뻗어 손바닥 한 뼘 앞에 가시 울타리가 있다고 여기며 멈춰 서 봅니다. 이름을 다시 부르는 일은 누군가에게 다가가는 일이어서 손이 저절로 앞으로 나가지만, 가시 울타리 앞이라 한 뼘 앞에서 멈출 수밖에 없습니다. 그 자세로 "정직한 자, 가시 울타리보다"라고 말한 뒤 손을 내리고 5절과 6절을 속으로 읽으며 입을 다물어 보면, 하나님의 대답 없이 끝나는 침묵을 견디지 못해 입안에서 "그래도…"라며 무엇이든 한마디 덧붙이려는 힘이 밀어 올라옵니다. 답 없는 끝을 내 말로 서둘러 덮고 싶어 하는 마음입니다.</p>
+<h3>서둘러 위로로 덮고 싶은 입을 멈추고 셋째 칸을 비워 두는 연습</h3>
+<p>시야를 성경 전체로 넓혀 보면, 열왕기상 19장에서 "나만 홀로 남았다"고 탄식하는 엘리야에게 하나님이 "내가 이스라엘에 칠천을 남기리라"고 답하시는 장면이 나옵니다. 이 대답은 미가 7장 2절의 "없다"와 정반대 방향에 서 있습니다. 그러나 성경은 한쪽을 '눈에 보이는 것'으로, 다른 쪽을 '감추어진 것'으로 나누어 어설프게 화해시키지 않고 두 말씀을 나란히 놓아둡니다. 만약 우리가 미가의 탄식을 읽고 나서 "세상에 없는 그 정직한 사람이 바로 내가 되자"라는 다짐으로 끝을 맺는다면, 그것은 빈칸을 내 힘과 수고로 메우려는 도덕주의가 되고 맙니다. 본문은 읽는 사람을 그 빈자리에 채워 넣지 않습니다. 오히려 은혜언약은 이 무너짐을 부정하는 데서가 아니라, <strong>하나님께서 답 없는 탄식을 당신의 책에서 지우지 않고 그대로 기록해 두셨다는 사실에서 먼저 읽힙니다.</strong></p>
+<p>더욱이 4절 원문은 "너의 파수꾼들의 날, 너의 형벌이 왔다"며 듣는 자리를 갑자기 '너'로 옮겨 놓습니다. 듣는 자리가 언제든 나 자신인 '너'로 옮겨질 수 있다면, 다시 부른 '정직'이라는 이름을 남을 재고 정죄하는 잣대로만 쓸 수는 없습니다. 신약 성경 마태복음 10장 34절에서 36절에 예수님이 6절과 겹치는 말씀을 하실 때도 그것은 위로가 아니라 갈라짐의 말씀이기에, 이 단락의 탄식을 매끈하게 닫는 용도로 쓰이지 않습니다. 그러므로 다시 부른 이름을 희망으로 바꾸지 않을 때, 그 이름은 남을 재는 잣대가 아니라 내가 서 있는 자리를 비추는 거울이 됩니다.</p>
+<p>이러한 성경적 사고는 하루의 세 가지 자리에서 구체적인 인격의 열매로 이어집니다. 첫째로 일터 휴게실에서 회의가 끝난 뒤 "이 회사엔 제대로 하는 사람이 없어" 하다가 곧바로 "그나마 잘한다는 누구도 문제가 많아"라며 특정 동료의 이름을 올릴 때, 내 말이 위로가 아니라 가시 돋친 견줌이었음을 알아채고 동료의 이름을 지우는 일입니다. 둘째로 교회의 구역 모임에서 미가 7장 1절부터 6절을 함께 읽을 때, 누군가 "그래도 하나님이 계시잖아요"라며 서둘러 마무리하려 해도 그날만큼은 6절에서 읽기를 멈추고 탄식을 탄식으로 끝까지 들어 주는 연습입니다. 셋째로 퇴근길 버스에서 "요즘은 정직한 사람이 없어" 하고 혼잣말이 나올 때, 휴대폰 메모장에 그 문장을 적고 이어 붙이고 싶은 "그래도…"라는 말을 '아직'이라고만 표시해 둔 채 하루를 묵혀 두는 것입니다. 이튿날 그 메모를 다시 들여다보며 내 말이 아파서 나온 탄식이었는지 남을 재는 교만이었는지 가만히 갈라 보는 것, 그것이 답 없는 빈자리를 정직하게 견디는 사람의 태도입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 12월 29일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

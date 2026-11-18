@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>입에 들어오는 값에 따라 말을 바꾸던 자리에서 멈추어 서기</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">일상의 깊은 사고 &middot; 2026년 12월 20일 &middot; 미가 3:1-12</span>
+      <h1>입에 들어오는 값에 따라 말을 바꾸던 자리에서 멈추어 서기</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h3>값에 맞춰 평강과 전쟁을 나누던 입에 붙은 점친다는 이름</h3>
+<p>손님을 응대하며 돈을 받는 일터에서 큰 금액을 쓰는 손님에게는 규정을 쉽게 풀어 주고 그렇지 않은 사람에게는 엄격한 잣대를 내밀거나, 가르치는 자리에서 사례와 헌금을 내는 사람의 얼굴을 의식해 할 말을 바꾸고 싶어지는 순간이 있습니다. 구약 예언자 미가는 3장에서 예루살렘의 지도자들과 선지자들을 불러 세우며 바로 그 자리를 매섭게 고발합니다. 백성의 가죽을 벗기고 살을 뜯는 지도자들, 그리고 자기 입에 무엇을 채워 주면 평강 곧 평안을 외치다가도 입에 무엇을 넣어 주지 않는 사람에게는 전쟁을 준비하며 싸움을 거는 선지자들의 모습입니다. 평안을 말할 때도 싸움을 걸 때도, <strong>그 말을 정하는 기준이 하나님이 아니라 자기 입에 들어오는 것</strong>이 되어 버렸습니다.</p>
+<p>미가는 11절에서 성안의 세 무리를 한 줄로 묶어 고발합니다. 재판하는 우두머리들은 뇌물을 받고, 가르치는 제사장은 일한 값으로 받는 돈인 삯을 위하여 교훈하며, 선지자는 돈을 위하여 점을 친다는 것입니다. 여기서 "점을 친다(יִקְסֹמוּ)"는 히브리어 낱말은 미가서 전체에서 오직 이 3장에만 세 번, 곧 6절의 "점치지 못하리라"와 7절의 점치는 "술객", 그리고 11절의 "돈을 위하여 점을 치며"에 똑같은 뿌리의 말로 나옵니다. 구약의 율법이 엄격히 금지한 "점친다"는 이름을 예루살렘 선지자들이 하는 일에 그대로 붙인 것입니다. 그들이 실제로 점술을 행했다는 뜻인지 돈 받고 하는 예언을 그렇게 부른 것인지는 본문이 정해 주지 않지만, 말씀을 전한다는 일이 값에 맞춰 달라지면 율법이 금한 일과 같은 이름으로 불릴 수 있음을 분명히 보여 줍니다.</p>
+<h3>끊어진 하나님의 대답과 방패가 되지 못하는 우리 가운데라는 말</h3>
+<p>이처럼 사람에게 건네는 대답을 값에 맞춰 바꾸던 입들이 마지막에 마주치는 것은 하나님의 대답이 끊어진 자리입니다. 4절에서 백성을 먹은 지도자들이 나중에 여호와께 부르짖을지라도 하나님은 대답하지 않으시고 그들의 행위가 악했던 만큼 얼굴을 가리시며 외면하십니다. 이어 7절에서는 앞일을 본다는 선견자와 점치는 술객이 부끄러워 입술을 가리는데, 우리말 성경은 그 이유를 "하나님이 응답하지 아니하심"이라고 옮겨 하나님이 하시는 행동처럼 적었지만, 히브리어 원문은 동사 없이 그저 "하나님의 응답(מַעֲנֵה)이 없다"고만 적습니다. 하나님이 거절하신다는 4절과 응답이 없다는 7절을 하나로 합치지 않고 나란히 읽을 때, <strong>사람에게 하는 대답을 값에 맞춰 바꾸던 입은 정작 자기가 들어야 할 하나님의 대답을 잃는다</strong>는 사실이 또렷이 드러납니다.</p>
+<p>더욱 무서운 대목은 뇌물과 삯과 돈으로 일하던 이 세 무리가 여호와께 기대어 "여호와께서 우리 중에 계시지 아니하냐 재앙이 우리에게 임하지 아니하리라(11절)"고 장담한다는 점입니다. 구약의 다른 예언서인 스바냐 3장 15절에서는 이스라엘 왕 여호와가 "네 가운데" 계시니 다시는 화를 당할까 두려워하지 말라는 아주 비슷한 말이 하나님의 참된 약속으로 나옵니다. 미가 3장 12절이 뒤집는 것은 "여호와께서 우리 가운데(בְּקִרְבֵּנוּ) 계시다"는 앞부분이 아니라, "재앙이 우리에게 임하지 아니하리라"는 뒷부분입니다. 말 자체는 참된 신앙 고백일 수 있으나 그 말을 자기들의 악한 일을 가리는 방패로 쓸 때 안전의 보증은 무너지고, 결국 9절에서 불린 우두머리들 곧 "너희로 말미암아" 시온은 갈아엎은 밭이 되고 예루살렘은 돌무더기가 되며 성전의 산은 수풀만 우거진 언덕이 되리라는 조건 없는 판결이 떨어집니다.</p>
+<p>물론 성경의 다른 책을 펼쳐 보면 이 조건 없는 판결 곁에 또 다른 기록이 나란히 놓여 있습니다. 예레미야 26장 18절과 19절에서 나이 든 어른들이 옛일을 돌아보며, 미가가 히스기야 왕 때 시온이 밭이 되리라 예언했을 때 히스기야가 여호와를 두려워하여 간절히 구하자 여호와께서 선언한 재앙에 대하여 뜻을 돌이키지 않으셨느냐고 묻는 이야기입니다. 히스기야가 구한 "여호와의 얼굴"과 미가 3장 4절의 가려진 "얼굴"에는 같은 히브리어 낱말이 쓰였지만 구약에 아주 흔한 말이라 두 구절을 곧장 같은 일로 단정하지는 않습니다. 또한 시온 전체가 무너질 때 짓밟힌 백성의 살림이 언제 회복되는지, 같은 문장이 언제는 약속이고 언제는 헛된 믿음인지, 값을 받는 일 자체가 어디까지 잘못인지도 이 장은 가려 주지 않기에 저는 이 판결을 서둘러 풀거나 닫지 않고 그대로 둡니다.</p>
+<h3>당한 일을 몸의 말로 적고 같은 물음에 같은 답을 내놓는 하루</h3>
+<p>이 정직한 여백 위에서 오늘의 구체적인 자리들을 돌아봅니다. 품삯을 떼이고도 따질 길이 없는 사람이나 힘 있는 이의 결정 하나로 집과 일터를 잃고 지금 아무것도 할 수 없는 사람에게 이 장은 해야 할 과제를 내밀지 않습니다. 대신 그들이 당한 일을 가죽과 살과 뼈라는 생생한 몸의 말로 기록하며 그들을 "내 백성"이라 부릅니다. 그러므로 이런 처지에 놓인 분은 당한 일을 그저 "마음이 상했다"는 말로 줄이지 말고, <strong>몸과 살림이 입은 일 그대로 종이에 적어 두셨으면</strong> 합니다. 마음의 상처로만 바꾸면 그 일이 실제로 몸과 살림에 일어났다는 사실이 흐려지기 때문입니다.</p>
+<p>한편 말씀을 가르치는 자리에 선 사람으로서 저는 9절이 부르는 "야곱 족속의 우두머리들아"라는 호칭 앞에 제 자신을 먼저 세웁니다. 이 말씀을 다른 교회나 다른 목사를 가리키는 데 쓰면 본문을 거스르는 일이 됩니다. 강단에 서기 전에, 헌금하고 사례하는 이들을 의식해 말을 바꾼 곳이 없는지 이번 주 설교 원고에 직접 표시해 보며 제 입술을 먼저 점검하려 합니다. 선지자들의 말이 입에 들어오는 것에 따라 갈렸다는 5절의 고발을 제 원고 앞에서 먼저 듣기 위함입니다.</p>
+<p>나아가 손님을 응대하며 돈을 받는 일터에서 일하는 사람으로서, 지도자들이 시온을 피로, 예루살렘을 죄악으로 건축한다는 10절의 고발 앞에 일상의 기록을 비추어 봅니다. 피와 불의를 성을 짓는 재료로 삼았다는 이 말씀 앞에서, 이번 달 응대 기록이나 단체 대화방을 다시 열어 똑같은 규정 물음에 손님이 쓴 금액의 크기에 따라 답이 달라진 곳이 없는지 직접 확인해 보는 것입니다. 집에서 기도할 때도 "하나님이 함께하시니 나쁜 일은 없을 것"이라는 말을 안심의 증거처럼 내세우지 않고, <strong>두려운 마음으로 주님의 얼굴을 구하며 오늘 내 입에 무엇이 들어오든 같은 일에는 같은 말을 하는 하루</strong>가 되기를 기도합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 12월 20일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

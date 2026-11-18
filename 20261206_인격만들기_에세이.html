@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>주 앞과 사람 앞이라는 두 다리로 서되, 공식 없는 경계는 품고 간다</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 12월 06일 &middot; 고린도후서 8:16-24</span>
+      <h1>주 앞과 사람 앞이라는 두 다리로 서되, 공식 없는 경계는 품고 간다</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h3>앞의 것을 빼지 않고 보태는 '뿐 아니라'의 더함 짜임</h3>
+<p>선한 일을 할 때 우리는 하나님 앞과 사람 앞 가운데 한쪽만 챙기면 될까요? 고린도후서 8장 21절에서 사도 바울은 "이는 우리가 주 앞에서뿐 아니라 사람 앞에서도 선한 일에 조심하려 함이라"(개역개정)고 말합니다. 여기서 '주 앞'은 내 마음속이나 내 안의 양심과 같은 말이 아니라, 내 밖의 한 분이신 주께서 보시는 자리입니다(그 '주'가 하나님인지 그리스도인지는 원문의 꼴이 정하지 않습니다). 그리고 '사람 앞'은 사람들이 보고 확인할 수 있는 자리입니다. 신약 원문(그리스어)은 두 '앞에서'(에노피온 — 이 편지에 네 번 나오며 사람을 받는 곳은 여기 하나뿐입니다) 사이에 '~만이 아니라 ~도'라는 더함 짜임을 둡니다. <strong>'뿐 아니라'는 앞의 것을 지우거나 배경으로 물리는 말이 아니라, 앞의 것을 그대로 둔 채 하나를 보태는 말</strong>입니다.</p>
+<p>우리가 흔히 읽는 번역 성경에서는 보이지 않는 중요한 차이도 하나 있습니다. 바로 앞 절인 8장 20절의 "이것을 조심함은"과 21절의 "선한 일에 조심하려"는 우리말로 둘 다 '조심'이지만, 그리스어 원문에서는 서로 다른 낱말입니다. 20절의 낱말(스텔로메노이, '~하며'라는 분사 꼴로 어느 동사에 걸리는지 정해지지 않았습니다)은 남의 비방을 피하고 삼가는 쪽을 향합니다. 반면 21절의 낱말(프로노우멘, 우리가 지금 하는 일로 말하는 현재형 동사로 다른 사본 판본에는 분사로도 읽힙니다)은 '선한 것들'(칼라)을 마음을 써서 챙기는 쪽을 향합니다. 로마서 12장 17절("모든 사람 앞에서 선한 일을 도모하라")과 구약 잠언 3장 4절의 그리스어 옛 번역에도 쓰인 이 동사를 가만히 들여다보면, <strong>'사람 앞'은 비방을 막아 내는 방어의 자리이기 전에 선한 것들을 적극적으로 챙기는 자리</strong>임을 알게 됩니다.</p>
+<h3>방어를 넘어 선한 것을 챙기는 자리와 유리창 너머의 주방</h3>
+<p>혼자 아는 떳떳함 위에 다른 사람이 확인할 길을 보태는 모양은 우리 하루의 여러 자리에서도 발견됩니다. 심판 없는 동네 축구에서 공이 내 발에 맞고 선을 넘었을 때 손을 들어 상대편에게 알리는 일, 좁은 골목에서 옆 차를 스쳤을지 모른다는 느낌이 들 때 내려서 살피고 앞 유리에 연락처 쪽지를 남기는 일, 아침 약을 먹었다는 기억 위에 식탁 달력의 약 칸에 표시해 가족이 보게 하는 일이 그렇습니다. 확인할 길을 보탰다고 내가 아는 사실이 없어지지 않습니다. 반대로 <strong>"하나님은 다 아신다"며 사람 앞의 확인을 건너뛰거나, "사람 앞의 확인을 갖췄다"며 주 앞의 물음을 끝내는 것은 보탠 것과 원래 있던 것의 자리를 뒤바꾸는 일</strong>입니다.</p>
+<p>눈을 감고 고개를 조금 들어 위를 향하며 "주 앞에서"라고 소리 내어 말한 뒤, 그 고개를 내리지 않은 채 두 손바닥을 앞으로 펴서 내밀고 "사람 앞에서도"라고 말하며 열을 세어 봅니다. 고개를 들기 위해 손을 거둘 필요가 없고 손을 펴기 위해 고개를 숙일 필요가 없어, 두 자세는 한 몸에 함께 설 수 있습니다. 그러나 열을 세다 보면 앞으로 내민 팔이 먼저 무거워지며 펴 둔 손이 먼저 지칩니다. 종교개혁가 칼뱅도 이 구절 주석에서 바울이 하나님 앞의 선한 양심만이 아니라 사람들 사이의 좋은 평판에도 마음을 쓴다고 읽었는데(칼뱅의 읽기는 곁에 놓는 목소리이며, 저는 '주 앞'을 양심으로 바꾸지 않고 그대로 둡니다), 이 단락이 디도의 마음에 간절함을 주시는 하나님께 대한 감사(8:16)로 열리듯 두 앞을 챙기는 힘도 내 의지에서 짜내는 것이 아니라 주시는 은혜에서 시작합니다.</p>
+<p>그렇다고 이 '둘 다'라는 대답이 모든 걱정을 없애 주는 만능열쇠는 아닙니다. 동네 칼국수 집 주방이 유리창 너머로 훤히 보일 때, 주인이 행주를 삶고 도마를 씻는 일에 손님이 확인할 길이 보태지지만, 그 유리창 안에는 손님을 끌려는 광고의 마음도 함께 겹칠 수 있습니다. "사람에게 보이려고 그들 앞에서 너희 의를 행하지 않도록 주의하라"(마 6:1)는 말씀이 바로 이 자리에 섭니다. 고린도후서 8장 24절의 "여러 교회 앞에서 … 증거를 그들에게 보이라"와 마태복음 6장 1절은 목적을 말하는 구가 다르지만, 그 차이로 긴장이 다 풀리지는 않습니다. 또한 조별 과제에서 조장이 출처 목록을 단체 대화방에 다 올렸는데도 누군가 의심할 수 있듯이, 바울이 여러 교회가 세운 형제를 함께 보냈는데도 같은 편지 12장 18절에서는 디도를 두고 다시 묻습니다. <strong>사람 앞을 챙긴다고 의심이 끝난다는 약속은 없으며, 보여 주는 일과 보이려는 마음을 가르는 공식도 성경은 주지 않습니다</strong>.</p>
+<h3>두 다리로 서되 빈 줄을 메우지 않는 일터와 일상</h3>
+<p>그래서 저는 주 앞과 사람 앞이라는 두 다리로 서되, 두 다리 사이에 있는 그 '빈 줄'을 억지로 메우지 않고 품고 가려 합니다. 일터에서 야간 교대 근무를 마치며 설비 점검을 혼자 다 했을 때, 점검표에 '이상 없음' 한 줄만 적고 "내가 확인했으니 됐다"로 끝내지 않는 것입니다. 다음 근무자가 직접 볼 수 있게 계기판 사진 두 장과 확인한 시각을 함께 남겨 둡니다. 거꾸로 사진을 남겼다고 점검이 다 끝났다고 여기지도 않습니다. 아무도 안 봐도 했을 일과 보게 해 둔 일이 한 일로 맞물리게 하는 것입니다.</p>
+<p>이삿날 아파트 엘리베이터로 짐을 나르다가 벽에 작은 자국이 생겼는지 확실하지 않을 때도 마찬가지입니다. 그냥 두면 아무도 모를 수 있고 "일부러 그런 게 아니다"라며 넘어갈 수도 있지만, 관리실에 먼저 알리고 함께 살펴봅니다. 알렸는데도 이웃이 언짢아할 수 있습니다. 그때 "알렸으니 내 할 도리는 끝났다"로 마음을 닫지 않는 데까지가 이 말씀의 적용입니다.</p>
+<p>동네 봉사를 다녀와서 단체 대화방이나 누리소통망에 사진을 올릴지 망설여질 때는, 올리기 전에 올리는 까닭을 한 줄로 적어 봅니다. 함께 간 사람들이 확인할 길인지, 내가 남에게 보이고 싶은 것인지를 스스로에게 묻는 것입니다. 둘을 가르는 공식은 없으므로 어느 쪽으로 정하든 그 한 줄을 지우지 않고 남겨 둡니다. <strong>사람 앞을 보탠 손이 주 앞을 내려놓지 않고, 주 앞에 선 마음이 사람 앞의 확인을 건너뛰지 않으며, 공식 없는 경계 앞에서 날마다 자신을 돌아보는 성숙한 인격</strong>으로 서기를 소망합니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 12월 06일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

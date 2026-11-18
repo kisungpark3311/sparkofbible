@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>내 말은 내 자리까지, 상대의 돌이킴은 기다려 받는 소식으로</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 12월 03일 &middot; 고린도후서 7:2-16</span>
+      <h1>내 말은 내 자리까지, 상대의 돌이킴은 기다려 받는 소식으로</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h3>흔들림은 보낸 쪽에 남고 달라짐은 받은 쪽에서 일어납니다</h3>
+<p>일터에서 팀장이 후배의 보고서에 빨간 글씨로 날카로운 지적을 달아 돌려보낸 뒤, 자리로 돌아와 내가 너무 세게 썼나 하고 속으로 중얼거립니다. 동네 축구팀 감독이 전반전을 마치고 쉬는 시간에 선수들에게 목소리를 높인 뒤 벤치에 앉아 괜히 그랬나 싶어 입술을 깨뭅니다. 가족 단체 대화방에 참았던 쓴소리 한마디를 올려놓고는 줄어드는 읽음 숫자만 조마조마하게 바라봅니다. 살다 보면 누구나 이렇게 아픈 말을 건네고 난 뒤의 먹먹한 시간과 마주하게 됩니다. 그럴 때 후회라는 말과 마음을 돌이키는 회개는 각각 누구의 자리에 놓이며, 우리는 어디까지를 내 입의 말로 할 수 있는 것일까요.</p>
+<p>고린도후서 7장 8절에서 10절까지 세 절을 소리 내어 읽어 보면 두 낱말이 서 있는 자리가 놀랍도록 또렷하게 갈라집니다. 내가 편지로 너희를 근심하게 한 것을 후회하였으나 지금은 후회하지 아니함은(고후 7:8)이라고 할 때, 후회하다(메타멜로마이)라는 두 번의 말은 모두 편지를 쓴 바울 자신, 곧 1인칭 단수인 내가의 자리에 붙어 있습니다. 반면에 다음 절인 7장 9절로 넘어가면 너희가 근심함으로 회개함에 이른 까닭이라고 하여, 마음을 돌이킨 일(메타노이아)은 편지를 받은 고린도 교인들, 곧 2인칭 복수인 너희의 자리에서 일어납니다. 심지어 우리가 흔히 읽는 개역개정 성경은 7장 9절 앞부분을 너희로 근심하게 한 까닭이 아니요라고 옮겨 마치 바울이 한 일처럼 들리게 했지만, 신약성경이 처음 기록된 헬라어 원문은 너희가 근심하게 되었다는 것 때문이 아니라(2인칭 복수 수동)라고 적고 있습니다. 번역 성경마저 무심코 한 칸을 쓴 사람 쪽으로 옮겨 놓았을 만큼 우리는 상대의 자리까지 내 말로 채우려 들기 쉽지만, 원문은 <strong>후회는 쓴 사람의 입에, 돌이킴은 받은 사람들의 삶에</strong> 엄격하게 나누어 배치해 두었습니다.</p>
+<p>앞서 떠올려 본 일상의 세 장면도 꼭 같은 결을 보여 줍니다. 팀장이 제 입으로 말할 수 있는 것은 내가 너무 세게 지적했나 하는 자기 마음의 흔들림까지이고, 그날 밤 보고서를 다시 쓰는 일은 후배의 자리에서 일어나 다음 날 옆자리 동료의 입을 통해 소식으로 들려옵니다. 축구 감독의 흔들림 뒤에 후반전 선수들의 발걸음이 달라지고, 단톡방의 쓴소리 며칠 뒤에 동생이 어머니께 전화를 걸었다는 소식이 어머니의 입을 거쳐 돌아옵니다. 물론 보낸 사람이 상대의 변화를 제 눈으로 직접 보는 날도 있겠지만, 적어도 아픈 말이 오간 자리에서 보낸 쪽이 자기 말로 맡을 수 있는 칸은 내가 상대를 아프게 했다는 사실과 흔들리는 내 마음까지입니다.</p>
+<h3>김장날 소금 치는 손과 오른손만 쥐는 연습</h3>
+<p>대신 채울 수 없는 이 두 자리를 김장날 배추에 소금을 치는 손과 자동차 내비게이션의 목소리에 빗대어 생각해 볼 수 있습니다. 물론 이 유추는 이해를 돕는 설명일 뿐 성경 본문의 직접적인 주장은 아닙니다. 김장날 배추에 굵은소금을 뿌리는 사람은 혹시 소금이 너무 짰나 싶어 밤사이 몇 번이고 고무 대야를 들여다봅니다. 그러나 배추의 숨이 죽는 일은 소금을 뿌린 사람의 손이 아니라 밤새 배추 속에서 일어납니다. 길을 잘못 들었을 때 경로를 벗어났습니다라고 알려 주는 내비게이션의 목소리와 실제로 핸들을 돌려 차를 돌리는 운전자의 손이 서로 다른 자리에 있는 것과도 같습니다. 다만 배추는 절여질지 말지를 스스로 고르지 않지만 고린도 교인들의 돌이킴은 간절함과 열심처럼 사람 사이의 인격적인 행동으로 드러났다는 점(고후 7:11), 그리고 차가 돌아선 것을 그 자리에서 아는 기계와 달리 바울은 너희가 우리 마음에 있어(고후 7:3)라며 애타게 기다리다가 디도가 와서 전해 준 뒤에야 그 소식을 들었다는 점이 다릅니다.</p>
+<p>말을 맡는 손과 돌아서는 손이 다르다는 것을 내 몸으로 직접 느껴 보려고 의자에 앉아 눈을 감고 두 손으로 작은 연습을 해 보았습니다. 최근에 누군가에게 했던 아픈 쓴소리 하나를 떠올리며 오른손을 주먹으로 꽉 쥐고 내가 그 사람을 아프게 했다고 소리 내어 말했습니다. 그리고 왼손은 손바닥을 위로 편 채 무릎 위에 가만히 올려 두었습니다. 그 열린 왼손바닥 위에는 상대방의 자리에서 일어날 일이 놓인다고 생각했습니다. 그러다가 상대방이 당장 내 뜻대로 달라지기를 다그치는 마음으로 왼손까지 주먹을 꽉 쥐어 보았습니다. 두 손을 다 쥐자마자 양어깨가 딱딱하게 굳고 숨이 턱 막히듯 얕아졌습니다. 무엇보다 두 손을 다 주먹 쥐고 나니 정작 상대에게서 좋은 소식이 돌아와도 받아 담을 자리가 사라져 버렸습니다. 열을 센 뒤 왼손을 다시 활짝 펴자 비로소 손바닥 위로 방 안의 시원한 공기가 닿았습니다. <strong>내가 쥘 수 있는 주먹은 내가 아프게 했다는 오른손 한 손뿐이고, 상대의 돌이킴은 편 왼손 위에 기다려 받는 소식</strong>임을 몸이 먼저 가르쳐 주었습니다.</p>
+<p>여기서 시야를 성경의 다른 본문으로 넓혀 보면 중요한 깨달음이 하나 더 더해집니다. 처음에 저는 후회는 쓴 사람의 말이고 회개는 받은 사람의 일이라는 구분을 그 낱말 자체가 가진 본래 성질인 줄로만 알았습니다. 그런데 마태복음 21장의 두 아들 비유를 펼쳐 보니, 고린도후서 7장 8절에서 바울이 자기 입에 붙였던 똑같은 헬라어 낱말(메타멜로마이)이 예수님의 말씀 속에서는 듣는 사람들의 자리에 서 있었습니다. 싫다고 했다가 그 후에 뉘우치고 간 둘째 아들에게도 쓰였고(마 21:30), 끝내 뉘우쳐 믿지 아니하였도다라며 듣는 너희를 꾸짖는 자리에도 쓰였습니다(마 21:32). 그러니 후회는 쓴 사람의 자리라는 것은 낱말 자체의 사전적 등급이 아니라, 고린도후서 7장이라는 본문이 아픈 말을 주고받은 두 사람의 자리를 그렇게 배치해 놓은 결과입니다. 게다가 바울조차 7장 8절에서 후회하고 있었더라도(또는 후회했지만) 지금은 후회하지 않는다고만 적어 그가 실제로 후회했는지를 열어 두었고, 7장 10절은 회개를 주는 분이 누구인지 직접 적지 않지만 사도행전 11장 18절과 디모데후서 2장 25절은 하나님께서 사람들에게 회개함을 주신다고 증언합니다. 상대의 돌이킴을 내 손 밖에 두는 일은 냉담한 체념이 아니라, 돌이킴을 주시는 하나님께 그 빈칸을 맡겨 드리는 믿음의 자리입니다.</p>
+<h3>일터와 식탁과 퇴근길에서 내 쪽 칸만 정직하게 채우기</h3>
+<p>종교개혁자 칼뱅이 『기독교 강요』 3권 3장에서 회개를 일시적인 감정의 깊이가 아니라 우리의 삶 전체가 하나님을 두려워함으로 그분께 돌아서는 방향으로 풀었듯이, 우리는 내가 말을 잘하면 상대가 돌아선다는 화법의 도덕주의나 근심을 많이 쌓아야 회개가 된다는 공로주의에 빠져서는 안 됩니다. 설교자 역시 책망의 말을 전한 뒤 좋은 열매를 보았을지라도, 단상에서 회중의 회개를 스스로 선언하거나 7장 10절 후반부를 들어 성도의 슬픔이 세상 근심인지 아닌지를 판정하려 들지 말고, 디도가 전해 준 소식을 하나님의 위로로 받았던 바울의 자리에 멈추어 서야 합니다(고후 7:6).</p>
+<p>오늘 우리의 일상 세 자리에서 이 두 칸의 말판을 실제로 살아 내어 봅니다. 첫째, 직장에서 회의 시간에 후배의 보고서를 여러 사람 앞에서 세게 지적해 다음 날 아침 후배가 굳은 얼굴로 말이 없다면, 보고서를 다 고쳤느냐고 상대의 칸을 다그쳐 묻는 대신 어제 사람들 앞에서 한 내 말이 많이 아팠을 거야라고 내 쪽 칸의 문장만 먼저 건네 보십시오. 상대 칸을 비워 둘 때 후배가 스스로 고칠 숨통이 트입니다. 둘째, 밤늦게까지 게임을 하던 아이에게 큰소리를 지른 다음 날 아침 식탁에서 아이가 눈을 마주치지 못한다면, 오른손을 쥐듯 어제 엄마 아빠가 소리 질러서 마음 아팠지라고 내 잘못부터 먼저 인정하십시오. 그리고 며칠 뒤 아이가 스스로 약속한 시간을 지키면, 혼나서 기특한 게 아니라 네가 스스로 정한 대로 돌아서서 참 기쁘다고 말해 주십시오. 셋째, 반대로 내가 상사에게 날 선 쓴소리를 들은 쪽이라면, 퇴근길 지하철 메모장에 <strong>내가 돌아설 몫과 내가 억울하게 당한 몫을 두 줄로 나누어 적고, 아직 마음이 열리지 않는다면 정직하게 아직이라고 적어 두십시오</strong>. 내 자리의 말만 정직하게 감당하고 상대의 돌이킴은 편 손바닥으로 기다릴 때, 우리를 위로하시는 하나님의 발소리가 디도처럼 우리 삶의 문턱에 찾아올 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 12월 03일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

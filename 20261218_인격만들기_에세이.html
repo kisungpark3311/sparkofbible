@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>이름은 그대로인데 삶이 비어 갈 때 우리가 옮겨 적을 두 줄</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 12월 18일 &middot; 미가 1:8-16</span>
+      <h1>이름은 그대로인데 삶이 비어 갈 때 우리가 옮겨 적을 두 줄</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h3>앉아 사는 여인이라는 이름에 머물라는 말이 없는 까닭</h3>
+<p>몇 해 동안 정들어 "우리 집"이라 부르던 셋집에서 다음 달 말까지 집을 비워 달라는 연락을 받거나, 문을 닫게 된 매장의 직원 명찰을 아직 가슴에 단 채 다음 주부터 다른 지점으로 출근하라는 안내를 받을 때가 있습니다. 사람을 부르는 호칭이나 직함, 주소 같은 이름은 그대로 남아 있는데, 정작 그 이름 뒤에 따라붙는 말은 머묾을 거두는 쪽으로 바뀌어 버리는 순간입니다. 미가 1장 11절부터 15절까지를 찬찬히 읽어 내려가다 보면, 이처럼 <strong>부르는 이름은 머묾을 말하는데 그 곁에 붙는 말은 더 이상 머물라고 하지 않는 낯선 자리</strong>와 마주치게 됩니다.</p>
+<p>개역개정 성경이 고을 이름마다 덧붙인 "주민"이라는 말은, 구약 원어인 히브리어로 "앉다·살다(ישׁב)"라는 동사에서 나온 "앉아 사는 여인(יוֹשֶׁבֶת · 요셰벳)"이라는 한 가지 문법 꼴입니다. 뿌리 낱말 자체는 구약에 천 번 넘게 나오지만, 뒤에 오는 고을 이름에 단단히 묶인 이 특정한 꼴만 세어 보면 구약 전체에서 열 번(나머지 다섯 번은 예레미야와 예레미야애가) 나오는데 그 절반인 다섯 번이 이 짧은 단락에 몰려 있습니다. 다섯 고을을 한결같이 "앉아 사는 여인"이라고 부르면서도, 사빌에게는 지나가라 하고, 사아난은 나오지 못했다 하며, 마롯은 좋은 것을 바라나(동사 뜻은 불확실함) 재앙이 여호와에게서 예루살렘 성문으로 내려왔다고 합니다. 이어 라기스에게는 병거를 준마에 메우라 하고, 마레사에게는 "내가" 차지할 자를 네게 이르게 하리라고 말합니다.</p>
+<h3>떠남과 묶임으로 찾아오는 비어 감, 그리고 곁에 적힌 허물</h3>
+<p>저는 처음에 이 다섯 자리를 한 단어로 묶어 "떠남"의 이야기로 읽었습니다. 그러나 고을 이름들을 잠시 지우고 다섯 가지 말을 한 몸에 차례로 쏟아 보았을 때, 사빌에게 하신 "지나가라"는 말 바로 옆에 사아난의 "나오지 못한다"는 말이 나란히 서 있는 것이 보였습니다. 의자에 등을 기대고 깊이 앉아 발바닥을 바닥에 붙인 채 이 다섯 말을 소리 내어 읽어 보면, 몸을 의자에 편히 쉬게 두는 말은 하나도 없습니다. "지나가라"에서는 허벅지에 힘이 들어가고, "나오지 못한다"에서는 일어나려던 힘이 그대로 갇혀 버립니다. "나오지 못한다"는 편한 머묾이 아니라 꼼짝 못 하는 묶임으로 몸에 다가오는 것입니다. 그래서 이 단락의 알맹이는 단순한 떠남이 아니라, <strong>떠남으로도 오고 묶임으로도 찾아오는 삶의 비어 감</strong>입니다.</p>
+<p>장맛비가 쏟아지는 밤 휴대폰에 울리는 대피 안내 문자나 재건축 아파트 엘리베이터에 붙은 이주 안내문은, 그 사람을 여전히 "주민"이나 "입주민"으로 부르면서 거기 살고 있음을 인정하는 동시에 오늘 삶이 흔들린다는 소식을 전합니다. 그러나 이 일상적인 비유들은 본문의 "누가·왜"라는 자리에서 곧 깨어집니다. 대피 문자는 살리려는 경고이고 보낸 곳이 분명하지만, 미가 1장 15절에서 차지할 자를 오게 하겠다는 "나"는 이름이 적혀 있지 않습니다. 또한 아파트 안내문에는 이주 사유만 적혀 있을 뿐 허물에 대한 고발이 없지만, 미가 1장 13절 후반부에는 "그녀는 딸 시온에게 죄의 근본이다, 네 안에서 이스라엘의 허물들이 발견되었다"는 무거운 고발이 또렷이 적혀 있습니다. 다만 본문은 이 고발을 비어 감의 단락 안에 함께 적어 둘 뿐, 12절 재앙의 직접적인 원인으로 묶어 설명하지는 않습니다.</p>
+<p>시야를 단락의 끝으로 옮겨 보면 마음 한구석이 서늘해지는 변화가 눈에 들어옵니다. "앉아 사는 여인"이라는 원어 꼴은 문법적으로 뒤에 오는 고을 이름 없이는 홀로 서지 못하는 모양인데, 다섯 자리 내내 거두지 않고 불러 주던 고을 이름이 마지막 1장 16절에서는 사라지고 "너"라는 부름과 사로잡혀 떠난 자녀만 남기 때문입니다. 그 사로잡혀 간 일이 이미 일어난 일인지 앞날의 일인지는 원어의 완료형(גָלוּ)만으로 단정하지 않고, 말하는 이가 이름을 일부러 뺐다고 넘겨짚지도 않은 채 저는 본문에 보이는 그대로만 적습니다. 삶은 비어 가도 마레사까지 남아 있던 부름이 마지막 절에서는 <strong>이름 없는 너 하나로 줄어들며 머리털을 밀라는 애통의 명령 앞에 서게 된다</strong>는 사실입니다.</p>
+<h3>이름이 사라지고 너만 남는 자리에서 내일의 한 걸음 고르기</h3>
+<p>비어 가는 삶과 슬픔 곁의 고발을 함께 두는 이 읽기는 성경의 다른 자리들과도 깊게 맞닿아 있습니다. 예레미야 15장 18절은 미가 1장 9절과 14절의 원어 낱말 세 가지를 한 절에 함께 쓰면서 "상처가 중하여 낫지 아니함은 어찌 됨이니이까"라고 답 대신 물음의 자리를 남기고, 신명기 14장 1절의 머리털을 밀지 말라는 금지와 미가 1장 16절의 밀라는 명령은 한 줄의 규칙으로 정리되지 않는 긴장을 남깁니다. 아우구스티누스가 『하나님의 도성』 1권 9장에서 로마 약탈의 재난 앞에 선한 이들도 악을 꾸짖지 않은 책망을 피할 수 없다고 한 요지(원문 미대조)는 해석 근거로 삼지 않되 슬픔과 허물을 한자리에 두는 전통이 낯설지 않다는 점만 기억합니다. 무엇보다 이 본문을 "안주하면 벌 받으니 떠날 준비를 하라"는 처세술이나 도덕주의로 바꾸지 않고, 신약 누가복음 23장 28절에서 예수께서 예루살렘의 딸들에게 "너희와 너희 자녀를 위하여 울라"고 울음의 방향을 돌리신 말씀만 신약이 더한 연결로 조용히 곁에 둡니다.</p>
+<p>고을이 겪은 큰 재난을 오늘 한 사람의 이사나 이직, 이별로 옮기는 것은 어디까지나 유비라는 점을 분명히 기억하면서, 저는 두 가지만 제 하루로 옮겨 적으려 합니다. 하나는 남아 있는 이름에만 기대어 버티지 않고 그 이름에 붙는 오늘의 말을 따라 읽는 눈이고, 다른 하나는 슬픔 곁에 드러난 내 잘못을 지우지도 않고 반대로 모든 일의 원인으로 부풀리지도 않는 정직함입니다. 일터에서 오래 있던 팀이 합쳐지고 동료가 자리를 옮긴다는 공지가 여전히 "○○팀 여러분"이라는 이름으로 내려올 때, 이름에 기대어 설마 그대로겠지 하고 버티는 대신 종이 위에 이름과 붙는 말을 나누어 적어 보면 당장 준비할 일과 팀장에게 물어볼 목록이 또렷해집니다.</p>
+<p>또한 구역 모임에서 정든 가정이 집을 정리하고 먼 도시로 이사할 때는 마지막 모임까지 그 가정을 "우리 구역 ○○네"라는 이름으로 따뜻하게 불러 주고, 살던 집과 익숙한 길, 아이 친구들처럼 손에 잡히는 무엇을 두고 가는지 물어 끝까지 들어 주되 왜 떠나게 되었는지 서둘러 해석하지 않으려 합니다. 내 자신이 익숙하게 앉아 살던 직장과 동네에서 "나가라" 혹은 "나오지 못한다"는 말을 듣는 날에도, 그 곁에 드러난 내 허물이 있다면 한 줄로 정직하게 적어 두되 <strong>나는 아무 잘못이 없다는 항변이나 다 내 탓이라는 자책 가운데 한쪽으로 닫지 않고 내일 내가 디딜 수 있는 한 걸음을 고르는 사람</strong>으로 서고 싶습니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 12월 18일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>

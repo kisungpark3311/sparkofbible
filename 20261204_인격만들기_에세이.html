@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173f35">
+  <title>가난은 기쁨 곁에서 함께 넘쳤습니다, 꾸미지도 치우지도 않는 한 줄 기록</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+    :root {
+      --ink: #24302c;
+      --muted: #68736f;
+      --paper: #fffdf8;
+      --canvas: #eef2ed;
+      --green: #173f35;
+      --green-soft: #e8f0eb;
+      --gold: #b7863c;
+      --gold-soft: #f7efdf;
+      --line: #d9dfda;
+      --body-size: 18px;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0; padding: 0;
+      background-color: var(--canvas);
+      color: var(--ink);
+      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    main {
+      max-width: 600px; margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    }
+    header {
+      background: var(--green);
+      color: var(--gold-soft);
+      padding: 30px 24px 40px;
+      text-align: left;
+    }
+    .label {
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    h1 {
+      margin: 0; font-size: 26px; font-weight: 700;
+      line-height: 1.4; letter-spacing: -0.5px;
+    }
+    .toolbar {
+      display: flex; gap: 8px;
+      padding: 16px 24px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky; top: 0; z-index: 10;
+      overflow-x: auto;
+    }
+    .toolbar::-webkit-scrollbar { display: none; }
+    button {
+      flex: 1; min-width: max-content;
+      appearance: none; border: 1px solid var(--line);
+      background: #fff; color: var(--muted);
+      border-radius: 20px; padding: 8px 16px;
+      font-size: 13px; font-family: inherit;
+      cursor: pointer; transition: all 0.2s;
+    }
+    button.primary {
+      background: var(--green);
+      color: #fff; border-color: var(--green);
+    }
+    button:active { transform: scale(0.96); }
+    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+    .content {
+      padding: 40px 24px;
+      font-size: var(--body-size);
+      transition: font-size 0.3s ease;
+    }
+    .content p { margin: 0 0 24px 0; }
+    .content h2, .content h3 {
+      color: var(--green);
+      font-size: 1.15em;
+      font-weight: 700;
+      margin: 44px 0 18px;
+      padding: 10px 14px 10px 16px;
+      background: var(--green-soft);
+      border-left: 4px solid var(--gold);
+      border-bottom: 1px solid var(--line);
+      border-radius: 0 6px 6px 0;
+      line-height: 1.45;
+      letter-spacing: -0.3px;
+    }
+    .content strong, .content b {
+      font-weight: 700;
+      color: var(--green);
+      background: linear-gradient(transparent 52%, #fef08a 52%);
+      padding: 0 3px;
+      border-radius: 2px;
+    }
+    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
+    .content .subtitle, .content .section-title {
+      display: block;
+      color: var(--muted) !important;
+      font-size: 16px !important;
+      font-weight: 700;
+      margin-top: 24px;
+      margin-bottom: 12px;
+    }
+    .content hr {
+      border: 0; height: 1px; background: var(--line);
+      margin: 40px 0;
+    }
+    .content blockquote {
+      margin: 0 0 24px; padding: 16px 20px;
+      background: var(--green-soft);
+      border-left: 3px solid var(--green);
+      color: var(--green);
+    }
+    .content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95em;
+    }
+    .content th, .content td {
+      border: 1px solid var(--line);
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .content th {
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 600;
+    }
+    .content tr:nth-child(even) td {
+      background: #fafcf9;
+    }
+    .content code {
+      background: var(--green-soft);
+      color: var(--green);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: Consolas, monospace;
+    }
+    .content pre {
+      background: #f4f6f4;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .content pre code {
+      background: none;
+      padding: 0;
+    }
+    .content a {
+      color: var(--green);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .content a:hover {
+      color: var(--gold);
+    }
+    footer {
+      padding: 40px 24px; text-align: center;
+      background: var(--canvas); color: var(--muted);
+      font-size: 13px; border-top: 1px solid var(--line);
+    }
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(36, 48, 44, 0.9); color: #fff;
+      padding: 12px 24px; border-radius: 30px;
+      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none; z-index: 100;
+      white-space: nowrap;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0); opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 12월 04일 &middot; 고린도후서 8:1-8</span>
+      <h1>가난은 기쁨 곁에서 함께 넘쳤습니다, 꾸미지도 치우지도 않는 한 줄 기록</h1>
+    </header>
+
+    <div class="toolbar">
+      <button class="primary" onclick="shareSermon()">공유하기</button>
+      <button onclick="copySermon()">텍스트 복사</button>
+      <button onclick="resizeText(1)">크게</button>
+      <button onclick="resizeText(-1)">작게</button>
+    </div>
+
+    <article id="sermon" class="content">
+      
+<h3>내 귀가 무심코 붙였던 그런데도라는 말을 떼어 낼 때</h3>
+<p>학교 선생님이 아이의 생활기록부를 적을 때 몸이 약한데도 친구를 잘 돕는다라고 쓰면, 몸이 약하다는 사실은 친구를 돕는 선행을 돋보이게 하는 배경으로 물러납니다. 반면에 잔병으로 자주 결석함, 친구를 잘 도움이라고 두 줄을 나란히 적으면 두 가지 모두 그 아이가 겪은 그해의 사실로 남습니다. 일터의 주간 업무 보고서에서 인원 부족에도 불구하고 납기 달성이라고 쓰는 것과 이번 주 인원 둘 빠짐, 납기 맞춤이라고 쓰는 것도 그렇고, 주말 텃밭 일지에 장마인데도 고추가 잘 익었다 대신 장마로 상추 녹음, 고추 붉어짐이라고 적는 것도 마찬가지입니다. 그런데도나 무엇에도 불구하고라는 말 한마디가 빠지면, 어려운 형편은 좋은 일을 빛내는 장식에서 있는 그대로의 사실로 돌아옵니다.</p>
+<p>고린도후서 8장 2절을 처음 읽었을 때 저는 제 귀가 본문에 없는 말을 저절로 붙이고 있었다는 사실을 깨달았습니다. 환난의 많은 시련 가운데서 그들의 넘치는 기쁨과 극심한 가난이 그들의 풍성한 연보를 넘치도록 하게 하였느니라(고후 8:2). 저는 오랫동안 이 구절을 마게도냐 교인들이 극심하게 가난한데도 기쁨이 넘쳤다는 뜻으로 들었습니다. 그런데 우리말 성경에도, 신약성경이 처음 기록된 헬라어 원문에도 가난한데도나 가난에도 불구하고 같은 양보의 말은 한 글자도 들어 있지 않습니다. 원문 문장의 짜임을 보면 그들의 기쁨의 넘침과 그들의 깊이까지 내려간(카타 바투스, 신약성경 전체에 딱 한 번 나오는 표현입니다) 가난(프토케이아)이라는 두 주어가 과라는 말로 묶여, 넘쳤다(에페리쓔센)라는 단수 동사 하나를 나란히 함께 받고 있습니다. <strong>가난은 기쁨 뒤에 깔린 배경이 아니라 기쁨 바로 옆에 나란히 선 또 하나의 주인</strong>이었던 것입니다.</p>
+<p>넉넉하지 않은 형편을 그런데도의 배경으로 치우지 않고 기쁨과 똑같은 줄에 나란히 적는다면, 우리가 내 형편과 남의 형편을 말하는 방식은 어떻게 달라질까요. 게다가 이 단락 여덟 절 어디에도 마게도냐 사람들의 그 깊은 가난이 마침내 걷혔다는 말은 나오지 않습니다. 물론 걷혔다는 말이 없다고 해서 끝내 걷히지 않았다고 거꾸로 단정할 수도 없지만, 적어도 본문은 가난을 곧 끝날 임시 배경으로 줄이지 않은 채 기쁨과 같은 줄에 그대로 놓아둡니다.</p>
+<h3>건강검진 결과지와 같은 높이로 든 두 물컵의 무게</h3>
+<p>두 가지를 같은 줄에 적는다는 것이 어떤 의미인지를 건강검진 결과지 한 장과 월급날 저녁의 가계부 한 장에 대어 생각해 봅니다. 이 비유들은 제 이해를 돕는 설명일 뿐 본문의 직접적인 주장은 아닙니다. 회사에서 받은 건강검진 결과지에는 간 수치 주의와 심장 정상이라는 판정이 위아래로 나란히 찍혀 나옵니다. 결과지는 간이 나쁜데도 심장은 좋다고 쓰지 않고 둘 다 내 몸의 사실로 적어서, 어느 한 줄만으로 몸 전체를 다 병들었다거나 다 건강하다고 성급히 판정하지 않게 해 줍니다. 월급날 저녁 가계부 한 장에 관리비 고지서가 올라 이달 살림 모자람이라는 줄과 아이 생일상 차림이라는 줄이 나란히 적히는 것도 비슷합니다. 모자람을 지우면 그 생일상이 얼마나 빠듯한 살림 속에서 정성껏 차려졌는지가 사라지고, 생일상을 지우면 그달은 오직 모자람만 가득했던 잿빛 달로 남습니다. 다만 내 살림을 적는 가계부와 달리 고린도후서 8장 2절은 바울이 남의 형편을 전한 보고라는 점이 다릅니다. 남의 형편을 옮길 때는 한 겹 더 조심해서, 그 사람의 가난을 내 이야기를 빛내는 미담의 재료로 쓰지 않아야 합니다.</p>
+<p>같은 줄에 두 가지를 나란히 세우는 일이 왜 쉽지 않은지를 몸으로 확인해 보려고, 물을 가득 채운 컵 두 개를 양손에 들고 작은 연습을 해 보았습니다. 눈을 감고 먼저 가난을 뜻하는 왼손을 허리 높이로 툭 내리고 기쁨을 뜻하는 오른손만 가슴 높이로 든 채 열을 세어 보았습니다. 이것이 바로 가난한데도 기뻤다라고 말하는 자세입니다. 한 손을 아래로 내리니 어깨는 한결 편했지만, 내린 왼손에 무엇이 들려 있는지는 금세 잊혔습니다. 이번에는 두 컵을 똑같이 가슴 높이로 맞추어 들고 열을 세어 보았습니다. 그러자 양팔과 양어깨가 동시에 팽팽하게 일하면서 두 컵이 둘 다 묵직하다는 사실을 어깨가 고스란히 느꼈습니다. 그 상태에서 두 컵을 조금씩 함께 기울이자 두 손등 위로 물이 거의 동시에 넘쳐흐르는데, 어느 손의 물이 먼저 넘쳤는지조차 가리기 어려웠습니다. 한 손을 내리면 편하지만 사실 하나가 지워지고, 같은 높이로 들면 둘 다 무겁다는 것을 몸이 먼저 알려 주었습니다.</p>
+<p>여기서 시야를 바로 다음 절인 8장 9절로 한 걸음 넓혀 보면 가난이라는 낱말을 대하는 우리의 귀가 새롭게 열립니다. 바울은 내가 명령으로 하는 말이 아니요(고후 8:8)라고 단락을 맺은 직후에, 부요하신 이로서 너희를 위하여 가난하게 되심은 그의 가난함으로 말미암아 너희를 부요하게 하려 하심이라(고후 8:9)며 똑같은 원어 낱말인 가난(프토케이아)을 우리 주 예수 그리스도께 씁니다. 바울이 마게도냐의 가난을 그리스도의 가난으로 직접 설명한다고 말하지는 않으므로, 이 연결은 8장 2절의 빈칸을 메우는 풀이가 아니라 바울이 다음 절에서 새로 더한 말로 받아야 합니다. 그럼에도 이웃한 두 절에서 사람의 가난과 그리스도의 가난에 똑같은 낱말이 쓰였다는 사실은, 가난을 거룩한 미덕으로 미화하지 않으면서도 가난이라는 말을 숨겨야 할 부끄러움 안에만 가두어 두던 우리의 좁은 시선을 건져 올려 줍니다.</p>
+<h3>남의 가난을 장식이나 잣대로 쓰지 않는 세 가지 실천</h3>
+<p>종교개혁자 칼뱅은 『기독교 강요』 3권 10장에서 현세의 삶과 물질을 쓰는 태도를 다루며, 양심을 지나치게 옥죄는 엄격함과 방종이라는 두 극단을 함께 경계했습니다. 가난을 그 자체로 훌륭한 미덕으로 치켜세우는 읽기와 넉넉함을 믿음의 복으로만 세우는 읽기는 둘 다 눈앞의 형편 하나로 사람을 판정한다는 점에서 닮았습니다. 고린도후서 8장 1절이 알리는 첫 이름은 사람의 훌륭한 덕성이 아니라 하나님께서 주신 은혜입니다. 그러므로 이 말씀을 가난해도 무조건 기쁜 사람이 되자는 도덕주의로 닫아서는 안 됩니다. 기쁨과 모자람을 같은 줄에 적는 정직은 내가 억지로 짜내는 공로가 아니라, 나를 위해 가난하게 되신 분의 은혜 앞에서 내 형편을 굳이 꾸미거나 감추지 않는 편안한 자리입니다.</p>
+<p>오늘 우리의 일상 세 자리에서 그런데도를 떼어 낸 한 줄 기록을 실천해 봅니다. 첫째, 직장에서 팀원 두 사람이 빠진 주에 가까스로 납기를 맞췄다면, 주간 보고서 첫 줄에 인원 부족에도 불구하고 목표 달성이라고 쓰는 대신 이번 주 인원 둘 빠짐과 납기 맞춤을 각각 한 줄의 사실로 나란히 적으십시오. 그리고 아직 빈자리가 채워지지 않았다면 해결이라고 쓰지 마십시오. 그래야 부족한 형편이 성과를 꾸미는 배경으로 묻히지 않고 다음 주 회의에서 실제로 다루어야 할 과제로 남습니다. 둘째, 교회 구역 모임에서 살림이 빠듯한 이웃이 김장 김치를 나누어 준 고마운 일을 전할 때, 그 집도 어려운데도 이렇게 했다는 말을 삼가고 그 이웃이 바로 옆에서 들어도 부끄럽지 않을 만큼만 사실대로 전하십시오. 그리고 끝머리에 우리도 그렇게 하자라는 말을 덧붙여 지금 드릴 것이 없는 다른 교우에게 남의 가난을 무거운 잣대로 들이밀지 마십시오. 셋째, 오늘 퇴근길 버스 안에서 휴대폰의 기도 메모장을 열어 형편이 풀리게 해 주세요라는 한 줄 옆에 <strong>이번 주에 내게 있었던 작은 기쁨 한 칸을 나란히 적어 보십시오</strong>. 모자람과 기쁨을 꾸미지도 치우지도 않고 같은 줄에 올려놓을 때, 우리의 기도는 주님과의 흥정이 아니라 있는 그대로의 삶을 아뢰는 진실한 대화가 될 것입니다.</p>
+
+    </article>
+
+    <footer>
+      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
+      2026년 12월 04일
+    </footer>
+  </main>
+
+  <div id="toast"></div>
+
+  <script>
+    let currentSize = 18;
+    
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function sermonText() {
+      const title = document.querySelector('h1').innerText;
+      const content = document.getElementById('sermon').innerText;
+      return `[${title}]\n\n${content}`;
+    }
+
+    async function copySermon() {
+      try {
+        await navigator.clipboard.writeText(sermonText());
+        showToast('본문 텍스트가 복사되었습니다.');
+      } catch (err) {
+        showToast('복사 기능을 지원하지 않습니다.');
+      }
+    }
+
+    async function shareSermon() {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: document.title,
+            url: window.location.href
+          });
+          return;
+        } catch (error) {
+          if (error.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        showToast('페이지 링크가 복사되었습니다.');
+      } catch (e) {
+        showToast('공유 기능을 지원하지 않는 환경입니다.');
+      }
+    }
+
+    function resizeText(delta) {
+      currentSize = Math.min(23, Math.max(16, currentSize + delta));
+      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
+      showToast(`본문 글씨 크기 ${currentSize}px`);
+    }
+  </script>
+</body>
+</html>
