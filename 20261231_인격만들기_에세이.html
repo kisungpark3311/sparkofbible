@@ -1,277 +1,708 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#173f35">
-  <title>잃은 것의 목록 아래에 조상들에게 하신 하나님의 맹세를 적어 넣는 밤</title>
-  <style>
-    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
-    :root {
-      --ink: #24302c;
-      --muted: #68736f;
-      --paper: #fffdf8;
-      --canvas: #eef2ed;
-      --green: #173f35;
-      --green-soft: #e8f0eb;
-      --gold: #b7863c;
-      --gold-soft: #f7efdf;
-      --line: #d9dfda;
-      --body-size: 18px;
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>잃은 것의 목록 아래에 조상들에게 하신 하나님의 맹세를 적어 넣는 밤 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 16px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 상단 전폭 컷 일러스트) ---------- */
+  figure{
+    margin:18px 0 26px;
+    width:100%;
+  }
+  .photo{
+    position:relative;
+    height:160px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+  }
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.88;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    display:block;
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 (은은한 웜 골드 톤) */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(250, 204, 21, 0.24) 46%, transparent 46%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 2px;
+    border-radius:2px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.22) 46%, transparent 46%);
+    color:#fef3c7;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{
+    margin:14px 0 18px;
+    width:100%;
+    float:none;
+    max-width:none;
+    padding:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+  }
+  body[data-view="mobile"] .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:nowrap;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
     }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body {
-      margin: 0; padding: 0;
-      background-color: var(--canvas);
-      color: var(--ink);
-      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
-      line-height: 1.8;
-      word-break: keep-all;
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
     }
-    main {
-      max-width: 600px; margin: 0 auto;
-      background: var(--paper);
-      min-height: 100vh;
-      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
     }
-    header {
-      background: var(--green);
-      color: var(--gold-soft);
-      padding: 30px 24px 40px;
-      text-align: left;
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
     }
-    .label {
-      font-size: 13px; font-weight: 500;
-      color: var(--gold);
-      letter-spacing: 1px;
-      margin-bottom: 16px;
-      display: block;
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
     }
-    h1 {
-      margin: 0; font-size: 26px; font-weight: 700;
-      line-height: 1.4; letter-spacing: -0.5px;
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
     }
-    .toolbar {
-      display: flex; gap: 8px;
-      padding: 16px 24px;
-      background: #fff;
-      border-bottom: 1px solid var(--line);
-      position: sticky; top: 0; z-index: 10;
-      overflow-x: auto;
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
     }
-    .toolbar::-webkit-scrollbar { display: none; }
-    button {
-      flex: 1; min-width: max-content;
-      appearance: none; border: 1px solid var(--line);
-      background: #fff; color: var(--muted);
-      border-radius: 20px; padding: 8px 16px;
-      font-size: 13px; font-family: inherit;
-      cursor: pointer; transition: all 0.2s;
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{
+      margin:14px 0 18px;
+      width:100%;
+      float:none;
+      max-width:none;
+      padding:0;
+      border:none;
+      box-shadow:none;
+      background:transparent;
     }
-    button.primary {
-      background: var(--green);
-      color: #fff; border-color: var(--green);
+    body:not([data-view="a4"]) .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:baseline;
+      font-size:11px;
     }
-    button:active { transform: scale(0.96); }
-    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-    .content {
-      padding: 40px 24px;
-      font-size: var(--body-size);
-      transition: font-size 0.3s ease;
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:nowrap;
     }
-    .content p { margin: 0 0 24px 0; }
-    .content h2, .content h3 {
-      color: var(--green);
-      font-size: 1.15em;
-      font-weight: 700;
-      margin: 44px 0 18px;
-      padding: 10px 14px 10px 16px;
-      background: var(--green-soft);
-      border-left: 4px solid var(--gold);
-      border-bottom: 1px solid var(--line);
-      border-radius: 0 6px 6px 0;
-      line-height: 1.45;
-      letter-spacing: -0.3px;
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
     }
-    .content strong, .content b {
-      font-weight: 700;
-      color: var(--green);
-      background: linear-gradient(transparent 52%, #fef08a 52%);
-      padding: 0 3px;
-      border-radius: 2px;
-    }
-    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
-    .content .subtitle, .content .section-title {
-      display: block;
-      color: var(--muted) !important;
-      font-size: 16px !important;
-      font-weight: 700;
-      margin-top: 24px;
-      margin-bottom: 12px;
-    }
-    .content hr {
-      border: 0; height: 1px; background: var(--line);
-      margin: 40px 0;
-    }
-    .content blockquote {
-      margin: 0 0 24px; padding: 16px 20px;
-      background: var(--green-soft);
-      border-left: 3px solid var(--green);
-      color: var(--green);
-    }
-    .content table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 24px 0;
-      font-size: 0.95em;
-    }
-    .content th, .content td {
-      border: 1px solid var(--line);
-      padding: 10px 14px;
-      text-align: left;
-    }
-    .content th {
-      background: var(--green-soft);
-      color: var(--green);
-      font-weight: 600;
-    }
-    .content tr:nth-child(even) td {
-      background: #fafcf9;
-    }
-    .content code {
-      background: var(--green-soft);
-      color: var(--green);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.9em;
-      font-family: Consolas, monospace;
-    }
-    .content pre {
-      background: #f4f6f4;
-      padding: 16px;
-      border-radius: 8px;
-      overflow-x: auto;
-      border: 1px solid var(--line);
-    }
-    .content pre code {
-      background: none;
-      padding: 0;
-    }
-    .content a {
-      color: var(--green);
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-    .content a:hover {
-      color: var(--gold);
-    }
-    footer {
-      padding: 40px 24px; text-align: center;
-      background: var(--canvas); color: var(--muted);
-      font-size: 13px; border-top: 1px solid var(--line);
-    }
-    #toast {
-      position: fixed; bottom: 32px; left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: rgba(36, 48, 44, 0.9); color: #fff;
-      padding: 12px 24px; border-radius: 30px;
-      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      pointer-events: none; z-index: 100;
-      white-space: nowrap;
-    }
-    #toast.show {
-      transform: translateX(-50%) translateY(0); opacity: 1;
-    }
-  </style>
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{margin:12px 0 16px; width:100%; float:none}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
 </head>
 <body>
-  <main>
-    <header>
-      <span class="label">성경적 사고와 인격 만들기 &middot; 2026년 12월 31일 &middot; 미가 7:14-20</span>
-      <h1>잃은 것의 목록 아래에 조상들에게 하신 하나님의 맹세를 적어 넣는 밤</h1>
-    </header>
 
-    <div class="toolbar">
-      <button class="primary" onclick="shareSermon()">공유하기</button>
-      <button onclick="copySermon()">텍스트 복사</button>
-      <button onclick="resizeText(1)">크게</button>
-      <button onclick="resizeText(-1)">작게</button>
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">잃은 것의 목록 아래에 조상들에게 하신 하나님의 맹세를 적어 넣는 밤</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>잃은 것의 목록 아래에 조상들에게 하신 하나님의 맹세를 적어 넣는 밤</b><span>01 · 2026년 12월 31일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">잃은 것의 목록 아래에 조상들에게 하신 하나님의 맹세를 적어 넣는 밤</h1>
+  <h2 class="subhead"><span class="subhead-num">Ⅰ.</span>실리지 않은 옛 말씀의 뒷줄과 &#x27;영원히&#x27; 붙들지 않으시는 진노</h2>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="c31_1_sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#101522"/><stop offset="55%" stop-color="#1e2738"/><stop offset="100%" stop-color="#2e2924"/></linearGradient><radialGradient id="c31_1_horizon" cx="0.66" cy="0.5" r="0.46"><stop offset="0%" stop-color="#fae09c" stop-opacity="0.58"/><stop offset="100%" stop-color="#1e2738" stop-opacity="0"/></radialGradient><linearGradient id="c31_1_sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1e334a"/><stop offset="100%" stop-color="#0b1422"/></linearGradient></defs><rect width="674" height="160" fill="url(#c31_1_sky)"/><rect width="674" height="160" fill="url(#c31_1_horizon)"/><path d="M0 84 L674 84 L674 160 L0 160 Z" fill="url(#c31_1_sea)"/><path d="M0 44 L94 48 L128 84 L0 84 Z" fill="#1b1d26" stroke="#40485c" stroke-width="1"/><g fill="#1a202e" opacity="0.78"><path d="M168 38 Q220 18 286 32 Q328 24 374 38 L168 38 Z"/><path d="M496 28 Q548 16 616 28 L496 28 Z"/></g><line x1="340" y1="84" x2="560" y2="84" stroke="#ffd87a" stroke-width="2" opacity="0.75"/><g stroke="#7ba6d4" stroke-width="1.2" fill="none" opacity="0.45"><path d="M120 96 Q160 92 200 96"/><path d="M280 106 Q330 102 380 106"/><path d="M460 96 Q510 92 560 96"/></g><path d="M234 74 C244 84 252 98 258 128" fill="none" stroke="#f2cb79" stroke-width="1.3" stroke-dasharray="3 3" opacity="0.7"/><g transform="translate(242, 118)"><polygon points="0,12 14,4 28,14 18,26 4,24" fill="#2a3547" stroke="#5d7394" stroke-width="1"/><polygon points="36,8 52,2 62,16 48,24" fill="#232d3d" stroke="#536785" stroke-width="1"/><ellipse cx="24" cy="-30" rx="26" ry="4" fill="none" stroke="#94bce3" stroke-width="1.2" opacity="0.65"/></g></svg>
     </div>
+    <figcaption class="cut-caption"><span>▲ 컷 1 · 죄악을 들어 바다 깊은 곳에 던지시며 영원히 품지 않으시는 진노</span><span>미가 7:18-19 · 진노를 영원히(라아드) 붙들지 아니하시나이다</span></figcaption>
+  </figure>
 
-    <article id="sermon" class="content">
-      
-<h3>실리지 않은 옛 말씀의 뒷줄과 '영원히' 붙들지 않으시는 진노</h3>
-<p>누군가에게서 따뜻한 용서의 말을 들었을 때, 우리는 때로 그 말을 있는 그대로 받지 못하고 속으로 깎아내리거나 반대로 멋대로 부풀리곤 합니다. "말은 저렇게 해도 속으로는 아직 화가 나 있겠지" 하며 의심하거나, "용서받았으니 이제 내가 수습해야 할 책임도 다 사라졌다"며 안도해 버리는 식입니다. 성경의 용서 노래를 읽을 때도 똑같은 물음이 일어납니다. 미가 7장 18절부터 20절의 용서 노래에 옛 말씀의 엄중한 뒷줄이 실려 있지 않을 때, 우리는 그 빈자리를 '벌이 완전히 지워졌다'로도 '벌이 뒤에 숨어 있다'로도 메우지 않고 무엇에 기대어 이 노래를 부를 수 있을까요.</p>
-<p>히브리어 원문의 낱말과 꼴을 자세히 들여다보면 우리가 읽는 번역 성경에서 가려져 있던 두 가지 중요한 사실이 드러납니다. 첫째로 개역개정 성경은 18절을 "주께서는 죄악과 그 기업에 남은 자의 허물을 사유하시며"라고 옮겨 동사 하나로 묶어 버렸지만, 원문에는 <strong>'죄악을 들어 지시는 이'(נֹשֵׂא עָוֺן, 노세 아온)</strong>와 '허물을 넘기시는 이'라는 두 개의 분사 표현이 나란히 서 있습니다. 예전 번역인 개역한글은 이를 "사유하시며… 넘기시며"로 구분해 살렸습니다. 그리고 '죄악을 들어 지시는 이'라는 두 낱말이 바로 붙어 나오는 구약의 세 자리(출애굽기 34장 7절, 민수기 14장 18절, 미가 7장 18절) 가운데 앞의 두 곳에는 용서의 선언 바로 뒤에 "그러나 벌을 면제하지는 아니하고"라는 보응의 줄이 이어지는데, 미가서에는 이 뒷줄이 실려 있지 않습니다. 둘째로 "진노를 오래 품지 아니하시나이다"에서 원문의 부정어가 걸린 말은 진노 자체가 아니라 '붙들다'라는 동사이고, 거기에 '오래'가 아니라 <strong>'영원히'(לָעַד, 라아드)</strong>가 붙어 있습니다. 미가의 노래가 부정하는 것은 진노가 있다는 사실이 아니라, 그 진노를 영원히 붙들고 계신다는 것입니다.</p>
-<h3>끝없이 머물지 않는 장마와 어깨에서 쌀 포대를 들어 옮기시는 손</h3>
-<p>왜 미가의 노래에는 출애굽기 34장 7절의 뒷줄이 실리지 않았을까요. 구약 성경에서 하나님을 그리며 '노하기를 더디하다'와 '인애'를 한 절에 함께 둔 여덟 곳을 살펴보면, 같은 절 안에 벌의 줄까지 싣는 곳은 민수기 14장 18절 하나뿐이고 나머지는 뒷줄을 싣지 않는 쪽이 오히려 흔합니다. 우리가 주일 예배에서 찬송가를 1절과 4절만 부르거나 졸업식에서 교가를 1절만 부르고 아침 회의를 회사 표어의 첫 구절로 열 때, 부르지 않은 나머지 절이 세상에서 사라진 것이 아니라 찬송가 책과 학생 수첩과 복도 액자라는 원래 자리에 그대로 있는 것과 같습니다. 시험 삼아 미가 7장 18절에 출애굽기의 뒷줄을 일부러 끼워 넣어 읽어 보아도 "진노를 영원히 붙들지 않으신다"는 말은 지워지지 않고 그대로 남습니다. 두 말은 서로를 대신하거나 지우는 관계가 아닌 것입니다.</p>
-<p>이 노래가 따로 하는 말과 그 근거는 두 가지 일상 비유를 통해 더 깊이 이해할 수 있습니다. 먼저 "올해 장마는 끝없이 머물지 않는다"라는 말은 "올해는 비가 아예 오지 않는다"라는 뜻이 아닙니다. 이처럼 <strong>"진노를 영원히 품지 않는다"는 말씀은 진노의 기한이 끝없지 않음을 말하는 것이지 진노 자체를 지우는 말이 아닙니다.</strong> 또한 장마에는 별다른 이유가 없지만 18절은 그 까닭을 "그가 인애를 기뻐하시기 때문이다"라고 분명히 밝힙니다. 아이가 말도 없이 늦게 들어온 날에도 어머니가 따뜻한 저녁밥상을 차려 내는 것은, 아이가 오늘 잘한 일이 있어서가 아니라 어머니가 어떤 사람인지에 기대어 있는 것과 같습니다. 미가의 노래 역시 기도하는 백성의 형편이 아니라 "주와 같은 신이 어디 있으리이까"라는 물음, 곧 인애를 기뻐하시는 하나님의 성품에 온전히 기대어 있습니다. 다만 사람 어머니의 밥상 뒤에는 꾸중이 따라오기도 하지만, 미가의 노래에는 꾸중의 줄이 실려 있지 않으므로 이 비유로 본문에 없는 뒷줄을 억지로 끌어들여서는 안 됩니다.</p>
-<p>이제 씨앗 표현인 '죄악을 들어 지시는 이'의 '들다'(נשׂא, 나사)라는 동사를 우리 몸의 근육으로 느껴 봅니다. 눈을 감고 서서 무거운 쌀 포대 하나를 두 손으로 들어 내 어깨에 올린다고 생각하며 열을 세어 봅니다. 그다음에는 누군가 내 어깨에 얹힌 그 쌀 포대를 두 손으로 번쩍 들어 올려 옆으로 옮겨 놓는다고 생각하며 어깨의 힘을 쭉 빼고 다시 열을 셉니다. 똑같은 '들다'라는 동작인데, 내가 들 때는 무거운 짐이 내 어깨에 실리고 다른 이가 들어 줄 때는 내 어깨에서 무게가 빠져나갑니다. 원문에서도 이 동사는 벌을 직접 진다는 뜻과 죄를 들어 치운다는 뜻을 모두 가지며, 무엇이 일어나는지는 드는 이가 누구인지가 결정합니다. 미가 7장 18절에서 그 무거운 죄악을 들어 옮기시는 분은 바로 하나님이십니다.</p>
-<h3>한 해의 마지막 밤, 내 셈이 아니라 하나님의 맹세에서 끝내는 메모</h3>
-<p>나는 처음에 옛 말씀의 뒷줄이 실리지 않은 것을 미가의 노래에 무언가 모자란 흔적으로 읽을 뻔했습니다. 그러나 시야를 성경 전체로 넓혀 보니, 그 뒷줄은 출애굽기 34장과 민수기 14장의 원래 자리에 한 글자도 빠짐없이 서 있었고 성경은 두 노래를 함께 들고 있었습니다. 한 본문이 다루지 않은 줄을 성경의 다른 자리가 그대로 들고 있기에, 한 노래가 모든 것을 다 말하지 않아도 되는 것입니다. 더욱이 이 단락(14~20절)에는 사람에게 내린 명령이 단 하나도 없고, 오직 14절에서 하나님께 드리는 "먹이소서"(רְעֵה, 르에)라는 청원의 명령 하나만 있습니다. 그러므로 이 본문을 읽고 "우리가 더 철저히 회개해야 용서받는다"로 끝내면 본문이 하지 않은 도덕주의가 되고, 반대로 "죄의 결과는 아무것도 없다"로 끝내면 원래 자리에 있는 말씀을 폐지하는 일이 됩니다. <strong>이 노래의 끝은 내 수고도 폐지도 아닌, 20절의 "조상들에게 하신 맹세"입니다.</strong></p>
-<p>구원의 근거가 노래를 부르는 사람의 자격에 있지 않고 옛적부터 맹세하신 하나님께 있다는 사실에서, 우리는 이 노래를 온전한 은혜의 노래로 부를 수 있습니다. 한 해의 마지막 날 강단에 서는 설교자 역시 18절과 19절의 허물을 넘기심과 바다 깊은 곳에 던지심을 어떤 조건이나 단서로도 깎아내리지 않고 선포해야 합니다. 그러면서도 출애굽기의 뒷줄을 미가 본문으로 지우지도, 미가 안에 억지로 끌어들이지도 않은 채 '영원히' 붙들지 않으신다는 원문의 말씀을 선명하게 전해야 합니다.</p>
-<p>이 성경적 사고를 12월 31일 하루의 세 자리에서 실천해 봅니다. 마지막 근무일에 올해 내 실수로 일정이 꼬였던 동료에게 사과하고 동료가 "괜찮아, 다 지난 일이야"라고 했을 때, 내 마음대로 "속으로는 아직 서운하겠지"라고 넘겨짚어 채워 넣지 않고 들은 말 그대로 고맙게 받되, 아직 남은 일정 정리가 있다면 그것은 따로 물어 처리하는 것입니다. 송구영신 예배에 가기 전 아래층에 홀로 사시는 어르신께 떡을 갖다 드릴 때는, 어르신이 무언가 해내지 않아도 드릴 수 있는 기도인 14절의 "먹이소서" 말씀을 함께 천천히 읽습니다. 그리고 한 해의 마지막 밤 잠들기 전, 휴대폰 메모장에 올해 잃은 것과 잘못한 것들을 적다 보니 목록이 끝없이 길어질 때, 그 아래에 내 초라한 형편을 더 적는 대신 미가 7장 20절의 "주께서 옛적에 우리 조상들에게 맹세하신 대로 야곱에게 성실을 베푸시며 아브라함에게 인애를 더하시리이다" 한 절을 옮겨 적고 메모를 끝내는 것입니다. 한 해의 돌아봄을 내 셈에서 끝내지 않고 하나님의 맹세에서 끝내는 사람, 그 사람은 잘못을 숨기지 않으면서도 잘못의 목록에 눌리지 않고 평안히 잠들 수 있습니다.</p>
+  <div class="body">
+    <p class="dc essay-p">누군가에게서 따뜻한 용서의 말을 들었을 때, 우리는 때로 그 말을 있는 그대로 받지 못하고 속으로 깎아내리거나 반대로 멋대로 부풀리곤 합니다. &quot;말은 저렇게 해도 속으로는 아직 화가 나 있겠지&quot; 하며 의심하거나, &quot;용서받았으니 이제 내가 수습해야 할 책임도 다 사라졌다&quot;며 안도해 버리는 식입니다. 성경의 용서 노래를 읽을 때도 똑같은 물음이 일어납니다. 미가 7장 18절부터 20절의 용서 노래에 옛 말씀의 엄중한 뒷줄이 실려 있지 않을 때, <mark class="hl"><strong>우리는 그 빈자리를 &#x27;벌이 완전히 지워졌다&#x27;로도 &#x27;벌이 뒤에 숨어 있다&#x27;로도 메우지 않고 무엇에 기대어 이 노래를 부를 수 있을까요.</strong></mark></p>
+    <p class="essay-p">히브리어 원문의 낱말과 꼴을 자세히 들여다보면 우리가 읽는 번역 성경에서 가려져 있던 두 가지 중요한 사실이 드러납니다. 첫째로 개역개정 성경은 18절을 &quot;주께서는 죄악과 그 기업에 남은 자의 허물을 사유하시며&quot;라고 옮겨 동사 하나로 묶어 버렸지만, 원문에는 <mark class="hl"><strong>&#x27;죄악을 들어 지시는 이&#x27;(נֹשֵׂא עָוֺן, 노세 아온)</strong></mark>와 &#x27;허물을 넘기시는 이&#x27;라는 두 개의 분사 표현이 나란히 서 있습니다. 예전 번역인 개역한글은 이를 &quot;사유하시며… 넘기시며&quot;로 구분해 살렸습니다. 그리고 &#x27;죄악을 들어 지시는 이&#x27;라는 두 낱말이 바로 붙어 나오는 구약의 세 자리(출애굽기 34장 7절, 민수기 14장 18절, 미가 7장 18절) 가운데 앞의 두 곳에는 용서의 선언 바로 뒤에 &quot;그러나 벌을 면제하지는 아니하고&quot;라는 보응의 줄이 이어지는데, 미가서에는 이 뒷줄이 실려 있지 않습니다. 둘째로 &quot;진노를 오래 품지 아니하시나이다&quot;에서 원문의 부정어가 걸린 말은 진노 자체가 아니라 &#x27;붙들다&#x27;라는 동사이고, 거기에 &#x27;오래&#x27;가 아니라 <mark class="hl"><strong>&#x27;영원히&#x27;(לָעַד, 라아드)</strong></mark>가 붙어 있습니다. 미가의 노래가 부정하는 것은 진노가 있다는 사실이 아니라, 그 진노를 영원히 붙들고 계신다는 것입니다.</p>
+  </div>
 
-    </article>
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
 
-    <footer>
-      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
-      2026년 12월 31일
-    </footer>
-  </main>
+<article class="page">
+  <header class="runhead"><b>잃은 것의 목록 아래에 조상들에게 하신 하나님의 맹세를 적어 넣는 밤</b><span>02 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅱ.</span>끝없이 머물지 않는 장마와 어깨에서 쌀 포대를 들어 옮기시는 손</h2>
 
-  <div id="toast"></div>
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="c31_2_bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#151a24"/><stop offset="50%" stop-color="#20242d"/><stop offset="100%" stop-color="#292018"/></linearGradient><radialGradient id="c31_2_lift" cx="0.72" cy="0.24" r="0.46"><stop offset="0%" stop-color="#fce09c" stop-opacity="0.4"/><stop offset="100%" stop-color="#292018" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#c31_2_bg)"/><rect width="674" height="160" fill="url(#c31_2_lift)"/><path d="M0 124 L674 124 L674 160 L0 160 Z" fill="#211914"/><g transform="translate(48, 16)"><rect x="0" y="0" width="124" height="84" rx="2" fill="#121926" stroke="#594b3f" stroke-width="1.5"/><line x1="62" y1="0" x2="62" y2="84" stroke="#443a31" stroke-width="1.2"/><line x1="0" y1="42" x2="124" y2="42" stroke="#443a31" stroke-width="1.2"/><g stroke="#7ba6d4" stroke-width="1.2" opacity="0.58"><line x1="18" y1="12" x2="12" y2="32"/><line x1="38" y1="14" x2="32" y2="34"/><line x1="26" y1="48" x2="20" y2="68"/></g><path d="M68 18 L114 72 L78 72 Z" fill="#ffe49e" opacity="0.24"/><g transform="translate(148, 72)"><ellipse cx="36" cy="34" rx="32" ry="6" fill="#fff5df" stroke="#8e765a" stroke-width="1"/><path d="M14 34 C18 48 54 48 58 34 Z" fill="#f2e2c4" stroke="#8e765a" stroke-width="1"/><path d="M28 22 Q24 12 32 4 M44 20 Q48 10 40 2" fill="none" stroke="#fff0cf" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/></g></g><line x1="316" y1="18" x2="316" y2="142" stroke="#485060" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/><g transform="translate(384, 22)"><circle cx="46" cy="42" r="11" fill="#2e241c" stroke="#b89262" stroke-width="1.2"/><path d="M24 102 C26 70 36 58 46 58 C58 58 68 70 70 102 Z" fill="#2a2119" stroke="#9e7b52" stroke-width="1.2"/><path d="M22 68 Q46 54 72 68" fill="none" stroke="#82b3db" stroke-width="1.4" stroke-dasharray="3 2"/><g transform="translate(62, -4)"><path d="M24 30 C24 18 68 18 68 30 L74 62 C74 70 18 70 18 62 Z" fill="#8e704c" stroke="#d4ad74" stroke-width="1.3"/><path d="M14 14 C24 22 34 26 40 28 M78 14 C68 22 58 26 52 28" fill="none" stroke="#ffe49e" stroke-width="2.6" stroke-linecap="round"/><line x1="46" y1="16" x2="46" y2="0" stroke="#ffe49e" stroke-width="1.6" stroke-linecap="round"/><polygon points="46,-4 42,4 50,4" fill="#ffe49e"/></g></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 컷 2 · 빗줄기 걷히는 창밖 장마와 어깨 위 쌀 포대를 들어 옮기시는 손</span><span>미가 7:18 · 죄악을 들어 옮기시는 이(노세 아온)</span></figcaption>
+  </figure>
 
-  <script>
-    let currentSize = 18;
-    
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2500);
+  <div class="body">
+    <p class="dc essay-p">왜 미가의 노래에는 출애굽기 34장 7절의 뒷줄이 실리지 않았을까요. 구약 성경에서 하나님을 그리며 &#x27;노하기를 더디하다&#x27;와 &#x27;인애&#x27;를 한 절에 함께 둔 여덟 곳을 살펴보면, 같은 절 안에 벌의 줄까지 싣는 곳은 민수기 14장 18절 하나뿐이고 나머지는 뒷줄을 싣지 않는 쪽이 오히려 흔합니다. 우리가 주일 예배에서 찬송가를 1절과 4절만 부르거나 졸업식에서 교가를 1절만 부르고 아침 회의를 회사 표어의 첫 구절로 열 때, <mark class="hl"><strong>부르지 않은 나머지 절이 세상에서 사라진 것이 아니라 찬송가 책과 학생 수첩과 복도 액자라는 원래 자리에 그대로 있는 것과 같습니다.</strong></mark> 시험 삼아 미가 7장 18절에 출애굽기의 뒷줄을 일부러 끼워 넣어 읽어 보아도 &quot;진노를 영원히 붙들지 않으신다&quot;는 말은 지워지지 않고 그대로 남습니다. 두 말은 서로를 대신하거나 지우는 관계가 아닌 것입니다.</p>
+    <span class="break"></span>
+    <p class="essay-p">이 노래가 따로 하는 말과 그 근거는 두 가지 일상 비유를 통해 더 깊이 이해할 수 있습니다. 먼저 &quot;올해 장마는 끝없이 머물지 않는다&quot;라는 말은 &quot;올해는 비가 아예 오지 않는다&quot;라는 뜻이 아닙니다. 이처럼 <mark class="hl"><strong>&quot;진노를 영원히 품지 않는다&quot;는 말씀은 진노의 기한이 끝없지 않음을 말하는 것이지 진노 자체를 지우는 말이 아닙니다.</strong></mark> 또한 장마에는 별다른 이유가 없지만 18절은 그 까닭을 &quot;그가 인애를 기뻐하시기 때문이다&quot;라고 분명히 밝힙니다. 아이가 말도 없이 늦게 들어온 날에도 어머니가 따뜻한 저녁밥상을 차려 내는 것은, 아이가 오늘 잘한 일이 있어서가 아니라 어머니가 어떤 사람인지에 기대어 있는 것과 같습니다. 미가의 노래 역시 기도하는 백성의 형편이 아니라 &quot;주와 같은 신이 어디 있으리이까&quot;라는 물음, 곧 인애를 기뻐하시는 하나님의 성품에 온전히 기대어 있습니다. 다만 사람 어머니의 밥상 뒤에는 꾸중이 따라오기도 하지만, 미가의 노래에는 꾸중의 줄이 실려 있지 않으므로 이 비유로 본문에 없는 뒷줄을 억지로 끌어들여서는 안 됩니다.</p>
+    <p class="essay-p">이제 씨앗 표현인 &#x27;죄악을 들어 지시는 이&#x27;의 &#x27;들다&#x27;(נשׂא, 나사)라는 동사를 우리 몸의 근육으로 느껴 봅니다. 눈을 감고 서서 무거운 쌀 포대 하나를 두 손으로 들어 내 어깨에 올린다고 생각하며 열을 세어 봅니다. 그다음에는 누군가 내 어깨에 얹힌 그 쌀 포대를 두 손으로 번쩍 들어 올려 옆으로 옮겨 놓는다고 생각하며 어깨의 힘을 쭉 빼고 다시 열을 셉니다. 똑같은 &#x27;들다&#x27;라는 동작인데, 내가 들 때는 무거운 짐이 내 어깨에 실리고 다른 이가 들어 줄 때는 내 어깨에서 무게가 빠져나갑니다. 원문에서도 이 동사는 벌을 직접 진다는 뜻과 죄를 들어 치운다는 뜻을 모두 가지며, 무엇이 일어나는지는 드는 이가 누구인지가 결정합니다. <mark class="hl"><strong>미가 7장 18절에서 그 무거운 죄악을 들어 옮기시는 분은 바로 하나님이십니다.</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>잃은 것의 목록 아래에 조상들에게 하신 하나님의 맹세를 적어 넣는 밤</b><span>03 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅲ.</span>한 해의 마지막 밤, 내 셈이 아니라 하나님의 맹세에서 끝내는 메모</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="c31_3_bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#151924"/><stop offset="55%" stop-color="#27201a"/><stop offset="100%" stop-color="#1a1410"/></linearGradient><radialGradient id="c31_3_candle" cx="0.42" cy="0.28" r="0.5"><stop offset="0%" stop-color="#fce09c" stop-opacity="0.44"/><stop offset="100%" stop-color="#1a1410" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#c31_3_bg)"/><rect width="674" height="160" fill="url(#c31_3_candle)"/><path d="M0 110 L674 110 L674 160 L0 160 Z" fill="#3b281b"/><line x1="0" y1="110" x2="674" y2="110" stroke="#9c7d5e" stroke-width="1.3"/><g transform="translate(56, 32)"><rect x="0" y="0" width="68" height="78" fill="#1d1815" stroke="#5e4b3a" stroke-width="1.3"/><rect x="12" y="12" width="44" height="66" fill="#2a221b"/><polygon points="12,78 56,78 86,96 -14,96" fill="#fae09c" opacity="0.16"/><g transform="translate(92, 46)"><path d="M0 24 C8 8 44 8 52 24 L46 36 L6 36 Z" fill="#f3e5cc" stroke="#947a58" stroke-width="1.2"/><path d="M16 14 L36 30 M36 14 L16 30" stroke="#c78854" stroke-width="1.6" stroke-linecap="round"/></g></g><g transform="translate(254, 48)"><rect x="0" y="28" width="12" height="34" rx="1" fill="#faf0da" stroke="#9c8568" stroke-width="1"/><path d="M6 14 C10 20 10 25 6 28 C2 25 2 20 6 14 Z" fill="#ffd773"/></g><g transform="translate(316, 20)"><rect x="0" y="0" width="176" height="118" rx="6" fill="#1e2533" stroke="#6c7891" stroke-width="1.4"/><rect x="10" y="10" width="156" height="98" rx="2" fill="#fcf4e3"/><line x1="24" y1="24" x2="120" y2="24" stroke="#8e7d65" stroke-width="1.5"/><line x1="24" y1="38" x2="136" y2="38" stroke="#8e7d65" stroke-width="1.5"/><line x1="24" y1="52" x2="108" y2="52" stroke="#8e7d65" stroke-width="1.5"/><line x1="24" y1="66" x2="128" y2="66" stroke="#8e7d65" stroke-width="1.5"/><rect x="18" y="78" width="140" height="22" rx="2" fill="#fae09c" stroke="#c99132" stroke-width="1.2"/><line x1="28" y1="89" x2="144" y2="89" stroke="#8c5a16" stroke-width="2.2" stroke-linecap="round"/></g><g transform="translate(524, 16)"><rect x="0" y="0" width="104" height="80" rx="2" fill="#111724" stroke="#594a3c" stroke-width="1.5"/><circle cx="26" cy="22" r="1.4" fill="#fff0c2"/><circle cx="56" cy="16" r="1.8" fill="#fff0c2"/><circle cx="82" cy="28" r="1.2" fill="#fff0c2"/><circle cx="42" cy="46" r="1.2" fill="#fff0c2"/></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 컷 3 · 송구영신 밤 홀로 계신 어르신께 건네는 떡과 한 해 마지막 메모의 맹세</span><span>미가 7:14, 20 · 옛적에 우리 조상들에게 맹세하신 대로</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">나는 처음에 옛 말씀의 뒷줄이 실리지 않은 것을 미가의 노래에 무언가 모자란 흔적으로 읽을 뻔했습니다. 그러나 시야를 성경 전체로 넓혀 보니, 그 뒷줄은 출애굽기 34장과 민수기 14장의 원래 자리에 한 글자도 빠짐없이 서 있었고 성경은 두 노래를 함께 들고 있었습니다. 한 본문이 다루지 않은 줄을 성경의 다른 자리가 그대로 들고 있기에, 한 노래가 모든 것을 다 말하지 않아도 되는 것입니다. 더욱이 이 단락(14~20절)에는 사람에게 내린 명령이 단 하나도 없고, 오직 14절에서 하나님께 드리는 &quot;먹이소서&quot;(רְעֵה, 르에)라는 청원의 명령 하나만 있습니다. 그러므로 이 본문을 읽고 &quot;우리가 더 철저히 회개해야 용서받는다&quot;로 끝내면 본문이 하지 않은 도덕주의가 되고, 반대로 &quot;죄의 결과는 아무것도 없다&quot;로 끝내면 원래 자리에 있는 말씀을 폐지하는 일이 됩니다. <mark class="hl"><strong>이 노래의 끝은 내 수고도 폐지도 아닌, 20절의 &quot;조상들에게 하신 맹세&quot;입니다.</strong></mark></p>
+    <p class="essay-p">구원의 근거가 노래를 부르는 사람의 자격에 있지 않고 옛적부터 맹세하신 하나님께 있다는 사실에서, 우리는 이 노래를 온전한 은혜의 노래로 부를 수 있습니다. 한 해의 마지막 날 강단에 서는 설교자 역시 18절과 19절의 허물을 넘기심과 바다 깊은 곳에 던지심을 어떤 조건이나 단서로도 깎아내리지 않고 선포해야 합니다. 그러면서도 출애굽기의 뒷줄을 미가 본문으로 지우지도, <mark class="hl"><strong>미가 안에 억지로 끌어들이지도 않은 채 &#x27;영원히&#x27; 붙들지 않으신다는 원문의 말씀을 선명하게 전해야 합니다.</strong></mark></p>
+  </div>
+  <section class="address">
+    <p class="essay-p">이 성경적 사고를 12월 31일 하루의 세 자리에서 실천해 봅니다. 마지막 근무일에 올해 내 실수로 일정이 꼬였던 동료에게 사과하고 동료가 &quot;괜찮아, 다 지난 일이야&quot;라고 했을 때, 내 마음대로 &quot;속으로는 아직 서운하겠지&quot;라고 넘겨짚어 채워 넣지 않고 들은 말 그대로 고맙게 받되, 아직 남은 일정 정리가 있다면 그것은 따로 물어 처리하는 것입니다. 송구영신 예배에 가기 전 아래층에 홀로 사시는 어르신께 떡을 갖다 드릴 때는, 어르신이 무언가 해내지 않아도 드릴 수 있는 기도인 14절의 &quot;먹이소서&quot; 말씀을 함께 천천히 읽습니다. 그리고 한 해의 마지막 밤 잠들기 전, 휴대폰 메모장에 올해 잃은 것과 잘못한 것들을 적다 보니 목록이 끝없이 길어질 때, 그 아래에 내 초라한 형편을 더 적는 대신 미가 7장 20절의 &quot;주께서 옛적에 우리 조상들에게 맹세하신 대로 야곱에게 성실을 베푸시며 아브라함에게 인애를 더하시리이다&quot; 한 절을 옮겨 적고 메모를 끝내는 것입니다. 한 해의 돌아봄을 내 셈에서 끝내지 않고 하나님의 맹세에서 끝내는 사람, <mark class="hl"><strong>그 사람은 잘못을 숨기지 않으면서도 잘못의 목록에 눌리지 않고 평안히 잠들 수 있습니다.</strong></mark></p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
     }
+  }
 
-    function sermonText() {
-      const title = document.querySelector('h1').innerText;
-      const content = document.getElementById('sermon').innerText;
-      return `[${title}]\n\n${content}`;
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
     }
+  }
 
-    async function copySermon() {
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
       try {
-        await navigator.clipboard.writeText(sermonText());
-        showToast('본문 텍스트가 복사되었습니다.');
-      } catch (err) {
-        showToast('복사 기능을 지원하지 않습니다.');
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
       }
     }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
 
-    async function shareSermon() {
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: document.title,
-            url: window.location.href
-          });
-          return;
-        } catch (error) {
-          if (error.name === 'AbortError') return;
-        }
-      }
-      try {
-        await navigator.clipboard.writeText(window.location.href);
-        showToast('페이지 링크가 복사되었습니다.');
-      } catch (e) {
-        showToast('공유 기능을 지원하지 않는 환경입니다.');
-      }
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
     }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
 
-    function resizeText(delta) {
-      currentSize = Math.min(23, Math.max(16, currentSize + delta));
-      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
-      showToast(`본문 글씨 크기 ${currentSize}px`);
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
     }
-  </script>
+  });
+</script>
 </body>
 </html>

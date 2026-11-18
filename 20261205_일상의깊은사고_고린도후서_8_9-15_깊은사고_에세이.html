@@ -1,277 +1,708 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#173f35">
-  <title>가난해지신 은혜의 식탁에서, 있는 것 안에서 서로 고르게 되기를</title>
-  <style>
-    @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
-    :root {
-      --ink: #24302c;
-      --muted: #68736f;
-      --paper: #fffdf8;
-      --canvas: #eef2ed;
-      --green: #173f35;
-      --green-soft: #e8f0eb;
-      --gold: #b7863c;
-      --gold-soft: #f7efdf;
-      --line: #d9dfda;
-      --body-size: 18px;
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>가난해지신 은혜의 식탁에서, 있는 것 안에서 서로 고르게 되기를 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 16px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 상단 전폭 컷 일러스트) ---------- */
+  figure{
+    margin:18px 0 26px;
+    width:100%;
+  }
+  .photo{
+    position:relative;
+    height:160px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+  }
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.88;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    display:block;
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 (은은한 웜 골드 톤) */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(250, 204, 21, 0.24) 46%, transparent 46%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 2px;
+    border-radius:2px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.22) 46%, transparent 46%);
+    color:#fef3c7;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{
+    margin:14px 0 18px;
+    width:100%;
+    float:none;
+    max-width:none;
+    padding:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+  }
+  body[data-view="mobile"] .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:nowrap;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
     }
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body {
-      margin: 0; padding: 0;
-      background-color: var(--canvas);
-      color: var(--ink);
-      font-family: 'KoPub Batang', 'KoPubWorldBatang', serif;
-      line-height: 1.8;
-      word-break: keep-all;
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
     }
-    main {
-      max-width: 600px; margin: 0 auto;
-      background: var(--paper);
-      min-height: 100vh;
-      box-shadow: 0 0 20px rgba(0,0,0,0.03);
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
     }
-    header {
-      background: var(--green);
-      color: var(--gold-soft);
-      padding: 30px 24px 40px;
-      text-align: left;
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
     }
-    .label {
-      font-size: 13px; font-weight: 500;
-      color: var(--gold);
-      letter-spacing: 1px;
-      margin-bottom: 16px;
-      display: block;
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
     }
-    h1 {
-      margin: 0; font-size: 26px; font-weight: 700;
-      line-height: 1.4; letter-spacing: -0.5px;
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
     }
-    .toolbar {
-      display: flex; gap: 8px;
-      padding: 16px 24px;
-      background: #fff;
-      border-bottom: 1px solid var(--line);
-      position: sticky; top: 0; z-index: 10;
-      overflow-x: auto;
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
     }
-    .toolbar::-webkit-scrollbar { display: none; }
-    button {
-      flex: 1; min-width: max-content;
-      appearance: none; border: 1px solid var(--line);
-      background: #fff; color: var(--muted);
-      border-radius: 20px; padding: 8px 16px;
-      font-size: 13px; font-family: inherit;
-      cursor: pointer; transition: all 0.2s;
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{
+      margin:14px 0 18px;
+      width:100%;
+      float:none;
+      max-width:none;
+      padding:0;
+      border:none;
+      box-shadow:none;
+      background:transparent;
     }
-    button.primary {
-      background: var(--green);
-      color: #fff; border-color: var(--green);
+    body:not([data-view="a4"]) .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:baseline;
+      font-size:11px;
     }
-    button:active { transform: scale(0.96); }
-    button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-    .content {
-      padding: 40px 24px;
-      font-size: var(--body-size);
-      transition: font-size 0.3s ease;
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:nowrap;
     }
-    .content p { margin: 0 0 24px 0; }
-    .content h2, .content h3 {
-      color: var(--green);
-      font-size: 1.15em;
-      font-weight: 700;
-      margin: 44px 0 18px;
-      padding: 10px 14px 10px 16px;
-      background: var(--green-soft);
-      border-left: 4px solid var(--gold);
-      border-bottom: 1px solid var(--line);
-      border-radius: 0 6px 6px 0;
-      line-height: 1.45;
-      letter-spacing: -0.3px;
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
     }
-    .content strong, .content b {
-      font-weight: 700;
-      color: var(--green);
-      background: linear-gradient(transparent 52%, #fef08a 52%);
-      padding: 0 3px;
-      border-radius: 2px;
-    }
-    /* 서브 타이틀 또는 섹션 타이틀이 흰색 본문에 묻히지 않도록 강제 색상 지정 */
-    .content .subtitle, .content .section-title {
-      display: block;
-      color: var(--muted) !important;
-      font-size: 16px !important;
-      font-weight: 700;
-      margin-top: 24px;
-      margin-bottom: 12px;
-    }
-    .content hr {
-      border: 0; height: 1px; background: var(--line);
-      margin: 40px 0;
-    }
-    .content blockquote {
-      margin: 0 0 24px; padding: 16px 20px;
-      background: var(--green-soft);
-      border-left: 3px solid var(--green);
-      color: var(--green);
-    }
-    .content table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 24px 0;
-      font-size: 0.95em;
-    }
-    .content th, .content td {
-      border: 1px solid var(--line);
-      padding: 10px 14px;
-      text-align: left;
-    }
-    .content th {
-      background: var(--green-soft);
-      color: var(--green);
-      font-weight: 600;
-    }
-    .content tr:nth-child(even) td {
-      background: #fafcf9;
-    }
-    .content code {
-      background: var(--green-soft);
-      color: var(--green);
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.9em;
-      font-family: Consolas, monospace;
-    }
-    .content pre {
-      background: #f4f6f4;
-      padding: 16px;
-      border-radius: 8px;
-      overflow-x: auto;
-      border: 1px solid var(--line);
-    }
-    .content pre code {
-      background: none;
-      padding: 0;
-    }
-    .content a {
-      color: var(--green);
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-    .content a:hover {
-      color: var(--gold);
-    }
-    footer {
-      padding: 40px 24px; text-align: center;
-      background: var(--canvas); color: var(--muted);
-      font-size: 13px; border-top: 1px solid var(--line);
-    }
-    #toast {
-      position: fixed; bottom: 32px; left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: rgba(36, 48, 44, 0.9); color: #fff;
-      padding: 12px 24px; border-radius: 30px;
-      font-size: 14px; opacity: 0; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      pointer-events: none; z-index: 100;
-      white-space: nowrap;
-    }
-    #toast.show {
-      transform: translateX(-50%) translateY(0); opacity: 1;
-    }
-  </style>
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{margin:12px 0 16px; width:100%; float:none}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
 </head>
 <body>
-  <main>
-    <header>
-      <span class="label">일상의 깊은 사고 &middot; 2026년 12월 05일 &middot; 고린도후서 8:9-15</span>
-      <h1>가난해지신 은혜의 식탁에서, 있는 것 안에서 서로 고르게 되기를</h1>
-    </header>
 
-    <div class="toolbar">
-      <button class="primary" onclick="shareSermon()">공유하기</button>
-      <button onclick="copySermon()">텍스트 복사</button>
-      <button onclick="resizeText(1)">크게</button>
-      <button onclick="resizeText(-1)">작게</button>
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">가난해지신 은혜의 식탁에서, 있는 것 안에서 서로 고르게 되기를</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>가난해지신 은혜의 식탁에서, 있는 것 안에서 서로 고르게 되기를</b><span>01 · 2026년 12월 05일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">가난해지신 은혜의 식탁에서, 있는 것 안에서 서로 고르게 되기를</h1>
+  <h2 class="subhead"><span class="subhead-num">Ⅰ.</span>부요하신 분이 가난해지셨다는 은혜의 출발점</h2>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="d261205_1_bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3c2d1f"/><stop offset="48%" stop-color="#282328"/><stop offset="100%" stop-color="#171d26"/></linearGradient><radialGradient id="d261205_1_top" cx="0.5" cy="0.16" r="0.52"><stop offset="0%" stop-color="#ffebb8" stop-opacity="0.78"/><stop offset="50%" stop-color="#d89748" stop-opacity="0.24"/><stop offset="100%" stop-color="#282328" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#d261205_1_bg)"/><rect width="674" height="160" fill="url(#d261205_1_top)"/><path d="M0 126 Q180 116 340 124 T674 118 L674 160 L0 160 Z" fill="#13171f"/><g transform="translate(274, 14)"><path d="M36 24 L44 8 L58 18 L64 4 L70 18 L84 8 L92 24 Z" fill="#ffe29e" stroke="#c89444" stroke-width="1"/><polygon points="40,30 88,30 132,118 -4,118" fill="#ffe6ab" opacity="0.22"/><path d="M64 32 Q54 68 64 106" fill="none" stroke="#fff3cf" stroke-width="2.4" stroke-linecap="round"/><polygon points="64,114 57,102 71,102" fill="#fff3cf"/></g><g transform="translate(284, 114)"><path d="M10 6 L98 6 L84 26 L24 26 Z" fill="#7d583c" stroke="#d8b07a" stroke-width="1.2"/><ellipse cx="54" cy="6" rx="44" ry="5" fill="#ffe4a4" opacity="0.55"/></g><g transform="translate(132, 60)"><circle cx="28" cy="20" r="10" fill="#ecc7a1" stroke="#6b4b34" stroke-width="1"/><path d="M14 78 L18 38 Q20 32 28 32 Q36 32 38 38 L42 78 Z" fill="#4f6473"/><path d="M36 46 L54 38" stroke="#ecc7a1" stroke-width="3.4" stroke-linecap="round"/></g><g transform="translate(488, 60)"><circle cx="28" cy="20" r="10" fill="#f0d0ae" stroke="#6b4b34" stroke-width="1"/><path d="M14 78 L18 38 Q20 32 28 32 Q36 32 38 38 L42 78 Z" fill="#946244"/><path d="M20 46 L2 38" stroke="#f0d0ae" stroke-width="3.4" stroke-linecap="round"/></g><rect x="5" y="5" width="664" height="150" rx="3" fill="none" stroke="#d8b882" stroke-width="0.7" opacity="0.42"/><rect x="9" y="9" width="656" height="142" rx="2" fill="none" stroke="#d8b882" stroke-width="0.4" opacity="0.24"/></svg>
     </div>
+    <figcaption class="cut-caption"><span>▲ 컷 1 · 높은 빛에서 낮은 자리로 내려와 넉넉함을 여는 은혜</span><span>고린도후서 8:9 · 부요하신 이로서 가난하게 되심은</span></figcaption>
+  </figure>
 
-    <article id="sermon" class="content">
-      
-<h3>부요하신 분이 가난해지셨다는 은혜의 출발점</h3>
-<p>고린도후서 8장 9절에서 15절까지, 예수님을 전한 사도 바울은 다른 교회를 돕는 연보(교회가 서로 돕기 위해 내는 헌금) 이야기를 꺼내기 전에 먼저 예수님 이야기를 들려줍니다. 우리가 흔히 읽는 번역 성경인 개역개정으로 "부요하신 이로서 너희를 위하여 가난하게 되심은 그의 가난함으로 말미암아 너희를 부요하게 하려 하심이라"(고후 8:9)고 말합니다. 신약성경이 처음 쓰인 말인 헬라어에서 '가난하게 되셨다'(엡토큐센)는 한 낱말로 되어 있는데, 신약 전체에 여기 딱 한 번만 나와서 다른 곳의 쓰임과 견주어 뜻을 좁혀 정할 수 없습니다. 그 가난이 어느 때의 가난인지도 이 단락은 밝히지 않습니다. 다만 가난해지신 쪽은 예수님이고 부요해지는(넉넉하고 풍성해지는) 쪽은 '너희'라는 흐름은 분명하며, 바울은 <strong>예수님이 우리를 위해 가난해지신 이 움직임 전체를 은혜</strong>라고 부릅니다.</p>
-<p>이 구절에서 먼저 불리는 '너희'는 무언가를 드리는 사람이기 전에 은혜를 받은 사람입니다. 또한 '부요하게 하려 하심'은 이루려는 뜻을 말하는 것이지 이미 이루어진 결과를 알리는 보고가 아니며, 어떤 부요인지도 본문은 말하지 않습니다. 첫 구절의 '알거니와'(기노스케테) 역시 헬라어 모양이 같아 '너희가 안다'로도, '알라'는 말로도 읽을 수 있고, 예수님의 가난이 우리가 따라 해야 할 본보기로 놓였는지 마음을 움직이는 이유로 놓였는지도 정해져 있지 않습니다. 그러므로 설교하는 저는 이 은혜의 구절을 <strong>헌금을 내면 돈을 벌게 해 준다는 약속으로 바꾸어 읽지 않고, 가난해지신 예수님을 내세워 힘에 넘치게 더 내라고 몰아세우는 말</strong>로도 쓰지 않겠습니다.</p>
-<h3>한쪽으로 흘러온 은혜 위에서 서로 오가는 살림</h3>
-<p>첫 구절의 은혜는 예수님에게서 우리에게로 한쪽으로 흘러왔지만, 그 은혜 위에서 바울이 그리는 교회들의 모습은 서로 오가는 사이입니다. 바울은 고린도 교회가 지난해에 먼저 시작했고 마음에도 원하던 일을 이제는 마치라고 권합니다(8:10-11). 이때 '나의 뜻을 알리노니'(8:10)에서 '뜻'(그노메)은 명령이 아니라 자기 생각과 의견을 알려 주는 권고의 말입니다. 바울은 억지로 몰아세우지 않는 말투를 쓰면서도 시작한 일을 '성취할지니', 곧 마치라는 권면은 거두지 않습니다. 그리고 그 마침의 기준을 가지지 않은 것이 아니라 "<strong>있는 대로 하라</strong>"(8:11), 곧 지금 실제로 가진 것 안에 분명히 세워 둡니다.</p>
-<p>바울은 이 일의 목적을 "<strong>다른 사람들은 평안하게 하고 너희는 곤고하게 하려는 것이 아니요 균등하게 하려 함이니</strong>"(8:13)라고 밝힙니다. '곤고하게'는 몹시 힘들게 한다는 뜻이고, '균등'(이소테스)은 똑같이 고르게 된다는 뜻입니다. 헬라어 성경을 펴낸 책이 문장을 끊은 자리를 따라 읽으면 이 '균등'이라는 말이 한 문장의 처음과 끝에 나와 서로의 살림이 오가는 모습을 감쌉니다(개역개정은 앞 절에서 문장을 끊어 옮겼습니다). 지금 너희의 넉넉함이 그들의 모자람을 채우는 것처럼 그들의 넉넉함도 너희의 모자람을 채우게 하려는 것인데, 개역개정의 '후에'(8:14)는 번역이 넣은 말이라 그 일이 언제 일어나는지는 본문이 말하지 않습니다. 종교개혁 시대의 신학자 칼뱅도 이 넉넉함을 마음이 풍성해지는 것으로 푸는 해석은 바울의 생각과 거리가 멀다고 보았는데, 저도 이를 실제 살림 이야기로 곁에 두고 읽습니다.</p>
-<p>물론 성경을 이어 읽을 때 쉽게 맞물리지 않고 남는 긴장도 있습니다. 바로 앞에서 바울은 그리스 북쪽 지방인 마게도냐 교회들이 "힘대로 할 뿐 아니라 힘에 지나도록 자원하여"(8:3, 시키지 않아도 스스로 기꺼이) 내었다고 증언했고, 예수님도 가난한 중에 생활비 전부를 넣은 과부를 보셨습니다(눅 21:4). 바울은 너희를 힘들게 하려는 것이 아니라며 가진 대로를 기준으로 삼지만, 정경(성경 전체)은 '힘에 지나도록' 드린 일과 과부의 생활비 전부를 이 단락과 나란히 놓아 두었습니다. 저는 <strong>이 둘을 가진 대로의 기준에 맞추려고 예외로 깎지 않고 그대로 남겨 둡니다</strong>.</p>
-<h3>장부를 보는 일터와 일상의 식탁에서</h3>
-<p>바울이 말한 넉넉함과 모자람은 원래 교회들 사이의 이야기여서 한 사람의 형편으로 옮기는 것은 제가 넓혀 읽는 것이지만, 지금 당장 나눌 것이 없는 분께는 이 말씀이 가지지 않은 것을 기준으로 삼지 않는다는 점이 닿기를 바랍니다. 지금 나눌 것이 없다는 이유로 그 사람을 밀어내지 않습니다. 모자란 쪽이 언제 채워질지 본문은 약속하지 않지만, 바울 자신도 마게도냐에서 온 형제들이 자기의 부족함을 채워 주었다고 말합니다(고후 11:9).</p>
-<p>세무와 회계 일을 하며 장부를 보는 제 일터에서도 이 말씀은 구체적인 기준이 됩니다. 장부의 남는 돈과 모자란 돈은 언제나 '지금'(8:14) 이때의 형편입니다. 그래서 저는 나눔을 계획하는 분을 도울 때 <strong>빚을 내서 약속하게 하지 않고 실제로 있는 것 안에서 하도록 돕는 것</strong>이 가진 대로의 기준에 맞는다고 읽습니다. 넉넉했던 해에는 그 남는 돈이 어디의 모자람에 닿을 수 있을지 묻겠습니다. 다만 본문의 균등은 교회들 사이의 일이므로, 오늘날 세금 제도를 어떻게 하자는 주장의 근거로 옮겨 쓰지는 않습니다.</p>
-<p>마지막 절(8:15)은 광야의 만나(하늘에서 내려온 양식) 이야기를 인용하며, 많이 거둔 사람도 남지 않았고 적게 거둔 사람도 모자라지 않았다고 말합니다. 칼뱅의 읽기로는 우리가 가진 것은 무엇이든 만나와 같은데, 본문이 그 문장을 직접 말하는 것은 아니어서 참고로만 둡니다. 저는 오늘 말씀을 한 장면으로 담아 봅니다. 부요하신 분이 가난해지셨다는 은혜를 먼저 받은 사람이 식탁에 앉아, 내 살림의 넉넉함과 모자람을 숨기지 않고 <strong>있는 것 안에서 하던 일을 마치며 서로의 모자람을 살펴 주는 하루</strong>가 되기를 기도합니다.</p>
+  <div class="body">
+    <p class="dc essay-p">고린도후서 8장 9절에서 15절까지, 예수님을 전한 사도 바울은 다른 교회를 돕는 연보(교회가 서로 돕기 위해 내는 헌금) 이야기를 꺼내기 전에 먼저 예수님 이야기를 들려줍니다. 우리가 흔히 읽는 번역 성경인 개역개정으로 &quot;부요하신 이로서 너희를 위하여 가난하게 되심은 그의 가난함으로 말미암아 너희를 부요하게 하려 하심이라&quot;(고후 8:9)고 말합니다. 신약성경이 처음 쓰인 말인 헬라어에서 &#x27;가난하게 되셨다&#x27;(엡토큐센)는 한 낱말로 되어 있는데, 신약 전체에 여기 딱 한 번만 나와서 다른 곳의 쓰임과 견주어 뜻을 좁혀 정할 수 없습니다. 그 가난이 어느 때의 가난인지도 이 단락은 밝히지 않습니다. 다만 가난해지신 쪽은 예수님이고 부요해지는(넉넉하고 풍성해지는) 쪽은 &#x27;너희&#x27;라는 흐름은 분명하며, 바울은 <mark class="hl"><strong>예수님이 우리를 위해 가난해지신 이 움직임 전체를 은혜</strong></mark>라고 부릅니다.</p>
+    <p class="essay-p">이 구절에서 먼저 불리는 &#x27;너희&#x27;는 무언가를 드리는 사람이기 전에 은혜를 받은 사람입니다. 또한 &#x27;부요하게 하려 하심&#x27;은 이루려는 뜻을 말하는 것이지 이미 이루어진 결과를 알리는 보고가 아니며, 어떤 부요인지도 본문은 말하지 않습니다. 첫 구절의 &#x27;알거니와&#x27;(기노스케테) 역시 헬라어 모양이 같아 &#x27;너희가 안다&#x27;로도, &#x27;알라&#x27;는 말로도 읽을 수 있고, 예수님의 가난이 우리가 따라 해야 할 본보기로 놓였는지 마음을 움직이는 이유로 놓였는지도 정해져 있지 않습니다. 그러므로 설교하는 저는 이 은혜의 구절을 <mark class="hl"><strong>헌금을 내면 돈을 벌게 해 준다는 약속으로 바꾸어 읽지 않고, 가난해지신 예수님을 내세워 힘에 넘치게 더 내라고 몰아세우는 말</strong></mark>로도 쓰지 않겠습니다.</p>
+  </div>
 
-    </article>
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
 
-    <footer>
-      #말씀과묵상 #성경적사고 #인격형성 #기독교에세이<br>
-      2026년 12월 05일
-    </footer>
-  </main>
+<article class="page">
+  <header class="runhead"><b>가난해지신 은혜의 식탁에서, 있는 것 안에서 서로 고르게 되기를</b><span>02 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅱ.</span>한쪽으로 흘러온 은혜 위에서 서로 오가는 살림</h2>
 
-  <div id="toast"></div>
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="d261205_2_bg" x1="0" y1="0" x2="1" y2="0.4"><stop offset="0%" stop-color="#1d2830"/><stop offset="50%" stop-color="#2b3a3e"/><stop offset="100%" stop-color="#3d3324"/></linearGradient><radialGradient id="d261205_2_center" cx="0.5" cy="0.48" r="0.44"><stop offset="0%" stop-color="#ffe4a8" stop-opacity="0.58"/><stop offset="55%" stop-color="#8eb89e" stop-opacity="0.16"/><stop offset="100%" stop-color="#2b3a3e" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#d261205_2_bg)"/><rect width="674" height="160" fill="url(#d261205_2_center)"/><path d="M0 124 Q180 116 340 122 T674 118 L674 160 L0 160 Z" fill="#141a1e"/><g transform="translate(116, 46)"><path d="M16 14 Q4 44 10 74 L68 74 Q74 44 62 14 Z" fill="#9c6c46" stroke="#e4bc7d" stroke-width="1.3"/><ellipse cx="39" cy="14" rx="23" ry="5" fill="#ffe29e" opacity="0.72"/><circle cx="28" cy="10" r="5" fill="#f2cf84"/><circle cx="42" cy="9" r="5.5" fill="#f2cf84"/><circle cx="52" cy="11" r="4.5" fill="#f2cf84"/></g><g transform="translate(478, 46)"><path d="M16 14 Q4 44 10 74 L68 74 Q74 44 62 14 Z" fill="#54706e" stroke="#a6c7c2" stroke-width="1.3"/><ellipse cx="39" cy="14" rx="23" ry="5" fill="#d9ece8" opacity="0.65"/><circle cx="30" cy="11" r="4.5" fill="#e6cf96"/><circle cx="44" cy="11" r="5" fill="#e6cf96"/></g><path d="M204 54 Q337 16 470 54" fill="none" stroke="#ffe19c" stroke-width="2.8" stroke-linecap="round"/><polygon points="478,56 462,46 466,60" fill="#ffe19c"/><path d="M470 96 Q337 132 204 96" fill="none" stroke="#9cd0c4" stroke-width="2.6" stroke-linecap="round"/><polygon points="196,94 212,104 208,90" fill="#9cd0c4"/><g transform="translate(316, 62)"><line x1="0" y1="14" x2="42" y2="14" stroke="#f5d58e" stroke-width="2.4" stroke-linecap="round"/><polygon points="21,16 13,30 29,30" fill="#d4ab68"/></g><rect x="5" y="5" width="664" height="150" rx="3" fill="none" stroke="#d8b882" stroke-width="0.7" opacity="0.42"/><rect x="9" y="9" width="656" height="142" rx="2" fill="none" stroke="#d8b882" stroke-width="0.4" opacity="0.24"/></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 컷 2 · 한쪽으로 받은 은혜 위에서 서로의 모자람을 채우는 균등</span><span>고린도후서 8:13-14 · 균등하게 하려 함이니</span></figcaption>
+  </figure>
 
-  <script>
-    let currentSize = 18;
-    
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2500);
+  <div class="body">
+    <p class="dc essay-p">첫 구절의 은혜는 예수님에게서 우리에게로 한쪽으로 흘러왔지만, 그 은혜 위에서 바울이 그리는 교회들의 모습은 서로 오가는 사이입니다. 바울은 고린도 교회가 지난해에 먼저 시작했고 마음에도 원하던 일을 이제는 마치라고 권합니다(8:10-11). 이때 &#x27;나의 뜻을 알리노니&#x27;(8:10)에서 &#x27;뜻&#x27;(그노메)은 명령이 아니라 자기 생각과 의견을 알려 주는 권고의 말입니다. 바울은 억지로 몰아세우지 않는 말투를 쓰면서도 시작한 일을 &#x27;성취할지니&#x27;, 곧 마치라는 권면은 거두지 않습니다. 그리고 그 마침의 기준을 가지지 않은 것이 아니라 &quot;<mark class="hl"><strong>있는 대로 하라</strong></mark>&quot;(8:11), 곧 지금 실제로 가진 것 안에 분명히 세워 둡니다.</p>
+    <span class="break"></span>
+    <p class="essay-p">바울은 이 일의 목적을 &quot;<mark class="hl"><strong>다른 사람들은 평안하게 하고 너희는 곤고하게 하려는 것이 아니요 균등하게 하려 함이니</strong></mark>&quot;(8:13)라고 밝힙니다. &#x27;곤고하게&#x27;는 몹시 힘들게 한다는 뜻이고, &#x27;균등&#x27;(이소테스)은 똑같이 고르게 된다는 뜻입니다. 헬라어 성경을 펴낸 책이 문장을 끊은 자리를 따라 읽으면 이 &#x27;균등&#x27;이라는 말이 한 문장의 처음과 끝에 나와 서로의 살림이 오가는 모습을 감쌉니다(개역개정은 앞 절에서 문장을 끊어 옮겼습니다). 지금 너희의 넉넉함이 그들의 모자람을 채우는 것처럼 그들의 넉넉함도 너희의 모자람을 채우게 하려는 것인데, 개역개정의 &#x27;후에&#x27;(8:14)는 번역이 넣은 말이라 그 일이 언제 일어나는지는 본문이 말하지 않습니다. 종교개혁 시대의 신학자 칼뱅도 이 넉넉함을 마음이 풍성해지는 것으로 푸는 해석은 바울의 생각과 거리가 멀다고 보았는데, 저도 이를 실제 살림 이야기로 곁에 두고 읽습니다.</p>
+    <p class="essay-p">물론 성경을 이어 읽을 때 쉽게 맞물리지 않고 남는 긴장도 있습니다. 바로 앞에서 바울은 그리스 북쪽 지방인 마게도냐 교회들이 &quot;힘대로 할 뿐 아니라 힘에 지나도록 자원하여&quot;(8:3, 시키지 않아도 스스로 기꺼이) 내었다고 증언했고, 예수님도 가난한 중에 생활비 전부를 넣은 과부를 보셨습니다(눅 21:4). 바울은 너희를 힘들게 하려는 것이 아니라며 가진 대로를 기준으로 삼지만, 정경(성경 전체)은 &#x27;힘에 지나도록&#x27; 드린 일과 과부의 생활비 전부를 이 단락과 나란히 놓아 두었습니다. 저는 <mark class="hl"><strong>이 둘을 가진 대로의 기준에 맞추려고 예외로 깎지 않고 그대로 남겨 둡니다</strong></mark>.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>가난해지신 은혜의 식탁에서, 있는 것 안에서 서로 고르게 되기를</b><span>03 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅲ.</span>장부를 보는 일터와 일상의 식탁에서</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="d261205_3_bg" x1="0" y1="0" x2="1" y2="0.6"><stop offset="0%" stop-color="#261e19"/><stop offset="50%" stop-color="#3b2c22"/><stop offset="100%" stop-color="#221914"/></linearGradient><radialGradient id="d261205_3_table" cx="0.68" cy="0.34" r="0.46"><stop offset="0%" stop-color="#ffe19f" stop-opacity="0.48"/><stop offset="55%" stop-color="#cf8642" stop-opacity="0.16"/><stop offset="100%" stop-color="#261e19" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#d261205_3_bg)"/><rect width="674" height="160" fill="url(#d261205_3_table)"/><polygon points="0,114 674,114 674,160 0,160" fill="#4f3628" stroke="#7d5843" stroke-width="1"/><g transform="translate(66, 38)"><polygon points="0,14 106,6 212,14 212,86 106,78 0,86" fill="#f7f0de" stroke="#967f5c" stroke-width="1.2"/><line x1="106" y1="6" x2="106" y2="78" stroke="#b09670" stroke-width="1.2"/><g stroke="#6c5a44" stroke-width="1.1"><line x1="16" y1="26" x2="90" y2="22"/><line x1="16" y1="38" x2="90" y2="34"/><line x1="16" y1="50" x2="90" y2="46"/><line x1="16" y1="62" x2="90" y2="58"/><line x1="122" y1="22" x2="196" y2="26"/><line x1="122" y1="34" x2="196" y2="38"/><line x1="122" y1="46" x2="196" y2="50"/></g><rect x="122" y="56" width="74" height="10" rx="2" fill="#d9e6d5" stroke="#4f8062" stroke-width="0.9"/></g><g transform="translate(362, 34)"><ellipse cx="122" cy="78" rx="110" ry="12" fill="#825a3f" stroke="#c89b72" stroke-width="1.1"/><ellipse cx="122" cy="64" rx="28" ry="14" fill="#d99f54" stroke="#8b5a28" stroke-width="1.2"/><path d="M106 58 Q116 52 124 58 M126 60 Q134 54 140 60" fill="none" stroke="#fff0ca" stroke-width="1.4" stroke-linecap="round"/><path d="M36 66 Q54 84 72 66 Z" fill="#e6dcc6" stroke="#8e7b62" stroke-width="1.1"/><ellipse cx="54" cy="66" rx="18" ry="4" fill="#f7eed9"/><path d="M172 66 Q190 84 208 66 Z" fill="#e6dcc6" stroke="#8e7b62" stroke-width="1.1"/><ellipse cx="190" cy="66" rx="18" ry="4" fill="#f7eed9"/><g fill="#ffe7ad" opacity="0.82"><circle cx="88" cy="14" r="2.2"/><circle cx="114" cy="24" r="2.5"/><circle cx="144" cy="12" r="2.2"/><circle cx="164" cy="28" r="2"/><circle cx="102" cy="34" r="1.8"/><circle cx="132" cy="36" r="2"/></g></g><rect x="5" y="5" width="664" height="150" rx="3" fill="none" stroke="#e0ba7c" stroke-width="0.7" opacity="0.42"/><rect x="9" y="9" width="656" height="142" rx="2" fill="none" stroke="#e0ba7c" stroke-width="0.4" opacity="0.24"/></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 컷 3 · 있는 것 안에서 기록한 장부와 만나처럼 나누는 일상의 식탁</span><span>고린도후서 8:11, 15 · 많이 거둔 자도 남지 아니하고</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">바울이 말한 넉넉함과 모자람은 원래 교회들 사이의 이야기여서 한 사람의 형편으로 옮기는 것은 제가 넓혀 읽는 것이지만, 지금 당장 나눌 것이 없는 분께는 이 말씀이 가지지 않은 것을 기준으로 삼지 않는다는 점이 닿기를 바랍니다. 지금 나눌 것이 없다는 이유로 그 사람을 밀어내지 않습니다. 모자란 쪽이 언제 채워질지 본문은 약속하지 않지만, <mark class="hl"><strong>바울 자신도 마게도냐에서 온 형제들이 자기의 부족함을 채워 주었다고 말합니다(고후 11:9).</strong></mark></p>
+    <p class="essay-p">세무와 회계 일을 하며 장부를 보는 제 일터에서도 이 말씀은 구체적인 기준이 됩니다. 장부의 남는 돈과 모자란 돈은 언제나 &#x27;지금&#x27;(8:14) 이때의 형편입니다. 그래서 저는 나눔을 계획하는 분을 도울 때 <mark class="hl"><strong>빚을 내서 약속하게 하지 않고 실제로 있는 것 안에서 하도록 돕는 것</strong></mark>이 가진 대로의 기준에 맞는다고 읽습니다. 넉넉했던 해에는 그 남는 돈이 어디의 모자람에 닿을 수 있을지 묻겠습니다. 다만 본문의 균등은 교회들 사이의 일이므로, 오늘날 세금 제도를 어떻게 하자는 주장의 근거로 옮겨 쓰지는 않습니다.</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">마지막 절(8:15)은 광야의 만나(하늘에서 내려온 양식) 이야기를 인용하며, 많이 거둔 사람도 남지 않았고 적게 거둔 사람도 모자라지 않았다고 말합니다. 칼뱅의 읽기로는 우리가 가진 것은 무엇이든 만나와 같은데, 본문이 그 문장을 직접 말하는 것은 아니어서 참고로만 둡니다. 저는 오늘 말씀을 한 장면으로 담아 봅니다. 부요하신 분이 가난해지셨다는 은혜를 먼저 받은 사람이 식탁에 앉아, 내 살림의 넉넉함과 모자람을 숨기지 않고 <mark class="hl"><strong>있는 것 안에서 하던 일을 마치며 서로의 모자람을 살펴 주는 하루</strong></mark>가 되기를 기도합니다.</p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
     }
+  }
 
-    function sermonText() {
-      const title = document.querySelector('h1').innerText;
-      const content = document.getElementById('sermon').innerText;
-      return `[${title}]\n\n${content}`;
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
     }
+  }
 
-    async function copySermon() {
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
       try {
-        await navigator.clipboard.writeText(sermonText());
-        showToast('본문 텍스트가 복사되었습니다.');
-      } catch (err) {
-        showToast('복사 기능을 지원하지 않습니다.');
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
       }
     }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
 
-    async function shareSermon() {
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: document.title,
-            url: window.location.href
-          });
-          return;
-        } catch (error) {
-          if (error.name === 'AbortError') return;
-        }
-      }
-      try {
-        await navigator.clipboard.writeText(window.location.href);
-        showToast('페이지 링크가 복사되었습니다.');
-      } catch (e) {
-        showToast('공유 기능을 지원하지 않는 환경입니다.');
-      }
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
     }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
 
-    function resizeText(delta) {
-      currentSize = Math.min(23, Math.max(16, currentSize + delta));
-      document.documentElement.style.setProperty('--body-size', `${currentSize}px`);
-      showToast(`본문 글씨 크기 ${currentSize}px`);
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
     }
-  </script>
+  });
+</script>
 </body>
 </html>
