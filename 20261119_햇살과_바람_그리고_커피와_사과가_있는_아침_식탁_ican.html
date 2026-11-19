@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>햇살과 바람, 그리고 커피와 사과가 있는 아침 식탁 — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 16px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 상단 전폭 컷 일러스트) ---------- */
+  figure{
+    margin:18px 0 26px;
+    width:100%;
+  }
+  .photo{
+    position:relative;
+    height:160px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+  }
+  .photo svg{display:block; width:100%; height:100%}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.88;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    display:block;
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 (은은한 웜 골드 톤) */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(250, 204, 21, 0.24) 46%, transparent 46%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 2px;
+    border-radius:2px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.22) 46%, transparent 46%);
+    color:#fef3c7;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{
+    margin:14px 0 18px;
+    width:100%;
+    float:none;
+    max-width:none;
+    padding:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+  }
+  body[data-view="mobile"] .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:nowrap;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{
+      margin:14px 0 18px;
+      width:100%;
+      float:none;
+      max-width:none;
+      padding:0;
+      border:none;
+      box-shadow:none;
+      background:transparent;
+    }
+    body:not([data-view="a4"]) .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:baseline;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:nowrap;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{margin:12px 0 16px; width:100%; float:none}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">햇살과 바람, 그리고 커피와 사과가 있는 아침 식탁</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>햇살과 바람, 그리고 커피와 사과가 있는 아침 식탁</b><span>01 · 2026년 11월 19일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">햇살과 바람, 그리고 커피와 사과가 있는 아침 식탁</h1>
+  <h2 class="subhead"><span class="subhead-num">Ⅰ.</span>창을 여는 햇살과 나무를 흔드는 바람, 오빠와 언니와 함께 맞은 아침</h2>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="아침 햇살과 바람이 머무는 나무 곁 식탁에 모인 오빠와 언니">
+        <defs>
+          <linearGradient id="gMornBg1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1e3a2f"/>
+            <stop offset="0.48" stop-color="#3b5e47"/>
+            <stop offset="1" stop-color="#d97706"/>
+          </linearGradient>
+          <radialGradient id="gSunBeam1" cx="0.22" cy="0.18" r="0.65">
+            <stop offset="0" stop-color="#fef9c3" stop-opacity="0.78"/>
+            <stop offset="0.5" stop-color="#fde047" stop-opacity="0.28"/>
+            <stop offset="1" stop-color="#1e3a2f" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gMornBg1)"/>
+        <rect width="674" height="160" fill="url(#gSunBeam1)"/>
+        <rect x="0" y="136" width="674" height="24" fill="#1b1815"/>
+        <!-- 좌측: 열린 창과 햇살 아래 바람에 흔들리는 마당의 푸른 나무 -->
+        <path d="M128,136 L128,58 Q128,36 86,26 M128,64 Q158,38 196,30 M128,74 Q102,52 64,46" fill="none" stroke="#5c4033" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="88" cy="30" r="22" fill="#4ade80" opacity="0.55"/>
+        <circle cx="132" cy="24" r="26" fill="#86efac" opacity="0.6"/>
+        <circle cx="178" cy="34" r="22" fill="#bbf7d0" opacity="0.55"/>
+        <!-- 상쾌한 아침 바람의 곡선 -->
+        <path d="M24,62 Q95,48 168,60 T310,54" fill="none" stroke="#fef9c3" stroke-width="1.6" stroke-dasharray="6 4" opacity="0.75"/>
+        <path d="M42,78 Q115,66 188,76 T330,70" fill="none" stroke="#fef9c3" stroke-width="1.3" stroke-dasharray="4 4" opacity="0.6"/>
+        <!-- 우측: 햇살이 드리운 따뜻한 원목 식탁과 나란히 마주 앉은 삼 남매(오빠·언니·동생) -->
+        <g transform="translate(360, 56)">
+          <rect x="24" y="54" width="164" height="8" rx="3" fill="#92400e" stroke="#fde68a" stroke-width="1"/>
+          <line x1="48" y1="62" x2="48" y2="82" stroke="#78350f" stroke-width="4"/>
+          <line x1="164" y1="62" x2="164" y2="82" stroke="#78350f" stroke-width="4"/>
+          <!-- 오빠, 언니, 동생의 다정한 실루엣 -->
+          <circle cx="56" cy="22" r="9" fill="#fef3c7"/>
+          <path d="M42,54 L46,33 L66,33 L70,54 Z" fill="#475569"/>
+          <circle cx="106" cy="20" r="9.5" fill="#fde68a"/>
+          <path d="M92,54 L96,32 L116,32 L120,54 Z" fill="#b45309"/>
+          <circle cx="156" cy="23" r="8.5" fill="#fef3c7"/>
+          <path d="M143,54 L147,34 L165,34 L169,54 Z" fill="#d97706"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 눈부신 아침 햇살과 상쾌한 바람이 머무는 나무 곁, 한 지붕 아래 함께 아침을 맞이한 오빠와 언니와의 식탁</span><span>매일 아침 대가 없이 찾아오는 햇살과 바람 · 한 뿌리에서 자란 나무처럼 나란히 마주 앉은 가족의 그늘</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">고요하던 새벽의 어스름이 물러가고 아침 창문을 활짝 열자, 맑고 눈부신 햇살이 기다렸다는 듯이 방안 가득 쏟아져 들어왔다. 밤새 산능선을 스치고 내려온 상쾌한 아침 바람이 마당의 나뭇가지들을 가볍게 흔들며 시원한 풀 내음과 흙 내음을 실어 날랐다. 나뭇잎마다 반짝이며 내려앉는 저 따스한 빛과 부드럽게 스쳐 가는 바람결을 느끼고 있으면, 온 세상을 세심하게 돌보시는 하나님의 창조 손길과 살아 있는 숨결이 내 볼에 가만히 와닿는 듯하다. <mark class="hl"><strong>아무런 대가 없이 매일 아침 우리 곁으로 찾아오는 햇살과 바람은, 오늘도 살아가라고 주님이 가장 먼저 펼쳐 놓으신 은혜의 선물이었다.</strong></mark></p>
+    <p class="essay-p">홀로 조용히 깨어 기도하던 새벽의 시간도 참 귀했지만, 아침 빛이 마루에 드리워질 무렵 방마다 인기척이 들려오며 시작되는 시간에는 또 다른 따뜻함이 있었다. 각자의 자리에서 바쁜 일상을 살아가느라 자주 마주하기 어려웠던 오빠와 언니가 오늘 아침에는 한 지붕 아래에서 함께 눈을 떴다. 밤새 잘 잤느냐며 건네는 나직한 인사와 부엌에서 들려오는 정겨운 소리가 집 안의 공기를 부드럽게 데워 주었다. <mark class="hl"><strong>혼자 맞이하는 아침이 고요한 묵상의 시간이라면, 사랑하는 오빠와 언니의 얼굴을 마주하며 여는 아침은 그 자체로 마음을 든든하게 채워 주는 포근한 안식이었다.</strong></mark></p>
+    <p class="pull essay-p">우리는 아침 햇살이 환하게 비추고 시원한 바람이 머무는 창가, 마당의 나무가 푸르게 드리워진 식탁으로 하나둘 모여 앉았다. 창밖의 나무들이 한 뿌리에서 자라나 가지마다 햇살을 나누어 받고 서로 몸을 기대어 바람을 맞듯, 오랜 세월을 한 줄기에서 자라난 우리 삼 남매도 그렇게 나란히 자리를 잡았다. 특별히 격식을 차리지 않아도, 함께 앉아 있다는 사실 하나만으로 어릴 적 한마당에서 지내던 시절의 편안함이 자연스레 되살아났다. <mark class="hl"><strong>햇살과 바람이 어우러진 나무 곁 식탁에 오빠와 언니와 나란히 마주 앉은 이 아침의 풍경은, 세월이 흘러도 변하지 않는 가족이라는 이름의 따뜻한 그늘을 보여 주고 있었다.</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>햇살과 바람, 그리고 커피와 사과가 있는 아침 식탁</b><span>02 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅱ.</span>따뜻한 커피 향과 아삭한 사과 한 조각, 언니와 오빠가 채워 주는 식탁의 온기</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="따뜻한 커피와 사과 조각이 놓인 아침 식탁">
+        <defs>
+          <linearGradient id="gMornBg2" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#29201b"/>
+            <stop offset="0.52" stop-color="#5c3a21"/>
+            <stop offset="1" stop-color="#b45309"/>
+          </linearGradient>
+          <radialGradient id="gTableGlow2" cx="0.5" cy="0.55" r="0.48">
+            <stop offset="0" stop-color="#fde68a" stop-opacity="0.5"/>
+            <stop offset="0.6" stop-color="#f59e0b" stop-opacity="0.18"/>
+            <stop offset="1" stop-color="#29201b" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gMornBg2)"/>
+        <rect width="674" height="160" fill="url(#gTableGlow2)"/>
+        <!-- 따뜻한 원목 식탁 상판 -->
+        <rect x="0" y="116" width="674" height="44" fill="#3e2723"/>
+        <line x1="0" y1="116" x2="674" y2="116" stroke="#d97706" stroke-width="1.5" opacity="0.7"/>
+        <!-- 좌측~중앙: 김이 모락모락 피어오르는 따뜻한 커피잔 두 개 -->
+        <g transform="translate(158, 66)">
+          <ellipse cx="28" cy="52" rx="34" ry="6" fill="#e2e8f0"/>
+          <path d="M8,22 L48,22 L44,48 C44,52 12,52 12,48 Z" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+          <path d="M48,26 C58,26 58,40 46,42" fill="none" stroke="#fffbeb" stroke-width="3"/>
+          <path d="M22,14 Q18,4 25,-4" fill="none" stroke="#fef3c7" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+          <path d="M34,16 Q30,6 37,-2" fill="none" stroke="#fef3c7" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+        </g>
+        <!-- 중앙~우측: 먹기 좋게 깎아 놓은 사과 조각들과 붉은 사과가 담긴 접시 -->
+        <g transform="translate(340, 64)">
+          <ellipse cx="76" cy="54" rx="68" ry="11" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+          <!-- 탐스러운 붉은 사과 한 알 -->
+          <circle cx="52" cy="36" r="18" fill="#dc2626"/>
+          <path d="M52,18 Q55,10 60,8" fill="none" stroke="#78350f" stroke-width="2" stroke-linecap="round"/>
+          <path d="M56,12 Q66,8 68,15 Q60,18 56,12 Z" fill="#22c55e"/>
+          <!-- 정갈하게 깎아 놓은 하얗고 노란 사과 조각들 -->
+          <path d="M78,44 Q94,24 110,44 Z" fill="#fef9c3" stroke="#dc2626" stroke-width="2"/>
+          <path d="M96,48 Q112,28 128,48 Z" fill="#fef9c3" stroke="#dc2626" stroke-width="2"/>
+        </g>
+        <!-- 식탁 위로 흐르는 다정한 대화와 미소의 빛방울 -->
+        <circle cx="280" cy="54" r="4" fill="#fde68a" opacity="0.8"/>
+        <circle cx="312" cy="42" r="5.5" fill="#fef08a" opacity="0.85"/>
+        <circle cx="348" cy="48" r="4" fill="#fde68a" opacity="0.8"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 김이 모락모락 피어오르는 따뜻한 커피와 정갈하게 깎아 놓은 사과 한 접시, 그리고 언니·오빠와 나누는 다정한 대화</span><span>시편 133:1 · 봄·여름·가을을 견뎌 단단하게 익은 사과처럼 깊고 달콤해진 세월과 가족의 사랑</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">조촐하게 차려진 아침 식탁 위에는 방금 내려 김이 모락모락 피어오르는 따뜻한 커피와 먹기 좋은 크기로 정갈하게 깎아 놓은 사과 한 접시가 놓였다. 두 손으로 따뜻한 커피잔을 감싸 쥐고 한 모금 머금자, 쌉싸름하면서도 깊고 구수한 향기가 입안에서부터 가슴 밑바닥까지 천천히 번져 내려갔다. 이어 하얗고 단단한 사과 한 조각을 베어 물자, 아삭하고 경쾌한 소리와 함께 싱그럽고 달콤한 과즙이 입안 가득 상쾌하게 퍼졌다. <mark class="hl"><strong>커피의 따스한 온기와 사과의 시원한 단맛이 어우러지는 그 소박한 식탁 위에는, 마음까지 맑아지는 정갈한 기쁨이 가득 담겨 있었다.</strong></mark></p>
+    <span class="break"></span>
+    <p class="essay-p">접시 위에 놓인 붉고 단단한 사과 한 조각을 바라보다가, 저 열매 하나가 식탁에 오르기까지 지나왔을 계절들을 가만히 생각해 보았다. 여린 봄꽃으로 피어나 거센 여름비와 뜨거운 볕을 견디고 가을바람을 맞으며 속이 꽉 찬 단맛을 빚어냈듯, 우리 오빠와 언니의 삶에도 참 많은 계절이 흘러갔다. 모든 것을 그 때에 맞게 아름답게 익어가게 하시는 하나님의 손길 안에서, 비바람과 무더위를 견뎌 낸 세월이 있었기에 오늘 우리의 만남이 이토록 깊고 달콤해졌음을 느낀다. <mark class="hl"><strong>형제가 한자리에 모여 마음을 나누는 일이 어찌 그리 선하고 아름다운고 노래한 시편 133편 1절의 고백이, 사과 향기 번지는 우리 아침 식탁 위에 조용히 내려앉았다.</strong></mark></p>
+    <p class="essay-p">무엇보다 이 아침 식탁을 가장 환하게 빛내 준 것은 언니와 눈을 맞추며 도란도란 이어진 다정한 대화였다. 지난날의 소소한 추억을 떠올리며 웃음을 터뜨리다가도, 요즘 어디 불편한 곳은 없는지 서로의 건강과 안부를 살뜰히 챙기는 언니와 마주 앉아 이야기하는 이 시간이 참 좋았다. 그 곁에서 따뜻한 미소로 우리의 이야기를 들어 주며 접시와 커피잔을 챙겨 주는 오빠의 든든한 모습은 식탁의 온기를 한층 더 두텁게 만들어 주었다. <mark class="hl"><strong>말 한마디에 담긴 언니의 다정함과 묵묵히 곁을 지켜 주는 오빠의 넉넉함이 어우러져, 아침 식탁은 서로의 마음을 어루만지고 새 힘을 북돋아 주는 사랑의 자리가 되었다.</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>햇살과 바람, 그리고 커피와 사과가 있는 아침 식탁</b><span>03 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅲ.</span>소박한 식탁 위에 이미 와 있는 행복, 다정한 목소리를 품고 여는 하루</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="소박한 아침 식탁의 행복을 품고 햇살 가득한 길로 나아가는 하루">
+        <defs>
+          <linearGradient id="gMornBg3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1e293b"/>
+            <stop offset="0.45" stop-color="#92400e"/>
+            <stop offset="1" stop-color="#fef08a"/>
+          </linearGradient>
+        </defs>
+        <rect width="674" height="160" fill="url(#gMornBg3)"/>
+        <path d="M0,128 Q220,112 440,124 T674,114 L674,160 L0,160 Z" fill="#27201c"/>
+        <!-- 좌측: 하나의 따뜻한 원 안에 담긴 햇살·나뭇잎·커피·사과(이미 우리 곁에 와 있는 행복) -->
+        <g transform="translate(88, 26)">
+          <circle cx="52" cy="52" r="44" fill="#fef3c7" opacity="0.18" stroke="#fde68a" stroke-width="1.6"/>
+          <circle cx="52" cy="52" r="32" fill="none" stroke="#fcd34d" stroke-width="1.2" stroke-dasharray="4 3"/>
+          <!-- 작은 커피잔과 사과 심볼 -->
+          <rect x="32" y="48" width="16" height="14" rx="2" fill="#fffbeb"/>
+          <circle cx="66" cy="54" r="9" fill="#ef4444"/>
+          <path d="M66,44 Q71,39 74,44 Z" fill="#4ade80"/>
+        </g>
+        <!-- 중앙~우측: 환한 아침 햇살이 쏟아지는 산책길과 오늘 하루로 나아가는 발걸음 -->
+        <circle cx="548" cy="42" r="26" fill="#fef9c3" opacity="0.9"/>
+        <circle cx="548" cy="42" r="44" fill="#fde047" opacity="0.28"/>
+        <path d="M260,160 Q360,124 490,118 L535,118 Q430,132 350,160 Z" fill="#fbbf24" opacity="0.78"/>
+      </svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 멀리서 찾던 행복은 이미 이 소박한 아침 식탁 위에: 언니의 다정한 목소리와 오빠의 든든한 미소를 품고 여는 하루</span><span>햇살과 바람, 커피와 사과, 그리고 사랑하는 식구들이 함께한 아침의 감사로 걸어 나가는 길</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">우리는 살아가면서 흔히 남들 눈에 띄는 크고 화려한 성취를 이루거나, 일상 너머의 특별한 일이 일어나야만 큰 복을 누린 것이라 생각하기 쉽다. 그러나 햇살과 바람이 머무는 나무 아래에서 오빠와 언니와 마주 앉아 커피를 마시며 사과를 나누어 먹는 이 아침 앞에서, 나는 행복의 기준이 얼마나 가까이 있는지를 다시 배운다. 건강한 숨을 쉬며 함께 아침을 맞이할 식구가 곁에 있고, 자연이 길러 낸 열매와 따뜻한 커피 한 잔을 나눌 수 있다는 사실만으로도 이미 내 마음은 충만한 감사로 채워졌다. <mark class="hl"><strong>우리가 멀리서만 찾곤 하던 행복과 은혜는 다른 곳에 있는 것이 아니라, 하나님이 오늘 아침 우리 남매에게 허락하신 이 소박하고 정겨운 식탁 위에 이미 다 와 있었다.</strong></mark></p>
+  </div>
+  <section class="address">
+    <p class="essay-p">커피잔의 온기가 식어 갈 무렵, 창밖의 햇살은 한결 더 밝아지고 나뭇잎을 스치는 바람 소리도 한층 경쾌해졌다. 이제 식탁에서 일어나 다시 각자의 일상으로 걸어가야 하지만, 오늘 아침 우리 마음에 차오른 따뜻한 기억은 쉽게 식지 않을 것이다. 입안에 남은 사과의 단맛과 커피의 깊은 여운, 그리고 나를 향해 웃어 주던 언니의 다정한 목소리와 오빠의 든든한 눈빛이 내 안에 고스란히 남았기 때문이다. <mark class="hl"><strong>햇살과 바람, 커피와 사과, 그리고 사랑하는 오빠와 언니가 함께했던 이 아름다운 아침의 감사를 가슴에 품고, 나는 오늘 하루도 주님이 주신 기쁨으로 환하게 걸어가려 한다.</strong></mark></p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>
