@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>값 따라 갈린 입과 무너진 안심의 방패 (미가 3:1-12) — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 16px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 상단 전폭 컷 일러스트) ---------- */
+  figure{
+    margin:18px 0 26px;
+    width:100%;
+  }
+  .photo{
+    position:relative;
+    height:160px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+  }
+  .photo svg{display:block; width:100%; height:100%}
+  .photo img{display:block; width:100%; height:100%; object-fit:cover; object-position:center;}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.88;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    display:block;
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 (은은한 웜 골드 톤) */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(250, 204, 21, 0.24) 46%, transparent 46%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 2px;
+    border-radius:2px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.22) 46%, transparent 46%);
+    color:#fef3c7;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{
+    margin:14px 0 18px;
+    width:100%;
+    float:none;
+    max-width:none;
+    padding:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+  }
+  body[data-view="mobile"] .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:nowrap;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{
+      margin:14px 0 18px;
+      width:100%;
+      float:none;
+      max-width:none;
+      padding:0;
+      border:none;
+      box-shadow:none;
+      background:transparent;
+    }
+    body:not([data-view="a4"]) .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:baseline;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:nowrap;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{margin:12px 0 16px; width:100%; float:none}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">값 따라 갈린 입과 무너진 안심의 방패 (미가 3:1-12)</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>값 따라 갈린 입과 무너진 안심의 방패 (미가 3:1-12)</b><span>01 · 2026년 12월 20일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">값 따라 갈린 입과 무너진 안심의 방패 (미가 3:1-12)</h1>
+  <h2 class="subhead"><span class="subhead-num">Ⅰ.</span>값 따라 갈린 입과 선지자의 이름</h2>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="세무 상담 책상 위 수임료에 따라 한쪽으로 기운 저울과 큰 거래처 및 1인 가게 전화기, 그리고 입에 들어오는 값에 따라 평안과 전쟁이 갈리는 미가 3장 두루마리와 3장 5절 입의 기준"><defs><linearGradient id="m1220_01_bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1e2530"/><stop offset="46%" stop-color="#333d4b"/><stop offset="74%" stop-color="#9e8468"/><stop offset="100%" stop-color="#f3e5cc"/></linearGradient><radialGradient id="m1220_01_glow" cx="0.78" cy="0.38" r="0.38"><stop offset="0%" stop-color="#fde68a" stop-opacity="0.75"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient><linearGradient id="m1220_01_scroll" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#fffdf7"/><stop offset="100%" stop-color="#efe0c4"/></linearGradient></defs><rect width="674" height="160" fill="url(#m1220_01_bg)"/><rect width="674" height="160" fill="url(#m1220_01_glow)"/><rect x="0" y="134" width="674" height="26" fill="#0f172a" fill-opacity="0.18"/><line x1="0" y1="134" x2="674" y2="134" stroke="#94a3b8" stroke-width="1" stroke-opacity="0.5"/><rect x="16" y="108" width="240" height="10" rx="2" fill="#5c4738" stroke="#8b6d56" stroke-width="1"/><rect x="26" y="118" width="10" height="16" fill="#3f3025"/><rect x="236" y="118" width="10" height="16" fill="#3f3025"/><rect x="22" y="80" width="60" height="28" rx="4" fill="#334155" stroke="#cbd5e1" stroke-width="1"/><path d="M28,77 Q52,66 76,77" fill="none" stroke="#f59e0b" stroke-width="3.6" stroke-linecap="round"/><text x="52" y="97" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fef3c7">큰 거래처</text><rect x="190" y="80" width="60" height="28" rx="4" fill="#1e293b" stroke="#94a3b8" stroke-width="1"/><path d="M196,77 Q220,66 244,77" fill="none" stroke="#94a3b8" stroke-width="3.6" stroke-linecap="round"/><text x="220" y="97" text-anchor="middle" font-size="8.5" font-weight="700" fill="#cbd5e1">1인 가게</text><polygon points="126,108 146,108 141,100 131,100" fill="#92400e"/><line x1="136" y1="42" x2="136" y2="100" stroke="#d4a359" stroke-width="3"/><line x1="98" y1="58" x2="174" y2="44" stroke="#e2e8f0" stroke-width="2.4" stroke-linecap="round"/><circle cx="136" cy="51" r="3.8" fill="#f59e0b"/><path d="M98,58 L87,74 L109,74 Z" fill="none" stroke="#fbbf24" stroke-width="1"/><ellipse cx="98" cy="75" rx="13" ry="3.8" fill="#f59e0b"/><path d="M174,44 L163,60 L185,60 Z" fill="none" stroke="#94a3b8" stroke-width="1"/><ellipse cx="174" cy="61" rx="13" ry="3.8" fill="#64748b"/><rect x="48" y="8" width="176" height="20" rx="10" fill="#0f172a" fill-opacity="0.88" stroke="#94a3b8" stroke-width="0.8"/><text x="136" y="21.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f8fafc">같은 조문 · 다른 대답</text><path d="M262,76 Q284,60 302,74" fill="none" stroke="#f59e0b" stroke-width="1.6" stroke-dasharray="4 3"/><polygon points="299,69 308,75 298,79" fill="#f59e0b"/><rect x="336" y="120" width="8" height="14" fill="#784f24"/><rect x="476" y="120" width="8" height="14" fill="#784f24"/><path d="M318,32 Q410,24 502,32 L502,118 Q410,126 318,118 Z" fill="url(#m1220_01_scroll)" stroke="#9a6b3b" stroke-width="1.4"/><rect x="310" y="24" width="10" height="100" rx="4" fill="#b4824c" stroke="#784f24" stroke-width="1.1"/><rect x="500" y="24" width="10" height="100" rx="4" fill="#b4824c" stroke="#784f24" stroke-width="1.1"/><text x="410" y="49" text-anchor="middle" font-size="10" font-weight="700" fill="#7c2d12">뇌물 · 삯 · 돈 (미 3:11)</text><line x1="334" y1="58" x2="486" y2="58" stroke="#c8a986" stroke-width="1"/><text x="410" y="78" text-anchor="middle" font-size="11.5" font-weight="700" fill="#991b1b">יִקְסֹמוּ · 점을 친다</text><line x1="334" y1="88" x2="486" y2="88" stroke="#c8a986" stroke-width="1"/><text x="410" y="107" text-anchor="middle" font-size="9.5" font-weight="600" fill="#451a03">평안과 싸움이 갈린 입</text><rect x="534" y="8" width="124" height="20" rx="10" fill="#7c2d12" stroke="#fde68a" stroke-width="0.8"/><text x="596" y="21.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fef3c7">미가 3:5 · 입의 기준</text><rect x="546" y="124" width="100" height="10" fill="#78350f"/><path d="M534,36 L658,36 L658,124 L534,124 Z" fill="#fffbeb" stroke="#92400e" stroke-width="1.3"/><circle cx="596" cy="58" r="13" fill="#b45309" stroke="#78350f" stroke-width="1.2"/><text x="596" y="62" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fef3c7">3:5</text><text x="596" y="88" text-anchor="middle" font-size="9.5" font-weight="700" fill="#7c2d12">채우면 평안</text><line x1="550" y1="97" x2="642" y2="97" stroke="#d6c7b2" stroke-width="1"/><text x="596" y="113" text-anchor="middle" font-size="9.5" font-weight="700" fill="#991b1b">비면 전쟁 준비</text><rect x="50" y="139" width="172" height="17" rx="8.5" fill="#0f172a" fill-opacity="0.8"/><text x="136" y="151" text-anchor="middle" font-size="9.5" font-weight="600" fill="#f1f5f9">세무 책상 · 값에 기운 저울</text><rect x="324" y="139" width="172" height="17" rx="8.5" fill="#fdf5e6" fill-opacity="0.94"/><text x="410" y="151" text-anchor="middle" font-size="9.5" font-weight="600" fill="#5c3419">율법이 금한 이름 · 3장 말씀</text><rect x="534" y="139" width="124" height="17" rx="8.5" fill="#fffbeb" fill-opacity="0.94"/><text x="596" y="151" text-anchor="middle" font-size="9.5" font-weight="600" fill="#5c3419">입에 넣는 값의 기준</text></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 값에 따라 기운 저울의 두 대답과 ‘점을 친다’ 두루마리</span><span>미가 3:5·11 · 뇌물과 삯, 돈 앞에서 갈린 평안과 싸움(יִקְסֹמוּ)</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">주일에는 설교 원고를 쓰고, 평일에는 세무 상담 전화를 받습니다. 며칠 전 오후, 수임료가 큰 거래처 대표가 경비 처리를 물었지요. 나는 &quot;우선 살펴서 맞춰 보지요&quot;라며 슬그머니 여지를 두었습니다. 한 시간 뒤, 작은 1인 가게 사장이 똑같은 질문을 꺼내더군요. 그 앞에서는 규정집을 짚어 안 된다고 잘라 말했습니다. <mark class="hl"><strong>같은 법 조문인데도 손님이 책상에 올리는 값에 따라 답이 달랐던 거지요.</strong></mark></p>
+    <p class="essay-p">미가 3장 11절은 성안의 세 무리를 한 줄로 세워 고발합니다. 우두머리는 뇌물로 재판하고, 제사장은 삯(일한 값)을 위해 교훈(가르침)하지요. 선지자는 돈을 받고 점을 칩니다. 앞선 5절을 보면 이 선지자들은 입에 무엇을 채워 주면 평안을 외치더군요. <mark class="hl"><strong>채워 주면 평안을 외치고, 비워 두면 싸움을 걸어 전쟁을 준비했습니다.</strong></mark> 말을 정하는 기준이 하나님이 아니라 입에 들어오는 것이었지요.</p>
+    <p class="pull essay-p">&#x27;점을 친다&#x27;(יִקְסֹמוּ)는 말은 미가서에서 3장 6·7·11절에만 나옵니다. 율법이 막은 그 이름을 미가는 예루살렘 선지자들이 하는 일에 붙였지요. 그들이 정말 점을 쳤는지, 돈 받고 한 예언을 그렇게 불렀는지는 본문이 정하지 않습니다. <mark class="hl"><strong>다만 말씀 전하는 일이 값에 맞춰 달라지면 율법이 금한 일과 같은 이름으로 불릴 수 있음을 겨누거든요.</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>값 따라 갈린 입과 무너진 안심의 방패 (미가 3:1-12)</b><span>02 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅱ.</span>끊긴 대답과 안심의 방패, 남은 긴장</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="응답이 끊겨 가려진 얼굴과 입술, 나쁜 일은 없다 글씨 아래로 금이 간 안심 방패와 갈아엎은 밭 시온, 두려워 간구한 히스기야 두루마리, 그리고 내 백성이 몸과 살림을 적은 기록 종이"><defs><linearGradient id="m1220_02_bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#151c28"/><stop offset="45%" stop-color="#2c3647"/><stop offset="76%" stop-color="#9c856d"/><stop offset="100%" stop-color="#f5ebd9"/></linearGradient><radialGradient id="m1220_02_spot" cx="0.86" cy="0.46" r="0.34"><stop offset="0%" stop-color="#fef3c7" stop-opacity="0.82"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#m1220_02_bg)"/><rect width="674" height="160" fill="url(#m1220_02_spot)"/><rect x="0" y="134" width="674" height="26" fill="#0f172a" fill-opacity="0.18"/><line x1="0" y1="134" x2="674" y2="134" stroke="#94a3b8" stroke-width="1" stroke-opacity="0.5"/><rect x="18" y="8" width="138" height="20" rx="10" fill="#0f172a" fill-opacity="0.88" stroke="#94a3b8" stroke-width="0.8"/><text x="87" y="21.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f8fafc">מַעֲנֵה · 응답 없음</text><path d="M22,134 L22,46 Q87,32 152,46 L152,134 Z" fill="#1e293b" stroke="#475569" stroke-width="1.2"/><circle cx="87" cy="64" r="15" fill="#334155" stroke="#94a3b8" stroke-width="1"/><path d="M65,61 Q87,47 109,61 L106,77 L68,77 Z" fill="#0f172a" fill-opacity="0.86"/><text x="87" y="100" text-anchor="middle" font-size="9" font-weight="600" fill="#cbd5e1">3:4 얼굴을 가리심</text><text x="87" y="116" text-anchor="middle" font-size="9" fill="#f87171">3:7 입술 가린 술객</text><rect x="176" y="8" width="186" height="20" rx="10" fill="#7c2d12" stroke="#fde68a" stroke-width="0.9"/><text x="269" y="21.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fef3c7">בְּקִרְבֵּנוּ · 무너진 방패</text><path d="M218,34 L320,34 L313,80 Q269,104 225,80 Z" fill="#475569" stroke="#cbd5e1" stroke-width="1.3"/><text x="269" y="54" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f8fafc">나쁜 일은 없다</text><path d="M228,70 L254,78 L246,88 L272,98" fill="none" stroke="#ef4444" stroke-width="2.2" stroke-linecap="round"/><path d="M310,68 L286,78 L294,88" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/><path d="M176,134 Q222,108 269,134 Q316,108 362,134 Z" fill="#57534e" stroke="#d4a359" stroke-width="1.2"/><polygon points="188,134 202,114 216,134" fill="#64748b"/><polygon points="324,134 340,112 356,134" fill="#44403c"/><rect x="216" y="114" width="106" height="16" rx="8" fill="#0f172a" fill-opacity="0.88"/><text x="269" y="125.5" text-anchor="middle" font-size="8.8" font-weight="700" fill="#fde68a">3:12 갈아엎은 밭</text><rect x="382" y="8" width="126" height="20" rx="10" fill="#1e293b" fill-opacity="0.88" stroke="#cbd5e1" stroke-width="0.8"/><text x="445" y="21.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fef3c7">렘 26 · 히스기야</text><rect x="414" y="124" width="8" height="10" fill="#784f24"/><rect x="468" y="124" width="8" height="10" fill="#784f24"/><path d="M390,38 Q445,33 500,38 L500,122 Q445,127 390,122 Z" fill="#fefce8" stroke="#9a6b3b" stroke-width="1.2"/><rect x="384" y="33" width="7" height="94" rx="3" fill="#b4824c"/><rect x="499" y="33" width="7" height="94" rx="3" fill="#b4824c"/><text x="445" y="59" text-anchor="middle" font-size="9.5" font-weight="700" fill="#78350f">두려워해 간구</text><line x1="404" y1="69" x2="486" y2="69" stroke="#cbd5e1" stroke-width="1"/><text x="445" y="88" text-anchor="middle" font-size="9.5" font-weight="600" fill="#334155">3:12 조건 없음</text><text x="445" y="106" text-anchor="middle" font-size="9" font-weight="700" fill="#9a3412">닫지 않은 긴장</text><rect x="526" y="8" width="130" height="20" rx="10" fill="#7c2d12" stroke="#fde68a" stroke-width="0.8"/><text x="591" y="21.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fef3c7">몸과 살림 기록지</text><path d="M532,36 L638,36 L650,48 L650,134 L532,134 Z" fill="#ffffff" stroke="#78350f" stroke-width="1.3"/><polygon points="638,36 638,48 650,48" fill="#fde68a" stroke="#78350f" stroke-width="1"/><rect x="544" y="46" width="88" height="16" rx="2" fill="#fef3c7"/><text x="588" y="57.5" text-anchor="middle" font-size="9" font-weight="700" fill="#7c2d12">몸과 살림 기록</text><line x1="544" y1="75" x2="638" y2="75" stroke="#94a3b8" stroke-width="1.2"/><line x1="544" y1="90" x2="632" y2="90" stroke="#94a3b8" stroke-width="1.2"/><line x1="544" y1="105" x2="636" y2="105" stroke="#94a3b8" stroke-width="1.2"/><line x1="544" y1="120" x2="614" y2="120" stroke="#b45309" stroke-width="1.5"/><rect x="22" y="139" width="130" height="17" rx="8.5" fill="#0f172a" fill-opacity="0.8"/><text x="87" y="151" text-anchor="middle" font-size="9.5" font-weight="600" fill="#f1f5f9">가려진 얼굴과 대답</text><rect x="199" y="139" width="140" height="17" rx="8.5" fill="#0f172a" fill-opacity="0.8"/><text x="269" y="151" text-anchor="middle" font-size="9.5" font-weight="600" fill="#f8fafc">헛된 방패 · 시온 판결</text><rect x="385" y="139" width="120" height="17" rx="8.5" fill="#fffbeb" fill-opacity="0.94"/><text x="445" y="151" text-anchor="middle" font-size="9.5" font-weight="600" fill="#5c3419">남겨 둔 두 기록</text><rect x="527" y="139" width="128" height="17" rx="8.5" fill="#fffbeb" fill-opacity="0.94"/><text x="591" y="151" text-anchor="middle" font-size="9.5" font-weight="600" fill="#5c3419">내 백성이 적은 종이</text></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 끊어진 대답과 금 간 안심 방패, 몸과 살림의 기록지</span><span>미가 3:4·7·12 · 응답이 없다(מַעֲנֵה) · 우리 가운데(בְּקִרְבֵּנוּ)와 갈아엎은 시온</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">값에 따라 말을 바꾸던 입들은 하나님의 대답을 잃게 됩니다. 4절에서 부르짖는 이들은 백성이 아니라 백성의 가죽과 살을 뜯던 지도자들이지요. 하나님은 악한 만큼 응답하지 않고 얼굴을 가리십니다. 7절에선 앞일을 본다는 선견자와 점치는 술객이 부끄러워 입술을 가리지요. 우리말은 &quot;하나님이 응답하지 아니하심&quot;으로 적었으나, 원문은 &#x27;하나님의 응답(מַעֲנֵה)이 없다&#x27;고만 적거든요. 거절하신다는 4절과 따로 읽어야, <mark class="hl"><strong>들을 하나님의 대답이 끊긴 현실이 더 또렷해집니다.</strong></mark></p>
+    <span class="break"></span>
+    <p class="essay-p">더 무서운 건 그들이 기대던 말입니다. &quot;여호와께서 우리 중에 계시지 아니하냐 재앙이 우리에게 임하지 아니하리라&quot;(3:11) 외치지요. 재앙은 닥칠 나쁜 일을 뜻합니다. 스바냐 3장 15절에도 주께서 &quot;네 가운데&quot; 계시니 두려워 말라는 약속이 있지요. 하지만 미가 3장 12절이 뒤집는 것은 &#x27;우리 가운데&#x27;(בְּקִרְבֵּנוּ) 계시다는 앞말이 아니거든요. <mark class="hl"><strong>&#x27;나쁜 일은 없다&#x27;는 뒷말을 잘못 가리는 방패로 쓰는 태도가 무너집니다.</strong></mark> 결국 9절 우두머리 &#x27;너희로 말미암아&#x27; 조건 없는 판결이 내립니다. 시온은 갈아엎은 밭이 되고 예루살렘은 무더기, 성전의 산은 수풀의 높은 곳이 되리라 하지요.</p>
+    <p class="essay-p">성경은 이 판결 곁에 다른 기록도 둡니다. 예레미야 26장 18~19절에서 유다 어른들은 히스기야 왕이 두려워 간구해 뜻을 돌이키신 일을 떠올리지요. 그가 구한 &#x27;얼굴&#x27;과 3장 4절의 &#x27;얼굴&#x27;은 같은 히브리어지만, 흔한 말이라 같은 일로 못 박을 수 없습니다. 미가 3장 12절엔 &#x27;이러면 재앙이 물러간다&#x27;는 조건이 없고, 성경도 둘을 억지로 맞추지 않지요. 이 문장이 언제 약속이고 언제 헛된 방패인지 가르는 기준도 없습니다. <mark class="hl"><strong>짓밟힌 이들이 그 성에 산다는 건 제 읽기일 뿐, 그들의 회복 시기나 값 받는 경계도 본문은 정하지 않고 둡니다.</strong></mark></p>
+    <p class="essay-p">지금 아무것도 할 수 없는 이에게 본문은 할 일을 내밀지 않습니다. 품삯을 떼이거나 힘 있는 이의 결정 하나로 집과 일터를 잃은 이들이 있지요. 본문은 그들이 당한 일을 가죽과 살과 뼈라는 몸의 말로 적으며 &#x27;내 백성&#x27;이라 부릅니다. 이런 처지라면 당한 일을 &#x27;마음이 상했다&#x27;로 줄이지 말고 종이에 그대로 적어 두시면 좋겠어요. <mark class="hl"><strong>마음의 상처로 바꾸면 몸과 살림에 실제로 일어난 사실이 흐려지기 때문이지요.</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>값 따라 갈린 입과 무너진 안심의 방패 (미가 3:1-12)</b><span>03 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅲ.</span>원고의 표시, 기록 확인, 두려운 기도</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="연필로 동그라미 표시를 남긴 주일 설교 원고와 붉은 표시를 남기는 상담 메모 및 단체 대화방 기록, 그리고 저녁 식탁에 둘러앉아 성경을 펴고 두 손 모아 같은 답을 구하는 가족 기도"><defs><linearGradient id="m1220_03_bg" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#231f1d"/><stop offset="46%" stop-color="#40362f"/><stop offset="70%" stop-color="#d9c3a5"/><stop offset="100%" stop-color="#fdf5e6"/></linearGradient><radialGradient id="m1220_03_lamp" cx="0.82" cy="0.42" r="0.38"><stop offset="0%" stop-color="#fde68a" stop-opacity="0.88"/><stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#m1220_03_bg)"/><rect width="674" height="160" fill="url(#m1220_03_lamp)"/><rect x="0" y="134" width="674" height="26" fill="#0f172a" fill-opacity="0.14"/><line x1="0" y1="134" x2="674" y2="134" stroke="#94a3b8" stroke-width="1" stroke-opacity="0.5"/><rect x="14" y="112" width="418" height="9" rx="2" fill="#5c4738" stroke="#7c624e" stroke-width="1"/><rect x="24" y="121" width="10" height="13" fill="#3f3025"/><rect x="218" y="121" width="10" height="13" fill="#3f3025"/><rect x="412" y="121" width="10" height="13" fill="#3f3025"/><rect x="24" y="36" width="166" height="76" rx="3" fill="#fffbeb" stroke="#92400e" stroke-width="1.2"/><text x="107" y="52" text-anchor="middle" font-size="9.5" font-weight="700" fill="#78350f">설교 원고 (미 3:9)</text><line x1="38" y1="63" x2="176" y2="63" stroke="#94a3b8" stroke-width="1.1"/><line x1="38" y1="77" x2="156" y2="77" stroke="#475569" stroke-width="1.3"/><ellipse cx="90" cy="77" rx="32" ry="8" fill="none" stroke="#dc2626" stroke-width="1.8"/><line x1="38" y1="91" x2="172" y2="91" stroke="#94a3b8" stroke-width="1.1"/><line x1="38" y1="103" x2="140" y2="103" stroke="#94a3b8" stroke-width="1.1"/><line x1="144" y1="64" x2="182" y2="41" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/><polygon points="139,66 146,61 147,66" fill="#1e293b"/><rect x="42" y="8" width="130" height="20" rx="10" fill="#1c1917" fill-opacity="0.88" stroke="#f59e0b" stroke-width="0.8"/><text x="107" y="21.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fef3c7">눈치 본 줄 동그라미</text><rect x="206" y="36" width="114" height="76" rx="3" fill="#ffffff" stroke="#78350f" stroke-width="1.2"/><text x="263" y="52" text-anchor="middle" font-size="9.5" font-weight="700" fill="#7c2d12">상담 메모</text><line x1="218" y1="64" x2="308" y2="64" stroke="#94a3b8" stroke-width="1.1"/><line x1="218" y1="78" x2="294" y2="78" stroke="#dc2626" stroke-width="1.5"/><circle cx="304" cy="78" r="4" fill="#dc2626"/><line x1="218" y1="94" x2="292" y2="94" stroke="#94a3b8" stroke-width="1.1"/><rect x="211" y="8" width="104" height="20" rx="10" fill="#0f172a" fill-opacity="0.86" stroke="#cbd5e1" stroke-width="0.8"/><text x="263" y="21.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#f8fafc">3:10 기록 확인</text><rect x="336" y="34" width="84" height="78" rx="6" fill="#1e293b" stroke="#94a3b8" stroke-width="1.3"/><rect x="342" y="41" width="72" height="62" rx="2" fill="#f8fafc"/><rect x="347" y="48" width="46" height="11" rx="3" fill="#e2e8f0"/><rect x="362" y="64" width="46" height="11" rx="3" fill="#fde68a"/><rect x="347" y="80" width="48" height="11" rx="3" fill="#fecaca"/><rect x="334" y="8" width="88" height="20" rx="10" fill="#0f172a" fill-opacity="0.88" stroke="#cbd5e1" stroke-width="0.8"/><text x="378" y="21.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fef3c7">단체 대화방</text><rect x="460" y="8" width="192" height="20" rx="10" fill="#7c2d12" stroke="#fde68a" stroke-width="0.8"/><text x="556" y="21.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="#fef3c7">같은 물음에 같은 답을 구함</text><rect x="472" y="96" width="4" height="38" fill="#5c4033"/><rect x="514" y="96" width="4" height="38" fill="#5c4033"/><rect x="534" y="96" width="4" height="38" fill="#5c4033"/><rect x="576" y="96" width="4" height="38" fill="#5c4033"/><rect x="596" y="98" width="4" height="36" fill="#5c4033"/><rect x="636" y="98" width="4" height="36" fill="#5c4033"/><circle cx="495" cy="62" r="7.5" fill="#7c2d12"/><path d="M483,104 L486,74 Q495,70 504,74 L507,104 Z" fill="#7c2d12"/><path d="M499,88 L508,78 L511,88 Z" fill="#fde68a" stroke="#7c2d12" stroke-width="0.8"/><circle cx="556" cy="61" r="7.5" fill="#334155"/><path d="M544,104 L547,73 Q556,69 565,73 L568,104 Z" fill="#334155"/><path d="M551,87 L556,76 L561,87 Z" fill="#fef3c7" stroke="#334155" stroke-width="0.8"/><circle cx="616" cy="66" r="6.5" fill="#92400e"/><path d="M606,104 L608,76 Q616,73 624,76 L626,104 Z" fill="#92400e"/><path d="M607,89 L604,79 L612,88 Z" fill="#fde68a" stroke="#92400e" stroke-width="0.8"/><rect x="456" y="104" width="200" height="9" rx="2" fill="#9a6b3b" stroke="#784f24" stroke-width="1"/><line x1="476" y1="113" x2="476" y2="134" stroke="#784f24" stroke-width="3"/><line x1="636" y1="113" x2="636" y2="134" stroke="#784f24" stroke-width="3"/><polygon points="524,104 542,98 560,104 558,95 542,91 526,95" fill="#fffdf7" stroke="#78350f" stroke-width="0.9"/><rect x="576" y="95" width="8" height="9" fill="#fef3c7" stroke="#b45309" stroke-width="0.8"/><circle cx="580" cy="90" r="3" fill="#f59e0b"/><rect x="37" y="139" width="140" height="17" rx="8.5" fill="#1c1917" fill-opacity="0.85"/><text x="107" y="151" text-anchor="middle" font-size="9.5" font-weight="600" fill="#f5f5f4">설교 원고 · 연필 표시</text><rect x="246" y="139" width="150" height="17" rx="8.5" fill="#1c1917" fill-opacity="0.85"/><text x="321" y="151" text-anchor="middle" font-size="9.5" font-weight="600" fill="#f5f5f4">일터 메모 · 붉은 표시</text><rect x="486" y="139" width="140" height="17" rx="8.5" fill="#fffbeb" fill-opacity="0.94"/><text x="556" y="151" text-anchor="middle" font-size="9.5" font-weight="600" fill="#5c3419">저녁 식탁 · 두려운 기도</text></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 연필 동그라미 친 설교 원고, 응대 기록 확인과 저녁 식탁 기도</span><span>미가 3:9–10 · 같은 물음에 같은 답을 구하는 책상과 두 손 모은 기도</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">가르치는 자리에 선 나는 9절이 부르는 &#x27;너희&#x27;(야곱 족속의 우두머리들)를 다른 목사에게 돌리지 않습니다. 오늘 밤 이번 주 설교 원고를 책상 위에 다시 펼쳐 놓으려 해요. <mark class="hl"><strong>헌금과 사례를 의식해 말을 바꾼 곳에 연필로 동그라미를 쳐 두겠습니다.</strong></mark> 3장 5절의 고발을 강단보다 내 책상에서 먼저 듣기 위함이지요.</p>
+    <p class="essay-p">평일 세무사 사무실의 기록도 열어 볼 차례입니다. 10절은 지도자들이 피로 시온을, 죄악으로 예루살렘을 건축한다고 적지요. 피와 불의가 성을 짓는 재료로 쓰였다는 고발입니다. 이번 달 상담 메모와 직원 단체 대화방에서 같은 규정 질문을 찾아보려 해요. <mark class="hl"><strong>손님이 낸 값에 따라 답이 갈린 곳에 붉은 표시를 남기겠습니다.</strong></mark> 값에 따라 휘는 말이 성경의 고발 자리에 놓였기 때문이지요.</p>
+  </div>
+  <section class="address">
+    <p class="essay-p">원고와 기록을 살핀 밤엔 집 식탁에 식구들과 마주 앉습니다. 기도할 때도 &quot;하나님이 계시니 나쁜 일은 없다&quot;는 말을 안심 증거로 꺼내지 않으려 하지요. 대신 두려운 마음으로 여호와의 얼굴을 구했던 히스기야를 기억합니다. 그 기도를 재앙을 피하는 방법으로 바꾸지 않고, 두려워하며 구하는 모습 그대로 붙들겠어요. <mark class="hl"><strong>오늘 내 입에 무엇이 들어오든 같은 물음에는 같은 답을 내놓게 해 달라고 조용히 구합니다.</strong></mark></p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>

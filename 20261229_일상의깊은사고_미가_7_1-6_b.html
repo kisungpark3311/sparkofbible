@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>꾸짖기 전에 빈 밭에서 먼저 울다 (미가 7:1-6) — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 16px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 상단 전폭 컷 일러스트) ---------- */
+  figure{
+    margin:18px 0 26px;
+    width:100%;
+  }
+  .photo{
+    position:relative;
+    height:160px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+  }
+  .photo svg{display:block; width:100%; height:100%}
+  .photo img{display:block; width:100%; height:100%; object-fit:cover; object-position:center;}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.88;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    display:block;
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 (은은한 웜 골드 톤) */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(250, 204, 21, 0.24) 46%, transparent 46%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 2px;
+    border-radius:2px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.22) 46%, transparent 46%);
+    color:#fef3c7;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{
+    margin:14px 0 18px;
+    width:100%;
+    float:none;
+    max-width:none;
+    padding:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+  }
+  body[data-view="mobile"] .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:nowrap;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{
+      margin:14px 0 18px;
+      width:100%;
+      float:none;
+      max-width:none;
+      padding:0;
+      border:none;
+      box-shadow:none;
+      background:transparent;
+    }
+    body:not([data-view="a4"]) .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:baseline;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:nowrap;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{margin:12px 0 16px; width:100%; float:none}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">꾸짖기 전에 빈 밭에서 먼저 울다 (미가 7:1-6)</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>꾸짖기 전에 빈 밭에서 먼저 울다 (미가 7:1-6)</b><span>01 · 2026년 12월 29일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">꾸짖기 전에 빈 밭에서 먼저 울다 (미가 7:1-6)</h1>
+  <h2 class="subhead"><span class="subhead-num">Ⅰ.</span>빈 밭에서 먼저 터진 굶주린 탄식</h2>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="추수 끝난 빈 밭과 무화과나무 아래 앉아 우는 사람, 두 영혼이 새겨진 두루마리, 그물과 뇌물 저울과 갈라진 집"><defs><linearGradient id="m1229c1_sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1a1e2e"/><stop offset="0.55" stop-color="#2d2433"/><stop offset="1" stop-color="#1f171c"/></linearGradient><linearGradient id="m1229c1_earth" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b2a22"/><stop offset="1" stop-color="#1d1410"/></linearGradient><radialGradient id="m1229c1_glow" cx="0.5" cy="0.44" r="0.36"><stop offset="0" stop-color="#f59e0b" stop-opacity="0.24"/><stop offset="1" stop-color="#1a1e2e" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#m1229c1_sky)"/><rect width="674" height="160" fill="url(#m1229c1_glow)"/><path d="M0 132 Q168 124 337 132 T674 130 L674 160 L0 160 Z" fill="url(#m1229c1_earth)"/><g id="m1229c1_left"><line x1="20" y1="132" x2="20" y2="96" stroke="#6b4f3b" stroke-width="2"/><line x1="56" y1="132" x2="56" y2="94" stroke="#6b4f3b" stroke-width="2"/><path d="M20 102 Q38 110 56 100" fill="none" stroke="#8c6b52" stroke-width="1.2"/><path d="M38 132 L38 46 M38 66 L18 50 M38 60 L58 44 M38 80 L22 72" stroke="#8a6850" stroke-width="2.6" stroke-linecap="round" fill="none"/><path d="M72 132 L78 106 L90 106 L94 132 Z" fill="#475569" stroke="#cbd5e1" stroke-width="1.2"/><circle cx="84" cy="94" r="6.5" fill="#cbd5e1"/><path d="M80 106 L74 96 M88 106 L90 96" stroke="#e2e8f0" stroke-width="2" stroke-linecap="round"/><rect x="104" y="20" width="126" height="48" rx="6" fill="#2a1f24" stroke="#d97706" stroke-width="1.3"/><text x="167" y="40" font-family="serif" font-size="10.5" fill="#fde68a" text-anchor="middle" font-weight="bold">“재앙이로다 나여”</text><text x="167" y="57" font-family="serif" font-size="9" fill="#e2e8f0" text-anchor="middle">빈 밭 · 처음 익은 무화과</text><text x="122" y="150" font-family="serif" font-size="9.5" fill="#d6c4b0" text-anchor="middle">포도를 다 거둔 뒤 빈 밭 (7:1)</text></g><g id="m1229c1_center"><rect x="244" y="14" width="184" height="8" rx="4" fill="#78350f" stroke="#d97706" stroke-width="1"/><path d="M250 22 L422 22 Q426 74 422 126 L250 126 Q246 74 250 22 Z" fill="#231b24" stroke="#b45309" stroke-width="1.4"/><rect x="244" y="126" width="184" height="8" rx="4" fill="#78350f" stroke="#d97706" stroke-width="1"/><circle cx="336" cy="50" r="20" fill="#3b2a1e" stroke="#fbbf24" stroke-width="1.5"/><text x="336" y="55" font-family="serif" font-size="16" fill="#fef3c7" text-anchor="middle" font-weight="bold">נֶפֶשׁ</text><text x="336" y="81" font-family="serif" font-size="9.8" fill="#fde68a" text-anchor="middle" font-weight="bold">같은 낱말 ‘영혼’</text><line x1="258" y1="88" x2="414" y2="88" stroke="#574337" stroke-width="1"/><line x1="336" y1="92" x2="336" y2="121" stroke="#574337" stroke-width="1"/><text x="295" y="103" font-family="serif" font-size="8.8" fill="#93c5fd" text-anchor="middle">열매 사모함</text><text x="295" y="117" font-family="serif" font-size="8.5" fill="#bfdbfe" text-anchor="middle">(굶주린 말)</text><text x="377" y="103" font-family="serif" font-size="8.8" fill="#fca5a5" text-anchor="middle">욕심을 말함</text><text x="377" y="117" font-family="serif" font-size="8.5" fill="#fecaca" text-anchor="middle">(권세자의 입)</text></g><g id="m1229c1_right"><line x1="456" y1="132" x2="456" y2="24" stroke="#64748b" stroke-width="1.8"/><line x1="544" y1="132" x2="544" y2="24" stroke="#64748b" stroke-width="1.8"/><g stroke="#94a3b8" stroke-width="1" opacity="0.48" fill="none"><path d="M456 30 Q500 54 544 30 M456 46 Q500 70 544 46 M456 62 Q500 84 544 62"/><line x1="470" y1="24" x2="530" y2="84"/><line x1="530" y1="24" x2="470" y2="84"/></g><line x1="566" y1="132" x2="566" y2="44" stroke="#d97706" stroke-width="2"/><line x1="548" y1="48" x2="584" y2="40" stroke="#fbbf24" stroke-width="1.6"/><path d="M544 64 L554 64 L549 48 Z M580 58 L590 58 L585 40 Z" fill="#b45309" opacity="0.85"/><path d="M598 132 L598 52 L626 34 L654 52 L654 132 Z" fill="#2a222b" stroke="#64748b" stroke-width="1.2"/><path d="M626 36 L622 68 L630 90" fill="none" stroke="#ef4444" stroke-width="1.4"/><rect x="448" y="96" width="210" height="36" rx="5" fill="#1f1419" stroke="#ef4444" stroke-width="1"/><text x="553" y="111" font-family="serif" font-size="9.5" fill="#fca5a5" text-anchor="middle" font-weight="bold">형제를 잡는 그물과 뇌물</text><text x="553" y="125" font-family="serif" font-size="8.8" fill="#e2e8f0" text-anchor="middle">원수 된 집 식구 (7:2–6)</text></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 추수 끝난 빈 밭에서 처음 익은 무화과를 찾으며 터뜨린 굶주린 탄식</span><span>미가 7:1–3 · “재앙이로다 나여”, 먹을 것을 바라는 영혼과 욕심을 말하는 영혼의 대비</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">12월 끝자락 밤, 책상 스탠드 아래서 미가 7장 1절부터 6절을 펼쳤다. 세태와 집안의 무너짐을 다룬 말씀이라 남을 꾸짖는 소리로 읽기 쉽다. 하지만 첫 줄은 남을 치기 전에 내 가슴을 치는 울음이다. <mark class="hl"><strong>“재앙이로다 나여”</strong></mark> 하고 먼저 탄식한다. 여름 과일과 포도를 다 <mark class="hl"><strong>거둔 빈 밭에 선 사람처럼, 미가는 먹을 포도송이와 처음 익은 무화과를 바라며 운다.</strong></mark></p>
+    <p class="essay-p">그 울음 뒤로 거친 세상이 모습을 드러낸다. 2절에 따르면 경건한 사람도 정직한 사람도 세상에서 끊어졌다. 무리는 피를 흘리려고 숨어 기다리며 그물로 형제를 잡으려 한다. 3절에서는 지도자와 재판관이 뇌물을 구하고 권세자는 욕심을 입에 올리며 서로 한패가 될 뿐이다. 6절에 와서는 집안까지 무너져 아들이 아버지를 업신여기고, 딸은 어머니에게, 며느리는 시어머니에게 맞선다. <mark class="hl"><strong>결국 사람의 원수가 곧 집 식구라는 말로 닫힌다.</strong></mark></p>
+    <p class="pull essay-p">여섯 절을 천천히 따라가다 두 낱말 앞에서 손끝이 멈춘다. 1절에서 미가의 마음이 처음 익은 무화과를 사모할 때 원문은 ‘영혼’이라는 낱말(נֶפֶשׁ)을 쓴다. 3절에서 권세자가 마음의 욕심을 말할 때도 같은 단어가 다시 놓인다. ‘욕심’이라 옮긴 말이 정확히 무슨 뜻인지는 확인하지 못했다. 그래도 한 영혼은 먹을 것을 사모하고 다른 영혼은 욕심을 내뱉는다. 그래서 이 탄식은 남을 정죄하기 전에 <mark class="hl"><strong>굶주린 사람의 말</strong></mark>이다.</p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>꾸짖기 전에 빈 밭에서 먼저 울다 (미가 7:1-6)</b><span>02 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅱ.</span>가시 곁에 다시 불린 정직과 그 틈</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="가시와 찔레 울타리 곁에 세워진 정직한 자 팻말, 열린 성경책 안의 7장 4절 번역과 원문 대비, 두 개의 분리된 두루마리가 보여 주는 마태복음 10장 겹침과 침묵"><defs><linearGradient id="m1229c2_bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e2328"/><stop offset="0.55" stop-color="#2c2d34"/><stop offset="1" stop-color="#1a1b20"/></linearGradient><radialGradient id="m1229c2_glow" cx="0.22" cy="0.46" r="0.35"><stop offset="0" stop-color="#d97706" stop-opacity="0.2"/><stop offset="1" stop-color="#1e2328" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#m1229c2_bg)"/><rect width="674" height="160" fill="url(#m1229c2_glow)"/><rect x="0" y="134" width="674" height="26" fill="#151418"/><g id="m1229c2_left"><line x1="115" y1="52" x2="115" y2="134" stroke="#b45309" stroke-width="3"/><path d="M24 134 Q42 92 68 122 Q94 86 122 124 Q148 88 176 120 Q192 98 206 134" fill="none" stroke="#a8a29e" stroke-width="2.2"/><path d="M42 108 L36 94 M68 106 L74 92 M98 104 L92 90 M138 104 L144 90 M168 106 L176 92" stroke="#e7e5e4" stroke-width="1.4" stroke-linecap="round"/><rect x="48" y="16" width="134" height="36" rx="4" fill="#3f2e21" stroke="#f59e0b" stroke-width="1.4"/><text x="115" y="38" font-family="serif" font-size="11" fill="#fef3c7" text-anchor="middle" font-weight="bold">“정직한 자”</text><text x="115" y="150" font-family="serif" font-size="9.5" fill="#d6d3d1" text-anchor="middle">가시와 찔레 울타리 곁</text></g><g id="m1229c2_center"><path d="M234 16 L440 16 L440 130 Q388 126 337 134 Q286 126 234 130 Z" fill="#1d2430" stroke="#60a5fa" stroke-width="1.3"/><rect x="244" y="14" width="186" height="22" rx="4" fill="#1e3a8a"/><text x="337" y="29" font-family="serif" font-size="9.5" fill="#dbeafe" text-anchor="middle" font-weight="bold">7:4 번역과 원문의 차이</text><rect x="244" y="42" width="186" height="38" rx="4" fill="#273244"/><text x="337" y="57" font-family="serif" font-size="8.8" fill="#e2e8f0" text-anchor="middle">개역개정: ‘가장’ · ‘더하다’ · ‘그들의’</text><text x="337" y="72" font-family="serif" font-size="8.5" fill="#94a3b8" text-anchor="middle">원문에는 이 세 말이 없음</text><rect x="244" y="86" width="186" height="40" rx="4" fill="#3b2a1e" stroke="#fbbf24" stroke-width="1.1"/><text x="337" y="102" font-family="serif" font-size="9.5" fill="#fde68a" text-anchor="middle" font-weight="bold">원문: ‘너의 파수꾼 · 너의 형벌’</text><text x="337" y="118" font-family="serif" font-size="8.5" fill="#fef3c7" text-anchor="middle">대상과 시점은 본문에 열려 있음</text></g><g id="m1229c2_right"><rect x="458" y="16" width="200" height="118" rx="6" fill="#21222c" stroke="#8b5cf6" stroke-width="1.2"/><path d="M468 20 Q558 14 648 20 L648 54 Q558 50 468 54 Z" fill="#2d2f3f" stroke="#94a3b8" stroke-width="1"/><text x="558" y="34" font-family="serif" font-size="9.5" fill="#e2e8f0" text-anchor="middle" font-weight="bold">미가 7:6 무너진 집</text><text x="558" y="48" font-family="serif" font-size="8.5" fill="#cbd5e1" text-anchor="middle">집 식구가 곧 원수</text><line x1="476" y1="55" x2="476" y2="62" stroke="#a78bfa" stroke-dasharray="2,2"/><line x1="640" y1="55" x2="640" y2="62" stroke="#a78bfa" stroke-dasharray="2,2"/><path d="M468 62 Q558 57 648 62 L648 98 Q558 94 468 98 Z" fill="#332d48" stroke="#c4b5fd" stroke-width="1.2"/><text x="558" y="77" font-family="serif" font-size="9.5" fill="#ede9fe" text-anchor="middle" font-weight="bold">마태복음 10장 겹침</text><text x="558" y="91" font-family="serif" font-size="8.5" fill="#ddd6fe" text-anchor="middle">오신 일에 잇댐 (인용 표시 없음)</text><text x="558" y="114" font-family="serif" font-size="8.8" fill="#fcd34d" text-anchor="middle">엘리야 칠천 명 ↔ 미가 탄식</text><text x="558" y="128" font-family="serif" font-size="8.5" fill="#cbd5e1" text-anchor="middle">하나님의 이름 · 대답 없는 끝</text></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 가시와 찔레 울타리 곁에 다시 불린 정직한 자와 풀리지 않은 틈</span><span>미가 7:4–6 · 원문에 ‘가장’·‘더하다’ 없이 불린 정직, 마태복음 10장과의 겹침과 열린 침묵</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">두 절 뒤인 4절에서는 앞에서 없다고 한 ‘정직한 자’가 다시 불린다. 이번에는 가시 울타리 곁에 세워진다. 개역개정 번역은 “그들의 가장 선한 자라도 가시 같고 가장 정직한 자라도 찔레 울타리보다 더하도다”라고 옮겼다. 하지만 <mark class="hl"><strong>원문에는 ‘가장’도 ‘더하다’도 없고 앞줄과 달리 ‘그들의’도 붙지 않았다.</strong></mark> 없다고 한 정직한 자의 이름이 가시 울타리 곁에 다시 불려 세워지는 대비가 여기 남는다. 그 ‘정직한 자’가 정직하다고 불리는 사람인지 정직 자체인지는 열어 둔 대목이다.</p>
+    <span class="break"></span>
+    <p class="essay-p">무너진 집의 그림은 신약 마태복음 10장 35절과 36절에서도 겹친다. 미가가 5절에서 이웃을 믿지 말라 한 뒤 그 까닭으로 적은 집안의 대적이 거기에도 나온다. 예수님도 <mark class="hl"><strong>“내가 온 것은 갈라 놓으려는 것이다”</strong></mark> 하시며 아버지와 어머니, 시어머니와 맞서는 일을 말씀하신다. 다만 마태는 <mark class="hl"><strong>‘기록된 바’</strong></mark> 같은 표시로 미가를 가리키지 않았다. 미가에서 형벌의 날 모습으로 그린 무너짐을 예수님은 당신이 오신 일에 잇대어 말씀하셨다. 둘의 겹침이 인용인지 암시인지, 미가의 말이 거기서 이루어졌다고 할 수 있는지도 이 본문으로는 닫을 수 없다. <mark class="hl"><strong>그저 두 말씀이 겹친다는 사실까지만 조용히 바라본다.</strong></mark></p>
+    <p class="essay-p">본문은 그 밖에도 많은 매듭을 풀지 않은 채 남긴다. 열왕기상 19장에서 엘리야가 “나만 홀로 남았다”고 할 때 하나님은 칠천 명을 남기겠다 답하셨다. 반면 미가는 정직한 자가 없다고 말할 뿐이며, 성경은 한쪽으로 다른 쪽을 지우지 않는다. 4절 원문은 ‘그들의’가 아니라 <mark class="hl"><strong>‘너의 파수꾼들의 날’, ‘너의 형벌’</strong></mark>이라고 직접 부른다. 그 ‘너’가 백성 전체인지 한 사람인지, 형벌이 이미 닥쳤는지 앞날의 일인지도 정해져 있지 않다. 이 단락은 하나님의 이름도 대답도 없이 끝나며, 나는 그 끝을 다른 말로 서둘러 닫지 않는다.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>꾸짖기 전에 빈 밭에서 먼저 울다 (미가 7:1-6)</b><span>03 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅲ.</span>아픈 집과 일터에 ‘우리’로 내린 밤</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="책상 스탠드 아래 펼쳐진 밤 노트 위 재앙이로다 나여 한 줄, 일터 평가서 서명란 앞에서 멈춘 펜, 강단 위 열린 성경과 회중 앞 우리라는 고백"><defs><linearGradient id="m1229c3_bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#181c26"/><stop offset="0.55" stop-color="#232936"/><stop offset="1" stop-color="#1f1d28"/></linearGradient><radialGradient id="m1229c3_lamp" cx="0.12" cy="0.34" r="0.35"><stop offset="0" stop-color="#fbbf24" stop-opacity="0.28"/><stop offset="1" stop-color="#181c26" stop-opacity="0"/></radialGradient></defs><rect width="674" height="160" fill="url(#m1229c3_bg)"/><rect width="674" height="160" fill="url(#m1229c3_lamp)"/><rect x="0" y="134" width="674" height="26" fill="#211814"/><g id="m1229c3_left"><rect x="20" y="130" width="18" height="4" rx="1" fill="#92400e"/><path d="M29 130 L26 60 Q26 42 40 38" fill="none" stroke="#d97706" stroke-width="2.2"/><polygon points="36,32 48,32 52,44 32,44" fill="#f59e0b"/><rect x="48" y="18" width="170" height="116" rx="4" fill="#faf6ee" stroke="#d97706" stroke-width="1.4"/><rect x="48" y="18" width="170" height="22" rx="4" fill="#78350f"/><text x="133" y="33" font-family="serif" font-size="9.5" fill="#fef3c7" text-anchor="middle" font-weight="bold">1. 아픈 집 · 밤의 노트</text><line x1="62" y1="64" x2="204" y2="64" stroke="#cbd5e1" stroke-width="1"/><line x1="62" y1="84" x2="204" y2="84" stroke="#cbd5e1" stroke-width="1"/><line x1="62" y1="104" x2="204" y2="104" stroke="#cbd5e1" stroke-width="1"/><text x="133" y="59" font-family="serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="bold">“재앙이로다 나여”</text><text x="133" y="79" font-family="serif" font-size="9" fill="#334155" text-anchor="middle">가장 아팠던 일 한 줄</text><text x="133" y="99" font-family="serif" font-size="8.8" fill="#78350f" text-anchor="middle">하나님 앞에 그대로 적기</text><text x="133" y="122" font-family="serif" font-size="8.3" fill="#64748b" text-anchor="middle">남을 따지기 전 기도의 첫 자리</text></g><g id="m1229c3_center"><rect x="236" y="18" width="202" height="116" rx="4" fill="#f8fafc" stroke="#0f766e" stroke-width="1.4"/><rect x="236" y="18" width="202" height="22" rx="4" fill="#115e59"/><text x="337" y="33" font-family="serif" font-size="9.5" fill="#ccfbf1" text-anchor="middle" font-weight="bold">2. 일터 · 평가서 서명 전</text><rect x="248" y="46" width="178" height="38" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1"/><text x="337" y="61" font-family="serif" font-size="8.8" fill="#1e293b" text-anchor="middle">내 월급·평가가 걸려 있지 않아도</text><text x="337" y="76" font-family="serif" font-size="9.8" fill="#0f766e" text-anchor="middle" font-weight="bold">같은 의견을 쓸까?</text><line x1="254" y1="108" x2="354" y2="108" stroke="#64748b" stroke-dasharray="3,2"/><text x="266" y="103" font-family="serif" font-size="8.2" fill="#64748b">서명</text><polygon points="358,108 366,101 369,105" fill="#d97706"/><path d="M366 101 L410 74 L415 80 L370 106 Z" fill="#92400e"/><text x="337" y="124" font-family="serif" font-size="8.5" fill="#475569" text-anchor="middle">정당한 월급과 뇌물 구별 (내 적용)</text></g><g id="m1229c3_right"><rect x="456" y="18" width="202" height="116" rx="4" fill="#231d2c" stroke="#fbbf24" stroke-width="1.3"/><rect x="456" y="18" width="202" height="22" rx="4" fill="#4c1d95"/><text x="557" y="33" font-family="serif" font-size="9.5" fill="#ede9fe" text-anchor="middle" font-weight="bold">3. 강단과 기도 · ‘우리’</text><rect x="482" y="126" width="42" height="8" fill="#78350f"/><rect x="496" y="76" width="14" height="50" fill="#92400e"/><polygon points="472,62 534,62 528,76 478,76" fill="#b45309" stroke="#fbbf24" stroke-width="1"/><path d="M484 62 Q503 52 522 62 Z" fill="#fef3c7"/><circle cx="608" cy="94" r="5.5" fill="#cbd5e1"/><path d="M598 134 L601 104 Q608 100 615 104 L618 134 Z" fill="#475569"/><circle cx="632" cy="96" r="5" fill="#94a3b8"/><path d="M623 134 L625 106 Q632 102 639 106 L641 134 Z" fill="#334155"/><rect x="542" y="46" width="108" height="38" rx="4" fill="#2e243c" stroke="#a78bfa" stroke-width="1"/><text x="596" y="62" font-family="serif" font-size="9.5" fill="#fde68a" text-anchor="middle" font-weight="bold">“너의 날” → ‘우리’</text><text x="596" y="77" font-family="serif" font-size="8.2" fill="#e2e8f0" text-anchor="middle">특정 교회에 붙이지 않음</text><text x="557" y="150" font-family="serif" font-size="8.8" fill="#d6c4b0" text-anchor="middle">기도로 빌려 쓰는 탄식 · 먼저 들어 주는 곁</text></g></svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 밤 노트의 한 줄, 서명 전 멈춘 펜, 강단 위 ‘우리’라는 고백</span><span>미가 7:1–6 적용 · 아픈 집에서 먼저 적은 탄식 한 줄과 일터 평가서·강단의 첫 동작</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">그래서 이 말씀은 오늘 아픈 집을 떠날 수 없는 사람에게 먼저 다가간다. 돌봄을 받아야 해서, 아직 어려서, 갈 곳과 생활비가 없어서 그 집에 머무는 이들이 있다. 본문은 그들에게 입을 닫으라고 다그치지 않고 “재앙이로다 나여”라는 탄식을 건넨다. 남을 따지는 말을 세우기 전에 <mark class="hl"><strong>오늘 밤 노트에 그 말을 적고 가장 아팠던 일 한 줄을 적어 보려 한다.</strong></mark> 미가의 첫 말이 굶주려 괴롭다는 말이었으니 나도 아픈 일을 먼저 하나님 앞에 그대로 적는 셈이다.</p>
+    <p class="essay-p">일터 책상과 강단에서도 이 말씀은 내 손과 입을 붙든다. 직장인이 일해 주고 받는 월급은 공적 판단을 맡기고 받는 뇌물과 전혀 다르다. 그래도 3절의 재판관을 떠올리면 내 판단이 적힌 평가서 앞에서 펜을 멈추게 된다. 서명하기 전에 ‘내 월급이나 평가가 걸려 있지 않아도 같은 의견을 쓸까’ 한 번 묻는다. 이 물음은 3절에서 한 걸음 더 나아간 내 적용이다. 강단에서도 이 고발을 특정 교회나 교단에 갖다 붙이지 않는다. ‘너의’ 날이라 부르신 자리 앞에 나 자신과 회중을 세워 <mark class="hl"><strong>남 대신 ‘우리’라고 말할 뿐이다.</strong></mark></p>
+  </div>
+  <section class="address">
+    <p class="essay-p">추수가 끝난 빈 밭에 서서 자기 아픔을 우는 미가의 말에는 하나님을 부르는 구절도 대답도 없다. 그 말을 집에서 기도로 빌려 쓰면 무너진 모습을 남의 일처럼 아뢰지 않고 <mark class="hl"><strong>‘나에게’</strong></mark>로 받는 말이 된다. 물론 그것은 이 본문 밖에서 걸어 나오는 고백이며, 오늘 가족과 이웃을 의심하라는 뜻이 아니다. 저무는 밤, 내 안의 굶주림과 기울어짐을 숨기지 않고 주님 앞에 내어놓는다. <mark class="hl"><strong>그리고 아픈 집을 못 떠나는 사람 곁에서 먼저 들어 주는 이로 서기를 기도한다.</strong></mark></p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>
