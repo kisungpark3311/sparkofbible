@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1329">
+<title>명령 없이 한 뼘을 비워 두는 용서 (고린도후서 2:1-11) — 1단 지면</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<style>
+  @import url('https://cdn.jsdelivr.net/font-kopub/1.0/KoPubBatang.css');
+
+  :root{
+    --ink:#24302c;
+    --ink-2:#24302c;
+    --mute:#64748b;
+    --rule:#d8d0c6;
+    --rust:#9a4a2e;
+    --accent:#2563eb;
+    --paper:#fffdf8;
+    --desk:#e8e4de;
+    --toolbar-bg:rgba(255, 253, 248, 0.95);
+    --btn-bg:#f8fafc;
+    --body-size:18px;
+    --pull-size:18px;
+    --addr-size:18px;
+  }
+
+  [data-theme="dark"]{
+    --ink:#f1f5f9;
+    --ink-2:#f1f5f9;
+    --mute:#94a3b8;
+    --rule:#233554;
+    --rust:#60a5fa;
+    --accent:#3b82f6;
+    --paper:#152238;
+    --desk:#0b1329;
+    --toolbar-bg:rgba(21, 34, 56, 0.95);
+    --btn-bg:#0b1329;
+  }
+
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0}
+  body{
+    background-color:var(--desk);
+    color:var(--ink);
+    font-family:'KoPub Batang', 'KoPubWorldBatang', serif;
+    line-height:1.8;
+    word-break:keep-all;
+    padding:0 0 110px;
+    transition:background-color .2s, color .2s;
+  }
+
+  /* ---------- 상단 고정 툴바 (우측 상단 글자크기 · 음영변화 · 복사 · 공유) ---------- */
+  #top-toolbar{
+    position:sticky;
+    top:0;
+    height:60px;
+    background:var(--toolbar-bg);
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    z-index:50;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    margin-bottom:32px;
+    transition:background-color .2s, border-color .2s;
+  }
+  .toolbar-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    overflow:hidden;
+  }
+  .current-section-title{
+    font-family:'Pretendard', sans-serif;
+    font-size:0.95rem;
+    font-weight:600;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .toolbar-right{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-shrink:0;
+  }
+  .tool-btn{
+    background:var(--btn-bg);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:6px;
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:500;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    transition:all .2s;
+  }
+  .tool-btn:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .tool-btn:active{
+    transform:scale(.96);
+  }
+  #fontScaleDisplay{
+    font-size:0.85rem;
+    font-family:'Pretendard', sans-serif;
+    font-weight:600;
+    min-width:44px;
+    text-align:center;
+    color:var(--ink);
+  }
+
+  /* ---------- page (A4, 794×1123) ---------- */
+  .page{
+    width:794px; min-height:1123px;
+    margin:0 auto 40px;
+    background:var(--paper);
+    box-shadow:0 1px 2px rgba(0,0,0,.06), 0 12px 32px rgba(0,0,0,.14);
+    padding:44px 60px 28px;
+    display:flex; flex-direction:column;
+    transition:background-color .2s, color .2s, box-shadow .2s;
+  }
+  .runhead{
+    display:flex; justify-content:space-between; align-items:baseline; gap:20px;
+    padding-bottom:10px; border-bottom:1px solid var(--ink);
+    font-size:12px; letter-spacing:.08em;
+  }
+  .runhead b{font-weight:700}
+  .runhead span{color:var(--mute); white-space:nowrap}
+
+  .kicker{
+    margin:32px 0 0;
+    font-size:13px; font-weight:500;
+    letter-spacing:1px; color:var(--rust);
+  }
+  h1{
+    margin:12px 0 16px;
+    font-size:26px; line-height:1.4; font-weight:700; letter-spacing:-0.5px;
+    color:var(--ink);
+    word-break:keep-all;
+  }
+
+  /* ---------- 중간제목 (3개 내외 · 좌측 포인트 보더) ---------- */
+  h2.subhead{
+    margin:6px 0 14px;
+    padding:3px 0 3px 11px;
+    border-left:3.5px solid var(--rust);
+    font-family:'Pretendard', 'KoPub Batang', sans-serif;
+    font-size:17px;
+    line-height:1.45;
+    font-weight:700;
+    letter-spacing:-0.3px;
+    color:var(--rust);
+    word-break:keep-all;
+  }
+  h2.subhead .subhead-num{
+    font-family:'KoPub Batang', serif;
+    font-weight:700;
+    margin-right:5px;
+    opacity:0.92;
+  }
+
+  /* ---------- figure (페이지 상단 전폭 컷 일러스트) ---------- */
+  figure{
+    margin:18px 0 26px;
+    width:100%;
+  }
+  .photo{
+    position:relative;
+    height:160px;
+    overflow:hidden;
+    background:#1a222d;
+    border-radius:2px;
+  }
+  .photo svg{display:block; width:100%; height:100%}
+  .photo img{display:block; width:100%; height:100%; object-fit:cover; object-position:center;}
+  .cut-caption{
+    margin-top:6px;
+    font-family:'Pretendard', sans-serif;
+    font-size:11.5px;
+    color:var(--mute);
+    letter-spacing:.02em;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+  }
+  .cut-caption span:first-child{
+    font-weight:600;
+    color:var(--ink);
+  }
+  .cut-caption span:last-child{
+    font-style:italic;
+    opacity:0.88;
+    white-space:nowrap;
+  }
+
+  .night{
+    background:
+      radial-gradient(1.4px 1.4px at 12% 22%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 22% 58%, #f6e7b8 60%, transparent),
+      radial-gradient(1.6px 1.6px at 31% 14%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 41% 70%, #fff 60%, transparent),
+      radial-gradient(1.2px 1.2px at 48% 35%, #f6e7b8 60%, transparent),
+      radial-gradient(1px 1px at 57% 12%, #fff 60%, transparent),
+      radial-gradient(1.4px 1.4px at 82% 62%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 90% 20%, #f6e7b8 60%, transparent),
+      radial-gradient(1.2px 1.2px at 94% 78%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 6% 80%, #fff 60%, transparent),
+      radial-gradient(1px 1px at 66% 84%, #f6e7b8 60%, transparent),
+      radial-gradient(120% 90% at 70% 10%, #2c3a63 0%, #141b30 70%);
+  }
+  .night::before,.night::after{content:""; position:absolute; background:rgba(255,255,255,.10)}
+  .night::before{left:50%; top:0; bottom:0; width:6px; transform:translateX(-50%)}
+  .night::after{left:0; right:0; top:50%; height:6px}
+  .moon{
+    position:absolute; left:68%; top:18%;
+    width:48px; height:48px; border-radius:50%;
+    background:linear-gradient(90deg, transparent 50%, #f3d27c 50%);
+    filter:drop-shadow(0 0 12px rgba(243,210,124,.45));
+  }
+
+  /* ---------- body (AI-HTML 서체·굵기·크기·행간 + 핵심 구절 형광·볼드 강조) ---------- */
+  .body{
+    display:block;
+    font-size:var(--body-size);
+    transition:font-size .2s ease;
+  }
+  .body::after{
+    content:"";
+    display:table;
+    clear:both;
+  }
+  .body p{
+    margin:0 0 24px 0;
+  }
+  .body p.dc::first-letter{
+    float:left; margin:4px 12px 0 0;
+    font-size:52px; line-height:.9; font-weight:700; color:var(--rust);
+  }
+  .body p.pull{
+    margin:20px 0 24px; padding:4px 0 4px 20px;
+    border-left:3px solid var(--rust);
+    font-size:var(--pull-size); line-height:1.8; font-weight:400; color:var(--ink);
+  }
+  .break{display:block; width:36px; height:1px; margin:20px auto 26px; background:var(--rust)}
+
+  /* 핵심 구절 형광펜 + 볼드체 강조 (은은한 웜 골드 톤) */
+  mark.hl, .hl{
+    background:linear-gradient(to top, rgba(250, 204, 21, 0.24) 46%, transparent 46%);
+    color:var(--ink);
+    font-weight:700;
+    padding:0 2px;
+    border-radius:2px;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  strong.kw, .kw, .body strong, .address strong{
+    font-weight:700;
+    color:var(--ink);
+  }
+  [data-theme="dark"] mark.hl, [data-theme="dark"] .hl{
+    background:linear-gradient(to top, rgba(234, 179, 8, 0.22) 46%, transparent 46%);
+    color:#fef3c7;
+    font-weight:700;
+  }
+
+  /* 결미 단락 */
+  .address{
+    margin:12px 0 6px; padding:22px 0 2px;
+    border-top:1px solid var(--ink);
+    font-size:var(--addr-size);
+    transition:font-size .2s ease;
+  }
+  .address p{
+    margin:0 0 24px 0;
+    font-weight:400;
+  }
+
+  .foot{
+    margin-top:auto; padding-top:12px;
+    border-top:1px solid var(--rule);
+    display:flex; justify-content:space-between;
+    font-size:12px; color:var(--mute); letter-spacing:.04em;
+  }
+
+  /* ---------- zoom control ---------- */
+  .zoom{
+    position:fixed; left:50%; bottom:20px; transform:translateX(-50%);
+    display:flex; align-items:center; gap:4px;
+    padding:6px 10px; border-radius:999px;
+    background:var(--paper); border:1px solid var(--rule);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    font-family:'Pretendard', sans-serif;
+    z-index:10;
+  }
+  .zoom button{
+    width:40px; height:40px; border:0; border-radius:50%; background:transparent;
+    color:var(--mute); cursor:pointer; display:grid; place-items:center;
+  }
+  .zoom button:hover{background:var(--btn-bg); color:var(--ink)}
+  .zoom output{min-width:56px; text-align:center; font-size:13.5px; font-weight:600; color:var(--ink)}
+
+  /* ---------- 토스트 알림 ---------- */
+  #toast{
+    position:fixed; bottom:84px; left:50%;
+    transform:translateX(-50%) translateY(100px);
+    background:rgba(15, 23, 42, 0.92); color:#fff;
+    padding:12px 24px; border-radius:30px;
+    font-family:'Pretendard', sans-serif;
+    font-size:0.9rem; opacity:0; transition:all .3s cubic-bezier(.4, 0, .2, 1);
+    pointer-events:none; z-index:1000; white-space:nowrap;
+    box-shadow:0 4px 15px rgba(0,0,0,.2);
+  }
+  #toast.show{
+    transform:translateX(-50%) translateY(0); opacity:1;
+  }
+
+  /* ---------- A4 양식 & 모바일 반응형 자동 전환 + 수동 뷰 전환 지원 ---------- */
+  body[data-view="mobile"] #book{
+    zoom:1 !important;
+  }
+  body[data-view="mobile"] .page{
+    width:min(100% - 24px, 680px);
+    min-height:auto;
+    margin:0 auto 20px;
+    padding:28px 22px 22px;
+    border-radius:10px;
+  }
+  body[data-view="mobile"] .runhead{
+    flex-wrap:wrap;
+    gap:4px 10px;
+    font-size:11.5px;
+  }
+  body[data-view="mobile"] .kicker{margin-top:20px; font-size:12px}
+  body[data-view="mobile"] h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+  body[data-view="mobile"] h2.subhead{font-size:15.5px; margin:4px 0 12px}
+  body[data-view="mobile"] figure{
+    margin:14px 0 18px;
+    width:100%;
+    float:none;
+    max-width:none;
+    padding:0;
+    border:none;
+    box-shadow:none;
+    background:transparent;
+  }
+  body[data-view="mobile"] .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+  body[data-view="mobile"] .cut-caption{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    font-size:11px;
+  }
+  body[data-view="mobile"] .cut-caption span:last-child{
+    white-space:nowrap;
+  }
+  body[data-view="mobile"] .body p{margin:0 0 18px 0}
+  body[data-view="mobile"] .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+  body[data-view="mobile"] .body p.pull{padding-left:14px; margin:16px 0 18px}
+  body[data-view="mobile"] .zoom{
+    display:none;
+  }
+
+  @media (max-width: 840px){
+    body{padding:0 0 48px}
+    #top-toolbar{
+      height:auto;
+      min-height:54px;
+      padding:8px 12px;
+      margin-bottom:16px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+    }
+    .toolbar-left{
+      display:flex;
+      justify-content:center;
+    }
+    .current-section-title{
+      font-size:0.84rem;
+      text-align:center;
+    }
+    .toolbar-right{
+      width:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tool-btn{
+      padding:5px 9px;
+      font-size:0.8rem;
+    }
+    body:not([data-view="a4"]) #book{zoom:1 !important}
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 20px);
+      min-height:auto;
+      margin:0 auto 18px;
+      padding:26px 20px 20px;
+      border-radius:8px;
+    }
+    body:not([data-view="a4"]) .runhead{
+      flex-wrap:wrap;
+      gap:4px 10px;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .kicker{margin-top:20px; font-size:12px}
+    body:not([data-view="a4"]) h1{font-size:22px; line-height:1.38; margin:8px 0 12px}
+    body:not([data-view="a4"]) h2.subhead{font-size:15.5px; margin:4px 0 12px}
+    body:not([data-view="a4"]) figure{
+      margin:14px 0 18px;
+      width:100%;
+      float:none;
+      max-width:none;
+      padding:0;
+      border:none;
+      box-shadow:none;
+      background:transparent;
+    }
+    body:not([data-view="a4"]) .photo{height:clamp(120px, 34vw, 160px); border-radius:3px}
+    body:not([data-view="a4"]) .cut-caption{
+      flex-direction:row;
+      justify-content:space-between;
+      align-items:baseline;
+      font-size:11px;
+    }
+    body:not([data-view="a4"]) .cut-caption span:last-child{
+      white-space:nowrap;
+    }
+    body:not([data-view="a4"]) .body p{margin:0 0 18px 0}
+    body:not([data-view="a4"]) .body p.dc::first-letter{font-size:42px; margin:2px 8px 0 0}
+    body:not([data-view="a4"]) .body p.pull{padding-left:14px; margin:16px 0 18px}
+    body:not([data-view="a4"]) .zoom{display:none}
+  }
+
+  @media (max-width: 480px){
+    body:not([data-view="a4"]) .page{
+      width:calc(100% - 12px);
+      padding:22px 16px 18px;
+    }
+    body:not([data-view="a4"]) h1{font-size:20px}
+    body:not([data-view="a4"]) h2.subhead{font-size:14.5px}
+    body:not([data-view="a4"]) figure{margin:12px 0 16px; width:100%; float:none}
+    .tool-btn{padding:5px 8px; font-size:0.76rem}
+    #fontScaleDisplay{min-width:38px; font-size:0.78rem}
+  }
+
+  @media print{
+    @page{size:A4; margin:0}
+    body{background:#fff !important; color:#000 !important; padding:0}
+    #book{zoom:1 !important}
+    #top-toolbar,.zoom,#toast{display:none !important}
+    .page{width:794px !important; min-height:1123px !important; margin:0 !important; padding:44px 60px 28px !important; background:#fff !important; color:#000 !important; box-shadow:none !important; break-after:page}
+  }
+</style>
+</head>
+<body>
+
+<!-- 상단 고정 툴바 (우측 상단 글자크기 가-/100%/가+, 반응형 뷰 전환, 음영변화 🌓, 복사, 공유) -->
+<header id="top-toolbar">
+  <div class="toolbar-left">
+    <span class="current-section-title" id="currentSectionTitle">명령 없이 한 뼘을 비워 두는 용서 (고린도후서 2:1-11)</span>
+  </div>
+  <div class="toolbar-right">
+    <button type="button" class="tool-btn" onclick="changeFontSize(-1)" title="글자 작게">가-</button>
+    <span id="fontScaleDisplay">100%</span>
+    <button type="button" class="tool-btn" onclick="changeFontSize(1)" title="글자 크게">가+</button>
+    <button type="button" class="tool-btn" id="viewModeBtn" onclick="toggleViewMode()" title="A4 지면 / 모바일 반응형 뷰 전환">📱 모바일뷰</button>
+    <button type="button" class="tool-btn" onclick="toggleTheme()" title="다크/라이트 음영 전환">🌓</button>
+    <button type="button" class="tool-btn" onclick="copySermon()" title="본문 복사">📋 복사</button>
+    <button type="button" class="tool-btn" onclick="shareSermon()" title="공유하기">🔗 공유</button>
+  </div>
+</header>
+
+<main id="book">
+<article class="page">
+  <header class="runhead"><b>명령 없이 한 뼘을 비워 두는 용서 (고린도후서 2:1-11)</b><span>01 · 2026년 11월 23일</span></header>
+  <p class="kicker">말씀과 묵상 · 에세이</p>
+  <h1 id="doc-title">명령 없이 한 뼘을 비워 두는 용서 (고린도후서 2:1-11)</h1>
+  <h2 class="subhead"><span class="subhead-num">Ⅰ.</span>이름 없이 들어온 한 사람과 그리스도의 얼굴 앞</h2>
+
+  <figure>
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="두루마리 위 펜을 쥔 사도와 사랑 편지, 이름표가 빈 의자의 이러한 사람, 그리스도의 얼굴 앞 빛과 그 너머 어둠 속 계책의 그물">
+  <defs>
+    <linearGradient id="c1123_v3_1_bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a202c"/>
+      <stop offset="0.55" stop-color="#293446"/>
+      <stop offset="1" stop-color="#151922"/>
+    </linearGradient>
+    <radialGradient id="c1123_v3_1_face" cx="0.78" cy="0.42" r="0.34">
+      <stop offset="0" stop-color="#fde68a" stop-opacity="0.46"/>
+      <stop offset="1" stop-color="#1a202c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="674" height="132" fill="url(#c1123_v3_1_bg)"/>
+  <rect width="674" height="132" fill="url(#c1123_v3_1_face)"/>
+  <rect x="0" y="132" width="674" height="28" fill="#2a221c"/>
+  <line x1="0" y1="132" x2="674" y2="132" stroke="#8c6d4e" stroke-width="1.6"/>
+  <!-- 좌측: y=132 접지 책상과 사도의 팔이 두루마리 위 펜에 정확히 연결됨 -->
+  <path d="M42 132 L46 84 Q49 77 58 77 L64 77 Q73 77 76 84 L80 132 Z" fill="#475569" stroke="#cbd5e1" stroke-width="1"/>
+  <rect x="56" y="71" width="10" height="7" fill="#e2e8f0"/>
+  <circle cx="61" cy="64" r="8" fill="#e2e8f0"/>
+  <rect x="92" y="96" width="10" height="36" fill="#5c4028"/>
+  <rect x="184" y="96" width="10" height="36" fill="#5c4028"/>
+  <rect x="84" y="90" width="120" height="8" rx="2" fill="#785436" stroke="#a17c56" stroke-width="1"/>
+  <rect x="102" y="81" width="54" height="9" rx="1" fill="#fbf5e6" stroke="#b45309" stroke-width="1"/>
+  <path d="M73 84 L108 81" stroke="#e2e8f0" stroke-width="2.8" stroke-linecap="round"/>
+  <line x1="108" y1="81" x2="120" y2="72" stroke="#fde68a" stroke-width="1.6" stroke-linecap="round"/>
+  <rect x="172" y="74" width="8" height="16" fill="#f5ecd7"/>
+  <path d="M176 62 Q180 69 176 75 Q172 69 176 62 Z" fill="#fde047"/>
+  <rect x="22" y="11" width="192" height="22" rx="11" fill="#0f172a" fill-opacity="0.68"/>
+  <text x="118" y="26" font-family="serif" font-size="10.5" fill="#f8fafc" text-anchor="middle">사도의 결심 · 사랑 편지</text>
+  <!-- 중앙: y=132 접지 나무 의자와 빈 이름표(이러한 사람) -->
+  <rect x="296" y="62" width="8" height="70" fill="#5c4028"/>
+  <rect x="362" y="96" width="8" height="36" fill="#5c4028"/>
+  <rect x="294" y="92" width="78" height="7" rx="2" fill="#785436" stroke="#a17c56" stroke-width="1"/>
+  <rect x="308" y="76" width="48" height="16" rx="2" fill="#f5ecd7" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="238" y="11" width="190" height="22" rx="11" fill="#0f172a" fill-opacity="0.68"/>
+  <text x="333" y="26" font-family="serif" font-size="10.5" fill="#e2e8f0" text-anchor="middle">이름 없는 이러한 사람</text>
+  <!-- 우측: y=132 접지 독서대 위 열린 두루마리(그리스도의 얼굴 앞 빛)와 어둠 속 계책 그물 -->
+  <rect x="472" y="114" width="112" height="18" rx="2" fill="#3f3a36" stroke="#d9a05b" stroke-width="1.2"/>
+  <path d="M482 114 L482 64 Q528 56 574 64 L574 114 Z" fill="#fbf5e6" stroke="#b45309" stroke-width="1.3"/>
+  <line x1="496" y1="80" x2="560" y2="80" stroke="#78350f" stroke-width="1.4"/>
+  <line x1="496" y1="92" x2="552" y2="92" stroke="#92400e" stroke-width="1.2"/>
+  <path d="M598 44 Q626 68 656 44 M596 70 Q626 92 658 68 M598 98 Q626 118 658 96" fill="none" stroke="#475569" stroke-width="1.3"/>
+  <path d="M610 42 L614 132 M632 42 L628 132 M650 42 L646 132" fill="none" stroke="#334155" stroke-width="1.2"/>
+  <rect x="452" y="11" width="202" height="22" rx="11" fill="#0f172a" fill-opacity="0.68"/>
+  <text x="553" y="26" font-family="serif" font-size="10.5" fill="#fde68a" text-anchor="middle" font-weight="bold">그리스도의 얼굴 앞 · 계책</text>
+</svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 사도의 편지 책상과 빈 이름표의 한 사람, 그리스도의 얼굴 앞 빛 너머 계책의 그물</span><span>Ⅰ. 이름 없이 들어온 한 사람과 그리스도의 얼굴 앞</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">고린도후서 2장 1~11절을 펼칩니다. 사도는 근심 중에 가지 않겠다 스스로 결심하고, 오지 않기로 정한 주체를 자기 자신으로 적어요. 편지도 넘치는 사랑을 알리려 썼습니다. 2:5의 한 사람은 이름도 한 일도 적히지 않았어요. <mark class="hl"><strong>본문은 그를 오직 「이러한 사람」으로만 부릅니다.</strong></mark></p>
+    <p class="essay-p">교회의 용서와 위로, 사랑 확정을 적지요. 열한 절에 하나님 주어 자리도 그 이름도 한 번도 나오지 않았습니다. 대신 용서가 일어나는 자리는 <mark class="hl"><strong>2:10 끝에서 「그리스도의 얼굴 앞」으로 정해집니다.</strong></mark></p>
+    <p class="pull essay-p">2:11은 까닭을 놓습니다. 위험은 분열도 방종도 아니에요. 사탄에게 속임을 당하는 것, 곧 그 계책을 알지 못하는 것입니다. <mark class="hl"><strong>용서 동사가 명령 없이 놓인 채 단락이 열려 있지요.</strong></mark></p>
+  </div>
+
+  <footer class="foot"><span>001</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>명령 없이 한 뼘을 비워 두는 용서 (고린도후서 2:1-11)</b><span>02 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅱ.</span>은혜와 한 뿌리인 용서, 그리고 비워 둔 세 긴장</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="은혜 한 뿌리에서 자란 다섯 열매와 r=20 명령 0 표지, 2장 5절 안쪽 붉은 표지 책, 2:6과 2:7과 2:8 순서의 세 두루마리">
+  <defs>
+    <linearGradient id="c1123_v3_2_bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a1e24"/>
+      <stop offset="0.55" stop-color="#272d38"/>
+      <stop offset="1" stop-color="#1c2329"/>
+    </linearGradient>
+  </defs>
+  <rect width="674" height="132" fill="url(#c1123_v3_2_bg)"/>
+  <rect x="0" y="132" width="674" height="28" fill="#26201b"/>
+  <line x1="0" y1="132" x2="674" y2="132" stroke="#8c6d4e" stroke-width="1.5"/>
+  <!-- 좌측: y=132 접지 토분 속 은혜 한 뿌리 5열매 + r=20 명령 0 표지판 -->
+  <polygon points="66,132 58,104 120,104 112,132" fill="#78350f" stroke="#d97706" stroke-width="1.3"/>
+  <path d="M89 104 L89 44 M89 86 L64 64 M89 80 L114 60 M89 68 L74 48 M89 68 L104 48" fill="none" stroke="#84cc16" stroke-width="2.3" stroke-linecap="round"/>
+  <circle cx="64" cy="64" r="4" fill="#a3e635"/>
+  <circle cx="114" cy="60" r="4" fill="#a3e635"/>
+  <circle cx="74" cy="48" r="4" fill="#a3e635"/>
+  <circle cx="104" cy="48" r="4" fill="#a3e635"/>
+  <circle cx="89" cy="42" r="4" fill="#bef264"/>
+  <rect x="164" y="113" width="16" height="19" fill="#3f3a36" stroke="#64748b" stroke-width="1"/>
+  <circle cx="172" cy="94" r="20" fill="#1e293b" stroke="#94a3b8" stroke-width="1.3"/>
+  <text x="172" y="98" font-family="serif" font-size="10.5" fill="#e2e8f0" text-anchor="middle">명령 0</text>
+  <rect x="22" y="11" width="192" height="22" rx="11" fill="#0f172a" fill-opacity="0.68"/>
+  <text x="118" y="26" font-family="serif" font-size="10.5" fill="#ecfccb" text-anchor="middle">은혜 한 뿌리 5 · 명령 꼴 0</text>
+  <!-- 중앙: y=132 접지 받침대 위 성경책과 2:5 안쪽 붉은 표지 -->
+  <rect x="322" y="114" width="22" height="18" fill="#5c4028"/>
+  <polygon points="242,114 252,56 414,56 424,114" fill="#f5ecd7" stroke="#92400e" stroke-width="1.3"/>
+  <line x1="333" y1="56" x2="333" y2="114" stroke="#b45309" stroke-width="1.3"/>
+  <text x="290" y="76" font-family="serif" font-size="9.5" fill="#64748b" text-anchor="middle">2:1 (0)</text>
+  <text x="374" y="76" font-family="serif" font-size="10" fill="#991b1b" text-anchor="middle" font-weight="bold">2:5 (1)</text>
+  <rect x="370" y="82" width="10" height="32" rx="1" fill="#dc2626"/>
+  <rect x="232" y="11" width="202" height="22" rx="11" fill="#0f172a" fill-opacity="0.68"/>
+  <text x="333" y="26" font-family="serif" font-size="10.5" fill="#fecaca" text-anchor="middle">2:1(0) · 2:5(1) 안쪽 표지</text>
+  <!-- 우측: y=132 접지 받침 위의 둥근 말림 세 두루마리 (2:6 -> 2:7 -> 2:8 순) -->
+  <rect x="452" y="114" width="206" height="18" rx="2" fill="#4a3525" stroke="#8c6d4e" stroke-width="1"/>
+  <path d="M458 62 Q486 56 514 62 L514 110 Q486 114 458 110 Z" fill="#fbf5e6" stroke="#b45309" stroke-width="1.2"/>
+  <ellipse cx="486" cy="62" rx="28" ry="4" fill="#e7dcc6" stroke="#92400e" stroke-width="1"/>
+  <ellipse cx="486" cy="110" rx="28" ry="4" fill="#d6c7b2" stroke="#92400e" stroke-width="1"/>
+  <text x="486" y="80" font-family="serif" font-size="9.5" fill="#1e293b" text-anchor="middle" font-weight="bold">2:6</text>
+  <rect x="469" y="87" width="34" height="13" rx="2" fill="none" stroke="#b45309" stroke-dasharray="3,2"/>
+  <path d="M526 62 Q554 56 582 62 L582 110 Q554 114 526 110 Z" fill="#fbf5e6" stroke="#b45309" stroke-width="1.2"/>
+  <ellipse cx="554" cy="62" rx="28" ry="4" fill="#e7dcc6" stroke="#92400e" stroke-width="1"/>
+  <ellipse cx="554" cy="110" rx="28" ry="4" fill="#d6c7b2" stroke="#92400e" stroke-width="1"/>
+  <text x="554" y="80" font-family="serif" font-size="9.5" fill="#1e293b" text-anchor="middle" font-weight="bold">2:7</text>
+  <rect x="537" y="87" width="34" height="13" rx="2" fill="none" stroke="#b45309" stroke-dasharray="3,2"/>
+  <path d="M594 62 Q623 56 652 62 L652 110 Q623 114 594 110 Z" fill="#fbf5e6" stroke="#b45309" stroke-width="1.2"/>
+  <ellipse cx="623" cy="62" rx="29" ry="4" fill="#e7dcc6" stroke="#92400e" stroke-width="1"/>
+  <ellipse cx="623" cy="110" rx="29" ry="4" fill="#d6c7b2" stroke="#92400e" stroke-width="1"/>
+  <text x="623" y="80" font-family="serif" font-size="9.5" fill="#1e293b" text-anchor="middle" font-weight="bold">2:8</text>
+  <text x="623" y="98" font-family="serif" font-size="9" fill="#475569" text-anchor="middle">1 vs 여럿</text>
+  <rect x="452" y="11" width="206" height="22" rx="11" fill="#0f172a" fill-opacity="0.68"/>
+  <text x="555" y="26" font-family="serif" font-size="10.5" fill="#fde68a" text-anchor="middle">개역한글·개역개정 세 긴장</text>
+</svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 은혜 한 뿌리 다섯 열매, 2:5 안쪽 표지, 2:6·2:7·2:8 세 긴장 두루마리</span><span>Ⅱ. 은혜와 한 뿌리인 용서, 그리고 비워 둔 세 긴장</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">2:10에 ‘용서’(‘카리조마이’)가 세 번 놓여(신약 27권 중 유일) 2:7과 함께 명령 꼴이 0토막입니다. 1~4장엔 명령이 없고 5장에 스물두 토막이 열려요. 신약의 이 동사 명령 꼴은 고린도후서 12장 한 번뿐이고, 구하는 이도 교회가 아닌 사도이지요. 유일한 요구는 1인칭 ‘내가 권한다’(2:8)뿐입니다. 명령으로 선포할 어휘 근거가 신약 전권에 없지요. 다만 스물일곱 권만 살핀 짧은 구간이라 침묵에서 의도를 읽지 않습니다. 표준 용서 낱말 다섯은 고린도후서에 0토막입니다. ‘사하다’(동사 143·명사 17), ‘풀어 주다’(67), ‘양해’와 ‘놓아둠’이 다 비었지요. ‘은혜’(18번)와 한 말뿌리인 다섯만 쓰며 다 스스로에게 돌아오는 꼴이에요. 밖의 처분 집행이 아니라 자기가 건네는 일이며 양쪽에 같은 낱말이 놓입니다. <mark class="hl"><strong>그러니 빚 계산 종료나 사면 절차라고 읽을 재료가 0토막이지요.</strong></mark> 칠십인역과 교부는 살피지 못했습니다. 에베소서 1장 7절·골로새서 1장 14절엔 ‘사하다’ 명사가 두 번 쓰여 저자 기본값이라고 적지 못하지요. 짧은 서신에서 한 어휘군이 우연히 빠졌을 가능성도 열어 둡니다.</p>
+    <span class="break"></span>
+    <p class="essay-p">원어 판의 절 머리 표지는 2:1에 0, 2:5(<mark class="hl"><strong>“그런데 누가 ~하면”</strong></mark>)에 1이에요. 개역개정 소제목(「근심하게 한 사람을 용서하라」)도 2:5 앞에 놓여 2:1을 지나치지요. 이 표지는 마흔여덟 절에 놓여 서른한 첫머리 중 스물일곱을 맞추고, 빠진 넷 중 하나가 2:1입니다. 본문이 경계 표시 없이도 종지절과 인물 등장에서 단락을 읽었어요. <mark class="hl"><strong>한 판 철자만 보았을 뿐, 겹침 기대치나 규약 까닭은 자료에 없습니다.</strong></mark></p>
+    <p class="essay-p">세 긴장도 둡니다. 첫째, 2:6 열 토막에 동사 0, 술어는 ‘충분한’ 하나뿐이에요. 개역한글은 ‘벌 받은 것이 족하도다’, 개역개정은 ‘벌 받는 것이 마땅하도다’로 옮겼지요. 둘 중 하나를 원문 뜻으로 고르지 않습니다. 둘째, 2:6~8 대상은 한 사람인데 개역개정이 ‘그들에게’, 개역한글이 ‘저희에게’로 옮겼어요. <mark class="hl"><strong>두 역본 본문 줄에는 한 사람임이 남지 않았습니다.</strong></mark> 셋째, 2:7 삼킴을 당할 절은 행위자 칸이 0토막이에요. 2:6(많은 이들에게서)·2:11(사탄에게서)·5:4는 채워졌으나 2:7만 비었지요. 개역개정이 ‘잠길까’에 각주 ‘헬, 삼키울까’를 달았지만 그 다른 독법을 원문 확정 뜻으로 쓰지 않아요.</p>
+  </div>
+
+  <footer class="foot"><span>002</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+
+<article class="page">
+  <header class="runhead"><b>명령 없이 한 뼘을 비워 두는 용서 (고린도후서 2:1-11)</b><span>03 / 03</span></header>
+  <h2 class="subhead" style="margin-top:18px"><span class="subhead-num">Ⅲ.</span>두 손 한 뼘, 빈자리와 띄운 줄을 지키는 손</h2>
+
+  <figure style="margin-top:26px">
+    <div class="photo">
+      <svg viewBox="0 0 674 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="그리스도의 얼굴 앞 금빛 광채 아래 엄지와 손가락이 마주 선 두 손 한 뼘, 회중 의자 빈자리, 한 줄 띄운 장부, 베개와 이불이 놓인 침대와 벽 사이 틈">
+  <defs>
+    <linearGradient id="c1123_v3_3_bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#231f1b"/>
+      <stop offset="0.55" stop-color="#352e28"/>
+      <stop offset="1" stop-color="#1e1b18"/>
+    </linearGradient>
+    <radialGradient id="c1123_v3_3_face" cx="0.88" cy="0.14" r="0.52">
+      <stop offset="0" stop-color="#fef08a" stop-opacity="0.52"/>
+      <stop offset="0.55" stop-color="#f59e0b" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#231f1b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="674" height="132" fill="url(#c1123_v3_3_bg)"/>
+  <rect width="674" height="132" fill="url(#c1123_v3_3_face)"/>
+  <polygon points="560,0 674,0 674,116 446,132" fill="#fef08a" opacity="0.10"/>
+  <rect x="512" y="10" width="140" height="22" rx="11" fill="#0f172a" fill-opacity="0.65"/>
+  <text x="582" y="25" font-family="serif" font-size="10" fill="#fde68a" text-anchor="middle" font-weight="bold">그리스도의 얼굴 앞 빛</text>
+  <rect x="0" y="132" width="674" height="28" fill="#4a3525"/>
+  <line x1="0" y1="132" x2="674" y2="132" stroke="#a17c56" stroke-width="1.6"/>
+  <!-- 1: y=132 소매 접지, 손바닥·엄지·손가락 윤곽이 드러난 마주 선 두 손 한 뼘 -->
+  <rect x="36" y="110" width="24" height="22" fill="#334155"/>
+  <path d="M40 110 L40 76 L43 52 L48 52 L48 74 L52 50 L57 50 L57 74 L63 62 L67 64 L59 86 L58 110 Z" fill="#e5c19c" stroke="#b08968" stroke-width="0.9"/>
+  <rect x="114" y="110" width="24" height="22" fill="#334155"/>
+  <path d="M134 110 L134 76 L131 52 L126 52 L126 74 L122 50 L117 50 L117 74 L111 62 L107 64 L115 86 L116 110 Z" fill="#e5c19c" stroke="#b08968" stroke-width="0.9"/>
+  <line x1="68" y1="84" x2="106" y2="84" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="3,3"/>
+  <text x="87" y="150" font-family="serif" font-size="9.5" fill="#fde68a" text-anchor="middle">두 손 한 뼘</text>
+  <!-- 2: y=132 접지 나란한 의자와 가운데 빈자리 하나 -->
+  <rect x="182" y="92" width="28" height="40" fill="#5c4028" stroke="#a17c56" stroke-width="1"/>
+  <rect x="186" y="64" width="20" height="28" rx="4" fill="#64748b"/>
+  <rect x="192" y="59" width="8" height="6" fill="#e2e8f0"/>
+  <circle cx="196" cy="53" r="7" fill="#e2e8f0"/>
+  <rect x="226" y="92" width="34" height="40" fill="none" stroke="#fbbf24" stroke-width="1.3" stroke-dasharray="3,2"/>
+  <rect x="276" y="92" width="28" height="40" fill="#5c4028" stroke="#a17c56" stroke-width="1"/>
+  <rect x="280" y="64" width="20" height="28" rx="4" fill="#475569"/>
+  <rect x="286" y="59" width="8" height="6" fill="#e2e8f0"/>
+  <circle cx="290" cy="53" r="7" fill="#e2e8f0"/>
+  <text x="243" y="150" font-family="serif" font-size="9.5" fill="#f8fafc" text-anchor="middle">회중 사이 빈자리</text>
+  <!-- 3: y=132 접지 세무 장부 한 줄 띄움 -->
+  <polygon points="346,132 356,66 468,66 478,132" fill="#fffbeb" stroke="#8c7355" stroke-width="1.3"/>
+  <line x1="366" y1="84" x2="458" y2="84" stroke="#334155" stroke-width="2"/>
+  <line x1="364" y1="98" x2="460" y2="98" stroke="#fbbf24" stroke-width="1.3" stroke-dasharray="4,3"/>
+  <line x1="362" y1="112" x2="462" y2="112" stroke="#334155" stroke-width="2"/>
+  <text x="412" y="150" font-family="serif" font-size="9.5" fill="#fde68a" text-anchor="middle">장부 한 줄 띄워 적기</text>
+  <!-- 4: y=132 접지 베개·이불이 보이는 침대와 벽 사이 틈 -->
+  <rect x="514" y="102" width="94" height="30" fill="#785436" stroke="#a17c56" stroke-width="1.2"/>
+  <rect x="514" y="76" width="10" height="26" fill="#5c4028"/>
+  <ellipse cx="538" cy="88" rx="12" ry="5" fill="#f8fafc" stroke="#cbd5e1" stroke-width="0.9"/>
+  <rect x="524" y="92" width="84" height="12" rx="2" fill="#e2e8f0"/>
+  <path d="M548 92 L608 92 L608 104 L556 104 Q548 98 548 92 Z" fill="#94a3b8"/>
+  <rect x="634" y="42" width="18" height="90" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="612" y1="102" x2="630" y2="102" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="3,2"/>
+  <text x="584" y="150" font-family="serif" font-size="9.5" fill="#f8fafc" text-anchor="middle">침대와 벽 사이 틈</text>
+</svg>
+    </div>
+    <figcaption class="cut-caption"><span>▲ 그리스도의 얼굴 앞 빛 아래 한 뼘 벌린 두 손, 빈자리, 띄운 장부 한 줄, 베개 놓인 침대와 벽 사이 틈</span><span>Ⅲ. 두 손 한 뼘, 빈자리와 띄운 줄을 지키는 손</span></figcaption>
+  </figure>
+
+  <div class="body">
+    <p class="dc essay-p">변호할 말조차 잃고 용서를 기다리는 분에게 명령은 없습니다. <mark class="hl"><strong>오늘 할 일은 두 손을 맞붙여 담는 대신 두 손 사이를 한 뼘만 벌려 두는 것이지요.</strong></mark> 그 한 뼘이 건네받지 못한 몫이며, 본문은 그 빈 사이를 당신이 채우라고 적지 않았습니다. 목회에서도 한 사람 몫을 집단으로 옮기지 않고, 줄을 좁히지 않은 채 두 사람 사이에 빈자리 하나를 둡니다. 2:11의 ‘사탄’과 ‘계책’을 개역한글은 ‘사단’과 ‘궤계’로 적지요. 계책이 그 한 자리를 빼는 데서 작동하기에, 2:5~11을 징계 근거로 쓰지 않고 그가 한 일도 특정하지 않아요.</p>
+    <p class="essay-p">세무 장부에서도 두 숫자 차이를 설명 없이 붙이지 않습니다. 2:6이 동사를 비웠듯 <mark class="hl"><strong>두 줄을 이어 붙이지 않고 한 줄 띄워 차이의 금액과 날짜를 적지요.</strong></mark> 돈과 기한은 몸으로 치르는 물질이라 빈 칸을 말로 가리면 치르는 이가 따로 생깁니다.</p>
+    <p class="essay-p">가정에서도 근심 원인을 섣불리 지목하지 않아요. 침대와 벽을 바짝 붙이지 않고 그 틈을 남겨 둡니다. 그 틈에 손을 넣어 확인하지 않는 연습이 곧 이름을 넣지 않는 연습이지요. <mark class="hl"><strong>5:4에 적힌 행위자를 2:7로 옮겨 넣지도 않습니다.</strong></mark></p>
+  </div>
+  <section class="address">
+    <p class="essay-p">남는 그림은 저울도 칼도 아닌 한 뼘이에요. <mark class="hl"><strong>벌의 저울은 5장 그리스도 심판대에 있고, 용서 좌표는 2:10 ‘그리스도의 얼굴 앞’입니다.</strong></mark> 본문이 책 안에서 한 번 더 둔 자리이지요. 하나님이 주어로 서는 동사와 이름, 감사 어휘까지 1:11과 달리 비어 감사는 쓰지 않아요. 주님, 빈 칸을 참지 못해 이름을 적고 벌을 재며 한 사람 몫을 여럿의 몫으로 넓혀 말했음을 고백합니다. 받은 것과 건넬 것이 은혜와 한 뿌리인데도 절차로 바꾼 허물을 용서하여 주소서. 오늘은 한 뼘을 채우지 않고 그리스도의 얼굴 앞에 서 있겠습니다. 예수님의 이름으로 기도합니다. 아멘.</p>
+  </section>
+
+  <footer class="foot"><span>003</span><span>1단 / 18px · 1.8</span></footer>
+</article>
+</main>
+
+<div class="zoom" role="group" aria-label="지면 확대·축소">
+  <button type="button" id="zout" aria-label="축소">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M20 20l-4-4"/></svg>
+  </button>
+  <output id="zval">100%</output>
+  <button type="button" id="zin" aria-label="확대">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M8 11h6M11 8v6M20 20l-4-4"/></svg>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const fontSizes = [14, 16, 18, 20, 22, 24.3, 26];
+  const defaultFontSize = 18;
+  let currentFontSize = 18;
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  }
+
+  function applyFontSize(size) {
+    currentFontSize = size;
+    document.documentElement.style.setProperty('--body-size', size + 'px');
+    document.documentElement.style.setProperty('--pull-size', size + 'px');
+    document.documentElement.style.setProperty('--addr-size', size + 'px');
+    const percent = Math.round((size / defaultFontSize) * 100) + '%';
+    document.getElementById('fontScaleDisplay').textContent = percent;
+    try {
+      localStorage.setItem('ait_html_font_size', size);
+    } catch(e) {}
+  }
+
+  function changeFontSize(delta) {
+    let idx = fontSizes.indexOf(currentFontSize);
+    if (idx === -1) idx = fontSizes.indexOf(defaultFontSize);
+    let nextIdx = idx + delta;
+    if (nextIdx >= 0 && nextIdx < fontSizes.length) {
+      applyFontSize(fontSizes[nextIdx]);
+      showToast(`글자 크기 ${fontSizes[nextIdx]}px (${Math.round((fontSizes[nextIdx]/defaultFontSize)*100)}%)`);
+    }
+  }
+
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('ait_html_theme', next);
+    } catch(e) {}
+    showToast(next === 'dark' ? '다크 모드가 적용되었습니다.' : '라이트 모드가 적용되었습니다.');
+  }
+
+  function updateViewModeButton(mode) {
+    const btn = document.getElementById('viewModeBtn');
+    if (!btn) return;
+    if (mode === 'mobile') {
+      btn.textContent = '📄 A4뷰';
+      btn.title = 'A4 1단 지면 양식으로 보기';
+    } else {
+      btn.textContent = '📱 모바일뷰';
+      btn.title = '모바일 반응형 양식으로 보기';
+    }
+  }
+
+  function applyViewMode(mode, notify) {
+    document.body.setAttribute('data-view', mode);
+    updateViewModeButton(mode);
+    try {
+      localStorage.setItem('ait_html_view_mode', mode);
+    } catch(e) {}
+    if (notify) {
+      showToast(mode === 'mobile' ? '모바일 반응형 뷰가 적용되었습니다.' : 'A4 1단 지면 뷰가 적용되었습니다.');
+    }
+  }
+
+  function toggleViewMode() {
+    const current = document.body.getAttribute('data-view') || (window.innerWidth <= 840 ? 'mobile' : 'a4');
+    const next = current === 'mobile' ? 'a4' : 'mobile';
+    applyViewMode(next, true);
+  }
+
+  function sermonText() {
+    const title = document.getElementById('doc-title').innerText.trim();
+    const paragraphs = Array.from(document.querySelectorAll('.essay-p'))
+      .map(p => p.innerText.trim());
+    return `[${title}]\n\n${paragraphs.join('\n\n')}`;
+  }
+
+  async function copySermon() {
+    try {
+      await navigator.clipboard.writeText(sermonText());
+      showToast('본문 텍스트가 클립보드에 복사되었습니다.');
+    } catch (err) {
+      showToast('복사 기능을 지원하지 않습니다.');
+    }
+  }
+
+  async function shareSermon() {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          url: window.location.href
+        });
+        return;
+      } catch (error) {
+        if (error.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      showToast('페이지 링크가 복사되었습니다.');
+    } catch (e) {
+      showToast('공유 기능을 지원하지 않는 환경입니다.');
+    }
+  }
+
+  (function(){
+    var book = document.getElementById('book');
+    var out = document.getElementById('zval');
+    var steps = [0.36, 0.5, 0.67, 0.8, 0.9, 1, 1.1, 1.25, 1.5];
+    var i = 5;
+    function apply(){
+      book.style.zoom = steps[i];
+      out.textContent = Math.round(steps[i]*100) + '%';
+    }
+    document.getElementById('zout').addEventListener('click', function(){
+      if(i>0){ i--; apply(); }
+    });
+    document.getElementById('zin').addEventListener('click', function(){
+      if(i<steps.length-1){ i++; apply(); }
+    });
+  })();
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      const savedTheme = localStorage.getItem('ait_html_theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+      const savedSize = localStorage.getItem('ait_html_font_size');
+      if (savedSize && fontSizes.includes(Number(savedSize))) {
+        applyFontSize(Number(savedSize));
+      }
+    } catch(e) {}
+    updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+  });
+
+  window.addEventListener('resize', function() {
+    if (!document.body.getAttribute('data-view')) {
+      updateViewModeButton(window.innerWidth <= 840 ? 'mobile' : 'a4');
+    }
+  });
+</script>
+</body>
+</html>
